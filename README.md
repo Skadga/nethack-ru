@@ -9,4 +9,4 @@ NetHack 5.0.0 для Windows с русским переводом.
 Распространяется под NetHack General Public License.
 Лицензия включена в архив (файл license).
 
-Установка: распаковать архив, запустить NetHackW.exe или NetHackW.exe .
+Установка: распаковать архив, запустить NetHack.exe или NetHackW.exe .
