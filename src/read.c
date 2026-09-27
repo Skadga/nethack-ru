@@ -811,7 +811,7 @@ recharge(struct obj *obj, int curse_bless)
                 Ring_gone(obj);
             s = rnd(3 * abs(obj->spe)); /* amount of damage */
             useup(obj), obj = 0;
-            losehp(Maybe_Half_Phys(s), "взрыв кольца", KILLED_BY_AN);
+            losehp(Maybe_Half_Phys(s), "взрыва кольца", KILLED_BY_AN);
         } else {
             long mask = is_on ? (obj == uleft ? LEFT_RING : RIGHT_RING) : 0L;
 
@@ -1881,7 +1881,7 @@ seffect_fire(struct obj **sobjp)
             monstunseesu(M_SEEN_FIRE);
             pline("Свиток вспыхивает, и вы обжигаете ваши %s.",
                       makeplural(body_part(HAND)));
-            losehp(1, "свиток огня", KILLED_BY_AN);
+            losehp(1, "свитка огня", KILLED_BY_AN);
         }
         return;
     }
@@ -2332,7 +2332,7 @@ drop_boulder_on_player(
         newsym(u.ux, u.uy);
     }
     if (dmg)
-        losehp(Maybe_Half_Phys(dmg), "свиток земли", KILLED_BY_AN);
+        losehp(Maybe_Half_Phys(dmg), "свитка земли", KILLED_BY_AN);
 }
 
 boolean
@@ -2448,7 +2448,7 @@ wand_explode(struct obj *obj, int chg /* recharging */)
     dmg = d(n, k);
     obj->in_use = TRUE; /* in case losehp() is fatal (or --More--^C) */
     pline("%s %s взрывается!", Yname2(obj), expl);
-    losehp(Maybe_Half_Phys(dmg), "взрывающимся жезлом", KILLED_BY_AN);
+    losehp(Maybe_Half_Phys(dmg), "взрывающегося жезла", KILLED_BY_AN);
     useup(obj);
     /* obscure side-effect */
     exercise(A_STR, FALSE);

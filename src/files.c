@@ -2353,9 +2353,9 @@ lock_file(const char *filename, int whichprefix,
         case EROFS:
             /* take a wild guess at the underlying cause */
             HUP perror(lockname);
-            HUP raw_printf("Cannot lock %s.", filename);
-            HUP raw_printf("(Perhaps you are running NetHack from"
-                           " inside the distribution package?).");
+            HUP raw_printf("Не удаётся заблокировать %s.", filename);
+            HUP raw_printf("(Возможно, NetHack запущен из"
+                           " каталога дистрибутива?).");
             gn.nesting--;
             return FALSE;
         default:

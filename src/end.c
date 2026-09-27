@@ -1084,7 +1084,7 @@ done(int how)
         makeknown(AMULET_OF_LIFE_SAVING);
         Your("медальон %s!", !Blind ? "начинает светиться" : "кажется тёплым");
         if (how == CHOKING)
-            You("вас вырвало...");
+            You("вырвало...");
         You_feel("намного лучше!");
         pline("Медальон рассыпается в прах!");
         if (uamul)
@@ -1223,7 +1223,7 @@ really_done(int how)
         if (u.uhp < 1) {
             how = DIED;
             u.umortality++; /* skipped above when how==QUIT */
-            Strcpy(svk.killer.name, "quit while already on Charon's boat");
+            Strcpy(svk.killer.name, "выход с игры на лодке Харона");
         }
     }
     if (how == ESCAPED || how == PANICKED)
@@ -1406,12 +1406,12 @@ really_done(int how)
     }
 #endif
     if (u.uhave.amulet) {
-        Strcat(svk.killer.name, " (with the Amulet)");
+        Strcat(svk.killer.name, " (с Амулетом Йендора)");
     } else if (how == ESCAPED) {
         if (Is_astralevel(&u.uz)) /* offered Amulet to wrong deity */
-            Strcat(svk.killer.name, " (in celestial disgrace)");
+            Strcat(svk.killer.name, " (в немилости у небес)");
         else if (carrying(FAKE_AMULET_OF_YENDOR))
-            Strcat(svk.killer.name, " (with a fake Amulet)");
+            Strcat(svk.killer.name, " (с поддельным Амулетом Йендора)");
         /* don't bother counting to see whether it should be plural */
     }
 

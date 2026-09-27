@@ -68,7 +68,7 @@ throne_sit_effect(void)
         switch (effect) {
         case 1:
             (void) adjattrib(rn2(A_MAX), -rn1(4, 3), FALSE);
-            losehp(rnd(10), "проклятый трон", KILLED_BY_AN);
+            losehp(rnd(10), "проклятого трона", KILLED_BY_AN);
             break;
         case 2:
             (void) adjattrib(rn2(A_MAX), 1, FALSE);
@@ -76,7 +76,7 @@ throne_sit_effect(void)
         case 3:
             pline("Вас бьёт электрическим разрядом%s!",
                   (Shock_resistance) ? "" : " сильно");
-            losehp(Shock_resistance ? rnd(6) : rnd(30), "электрическое кресло",
+            losehp(Shock_resistance ? rnd(6) : rnd(30), "электрического кресла",
                    KILLED_BY_AN);
             exercise(A_CON, FALSE);
             break;
@@ -336,7 +336,7 @@ special_throne_effect(int effect) {
     case 12:
         /* acid damage */
         pline("Трон покрыт кислотой!");
-        losehp(Acid_resistance ? rnd(16) : rnd(80), "кислотное кресло",
+        losehp(Acid_resistance ? rnd(16) : rnd(80), "кислотного кресла",
                KILLED_BY_AN);
         exercise(A_CON, FALSE);
         break;
@@ -474,7 +474,7 @@ dosit(void)
                 if (trap && trap->ttyp == SPIKED_PIT) {
                     You("садитесь на шип.  Ой!");
                     losehp(Half_physical_damage ? rn2(2) : 1,
-                           "сидение на железном шипе", KILLED_BY);
+                           "сиденья на железном шипе", KILLED_BY);
                     exercise(A_STR, FALSE);
                 } else
                     You("садитесь в яму.");
@@ -488,7 +488,7 @@ dosit(void)
                 if (Slimed)
                     burn_away_slime();
                 u.utrap += rnd(4);
-                losehp(d(2, 10), "сидение в лаве",
+                losehp(d(2, 10), "сиденья в лаве",
                        KILLED_BY); /* lava damage */
             } else if (u.utraptype == TT_INFLOOR
                        || u.utraptype == TT_BURIEDBALL) {
@@ -546,7 +546,7 @@ dosit(void)
         }
         pline("%s Обжигает вас!", hliquid("lava"));
         losehp(d((Fire_resistance ? 2 : 10), 10), /* lava damage */
-               "сидение на лаве", KILLED_BY);
+               "сиденья на лаве", KILLED_BY);
     } else if (is_ice(u.ux, u.uy)) {
         You(sit_message, defsyms[S_ice].explanation);
         if (!Cold_resistance)

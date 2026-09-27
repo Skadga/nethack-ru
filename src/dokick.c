@@ -1366,7 +1366,7 @@ dokick(void)
         if (isok(xx, yy) && !IS_OBSTRUCTED(levl[xx][yy].typ)
             && !IS_DOOR(levl[xx][yy].typ)
             && (!Is_airlevel(&u.uz) || !OBJ_AT(xx, yy))) {
-            You("вам не обо что упереться.");
+            You("не обо что упереться.");
             return ECMD_OK;
         }
     }

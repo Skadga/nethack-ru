@@ -2068,7 +2068,7 @@ youhiding(boolean via_enlghtmt, /* enlightenment line vs topl message */
         you_are(buf, "");
     } else {
         /* for dohide(), when player uses '#monster' command */
-        You("вы %s %s.", msgflag ? "уже" : "сейчас", buf);
+        You("%s %s.", msgflag ? "уже" : "сейчас", buf);
     }
 }
 

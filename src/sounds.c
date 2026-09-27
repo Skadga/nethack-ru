@@ -77,7 +77,7 @@ beehive_mon_sound(struct monst *mtmp)
         case 2:
             Soundeffect(se_bees, 100);
             You_hear("пчёлы в вашей %sшляпе!",
-                     uarmh ? "" : "(nonexistent) ");
+                     uarmh ? "" : "несуществующей ");
             break;
         }
         return TRUE;
@@ -798,7 +798,7 @@ domonnoise(struct monst *mtmp)
                        || gy.youmonst.data == &mons[PM_BABY_SILVER_DRAGON]) {
                 /* Silver dragons are silver in color, not made of silver */
                 Sprintf(verbuf,
-                        "%s!  Your silver sheen"" does not frighten me!",
+                        "%s!  Твой серебристый блеск не пугает меня!",
                         (gy.youmonst.data == &mons[PM_SILVER_DRAGON])
                             ? "Глупец"
                             : "Юный глупец");
@@ -1074,8 +1074,8 @@ domonnoise(struct monst *mtmp)
                             ? "Этап первый: собрать трусы."
                             : "Этап третий: прибыль!";
             } else {
-                verbl_msg = "Many enter the dungeon,"
-                            " and few return to the sunlit lands.";
+                verbl_msg = "Многие входят в подземелье,"
+                            " и немногие возвращаются в солнечные земли.";
             }
         } else
             switch (monsndx(ptr)) {
@@ -1303,7 +1303,7 @@ dochat(void)
     }
 
     if (u.dz) {
-        pline("Там они вас не услышат %s.", u.dz < 0 ? "up" : "down");
+        pline("Там они вас не услышат %s.", u.dz < 0 ? "наверху" : "внизу");
         return ECMD_OK;
     }
 
@@ -1336,7 +1336,7 @@ dochat(void)
             if (!Blind)
                 pline("%s, Кажется, не замечает вас.",
                           /* if hallucinating, you can't tell it's a statue */
-                          Hallucination ? rndmonnam((char *) 0) : "statue");
+                          Hallucination ? rndmonnam((char *) 0) : "статуя");
             return ECMD_OK;
         }
         if (!Deaf && (IS_WALL(levl[tx][ty].typ)
@@ -1356,7 +1356,7 @@ dochat(void)
                     "рассказывает смешной анекдот!",
                     "оскорбляет ваш род!",
                     "посмеивается.",
-                    "guffaws merrily!",
+                    "весело хохочет!",
                     "умаляет ваши усилия по исследованию.",
                     "предлагает курс реабилитации...",
                     "кажется, не заинтересован.",
@@ -1365,7 +1365,7 @@ dochat(void)
 
                 if (idx >= SIZE(walltalk))
                     idx = SIZE(walltalk) - 1;
-                pline_The("wall %s", walltalk[idx]);
+                pline_The("стена %s", walltalk[idx]);
             }
             return ECMD_OK;
         }
@@ -1455,7 +1455,7 @@ tiphat(void)
             else
                 (void) domonnoise(u.usteed);
         } else if (u.dz) {
-            pline("Там никого %s нет.", (u.dz < 0) ? "up" : "down");
+            pline("Там никого %s нет.", (u.dz < 0) ? "наверху" : "внизу");
         } else {
             pline("Здешний грубиян вас не замечает...");
         }
@@ -1493,7 +1493,7 @@ tiphat(void)
     }
 
     if (unseen || (statue && Hallucination)) {
-        pline("Это %sсущество игнорирует вас!", unseen ? "unseen " : "");
+        pline("Это %sсущество игнорирует вас!", unseen ? "невидимое " : "");
     } else if (!mtmp || !responsive_mon_at(x, y)) {
         if (vismon) /* 'vismon' is only True when 'mtmp' is non-Null */
             pline("%s, кажется, не замечает вас.", Monnam(mtmp));
@@ -1516,13 +1516,14 @@ tiphat(void)
             }
         } else if (vismon && humanoid(mtmp->data)) {
             static const char *const reaction[3] = {
-                "curses", "gestures rudely", "gestures offensively",
+                "проклинает", "грубо жестикулирует",
+                "оскорбительно жестикулирует",
             };
             int which = !Deaf ? rn2(3) : rn1(2, 1),
                 twice = (Deaf || which > 0 || rn2(3)) ? 0 : rn1(2, 1);
 
             pline("%s %s%s%s at you...", Monnam(mtmp), reaction[which],
-                  twice ? " and " : "", twice ? reaction[twice] : "");
+                  twice ? " и " : "", twice ? reaction[twice] : "");
         } else if (next2u(x, y) && !Deaf && domonnoise(mtmp)) {
             if (!vismon)
                 map_invisible(x, y);

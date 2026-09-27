@@ -2153,7 +2153,7 @@ do_loot_cont(
         You("осторожно откройте %s...", the(xname(cobj)));
         pline("Оно обзаводится огромным набором зубов и кусает вас!");
         tmp = rnd(10);
-        losehp(Maybe_Half_Phys(tmp), "плотоядный мешок", KILLED_BY_AN);
+        losehp(Maybe_Half_Phys(tmp), "плотоядного мешка", KILLED_BY_AN);
         makeknown(BAG_OF_TRICKS);
         ga.abort_looting = TRUE;
         return ECMD_TIME;
@@ -2689,7 +2689,7 @@ in_container(struct obj *obj)
         else
             panic("in_container:  bag not found.");
 
-        losehp(d(6, 6), "магический взрыв", KILLED_BY_AN);
+        losehp(d(6, 6), "магического взрыва", KILLED_BY_AN);
         gc.current_container = 0; /* baggone = TRUE; */
     }
 
@@ -3030,7 +3030,7 @@ use_container(
     if (cursed_mbag
         && (loss = boh_loss(gc.current_container, held)) != 0) {
         used = ECMD_TIME;
-        You("вы должны %ld %s за утерянный товар.", loss, currency(loss));
+        You("должны %ld %s за утерянный товар.", loss, currency(loss));
         gc.current_container->owt = weight(gc.current_container);
     }
     /* might put something in if carrying anything other than just the
@@ -3800,7 +3800,7 @@ tipcontainer(struct obj *box) /* or bag */
                     targetbox = 0; /* it's gone */
                     nobj = 0; /* stop tipping; want loop to exit 'normally' */
 
-                    losehp(d(6, 6), "магический взрыв", KILLED_BY_AN);
+                    losehp(d(6, 6), "магического взрыва", KILLED_BY_AN);
                 } else {
                     (void) add_to_container(targetbox, otmp);
                 }
@@ -3828,7 +3828,7 @@ tipcontainer(struct obj *box) /* or bag */
                 iflags.suppress_price--; /* reset */
         }
         if (loss) /* magic bag lost some shop goods */
-            You("вы должны %ld %s за утерянный товар.", loss, currency(loss));
+            You("должны %ld %s за утерянный товар.", loss, currency(loss));
         box->owt = weight(box); /* mbag_item_gone() doesn't update this */
         if (targetbox)
             targetbox->owt = weight(targetbox);

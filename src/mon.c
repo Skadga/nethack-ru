@@ -1601,9 +1601,9 @@ meatobj(struct monst *mtmp) /* for gelatinous cubes */
                the result won't be printed */
             otmpname = distant_name(otmp, doname);
             if (ecount == 1)
-                Sprintf(buf, "%s engulfs %s.", Monnam(mtmp), otmpname);
+                Sprintf(buf, "%s поглощает %s.", Monnam(mtmp), otmpname);
             else if (ecount == 2)
-                Sprintf(buf, "%s engulfs several objects.", Monnam(mtmp));
+                Sprintf(buf, "%s поглощает несколько предметов.", Monnam(mtmp));
             obj_extract_self(otmp);
             (void) mpickobj(mtmp, otmp); /* slurp */
 
@@ -2948,8 +2948,8 @@ vamprises(struct monst *mtmp)
            a closed door spot, destroy the door and if trapped, blow it up */
         if (closed_door(x, y)) {
             static const char
-                door_smashed[] = "a door being smashed",
-                door_go_boom[] = "a door exploding";
+                door_smashed[] = "как ломаетс€ дверь",
+                door_go_boom[] = "как взрываетс€ дверь";
             struct rm *door = &levl[x][y];
             boolean trapped = (door->doormask & D_TRAPPED) != 0,
                     seeit = cansee(x, y);
@@ -2961,7 +2961,7 @@ vamprises(struct monst *mtmp)
                 You_see("%s.", trapped ? door_go_boom : door_smashed);
             else if (!Unaware)
                 pline("ƒверь разбита%s",
-                          trapped ? " and it explodes!" : ".");
+                          trapped ? " и взрываетс€!" : ".");
             set_msg_xy(0, 0); /* in case none of the messages was delivered */
 
             door->doormask = D_NODOOR;
@@ -3210,9 +3210,8 @@ corpse_chance(
                 /* mdef is a gas spore (AT_BOOM) that is exploding inside an
                    engulfer; suppress usual explosion since it's contained */
                 if (magr == &gy.youmonst) {
-                    There("is an explosion in your %s!", body_part(STOMACH));
-                    Sprintf(svk.killer.name, "%s explosion",
-                            s_suffix(pmname(mdat, Mgender(mon))));
+                    There("взрыв в вашем %s!", body_part(STOMACH));
+                    Strcpy(svk.killer.name, "взрыва газовой поры");
                     losehp(Maybe_Half_Phys(tmp), svk.killer.name,
                            KILLED_BY_AN);
                 } else {
@@ -3679,7 +3678,7 @@ xkilled(
         u.ugangr += 7; /* instantly become "extremely" angry */
         change_luck(-20);
         pline("Ёто была%s плоха€ иде€...",
-              u.uevent.qcompleted ? "probably " : "");
+              u.uevent.qcompleted ? "веро€тно, " : "");
         if (!svc.context.mon_moving)
             iter_mons(anger_quest_guardians);
     } else if (mdat->msound == MS_NEMESIS) { /* Real good! */
@@ -4153,8 +4152,8 @@ qst_guardians_respond(void)
 
         if (got_mad > 1)
             who = makeplural(who);
-        pline_The("%s %s to be angry too...",
-                  who, vtense(who, "appear"));
+        pline_The((got_mad > 1) ? "%s тоже зл€тс€..." : "%s тоже злитс€...",
+                  who);
     }
 }
 
@@ -4189,11 +4188,11 @@ peacefuls_respond(struct monst *mtmp)
 
                         if (gasp) {
                             if (!strncmpi(gasp, "gasp", 4)) {
-                                Sprintf(buf, "%s gasps", Monnam(mon));
+                                Sprintf(buf, "%s хватает воздух", Monnam(mon));
                                 needpunct = TRUE;
                             } else {
-                                Sprintf(buf, "%s exclaims \"%s\"",
-                                        Monnam(mon), gasp);
+                                Sprintf(buf, "%s громко восклицает!",
+                                        Monnam(mon));
                             }
                             exclaimed = TRUE;
                         }
@@ -4206,7 +4205,7 @@ peacefuls_respond(struct monst *mtmp)
                         || (mon->data == &mons[quest_info(MS_LEADER)]
                             && mtmp->data != &mons[gu.urole.guardnum])) {
                         if (exclaimed)
-                            pline_mon(mon, "%s%s", buf, " then shrugs.");
+                            pline_mon(mon, "%s%s", buf, " и пожимает плечами.");
                         continue;
                     }
 
@@ -4217,7 +4216,7 @@ peacefuls_respond(struct monst *mtmp)
                         monflee(mon, rn2(50) + 25, TRUE, !exclaimed);
                         if (exclaimed) {
                             if (flags.verbose && !alreadyfleeing) {
-                                Strcat(buf, " and then turns to flee.");
+                                Strcat(buf, " и затем бросаетс€ бежать.");
                                 needpunct = FALSE;
                             }
                         } else
@@ -4791,7 +4790,7 @@ hideunder(struct monst *mtmp)
             if (!locomo)
                 locomo = locomotion(mtmp->data, "hide");
             set_msg_xy(mtmp->mx, mtmp->my); /* pline() will reset this */
-            You_see("%s %s under %s.", seenmon, locomo, seenobj);
+            You_see("%s %s под %s.", seenmon, locomo, seenobj);
             iflags.last_msg = PLNMSG_HIDE_UNDER;
             gl.last_hider = mtmp->m_id;
         }
@@ -5081,8 +5080,8 @@ wiz_force_cham_form(struct monst *mon)
     int monclass, len, tryct, mndx = NON_PM;
 
     /* construct prompt in pieces */
-    Sprintf(pprompt, "Change %s", noit_mon_nam(mon));
-    Sprintf(parttwo, " @ %s into what?",
+    Sprintf(pprompt, "ѕревратить %s", noit_mon_nam(mon));
+    Sprintf(parttwo, " @ %s в кого?",
             coord_desc((int) mon->mx, (int) mon->my, buf,
                        (iflags.getpos_coords != GPCOORDS_NONE)
                        ? iflags.getpos_coords : GPCOORDS_MAP));
@@ -5417,7 +5416,7 @@ newcham(
                     char msgtrail[BUFSZ];
 
                     if (is_vampshifter(mtmp)) {
-                        Sprintf(msgtrail, " which was a shapeshifted %s",
+                        Sprintf(msgtrail, ", превратившись в %s",
                                 noname_monnam(mtmp, ARTICLE_NONE));
                     } else if (digests(mdat)) {
                         Strcpy(msgtrail, "'s stomach");
@@ -5427,7 +5426,7 @@ newcham(
                     /* Do this even if msg is FALSE */
                     You("%s %s%s!",
                         (amorphous(olddata) || is_whirly(olddata))
-                            ? "emerge from" : "break out of",
+                            ? "выходит из" : "вырываетс€ из",
                         l_oldname, msgtrail);
                     msg = FALSE; /* message has been given */
                     mtmp->mhp = 1; /* almost dead */
@@ -5733,25 +5732,21 @@ angry_guards(boolean silent)
     }
     if (ct) {
         if (!silent) { /* do we want pline msgs? */
-            char buf[BUFSZ];
-
             if (slct) { /* sleeping guard(s) */
-                Sprintf(buf, "guard%s", plur(slct));
-                pline_The("%s %s up.", buf, vtense(buf, "wake"));
+
+                pline_The(slct ? "—траж просыпаетс€." : "—тражи просыпаютс€.");
             }
 
             if (nct) { /* seen/sensed adjacent guard(s) */
-                Sprintf(buf, "guard%s", plur(nct));
-                pline_The("%s %s angry!", buf, vtense(buf, "get"));
+
+                pline_The(nct ? "—траж злитс€!" : "—тражи зл€тс€!");
             } else if (sct) { /* seen/sensed non-adjacent guard(s) */
-                Sprintf(buf, "guard%s", plur(sct));
-                pline("%s %s %s approaching!",
-                      (sct == 1) ? "An angry" : "Angry",
-                      buf, vtense(buf, "are"));
+                pline(sct ? "«лой страж приближаетс€!"
+                          : "«лые стражи приближаютс€!");
             } else {
-                Strcpy(buf, (ct == 1) ? "a guard's" : "guards'");
                 Soundeffect(se_shrill_whistle, 100);
-                You_hear("пронзительный звук %s свист%s.", buf, plur(ct));
+                You_hear(ct == 1 ? "пронзительный звук стражьего свистка."
+                               : "пронзительный звук стражьих свистков.");
             }
         }
         return TRUE;
@@ -5882,8 +5877,10 @@ usmellmon(struct permonst *mdat)
                 msg_given = TRUE;
                 break;
             case S_UNICORN:
-                You("чувствуете%s запах, напоминающий конюшню.",
-                    (mndx == PM_PONY) ? "n" : " strong");
+                if (mndx == PM_PONY)
+                    You("чувствуете запах конюшни.");
+                else
+                    You("чувствуете сильный запах, напоминающий конюшню.");
                 msg_given = TRUE;
                 break;
             case S_ZOMBIE:

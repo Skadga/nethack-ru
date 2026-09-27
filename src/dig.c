@@ -758,7 +758,7 @@ digactualhole(coordxy x, coordxy y, struct monst *madeby, int ttyp)
 
             /* check for leashed pet that can't fall right now */
             if (!u.ustuck && !wont_fall && !next_to_u()) {
-                You("вас дёргает назад ваш питомец!");
+                You("дёргает назад ваш питомец!");
                 wont_fall = TRUE;
             }
 
@@ -1222,9 +1222,9 @@ use_pick_axe2(struct obj *obj)
                 pline("Плюх!");
                 (void) fire_damage(uwep, FALSE, rx, ry);
             } else if (IS_TREE(lev->typ)) {
-                You("вам нужен топор, чтобы срубить дерево.");
+                You("нужен топор, чтобы срубить дерево.");
             } else if (IS_OBSTRUCTED(lev->typ)) {
-                You("вам нужна кирка, чтобы копать камень.");
+                You("нужна кирка, чтобы копать камень.");
             } else if ((boulder = sobj_at(BOULDER, rx, ry)) != 0
                        || sobj_at(STATUE, rx, ry)) {
                 /* if both boulders and statues are present, the topmost
@@ -1238,7 +1238,7 @@ use_pick_axe2(struct obj *obj)
                           vibrate ? "  Древко топора дико вибрирует!"
                                   : "");
                     if (vibrate)
-                        losehp(Maybe_Half_Phys(2), "рубя твёрдый предмет",
+                        losehp(Maybe_Half_Phys(2), "рубки твёрдого предмета",
                                KILLED_BY);
                     wake_nearby(FALSE);
                 } else {
@@ -1588,7 +1588,7 @@ zap_dig(void)
                 You("откалываете камень от потолка.");
                 pline("Он падает вам на голову!");
                 dmg = rnd(hard_helmet(uarmh) ? 2 : 6);
-                losehp(Maybe_Half_Phys(dmg), "упавшим камнем", KILLED_BY_AN);
+                losehp(Maybe_Half_Phys(dmg), "упавшего камня", KILLED_BY_AN);
                 otmp = mksobj_at(ROCK, u.ux, u.uy, FALSE, FALSE);
                 if (otmp) {
                     (void) xname(otmp); /* set dknown, maybe bknown */

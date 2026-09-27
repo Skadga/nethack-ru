@@ -56,7 +56,7 @@ moveloop_preamble(boolean resuming)
     /* side-effects from the real world */
     flags.moonphase = phase_of_the_moon();
     if (flags.moonphase == FULL_MOON) {
-        You("вам повезло! Полнолуние сегодня ночью.");
+        pline("Вам повезло! Полнолуние сегодня ночью.");
         change_luck(1);
     } else if (flags.moonphase == NEW_MOON) {
         pline("Будьте осторожны! Сегодня новолуние.");

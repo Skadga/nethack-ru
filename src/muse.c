@@ -1623,7 +1623,7 @@ mbhitm(struct monst *mtmp, struct obj *otmp)
                 tmp = d(2, 12);
                 if (Half_spell_damage)
                     tmp = (tmp + 1) / 2;
-                losehp(tmp, "жезл", KILLED_BY_AN);
+                losehp(tmp, "жезла", KILLED_BY_AN);
                 learnit = TRUE;
             } else {
                 pline("Жезл промахивается.");
@@ -1981,7 +1981,7 @@ use_offensive(struct monst *mtmp)
             if (Half_spell_damage)
                 num = (num + 1) / 2;
             else
-                losehp(num, "свиток огня", KILLED_BY_AN);
+                losehp(num, "свитка огня", KILLED_BY_AN);
             for (mtmp2 = fmon; mtmp2; mtmp2 = mtmp2->nmon) {
                 if (DEADMONSTER(mtmp2))
                     continue;

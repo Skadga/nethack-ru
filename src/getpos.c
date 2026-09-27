@@ -115,22 +115,22 @@ getpos_getvalids_selection(
 }
 
 static const char *const gloc_descr[NUM_GLOCS][4] = {
-    { "any monsters", "monster", "next/previous monster", "monsters" },
-    { "any items", "item", "next/previous object", "objects" },
-    { "any doors", "door", "next/previous door or doorway",
-      "doors or doorways" },
-    { "any unexplored areas", "unexplored area", "unexplored location",
-      "locations next to unexplored locations" },
-    { "anything interesting", "interesting thing", "anything interesting",
-      "anything interesting" },
-    { "any valid locations", "valid location", "valid location",
-      "valid locations" }
+    { "ни одного чудовища", "чудовище", "следующее/предыдущее чудовище",
+      "чудовища" },
+    { "ни одной двери", "дверь", "следующую/предыдущую дверь или проём",
+      "двери или проёмы" },
+    { "ни одной неисследованной области", "неисследованная область",
+      "неисследованное место", "места рядом с неисследованными" },
+    { "ничего интересного", "интересная вещь", "что-нибудь интересное",
+      "что-нибудь интересное" },
+    { "ни одного подходящего места", "подходящее место", "подходящее место",
+      "подходящие места" }
 };
 
 static const char *const gloc_filtertxt[NUM_GFILTER] = {
     "",
-    " in view",
-    " in this area"
+    " в поле зрения",
+    " в этой области"
 };
 
 staticfn void
@@ -140,22 +140,22 @@ getpos_help_keyxhelp(
     int gloc)
 {
     char sbuf[BUFSZ], fbuf[QBUFSZ];
-    const char *move_cursor_to = "move the cursor to ",
+    const char *move_cursor_to = "переместить курсор на ",
                *filtertxt = gloc_filtertxt[iflags.getloc_filter];
 
     if (gloc == GLOC_EXPLORE) {
         /* default of "move to unexplored location" is inaccurate
            because the position will be one spot short of that */
-        move_cursor_to = "move the cursor next to an ";
+        move_cursor_to = "переместить курсор рядом с ";
         if (iflags.getloc_usemenu)
             /* default is too wide for basic 80-column tty so shorten it
                to avoid wrapping */
             filtertxt = strsubst(strcpy(fbuf, filtertxt),
-                                 "this area", "area");
+                                 "этой области", "области");
     }
-    Sprintf(sbuf, "Use '%s'/'%s' to %s%s%s.",
+    Sprintf(sbuf, "Используйте '%s'/'%s', чтобы %s%s%s.",
             k1, k2,
-            iflags.getloc_usemenu ? "get a menu of " : move_cursor_to,
+            iflags.getloc_usemenu ? "получить меню из " : move_cursor_to,
             gloc_descr[gloc][2 + iflags.getloc_usemenu], filtertxt);
     putstr(tmpwin, 0, sbuf);
 }
@@ -166,33 +166,33 @@ DISABLE_WARNING_FORMAT_NONLITERAL
 staticfn void
 getpos_help(boolean force, const char *goal)
 {
-    static const char *const fastmovemode[2] = { "8 units at a time",
-                                                 "skipping same glyphs" };
+    static const char *const fastmovemode[2] = { "по 8 клеток за раз",
+                                                 "пропуская одинаковые глифы" };
     char sbuf[BUFSZ];
     boolean doing_what_is;
     winid tmpwin = create_nhwindow(NHW_MENU);
 
     Sprintf(sbuf,
-            "Use '%s', '%s', '%s', '%s' to move the cursor to %s.", /* hjkl */
+            "Используйте '%s', '%s', '%s', '%s', чтобы переместить курсор на %s.", /* hjkl */
             visctrl(cmd_from_func(do_move_west)),
             visctrl(cmd_from_func(do_move_south)),
             visctrl(cmd_from_func(do_move_north)),
             visctrl(cmd_from_func(do_move_east)), goal);
     putstr(tmpwin, 0, sbuf);
     Sprintf(sbuf,
-            "Use '%s', '%s', '%s', '%s' to fast-move the cursor, %s.",
+            "Используйте '%s', '%s', '%s', '%s', чтобы быстро переместить курсор: %s.",
             visctrl(cmd_from_func(do_run_west)),
             visctrl(cmd_from_func(do_run_south)),
             visctrl(cmd_from_func(do_run_north)),
             visctrl(cmd_from_func(do_run_east)),
             fastmovemode[iflags.getloc_moveskip]);
     putstr(tmpwin, 0, sbuf);
-    Sprintf(sbuf, "(or prefix normal move with '%s' or '%s' to fast-move)",
+    Sprintf(sbuf, "(или добавьте к обычному перемещению '%s' или '%s' для быстрого перемещения)",
             visctrl(cmd_from_func(do_run)),
             visctrl(cmd_from_func(do_rush)));
     putstr(tmpwin, 0, sbuf);
-    putstr(tmpwin, 0, "Or enter a background symbol (ex. '<').");
-    Sprintf(sbuf, "Use '%s' to move the cursor on yourself.",
+    putstr(tmpwin, 0, "Или введите символ фона (например, '<').");
+    Sprintf(sbuf, "Используйте '%s', чтобы переместить курсор на себя.",
             visctrl(gc.Cmd.spkeys[NHKF_GETPOS_SELF]));
     putstr(tmpwin, 0, sbuf);
     if (!iflags.terrainmode || (iflags.terrainmode & TER_MON) != 0) {
@@ -201,7 +201,7 @@ getpos_help(boolean force, const char *goal)
                              visctrl(gc.Cmd.spkeys[NHKF_GETPOS_MON_PREV]),
                              GLOC_MONS);
     }
-    if (goal && !strcmp(goal, "a monster"))
+    if (goal && !strcmp(goal, "чудовище"))
         goto skip_non_mons;
     if (!iflags.terrainmode || (iflags.terrainmode & TER_OBJ) != 0) {
         getpos_help_keyxhelp(tmpwin,
@@ -225,16 +225,16 @@ getpos_help(boolean force, const char *goal)
                           visctrl(gc.Cmd.spkeys[NHKF_GETPOS_INTERESTING_PREV]),
                              GLOC_INTERESTING);
     }
-    Sprintf(sbuf, "Use '%s' to change fast-move mode to %s.",
+    Sprintf(sbuf, "Используйте '%s', чтобы сменить режим быстрого перемещения на %s.",
             visctrl(gc.Cmd.spkeys[NHKF_GETPOS_MOVESKIP]),
             fastmovemode[!iflags.getloc_moveskip]);
     putstr(tmpwin, 0, sbuf);
     if (!iflags.terrainmode || (iflags.terrainmode & TER_DETECT) == 0) {
-        Sprintf(sbuf, "Use '%s' to toggle menu listing for possible targets.",
+        Sprintf(sbuf, "Используйте '%s', чтобы включать и выключать меню возможных целей.",
                 visctrl(gc.Cmd.spkeys[NHKF_GETPOS_MENU]));
         putstr(tmpwin, 0, sbuf);
         Sprintf(sbuf,
-                "Use '%s' to change the mode of limiting possible targets.",
+                "Используйте '%s', чтобы сменить режим ограничения возможных целей.",
                 visctrl(gc.Cmd.spkeys[NHKF_GETPOS_LIMITVIEW]));
         putstr(tmpwin, 0, sbuf);
     }
@@ -242,24 +242,24 @@ getpos_help(boolean force, const char *goal)
         char kbuf[BUFSZ];
 
         if (getpos_getvalid) {
-            Sprintf(sbuf, "Use '%s' or '%s' to move to valid locations.",
+            Sprintf(sbuf, "Используйте '%s' или '%s', чтобы перейти к подходящим местам.",
                     visctrl(gc.Cmd.spkeys[NHKF_GETPOS_VALID_NEXT]),
                     visctrl(gc.Cmd.spkeys[NHKF_GETPOS_VALID_PREV]));
             putstr(tmpwin, 0, sbuf);
         }
         if (getpos_hilitefunc) {
-            Sprintf(sbuf, "Use '%s' to toggle marking of valid locations.",
+            Sprintf(sbuf, "Используйте '%s', чтобы включать и выключать отметку подходящих мест.",
                     visctrl(gc.Cmd.spkeys[NHKF_GETPOS_SHOWVALID]));
             putstr(tmpwin, 0, sbuf);
         }
-        Sprintf(sbuf, "Use '%s' to toggle automatic description.",
+        Sprintf(sbuf, "Используйте '%s', чтобы включать и выключить автоописание.",
                 visctrl(gc.Cmd.spkeys[NHKF_GETPOS_AUTODESC]));
         putstr(tmpwin, 0, sbuf);
         if (iflags.cmdassist) { /* assisting the '/' command, I suppose... */
             Sprintf(sbuf,
                     (iflags.getpos_coords == GPCOORDS_NONE)
-        ? "(Set 'whatis_coord' option to include coordinates with '%s' text.)"
-        : "(Reset 'whatis_coord' option to omit coordinates from '%s' text.)",
+        ? "(Опция 'whatis_coord' добавляет координаты к тексту '%s'.)"
+        : "(Опция 'whatis_coord' убирает координаты из текста '%s'.)",
                     visctrl(gc.Cmd.spkeys[NHKF_GETPOS_AUTODESC]));
         }
  skip_non_mons:
@@ -268,7 +268,7 @@ getpos_help(boolean force, const char *goal)
            also for dotherecmdmenu's simulated mouse) */
         doing_what_is = (goal == what_is_a_location);
         if (doing_what_is) {
-            Sprintf(kbuf, "'%s' or '%s' or '%s' or '%s'",
+            Sprintf(kbuf, "'%s', '%s', '%s' или '%s'",
                     visctrl(gc.Cmd.spkeys[NHKF_GETPOS_PICK]),
                     visctrl(gc.Cmd.spkeys[NHKF_GETPOS_PICK_Q]),
                     visctrl(gc.Cmd.spkeys[NHKF_GETPOS_PICK_O]),
@@ -277,30 +277,30 @@ getpos_help(boolean force, const char *goal)
             Sprintf(kbuf, "'%s'", visctrl(gc.Cmd.spkeys[NHKF_GETPOS_PICK]));
         }
         Snprintf(sbuf, sizeof(sbuf),
-                 "Type a %s when you are at the right place.", kbuf);
+                 "Наберите %s, когда окажетесь в нужном месте.", kbuf);
         putstr(tmpwin, 0, sbuf);
         if (doing_what_is) {
             Sprintf(sbuf,
-      "  '%s' describe current spot, show 'more info', move to another spot.",
+      "  '%s' описать текущее место, показать 'подробнее', перейти к другому месту.",
                     visctrl(gc.Cmd.spkeys[NHKF_GETPOS_PICK_V]));
             putstr(tmpwin, 0, sbuf);
             Sprintf(sbuf,
-                    "  '%s' describe current spot,%s move to another spot;",
+                    "  '%s' описать текущее место,%s перейти к другому месту;",
                     visctrl(gc.Cmd.spkeys[NHKF_GETPOS_PICK]),
-                    flags.help && !force ? " prompt if 'more info'," : "");
+                    flags.help && !force ? " с запросом 'подробнее'," : "");
             putstr(tmpwin, 0, sbuf);
             Sprintf(sbuf,
-                    "  '%s' describe current spot, move to another spot;",
+                    "  '%s' описать текущее место, перейти к другому месту;",
                     visctrl(gc.Cmd.spkeys[NHKF_GETPOS_PICK_Q]));
             putstr(tmpwin, 0, sbuf);
             Sprintf(sbuf,
-                    "  '%s' describe current spot, stop looking at things;",
+                    "  '%s' описать текущее место, прекратить осматриваться;",
                     visctrl(gc.Cmd.spkeys[NHKF_GETPOS_PICK_O]));
             putstr(tmpwin, 0, sbuf);
         }
     }
     if (!force)
-        putstr(tmpwin, 0, "Type Space or Escape when you're done.");
+        putstr(tmpwin, 0, "Наберите Пробел или Esc, когда закончите.");
     putstr(tmpwin, 0, "");
     display_nhwindow(tmpwin, TRUE);
     destroy_nhwindow(tmpwin);
@@ -560,7 +560,7 @@ dxdy_to_dist_descr(coordxy dx, coordxy dy, boolean fulldir)
     int dst;
 
     if (!dx && !dy) {
-        Sprintf(buf, "here");
+        Sprintf(buf, "здесь");
     } else if ((dst = xytodir(dx, dy)) != -1) {
         /* explicit direction; 'one step' is implicit */
         Sprintf(buf, "%s", directionname(dst));
@@ -642,7 +642,7 @@ auto_describe(coordxy cx, coordxy cy)
     coord cc;
     int sym = 0;
     char tmpbuf[BUFSZ];
-    const char *firstmatch = "unknown";
+    const char *firstmatch = "неизвестно";
 
     cc.x = cx;
     cc.y = cy;
@@ -653,9 +653,9 @@ auto_describe(coordxy cx, coordxy cy)
                     "%s%s%s%s%s", firstmatch, *tmpbuf ? " " : "", tmpbuf,
                     (iflags.autodescribe
                      && getpos_getvalid && !(*getpos_getvalid)(cx, cy))
-                      ? " (invalid target)" : "",
+                      ? " (недопустимая цель)" : "",
                     (iflags.getloc_travelmode && !is_valid_travelpt(cx, cy))
-                      ? " (no travel path)" : "");
+                      ? " (нет пути)" : "");
         curs(WIN_MAP, cx, cy);
         flush_screen(0);
     }
@@ -677,8 +677,8 @@ getpos_menu(coord *ccp, int gloc)
 
     if (gcount < 2) { /* gcount always includes the hero */
         free((genericptr_t) garr);
-        You("cannot %s %s.",
-            (iflags.getloc_filter == GFILTER_VIEW) ? "see" : "detect",
+        You("не можете %s %s.",
+            (iflags.getloc_filter == GFILTER_VIEW) ? "увидеть" : "обнаружить",
             gloc_descr[gloc][0]);
         return FALSE;
     }
@@ -691,7 +691,7 @@ getpos_menu(coord *ccp, int gloc)
     for (i = 1; i < gcount; i++) {
         char fullbuf[BUFSZ];
         coord tmpcc;
-        const char *firstmatch = "unknown";
+        const char *firstmatch = "неизвестно";
         int sym = 0;
 
         any.a_int = i + 1;
@@ -708,10 +708,10 @@ getpos_menu(coord *ccp, int gloc)
         }
     }
 
-    Sprintf(tmpbuf, "Pick %s%s%s",
+    Sprintf(tmpbuf, "Выберите %s%s%s",
             an(gloc_descr[gloc][1]),
             gloc_filtertxt[iflags.getloc_filter],
-            iflags.getloc_travelmode ? " for travel destination" : "");
+            iflags.getloc_travelmode ? " для пункта назначения" : "");
     end_menu(tmpwin, tmpbuf);
     pick_cnt = select_menu(tmpwin, PICK_ONE, &picks);
     destroy_nhwindow(tmpwin);
@@ -839,7 +839,7 @@ getpos(coord *ccp, boolean force, const char *goal)
         show_goal_msg = TRUE; /* tip has overwritten prompt in mesg window */
 
     if (!goal)
-        goal = "desired location";
+        goal = "желаемое место";
     if (flags.verbose) {
         pline("(Для подсказок нажмите '%s')",
               visctrl(gc.Cmd.spkeys[NHKF_GETPOS_HELP]));
@@ -961,18 +961,18 @@ getpos(coord *ccp, boolean force, const char *goal)
             goto nxtc;
         } else if (c == gc.Cmd.spkeys[NHKF_GETPOS_AUTODESC]) {
             iflags.autodescribe = !iflags.autodescribe;
-            pline("Automatic description %sis %s.",
-                  flags.verbose ? "of features under cursor " : "",
-                  iflags.autodescribe ? "on" : "off");
+            pline("Автоописание%s %s.",
+                  flags.verbose ? " признаков под курсором" : "",
+                  iflags.autodescribe ? "включено" : "выключено");
             if (!iflags.autodescribe)
                 show_goal_msg = TRUE;
             msg_given = TRUE;
             goto nxtc;
         } else if (c == gc.Cmd.spkeys[NHKF_GETPOS_LIMITVIEW]) {
             static const char *const view_filters[NUM_GFILTER] = {
-                "Not limiting targets",
-                "Limiting targets to those in sight",
-                "Limiting targets to those in same area"
+                "Цели не ограничены",
+                "Цели ограничены теми, что в поле зрения",
+                "Цели ограничены теми, что в той же области"
             };
 
             iflags.getloc_filter = (iflags.getloc_filter + 1) % NUM_GFILTER;
@@ -988,10 +988,10 @@ getpos(coord *ccp, boolean force, const char *goal)
             goto nxtc;
         } else if (c == gc.Cmd.spkeys[NHKF_GETPOS_MENU]) {
             iflags.getloc_usemenu = !iflags.getloc_usemenu;
-            pline("%s a menu to show possible targets%s.",
-                  iflags.getloc_usemenu ? "Using" : "Not using",
+            pline("%s%s меню возможных целей.",
+                  iflags.getloc_usemenu ? "Используется" : "Не используется",
                   iflags.getloc_usemenu
-                      ? " for 'm|M', 'o|O', 'd|D', and 'x|X'" : "");
+                      ? " для 'm|M', 'o|O', 'd|D' и 'x|X'" : "");
             msg_given = TRUE;
             goto nxtc;
         } else if (c == gc.Cmd.spkeys[NHKF_GETPOS_SELF]) {
@@ -1004,8 +1004,8 @@ getpos(coord *ccp, boolean force, const char *goal)
             goto nxtc;
         } else if (c == gc.Cmd.spkeys[NHKF_GETPOS_MOVESKIP]) {
             iflags.getloc_moveskip = !iflags.getloc_moveskip;
-            pline("%skipping over similar terrain when fastmoving the cursor.",
-                  iflags.getloc_moveskip ? "S" : "Not s");
+            pline("Быстрое перемещение курсора — %s пропуск похожей местности.",
+                  iflags.getloc_moveskip ? "с" : "без");
             msg_given = TRUE;
             goto nxtc;
         } else if ((cp = strchr(mMoOdDxX, c)) != 0) { /* 'm|M', 'o|O', &c */
@@ -1118,9 +1118,9 @@ getpos(coord *ccp, boolean force, const char *goal)
                     char note[QBUFSZ];
 
                     if (!force)
-                        Strcpy(note, "aborted");
+                        Strcpy(note, "прервано");
                     else /* hjkl */
-                        Sprintf(note, "use '%s', '%s', '%s', '%s' or '%s'",
+                        Sprintf(note, "используйте '%s', '%s', '%s', '%s' или '%s'",
                                 visctrl(cmd_from_func(do_move_west)),
                                 visctrl(cmd_from_func(do_move_south)),
                                 visctrl(cmd_from_func(do_move_north)),

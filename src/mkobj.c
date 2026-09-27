@@ -3837,10 +3837,10 @@ pudding_merge_message(struct obj *otmp, struct obj *otmp2)
             boolean adj = ((otmp->ox != u.ux || otmp->oy != u.uy)
                            && (otmp2->ox != u.ux || otmp2->oy != u.uy));
 
-            pline("The %s%s coalesce%s.",
-                  (onfloor && adj) ? "adjacent " : "",
+            pline("%s%s%s сливаются.",
+                  (onfloor && adj) ? "Соседние " : "",
                   makeplural(obj_typename(otmp->otyp)),
-                  inpack ? " inside your pack" : "");
+                  inpack ? " у вас в сумке" : "");
         }
     } else {
         Soundeffect(se_faint_sloshing, 25);

@@ -85,7 +85,7 @@ dowrite(struct obj *pen)
     int spell_knowledge;
 
     if (nohands(gy.youmonst.data)) {
-        You("Вам нужны руки, чтобы писать!");
+        You("нужны руки, чтобы писать!");
         return ECMD_OK;
     } else if (Glib) {
         pline("%s из вашей %s.", Tobjnam(pen, "slip"),

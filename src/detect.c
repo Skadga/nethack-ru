@@ -1247,7 +1247,7 @@ use_crystal_ball(struct obj **optr)
             useup(obj);
             *optr = obj = 0; /* it's gone */
             /* physical damage cause by the shards and force */
-            losehp(Maybe_Half_Phys(rnd(30)), "взрыв хрустального шара",
+            losehp(Maybe_Half_Phys(rnd(30)), "взрыва хрустального шара",
                    KILLED_BY_AN);
             break;
         }

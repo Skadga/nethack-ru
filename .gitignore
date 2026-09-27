@@ -29,3 +29,17 @@ Thumbs.db
 names_report.txt
 translation_report*.txt
 eat_apply_report.txt
+# Резервные копии
+*.bak
+*.bak1
+*.bak2
+*.bak3
+*.bak4
+*.bak5
+*.bak6
+*.bak7
+*.bak8
+*.bak_by
+*.bak_nkp
+*.bak_svk
+*.bak_losehp

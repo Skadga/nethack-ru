@@ -53,15 +53,15 @@ ballfall(void)
     if (gets_hit) {
         int dmg = rn1(7, 25);
 
-        pline_The("iron ball falls on your %s.", body_part(HEAD));
+        pline_The("∆елезный шар падает на ваш %s.", body_part(HEAD));
         if (uarmh) {
             if (hard_helmet(uarmh)) {
                 pline("  счастью, на вас надет жЄсткий шлем.");
                 dmg = 3;
             } else if (flags.verbose)
-                pline("%s does not protect you.", Yname2(uarmh));
+                pline("%s вас не спасает.", Yname2(uarmh));
         }
-        losehp(Maybe_Half_Phys(dmg), "crunched in the head by an iron ball",
+        losehp(Maybe_Half_Phys(dmg), "раздавлен железным шаром по голове",
                NO_KILLER_PREFIX);
     }
 }
@@ -794,7 +794,7 @@ drag_ball(coordxy x, coordxy y, int *bc_control,
         } else {
             struct monst *victim;
 
-            You("вас дЄргает назад железный шар!");
+            You("дЄргает назад железный шар!");
             if ((victim = m_at(uchain->ox, uchain->oy)) != 0) {
                 int tmp;
                 int dieroll = rnd(20);
@@ -917,7 +917,7 @@ drop_ball(coordxy x, coordxy y)
                          (side == LEFT_SIDE) ? "left" : "right",
                          body_part(LEG));
                     losehp(Maybe_Half_Phys(2),
-                           "leg damage from being pulled out of a bear trap",
+                           "повреждени€ ноги при вырывании из медвежьего капкана",
                            KILLED_BY);
                 }
                 break;
@@ -1008,14 +1008,14 @@ drag_down(void)
         if (rn2(6)) {
             pline("∆елезный шар тащит вас вниз по лестнице!");
             losehp(Maybe_Half_Phys(rnd(6)),
-                   "dragged downstairs by an iron ball", NO_KILLER_PREFIX);
+                   "уволочен вниз по лестнице железным шаром", NO_KILLER_PREFIX);
             litter();
         }
     } else {
         if (rn2(2)) {
             Soundeffect(se_iron_ball_hits_you, 25);
             pline("∆елезный шар врезаетс€ в вас!");
-            losehp(Maybe_Half_Phys(rnd(20)), "iron ball collision",
+            losehp(Maybe_Half_Phys(rnd(20)), "столкновени€ с железным шаром",
                    KILLED_BY_AN);
             exercise(A_STR, FALSE);
             dragchance -= 2;
@@ -1023,7 +1023,7 @@ drag_down(void)
         if ((int) dragchance >= rnd(6)) {
             pline("∆елезный шар тащит вас вниз по лестнице!");
             losehp(Maybe_Half_Phys(rnd(3)),
-                   "dragged downstairs by an iron ball", NO_KILLER_PREFIX);
+                   "уволочен вниз по лестнице железным шаром", NO_KILLER_PREFIX);
             exercise(A_STR, FALSE);
             litter();
         }

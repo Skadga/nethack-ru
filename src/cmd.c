@@ -999,11 +999,11 @@ makemap_prepost(boolean pre, boolean wiztower)
                reset for the new instance of that prize */
             if (Is_mineend_level(&u.uz)) {
                 if (remove_achievement(ACH_MINE_PRIZE))
-                    pline(Unachieve, "Mine's-end");
+                    pline(Unachieve, "Конец шахт");
                 svc.context.achieveo.mines_prize_oid = 0;
             } else if (Is_sokoend_level(&u.uz)) {
                 if (remove_achievement(ACH_SOKO_PRIZE))
-                    pline(Unachieve, "Soko-prize");
+                    pline(Unachieve, "Приз сокобана");
                 svc.context.achieveo.soko_prize_oid = 0;
             }
         }

@@ -845,7 +845,7 @@ use_leash_core(struct obj *obj, struct monst *mtmp, coord *cc, int spotmon)
             char *lmonnam = l_monnam(mtmp);
 
             if (cc->x != mtmp->mx || cc->y != mtmp->my) {
-                Sprintf(lmonbuf, "%s tail", s_suffix(lmonnam));
+                Sprintf(lmonbuf, "%s хвост", s_suffix(lmonnam));
                 lmonnam = lmonbuf;
             }
             pline("Поводок не наденется на %s%s.", spotmon ? "вашу " : "",
@@ -2079,7 +2079,7 @@ jump(int magic) /* 0=Physical, otherwise skill level */
             case TT_BEARTRAP:
                 side = rn2(3) ? LEFT_SIDE : RIGHT_SIDE;
                 You("вырываетесь из медвежьего капкана!  Ой!");
-                losehp(Maybe_Half_Phys(rnd(10)), "выпрыгнув из медвежьего капкана",
+                losehp(Maybe_Half_Phys(rnd(10)), "выпрыгивания из медвежьего капкана",
                        KILLED_BY);
                 set_wounded_legs(side, rn1(1000, 500));
                 break;
@@ -2436,22 +2436,22 @@ fig_transform(anything *arg, long timeout)
 
         if (mtmp->mundetected) {
             if (hides_under(mtmp->data) && mshelter) {
-                Sprintf(and_vanish, " and %s under %s",
+                Sprintf(and_vanish, " и %s под %s",
                         locomotion(mtmp->data, "crawl"), doname(mshelter));
             } else if (mtmp->data->mlet == S_MIMIC
                        || mtmp->data->mlet == S_EEL) {
                 suppress_see = TRUE;
             } else
-                Strcpy(and_vanish, " and vanish");
+                Strcpy(and_vanish, " и исчезает");
         }
 
         switch (figurine->where) {
         case OBJ_INVENT:
             if (Blind || suppress_see)
-                You_feel("%s %s from your pack!", something,
+                You_feel("%s %s из вашей сумки!", something,
                          locomotion(mtmp->data, "drop"));
             else
-                You_see("%s %s out of your pack%s!", monnambuf,
+                You_see("%s %s из вашей сумки%s!", monnambuf,
                         locomotion(mtmp->data, "drop"), and_vanish);
             break;
 
@@ -2475,12 +2475,12 @@ fig_transform(anything *arg, long timeout)
                 /* figurine carrying monster might be invisible */
                 if (canseemon(figurine->ocarry)
                     && (!mon->wormno || cansee(mon->mx, mon->my)))
-                    Sprintf(carriedby, "%s pack", s_suffix(a_monnam(mon)));
+                    Sprintf(carriedby, "%s сумку", s_suffix(a_monnam(mon)));
                 else if (is_pool(mon->mx, mon->my))
-                    Strcpy(carriedby, "empty water");
+                    Strcpy(carriedby, "пустой воды");
                 else
-                    Strcpy(carriedby, "thin air");
-                You_see("%s %s out of %s%s!", monnambuf,
+                    Strcpy(carriedby, "тонкого воздуха");
+                You_see("%s %s из %s%s!", monnambuf,
                         locomotion(mtmp->data, "drop"), carriedby,
                         and_vanish);
             }
@@ -3862,7 +3862,7 @@ use_grapple(struct obj *obj)
     default: /* Yourself (oops!) */
         if (P_SKILL(typ) <= P_BASIC) {
             You("зацепляешь себя!");
-            losehp(Maybe_Half_Phys(rn1(10, 10)), "a grappling hook",
+            losehp(Maybe_Half_Phys(rn1(10, 10)), "крюка",
                    KILLED_BY);
             return ECMD_TIME;
         }

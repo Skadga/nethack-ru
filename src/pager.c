@@ -60,8 +60,8 @@ enum checkfileflags {
     chkfilIaCheck  = 4,
 };
 
-static const char invisexplain[] = "remembered, unseen, creature",
-           altinvisexplain[] = "unseen creature"; /* for clairvoyance */
+static const char invisexplain[] = "вспоминаемое, невидимое существо",
+           altinvisexplain[] = "невидимое существо"; /* for clairvoyance */
 
 /* Returns "true" for characters that could represent a monster's stomach. */
 staticfn boolean
@@ -81,7 +81,7 @@ is_swallow_sym(int c)
 staticfn int
 append_str(char *buf, const char *new_str)
 {
-    static const char sep[] = " or ";
+    static const char sep[] = " или ";
     size_t oldlen, space_left;
 
     if (strstri(buf, new_str))
@@ -113,20 +113,20 @@ self_lookat(char *outbuf)
     race[0] = '\0';
     if (!Upolyd)
         Sprintf(race, "%s ", gu.urace.adj);
-    Sprintf(outbuf, "%s%s%s called %s",
+    Sprintf(outbuf, "%s%s%s по имени %s",
             /* being blinded may hide invisibility from self */
-            (Invis && (senseself() || !Blind)) ? "invisible " : "", race,
+            (Invis && (senseself() || !Blind)) ? (Ugender == FEMALE ? "невидимая " : "невидимый ") : "", race,
             pmname(&mons[u.umonnum], Ugender), svp.plname);
     if (u.usteed)
-        Sprintf(eos(outbuf), ", mounted on %s", y_monnam(u.usteed));
+        Sprintf(eos(outbuf), ", едет верхом на %s", y_monnam(u.usteed));
     if (u.uundetected || (Upolyd && U_AP_TYPE)
         || visible_region_at(u.ux, u.uy))
         mhidden_description(&gy.youmonst,
                             MHID_PREFIX | MHID_ARTICLE | MHID_REGION,
                             eos(outbuf));
     if (Punished)
-        Sprintf(eos(outbuf), ", chained to %s",
-                uball ? ansimpleoname(uball) : "nothing?");
+        Sprintf(eos(outbuf), ", прикован к %s",
+                uball ? ansimpleoname(uball) : "пустоте?");
     if (u.utrap) /* bear trap, pit, web, in-floor, in-lava, tethered */
         Sprintf(eos(outbuf), ", %s", trap_predicament(trapbuf, 0, FALSE));
     return outbuf;
@@ -172,9 +172,9 @@ trap_description(char *outbuf, int tnum, coordxy x, coordxy y)
      * traps now (defined trap types but not part of ftrap chain).
      */
     if (trapped_chest_at(tnum, x, y))
-        Strcpy(outbuf, "trapped chest"); /* might actually be a large box */
+        Strcpy(outbuf, "сундук с ловушкой"); /* might actually be a large box */
     else if (trapped_door_at(tnum, x, y))
-        Strcpy(outbuf, "trapped door"); /* not "trap door"... */
+        Strcpy(outbuf, "дверь с ловушкой"); /* not "trap door"... */
     else
         Strcpy(outbuf, trapname(tnum, FALSE));
     return;
@@ -205,7 +205,7 @@ mhidden_description(
     if (M_AP_TYPE(mon) == M_AP_FURNITURE
         || M_AP_TYPE(mon) == M_AP_OBJECT) {
         if (incl_prefix)
-            Strcpy(outbuf, ", mimicking ");
+            Strcpy(outbuf, ", мимикрируя под ");
         if (M_AP_TYPE(mon) == M_AP_FURNITURE) {
             what = defsyms[mon->mappearance].explanation;
             if (incl_article)
@@ -234,27 +234,27 @@ mhidden_description(
     } else if (M_AP_TYPE(mon) == M_AP_MONSTER) {
         if (show_altmon) {
             if (incl_prefix)
-                Strcat(outbuf, ", masquerading as ");
+                Strcat(outbuf, ", выдавая себя за ");
             what = pmname(&mons[mon->mappearance], Mgender(mon));
             if (incl_prefix)
                 what = an(what);
             Strcat(outbuf, what);
         }
     } else if (isyou ? u.uundetected : mon->mundetected) {
-        Strcpy(outbuf, ", hiding");
+        Strcpy(outbuf, ", прячется");
         if (hides_under(mon->data)) {
-            Strcat(outbuf, " under ");
+            Strcat(outbuf, " под ");
             /* remembered glyph, not glyph_at() which is 'mon' */
             if (glyph_is_object(glyph))
                 goto objfrommap;
             Strcat(outbuf, something);
         } else if (is_hider(mon->data)) {
-            Sprintf(eos(outbuf), " on the %s",
-                    ceiling_hider(mon->data) ? "ceiling"
-                       : surface(x, y)); /* trapper */
+            Sprintf(eos(outbuf), " на %s",
+                    ceiling_hider(mon->data) ? "потолке"
+                       : surface_ru(x, y)); /* trapper */
         } else {
             if (mon->data->mlet == S_EEL && is_pool(x, y))
-                Strcat(outbuf, " in murky water");
+                Strcat(outbuf, " в мутной воде");
         }
     }
 
@@ -273,8 +273,8 @@ mhidden_description(
             boolean poison_gas = (glyph_is_cmap(rglyph)
                                   && glyph_to_cmap(rglyph) == S_poisoncloud);
 
-            Snprintf(eos(outbuf), BUFSZ - buflen, ", in a cloud of %s",
-                     poison_gas ? "poison gas" : "vapor");
+            Snprintf(eos(outbuf), BUFSZ - buflen, ", в облаке %s",
+                     poison_gas ? "ядовитого газа" : "пара");
         }
     }
 }
@@ -399,22 +399,22 @@ look_at_object(
     }
 
     if (otmp && otmp->where == OBJ_BURIED)
-        Strcat(buf, " (buried)");
+        Strcat(buf, " (зарыто)");
     /* check TREE before STONE due to level.flags.arboreal */
     else if (IS_TREE(levl[x][y].typ))
         /* "dangling": "hanging" could imply that it's growing on this tree */
-        Snprintf(eos(buf), BUFSZ - strlen(buf), " %s in a tree",
-                 (otmp && is_treefruit(otmp)) ? "dangling" : "stuck");
+        Snprintf(eos(buf), BUFSZ - strlen(buf), " %s на дереве",
+                 (otmp && is_treefruit(otmp)) ? "свисает" : "застрял");
     else if (levl[x][y].typ == STONE || levl[x][y].typ == SCORR)
-        Strcat(buf, " embedded in stone");
+        Strcat(buf, " в камне");
     else if (IS_WALL(levl[x][y].typ) || levl[x][y].typ == SDOOR)
-        Strcat(buf, " embedded in a wall");
+        Strcat(buf, " в стене");
     else if (closed_door(x, y))
-        Strcat(buf, " embedded in a door");
+        Strcat(buf, " в двери");
     else if (is_pool(x, y))
-        Strcat(buf, " in water");
+        Strcat(buf, " в воде");
     else if (is_lava(x, y))
-        Strcat(buf, " in molten lava"); /* [can this ever happen?] */
+        Strcat(buf, " в расплавленной лаве"); /* [can this ever happen?] */
     return;
 }
 
@@ -430,24 +430,28 @@ look_at_monster(
     name = (mtmp->data == &mons[PM_COYOTE] && accurate)
               ? coyotename(mtmp, monnambuf)
               : distant_monnam(mtmp, ARTICLE_NONE, monnambuf);
-    Sprintf(buf, "%s%s%s%s",
-            (mtmp->mx != x || mtmp->my != y)
-                ? ((mtmp->isshk && accurate) ? "tail of " : "tail of a ")
-                : "",
-            accurate ? monhealthdescr(mtmp, TRUE, healthbuf) : "",
-            (mtmp->mtame && accurate)
-                ? "tame "
-                : (mtmp->mpeaceful && accurate)
-                    ? "peaceful "
+    {
+        boolean fem = (Mgender(mtmp) == FEMALE);
+
+        Sprintf(buf, "%s%s%s%s",
+                (mtmp->mx != x || mtmp->my != y)
+                    ? "хвост от "
                     : "",
-            name);
+                accurate ? monhealthdescr(mtmp, TRUE, healthbuf) : "",
+                (mtmp->mtame && accurate)
+                    ? (fem ? "ручная " : "ручной ")
+                    : (mtmp->mpeaceful && accurate)
+                        ? (fem ? "мирная " : "мирный ")
+                        : "",
+                name);
+    }
     if (u.ustuck == mtmp) {
         if (u.uswallow || iflags.save_uswallow) /* monster detection */
-            Strcat(buf, digests(mtmp->data) ? ", swallowing you"
-                                            : ", engulfing you");
+            Strcat(buf, digests(mtmp->data) ? ", пожирает вас"
+                                            : ", обволакивает вас");
         else
             Strcat(buf, (Upolyd && sticks(gy.youmonst.data))
-                          ? ", being held" : ", holding you");
+                          ? ", удерживает вас" : ", держит вас");
     }
     /* if mtmp isn't able to move (other than because it is a type of
        monster that never moves), say so [excerpt from mstatusline() for
@@ -455,23 +459,23 @@ look_at_monster(
     if (mtmp->mfrozen)
         /* unfortunately mfrozen covers temporary sleep and being busy
            (donning armor, for instance) as well as paralysis */
-        Strcat(buf, ", can't move (paralyzed or sleeping or busy)");
+        Strcat(buf, ", не может двигаться (парализован, спит или занят)");
     else if (mtmp->msleeping)
         /* sleeping for an indeterminate duration */
-        Strcat(buf, ", asleep");
+        Strcat(buf, ", спит");
     else if ((mtmp->mstrategy & STRAT_WAITMASK) != 0)
         /* arbitrary reason why it isn't moving */
-        Strcat(buf, ", meditating");
+        Strcat(buf, ", медитирует");
 
     if (mtmp->mleashed)
-        Strcat(buf, ", leashed to you");
+        Strcat(buf, ", на поводке у вас");
     if (mtmp->mtrapped && cansee(mtmp->mx, mtmp->my)) {
         struct trap *t = t_at(mtmp->mx, mtmp->my);
         int tt = t ? t->ttyp : NO_TRAP;
 
         /* newsym lets you know of the trap, so mention it here */
         if (tt == BEAR_TRAP || is_pit(tt) || tt == WEB) {
-            Sprintf(eos(buf), ", trapped in %s", an(trapname(tt, FALSE)));
+            Sprintf(eos(buf), ", находясь в ловушке: %s", an(trapname(tt, FALSE)));
             t->tseen = 1;
         }
     }
@@ -488,58 +492,58 @@ look_at_monster(
         monbuf[0] = '\0';
         if (how_seen != 0 && how_seen != MONSEEN_NORMAL) {
             if (how_seen & MONSEEN_NORMAL) {
-                Strcat(monbuf, "normal vision");
+                Strcat(monbuf, "обычным зрением");
                 how_seen &= ~MONSEEN_NORMAL;
                 /* how_seen can't be 0 yet... */
                 if (how_seen)
                     Strcat(monbuf, ", ");
             }
             if (how_seen & MONSEEN_SEEINVIS) {
-                Strcat(monbuf, "see invisible");
+                Strcat(monbuf, "видом невидимых");
                 how_seen &= ~MONSEEN_SEEINVIS;
                 if (how_seen)
                     Strcat(monbuf, ", ");
             }
             if (how_seen & MONSEEN_INFRAVIS) {
-                Strcat(monbuf, "infravision");
+                Strcat(monbuf, "инфразрением");
                 how_seen &= ~MONSEEN_INFRAVIS;
                 if (how_seen)
                     Strcat(monbuf, ", ");
             }
             if (how_seen & MONSEEN_TELEPAT) {
-                Strcat(monbuf, "telepathy");
+                Strcat(monbuf, "телепатией");
                 how_seen &= ~MONSEEN_TELEPAT;
                 if (how_seen)
                     Strcat(monbuf, ", ");
             }
             if (how_seen & MONSEEN_XRAYVIS) {
                 /* Eyes of the Overworld */
-                Strcat(monbuf, "astral vision");
+                Strcat(monbuf, "астральным зрением");
                 how_seen &= ~MONSEEN_XRAYVIS;
                 if (how_seen)
                     Strcat(monbuf, ", ");
             }
             if (how_seen & MONSEEN_DETECT) {
-                Strcat(monbuf, "monster detection");
+                Strcat(monbuf, "обнаружением монстров");
                 how_seen &= ~MONSEEN_DETECT;
                 if (how_seen)
                     Strcat(monbuf, ", ");
             }
             if (how_seen & MONSEEN_WARNMON) {
                 if (Hallucination) {
-                    Strcat(monbuf, "paranoid delusion");
+                    Strcat(monbuf, "параноидальным бредом");
                 } else {
                     unsigned long mW = (svc.context.warntype.obj
                                         | svc.context.warntype.polyd),
                                   m2 = mtmp->data->mflags2;
-                    const char *whom = ((mW & M2_HUMAN & m2) ? "human"
-                                        : (mW & M2_ELF & m2) ? "elf"
-                                          : (mW & M2_ORC & m2) ? "orc"
-                                            : (mW & M2_DEMON & m2) ? "demon"
+                    const char *whom = ((mW & M2_HUMAN & m2) ? "человек"
+                                        : (mW & M2_ELF & m2) ? "эльф"
+                                          : (mW & M2_ORC & m2) ? "орк"
+                                            : (mW & M2_DEMON & m2) ? "демон"
                                               : pmname(mtmp->data,
                                                        Mgender(mtmp)));
 
-                    Sprintf(eos(monbuf), "warned of %s", makeplural(whom));
+                    Sprintf(eos(monbuf), "предупреждение: %s", makeplural(whom));
                 }
                 how_seen &= ~MONSEEN_WARNMON;
                 if (how_seen)
@@ -565,7 +569,7 @@ waterbody_name(coordxy x, coordxy y)
     boolean hallucinate = Hallucination && !program_state.gameover;
 
     if (!isok(x, y))
-        return "drink"; /* should never happen */
+        return "питьё"; /* should never happen */
     ltyp = SURFACE_AT(x, y);
 
     if (ltyp == LAVAPOOL) {
@@ -662,7 +666,7 @@ ice_descr(coordxy x, coordxy y, char *outbuf)
 
     iflags.ice_rating = -1; /* secondary output, for 'mention_decor' */
     if (SURFACE_AT(x, y) != ICE) {
-        Sprintf(outbuf, "[ice:%d?]", (int) levl[x][y].typ);
+        Sprintf(outbuf, "[лёд:%d?]", (int) levl[x][y].typ);
     } else if ((distu(x, y) > neardist
                 || (!cansee(x, y) && (!u_at(x, y) || Levitation)))
                && !gd.decor_levitate_override) { /* probe_decor(pickup.c) */

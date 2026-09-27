@@ -320,7 +320,7 @@ do_pit(coordxy x, coordxy y, unsigned tu_pit)
                      && (!(rnl(Role_if(PM_ARCHEOLOGIST) ? 3 : 9))
                          || ((ACURR(A_DEX) > 7) && rn2(5))));
 
-            You("вас €ростно швыр€ет из стороны в сторону!");
+            You("€ростно швыр€ет из стороны в сторону!");
             set_utrap(rn1(6, 2), TT_PIT);
             losehp(Maybe_Half_Phys(rnd(keepfooting ? 2 : 4)),
                    "ушиблись в расщелине", NO_KILLER_PREFIX);

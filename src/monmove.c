@@ -57,8 +57,8 @@ mb_trapped(struct monst *mtmp, boolean canseeit)
         if (canseeit && !Unaware)
             pline_mon(mtmp, "КАБУМ!! Вы видите, как взрывается дверь.");
         else if (!Deaf)
-            You_hear("взрыв %s.",
-                     (mdistu(mtmp) > 7 * 7) ? "distant" : "nearby");
+            You_hear("%s взрыв.",
+                     (mdistu(mtmp) > 7 * 7) ? "далёкий" : "близкий");
     }
     wake_nearto(mtmp->mx, mtmp->my, 7 * 7);
     mtmp->mstun = 1;
@@ -151,7 +151,7 @@ m_break_boulder(struct monst *mtmp, coordxy x, coordxy y)
                     set_msg_xy(mtmp->mx, mtmp->my);
                 pline("%s бормочет %s.",
                       Monnam(mtmp),
-                      mtmp->ispriest ? "a prayer" : "an incantation");
+                      mtmp->ispriest ? "молитву" : "заклинание");
             }
             mtmp->mspec_used += rn1(20, 10);
         }
@@ -505,7 +505,7 @@ monflee(
                                        ? bare_artifactname(uwep)
                                        : (uarm && artifact_light(uarm))
                                          ? yname(uarm)
-                                         : "[its imagination?]";
+                                         : "[его воображения?]";
 
                     pline_mon(mtmp, "%s убегает от болезненного света %s.",
                           Monnam(mtmp), lsrc);
@@ -612,14 +612,14 @@ mind_blast(struct monst *mtmp)
                 gy.youmonst.mappearance = 0;
                 newsym(u.ux, u.uy);
             }
-            pline("Оно фиксируется на вашем %s!",
-                    m_sen ? "telepathy"
-                    : Blind_telepat ? "latent telepathy"
-                    : "mind"); /* note: hero is never mindless */
+            pline("Оно фиксируется на %s!",
+                    m_sen ? "вашей телепатии"
+                    : Blind_telepat ? "вашей скрытой телепатии"
+                    : "вашем разуме"); /* note: hero is never mindless */
             dmg = rnd(15);
             if (Half_spell_damage)
                 dmg = (dmg + 1) / 2;
-            losehp(dmg, "psychic blast", KILLED_BY_AN);
+            losehp(dmg, "психического взрыва", KILLED_BY_AN);
         }
     }
     for (m2 = fmon; m2; m2 = nmon) {
@@ -804,7 +804,7 @@ dochug(struct monst *mtmp)
         && !u.uswallow) {
         if (mtmp->mux != u.ux || mtmp->muy != u.uy) {
             pline("%s шепчет в пустоту.",
-                  cansee(mtmp->mux, mtmp->muy) ? Monnam(mtmp) : "It");
+                  cansee(mtmp->mux, mtmp->muy) ? Monnam(mtmp) : "Оно");
 
             if (is_demon(gy.youmonst.data)) {
                 /* "Good hunting, brother" */

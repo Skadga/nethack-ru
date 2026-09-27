@@ -1611,6 +1611,9 @@ eval_notify_windowport_field(
                 }
             }
 #endif /* STATUS_HILITES */
+                /* hardcoded: green when sated, independent of hilite config */
+                if (fld == BL_HUNGER && curr->a.a_int == SATIATED)
+                    color = CLR_GREEN;
             status_update(fld, (genericptr_t) curr->val,
                           chg, pc, color, (unsigned long *) 0);
         } else {

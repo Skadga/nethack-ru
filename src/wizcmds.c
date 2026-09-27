@@ -258,7 +258,7 @@ wiz_kill(void)
 
         flags.verbose = FALSE;
         iflags.autodescribe = TRUE;
-        ans = getpos(&cc, TRUE, "a monster");
+        ans = getpos(&cc, TRUE, "чудовище");
         flags.verbose = save_verbose;
         iflags.autodescribe = save_autodescribe;
         if (ans < 0 || cc.x < 1)
@@ -277,7 +277,7 @@ wiz_kill(void)
                 Sprintf(qbuf, "%s?", Role_if(PM_SAMURAI) ? "Perform seppuku"
                                                          : "Commit suicide");
                 if (paranoid_query(TRUE, qbuf)) {
-                    Sprintf(svk.killer.name, "%s own player", uhis());
+                    Sprintf(svk.killer.name, "%s рук", uhis());
                     svk.killer.format = KILLED_BY;
                     done(DIED);
                 }
@@ -502,7 +502,7 @@ wiz_telekinesis(void)
 
     pline("Выберите монстра, чтобы швырнуть.");
     do {
-        ans = getpos(&cc, TRUE, "a monster");
+        ans = getpos(&cc, TRUE, "чудовище");
         if (ans < 0 || cc.x < 1)
             return ECMD_CANCEL;
 
@@ -900,7 +900,7 @@ wiz_smell(void)
     You("можете перемещать курсор на монстра, которого хотите обнюхать.");
     do {
         pline("Выберите монстра, чтобы обнюхать.");
-        ans = getpos(&cc, TRUE, "a monster");
+        ans = getpos(&cc, TRUE, "чудовище");
         if (ans < 0 || cc.x < 0) {
             return ECMD_CANCEL; /* done */
         }

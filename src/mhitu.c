@@ -268,7 +268,7 @@ expels(
     disp.botl = TRUE;
     if (message) {
         if (digests(mdat)) {
-            You("вас извергает обратно!");
+            You("извергает обратно!");
         } else if (enfolds(mdat)) {
             pline_mon(mtmp, "%s разворачивается, и вы освобождаетесь!", Monnam(mtmp));
         } else {
@@ -291,7 +291,7 @@ expels(
                 } else {
                     Strcpy(blast, " с чавканьем");
                 }
-                You("вас изгоняет из себя %s%s!", mon_nam(mtmp), blast);
+                You("изгоняет из себя %s%s!", mon_nam(mtmp), blast);
             }
         }
     }
@@ -2206,7 +2206,7 @@ doseduce(struct monst *mon)
             You_feel("себя измотанным.");
             exercise(A_STR, FALSE);
             tmp = rn1(10, 6);
-            losehp(Maybe_Half_Phys(tmp), "истощением", KILLED_BY);
+            losehp(Maybe_Half_Phys(tmp), "истощения", KILLED_BY);
             break;
         } /* case 4 */
         } /* switch */

@@ -735,7 +735,7 @@ peffect_water(struct obj *otmp)
                     you_unwere(FALSE);
                 set_ulycn(NON_PM); /* cure lycanthropy */
             }
-            losehp(Maybe_Half_Phys(d(2, 6)), "зелье св€той воды",
+            losehp(Maybe_Half_Phys(d(2, 6)), "зель€ св€той воды",
                    KILLED_BY_AN);
         } else if (otmp->cursed) {
             You_feel("весьма гордитесь собой.");
@@ -756,7 +756,7 @@ peffect_water(struct obj *otmp)
         } else {
             if (u.ualign.type == A_LAWFUL) {
                 pline("∆жЄтс€, как %s!", hliquid("acid"));
-                losehp(Maybe_Half_Phys(d(2, 6)), "зелье нечестивой воды",
+                losehp(Maybe_Half_Phys(d(2, 6)), "зель€ нечестивой воды",
                        KILLED_BY_AN);
             } else
                 You_feel("полны ужаса.");
@@ -968,7 +968,7 @@ peffect_sickness(struct obj *otmp)
         pline("(Ќо на самом деле это было слегка залежавшеес€ %s.)", fruitname(TRUE));
         if (!Role_if(PM_HEALER)) {
             /* NB: blessed otmp->fromsink is not possible */
-            losehp(1, "слегка загр€знЄнное зелье", KILLED_BY_AN);
+            losehp(1, "слегка загр€знЄнного зель€", KILLED_BY_AN);
         }
     } else {
         if (Poison_resistance)
@@ -1201,7 +1201,7 @@ peffect_levitation(struct obj *otmp)
 
             You("удар€етесь %s о %s.", body_part(HEAD),
                 ceiling(u.ux, u.uy));
-            losehp(Maybe_Half_Phys(dmg), "удар головой о потолок",
+            losehp(Maybe_Half_Phys(dmg), "удара головой о потолок",
                    KILLED_BY);
             gp.potion_nothing = 0; /* not nothing after all */
         }
@@ -1275,7 +1275,7 @@ peffect_oil(struct obj *otmp)
             /* fire damage */
             vulnerable = !Fire_resistance || Cold_resistance;
             losehp(d(vulnerable ? 4 : 2, 4),
-                   "глоток гор€щего зель€ масла",
+                   "глотка гор€щего зель€ масла",
                    KILLED_BY);
         }
         /*
@@ -1306,7 +1306,7 @@ peffect_acid(struct obj *otmp)
               otmp->blessed ? " немного" : otmp->cursed ? " сильно"
                                                          : " как кислота");
         dmg = d(otmp->cursed ? 2 : 1, otmp->blessed ? 4 : 8);
-        losehp(Maybe_Half_Phys(dmg), "зелье с кислотой", KILLED_BY_AN);
+        losehp(Maybe_Half_Phys(dmg), "зель€ с кислотой", KILLED_BY_AN);
         exercise(A_CON, FALSE);
     }
     if (Stoned)
@@ -1636,8 +1636,8 @@ potionhit(struct monst *mon, struct obj *obj, int how)
         pline("%s –азбиваетс€ о ваше %s и рассыпаетс€ на осколки.", botlnam,
                   body_part(HEAD));
         losehp(Maybe_Half_Phys(rnd(2)),
-               (how == POTHIT_OTHER_THROW) ? "брошенное зелье" /* scatter */
-                                           : "швырнутое зелье",
+               (how == POTHIT_OTHER_THROW) ? "брошенного зель€" /* scatter */
+                                           : "швырнутого зель€",
                KILLED_BY_AN);
     } else {
         tx = mon->mx, ty = mon->my;
@@ -1699,7 +1699,7 @@ potionhit(struct monst *mon, struct obj *obj, int how)
                       obj->blessed ? " немного"
                                    : obj->cursed ? " сильно" : "");
                 dmg = d(obj->cursed ? 2 : 1, obj->blessed ? 4 : 8);
-                losehp(Maybe_Half_Phys(dmg), "зелье с кислотой", KILLED_BY_AN);
+                losehp(Maybe_Half_Phys(dmg), "зель€ с кислотой", KILLED_BY_AN);
             }
             break;
         }
@@ -2431,7 +2431,7 @@ dip_potion_explosion(struct obj *obj, int dmg)
             potionbreathe(obj);
         useupall(obj);
         losehp(dmg, /* not physical damage */
-               "алхимический взрыв", KILLED_BY_AN);
+               "алхимического взрыва", KILLED_BY_AN);
         return TRUE;
     }
     return FALSE;

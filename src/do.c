@@ -137,7 +137,7 @@ boulder_hits_pool(
                 burn_away_slime();
                 dmg = d((Fire_resistance ? 1 : 3), 6);
                 losehp(Maybe_Half_Phys(dmg), /* lava damage */
-                       "расплавленна€ лава", KILLED_BY);
+                       "расплавленной лавы", KILLED_BY);
             } else if (!fills_up && flags.verbose
                        && (pushing ? !Blind : cansee(rx, ry))) {
                 pline("ќно тонет без следа!");
@@ -1260,13 +1260,13 @@ dodown(void)
         if (gy.youmonst.data->msize >= MZ_HUGE) {
             char qbuf[QBUFSZ];
 
-            You("вам трудно пролезть %s.", down_or_thru);
+            You("трудно пролезть %s.", down_or_thru);
             Sprintf(qbuf, "ѕопробовать протиснутьс€ %s?", down_or_thru);
             if (y_n(qbuf) == 'y') {
                 if (!rn2(3)) {
                     actn = "сумели протиснутьс€";
                     losehp(Maybe_Half_Phys(rnd(4)),
-                           "ушиб в тесном проходе", KILLED_BY);
+                           "ушиба в тесном проходе", KILLED_BY);
                 } else {
                     You("не смогли пролезть %s.", down_or_thru);
                     return ECMD_OK;
@@ -1790,8 +1790,8 @@ goto_level(
                     dismount_steed(DISMOUNT_FELL);
                 else
                     losehp(Maybe_Half_Phys(rnd(3)),
-                           ga.at_ladder ? "падение с лестницы"
-                                     : "падение вниз по лестнице",
+                           ga.at_ladder ? "падени€ с лестницы"
+                                     : "падени€ вниз по лестнице",
                            KILLED_BY);
                 selftouch("ѕада€, вы");
             } else { /* ordinary descent */
@@ -1990,7 +1990,7 @@ goto_level(
         int dmg = d(max(dist, 1), 6);
 
         dmg = Maybe_Half_Phys(dmg);
-        losehp(dmg, "падение вниз по шахте", KILLED_BY);
+        losehp(dmg, "падени€ вниз по шахте", KILLED_BY);
     }
 
     (void) pickup(1);

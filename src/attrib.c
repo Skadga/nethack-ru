@@ -176,7 +176,7 @@ adjattrib(
         if (msgflg == 0 && flags.verbose) {
             if (ABASE(ndx) == old_abase && AMAX(ndx) == old_amax) {
                 pline("Вы %s, насколько %s возможно.",
-                      abonflg ? "currently" : "already", attrstr);
+                      abonflg ? "сейчас" : "уже", attrstr);
             } else {
                 /* current stayed the same but base value changed, or
                    base is at minimum and reduction caused max to drop */
@@ -940,17 +940,17 @@ from_what(
              */
             if ((propidx == BLINDED && u.uroleplay.blind)
                 || (propidx == DEAF && u.uroleplay.deaf))
-                Sprintf(buf, " from birth");
+                Sprintf(buf, " с рождения");
             else if (innateness == FROM_ROLE || innateness == FROM_RACE)
-                Strcpy(buf, " innately");
+                Strcpy(buf, " врождённо");
             else if (innateness == FROM_INTR) /* [].intrinsic & FROMOUTSIDE */
-                Strcpy(buf, " intrinsically");
+                Strcpy(buf, " по своей природе");
             else if (innateness == FROM_EXP)
-                Strcpy(buf, " because of your experience");
+                Strcpy(buf, " из-за вашего опыта");
             else if (innateness == FROM_LYCN)
-                Strcpy(buf, " due to your lycanthropy");
+                Strcpy(buf, " из-за вашей ликантропии");
             else if (innateness == FROM_FORM)
-                Strcpy(buf, " from your creature form");
+                Strcpy(buf, " из-за вашей формы существа");
             else if (propidx == FAST && Very_fast)
                 Sprintf(buf, because_of,
                         ((HFast & TIMEOUT) != 0L) ? "a potion or spell"
@@ -969,7 +969,7 @@ from_what(
             else if (propidx == BLINDED && u.ucreamed
                      && BlindedTimeout == (long) u.ucreamed
                      && !EBlinded && !(HBlinded & ~TIMEOUT))
-                Sprintf(buf, "due to goop covering your %s",
+                Sprintf(buf, "из-за слизи, покрывающей ваше %s",
                         body_part(FACE));
 
             /* remove some verbosity and/or redundancy */
@@ -1341,13 +1341,14 @@ uchangealign(
         if (!uarmh || uarmh->otyp != HELM_OF_OPPOSITE_ALIGNMENT)
             u.ualign.type = u.ualignbase[A_CURRENT];
         You("обретаете %sчувство нового направления.",
-            (u.ualign.type != oldalign) ? "sudden " : "");
+            (u.ualign.type != oldalign) ? "внезапное " : "");
     } else {
         /* putting on or taking off a helm of opposite alignment */
         u.ualign.type = (aligntyp) newalign;
         if (reason == A_CG_HELM_ON) {
             adjalign(-7); /* for abuse -- record will be cleared shortly */
-            Your("mind oscillates %s.", Hallucination ? "wildly" : "briefly");
+            Your("Ваши мысли %s.",
+                  Hallucination ? "хаотично мечутся" : "на мгновение сбиваются");
             make_confused(rn1(2, 3), FALSE);
             if (Is_astralevel(&u.uz) || ((unsigned) rn2(50) < u.ualign.abuse))
                 summon_furies(Is_astralevel(&u.uz) ? 0 : 1);
@@ -1355,9 +1356,9 @@ uchangealign(
             livelog_printf(LL_ALIGNMENT, "использовал шлем, чтобы стать %s",
                            aligns[1 - newalign].adj);
         } else if (reason == A_CG_HELM_OFF) {
-            Your("mind is %s.", Hallucination
-                                    ? "much of a muchness"
-                                    : "back in sync with your body");
+            Your("Ваши мысли %s.", Hallucination
+                                    ? "превращаются в кашу"
+                                    : "вновь синхронизируются с телом");
         }
     }
     if (u.ualign.type != oldalign) {

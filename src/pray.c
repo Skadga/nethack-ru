@@ -1189,9 +1189,9 @@ pleased(aligntyp g_align)
                     *repair_buf = '\0';
                 } else if (!uwep->blessed) {
                     if (!Blind) {
-                        pline("%s with %s aura%s.",
+                        pline("%s с аурой%s.",
                               Yobjnam2(uwep, "м€гко светитс€"),
-                              an(hcolor(NH_LIGHT_BLUE)), repair_buf);
+                              repair_buf);
                         iflags.last_msg = PLNMSG_OBJ_GLOWS;
                     } else
                         You_feel("благословение %s над %s.", u_gname(),
@@ -2299,7 +2299,7 @@ prayer_done(void) /* M. Stephenson (1.0.3b) */
         /* KMH -- Gods have mastery over unchanging */
         rehumanize();
         /* no Half_physical_damage adjustment here */
-        losehp(rnd(20), "остаточный эффект обращени€ нежити", KILLED_BY_AN);
+        losehp(rnd(20), "остаточного эффекта обращени€ нежити", KILLED_BY_AN);
         exercise(A_CON, FALSE);
         return 1;
     }

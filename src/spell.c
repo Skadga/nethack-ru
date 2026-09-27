@@ -174,7 +174,7 @@ cursed_book(struct obj *bp)
             pline("Когда вы читаете книгу, она %s в ваше %s!", explodes,
                   body_part(FACE));
             dmg = 2 * rnd(10) + 5;
-            losehp(Maybe_Half_Phys(dmg), "взрывающаяся руна", KILLED_BY_AN);
+            losehp(Maybe_Half_Phys(dmg), "взрывающейся руны", KILLED_BY_AN);
         }
         return TRUE;
     default:

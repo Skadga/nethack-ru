@@ -107,14 +107,14 @@ end
 -- Show a helpful tip when player first uses getpos()
 function show_getpos_tip()
    nh.text([[
-Tip: Farlooking or selecting a map location
+Подсказка: далёкий обзор и выбор клетки на карте
 
-You are now in a "farlook" mode - the movement keys move the cursor,
-not your character.  Game time does not advance.  This mode is used
-to look around the map, or to select a location on it.
+Вы в режиме «дальнего обзора» — клавиши движения перемещают курсор,
+а не персонаж.  Игровое время не идёт.  Этот режим нужен
+для осмотра карты или выбора клетки на ней.
 
-When in this mode, you can press ESC to return to normal game mode,
-and pressing ? will show the key help.
+В этом режиме ESC возвращает обычный режим игры,
+а ? покажет справку по клавишам.
 ]]);
 end
 

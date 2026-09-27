@@ -1361,7 +1361,7 @@ trapeffect_rocktrap(
             newsym(u.ux, u.uy); /* map the rock */
 
             if (!harmless) {
-                losehp(Maybe_Half_Phys(dmg), "упавшей скалой", KILLED_BY_AN);
+                losehp(Maybe_Half_Phys(dmg), "упавшей скалы", KILLED_BY_AN);
                 exercise(A_STR, FALSE);
             }
         }
@@ -1511,7 +1511,7 @@ trapeffect_bear_trap(
                 pline("%s защищает вашу ногу.", Yname2(uarmf));
             else {
                 set_wounded_legs(rn2(2) ? RIGHT_SIDE : LEFT_SIDE, rn1(10, 10));
-                losehp(Maybe_Half_Phys(dmg), "капканом", KILLED_BY_AN);
+                losehp(Maybe_Half_Phys(dmg), "капкана", KILLED_BY_AN);
             }
         }
         exercise(A_DEX, FALSE);
@@ -1641,7 +1641,7 @@ trapeffect_rust_trap(
             int dam = u.mhmax;
 
             You("покрыты ржавчиной!");
-            losehp(Maybe_Half_Phys(dam), "от ржавчины", KILLED_BY);
+            losehp(Maybe_Half_Phys(dam), "ржавчины", KILLED_BY);
         } else if (u.umonnum == PM_GREMLIN && rn2(3)) {
             (void) split_mon(&gy.youmonst, (struct monst *) 0);
         }
@@ -2295,7 +2295,7 @@ trapeffect_magic_trap(
             deltrap(trap);
             newsym(u.ux, u.uy); /* update position */
             You("попадаете в магический взрыв!");
-            losehp(rnd(10), "магическим взрывом", KILLED_BY_AN);
+            losehp(rnd(10), "магического взрыва", KILLED_BY_AN);
             Your("тело поглощает часть магической энергии!");
             u.uen = (u.uenmax += 2);
             if (u.uenmax > u.uenpeak)
@@ -2369,7 +2369,7 @@ trapeffect_anti_magic(
                      : (dmgval2 >= hp / 4) ? "очень вялым."
                        : "пявым.");
             /* opposite of magical explosion */
-            losehp(dmgval2, "антимагической имплозией", KILLED_BY_AN);
+            losehp(dmgval2, "антимагической имплозии", KILLED_BY_AN);
         }
 
         /* if the drain amount is more than hero's maximum energy then up
@@ -2579,7 +2579,7 @@ trapeffect_landmine(
            blow_up_landmine() will remove pit afterwards if inappropriate */
         trap->ttyp = PIT;
         trap->madeby_u = FALSE;
-        losehp(Maybe_Half_Phys(damage), "противопехотной миной", KILLED_BY_AN);
+        losehp(Maybe_Half_Phys(damage), "противопехотной мины", KILLED_BY_AN);
         blow_up_landmine(trap);
         if (steed_mid && saddle && !u.usteed)
             (void) keep_saddle_with_steedcorpse(steed_mid, fobj, saddle);
@@ -4122,7 +4122,7 @@ float_down(
                         pline("Конец!  Вы грохнулись.");
                     else
                         You("падаете.");
-                    losehp(rnd(2), "опасными ветрами", KILLED_BY);
+                    losehp(rnd(2), "опасных ветров", KILLED_BY);
                     if (u.usteed)
                         dismount_steed(DISMOUNT_FELL);
                     selftouch("Падая, вы");
@@ -5081,7 +5081,7 @@ drown(void)
         i = Maybe_Half_Phys(d(2, 6));
         if (u.mhmax > i)
             u.mhmax -= i;
-        losehp(i, "от ржавчины", KILLED_BY);
+        losehp(i, "ржавчины", KILLED_BY);
     }
     if (inpool_ok)
         return FALSE;
@@ -6437,7 +6437,7 @@ chest_trap(
             }
             (void) destroy_items(&gy.youmonst, AD_ELEC, orig_dmg);
             if (dmg)
-                losehp(dmg, "электрическим током", KILLED_BY_AN);
+                losehp(dmg, "электрического тока", KILLED_BY_AN);
             break;
         } /* case 6 */
         case 5:
@@ -6683,7 +6683,7 @@ b_trapped(const char *item, int bodypart)
     Soundeffect(se_kaboom, 80);
     pline("КАБУМ!!  %s была заловушкована!", The(item));
     wake_nearby(FALSE);
-    losehp(Maybe_Half_Phys(dmg), "взрывом", KILLED_BY_AN);
+    losehp(Maybe_Half_Phys(dmg), "взрыва", KILLED_BY_AN);
     exercise(A_STR, FALSE);
     if (bodypart != NO_PART)
         exercise(A_CON, FALSE);

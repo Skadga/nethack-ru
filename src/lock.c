@@ -248,7 +248,7 @@ forcelock(void)
     if (rn2(100) >= gx.xlock.chance)
         return 1; /* still busy */
 
-    You("вам удаётся взломать замок.");
+    You("удаётся взломать замок.");
     exercise(gx.xlock.picktyp ? A_DEX : A_STR, TRUE);
     /* breakchestlock() might destroy xlock.box; if so, xlock context will
        be cleared (delobj -> obfree -> maybe_reset_pick); but it might not,
@@ -932,7 +932,7 @@ obstructed(coordxy x, coordxy y, boolean quietly)
 
             if ((mtmp->mx != x || mtmp->my != y) && canspotmon(mtmp))
                 /* s_suffix() returns a modifiable buffer */
-                Mn = strcat(s_suffix(Mn), " tail");
+                Mn = strcat(s_suffix(Mn), " хвост");
 
             pline("%s преграждает путь!", Mn);
         }

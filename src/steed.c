@@ -609,7 +609,7 @@ dismount_steed(
         if (!have_spot)
             have_spot = landing_spot(&cc, reason, 1);
         if (!ulev && !ufly) {
-            losehp(Maybe_Half_Phys(rn1(10, 10)), "пострадали при верховой езде",
+            losehp(Maybe_Half_Phys(rn1(10, 10)), "пострадавших при верховой езде",
                    KILLED_BY_AN);
             set_wounded_legs(BOTH_SIDES, (int) HWounded_legs + rn1(5, 5));
             repair_leg_damage = FALSE;

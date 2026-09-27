@@ -3888,7 +3888,7 @@ pickup_checks(void)
         else if (IS_SINK(lev->typ))
             pline("Водопровод соединяет его с полом.");
         else if (IS_GRAVE(lev->typ))
-            You("вам не нужен надгробный камень. Пока.");
+            You("не нужен надгробный камень. Пока.");
         else if (IS_FOUNTAIN(lev->typ))
             You("могли бы попить из %s...", hliquid("water"));
         else if (IS_DOOR(lev->typ) && (lev->doormask & D_ISOPEN))

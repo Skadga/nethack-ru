@@ -2609,7 +2609,7 @@ backfire(struct obj *otmp)
     otmp->in_use = TRUE; /* in case losehp() is fatal */
     pline("%s внезапно взрывается!", The(xname(otmp)));
     dmg = d(otmp->spe + 2, 6);
-    losehp(Maybe_Half_Phys(dmg), "взорвавшаяся палочка", KILLED_BY_AN);
+    losehp(Maybe_Half_Phys(dmg), "взорвавшейся палочки", KILLED_BY_AN);
     useupall(otmp);
 }
 
@@ -3312,7 +3312,7 @@ zap_updown(struct obj *obj) /* wand or spell, nonnull */
             pline("Камень выпадает из %s и падает на вашу %s.",
                   ceiling(x, y), body_part(HEAD));
             dmg = rnd(hard_helmet(uarmh) ? 2 : 6);
-            losehp(Maybe_Half_Phys(dmg), "падающая глыба", KILLED_BY_AN);
+            losehp(Maybe_Half_Phys(dmg), "падающей глыбы", KILLED_BY_AN);
             if ((otmp = mksobj_at(ROCK, x, y, FALSE, FALSE)) != 0) {
                 (void) xname(otmp); /* set dknown, maybe bknown */
                 stackobj(otmp);

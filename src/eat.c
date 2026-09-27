@@ -188,13 +188,13 @@ eatmupdate(void)
 
     if (is_obj_mappear(&gy.youmonst,ORANGE) && !Hallucination) {
         /* revert from hallucinatory to "normal" mimicking */
-        altmsg = "You now prefer mimicking yourself.";
+        altmsg = "Теперь вы предпочитаете притворяться самим собой.";
         altapp = GOLD_PIECE;
     } else if (is_obj_mappear(&gy.youmonst,GOLD_PIECE) && Hallucination) {
         /* won't happen; anything which might make immobilized
            hero begin hallucinating (black light attack, theft
            of Grayswandir) will terminate the mimicry first */
-        altmsg = "Your rind escaped intact.";
+        altmsg = "Ваша кожура осталась целой.";
         altapp = ORANGE;
     }
 
@@ -553,9 +553,9 @@ done_eating(boolean message)
             pline1(gn.nomovemsg);
         gn.nomovemsg = 0;
     } else if (message) {
-        You("finish %s %s.",
-            (gy.youmonst.data == &mons[PM_FIRE_ELEMENTAL]) ? "consuming"
-            : "eating",
+        You("заканчиваете %s %s.",
+            (gy.youmonst.data == &mons[PM_FIRE_ELEMENTAL]) ? "поглощать"
+            : "есть",
             food_xname(piece, TRUE));
     }
 
@@ -619,7 +619,7 @@ eat_brains(
     if (noncorporeal(pd)) {
         if (visflag)
             pline("Мозг %s не повреждён.",
-                  (mdef == &gy.youmonst) ? "Your" : s_suffix(Monnam(mdef)));
+                  (mdef == &gy.youmonst) ? "Ваш" : s_suffix(Monnam(mdef)));
         return M_ATTK_MISS; /* side-effects can't occur */
     } else if (magr == &gy.youmonst) {
         You("съесть мозг %s!", s_suffix(mon_nam(mdef)));
@@ -1011,7 +1011,7 @@ givit(int type, struct permonst *ptr)
     case FIRE_RES:
         debugpline0("Trying to give fire resistance");
         if (!(HFire_resistance & FROMOUTSIDE)) {
-            You(Hallucination ? "становится прохладно." : "feel a momentary chill.");
+            You(Hallucination ? "становится прохладно." : "чувствуете минутный озноб.");
             HFire_resistance |= FROMOUTSIDE;
         }
         break;
@@ -1116,7 +1116,7 @@ eye_of_newt_buzz(void)
             u.uen = u.uenmax;
         }
         if (old_uen != u.uen) {
-            You_feel("a mild buzz.");
+            You_feel("слабый гул.");
             disp.botl = TRUE;
         }
     }
@@ -1166,7 +1166,7 @@ cpostfx(int pm)
                 self_invis_message();
         } else {
             if (!(HInvis & INTRINSIC))
-                You_feel("hidden!");
+                You_feel("невидимы!");
             HInvis |= FROMOUTSIDE;
             HSee_invisible |= FROMOUTSIDE;
         }
@@ -1193,23 +1193,23 @@ cpostfx(int pm)
         tmp += 20;
         if (gy.youmonst.data->mlet != S_MIMIC && !Unchanging) {
             char buf[BUFSZ];
-            const char *tempshape = !Hallucination ? "a pile of gold"
-                                                   : "an orange";
+            const char *tempshape = !Hallucination ? "кучей золота"
+                                                   : "апельсином";
 
             if (!u.uconduct.polyselfs++) /* you're changing form */
                 livelog_printf(LL_CONDUCT,
                             "changed form for the first time by mimicking %s",
                                tempshape);
-            You_cant("resist the temptation to mimic %s.", tempshape);
+            You_cant("не выдерживаете соблазна стать %s.", tempshape);
             /* A pile of gold can't ride. */
             if (u.usteed)
                 dismount_steed(DISMOUNT_FELL);
             nomul(-tmp);
-            gm.multi_reason = "pretending to be a pile of gold";
+            gm.multi_reason = "притворяясь кучей золота";
             Sprintf(buf,
                     Hallucination
-                       ? "You suddenly dread being peeled and mimic %s again!"
-                       : "You now prefer mimicking %s again.",
+                       ? "Вы вдруг боитесь, что вас очистят, и снова мимикрируете под %s!"
+                       : "Теперь вы предпочитаете снова мимикрировать под %s.",
                     an(Upolyd ? pmname(gy.youmonst.data, Ugender)
                               : gu.urace.noun));
             ge.eatmbuf = dupstr(buf);
@@ -1246,7 +1246,7 @@ cpostfx(int pm)
     case PM_SANDESTIN: /* moot--they don't leave corpses */
     case PM_GENETIC_ENGINEER:
         if (Unchanging) {
-            You_feel("momentarily different."); /* same as poly trap */
+            You_feel("на мгновение другими."); /* same as poly trap */
         } else {
             /* polyself() is potentially fatal; if food is a tin, use it up
                early to keep it out of bones */
@@ -1257,8 +1257,8 @@ cpostfx(int pm)
             }
 
             You("%s.", (pm == PM_GENETIC_ENGINEER)
-                          ? "undergo a freakish metamorphosis"
-                          : "feel a change coming over you");
+                          ? "претерпеваете чудовищное превращение"
+                          : "чувствуете, как вас охватывает перемена");
             polyself(POLY_NOFLAGS);
         }
         break;
@@ -1672,7 +1672,7 @@ consume_tin(const char *mesg)
         if (!tin->cursed)
             pline("Теперь ты чувствуешь себя как %s!",
                   /* "Сладкий Горошек" is a character from the Popeye cartoons */
-                  Hallucination ? "Swee'pea"
+                  Hallucination ? "Сладкий Горошек"
                   /* "чувствуешь себя как Попай" unless sustain ability suppresses
                      any attribute change; this slightly oversimplifies
                      things:  we want "Попай" if no strength increase
@@ -1923,7 +1923,7 @@ eatcorpse(struct obj *otmp)
     } else if (acidic(&mons[mnum]) && !Acid_resistance) {
         tp++;
         You("у тебя сильный приступ желудочной кислоты.");   /* not body_part() */
-        losehp(rnd(15), !glob ? "кислый труп" : "кислая глоба",
+        losehp(rnd(15), !glob ? "кислого трупа" : "кислая глоба",
                KILLED_BY_AN); /* acid damage */
     } else if (poisonous(&mons[mnum]) && rn2(5)) {
         tp++;
@@ -1939,7 +1939,7 @@ eatcorpse(struct obj *otmp)
     } else if ((rotted > 5L || (rotted > 3L && rn2(5))) && !Sick_resistance) {
         tp++;
         You_feel("%sбольным.", (Sick) ? "очень " : "");
-        losehp(rnd(8), !glob ? "труп" : "гнилая глоба", KILLED_BY_AN);
+        losehp(rnd(8), !glob ? "трупа" : "гнилой глобы", KILLED_BY_AN);
     }
 
     /* delay is weight dependent */
@@ -2147,7 +2147,7 @@ fprefx(struct obj *otmp)
         break;
     case LEMBAS_WAFER:
         if (maybe_polyd(is_orc(gy.youmonst.data), Race_if(PM_ORC))) {
-            pline("%s", "!#?&* elf kibble!");
+            pline("%s", "!#?&* эльфийский корм!");
             break;
         } else if (maybe_polyd(is_elf(gy.youmonst.data), Race_if(PM_ELF))) {
             pline("Хватает надолго.");
@@ -2363,15 +2363,15 @@ eataccessory(struct obj *otmp)
             if (!(HSleep_resistance & FROMOUTSIDE))
                 accessory_has_effect(otmp);
             if (!Sleep_resistance)
-                You_feel("wide awake.");
+                You_feel("полностью бодрствуете.");
             HSleep_resistance |= FROMOUTSIDE;
             break;
         case AMULET_OF_CHANGE:
             accessory_has_effect(otmp);
             makeknown(typ);
             change_sex();
-            You("are suddenly very %s!",
-                flags.female ? "feminine" : "masculine");
+            You("внезапно становитесь очень %s!",
+                flags.female ? "женственной" : "мужественной");
             disp.botl = TRUE;
             break;
         case AMULET_OF_UNCHANGING:
@@ -2433,18 +2433,18 @@ eatspecial(void)
 #ifdef MAIL_STRUCTURES
         if (otmp->otyp == SCR_MAIL)
             /* no nutrition */
-            pline("This junk mail is less than satisfying.");
+            pline("Эта дрянная почта совсем не утоляет голод.");
         else
 #endif
         if (otmp->otyp == SCR_SCARE_MONSTER)
             /* to eat scroll, hero is currently polymorphed into a monster */
-            pline("Yuck%c", otmp->blessed ? '!' : '.');
+            pline("Фу%c", otmp->blessed ? '!' : '.');
         else if (otmp->oclass == SCROLL_CLASS
                  /* check description after checking for specific scrolls */
                  && objdescr_is(otmp, "YUM YUM"))
-            pline("Yum%c", otmp->blessed ? '!' : '.');
+            pline("Ням%c", otmp->blessed ? '!' : '.');
         else
-            pline("Needs salt...");
+            pline("Нужна соль...");
     }
     if (otmp->oclass == POTION_CLASS) {
         otmp->quan++; /* dopotion() does a useup() */
@@ -2458,13 +2458,13 @@ eatspecial(void)
     /* KMH -- idea by "Tommy the Terrorist" */
     if (otmp->otyp == TRIDENT && !otmp->cursed) {
         /* sugarless chewing gum which used to be heavily advertised on TV */
-        pline(Hallucination ? "Four out of five dentists agree."
-                            : "That was pure chewing satisfaction!");
+        pline(Hallucination ? "Четыре из пяти стоматологов согласны."
+                            : "Чистое удовольствие от жевания!");
         exercise(A_WIS, TRUE);
     }
     if (otmp->otyp == FLINT && !otmp->cursed) {
         /* chewable vitamin for kids based on "The Flintstones" TV cartoon */
-        pline("Yabba-dabba delicious!");
+        pline("Ябба-дабба вкусно!");
         exercise(A_CON, TRUE);
     }
 
@@ -3041,7 +3041,7 @@ doeat(void)
             }
         } else {
             You("%s %s.",
-                (svc.context.victual.reqtime == 1) ? "eat" : "begin eating",
+                (svc.context.victual.reqtime == 1) ? "съедаете" : "начинаете есть",
                 doname(otmp));
         }
     }

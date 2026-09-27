@@ -157,10 +157,10 @@ is_pure(boolean talk)
 
     if (wizard && talk) {
         if (u.ualign.type != original_alignment) {
-            You("Вы сейчас %s, а не %s.", align_str(u.ualign.type),
+            You("сейчас %s, а не %s.", align_str(u.ualign.type),
                 align_str(original_alignment));
         } else if (u.ualignbase[A_CURRENT] != original_alignment) {
-            You("Вы сменили веру.");
+            You("сменили веру.");
         } else if (u.ualign.record < MIN_QUEST_ALIGN) {
             You("Ваш показатель сейчас %d, а требуется %d.", u.ualign.record,
                 MIN_QUEST_ALIGN);

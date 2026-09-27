@@ -301,7 +301,7 @@ drinkfountain(void)
             if (Poison_resistance) {
                 pline("Возможно, это сток с расположенной поблизости %s фермы.",
                       fruitname(FALSE));
-                losehp(rnd(4), "неохлаждённый глоток сока", KILLED_BY_AN);
+                losehp(rnd(4), "неохлаждённого глотка сока", KILLED_BY_AN);
                 break;
             }
             poison_strdmg(rn1(4, 3), rnd(10), "загрязнённая вода",
@@ -614,7 +614,7 @@ drinksink(void)
             pline("Кажется довольно вкусным.");
             monstseesu(M_SEEN_FIRE);
         } else {
-            losehp(rnd(6), "глоток кипящей воды", KILLED_BY);
+            losehp(rnd(6), "глотка кипящей воды", KILLED_BY);
             monstunseesu(M_SEEN_FIRE);
         }
         /* boiling water burns considered fire damage */
