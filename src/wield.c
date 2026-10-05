@@ -146,7 +146,7 @@ cant_wield_corpse(struct obj *obj)
     /* Prevent wielding cockatrice when not wearing gloves --KAA */
     You("владеете %s голыми %s.",
         corpse_xname(obj, (const char *) 0, CXN_PFX_THE),
-        makeplural(body_part(HAND)));
+        body_part_case(HAND, BP_INS | BP_PLURAL));
     Sprintf(kbuf, "владеете %s голыми руками", killer_xname(obj));
     instapetrify(kbuf);
     return TRUE;
@@ -200,12 +200,13 @@ ready_weapon(struct obj *wep)
                 tmp = thestr;
             else
                 tmp = "";
-            pline("%s%s %s к вашей %s%s!", tmp, aobjnam(wep, "приваривается"),
+            pline("%s%s %s к %s%s!", tmp, aobjnam(wep, "приваривается"),
                   (wep->quan == 1L) ? "сам" : "сами", /* a3 */
-                  bimanual(wep) ? "" :
-                      (URIGHTY ? "правой " : "левой "),
-                  bimanual(wep) ? (const char *) makeplural(body_part(HAND))
-                                : body_part(HAND));
+                  bimanual(wep) ? "вашим "
+                                : (URIGHTY ? "вашей правой "
+                                           : "вашей левой "),
+                  bimanual(wep) ? body_part_case(HAND, BP_DAT | BP_PLURAL)
+                                : body_part_case(HAND, BP_DAT));
             set_bknown(wep, 1);
         } else {
             /* The message must be printed before setuwep (since
@@ -702,15 +703,17 @@ wield_tool(struct obj *obj,
     }
     if (uwep && welded(uwep)) {
         if (flags.verbose) {
-            const char *hand = body_part(HAND);
+            const char *hand =
+                body_part_case(HAND, bimanual(uwep) ? BP_DAT | BP_PLURAL
+                                                    : BP_DAT);
+            const char *hand_pos = bimanual(uwep) ? "вашим " : "вашей ";
 
-            if (bimanual(uwep))
-                hand = makeplural(hand);
             if (strstri(what, "pair of ") != 0)
                 more_than_1 = FALSE;
             pline(
-               "Поскольку ваше оружие приварено к вашей %s, вы не можете %s %s %s.",
-                  hand, verb, more_than_1 ? "те" : "тот", xname(obj));
+               "Поскольку ваше оружие приварено к %s%s, вы не можете %s %s %s.",
+                  hand_pos, hand, verb, more_than_1 ? "те" : "тот",
+                  xname(obj));
         } else {
             You_cant("сделать это.");
         }
@@ -770,10 +773,9 @@ can_twoweapon(void)
                   makeplural((flags.female && gu.urole.name.f)
                              ? gu.urole.name.f : gu.urole.name.m));
     } else if (!uwep || !uswapwep) {
-        const char *hand_s = body_part(HAND);
-
-        if (!uwep && !uswapwep)
-            hand_s = makeplural(hand_s);
+        const char *hand_s =
+            (!uwep && !uswapwep) ? body_part_case(HAND, BP_NOM | BP_PLURAL)
+                                 : body_part_case(HAND, BP_NOM);
         /* "your hands are empty" or "your {left|right} hand is empty" */
         Your("%s%s %s пусто.", uwep ? "левой " : uswapwep ? "правой " : "",
              hand_s, vtense(hand_s, "are"));
@@ -808,21 +810,23 @@ can_twoweapon(void)
 void
 drop_uswapwep(void)
 {
-    char left_hand[QBUFSZ];
+    char left_hand[QBUFSZ], left_hand_gen[QBUFSZ];
     struct obj *obj = uswapwep;
 
     /* this used to use makeplural(body_part(HAND)) but in order to be
        dual-wielded, or to get this far attempting to achieve that,
        uswapwep must be one-handed; since it's secondary, the hand must
        be the left one */
-    Sprintf(left_hand, "левая %s", body_part(HAND));
+    Sprintf(left_hand, "левая %s", body_part_case(HAND, BP_NOM));
+    Sprintf(left_hand_gen, "левой %s", body_part_case(HAND, BP_GEN));
     if (!obj->cursed)
         /* attempting to two-weapon while Glib */
-        pline("%s с вашей %s!", Yobjnam2(obj, "соскальзывает"), left_hand);
+        pline("%s с вашей %s!", Yobjnam2(obj, "соскальзывает"),
+              left_hand_gen);
     else if (!u.twoweap)
         /* attempting to two-weapon when uswapwep is cursed */
-        pline("%s вашу хватку и %s с вашей %s!",
-              Yobjnam2(obj, "вырывается"), otense(obj, "падает"), left_hand);
+        pline("%s вашу хватку и %s с вашей %s!", Yobjnam2(obj, "вырывается"),
+              otense(obj, "падает"), left_hand_gen);
     else
         /* already two-weaponing but can't anymore because uswapwep has
            become cursed */
@@ -932,13 +936,15 @@ chwepon(struct obj *otmp, int amount)
                 uwep->bknown = !Hallucination; /* ok to bypass set_bknown() */
             } else {
                 /* cursed tin opener is wielded in right hand */
-                Sprintf(buf, "Ваша правая %s покалывает.", body_part(HAND));
+                Sprintf(buf, "Ваша правая %s покалывает.",
+                        body_part_case(HAND, BP_NOM));
             }
             uncurse(uwep);
             update_inventory();
         } else {
-            Sprintf(buf, "Ваша %s %s.", makeplural(body_part(HAND)),
-                    (amount >= 0) ? "подёргивается" : "чешется");
+            Sprintf(buf, "Ваши %s %s.",
+                    body_part_case(HAND, BP_NOM | BP_PLURAL),
+                    (amount >= 0) ? "подёргиваются" : "чешутся");
         }
         strange_feeling(otmp, buf); /* pline()+docall()+useup() */
         exercise(A_DEX, (boolean) (amount >= 0));
@@ -1034,7 +1040,7 @@ chwepon(struct obj *otmp, int amount)
      * spe dependent.  Give an obscure clue here.
      */
     if (u_wield_art(ART_MAGICBANE) && uwep->spe >= 0) {
-        Your("правая %s дёргается!", body_part(HAND));
+        Your("правая %s дёргается!", body_part_case(HAND, BP_NOM));
     }
 
     /* an elven magic clue, cookie@keebler */
@@ -1060,15 +1066,16 @@ void
 weldmsg(struct obj *obj)
 {
     long savewornmask;
-    const char *hand = body_part(HAND);
+    const char *hand = body_part_case(HAND, bimanual(obj)
+                                                   ? BP_DAT | BP_PLURAL
+                                                   : BP_DAT);
+    const char *hand_pos = bimanual(obj) ? "вашим " : "вашей ";
 
-    if (bimanual(obj))
-        hand = makeplural(hand);
     savewornmask = obj->owornmask;
     obj->owornmask = 0L; /* suppress doname()'s "(weapon in hand)";
                           * Yobjnam2() doesn't actually need this because
                           * it is based on xname() rather than doname() */
-    pline("%s приварен к вашей %s!", Yobjnam2(obj, "are"), hand);
+    pline("%s приварен к %s%s!", Yobjnam2(obj, "are"), hand_pos, hand);
     obj->owornmask = savewornmask;
 }
 

@@ -438,8 +438,7 @@ cutworm(struct monst *worm, coordxy x, coordxy y,
         place_worm_seg(worm, x, y); /* place the "head" segment back */
         if (svc.context.mon_moving) {
             if (canspotmon(worm))
-                pline("Часть хвоста %s отрублена.",
-                      s_suffix(mon_nam(worm)));
+                pline("Часть хвоста %s отрублена.", mhis(worm));
         } else
             You("отрубили часть хвоста %s.", mon_nam(worm));
         toss_wsegs(new_tail, TRUE);

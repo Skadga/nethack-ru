@@ -1109,8 +1109,8 @@ FOOD("концентрированный паёк",          20,  3, 15, 0, VEGGY, 600, HI_ORGANIC,
                                                                 CRAM_RATION),
 FOOD("паёк",         380,  5, 20, 0, VEGGY, 800, HI_ORGANIC,
                                                                 FOOD_RATION),
-FOOD("паёк К",              0,  1, 10, 0, VEGGY, 400, HI_ORGANIC, K_RATION),
-FOOD("паёк С",              0,  1, 10, 0, VEGGY, 300, HI_ORGANIC, C_RATION),
+FOOD("К паёк",              0,  1, 10, 0, VEGGY, 400, HI_ORGANIC, K_RATION),
+FOOD("С паёк",              0,  1, 10, 0, VEGGY, 300, HI_ORGANIC, C_RATION),
 /* tins have type specified by obj->spe (+1 for spinach, other implies
    flesh; negative specifies preparation method {homemade,boiled,&c})
    and by obj->corpsenm (type of monster flesh) */

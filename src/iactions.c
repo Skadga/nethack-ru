@@ -509,7 +509,7 @@ itemactions(struct obj *otmp)
                 Strcpy(buf, "Надеть это кольцо");
             else
                 Sprintf(buf, "[оба %s уже заняты]",
-                        makeplural(body_part(FINGER)));
+                        body_part_case(FINGER, BP_NOM | BP_PLURAL));
         } else if (otmp->otyp == BLINDFOLD || otmp->otyp == TOWEL
                    || otmp->otyp == LENSES) {
             if (ublindf)

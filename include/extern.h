@@ -182,7 +182,7 @@ extern boolean artifact_has_invprop(struct obj *, uchar);
 extern long arti_cost(struct obj *) NONNULLARG1;
 extern struct obj *what_gives(long *) NONNULLARG1;
 extern const char *glow_color(int);
-extern const char *glow_verb(int, boolean);
+extern const char *glow_verb(int, enum glow_verb_forms);
 extern void Sting_effects(int);
 extern int retouch_object(struct obj **, boolean) NONNULLARG1;
 extern void retouch_equipment(int);
@@ -737,7 +737,7 @@ extern const char *obj_pmname(struct obj *) NONNULLARG1;
 
 /* ### do_wear.c ### */
 
-extern const char *fingers_or_gloves(boolean);
+extern const char *fingers_or_gloves(boolean, int);
 extern void off_msg(struct obj *) NONNULLARG1;
 extern void toggle_displacement(struct obj *, long, boolean);
 extern void set_wear(struct obj *);
@@ -2520,6 +2520,8 @@ extern void uunstick(void);
 extern void skinback(boolean);
 extern const char *mbodypart(struct monst *, int) NONNULLARG1;
 extern const char *body_part(int);
+extern const char *mbodypart_case(struct monst *, int, int) NONNULLARG1;
+extern const char *body_part_case(int, int);
 extern int poly_gender(void);
 extern void ugolemeffects(int, int);
 extern boolean ugenocided(void);
@@ -2571,6 +2573,7 @@ extern int altarmask_at(coordxy, coordxy);
 extern const char *a_gname(void);
 extern const char *a_gname_at(coordxy x, coordxy y);
 extern const char *align_gname(aligntyp);
+extern const char *god_gen(const char *);
 extern const char *halu_gname(aligntyp);
 extern const char *align_gtitle(aligntyp);
 extern void altar_wrath(coordxy, coordxy);

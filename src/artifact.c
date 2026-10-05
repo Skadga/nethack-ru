@@ -44,7 +44,7 @@ staticfn int arti_invoke_cost_pw(struct obj *) NONNULLARG1;
 staticfn boolean arti_invoke_cost(struct obj *) NONNULLARG1;
 staticfn int arti_invoke(struct obj *);
 staticfn boolean Mb_hit(struct monst * magr, struct monst *mdef,
-                      struct obj *, int *, int, boolean, char *);
+                      struct obj *, int *, int, boolean, char *, char *);
 staticfn unsigned long abil_to_spfx(long *) NONNULLARG1;
 staticfn uchar abil_to_adtyp(long *) NONNULLARG1;
 staticfn int glow_strength(int);
@@ -948,13 +948,13 @@ touch_artifact(struct obj *obj, struct monst *mon)
 
         if (!yours)
             return 0;
-        You("are blasted by %s power!", s_suffix(the(xname(obj))));
+        You("%s обрушивает на вас всю свою силу!", xname(obj));
         touch_blasted = TRUE;
         dmg = d((Antimagic ? 2 : 4), (self_willed ? 10 : 4));
         /* add half (maybe quarter) of the usual silver damage bonus */
         if (objects[obj->otyp].oc_material == SILVER && Hate_silver)
             tmp = rnd(10), dmg += Maybe_Half_Phys(tmp);
-        Sprintf(buf, "touching %s", oart->name);
+        Sprintf(buf, "силы %s", oart->name);
         losehp(dmg, buf, KILLED_BY); /* magic damage, not physical */
         exercise(A_WIS, FALSE);
     }
@@ -963,9 +963,9 @@ touch_artifact(struct obj *obj, struct monst *mon)
     if (badclass && badalign && self_willed) {
         if (yours) {
             if (!carried(obj))
-                pline("%s your grasp!", Tobjnam(obj, "evade"));
+                pline("%s вырывается из вашей руки!", The(xname(obj)));
             else
-                pline("%s beyond your control!", Tobjnam(obj, "are"));
+                pline("%s выходит из-под вашего контроля!", The(xname(obj)));
         }
         return 0;
     }
@@ -1158,7 +1158,7 @@ disp_artifact_discoveries(
             continue; /* for WIN_ERR, we just count */
 
         if (i == 0)
-            putstr(tmpwin, iflags.menu_headings.attr, "Artifacts");
+            putstr(tmpwin, iflags.menu_headings.attr, "Артефакты");
         m = artidisco[i];
         otyp = artilist[m].otyp;
         algnstr = align_str(artilist[m].alignment);
@@ -1240,8 +1240,8 @@ enum mb_effect_indices {
 
 #define MB_MAX_DIEROLL 8 /* rolls above this aren't magical */
 static const char *const mb_verb[2][NUM_MB_INDICES] = {
-    { "probe", "stun", "scare", "cancel" },
-    { "prod", "amaze", "tickle", "purge" },
+    { "исследует", "оглушает", "пугает", "отменяет" },
+    { "толкает", "поражает", "щекочет", "очищает" },
 };
 
 /* called when someone is being hit by Magicbane */
@@ -1252,14 +1252,15 @@ Mb_hit(struct monst *magr, /* attacker */
        int *dmgptr,        /* extra damage target will suffer */
        int dieroll,        /* d20 that has already scored a hit */
        boolean vis,        /* whether the action can be seen */
-       char *hittee)       /* target's name: "you" or mon_nam(mdef) */
+       char *hittee,      /* target's name: "Вы" or mon_nam(mdef) */
+       char *hittee_acc)  /* same, accusative: "вас" or mon_nam(mdef) */
 {
     struct permonst *old_mdat;
     const char *verb;
     boolean youattack = (magr == &gy.youmonst),
             youdefend = (mdef == &gy.youmonst),
             resisted = FALSE, do_stun, do_confuse, result;
-    int attack_indx, fakeidx, scare_dieroll = MB_MAX_DIEROLL / 2;
+    int attack_indx, scare_dieroll = MB_MAX_DIEROLL / 2;
 
     result = FALSE; /* no message given yet */
     /* the most severe effects are less likely at higher enchantment */
@@ -1302,8 +1303,8 @@ Mb_hit(struct monst *magr, /* attacker */
     verb = mb_verb[!!Hallucination][attack_indx];
     if (youattack || youdefend || vis) {
         result = TRUE;
-        pline_The("magic-absorbing blade %s %s!",
-                  vtense((const char *) 0, verb), hittee);
+        pline_The("поглощающий магию клинок %s %s!",
+                  vtense((const char *) 0, verb), hittee_acc);
         /* assume probing has some sort of noticeable feedback
            even if it is being done by one monster to another */
         if (attack_indx == MB_INDEX_PROBE && !canspotmon(mdef))
@@ -1335,8 +1336,10 @@ Mb_hit(struct monst *magr, /* attacker */
             } else {
                 /* canceled shapeshifter/vamp may have changed forms, so
                    update its name if necessary */
-                if (mdef->data != old_mdat)
+                if (mdef->data != old_mdat) {
                     Strcpy(hittee, mon_nam(mdef));
+                    Strcpy(hittee_acc, mon_nam(mdef));
+                }
                 if (mdef->data == &mons[PM_CLAY_GOLEM])
                     mdef->mhp = 1; /* cancelled clay golems will die */
                 if (youattack && attacktype(mdef->data, AT_MAGC)) {
@@ -1357,11 +1360,11 @@ Mb_hit(struct monst *magr, /* attacker */
                 resisted = TRUE;
             } else {
                 nomul(-3);
-                gm.multi_reason = "being scared stiff";
+                gm.multi_reason = "скованный ужасом";
                 gn.nomovemsg = "";
                 if (magr && magr == u.ustuck && sticks(gy.youmonst.data)) {
                     set_ustuck((struct monst *) 0);
-                    You("release %s!", mon_nam(magr));
+                    You("отпускаете %s!", mon_nam(magr));
                 }
             }
         } else {
@@ -1380,7 +1383,7 @@ Mb_hit(struct monst *magr, /* attacker */
 
     case MB_INDEX_PROBE:
         if (youattack && (mb->spe == 0 || !rn2(3 * abs(mb->spe)))) {
-            pline_The("%s is insightful.", verb);
+            pline_The("Поглощающий магию клинок оказывается проницательным.");
             /* pre-damage status */
             probe_monster(mdef);
         }
@@ -1405,13 +1408,16 @@ Mb_hit(struct monst *magr, /* attacker */
             mdef->mconf = 1;
     }
 
-    /* now give message(s) describing side-effects; Use fakename
-       so vtense() won't be fooled by assigned name ending in 's' */
-    fakeidx = youdefend ? 1 : 0;
+    /* Russian: give message(s) describing side-effects.  The verbs are
+       already inflected, so vtense()/fakename[] aren't needed; hero and
+       monster forms differ ("сопротивляетесь" vs "сопротивляется"). */
     if (youattack || youdefend || vis) {
         (void) upstart(hittee); /* capitalize */
         if (resisted) {
-            pline("%s %s!", hittee, vtense(fakename[fakeidx], "resist"));
+            if (youdefend)
+                pline("%s сопротивляетесь!", hittee);
+            else
+                pline_mon(mdef, "%s сопротивляется!", Monnam(mdef));
             shieldeff(youdefend ? u.ux : mdef->mx,
                       youdefend ? u.uy : mdef->my);
         }
@@ -1420,13 +1426,17 @@ Mb_hit(struct monst *magr, /* attacker */
 
             buf[0] = '\0';
             if (do_stun)
-                Strcat(buf, "stunned");
+                Strcat(buf, youdefend ? "ошеломлены" : "ошеломлён");
             if (do_stun && do_confuse)
-                Strcat(buf, " and ");
+                Strcat(buf, " и ");
             if (do_confuse)
-                Strcat(buf, "confused");
-            pline("%s %s %s%c", hittee, vtense(fakename[fakeidx], "are"), buf,
-                  (do_stun && do_confuse) ? '!' : '.');
+                Strcat(buf, youdefend ? "сбиты с толку" : "сбит с толку");
+            if (youdefend)
+                pline("%s %s%c", hittee, buf,
+                      (do_stun && do_confuse) ? '!' : '.');
+            else
+                pline_mon(mdef, "%s %s%c", Monnam(mdef), buf,
+                          (do_stun && do_confuse) ? '!' : '.');
         }
     }
 
@@ -1458,10 +1468,11 @@ artifact_hit(
                   || (youattack && engulfing_u(mdef) && !Blind);
     boolean realizes_damage;
     const char *wepdesc;
-    static const char you[] = "you";
     char hittee[BUFSZ];
+    char hittee_acc[BUFSZ];
 
-    Strcpy(hittee, youdefend ? you : mon_nam(mdef));
+    Strcpy(hittee, youdefend ? "Вы" : mon_nam(mdef));
+    Strcpy(hittee_acc, youdefend ? "вас" : mon_nam(mdef));
 
     /* The following takes care of most of the damage, but not all--
      * the exception being for level draining, which is specially
@@ -1481,13 +1492,13 @@ artifact_hit(
     /* the four basic attacks: fire, cold, shock and missiles */
     if (attacks(AD_FIRE, otmp)) {
         if (realizes_damage)
-            pline_The("fiery blade %s %s%c",
+            pline_The("огненный клинок %s %s%c",
                       !gs.spec_dbon_applies
-                          ? "hits"
+                          ? "бьёт"
                           : (mdef->data == &mons[PM_WATER_ELEMENTAL])
-                                ? "vaporizes part of"
-                                : "burns",
-                      hittee, !gs.spec_dbon_applies ? '.' : '!');
+                                ? "испаряет часть"
+                                : "обжигает",
+                      hittee_acc, !gs.spec_dbon_applies ? '.' : '!');
         if (!rn2(4)) {
             int itemdmg = destroy_items(mdef, AD_FIRE, *dmgptr);
             if (!youdefend)
@@ -1500,8 +1511,8 @@ artifact_hit(
     }
     if (attacks(AD_COLD, otmp)) {
         if (realizes_damage)
-            pline_The("ice-cold blade %s %s%c",
-                      !gs.spec_dbon_applies ? "hits" : "freezes", hittee,
+            pline_The("ледяной клинок %s %s%c",
+                      !gs.spec_dbon_applies ? "бьёт" : "замораживает", hittee_acc,
                       !gs.spec_dbon_applies ? '.' : '!');
         if (!rn2(4)) {
             int itemdmg = destroy_items(mdef, AD_COLD, *dmgptr);
@@ -1512,9 +1523,9 @@ artifact_hit(
     }
     if (attacks(AD_ELEC, otmp)) {
         if (realizes_damage)
-            pline_The("massive hammer hits%s %s%c",
-                      !gs.spec_dbon_applies ? "" : "!  Lightning strikes",
-                      hittee, !gs.spec_dbon_applies ? '.' : '!');
+            pline_The("громадный молот бьёт%s %s%c",
+                      !gs.spec_dbon_applies ? "" : "!  Молния бьёт",
+                      hittee_acc, !gs.spec_dbon_applies ? '.' : '!');
         if (gs.spec_dbon_applies)
             wake_nearto(mdef->mx, mdef->my, 4 * 4);
         if (!rn2(5)) {
@@ -1526,17 +1537,17 @@ artifact_hit(
     }
     if (attacks(AD_MAGM, otmp)) {
         if (realizes_damage)
-            pline_The("imaginary widget hits%s %s%c",
+            pline_The("воображаемый противник бьёт%s %s%c",
                       !gs.spec_dbon_applies
                           ? ""
-                          : "!  A hail of magic missiles strikes",
-                      hittee, !gs.spec_dbon_applies ? '.' : '!');
+                          : "!  Град волшебных снарядов бьёт",
+                      hittee_acc, !gs.spec_dbon_applies ? '.' : '!');
         return realizes_damage;
     }
 
     if (attacks(AD_STUN, otmp) && dieroll <= MB_MAX_DIEROLL) {
         /* Magicbane's special attacks (possibly modifies hittee[]) */
-        return Mb_hit(magr, mdef, otmp, dmgptr, dieroll, vis, hittee);
+        return Mb_hit(magr, mdef, otmp, dmgptr, dieroll, vis, hittee, hittee_acc);
     }
 
     if (!gs.spec_dbon_applies) {
@@ -1549,10 +1560,10 @@ artifact_hit(
     /* reverse from AD&D. */
     if (spec_ability(otmp, SPFX_BEHEAD)) {
         if (is_art(otmp, ART_TSURUGI_OF_MURAMASA) && dieroll == 1) {
-            wepdesc = "The razor-sharp blade";
+            wepdesc = "Острый как бритва клинок";
             /* not really beheading, but so close, why add another SPFX */
             if (youattack && engulfing_u(mdef)) {
-                You("slice %s wide open!", mon_nam(mdef));
+                You("вскрываете %s насквозь!", mon_nam(mdef));
                 *dmgptr = 2 * mdef->mhp + FATAL_DAMAGE_MODIFIER;
                 return TRUE;
             }
@@ -1563,20 +1574,20 @@ artifact_hit(
 
                 if (bigmonst(mdef->data)) {
                     if (youattack)
-                        You("slice deeply into %s!", mon_nam(mdef));
+                        You("глубоко режете %s!", mon_nam(mdef));
                     else if (vis)
-                        pline("%s cuts deeply into %s!", Monnam(magr),
-                              hittee);
+                        pline("%s глубоко режет %s!", Monnam(magr),
+                              hittee_acc);
                     *dmgptr *= 2;
                     return TRUE;
                 }
                 *dmgptr = 2 * mdef->mhp + FATAL_DAMAGE_MODIFIER;
-                pline("%s cuts %s in half!", wepdesc, mon_nam(mdef));
+                pline("%s разрезает %s пополам!", wepdesc, mon_nam(mdef));
                 observe_object(otmp);
                 return TRUE;
             } else {
                 if (bigmonst(gy.youmonst.data)) {
-                    pline("%s cuts deeply into you!",
+                    pline("%s глубоко режет вас!",
                           magr ? Monnam(magr) : wepdesc);
                     *dmgptr *= 2;
                     return TRUE;
@@ -1588,14 +1599,14 @@ artifact_hit(
                  * damage does not prevent death.
                  */
                 *dmgptr = 2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER;
-                pline("%s cuts you in half!", wepdesc);
+                pline("%s разрезает вас пополам!", wepdesc);
                 observe_object(otmp);
                 return TRUE;
             }
         } else if (is_art(otmp, ART_VORPAL_BLADE)
                    && (dieroll == 1 || mdef->data == &mons[PM_JABBERWOCK])) {
-            static const char *const behead_msg[2] = { "%s beheads %s!",
-                                                       "%s decapitates %s!" };
+            static const char *const behead_msg[2] = { "%s обезглавливает %s!",
+                                                       "%s сносит %s голову!" };
 
             if (youattack && engulfing_u(mdef))
                 return FALSE;
@@ -1603,15 +1614,15 @@ artifact_hit(
             if (!youdefend) {
                 if (!has_head(mdef->data) || gn.notonhead || u.uswallow) {
                     if (youattack)
-                        pline("Somehow, you miss %s wildly.", mon_nam(mdef));
+                        pline("Каким-то образом вы дико промахиваетесь мимо %s.", mon_nam(mdef));
                     else if (vis)
-                        pline("Somehow, %s misses wildly.", mon_nam(magr));
+                        pline("Каким-то образом %s промахивается.", mon_nam(magr));
                     *dmgptr = 0;
                     return (boolean) (youattack || vis);
                 }
                 if (noncorporeal(mdef->data) || amorphous(mdef->data)) {
-                    pline("%s slices through %s %s.", wepdesc,
-                          s_suffix(mon_nam(mdef)), mbodypart(mdef, NECK));
+                    pline("%s рассекает насквозь горло %s.", wepdesc,
+                          mon_nam(mdef));
                     return TRUE;
                 }
                 *dmgptr = 2 * mdef->mhp + FATAL_DAMAGE_MODIFIER;
@@ -1623,19 +1634,18 @@ artifact_hit(
                 return TRUE;
             } else {
                 if (!has_head(gy.youmonst.data)) {
-                    pline("Somehow, %s misses you wildly.",
+                    pline("Каким-то образом %s промахивается мимо вас.",
                           magr ? mon_nam(magr) : wepdesc);
                     *dmgptr = 0;
                     return TRUE;
                 }
                 if (noncorporeal(gy.youmonst.data)
                     || amorphous(gy.youmonst.data)) {
-                    pline("%s slices through your %s.", wepdesc,
-                          body_part(NECK));
+                    pline("%s рассекает насквозь вашу шею.", wepdesc);
                     return TRUE;
                 }
                 *dmgptr = 2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER;
-                pline(ROLL_FROM(behead_msg), wepdesc, "you");
+                pline(ROLL_FROM(behead_msg), wepdesc, "вас");
                 observe_object(otmp);
                 /* Should amulets fall off? */
                 return TRUE;
@@ -1645,7 +1655,7 @@ artifact_hit(
     if (spec_ability(otmp, SPFX_DRLI)) {
         /* some non-living creatures (golems, vortices) are vulnerable to
            life drain effects so can get "<Arti> draws the <life>" feedback */
-        const char *life = nonliving(mdef->data) ? "animating force" : "life";
+        const char *life = nonliving(mdef->data) ? "анимирующую силу" : "жизнь";
 
         if (!youdefend) {
             int m_lev = (int) mdef->m_lev, /* will be 0 for 1d4 mon */
@@ -1664,10 +1674,10 @@ artifact_hit(
                 char *otmpname = distant_name(otmp, xname);
 
                 if (is_art(otmp, ART_STORMBRINGER))
-                    pline_The("%s blade draws the %s from %s!",
+                    pline_The("%s клинок вытягивает %s из %s!",
                               hcolor(NH_BLACK), life, mon_nam(mdef));
                 else
-                    pline("%s draws the %s from %s!",
+                    pline("%s вытягивает %s из %s!",
                           The(otmpname), life, mon_nam(mdef));
             }
             if (mdef->m_lev == 0) {
@@ -1694,10 +1704,10 @@ artifact_hit(
             int oldhpmax = u.uhpmax;
 
             if (Blind) {
-                You_feel("an %s drain your %s!",
+                You_feel("как %s вытягивает вашу %s!",
                          is_art(otmp, ART_STORMBRINGER)
-                            ? "unholy blade"
-                            : "object",
+                            ? "нечестивый клинок"
+                            : "предмет",
                          life);
             } else {
                 /* call distant_name() for possible side-effects even if
@@ -1705,12 +1715,12 @@ artifact_hit(
                 char *otmpname = distant_name(otmp, xname);
 
                 if (is_art(otmp, ART_STORMBRINGER))
-                    pline_The("%s blade drains your %s!",
+                    pline_The("%s клинок вытягивает вашу %s!",
                               hcolor(NH_BLACK), life);
                 else
-                    pline("%s drains your %s!", The(otmpname), life);
+                    pline("%s вытягивает вашу %s!", The(otmpname), life);
             }
-            losexp("life drainage");
+            losexp("вытягивания жизни");
             if (magr && magr->mhp < magr->mhpmax) {
                 healmon(magr, (abs(oldhpmax - u.uhpmax) + 1) / 2, 0);
             }
@@ -1750,7 +1760,7 @@ doinvoke(void)
 {
     struct obj *obj;
 
-    obj = getobj("invoke", invoke_ok, GETOBJ_PROMPT);
+    obj = getobj("применить", invoke_ok, GETOBJ_PROMPT);
     if (!obj)
         return ECMD_CANCEL;
     if (!retouch_object(&obj, FALSE))
@@ -1787,13 +1797,13 @@ invoke_healing(struct obj *obj)
     if (healamt || Sick || Slimed || Blinded > creamed)
         You_feel("себя лучше.");
     if (healamt || Sick || Slimed || BlindedTimeout > creamed)
-        You_feel("%sbetter.",
+        You_feel("%sлучше.",
                  (!healamt && !Sick && !Slimed
                   /* when healing temporary blindness (aside from
                      goop covering face), might still be blind
                      due to PermaBlind or eyeless polymorph;
                      vary the message in that situation */
-                  && (HBlinded & ~TIMEOUT) != 0L) ? "slightly " : "");
+                  && (HBlinded & ~TIMEOUT) != 0L) ? "немного " : "");
     else {
         nothing_special(obj);
         return ECMD_TIME;
@@ -1848,7 +1858,7 @@ staticfn int
 invoke_charge_obj(struct obj *obj)
 {
     const struct artifact *oart = get_artifact(obj);
-    struct obj *otmp = getobj("charge", charge_ok,
+    struct obj *otmp = getobj("зарядить", charge_ok,
                               GETOBJ_PROMPT | GETOBJ_ALLOWCNT);
     boolean b_effect;
 
@@ -1887,7 +1897,7 @@ invoke_create_portal(struct obj *obj)
         num_ok_dungeons++;
         last_ok_dungeon = i;
     }
-    end_menu(tmpwin, "Open a portal to which dungeon?");
+    end_menu(tmpwin, "Открыть портал в какое подземелье?");
     if (num_ok_dungeons > 1) {
         /* more than one entry; display menu for choices */
         menu_item *selected;
@@ -1953,8 +1963,8 @@ invoke_create_ammo(struct obj *obj)
     } else
         otmp->quan += rnd(5);
     otmp->owt = weight(otmp);
-    otmp = hold_another_object(otmp, "Suddenly %s out.",
-                               aobjnam(otmp, "fall"), (char *) 0);
+    otmp = hold_another_object(otmp, "Внезапно %s.",
+                               aobjnam(otmp, "выпадает"), (char *) 0);
     nhUse(otmp);
     return ECMD_TIME;
 }
@@ -2004,16 +2014,22 @@ invoke_banish(struct obj *obj UNUSED)
     }
 
     if (nvanished) {
-        char subject[] = "demons";
+        const char *subject, *verb;
 
-        if (nvanished == 1)
-            *(eos(subject) - 1) = '\0'; /* remove 's' */
-        pline("%s %s %s in a cloud of brimstone!",
-              nstayed ? ((nvanished > nstayed)
-                         ? "Most of the"
-                         : "Some of the")
-              : "The",
-              subject, vtense(subject, "disappear"));
+        if (nvanished == 1) {
+            subject = "Демон";
+            verb = "исчезает";
+        } else if (!nstayed) {
+            subject = "Все демоны";
+            verb = "исчезают";
+        } else if (nvanished > nstayed) {
+            subject = "Большая часть демонов";
+            verb = "исчезает";
+        } else {
+            subject = "Некоторые демоны";
+            verb = "исчезают";
+        }
+        pline("%s %s в облаке серы!", subject, verb);
     }
     return ECMD_TIME;
 }
@@ -2063,7 +2079,7 @@ invoke_blinding_ray(struct obj *obj)
             litroom(TRUE, obj);
             pline("%s", ((!Blind && levl[u.ux][u.uy].lit
                           && !levl[u.ux][u.uy].waslit)
-                         ? "It is lit here now."
+                         ? "Здесь стало светло."
                          : nothing_seems_to_happen));
         } else { /* zapyourself() */
             boolean vulnerable = (u.umonnum == PM_GREMLIN);
@@ -2110,8 +2126,8 @@ arti_invoke_cost(struct obj *obj)
 
         if (pw_cost < 0 || u.uen < pw_cost) {
             /* the artifact is tired :-) */
-            You_feel("that %s %s ignoring you.", the(xname(obj)),
-                     otense(obj, "are"));
+            You_feel(", что %s вас игнорирует.",
+                     the(xname(obj)));
             /* and just got more so; patience is essential... */
             obj->age += (long) d(3, 10);
             return FALSE;
@@ -2183,8 +2199,8 @@ arti_invoke(struct obj *obj)
         if (on && obj->age > svm.moves) {
             /* the artifact is tired :-) */
             u.uprops[oart->inv_prop].extrinsic ^= W_ARTI;
-            You_feel("that %s %s ignoring you.", the(xname(obj)),
-                     otense(obj, "are"));
+            You_feel(", что %s вас игнорирует.",
+                     the(xname(obj)));
             /* can't just keep repeatedly trying */
             obj->age += (long) d(3, 10);
             return ECMD_TIME;
@@ -2220,8 +2236,8 @@ arti_invoke(struct obj *obj)
             }
             newsym(u.ux, u.uy);
             if (on)
-                Your("body takes on a %s transparency...",
-                     Hallucination ? "normal" : "strange");
+                Your("тело приобретает %s прозрачность...",
+                     Hallucination ? "обычную" : "странную");
             else
                 Your("тело, похоже, перестаёт исчезать...");
             break;
@@ -2288,8 +2304,8 @@ arti_speak(struct obj *obj)
 
     line = getrumor(bcsign(obj), buf, TRUE);
     if (!*line)
-        line = "NetHack rumors file closed for renovation.";
-    pline("%s:", Tobjnam(obj, "whisper"));
+        line = "Файл слухов NetHack закрыт на ремонт.";
+    pline("%s:", Tobjnam(obj, "шепчет"));
     SetVoice((struct monst *) 0, 0, 80, voice_talking_artifact);
     verbalize1(line);
     return ECMD_TIME;
@@ -2432,9 +2448,13 @@ glow_color(int arti_indx)
     return hcolor(colorstr);
 }
 
-/* glow verb; [0] holds the value used when blind */
-static const char *const glow_verbs[] = {
-    "quiver", "flicker", "glimmer", "gleam"
+/* glow verb; [0] holds the value used when blind. Each row is
+   [GLOW_FINITE, GLOW_INFINITE, GLOW_ADJ] for that strength. */
+static const char *const glow_verbs[4][3] = {
+    { "дрожит",   "дрожать",   "дрожащий"   },
+    { "мерцает",  "мерцать",   "мерцающий"  },
+    { "блестит",  "блестеть",  "блестящий"  },
+    { "сияет",    "сиять",     "сияющий"    }
 };
 
 /* relative strength that Sting is glowing (0..3), to select verb */
@@ -2449,16 +2469,9 @@ glow_strength(int count)
 
 const char *
 glow_verb(int count, /* 0 means blind rather than no applicable creatures */
-          boolean ingsfx)
+          enum glow_verb_forms form)
 {
-    static char resbuf[20];
-
-    Strcpy(resbuf, glow_verbs[glow_strength(count)]);
-    /* ing_suffix() will double the last consonant for all the words
-       we're using and none of them should have that, so bypass it */
-    if (ingsfx)
-        Strcat(resbuf, "ing");
-    return resbuf;
+    return glow_verbs[glow_strength(count)][form];
 }
 
 /* use for warning "glow" for Sting, Orcrist, and Grimtooth */
@@ -2476,8 +2489,8 @@ Sting_effects(
         if (orc_count == -1 && gw.warn_obj_cnt > 0) {
             /* -1 means that blindness has just been toggled; give a
                'continue' message that eventual 'stop' message will match */
-            pline("%s is %s.", bare_artifactname(uwep),
-                  glow_verb(Blind ? 0 : gw.warn_obj_cnt, TRUE));
+            pline("%s %s.", bare_artifactname(uwep),
+                  glow_verb(Blind ? 0 : gw.warn_obj_cnt, GLOW_FINITE));
         } else if (newstr > 0 && newstr != oldstr) {
             /* goto_level() -> docrt() -> see_monsters() -> Sting_effects();
                if "you materialize on a different level" is pending, give
@@ -2487,16 +2500,16 @@ Sting_effects(
             /* 'start' message */
             if (!Blind)
                 pline("%s %s %s%c", bare_artifactname(uwep),
-                      otense(uwep, glow_verb(orc_count, FALSE)),
+                      otense(uwep, glow_verb(orc_count, GLOW_FINITE)),
                       glow_color(uwep->oartifact),
                       (newstr > oldstr) ? '!' : '.');
-            else if (oldstr == 0) /* quivers */
-                pline("%s %s slightly.", bare_artifactname(uwep),
-                      otense(uwep, glow_verb(0, FALSE)));
+            else if (oldstr == 0) /* дрожит */
+                pline("%s %s слегка.", bare_artifactname(uwep),
+                      otense(uwep, glow_verb(0, GLOW_FINITE)));
         } else if (orc_count == 0 && gw.warn_obj_cnt > 0) {
             /* 'stop' message */
-            pline("%s stops %s.", bare_artifactname(uwep),
-                  glow_verb(Blind ? 0 : gw.warn_obj_cnt, TRUE));
+            pline("%s перестаёт %s.", bare_artifactname(uwep),
+                  glow_verb(Blind ? 0 : gw.warn_obj_cnt, GLOW_INFINITE));
         }
     }
 }
@@ -2529,8 +2542,10 @@ retouch_object(
 
         /* hero can't handle this object, but didn't get touch_artifact()'s
            "<obj> evades your grasp|control" message; give an alternate one */
-        You_cant("handle %s%s!", yname(obj),
-                 obj->owornmask ? " anymore" : "");
+        if (obj->owornmask)
+            You_cant("больше обращаться с %s!", yname(obj));
+        else
+            You_cant("обращаться с %s!", yname(obj));
         /* also inflict damage unless touch_artifact() already did so */
         if (!touch_blasted) {
             const char *what = killer_xname(obj);
@@ -2541,9 +2556,9 @@ retouch_object(
                    game's silver item without stating that it is silver
                    potentially leads to confusion about cause of death */
                 if (obj->oclass == RING_CLASS)
-                    what = "a silver ring";
+                    what = "серебряным кольцом";
                 else if (obj->oclass == WAND_CLASS)
-                    what = "a silver wand";
+                    what = "серебряной палочкой";
                 /* for anything else, stick with killer_xname() */
             }
             /* damage is somewhat arbitrary; half the usual 1d20 physical
@@ -2552,7 +2567,7 @@ retouch_object(
                 tmp = rnd(10), dmg += Maybe_Half_Phys(tmp);
             if (bane)
                 dmg += rnd(10);
-            Sprintf(buf, "handling %s", what);
+            Sprintf(buf, "обращения с %s", what);
             losehp(dmg, buf, KILLED_BY);
             exercise(A_CON, FALSE);
         }
@@ -2581,7 +2596,7 @@ retouch_object(
             /* dropx gives a message if a dropped item lands on an altar;
                we provide one for other terrain */
             if (!IS_ALTAR(levl[u.ux][u.uy].typ))
-                pline("%s to the %s.", Tobjnam(obj, "fall"),
+                pline("%s на %s.", Tobjnam(obj, "падает"),
                       surface(u.ux, u.uy));
             dropx(obj);
         }
@@ -2698,7 +2713,7 @@ retouch_equipment(
     if (had_rings != (!!uleft + !!uright) && uarmg && uarmg->cursed)
         uncurse(uarmg); /* temporary? hack for ring removal plausibility */
     if (had_gloves && !uarmg)
-        selftouch("After losing your gloves, you");
+        selftouch("Потеряв перчатки, вы");
 
     if (!--nesting)
         clear_bypasses(); /* reset upon final exit */
@@ -2753,8 +2768,8 @@ void
 mkot_trap_warn(void)
 {
     static const char *const heat[7] = {
-        "cool", "slightly warm", "warm", "very warm",
-        "hot", "very hot", "like fire"
+        "прохладным", "слегка тёплым", "тёплым", "очень тёплым",
+        "горячим", "очень горячим", "как огонь"
     };
 
     if (!uarmg && u_wield_art(ART_MASTER_KEY_OF_THIEVERY)) {
@@ -2762,7 +2777,7 @@ mkot_trap_warn(void)
 
         if (ntraps != gm.mkot_trap_warn_count) {
             idx = min(ntraps, SIZE(heat) - 1);
-            pline_The("Key feels %s%c", heat[idx], (ntraps > 3) ? '!' : '.');
+            pline_The("Ключ ощущается %s%c", heat[idx], (ntraps > 3) ? '!' : '.');
         }
         gm.mkot_trap_warn_count = ntraps;
     } else

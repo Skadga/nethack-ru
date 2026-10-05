@@ -2064,12 +2064,12 @@ doseduce(struct monst *mon)
             }
             makeknown(RIN_ADORNMENT);
             if (!uright) {
-                pline("%s надевает %s на ваш правый %s.",
-                      Who, the(xname(ring)), body_part(HAND));
+                pline("%s надевает %s на вашу правую %s.",
+                      Who, the(xname(ring)), body_part_case(HAND, BP_ACC));
                 setworn(ring, RIGHT_RING);
             } else if (!uleft) {
-                pline("%s надевает %s на ваш левый %s.",
-                      Who, the(xname(ring)), body_part(HAND));
+                pline("%s надевает %s на вашу левую %s.",
+                      Who, the(xname(ring)), body_part_case(HAND, BP_ACC));
                 setworn(ring, LEFT_RING);
             } else if (uright && uright->otyp != RIN_ADORNMENT) {
                 /* note: the "replaces" message might be inaccurate if
@@ -2321,7 +2321,7 @@ mayberem(struct monst *mon,
         char hairbuf[BUFSZ];
 
         Sprintf(hairbuf, "дать мне провести пальцами по вашим %s",
-                body_part(HAIR));
+                body_part_case(HAIR, BP_PREP));
         SetVoice(mon, 0, 80, 0);
         verbalize("Снимите с себя %s; %s.", str,
                   (obj == uarm)

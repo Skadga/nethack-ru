@@ -3310,7 +3310,7 @@ zap_updown(struct obj *obj) /* wand or spell, nonnull */
             int dmg;
             /* similar to zap_dig() */
             pline("Камень выпадает из %s и падает на вашу %s.",
-                  ceiling(x, y), body_part(HEAD));
+                  ceiling(x, y), body_part_case(HEAD, BP_ACC));
             dmg = rnd(hard_helmet(uarmh) ? 2 : 6);
             losehp(Maybe_Half_Phys(dmg), "падающей глыбы", KILLED_BY_AN);
             if ((otmp = mksobj_at(ROCK, x, y, FALSE, FALSE)) != 0) {
@@ -3357,7 +3357,7 @@ zap_updown(struct obj *obj) /* wand or spell, nonnull */
             || (Is_qstart(&u.uz) && u.dz < 0)) {
             pline1(nothing_happens);
         } else if (u.dz < 0) { /* we should do more... */
-            pline("Кровь капает на ваше %s.", body_part(FACE));
+            pline("Кровь капает на ваше %s.", body_part_case(FACE, BP_ACC));
         } else if (u.dz > 0 && !OBJ_AT(u.ux, u.uy)) {
             /*
             Print this message only if there wasn't an engraving
@@ -3368,10 +3368,11 @@ zap_updown(struct obj *obj) /* wand or spell, nonnull */
                 if (is_pool(u.ux, u.uy) || is_ice(u.ux, u.uy))
                     pline1(nothing_happens);
                 else
-                    pline("Кровь %s %s вашей %s.",
+                    pline("Кровь %s %s %s.",
                           is_lava(u.ux, u.uy) ? "кипит" : "скапливается",
-                          Levitation ? "под" : "у",
-                          makeplural(body_part(FOOT)));
+                          Levitation ? "под вашими" : "у ваших",
+                          body_part_case(FOOT, Levitation ? BP_INS | BP_PLURAL
+                                                         : BP_GEN | BP_PLURAL));
             }
         }
         break;
@@ -4889,11 +4890,14 @@ dobuzz(
                         if (canseemon(mon)) {
                             hit(flash_str(fltyp, FALSE), mon, ".");
                             pline("%s дезинтегрируется.", Monnam(mon));
-                            pline("%s тело снова становится целым у ваших %s!",
+                            pline("%s тело снова становится целым у %s %s!",
                                   s_suffix(Monnam(mon)),
-                                  (eyecount(gy.youmonst.data) == 1)
-                                      ? body_part(EYE)
-                                      : makeplural(body_part(EYE)));
+                                  eyecount(gy.youmonst.data) == 1 ? "вашего"
+                                                                  : "ваших",
+                                  body_part_case(EYE,
+                                                 eyecount(gy.youmonst.data) == 1
+                                                 ? BP_GEN
+                                                 : BP_GEN | BP_PLURAL));
                             pline("%s воскресает!", Monnam(mon));
                         }
                         mon->mhp = mon->mhpmax;
@@ -4983,7 +4987,7 @@ dobuzz(
             } else if (!Blind) {
                 pline("%s с шумом пролетает мимо вас!", The(flash_str(fltyp, FALSE)));
             } else if (damgtype == ZT_LIGHTNING) {
-                Your("%s покалывает.", body_part(ARM));
+                Your("%s покалывает.", body_part_case(ARM, BP_NOM));
             }
             if (damgtype == ZT_LIGHTNING)
                 (void) flashburn((long) d(nd, 50), TRUE);

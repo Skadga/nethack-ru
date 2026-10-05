@@ -184,13 +184,12 @@ watchman_warn_fountain(struct monst *mtmp)
             pline("%s кричит:", Amonnam(mtmp));
             verbalize("Эй, прекрати пользоваться этим фонтаном!");
         } else {
-            pline("%s серьёзно %s %s %s!",
+            pline("%s серьёзно %s %s!",
                   Amonnam(mtmp),
                   nolimbs(mtmp->data) ? "трясёт" : "машет",
-                  mhis(mtmp),
                   nolimbs(mtmp->data)
-                  ? mbodypart(mtmp, HEAD)
-                  : makeplural(mbodypart(mtmp, ARM)));
+                  ? mbodypart_case(mtmp, HEAD, BP_INS)
+                  : mbodypart_case(mtmp, ARM, BP_INS | BP_PLURAL));
         }
         return TRUE;
     }
@@ -493,7 +492,8 @@ dipfountain(struct obj *obj)
         dogushforth(FALSE);
         break;
     case 26: /* Strange feeling */
-        pline("Странное покалывание пробегает по вашей %s.", body_part(ARM));
+        pline("Странное покалывание пробегает по вашей %s.",
+              body_part_case(ARM, BP_DAT));
         break;
     case 27: /* Strange feeling */
         You_feel("внезапный холод.");
@@ -557,15 +557,15 @@ dipfountain(struct obj *obj)
 int
 wash_hands(void)
 {
-    const char *hands = makeplural(body_part(HAND));
+    const char *hands = body_part_case(HAND, BP_NOM | BP_PLURAL);
     int res = ER_NOTHING;
     boolean was_glib = !!Glib;
 
-    You("моете свои %s%s в %s.", uarmg ? "в перчатках " : "", hands,
-        hliquid("вода"));
+    You("моете свои %s%s в %s.", hands,
+        uarmg ? " в перчатках" : "", hliquid("вода"));
     if (Glib) {
         make_glib(0);
-        Your("%s больше не скользкие.", fingers_or_gloves(TRUE));
+        Your("%s больше не скользкие.", fingers_or_gloves(TRUE, BP_INS));
     }
     if (uarmg)
         res = water_damage(uarmg, (const char *) 0, TRUE);
@@ -724,7 +724,7 @@ dipsink(struct obj *obj)
            since sink will be converted into a fountain, hero can dip again */
         breaksink(u.ux, u.uy); /* "The pipes break!  Water spurts out!" */
         if (Glib && is_hands)
-            Your("%s всё ещё скользкие.", fingers_or_gloves(TRUE));
+            Your("%s всё ещё скользкие.", fingers_or_gloves(TRUE, BP_INS));
         return;
     } else if (is_hands) {
         (void) wash_hands();
@@ -811,7 +811,8 @@ sink_backs_up(coordxy x, coordxy y)
     else if (!Deaf)
         Strcpy(buf, "Вы слышите плещущий звук"); /* Deaf-aware */
     else
-        Sprintf(buf, "Что-то брызгает вам в %s", body_part(FACE));
+        Sprintf(buf, "Что-то брызгает вам в %s",
+                body_part_case(FACE, BP_ACC));
     pline("%s%s.", !Deaf ? "Бульк!  " : "", buf);
 
     if (!(levl[x][y].looted & S_LRING)) { /* once per sink */

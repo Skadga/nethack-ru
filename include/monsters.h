@@ -322,7 +322,7 @@
     /*
      * eyes
      */
-    MON(NAM("газовая пора"), S_EYE,
+    MON(NAM("газовая спора"), S_EYE,
         LVL(1, 3, 10, 0, 0), (G_NOCORPSE | G_GENO | 1),
         A(ATTK(AT_BOOM, AD_PHYS, 4, 6),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),

@@ -1401,7 +1401,8 @@ seffect_confuse_monster(struct obj **sobjp)
             scursed = sobj->cursed,
             confused = (Confusion != 0),
             altfeedback = (Blind || Invisible);
-    const char *const hands = makeplural(body_part(HAND));
+    const char *const hands = body_part_case(HAND, BP_NOM | BP_PLURAL);
+    const char *const hands_gen = body_part_case(HAND, BP_GEN | BP_PLURAL);
 
     if (gy.youmonst.data->mlet != S_HUMAN || scursed) {
         if (!HConfusion)
@@ -1415,9 +1416,11 @@ seffect_confuse_monster(struct obj **sobjp)
             make_confused(HConfusion + rnd(100), FALSE);
         } else {
             if (altfeedback)
-                pline("Вашу %s окружает слабый гул.", body_part(HEAD));
+                pline("Вашу %s окружает слабый гул.",
+                      body_part_case(HEAD, BP_ACC));
             else
-                pline("Вашу %s окружает красное свечение.", body_part(HEAD));
+                pline("Вашу %s окружает красное свечение.",
+                      body_part_case(HEAD, BP_ACC));
             make_confused(0L, TRUE);
         }
     } else {
@@ -1431,7 +1434,7 @@ seffect_confuse_monster(struct obj **sobjp)
                 Your("%s начинают светиться %s.", hands, hcolor(NH_RED));
             else
                 pline_The("%s сияние ваших %s усиливается.", hcolor(NH_RED),
-                          hands);
+                          hands_gen);
             incr += rnd(2);
         } else {
             if (altfeedback)
@@ -1598,7 +1601,8 @@ seffect_remove_curse(struct obj **sobjp)
         unpunish();
     if (u.utrap && u.utraptype == TT_BURIEDBALL) {
         buried_ball_to_freedom();
-        pline("Застёжка на вашей %s исчезает.", body_part(LEG));
+        pline("Застёжка на вашей %s исчезает.",
+              body_part_case(LEG, BP_PREP));
     }
     update_inventory();
 }
@@ -1873,14 +1877,14 @@ seffect_fire(struct obj **sobjp)
             monstseesu(M_SEEN_FIRE);
             if (!Blind)
                 pline("О, смотрите, какой красивый огонь в ваших %s.",
-                      makeplural(body_part(HAND)));
+                      body_part_case(HAND, BP_PREP | BP_PLURAL));
             else
                 You_feel("приятное тепло в ваших %s.",
-                         makeplural(body_part(HAND)));
+                         body_part_case(HAND, BP_PREP | BP_PLURAL));
         } else {
             monstunseesu(M_SEEN_FIRE);
             pline("Свиток вспыхивает, и вы обжигаете ваши %s.",
-                      makeplural(body_part(HAND)));
+                      body_part_case(HAND, BP_ACC | BP_PLURAL));
             losehp(1, "свитка огня", KILLED_BY_AN);
         }
         return;
@@ -2112,7 +2116,8 @@ seffect_magic_mapping(struct obj **sobjp)
             if (Hallucination)
                 pline("Вау!  Современное искусство.");
             else
-                Your("%s кружится в замешательстве.", body_part(HEAD));
+                Your("%s кружится в замешательстве.",
+                     body_part_case(HEAD, BP_NOM));
             make_confused(HConfusion + rnd(30), FALSE);
             return;
         }
@@ -2132,8 +2137,8 @@ seffect_magic_mapping(struct obj **sobjp)
     }
 
     if (svl.level.flags.nommap) {
-        Your("%s кружится, пока %s блокирует заклинание!", body_part(HEAD),
-             something);
+        Your("%s кружится, пока %s блокирует заклинание!",
+             body_part_case(HEAD, BP_NOM), something);
         make_confused(HConfusion + rnd(30), FALSE);
         return;
     }
@@ -2361,8 +2366,9 @@ drop_boulder_on_monster(coordxy x, coordxy y, boolean confused, boolean byu)
                 map_invisible(mtmp->mx, mtmp->my);
         } else if (engulfing_u(mtmp))
             You_hear("что-то ударило %s %s над твоим %s!",
-                     s_suffix(mon_nam(mtmp)), mbodypart(mtmp, STOMACH),
-                     body_part(HEAD));
+                     s_suffix(mon_nam(mtmp)),
+                     mbodypart_case(mtmp, STOMACH, BP_ACC),
+                     body_part_case(HEAD, BP_INS));
 
         mdmg = dmgval(otmp2, mtmp) * otmp2->quan;
         if (helmet) {
@@ -2553,7 +2559,7 @@ litroom(
                 ; /* no feedback */
             else if (digests(u.ustuck->data))
                 pline("%s %s освещён.", s_suffix(Monnam(u.ustuck)),
-                      mbodypart(u.ustuck, STOMACH));
+                      mbodypart_case(u.ustuck, STOMACH, BP_NOM));
             else if (is_whirly(u.ustuck->data))
                 pline("%s недолго сияет.", Monnam(u.ustuck));
             else

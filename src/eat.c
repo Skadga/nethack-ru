@@ -619,15 +619,15 @@ eat_brains(
     if (noncorporeal(pd)) {
         if (visflag)
             pline("Мозг %s не повреждён.",
-                  (mdef == &gy.youmonst) ? "Ваш" : s_suffix(Monnam(mdef)));
+                  (mdef == &gy.youmonst) ? "Ваш" : mhis(mdef));
         return M_ATTK_MISS; /* side-effects can't occur */
     } else if (magr == &gy.youmonst) {
-        You("съесть мозг %s!", s_suffix(mon_nam(mdef)));
+        You("съесть мозг %s!", mhis(mdef));
     } else if (mdef == &gy.youmonst) {
         Your("мозг съеден!");
     } else { /* monster against monster */
         if (visflag && canspotmon(mdef))
-            pline("Мозг %s съеден!", s_suffix(Monnam(mdef)));
+            pline("Мозг %s съеден!", mhis(mdef));
     }
 
     if (flesh_petrifies(pd)) {
@@ -740,8 +740,7 @@ eat_brains(
             *dmg_p += xtra_dmg;
             give_nutrit = TRUE;
             if (*dmg_p >= mdef->mhp && visflag && canspotmon(mdef))
-                pline("Последняя мысль %s угасает...",
-                      s_suffix(Monnam(mdef)));
+                pline("Последняя мысль %s угасает...", mhis(mdef));
         }
     }
 
@@ -1640,7 +1639,7 @@ consume_tin(const char *mesg)
 
             make_glib(alreadyglib + rn1(11, 5)); /* 5..15 */
             pline("Еда «%s» сделала твои %s %s скользкими.",
-                  tintxts[r].txt, fingers_or_gloves(TRUE),
+                  tintxts[r].txt, fingers_or_gloves(TRUE, BP_ACC),
                   alreadyglib ? "ещё более" : "очень");
         }
 
@@ -1771,7 +1770,8 @@ start_tin(struct obj *otmp)
  no_opener:
         pline("Эту банку открыть не так просто.");
         if (Glib) {
-            pline_The("банка выскальзывает из твоих %s.", fingers_or_gloves(FALSE));
+            pline_The("банка выскальзывает из твоих %s.",
+                      fingers_or_gloves(FALSE, BP_GEN));
             if (otmp->quan > 1L) {
                 otmp = splitobj(otmp, 1L);
             }
@@ -1818,7 +1818,9 @@ rottenfood(struct obj *obj)
         if (Hallucination)
             You_feel("довольно странно.");
         else
-            You_feel("довольно %s.", body_part(LIGHT_HEADED));
+            /* Russian needs an instrumental; body_part() yields the
+               unmodified adjective, so the case can't come from there */
+            You_feel("довольно легкоголовым.");
         make_confused(HConfusion + d(2, 4), FALSE);
     } else if (!rn2(4) && !Blind) {
         pline("Внезапно всё темнеет.");
@@ -2125,7 +2127,8 @@ fprefx(struct obj *otmp)
         /* 700-1+800 remains below 1500, the choking threshold which
            triggers "тебе трудно это проглотить" feedback */
         else if (u.uhunger < 700)
-            pline("Это насыщает твой %s!", body_part(STOMACH));
+            pline("Это насыщает твой %s!",
+                 body_part_case(STOMACH, BP_ACC));
         /* [satiation message may be inaccurate if eating gets interrupted] */
         break;
     case TRIPE_RATION:
@@ -2837,7 +2840,7 @@ doeat(void)
         if (res) {
             Your(
                "%s перестаёт покалывать, и обоняние возвращается к норме.",
-                 body_part(NOSE));
+                 body_part_case(NOSE, BP_NOM));
             u.uedibility = 0;
             if (res == 1)
                 return ECMD_OK;
@@ -3748,7 +3751,8 @@ vomit(void) /* A good idea from David Neves */
            vomiting_dialog() gives a vomit message when its countdown
            reaches 0, but only if u.uhs < FAINTING (and !cantvomit()) */
         if (u.uhs >= FAINTING)
-            Your("%s судорожно рыгает!", body_part(STOMACH));
+            Your("%s судорожно рыгает!",
+                 body_part_case(STOMACH, BP_NOM));
         else
             spewed = TRUE;
     }

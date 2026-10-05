@@ -99,11 +99,13 @@ morgue_mon_sound(struct monst *mtmp)
             break;
         case 1:
             pline_The("%s on the back of your %s %s up.", hair,
-                      body_part(NECK), vtense(hair, "stand"));
+                      body_part_case(NECK, BP_GEN),
+                      vtense(hair, "stand"));
             break;
         case 2:
             pline_The("%s on your %s %s to stand up.", hair,
-                      body_part(HEAD), vtense(hair, "seem"));
+                      body_part_case(HEAD, BP_GEN),
+                      vtense(hair, "seem"));
             break;
         }
         return TRUE;
@@ -806,7 +808,8 @@ domonnoise(struct monst *mtmp)
             } else {
                 vampindex = rn2(SIZE(vampmsg));
                 if (vampindex == 0) {
-                    Sprintf(verbuf, vampmsg[vampindex], body_part(BLOOD));
+                    Sprintf(verbuf, vampmsg[vampindex],
+                            body_part_case(BLOOD, BP_ACC));
                     verbl_msg = verbuf;
                 } else if (vampindex == 1) {
                     Sprintf(verbuf, vampmsg[vampindex],

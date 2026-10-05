@@ -89,7 +89,7 @@ dowrite(struct obj *pen)
         return ECMD_OK;
     } else if (Glib) {
         pline("%s из вашей %s.", Tobjnam(pen, "slip"),
-              fingers_or_gloves(FALSE));
+              fingers_or_gloves(FALSE, BP_GEN));
         dropx(pen);
         return ECMD_TIME;
     }

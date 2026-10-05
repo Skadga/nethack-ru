@@ -4161,7 +4161,7 @@ look_here(
          *  so is unreachable from in here...").
          */
         You("пытаетесь рассмотреть, что лежит у %s (%s).", mon_nam(mtmp),
-            mbodypart(mtmp, STOMACH));
+            mbodypart_case(mtmp, STOMACH, BP_GEN));
         otmp = mtmp->minvent;
         if (otmp) {
             for (; otmp; otmp = otmp->nobj) {
@@ -4372,8 +4372,8 @@ feel_cockatrice(struct obj *otmp, boolean force_touch)
         Strcpy(kbuf, corpse_xname(otmp, (const char *) 0, CXN_PFX_THE));
 
         if (poly_when_stoned(gy.youmonst.data))
-            You("коснулись %s голой %s.", kbuf,
-                makeplural(body_part(HAND)));
+            You("коснулись %s голыми %s.", kbuf,
+                body_part_case(HAND, BP_INS | BP_PLURAL));
         else
             pline("Прикосновение к %s — фатальная ошибка...", kbuf);
         /* normalize body shape here; hand, not body_part(HAND) */

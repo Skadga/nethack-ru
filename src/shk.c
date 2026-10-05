@@ -824,7 +824,8 @@ u_entered_shop(char *enterstring)
         if (!Deaf && !muteshk(shkp)) {
             SetVoice(shkp, 0, 80, 0);
             verbalize("ќп€ть вы, %s?  я не спускаю с вас %s.",
-                      svp.plname, mbodypart(shkp, EYE));
+                      svp.plname,
+                      mbodypart_case(shkp, EYE, BP_GEN | BP_PLURAL));
         } else {
             pline("јтмосфера в %s %s недружелюбна€.",
                       s_suffix(shkname(shkp)), shtypes[rt - SHOPBASE].name);
@@ -2598,8 +2599,8 @@ inherits(
         if (cansee(shkp->mx, shkp->my) && croaked && !silently) {
             takes[0] = '\0';
             if (has_head(shkp->data) && !rn2(2))
-                Sprintf(takes, ", качает %s %s,", noit_mhis(shkp),
-                        mbodypart(shkp, HEAD));
+                Sprintf(takes, ", качает %s,",
+                        mbodypart_case(shkp, HEAD, BP_INS));
             pline("%s %sсмотрит на ваш труп%s и %s.", Shknam(shkp),
                   helpless(shkp) ? "просыпаетс€, " : "",
                   takes, !inhishop(shkp) ? "исчезает" : "вздыхает");
@@ -3132,9 +3133,8 @@ special_stock(
                     SetVoice(shkp, 0, 80, 0);
                     verbalize("Ёто € не приму.  ”бирайте это отсюда!");
                 } else {
-                    pline("%s в знак отказа качает %s %s.",
-                          Shknam(shkp), noit_mhis(shkp),
-                          mbodypart(shkp, HEAD));
+                    pline("%s в знак отказа качает %s.",
+                          Shknam(shkp), mbodypart_case(shkp, HEAD, BP_INS));
                 }
             }
         }
@@ -4918,7 +4918,7 @@ shk_move(struct monst *shkp)
                 } else {
                     pline("%s прот€гивает %s перевЄрнутую %s.",
                           Shknam(shkp), noit_mhis(shkp),
-                          mbodypart(shkp, HAND));
+                          mbodypart_case(shkp, HAND, BP_ACC));
                 }
                 gf.followmsg = svm.moves;
                 if (!rn2(9)) {
@@ -5336,7 +5336,8 @@ pay_for_damage(const char *dmgstr, boolean cant_mollify)
             } else {
                 pline("%s выт€гивает %s %s к вашему %s!",
                       Shknam(shkp), noit_mhis(shkp),
-                      mbodypart(shkp, HAND), body_part(NECK));
+                      mbodypart_case(shkp, HAND, BP_ACC),
+                      body_part_case(NECK, BP_DAT));
             }
         } else
             growl(shkp);
@@ -5557,7 +5558,7 @@ shk_chat(struct monst *shkp)
                           Hello(shkp), svp.plname);
             } else {
                 pline("%s трогает вас за %s.",
-                      Shknam(shkp), body_part(ARM));
+                      Shknam(shkp), body_part_case(ARM, BP_ACC));
             }
         }
     } else if (eshk->billct) {
@@ -5868,8 +5869,11 @@ shk_your(char *buf, struct obj *obj)
         return buf; /* skip ownership prefix and space: "Medusa's corpse" */
     else if (chk_pm && the_unique_pm(&mons[obj->corpsenm]))
         Strcpy(buf, "этот"); /* override ownership: "the Oracle's corpse" */
-    else if (!shk_owns(buf, obj) && !mon_owns(buf, obj))
-        Strcpy(buf, the_your[carried(obj) ? 1 : 0]);
+    else if (!shk_owns(buf, obj) && !mon_owns(buf, obj)) {
+        if (!carried(obj))
+            return buf; /* no owner and not carried: no prefix at all */
+        Strcpy(buf, "ваш");
+    }
     return strcat(buf, " ");
 }
 
@@ -5891,7 +5895,9 @@ shk_owns(char *buf, struct obj *obj)
         && (obj->unpaid || (obj->where == OBJ_FLOOR && !obj->no_charge
                             && costly_spot(x, y)))) {
         shkp = shop_keeper(inside_shop(x, y));
-        return strcpy(buf, shkp ? s_suffix(shkname(shkp)) : the_your[0]);
+        if (!shkp)
+            return (char *) 0;
+        return strcpy(buf, s_suffix(shkname(shkp)));
     }
     return (char *) 0;
 }

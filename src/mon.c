@@ -3210,8 +3210,9 @@ corpse_chance(
                 /* mdef is a gas spore (AT_BOOM) that is exploding inside an
                    engulfer; suppress usual explosion since it's contained */
                 if (magr == &gy.youmonst) {
-                    There("взрыв в вашем %s!", body_part(STOMACH));
-                    Strcpy(svk.killer.name, "взрыва газовой поры");
+                    There("взрыв в вашем %s!",
+                          body_part_case(STOMACH, BP_PREP));
+                    Strcpy(svk.killer.name, "взрыва газовой споры");
                     losehp(Maybe_Half_Phys(tmp), svk.killer.name,
                            KILLED_BY_AN);
                 } else {

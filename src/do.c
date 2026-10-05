@@ -292,8 +292,8 @@ flooreffects(
                 Soundeffect(se_item_tumble_downwards, 50);
                 You_hear("%s катится вниз.", the(xname(obj)));
             } else {
-                pline("%s в %s яму.", Tobjnam(obj, "tumble"),
-                      the_your[t->madeby_u]);
+                pline("%s в %sяму.", Tobjnam(obj, "tumble"),
+                      t->madeby_u ? "вашу " : "");
             }
         } else if (ship_object(obj, x, y, FALSE)) {
             /* ship_object will print an appropriate "the item falls
@@ -673,10 +673,9 @@ canletgo(struct obj *obj, const char *word)
         /* no weldmsg(), so uwep->bknown might become set silently
            if word is "" */
         if (*word) {
-            const char *hand = body_part(HAND);
-
-            if (bimanual(uwep))
-                hand = makeplural(hand);
+            const char *hand =
+                body_part_case(HAND, bimanual(uwep) ? BP_DAT | BP_PLURAL
+                                                    : BP_DAT);
             Norep("Вы не можете %s %s, намертво приваренный к вашей %s.", word, something,
                   hand);
         }
@@ -699,7 +698,8 @@ canletgo(struct obj *obj, const char *word)
     }
     if (obj->otyp == LEASH && obj->leashmon != 0) {
         if (*word)
-            pline("Поводок обмотан вокруг вашего %s.", body_part(HAND));
+            pline("Поводок обмотан вокруг вашего %s.",
+                  body_part_case(HAND, BP_GEN));
         return FALSE;
     }
     if (obj->owornmask & W_SADDLE) {
@@ -742,7 +742,7 @@ drop(struct obj *obj)
             /* doname can call s_suffix, reusing its buffer */
             if (digests(u.ustuck->data)) {
                 Sprintf(monbuf, "%s %s", s_suffix(mnam_p),
-                        mbodypart(u.ustuck, STOMACH));
+                        mbodypart_case(u.ustuck, STOMACH, BP_NOM));
                 mnam_p = monbuf;
             }
             onam_p = is_unpaid(obj) ? yobjnam(obj, (char *) 0) : doname(obj);
@@ -954,8 +954,8 @@ better_not_try_to_drop_that(struct obj *otmp)
     if (otmp->otyp == CORPSE && !u_safe_from_fatal_corpse(otmp, st_all)) {
         Snprintf(
             buf, sizeof buf,
-            "Бросить труп %s без %s защиты?",
-            obj_pmname(otmp), body_part(HAND));
+            "Бросить труп %s без %s защиты?", obj_pmname(otmp),
+            body_part_case(HAND, BP_GEN));
         return (paranoid_ynq(TRUE, buf, FALSE) != 'y');
     }
     return FALSE;
@@ -2379,7 +2379,7 @@ wipeoff(void)
         }
         return 0;
     } else if (!u.ucreamed) {
-        Your("%s теперь чистое.", body_part(FACE));
+        Your("%s теперь чистое.", body_part_case(FACE, BP_NOM));
         return 0;
     }
     return 1; /* still busy */
@@ -2392,14 +2392,14 @@ dowipe(void)
     if (u.ucreamed) {
         static NEARDATA char buf[39];
 
-        Sprintf(buf, "вытираете ваше %s", body_part(FACE));
+        Sprintf(buf, "вытираете ваше %s", body_part_case(FACE, BP_ACC));
         set_occupation(wipeoff, buf, 0);
         /* Not totally correct; what if they change back after now
          * but before they're finished wiping?
          */
         return ECMD_TIME;
     }
-    Your("%s уже чистое.", body_part(FACE));
+    Your("%s уже чистое.", body_part_case(FACE, BP_NOM));
     return ECMD_TIME;
 }
 
@@ -2412,10 +2412,9 @@ legs_in_no_shape(const char *for_what, /* jumping, kicking, riding */
         pline("%s не в состоянии для %s.", Monnam(u.usteed), for_what);
     } else {
         long wl = (EWounded_legs & BOTH_SIDES);
-        const char *bp = body_part(LEG);
-
-        if (wl == BOTH_SIDES)
-            bp = makeplural(bp);
+        const char *bp = body_part_case(LEG, wl == BOTH_SIDES
+                                                  ? BP_NOM | BP_PLURAL
+                                                  : BP_NOM);
         Your("%s%s %s не в форме для %s.",
              (wl == LEFT_SIDE) ? "левая " : (wl == RIGHT_SIDE) ? "правая " : "",
              bp, (wl == BOTH_SIDES) ? "are" : "", for_what);
@@ -2459,10 +2458,10 @@ heal_legs(
            before the final stages and that calls us (how==2) to cure
            wounded legs, but we want to suppress the feel better message */
         if (!u.usteed && how != 2) {
-            const char *legs = body_part(LEG);
-
-            if ((EWounded_legs & BOTH_SIDES) == BOTH_SIDES)
-                legs = makeplural(legs);
+            const char *legs =
+                body_part_case(LEG, (EWounded_legs & BOTH_SIDES) == BOTH_SIDES
+                                       ? BP_NOM | BP_PLURAL
+                                       : BP_NOM);
             /* this used to say "somewhat better" but that was
                misleading since legs are being fully healed */
             Your("%s %s лучше.", legs, vtense(legs, "feel"));

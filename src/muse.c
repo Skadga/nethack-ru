@@ -2554,8 +2554,7 @@ use_misc(struct monst *mtmp)
             const char *The_whip = vismon ? "Бычий кнут" : "Кнут";
             int where_to = rn2(4);
             struct obj *obj = uwep;
-            const char *hand;
-            char the_weapon[BUFSZ], hand_buf[BUFSZ];
+            char the_weapon[BUFSZ];
 
             if (!obj || !canletgo(obj, "")
                 || (u.twoweap && canletgo(uswapwep, "") && rn2(2)))
@@ -2564,15 +2563,13 @@ use_misc(struct monst *mtmp)
                 break; /* shouldn't happen after find_misc() */
 
             Strcpy(the_weapon, the(xname(obj)));
-            hand = body_part(HAND);
-            if (bimanual(obj))
-                hand = makeplural(hand);
-            (void) strncpy(hand_buf, hand, sizeof hand_buf - 1);
-            hand_buf[sizeof hand_buf - 1] = '\0';
 
             if (vismon)
                 pline_mon(mtmp, "%s щёлкает плетью в сторону вашего %s!",
-                          Monnam(mtmp), hand_buf);
+                          Monnam(mtmp),
+                          body_part_case(HAND, bimanual(obj)
+                                             ? BP_GEN | BP_PLURAL
+                                             : BP_GEN));
             if (obj->otyp == HEAVY_IRON_BALL) {
                 pline("%s не удаётся обвиться вокруг %s.", The_whip, the_weapon);
                 return 1;
@@ -2581,7 +2578,10 @@ use_misc(struct monst *mtmp)
                          the_weapon);
             if (welded(obj)) {
                 pline("%s приварен к вашему %s%c",
-                      !is_plural(obj) ? "Он" : "Они", hand_buf,
+                      !is_plural(obj) ? "Он" : "Они",
+                      body_part_case(HAND, bimanual(obj)
+                                             ? BP_DAT | BP_PLURAL
+                                             : BP_DAT),
                       !obj->bknown ? '!' : '.');
                 /* obj->bknown = 1; */ /* welded() takes care of this */
                 where_to = 0;
@@ -2600,7 +2600,10 @@ use_misc(struct monst *mtmp)
             switch (where_to) {
             case 1: /* onto floor beneath mon */
                 pline_mon(mtmp, "%s вырывает %s из вашего %s!", Monnam(mtmp),
-                          the_weapon, hand_buf);
+                          the_weapon,
+                          body_part_case(HAND, bimanual(obj)
+                                             ? BP_GEN | BP_PLURAL
+                                             : BP_GEN));
                 place_object(obj, mtmp->mx, mtmp->my);
                 break;
             case 2: /* onto floor beneath you */

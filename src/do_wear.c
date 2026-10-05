@@ -55,13 +55,13 @@ staticfn struct obj *maybe_destroy_armor(struct obj *, struct obj *,
 staticfn int obj_erode_type(struct obj *) NONNULLARG1;
 staticfn boolean better_not_take_that_off(struct obj *) NONNULLARG1;
 
-/* plural "пальцы" or optionally "перчатки" */
+/* plural "пальцы" or optionally "перчатки", in the requested Russian case */
 const char *
-fingers_or_gloves(boolean check_gloves)
+fingers_or_gloves(boolean check_gloves, int cse)
 {
     return ((check_gloves && uarmg)
             ? gloves_simple_name(uarmg) /* "перчатки" or "рукавицы" */
-            : makeplural(body_part(FINGER))); /* "пальцы" */
+            : body_part_case(FINGER, cse | BP_PLURAL));
 }
 
 void
@@ -92,7 +92,7 @@ on_msg(struct obj *otmp)
 
         how[0] = '\0';
         if (otmp->otyp == TOWEL)
-            Sprintf(how, " вокруг вашей %s", body_part(HEAD));
+            Sprintf(how, " вокруг вашей %s", body_part_case(HEAD, BP_GEN));
         You("теперь носите %s%s.",
             obj_is_pname(otmp) ? the(otmp_name) : an(otmp_name), how);
     }
@@ -623,7 +623,7 @@ wielding_corpse(
         You("%s %s голым %s.",
             (how && is_gloves(how)) ? "теперь держите" : "держите",
             corpse_xname(obj, (const char *) 0, CXN_ARTICLE),
-            makeplural(body_part(HAND)));
+            body_part_case(HAND, BP_INS | BP_PLURAL));
         /* "снимая" ought to be "снимая" but that makes the
            tombstone text more likely to be truncated */
         if (how)
@@ -1140,7 +1140,7 @@ Amulet_off(void)
             Strangled = 0L;
             disp.botl = TRUE;
             if (Breathless)
-                Your("%s больше не сжат!", body_part(NECK));
+                Your("%s больше не сжата!", body_part_case(NECK, BP_NOM));
             else
                 You("можете дышать легче!");
             mkn = TRUE;
@@ -1907,7 +1907,7 @@ cursed(struct obj *otmp)
             && (uarmg ? (otmp == uwep)
                       : ((otmp->owornmask & (W_WEP | W_RING)) != 0)))
             pline("Несмотря на ваши скользкие %s, вы не можете.",
-                  fingers_or_gloves(TRUE));
+                  fingers_or_gloves(TRUE, BP_NOM));
         else
             You("не можете.  %s проклято.", use_plural ? "Они" : "Оно");
         set_bknown(otmp, 1);
@@ -2122,15 +2122,17 @@ canwearobj(struct obj *otmp, long *mask, boolean noisy)
                        || u.utraptype == TT_BURIEDBALL)) {
             if (u.utraptype == TT_BEARTRAP) {
                 if (noisy)
-                    Your("%s зажаты!", body_part(FOOT));
+                    Your("%s зажаты!",
+                          body_part_case(FOOT, BP_NOM | BP_PLURAL));
             } else if (u.utraptype == TT_INFLOOR || u.utraptype == TT_LAVA) {
                 if (noisy)
                     Your("%s застряли в %s!",
-                         makeplural(body_part(FOOT)), surface(u.ux, u.uy));
+                         body_part_case(FOOT, BP_NOM | BP_PLURAL),
+                         surface(u.ux, u.uy));
             } else { /*TT_BURIEDBALL*/
                 if (noisy)
                     Your("%s привязаны к закопанному шару!",
-                         body_part(LEG));
+                         body_part_case(LEG, BP_NOM | BP_PLURAL));
             }
             err++;
         } else
@@ -2150,7 +2152,8 @@ canwearobj(struct obj *otmp, long *mask, boolean noisy)
                gloved fingers */
             if (noisy)
                 Your("%s слишком скользкие, чтобы надеть %s.",
-                     fingers_or_gloves(FALSE), gloves_simple_name(otmp));
+                     fingers_or_gloves(FALSE, BP_NOM),
+                     gloves_simple_name(otmp));
             err++;
         } else
             *mask = W_ARMG;
@@ -2258,7 +2261,7 @@ accessory_or_armor_on(struct obj *obj)
             if (uleft && uright) {
                 There("больше нет %s%s, чтобы занять.",
                       humanoid(gy.youmonst.data) ? "колец-" : "",
-                      fingers_or_gloves(FALSE));
+                      fingers_or_gloves(FALSE, BP_GEN));
                 return ECMD_OK;
             }
             if (uleft) {
@@ -2269,7 +2272,7 @@ accessory_or_armor_on(struct obj *obj)
                 do {
                     Sprintf(qbuf, "Какие %s%s, Правая или Левая?",
                             humanoid(gy.youmonst.data) ? "колец-" : "",
-                            body_part(FINGER));
+                            body_part_case(FINGER, BP_NOM | BP_PLURAL));
                     answer = yn_function(qbuf, rightleftchars, '\0', TRUE);
                     switch (answer) {
                     case '\0':
@@ -2304,12 +2307,13 @@ accessory_or_armor_on(struct obj *obj)
                 if (((mask == RIGHT_RING && URIGHTY)
                      || (mask == LEFT_RING  && ULEFTY)
                      || bimanual(uwep)) && welded(uwep)) {
-                    const char *hand = body_part(HAND);
+                    const char *hand =
+                        body_part_case(HAND, bimanual(uwep)
+                                               ? BP_ACC | BP_PLURAL
+                                               : BP_ACC);
 
                     /* welded will set bknown */
-                    if (bimanual(uwep))
-                        hand = makeplural(hand);
-                    You("не можете освободить своё оружие %s, чтобы надеть кольцо.",
+                    You("не можете освободить %s от оружия, чтобы надеть кольцо.",
                         hand);
                     /* uses move iff we learned weapon is cursed */
                     return res ? ECMD_TIME : ECMD_OK;
@@ -2329,7 +2333,7 @@ accessory_or_armor_on(struct obj *obj)
             if (ublindf) {
                 if (ublindf->otyp == TOWEL)
                     Your("%s уже закрыто полотенцем.",
-                         body_part(FACE));
+                         body_part_case(FACE, BP_NOM));
                 else if (ublindf->otyp == BLINDFOLD) {
                     if (obj->otyp == LENSES)
                         already_wearing2("линзы", "повязка на глаза");
@@ -2460,7 +2464,7 @@ doputon(void)
         /* 'P' message doesn't mention armor */
         Your("%s%s заполнены, и вы уже носите амулет и %s.",
              humanoid(gy.youmonst.data) ? "колец-" : "",
-             fingers_or_gloves(FALSE),
+             fingers_or_gloves(FALSE, BP_NOM),
              (ublindf->otyp == LENSES) ? "какие-то линзы" : "повязка на глаза");
         return ECMD_OK;
     }
@@ -2546,10 +2550,12 @@ glibr(void)
 
     if (!uarmg && (leftfall || rightfall) && !nolimbs(gy.youmonst.data)) {
         /* changed so cursed rings don't fall off, GAN 10/30/86 */
-        Your("%s с ваших %s.",
-             (leftfall && rightfall) ? "кольца соскальзывают" : "кольцо соскальзывает",
-             (leftfall && rightfall) ? fingers_or_gloves(FALSE)
-                                     : body_part(FINGER));
+        if (leftfall && rightfall)
+            Your("кольца соскальзывают с ваших %s.",
+                 fingers_or_gloves(FALSE, BP_GEN));
+        else
+            Your("кольцо соскальзывает с вашего %s.",
+                 body_part_case(FINGER, BP_GEN));
         xfl++;
         if (leftfall) {
             otmp = uleft;
@@ -2575,9 +2581,9 @@ glibr(void)
         otherwep = is_sword(otmp) ? c_sword : weapon_descr(otmp);
         if (otmp->quan > 1L)
             otherwep = makeplural(otherwep);
-        hand = body_part(HAND);
+        hand = body_part_case(HAND, BP_GEN);
         which = URIGHTY ? "левой " : "правой ";  /* text for the off hand */
-        Your("%s %s%s с ваших %s%s.", otherwep, xfl ? "также " : "",
+        Your("%s %s%s с %s%s.", otherwep, xfl ? "также " : "",
              otense(otmp, "соскальзывают"), which, hand);
         xfl++;
         wastwoweap = TRUE;
@@ -2605,18 +2611,18 @@ glibr(void)
             else
                 thiswep = makeplural(thiswep);
         }
-        hand = body_part(HAND);
+        hand = body_part_case(HAND, bimanual(otmp) ? BP_GEN | BP_PLURAL
+                                                    : BP_GEN);
         which = "";
-        if (bimanual(otmp)) {
-            hand = makeplural(hand);
-        } else if (wastwoweap) {
+        if (bimanual(otmp) == 0 && wastwoweap) {
             /* preceding msg was about non-dominant hand */
             which = URIGHTY ? "правой " : "левой ";
         }
-        pline("%s %s%s %s%s с ваших %s%s.",
+        pline("%s %s%s %s%s %s%s%s.",
               !strncmp(thiswep, "труп", 6) ? "Труп" : "Ваш",
               otherwep ? "другое " : "", thiswep, xfl ? "также " : "",
-              otense(otmp, "соскальзывают"), which, hand);
+              otense(otmp, "соскальзывают"), *which ? "с вашей " : "с ваших ",
+              which, hand);
         /* xfl++; */
         otmp->quan = savequan;
         setuwep((struct obj *) 0);
@@ -2713,7 +2719,8 @@ select_off(struct obj *otmp)
         glibdummy = cg.zeroobj;
         why = 0; /* the item which prevents ring removal */
         if (welded(uwep) && ((otmp == RING_ON_PRIMARY) || bimanual(uwep))) {
-            Sprintf(buf, "освободить оружие %s", body_part(HAND));
+            Sprintf(buf, "освободить %s от оружия",
+                    body_part_case(HAND, BP_ACC));
             why = uwep;
         } else if (uarmg && (uarmg->cursed || Glib)) {
             Sprintf(buf, "снять ваши %s%s",
@@ -2746,11 +2753,12 @@ select_off(struct obj *otmp)
     if (otmp == uarmf) {
         if (u.utrap && u.utraptype == TT_BEARTRAP) {
             pline("Медвежий капкан мешает вам вытащить вашу %s.",
-                      body_part(FOOT));
+                      body_part_case(FOOT, BP_ACC));
             return 0;
         } else if (u.utrap && u.utraptype == TT_INFLOOR) {
             You("застряли в %s и не можете вытащить вашу %s.",
-                surface(u.ux, u.uy), makeplural(body_part(FOOT)));
+                surface(u.ux, u.uy),
+                body_part_case(FOOT, BP_ACC | BP_PLURAL));
             return 0;
         }
     }

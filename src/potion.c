@@ -888,7 +888,8 @@ peffect_paralysis(struct obj *otmp)
         else if (u.usteed)
             You("застываете на месте!");
         else
-            Your("%s примёрзли к %s!", makeplural(body_part(FOOT)),
+            Your("%s примёрзли к %s!",
+                 body_part_case(FOOT, BP_NOM | BP_PLURAL),
                  surface(u.ux, u.uy));
         nomul(-(rn1(10, 25 - 12 * bcsign(otmp))));
         gm.multi_reason = "заморожен зельем";
@@ -1199,7 +1200,8 @@ peffect_levitation(struct obj *otmp)
         } else if (has_ceiling(&u.uz)) {
             int dmg = rnd(!uarmh ? 10 : !hard_helmet(uarmh) ? 6 : 3);
 
-            You("ударяетесь %s о %s.", body_part(HEAD),
+            You("ударяетесь %s о %s.",
+                body_part_case(HEAD, BP_INS),
                 ceiling(u.ux, u.uy));
             losehp(Maybe_Half_Phys(dmg), "удара головой о потолок",
                    KILLED_BY);
@@ -1271,7 +1273,7 @@ peffect_oil(struct obj *otmp)
              * extra damage, but drinking potions in that form isn't
              * possible so there's no need to try to handle that.
              */
-            You("обжигаете своё %s.", body_part(FACE));
+            You("обжигаете своё %s.", body_part_case(FACE, BP_PREP));
             /* fire damage */
             vulnerable = !Fire_resistance || Cold_resistance;
             losehp(d(vulnerable ? 4 : 2, 4),
@@ -1633,8 +1635,8 @@ potionhit(struct monst *mon, struct obj *obj, int how)
     if (isyou) {
         tx = u.ux, ty = u.uy;
         distance = 0;
-        pline("%s Разбивается о ваше %s и рассыпается на осколки.", botlnam,
-                  body_part(HEAD));
+        pline("%s Разбивается о вашей %s и рассыпается на осколки.", botlnam,
+                  body_part_case(HEAD, BP_PREP));
         losehp(Maybe_Half_Phys(rnd(2)),
                (how == POTHIT_OTHER_THROW) ? "брошенного зелья" /* scatter */
                                            : "швырнутого зелья",
@@ -2296,7 +2298,8 @@ dodip(void)
      * getobj: "What do you want to dip <the object> into? [xyz or ?*] "
      */
     if (is_hands) {
-        Snprintf(obuf, sizeof obuf, "ваши %s", makeplural(body_part(HAND)));
+        Snprintf(obuf, sizeof obuf, "ваши %s",
+                 body_part_case(HAND, BP_NOM | BP_PLURAL));
     } else {
         Strcpy(obuf, short_oname(obj, doname, thesimpleoname,
                                  /* 128 - (24 + 54 + 1) leaves 49 for
@@ -2451,7 +2454,7 @@ potion_dip(struct obj *obj, struct obj *potion)
     }
     if (obj == &hands_obj) {
         You("не можете втиснуть свои %s в горлышко бутылки!",
-            body_part(HAND));
+            body_part_case(HAND, BP_NOM | BP_PLURAL));
         return ECMD_OK;
     }
 
@@ -2649,7 +2652,7 @@ potion_dip(struct obj *obj, struct obj *potion)
             fire_damage(obj, TRUE, u.ux, u.uy);
         } else if (potion->cursed) {
             pline("Проливается и покрывает ваше %s маслом",
-                      fingers_or_gloves(TRUE));
+                      fingers_or_gloves(TRUE, BP_ACC));
             make_glib((int) (Glib & TIMEOUT) + d(2, 10));
         } else if (obj->oclass != WEAPON_CLASS && !is_weptool(obj)) {
             /* the following cases apply only to weapons */
@@ -2880,7 +2883,7 @@ split_mon(
     reason[0] = '\0';
     if (mtmp)
         Sprintf(reason, " из-за %s жара",
-                (mtmp == &gy.youmonst) ? the_your[1]
+                (mtmp == &gy.youmonst) ? "вашего"
                                     : (const char *) s_suffix(mon_nam(mtmp)));
 
     if (mon == &gy.youmonst) {
@@ -2921,7 +2924,8 @@ speed_up(long duration)
    if (!Very_fast)
        You("внезапно движетесь %sбыстрее.", Fast ? "" : "намного ");
    else
-       Your("%s получают новую энергию.", makeplural(body_part(LEG)));
+       Your("%s получают новую энергию.",
+            body_part_case(LEG, BP_NOM | BP_PLURAL));
 
    exercise(A_DEX, TRUE);
    incr_itimeout(&HFast, duration);

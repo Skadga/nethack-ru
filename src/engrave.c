@@ -981,7 +981,7 @@ doengrave(void)
     }
 
     if (de->otmp == &hands_obj) {
-        Strcat(strcpy(de->fbuf, "your "), body_part(FINGERTIP));
+        Strcpy(de->fbuf, body_part_case(FINGERTIP, BP_INS));
         de->writer = de->fbuf;
     } else {
         de->writer = yname(de->otmp);
@@ -991,12 +991,13 @@ doengrave(void)
      * while both your hands are tied up.
      */
     if (!freehand() && de->otmp != uwep && !de->otmp->owornmask) {
-        pline("” вас нет свободной %s, чтобы писать!", body_part(HAND));
+        pline("” вас нет свободной %s, чтобы писать!",
+              body_part_case(HAND, BP_GEN));
         goto doengr_exit;
     }
 
     if (de->jello) {
-        You("щекочете %s с помощью %s.", mon_nam(u.ustuck), de->writer);
+        You("щекочете %s своим %s.", mon_nam(u.ustuck), de->writer);
         Your("послание раствор€етс€...");
         goto doengr_exit;
     }
@@ -1012,7 +1013,7 @@ doengrave(void)
     }
     if (IS_ALTAR(levl[u.ux][u.uy].typ)) {
         if (!initial_msg_given)
-            You("делаете движение в сторону алтар€ %s.", de->writer);
+            You("делаете движение %s в сторону алтар€.", de->writer);
         altar_wrath(u.ux, u.uy);
         goto doengr_exit;
     }
@@ -1180,8 +1181,8 @@ doengrave(void)
             (de->type == ENGRAVE && de->otmp->quan > 1L) ? "1 of " : "",
             doname(de->otmp));
     else
-        You("%s the %s with your %s.",
-            de->everb, de->eloc, body_part(FINGERTIP));
+        You("%s %s вашим %s.",
+            de->everb, de->eloc, body_part_case(FINGERTIP, BP_INS));
 
     /* Prompt for engraving! */
     Sprintf(de->qbuf, "„то вы хотите %s на %s здесь?",

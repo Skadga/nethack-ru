@@ -970,7 +970,7 @@ from_what(
                      && BlindedTimeout == (long) u.ucreamed
                      && !EBlinded && !(HBlinded & ~TIMEOUT))
                 Sprintf(buf, "из-за слизи, покрывающей ваше %s",
-                        body_part(FACE));
+                        body_part_case(FACE, BP_ACC));
 
             /* remove some verbosity and/or redundancy */
             if ((p = strstri(buf, " pair of ")) != 0)

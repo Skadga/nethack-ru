@@ -591,7 +591,8 @@ background_enlightenment(int unused_mode UNUSED, int final)
     /* "You are left-handed." won't work well if polymorphed into something
        without hands; use "You are normally left-handed." in that situation */
     Sprintf(buf, "%s%sша",
-            !strcmp(body_part(HANDED), "handed") ? "обычно " : "",
+            /* the literal must match HANDED in humanoid_parts[] (polyself.c) */
+            !strcmp(body_part(HANDED), "ладонный") ? "обычно " : "",
             URIGHTY ? "прав" : "лев");
     you_are(buf, "");
 
@@ -1141,12 +1142,19 @@ status_enlightenment(int mode, int final)
            form of extrinsic impairment; HWounded_legs is used for timeout;
            both apply to steed instead of hero when mounted */
         long whichleg = (EWounded_legs & BOTH_SIDES);
-        const char *bp = u.usteed ? mbodypart(u.usteed, LEG) : body_part(LEG),
+        const char *bp = u.usteed
+                             ? mbodypart_case(u.usteed, LEG,
+                                              whichleg & BOTH_SIDES
+                                                  ? BP_NOM | BP_PLURAL
+                                                  : BP_NOM)
+                             : body_part_case(LEG, whichleg & BOTH_SIDES
+                                                      ? BP_NOM | BP_PLURAL
+                                                      : BP_NOM),
             *article = "раненая ", /* precedes "wounded", so never "an " */
             *leftright = "";
 
         if (whichleg == BOTH_SIDES)
-            bp = makeplural(bp), article = "раненые ";
+            article = "раненые ";
         else
             leftright = (whichleg == LEFT_SIDE) ? "левая " : "правая ";
         Sprintf(buf, "%s%s %s", article, leftright, bp);
@@ -1166,7 +1174,7 @@ status_enlightenment(int mode, int final)
         }
     }
     if (Glib) {
-        Sprintf(buf, "имеете скользкие %s", fingers_or_gloves(TRUE));
+        Sprintf(buf, "имеете скользкие %s", fingers_or_gloves(TRUE, BP_NOM));
         if (wizard)
             Sprintf(eos(buf), " (%ld)", (Glib & TIMEOUT));
         you_have(buf, "");
@@ -3368,11 +3376,11 @@ mstatusline(struct monst *mtmp)
                some form of extrinsic impairment; HWounded_legs is used for
                timeout; both apply to steed instead of hero when mounted */
             long legs = (EWounded_legs & BOTH_SIDES);
-            const char *what = mbodypart(mtmp, LEG);
 
-            if (legs == BOTH_SIDES)
-                what = makeplural(what);
-            Sprintf(eos(info), ", повреждено: %s", what);
+            Sprintf(eos(info), ", повреждено: %s",
+                    mbodypart_case(mtmp, LEG,
+                                   legs == BOTH_SIDES ? BP_NOM | BP_PLURAL
+                                                      : BP_NOM));
         }
     }
     if (mtmp->mleashed)
@@ -3433,16 +3441,15 @@ ustatusline(void)
            form of extrinsic impairment; HWounded_legs is used for timeout;
            both apply to steed instead of hero when mounted */
         long legs = (EWounded_legs & BOTH_SIDES);
-        const char *what = body_part(LEG);
 
-        if (legs == BOTH_SIDES)
-            what = makeplural(what);
         /* when it's just one leg, ^X reports which, left or right;
            ustatusline() doesn't, in order to keep the output a bit shorter */
-        Sprintf(eos(info), ", повреждено: %s", what);
+        Sprintf(eos(info), ", повреждено: %s",
+                body_part_case(LEG, legs == BOTH_SIDES ? BP_NOM | BP_PLURAL
+                                                      : BP_NOM));
     }
     if (Glib)
-        Sprintf(eos(info), ", скользкие %s", fingers_or_gloves(TRUE));
+        Sprintf(eos(info), ", скользкие %s", fingers_or_gloves(TRUE, BP_NOM));
     if (u.utrap)
         Strcat(info, ", в ловушке");
     if (Fast)

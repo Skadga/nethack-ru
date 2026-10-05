@@ -357,7 +357,8 @@ do_oname(struct obj *obj)
         do {
             wipeout_text(bufp, rnd_on_display_rng(2), (unsigned) 0);
         } while (!strcmp(buf, bufcpy));
-        pline(" огда вы вырезали, ваш %s поскользнулс€.", body_part(HAND));
+        pline(" огда вы вырезали, %s соскальзывает.",
+              body_part_case(HAND, BP_NOM));
         display_nhwindow(WIN_MESSAGE, FALSE);
         You("вырезаете: \"%s\"." , buf);
         /* violate illiteracy conduct since hero attempted to write

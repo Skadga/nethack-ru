@@ -864,10 +864,10 @@ mon_wield_item(struct monst *mon)
         if (mw_tmp && mwelded(mw_tmp)) {
             if (canseemon(mon)) {
                 char welded_buf[BUFSZ];
-                const char *mon_hand = mbodypart(mon, HAND);
-
-                if (bimanual(mw_tmp))
-                    mon_hand = makeplural(mon_hand);
+                const char *mon_hand =
+                    mbodypart_case(mon, HAND, bimanual(mw_tmp)
+ ? BP_DAT | BP_PLURAL
+                                                : BP_DAT);
                 Sprintf(welded_buf, "%s к %s %s",
                         otense(mw_tmp, "приваривается"), mhis(mon), mon_hand);
 
@@ -909,10 +909,10 @@ mon_wield_item(struct monst *mon)
             newly_welded = mwelded(obj);
             obj->owornmask &= ~W_WEP;
             if (newly_welded) {
-                const char *mon_hand = mbodypart(mon, HAND);
-
-                if (bimanual(obj))
-                    mon_hand = makeplural(mon_hand);
+                const char *mon_hand =
+                    mbodypart_case(mon, HAND, bimanual(obj)
+ ? BP_DAT | BP_PLURAL
+                                                : BP_DAT);
                 pline("%s к %s %s!", Tobjnam(obj, "приваривается"),
                       s_suffix(mon_nam(mon)), mon_hand);
                 obj->bknown = 1;
@@ -923,7 +923,7 @@ mon_wield_item(struct monst *mon)
             if (canseemon(mon))
                 pline("%s %s в %s %s!", Tobjnam(obj, "сверкает"),
                       arti_light_description(obj), s_suffix(mon_nam(mon)),
-                      mbodypart(mon, HAND));
+                      mbodypart_case(mon, HAND, BP_PREP));
             /* 3.6.3: artifact might be getting wielded by invisible monst */
             else if (cansee(mon->mx, mon->my))
                 pline("Свет начинает сиять %s.",
@@ -1821,7 +1821,7 @@ setmnotwielded(struct monst *mon, struct obj *obj)
         if (canseemon(mon))
             pline("%s %s в %s %s.", The(xname(obj)),
                   otense(obj, "перестаёт светить"), s_suffix(mon_nam(mon)),
-                  mbodypart(mon, HAND));
+                  mbodypart_case(mon, HAND, BP_PREP));
     }
     if (MON_WEP(mon) == obj)
         MON_NOWEP(mon);

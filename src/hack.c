@@ -3132,7 +3132,8 @@ invocation_message(void)
         else if (Levitation || Flying)
             Strcpy(buf, "под вами");
         else
-            Sprintf(buf, "под вашими %s", makeplural(body_part(FOOT)));
+            Sprintf(buf, "под вашими %s",
+                    body_part_case(FOOT, BP_INS | BP_PLURAL));
 
         You_feel("странное колебание %s.", buf);
         u.uevent.uvibrated = 1;
@@ -3849,7 +3850,7 @@ pickup_checks(void)
     if (u.uswallow) {
         if (!u.ustuck->minvent) {
             if (digests(u.ustuck->data)) {
-                You("подбираете %s язык.", s_suffix(mon_nam(u.ustuck)));
+                You("подбираете %s язык.", mhis(u.ustuck));
                 pline("Но он какой-то склизкий, так что вы его бросаете.");
             } else
                 You("не %s здесь ничего, что можно подобрать.",

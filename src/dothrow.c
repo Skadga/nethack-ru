@@ -142,7 +142,7 @@ throw_obj(struct obj *obj, int shotlimit)
             corpse_xname(obj, (const char *) 0, CXN_PFX_THE),
             /* throwing with one hand, but pluralize since the
                expression "with your bare hands" sounds better */
-            makeplural(body_part(HAND)));
+            body_part_case(HAND, BP_NOM | BP_PLURAL));
         Sprintf(svk.killer.name, "бросая %s голыми руками",
                 killer_xname(obj));
         instapetrify(svk.killer.name);
@@ -1282,7 +1282,7 @@ toss_up(struct obj *obj, boolean hitsroof)
         action = "почти попадает";
     }
     pline("%s %s %s, затем падает обратно на ваш %s.", Doname2(obj),
-          action, ceiling(u.ux, u.uy), body_part(HEAD));
+          action, ceiling(u.ux, u.uy), body_part_case(HEAD, BP_ACC));
 
     /* object now hits you */
 
@@ -1316,7 +1316,7 @@ toss_up(struct obj *obj, boolean hitsroof)
             /*FALLTHRU*/
         case CREAM_PIE:
         case BLINDING_VENOM:
-            pline("Это всё на вашем %s!", body_part(FACE));
+            pline("Это всё на вашем %s!", body_part_case(FACE, BP_PREP));
             if (blindinc) {
                 if (otyp == BLINDING_VENOM && !Blind)
                     pline("Это ослепляет вас!");
@@ -1641,9 +1641,8 @@ throwit(
             } else if (obj->oclass != GEM_CLASS) {
                 range /= 2;
                 pline("Вы не владеете %s, поэтому бросаете свой %s с помощью %s.",
-                      an(skill_name(weapon_type(obj))),
-                      weapon_descr(obj),
-                      body_part(HAND));
+                      an(skill_name(weapon_type(obj))), weapon_descr(obj),
+                      body_part_case(HAND, BP_INS));
             }
         }
 
@@ -1734,13 +1733,13 @@ throwit(
                                     : "%s обратно к вам, приземляясь %s ваш %s.",
                               Blind ? Something : Tobjnam(obj, "возвращается"),
                               Levitation ? "под" : "у",
-                              makeplural(body_part(FOOT)));
+                              body_part_case(FOOT, BP_ACC | BP_PLURAL));
                     } else {
                         dmg += rnd(3);
                         pline(Blind ? "%s ваш %s!"
                                     : "%s обратно к вам, ударяя ваш %s!",
                               Tobjnam(obj, Blind ? "попадает" : "летит"),
-                              body_part(ARM));
+                              body_part_case(ARM, BP_ACC));
                         if (obj->oartifact)
                             (void) artifact_hit((struct monst *) 0,
                                                 &gy.youmonst, obj, &dmg, 0);
@@ -2507,11 +2506,13 @@ breakobj(
                         /* [what about "familiar odor" when known?] */
                         You("чувствуете странный запах...");
                     } else {
-                        const char *eyes = body_part(EYE);
-
-                        if (eyecount(gy.youmonst.data) != 1)
-                            eyes = makeplural(eyes);
-                        Your("%s %s.", eyes, vtense(eyes, "слезятся"));
+                        const char *eyes =
+                            body_part_case(EYE, eyecount(gy.youmonst.data) != 1
+                                                        ? BP_NOM | BP_PLURAL
+                                                        : BP_NOM);
+                        Your("%s %s.", eyes,
+                             eyecount(gy.youmonst.data) != 1 ? "слезятся"
+                                                             : "слезится");
                     }
                 }
                 potionbreathe(obj);
@@ -2683,7 +2684,7 @@ throw_gold(struct obj *obj)
         if (u.dz < 0 && !Is_airlevel(&u.uz) && !Underwater
             && !Is_waterlevel(&u.uz)) {
             pline("Золото ударяется о %s, затем падает обратно на ваш %s.",
-                      ceiling(u.ux, u.uy), body_part(HEAD));
+                      ceiling(u.ux, u.uy), body_part_case(HEAD, BP_ACC));
             /* some self damage? */
             if (uarmh)
                 pline("К счастью, на вас надето %s!",

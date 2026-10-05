@@ -172,7 +172,7 @@ cursed_book(struct obj *bp)
             pline("Книга %s, но вы невредимы!", explodes);
         } else {
             pline("Когда вы читаете книгу, она %s в ваше %s!", explodes,
-                  body_part(FACE));
+                  body_part_case(FACE, BP_ACC));
             dmg = 2 * rnd(10) + 5;
             losehp(Maybe_Half_Phys(dmg), "взрывающейся руны", KILLED_BY_AN);
         }
@@ -251,7 +251,8 @@ deadbook(struct obj *book2)
         }
 
         if (!u.uhave.bell || !u.uhave.menorah) {
-            pline("Холод пробегает по вашей %s.", body_part(SPINE));
+            pline("Холод пробегает по вашему %s.",
+                  body_part_case(SPINE, BP_DAT));
             if (!u.uhave.bell) {
                 Soundeffect(se_faint_chime, 30);
                 You_hear("слабый звон...");
@@ -482,11 +483,15 @@ study_book(struct obj *spellbook)
             dullbook -= rnd(objects[booktype].oc_level);
 
         if (dullbook > 0) {
-            eyes = body_part(EYE);
+            eyes = body_part_case(EYE, eyecount(gy.youmonst.data) > 1
+                                               ? BP_ACC | BP_PLURAL
+                                               : BP_ACC);
             if (eyecount(gy.youmonst.data) > 1)
-                eyes = makeplural(eyes);
-            pline("Эта книга настолько скучна, что вы не можете держать свои %s открытыми.",
-                  eyes);
+                pline("Эта книга настолько скучна, что вы не можете держать свои %s открытыми.",
+                      eyes);
+            else
+                pline("Эта книга настолько скучна, что вы не можете держать свой %s открытым.",
+                      eyes);
             dullbook += rnd(2 * objects[booktype].oc_level);
             fall_asleep(-dullbook, TRUE);
             return 1;
@@ -1576,7 +1581,8 @@ spelleffects(int spell_otyp, boolean atme, boolean force)
             do_vicinity_map(pseudo);
         /* at present, only one thing blocks clairvoyance */
         } else if (uarmh && uarmh->otyp == CORNUTHAUM)
-            You("чувствуете остроконечную шляпу на своей %s.", body_part(HEAD));
+            You("чувствуете остроконечную шляпу на своей %s.",
+                body_part_case(HEAD, BP_PREP));
         break;
     case SPE_PROTECTION:
         cast_protection();

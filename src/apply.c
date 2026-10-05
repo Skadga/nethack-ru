@@ -95,7 +95,7 @@ use_camera(struct obj *obj)
         (void) zapyourself(obj, TRUE);
     } else if (u.uswallow) {
         You("фотографируете %s %s.", s_suffix(mon_nam(u.ustuck)),
-            mbodypart(u.ustuck, STOMACH));
+            mbodypart_case(u.ustuck, STOMACH, BP_ACC));
     } else if (u.dz) {
         You("фотографируете %s.",
             (u.dz > 0) ? surface(u.ux, u.uy) : ceiling(u.ux, u.uy));
@@ -114,7 +114,7 @@ use_towel(struct obj *obj)
     boolean drying_feedback = (obj == uwep);
 
     if (!freehand()) {
-        You("не имеете свободной %s!", body_part(HAND));
+        You("не имеете свободной %s!", body_part_case(HAND, BP_GEN));
         return ECMD_OK;
     } else if (obj == ublindf) {
         You("не можете использовать это, пока носите!");
@@ -126,7 +126,7 @@ use_towel(struct obj *obj)
         case 2:
             old = (Glib & TIMEOUT);
             make_glib((int) old + rn1(10, 3)); /* + 3..12 */
-            Your("%s %s!", makeplural(body_part(HAND)),
+            Your("%s %s!", body_part_case(HAND, BP_NOM | BP_PLURAL),
                  (old ? "грязнее прежнего" : "покрываются слизью"));
             if (is_wet_towel(obj))
                 dry_a_towel(obj, -1, drying_feedback);
@@ -135,7 +135,8 @@ use_towel(struct obj *obj)
             if (!ublindf) {
                 old = u.ucreamed;
                 u.ucreamed += rn1(10, 3);
-                pline("Фу!  На вашей %s %s грязи!", body_part(FACE),
+                pline("Фу!  На вашей %s %s грязи!",
+                      body_part_case(FACE, BP_PREP),
                       (old ? "стало больше" : "теперь появилось"));
                 make_blinded(BlindedTimeout + (long) u.ucreamed - old, TRUE);
             } else {
@@ -166,7 +167,8 @@ use_towel(struct obj *obj)
     if (Glib) {
         make_glib(0);
         You("вытираете свою %s.",
-            !uarmg ? makeplural(body_part(HAND)) : gloves_simple_name(uarmg));
+            !uarmg ? body_part_case(HAND, BP_ACC)
+                   : gloves_simple_name(uarmg));
         if (is_wet_towel(obj))
             dry_a_towel(obj, -1, drying_feedback);
         return ECMD_TIME;
@@ -180,15 +182,15 @@ use_towel(struct obj *obj)
                 make_blinded(0L, TRUE);
             }
         } else {
-            Your("%s теперь чистое.", body_part(FACE));
+            Your("%s теперь чистое.", body_part_case(FACE, BP_NOM));
         }
         if (is_wet_towel(obj))
             dry_a_towel(obj, -1, drying_feedback);
         return ECMD_TIME;
     }
 
-    Your("%s и %s уже чистые.", body_part(FACE),
-         makeplural(body_part(HAND)));
+    Your("%s и %s уже чистые.", body_part_case(FACE, BP_NOM),
+         body_part_case(HAND, BP_NOM | BP_PLURAL));
 
     return ECMD_OK;
 }
@@ -331,7 +333,7 @@ use_stethoscope(struct obj *obj)
         You_cant("ничего не слышать!");
         return ECMD_OK;
     } else if (!freehand()) {
-        You("не имеете свободной %s.", body_part(HAND));
+        You("не имеете свободной %s.", body_part_case(HAND, BP_GEN));
         return ECMD_OK;
     }
     if (!getdir((char *) 0))
@@ -481,7 +483,8 @@ use_whistle(struct obj *obj)
         You("пускаете пузыри сквозь %s.", yname(obj));
     } else {
         if (Deaf)
-            You_feel("щекотание воздуха на %s.", body_part(NOSE));
+            You_feel("щекотание воздуха на %s.",
+                     body_part_case(NOSE, BP_PREP));
         else
             You(whistle_str, obj->cursed ? "пронзительный" : "высокий");
         Soundeffect(se_shrill_whistle, 50);
@@ -1038,7 +1041,8 @@ use_mirror(struct obj *obj)
     }
     if (!u.dx && !u.dy && !u.dz) {
         if (!useeit) {
-            You_cant("видеть свою %s %s.", uvisage, body_part(FACE));
+            You_cant("видеть свою %s %s.", uvisage,
+                     body_part_case(FACE, BP_ACC));
         } else {
             if (u.umonnum == PM_FLOATING_EYE) {
                 if (Free_action) {
@@ -1077,7 +1081,7 @@ use_mirror(struct obj *obj)
     if (u.uswallow) {
         if (useeit)
             You("видишь отражение %s %s.", s_suffix(mon_nam(u.ustuck)),
-                mbodypart(u.ustuck, STOMACH));
+                mbodypart_case(u.ustuck, STOMACH, BP_ACC));
         return ECMD_TIME;
     }
     if (Underwater) {
@@ -1669,7 +1673,7 @@ use_lamp(struct obj *obj)
     if (obj->cursed && !rn2(2)) {
         if ((obj->otyp == OIL_LAMP || obj->otyp == MAGIC_LAMP) && !rn2(3)) {
             pline("Лампа опрокидывается и заливает вашу %s маслом.",
-                      fingers_or_gloves(TRUE));
+                      fingers_or_gloves(TRUE, BP_ACC));
             make_glib((int) (Glib & TIMEOUT) + d(2, 10));
         } else if (!Blind) {
             pline("%s мгновение, затем %s.", Tobjnam(obj, "flicker"),
@@ -2097,7 +2101,7 @@ jump(int magic) /* 0=Physical, otherwise skill level */
             case TT_BURIEDBALL:
             case TT_INFLOOR:
                 You("напрягаете свои %s, но всё ещё %s.",
-                    makeplural(body_part(LEG)),
+                    body_part_case(LEG, BP_ACC | BP_PLURAL),
                     (u.utraptype == TT_INFLOOR)
                         ? "застряли в полу"
                         : "прикованы к закопанному шару");
@@ -2607,7 +2611,7 @@ use_grease(struct obj *obj)
 
     if (Glib) {
         pline("%s из твоих %s.", Tobjnam(obj, "slip"),
-              fingers_or_gloves(FALSE));
+              fingers_or_gloves(FALSE, BP_GEN));
         dropx(obj);
         return ECMD_TIME;
     }
@@ -2619,7 +2623,7 @@ use_grease(struct obj *obj)
             consume_obj_charge(obj, TRUE);
 
             pline("%s из твоих %s.", Tobjnam(obj, "slip"),
-                  fingers_or_gloves(FALSE));
+                  fingers_or_gloves(FALSE, BP_GEN));
             dropx(obj);
             return ECMD_TIME;
         }
@@ -2637,11 +2641,11 @@ use_grease(struct obj *obj)
             if (obj->cursed && !nohands(gy.youmonst.data)) {
                 make_glib(oldglib + rn1(6, 10)); /* + 10..15 */
                 pline("Часть смазки попадает на твои %s.",
-                      fingers_or_gloves(TRUE));
+                      fingers_or_gloves(TRUE, BP_ACC));
             }
         } else {
             make_glib(oldglib + rn1(11, 5)); /* + 5..15 */
-            You("покрываешь свои %s смазкой.", fingers_or_gloves(TRUE));
+            You("покрываешь свои %s смазкой.", fingers_or_gloves(TRUE, BP_ACC));
         }
     } else {
         if (obj->known)
@@ -3057,13 +3061,13 @@ use_whip(struct obj *obj)
         dam = rnd(2) + dbon() + obj->spe;
         if (dam <= 0)
             dam = 1;
-        You("ударяешь себя по %s хлыстом.", body_part(FOOT));
+        You("ударяешь себя по %s хлыстом.", body_part_case(FOOT, BP_PREP));
         Sprintf(buf, "убил себя с помощью %s хлыста", uhim(), uhis());
         losehp(Maybe_Half_Phys(dam), buf, NO_KILLER_PREFIX);
         return ECMD_TIME;
 
     } else if ((Fumbling || Glib) && !rn2(5)) {
-        pline("Хлыст выскальзывает из твоих %s.", body_part(HAND));
+        pline("Хлыст выскальзывает из твоих %s.", body_part_case(HAND, BP_GEN));
         dropx(obj);
 
     } else if (u.utrap && u.utraptype == TT_PIT) {
@@ -3157,9 +3161,9 @@ use_whip(struct obj *obj)
 
             Strcpy(onambuf, cxname(otmp));
             if (gotit) {
-                mon_hand = mbodypart(mtmp, HAND);
-                if (bimanual(otmp))
-                    mon_hand = makeplural(mon_hand);
+                mon_hand = mbodypart_case(mtmp, HAND, bimanual(otmp)
+                                                           ? BP_GEN | BP_PLURAL
+                                                           : BP_GEN);
             } else
                 mon_hand = 0; /* lint suppression */
 
@@ -3578,7 +3582,7 @@ use_cream_pie(struct obj *obj)
     if (Hallucination)
         You("устраиваешь себе кремовую маску.");
     else
-        You("окунаешь своё %s в %s%s.", body_part(FACE),
+        You("окунаешь своё %s в %s%s.", body_part_case(FACE, BP_ACC),
               several ? "one of " : "",
               several ? makeplural(the(xname(obj))) : the(xname(obj)));
     if (can_blnd((struct monst *) 0, &gy.youmonst, AT_WEAP, obj)) {
@@ -3588,10 +3592,10 @@ use_cream_pie(struct obj *obj)
         make_blinded(BlindedTimeout + (long) blindinc, FALSE);
         if (!Blind || (Blind && wasblind))
             pline("По всему твоему %s %sлипкая дрянь.",
-                  wascreamed ? "ещё " : "", body_part(FACE));
+                  wascreamed ? "ещё " : "", body_part_case(FACE, BP_DAT));
         else /* Blind  && !wasblind */
             You_cant("видеть сквозь липкую дрянь на своём %s.",
-                     body_part(FACE));
+                     body_part_case(FACE, BP_PREP));
     }
 
     setnotworn(obj);
@@ -3925,7 +3929,7 @@ do_break_wand(struct obj *obj)
         You_cant("сломать %s без рук!", yname(obj));
         return ECMD_OK;
     } else if (!freehand()) {
-        Your("%s заняты!", makeplural(body_part(HAND)));
+        Your("%s заняты!", body_part_case(HAND, BP_NOM | BP_PLURAL));
         return ECMD_OK;
     } else if (ACURR(A_STR) < (is_fragile ? 5 : 10)) {
         You("не хватает сил сломать %s!", yname(obj));
@@ -3937,7 +3941,7 @@ do_break_wand(struct obj *obj)
                                   "?", obj, yname, ysimple_name, "the wand")))
         return ECMD_OK;
     pline("Подняв %s высоко над твоей %s, ты %s его пополам!", yname(obj),
-          body_part(HEAD), is_fragile ? "ломаешь" : "ломаешь");
+          body_part_case(HEAD, BP_INS), is_fragile ? "ломаешь" : "ломаешь");
 
     /* [ALI] Do this first so that wand is removed from bill. Otherwise,
      * the freeinv() below also hides it from setpaid() which causes problems.
@@ -4535,7 +4539,8 @@ flip_coin(struct obj *obj)
         lose_coin = TRUE;
     } else if (Glib || Fumbling
                || (ACURR(A_DEX) < 10 && !rn2(ACURR(A_DEX)))) {
-        pline("Она выскальзывает из твоих %s.", fingers_or_gloves(FALSE));
+        pline("Она выскальзывает из твоих %s.",
+              fingers_or_gloves(FALSE, BP_GEN));
         lose_coin = TRUE;
     }
 

@@ -352,8 +352,8 @@ dog_starve(struct monst *mtmp)
     else if (cansee(mtmp->mx, mtmp->my))
         pline_mon(mtmp, "%s умирает от голода.", Monnam(mtmp));
     else
-        You_feel("%s for a moment.",
-                    Hallucination ? "bummed" : "sad");
+        You_feel("%s на мгновение.",
+                    Hallucination ? "раздражение" : "огорчение");
     mondied(mtmp);
 }
 
@@ -457,7 +457,7 @@ dog_invent(struct monst *mtmp, struct edog *edog, int udist)
                             char *otmpname = distant_name(otmp, doname);
 
                             if (flags.verbose)
-                                pline_xy(omx, omy, "%s picks up %s.",
+                                pline_xy(omx, omy, "%s подбирает %s.",
                                       Monnam(mtmp), otmpname);
                         }
                         obj_extract_self(otmp);
@@ -1304,10 +1304,10 @@ dog_move(
                                ? vobj_at(nix, niy) : 0;
             const char *what = o ? distant_name(o, doname) : something;
 
-            pline_mon(mtmp, "%s %s reluctantly %s %s.", noit_Monnam(mtmp),
-                  vtense((char *) 0, locomotion(mtmp->data, "step")),
-                  (is_flyer(mtmp->data) || is_floater(mtmp->data)) ? "over"
-                                                                   : "onto",
+            pline_mon(mtmp, "%s неохотно %s %s.", noit_Monnam(mtmp),
+                  locomotion(mtmp->data, "шагает"),
+                  (is_flyer(mtmp->data) || is_floater(mtmp->data)) ? "над"
+                                                                   : "на",
                   what);
         }
         mon_track_add(mtmp, omx, omy);
@@ -1528,11 +1528,14 @@ quickmimic(struct monst *mtmp)
             Your("ваш поводок провисает.");
             m_unleash(mtmp, FALSE);
         }
-        if (glyph_at(mtmp->mx, mtmp->my) != prev_glyph)
-            You("%s %s %s where %s was!",
-                seeloc ? "see" : "sense that",
-                (what != something) ? an(what) : what,
-                seeloc ? "appear" : "has appeared", buf);
+        if (glyph_at(mtmp->mx, mtmp->my) != prev_glyph) {
+            if (seeloc)
+                You("видите %s там, где был %s!",
+                    (what != something) ? an(what) : what, buf);
+            else
+                You("чувствуете, что %s появилось там, где был %s!",
+                    (what != something) ? an(what) : what, buf);
+        }
         else
             You("чувствуете, что %s выглядит довольно %s.", buf, what);
 

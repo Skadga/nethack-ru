@@ -406,7 +406,7 @@ fix_worst_trouble(int trouble)
         FALLTHROUGH;
         /* FALLTHRU*/
     case TROUBLE_HUNGRY:
-        Your("%s доволен.", body_part(STOMACH));
+        Your("%s доволен.", body_part_case(STOMACH, BP_NOM));
         init_uhunger();
         disp.botl = TRUE;
         break;
@@ -554,14 +554,18 @@ fix_worst_trouble(int trouble)
         break;
     case TROUBLE_BLIND: { /* handles deafness as well as blindness */
         char msgbuf[BUFSZ];
-        const char *eyes = body_part(EYE);
+        const char *eyes = body_part_case(EYE,
+                                          eyecount(gy.youmonst.data) != 1
+                                          ? BP_NOM | BP_PLURAL
+                                          : BP_NOM);
         boolean cure_deaf = (HDeaf & TIMEOUT) ? TRUE : FALSE;
 
         msgbuf[0] = '\0';
         if (Blinded) {
             if (eyecount(gy.youmonst.data) != 1)
-                eyes = makeplural(eyes);
-            Sprintf(msgbuf, "Ваши %s чувствуют себя лучше", eyes);
+                Sprintf(msgbuf, "Ваши %s чувствуют себя лучше", eyes);
+            else
+                Sprintf(msgbuf, "Ваш %s чувствует себя лучше", eyes);
             u.ucreamed = 0;
             make_blinded(0L, FALSE);
         }
@@ -792,12 +796,17 @@ at_your_feet(const char *str)
     if (u.uswallow) {
         /* barrier between you and the floor */
         pline("%s %s в %s %s.", str, vtense(str, "падает"),
-              s_suffix(mon_nam(u.ustuck)), mbodypart(u.ustuck, STOMACH));
+              s_suffix(mon_nam(u.ustuck)),
+              mbodypart_case(u.ustuck, STOMACH, BP_ACC));
     } else {
-        pline("%s %s %s ваших %s!", str,
-              vtense(str, Blind ? "приземляется" : "появляется"),
-              Levitation ? "под вашими" : "у ваших",
-              makeplural(body_part(FOOT)));
+        if (Levitation)
+            pline("%s %s под вашими %s!", str,
+                  vtense(str, Blind ? "приземляется" : "появляется"),
+                  body_part_case(FOOT, BP_INS | BP_PLURAL));
+        else
+            pline("%s %s у ваших %s!", str,
+                  vtense(str, Blind ? "приземляется" : "появляется"),
+                  body_part_case(FOOT, BP_GEN | BP_PLURAL));
     }
 }
 
@@ -2107,13 +2116,13 @@ offer_corpse(struct obj *otmp, boolean highaltar, aligntyp altaralign)
             u.uluck = 0;
         if (u.uluck != orig_luck) {
             if (Blind)
-                You("думаете, что %s коснулось вашего %s.", something,
-                    body_part(FOOT));
+                You("думаете, что %s коснулось вашей %s.", something,
+                    body_part_case(FOOT, BP_GEN));
             else
                 You(Hallucination
                 ? "видите крабью траву у ваших %s.  Забавно для подземелья."
                         : "замечаете четырёхлистный клевер у ваших %s.",
-                    makeplural(body_part(FOOT)));
+                    body_part_case(FOOT, BP_GEN | BP_PLURAL));
         }
     }
 }
@@ -2551,6 +2560,66 @@ align_gname(aligntyp alignment)
     if (*gnam == '_')
         ++gnam;
     return gnam;
+}
+
+static const char *const god_gen_tab[][2] = {
+    { "Аматэрасу Омиками", "Аматэрасу Омиками" }, /* Япон., ж.р., несклон. */
+    { "Ану",               "Ану" },               /* Вавилон, несклон. */
+    { "Анхур",             "Анхура" },            /* Египет */
+    { "Аншар",             "Аншара" },            /* Вавилон */
+    { "Афина",             "Афины" },             /* Греция, ж.р. */
+    { "Иштар",             "Иштар" },             /* Вавилон, ж.р., несклон. */
+    { "Бригитта",          "Бригитты" },          /* Кельт, ж.р. */
+    { "Венера",            "Венеры" },            /* Рим, ж.р. */
+    { "Гермес",            "Гермеса" },           /* Греция */
+    { "Изек",              "Изека" },             /* Nehwon */
+    { "Камаштли",          "Камаштли" },          /* Мезоамерика, несклон. */
+    { "Кецалькоатль",      "Кецалькоатля" },      /* Мезоамерика */
+    { "Кос",               "Коса" },              /* Nehwon */
+    { "Кром",              "Крома" },             /* Hyborian */
+    { "Леди",              "Леди" },              /* Дискворт, ж.р., несклон. */
+    { "Локи",              "Локи" },              /* Норвегия, несклон. */
+    { "Луг",               "Луга" },              /* Кельт */
+    { "Мананнан-Мак-Лир",  "Мананнан-Мак-Лир" },  /* Кельт, несклон. */
+    { "Марс",              "Марса" },             /* Рим */
+    { "Меркурий",          "Меркурия" },          /* Рим */
+    { "Митра",             "Митры" },             /* Hyborian */
+    { "Мог",               "Мога" },              /* Nehwon */
+    { "Молох",             "Молоха" },            /* невыровненный, pray.c */
+    { "Один",              "Одина" },             /* Норвегия */
+    { "Оффлер",            "Оффлера" },           /* Дискворт */
+    { "Посейдон",          "Посейдона" },         /* Греция */
+    { "Птах",              "Птаха" },             /* Египет */
+    { "Райдзин",           "Райдзина" },          /* Япон. */
+    { "Сет",               "Сета" },              /* Hyborian */
+    { "Слепой Ио",         "Слепого Ио" },        /* Дискворт */
+    { "Сусаноо",           "Сусаноо" },           /* Япон., несклон. */
+    { "Тот",               "Тота" },              /* Египет */
+    { "Тюр",               "Тюра" },              /* Норвегия */
+    { "Уэуэтеотль",        "Уэуэтеотля" },        /* Мезоамерика */
+    { "Хуан-ди",           "Хуан-ди" },           /* Китай, несклон. */
+    { "Чхи Сун-цзу",       "Чхи Сун-цзу" },       /* Китай, несклон. */
+    { "Шан Лай Чин",       "Шан Лай Чина" },      /* Китай */
+};
+
+/* Russian: "Голос %s гремит" needs the genitive, and so does the "погиб от %s"
+   death prefix, while "молиться %s" would want the dative.  align_gname()
+   returns nominative names taken from roles[].lgod/ngod/cgod, so the genitive
+   has to be looked up by name.  A leading '_' marks a goddess (align_gtitle())
+   but align_gname() has already stripped it, so the keys carry no '_' and one
+   is stripped defensively.  Falls back to 'nom' for unknown names, e.g. the
+   "кто-то" from align_gname()'s impossible() branch. */
+const char *
+god_gen(const char *nom)
+{
+    int i;
+
+    if (*nom == '_')
+        ++nom;
+    for (i = 0; i < (int) SIZE(god_gen_tab); i++)
+        if (!strcmpi(god_gen_tab[i][0], nom))
+            return god_gen_tab[i][1];
+    return nom;
 }
 
 static const char *const hallu_gods[] = {

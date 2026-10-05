@@ -241,7 +241,7 @@ const struct Role roles[NUM_ROLES+1] = {
         { "Ученик ветра", 0 },
         { "Ученик огня", 0 },
         { "Мастер", 0 } },
-      "Shan Lai Ching", "Chih Sung-tzu", "Huan Ti", /* Chinese */
+      "Шан Лай Чин", "Чхи Сун-цзу", "Хуан-ди", /* Chinese */
       "Mon",
       "the Monastery of Chan-Sune",
       "the Monastery of the Earth-Lord",
@@ -325,7 +325,7 @@ const struct Role roles[NUM_ROLES+1] = {
         { "Воришка", 0 },
         { "Фокусник", "Фокусница" },
         { "Вор", 0 } },
-      "Issek", "Mog", "Kos", /* Nehwon */
+      "Изек", "Мог", "Кос", /* Nehwon */
       "Rog",
       "the Thieves' Guild Hall",
       "the Assassins' Guild Hall",
@@ -460,7 +460,7 @@ const struct Role roles[NUM_ROLES+1] = {
         { "Мореплаватель", 0 },
         { "Исследователь", 0 },
         { "Искатель приключений", 0 } },
-      "Blind Io", "_The Lady", "Offler", /* Discworld */
+      "Слепой Ио", "_Леди", "Оффлер", /* Discworld */
       "Tou",
       "Ankh-Morpork",
       "the Thieves' Guild Hall",

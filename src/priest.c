@@ -509,7 +509,8 @@ intemple(int roomno)
             You_feel("будто за вами следят.");
             break;
         case 2:
-            pline("По вашему %s пробегает дрожь.", body_part(SPINE));
+            pline("По вашему %s пробегает дрожь.",
+                  body_part_case(SPINE, BP_DAT));
             break;
         default:
             break; /* no message; unfortunately there's no

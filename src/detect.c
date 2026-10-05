@@ -407,7 +407,8 @@ gold_detect(struct obj *sobj)
     /* only under me - no separate display required */
     if (stale)
         docrt();
-    You("замечаете немного золота между вашими %s.", makeplural(body_part(FOOT)));
+    You("замечаете немного золота между вашими %s.",
+        body_part_case(FOOT, BP_INS | BP_PLURAL));
     return 0;
 
  outgoldmap:
@@ -516,13 +517,15 @@ food_detect(struct obj *sobj)
             You("чувствуете нехватку %s поблизости.", what);
             if (sobj && sobj->blessed) {
                 if (!u.uedibility)
-                    Your("%s начинает покалывать.", body_part(NOSE));
+                    Your("%s начинает покалывать.",
+                         body_part_case(NOSE, BP_NOM));
                 u.uedibility = 1;
             }
         } else if (sobj) {
             char buf[BUFSZ];
 
-            Sprintf(buf, "Ваш %s дёргается%s.", body_part(NOSE),
+            Sprintf(buf, "Ваш %s дёргается%s.",
+                    body_part_case(NOSE, BP_NOM),
                     (sobj->blessed && !u.uedibility)
                         ? " начинает покалывать"
                         : "");
@@ -542,7 +545,8 @@ food_detect(struct obj *sobj)
         You("%s %s поблизости.", sobj ? "чуете" : "ощущаете", what);
         if (sobj && sobj->blessed) {
             if (!u.uedibility)
-                Your("%s начинает покалывать.", body_part(NOSE));
+                Your("%s начинает покалывать.",
+                     body_part_case(NOSE, BP_NOM));
             u.uedibility = 1;
         }
     } else {
@@ -577,11 +581,13 @@ food_detect(struct obj *sobj)
         }
         if (sobj) {
             if (sobj->blessed) {
-                Your("%s %s покалывать, и вы чуете %s.", body_part(NOSE),
+                Your("%s %s покалывать, и вы чуете %s.",
+                     body_part_case(NOSE, BP_NOM),
                      u.uedibility ? "продолжает" : "начинает", what);
                 u.uedibility = 1;
             } else
-                Your("%s покалывает, и вы чуете %s.", body_part(NOSE), what);
+                Your("%s покалывает, и вы чуете %s.",
+                     body_part_case(NOSE, BP_NOM), what);
         } else
             You("ощущаете %s.", what);
         exercise(A_WIS, TRUE);
@@ -1078,12 +1084,13 @@ trap_detect(
     if (!found) {
         char buf[BUFSZ];
 
-        Sprintf(buf, "Ваши %s перестают чесаться.", makeplural(body_part(TOE)));
+        Sprintf(buf, "Ваши %s перестают чесаться.",
+                body_part_case(TOE, BP_NOM | BP_PLURAL));
         strange_feeling(sobj, buf);
         return 1;
     }
     /* traps exist, but only under me - no separate display required */
-    Your("%s чешутся.", makeplural(body_part(TOE)));
+    Your("%s чешутся.", body_part_case(TOE, BP_NOM | BP_PLURAL));
     return 0;
 }
 

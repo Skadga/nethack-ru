@@ -53,7 +53,8 @@ ballfall(void)
     if (gets_hit) {
         int dmg = rn1(7, 25);
 
-        pline_The("Железный шар падает на ваш %s.", body_part(HEAD));
+        pline_The("Железный шар падает на ваш %s.",
+                  body_part_case(HEAD, BP_ACC));
         if (uarmh) {
             if (hard_helmet(uarmh)) {
                 pline("К счастью, на вас надет жёсткий шлем.");

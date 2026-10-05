@@ -543,9 +543,9 @@ really_kick_object(coordxy x, coordxy y)
     if (!uarmf && gk.kickedobj->otyp == CORPSE
         && touch_petrifies(&mons[gk.kickedobj->corpsenm])
         && !Stone_resistance) {
-        You("пинаете %s голой %s.",
+        You("пинаете %s голыми %s.",
             corpse_xname(gk.kickedobj, (const char *) 0, CXN_PFX_THE),
-            makeplural(body_part(FOOT)));
+            body_part_case(FOOT, BP_INS | BP_PLURAL));
         if (poly_when_stoned(gy.youmonst.data) && polymon(PM_STONE_GOLEM)) {
             ; /* hero has been transformed but kick continues */
         } else {

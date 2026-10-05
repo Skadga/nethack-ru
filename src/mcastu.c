@@ -610,13 +610,13 @@ mcast_psi_bolt(int dmg)
         monstunseesu(M_SEEN_MAGR);
     }
     if (dmg <= 5)
-        You("у вас слегка болит %s.", body_part(HEAD));
+        Your("у вас слегка болит %s.", body_part_case(HEAD, BP_NOM));
     else if (dmg <= 10)
         Your("ваш мозг горит!");
     else if (dmg <= 20)
-        Your("%s внезапно сильно болит!", body_part(HEAD));
+        Your("%s внезапно сильно болит!", body_part_case(HEAD, BP_NOM));
     else
-        Your("%s внезапно очень сильно болит!", body_part(HEAD));
+        Your("%s внезапно очень сильно болит!", body_part_case(HEAD, BP_NOM));
     return dmg;
 }
 
@@ -732,9 +732,10 @@ mcast_blind_you(void)
     if (!Blinded) {
         int num_eyes = eyecount(gy.youmonst.data);
 
-        pline("„ешу€ покрывает ваш %s!", (num_eyes == 1)
-                                       ? body_part(EYE)
-                                       : makeplural(body_part(EYE)));
+        pline("„ешу€ покрывает %s %s!",
+              num_eyes == 1 ? "ваш" : "ваши",
+              body_part_case(EYE, num_eyes == 1 ? BP_ACC
+                                                 : BP_ACC | BP_PLURAL));
         make_blinded(Half_spell_damage ? 100L : 200L, FALSE);
         if (!Blind)
             Your1(vision_clears);

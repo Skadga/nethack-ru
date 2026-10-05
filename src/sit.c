@@ -158,7 +158,7 @@ throne_sit_effect(void)
                     Your("зрение проясняется.");
                 } else {
                     int num_of_eyes = eyecount(gy.youmonst.data);
-                    const char *eye = body_part(EYE);
+                    const char *eye = body_part_case(EYE, BP_NOM);
 
                     /* note: 1 eye case won't actually happen--can't
                        sit on throne when poly'd into always-levitating
@@ -166,7 +166,7 @@ throne_sit_effect(void)
                     switch (num_of_eyes) { /* 2, 1, or 0 */
                     default:
                     case 2: /* more than 1 eye */
-                        eye = makeplural(eye);
+                        eye = body_part_case(EYE, BP_NOM | BP_PLURAL);
                         FALLTHROUGH;
                         /*FALLTHRU*/
                     case 1: /* one eye (Cyclops, floating eye) */
@@ -174,7 +174,7 @@ throne_sit_effect(void)
                         break;
                     case 0: /* no eyes */
                         You("испытываете очень странное ощущение в %s.",
-                            body_part(HEAD));
+                        body_part_case(HEAD, BP_PREP));
                         break;
                     }
                 }
@@ -467,8 +467,8 @@ dosit(void)
         if (u.utrap) {
             exercise(A_WIS, FALSE); /* you're getting stuck longer */
             if (u.utraptype == TT_BEARTRAP) {
-                You_cant("опуститься, когда ваш %s в медвежьем капкане.",
-                         body_part(FOOT));
+                You_cant("опуститься, когда ваша %s в медвежьем капкане.",
+                         body_part_case(FOOT, BP_NOM));
                 u.utrap++;
             } else if (u.utraptype == TT_PIT) {
                 if (trap && trap->ttyp == SPIKED_PIT) {

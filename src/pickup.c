@@ -1711,8 +1711,8 @@ lift_object(
     int result, old_wt, new_wt, prev_encumbr, next_encumbr;
 
     if (obj->otyp == BOULDER && Sokoban) {
-        You("не можете обхватить %s вокруг этого %s.", body_part(HAND),
-            xname(obj));
+        You("не можете обхватить этот %s %s.", xname(obj),
+            body_part_case(HAND, BP_INS));
         return -1;
     }
     /* override weight consideration for loadstone picked up by anybody
@@ -2061,8 +2061,8 @@ able_to_loot(
         pline("Ѕез конечностей вы не можете %s ничего.", verb);
         return FALSE;
     } else if (looting && !freehand()) {
-        pline("Ѕез свободного %s вы не можете ничего ограбить.",
-              body_part(HAND));
+        pline("Ѕез свободной %s вы не можете ничего ограбить.",
+              body_part_case(HAND, BP_GEN));
         return FALSE;
     }
     return TRUE;
@@ -2850,8 +2850,8 @@ observe_quantum_cat(struct obj *box, boolean makecat, boolean givemsg)
             set_malign(livecat);
             if (givemsg) {
                 if (!canspotmon(livecat))
-                    You("кажетс€, %s коснулс€ вашего %s.", something,
-                        body_part(FOOT));
+                    You("думаете, что %s коснулось вашей %s.", something,
+                        body_part_case(FOOT, BP_GEN));
                 else
                     pline("%s внутри коробки ещЄ жив!",
                           Monnam(livecat));
@@ -2946,7 +2946,7 @@ u_handsy(void)
         You("нет рук!"); /* not `body_part(HAND)' */
         return FALSE;
     } else if (!freehand()) {
-        You("нет свободного %s.", body_part(HAND));
+        You("не имеете свободной %s.", body_part_case(HAND, BP_GEN));
         return FALSE;
     }
     return TRUE;

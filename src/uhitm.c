@@ -545,8 +545,8 @@ do_attack(struct monst *mtmp)
             else if (!cantwield(gy.youmonst.data))
                 You("начинаете %s монстров с помощью %s %s.",
                     ing_suffix(Role_if(PM_MONK) ? "удара" : "дубины"),
-                    uarmg ? "в перчатках" : "", /* Del Lamb */
-                    makeplural(body_part(HAND)));
+                    uarmg ? "перчаточных" : "голых", /* Del Lamb */
+                    body_part_case(HAND, BP_GEN | BP_PLURAL));
         }
     }
     exercise(A_STR, TRUE); /* you're exercising muscles */
@@ -1286,7 +1286,7 @@ hmon_hitmon_misc_obj(
                 if (haseyes(hmd->mdat)
                     && hmd->mdat != &mons[PM_FLOATING_EYE])
                     whom = strcat(strcat(s_suffix(whom), " "),
-                                  mbodypart(mon, FACE));
+                                  mbodypart_case(mon, FACE, BP_ACC));
                 pline("%s %s на %s!", what,
                       vtense(what, "брызгает"), whom);
             }
@@ -3367,7 +3367,8 @@ mhitm_ad_wrap(
                         You("задеваете %s.", mon_nam(mdef));
                     else
                         You("задеваете %s %s.", s_suffix(mon_nam(mdef)),
-                            tailmiss ? "хвост" : mbodypart(mdef, LEG));
+                            tailmiss ? "хвост"
+                                     : mbodypart_case(mdef, LEG, BP_ACC));
                 }
             }
         } else
@@ -3409,7 +3410,7 @@ mhitm_ad_wrap(
                                   Monnam(magr));
                     else
                         pline_mon(magr, "%s задевает вашу %s.",
-                                  Monnam(magr), body_part(LEG));
+                                  Monnam(magr), body_part_case(LEG, BP_ACC));
                 }
             }
         } else
@@ -4439,37 +4440,41 @@ mhitm_ad_legs(
     } else if (mdef == &gy.youmonst) {
         /* mhitu */
         long side = rn2(2) ? RIGHT_SIDE : LEFT_SIDE;
-        const char *sidestr = (side == RIGHT_SIDE) ? "правой" : "левой",
-                   *Monst_name = Monnam(magr), *leg = body_part(LEG);
+        const char *side_gen = (side == RIGHT_SIDE) ? "правой" : "левой",
+                   *side_acc = (side == RIGHT_SIDE) ? "правую" : "левую",
+                   *side_nom = (side == RIGHT_SIDE) ? "правый" : "левый",
+                   *Monst_name = Monnam(magr),
+                   *leg = body_part_case(LEG, BP_GEN);
 
         /* This case is too obvious to ignore, but Nethack is not in
          * general very good at considering height--most short monsters
          * still _can_ attack you when you're flying or mounted.
          */
         if ((u.usteed || Levitation || Flying) && !is_flyer(magr->data)) {
-            pline("%s пытается достать до вашей %s %s!", Monst_name, sidestr, leg);
+            pline("%s пытается достать до вашей %s %s!", Monst_name, side_gen, leg);
             mhm->damage = 0;
         } else if (magr->mcan) {
             pline_mon(magr, "%s трётся о вашу %s %s!", Monnam(magr),
-                  sidestr, leg);
+                  side_acc, body_part_case(LEG, BP_ACC));
             mhm->damage = 0;
         } else {
             if (uarmf) {
                 if (rn2(2) && (uarmf->otyp == LOW_BOOTS
                                || uarmf->otyp == IRON_SHOES)) {
                     pline("%s колет открытую часть вашей %s %s!",
-                          Monst_name, sidestr, leg);
+                          Monst_name, side_gen, leg);
                 } else if (!rn2(5)) {
                     pline("%s прокалывает ваш %s сапог!", Monst_name,
-                          sidestr);
+                          side_nom);
                 } else {
                     pline("%s царапает ваш %s сапог!", Monst_name,
-                          sidestr);
+                          side_nom);
                     mhm->damage = 0;
                     return;
                 }
             } else
-                pline("%s колет вашу %s %s!", Monst_name, sidestr, leg);
+                pline("%s колет вашу %s %s!", Monst_name,
+                      side_acc, body_part_case(LEG, BP_ACC));
 
             set_wounded_legs(side, rnd(60 - ACURR(A_DEX)));
             exercise(A_STR, FALSE);
@@ -5063,7 +5068,7 @@ gulpum(struct monst *mdef, struct attack *mattk)
                 xkilled(mdef, XKILL_GIVEMSG | XKILL_NOCORPSE);
                 if (!DEADMONSTER(mdef)) { /* monster lifesaved */
                     You("поспешно извергаете жгучее содержимое из вашего %s.",
-                        body_part(STOMACH));
+                        body_part_case(STOMACH, BP_GEN));
                 } else {
                     tmp = 1 + (pd->cwt >> 8);
                     if (corpse_chance(mdef, &gy.youmonst, TRUE)
@@ -6313,13 +6318,14 @@ disguised_as_mon(struct monst *mtmp)
 staticfn void
 nohandglow(struct monst *mon)
 {
-    char *hands;
+    char *hands, *hands_ins;
     boolean altfeedback;
 
     if (!u.umconf || mon->mconf)
         return;
 
-    hands = makeplural(body_part(HAND));
+    hands = body_part_case(HAND, BP_NOM | BP_PLURAL);
+    hands_ins = body_part_case(HAND, BP_PREP | BP_PLURAL);
     altfeedback = (Blind || Invisible); /* Invisible == Invis && !See_invis */
     if (u.umconf == 1) {
         if (altfeedback)
@@ -6328,7 +6334,7 @@ nohandglow(struct monst *mon)
             Your("%s перестают светиться %s.", hands, hcolor(NH_RED));
     } else {
         if (altfeedback)
-            pline("Покалывание в вашей %s ослабевает.", hands);
+            pline("Покалывание в вашей %s ослабевает.", hands_ins);
         else
             Your("%s больше не светятся так ярко %s.", hands, hcolor(NH_RED));
     }

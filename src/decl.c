@@ -37,17 +37,17 @@ const char *c_obj_colors[] = {
 };
 
 const struct c_common_strings c_common_strings =
-    { "Nothing happens.",
-      "Nothing seems to happen.",
-      "That's enough tries!",
-      "That is a silly thing to %s.",
-      "shudder for a moment.",
-      "something",
-      "Something",
-      "You can move again.",
+    { "Ничего не происходит.",
+      "Кажется, ничего не происходит.",
+      "Довольно попыток!",
+      "Глупо %s.",
+      "вздрагиваете на мгновение.",
+      "что-то",
+      "Что-то",
+      "Вы снова можете двигаться.",
       "Забудь.",
-      "vision quickly clears.",
-      { "the", "your" },
+      "ваше зрение быстро проясняется.",
+      { "", "" },
       { "mon", "you" }
 };
 

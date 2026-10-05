@@ -466,9 +466,10 @@ run_regions(void)
         gg.gas_cloud_diss_within = FALSE;
     }
     if (gg.gas_cloud_diss_seen) {
-        You_see("%s gas cloud%s dissipate.",
-                (gg.gas_cloud_diss_seen == 1) ? "a" : "some",
-                plur(gg.gas_cloud_diss_seen));
+        if (gg.gas_cloud_diss_seen == 1)
+            You_see("облако газа рассеивается.");
+        else
+            You_see("газовые облака рассеиваются.");
         gg.gas_cloud_diss_seen = 0;
     }
 }
@@ -1111,12 +1112,11 @@ inside_gas_cloud(genericptr_t p1, genericptr_t p2)
         if (m_poisongas_ok(&gy.youmonst) == M_POISONGAS_OK)
             return FALSE;
         if (!Blind) {
-            Your("%s sting.", makeplural(body_part(EYE)));
+            Your("Ваши глаза пощипывает.");
             make_blinded(1L, FALSE);
         }
         if (!Poison_resistance) {
-            pline("%s is burning your %s!", Something,
-                  makeplural(body_part(LUNG)));
+            pline("Что-то обжигает ваши лёгкие!");
             You("кашляете и плюётесь кровью!");
             wake_nearto(u.ux, u.uy, 2);
             dam = Maybe_Half_Phys(rnd(dam) + 5);
@@ -1154,7 +1154,7 @@ inside_gas_cloud(genericptr_t p1, genericptr_t p2)
                 if (heros_fault(reg))
                     killed(mtmp);
                 else
-                    monkilled(mtmp, "gas cloud", AD_DRST);
+                    monkilled(mtmp, "облака ядовитого газа", AD_DRST);
                 if (DEADMONSTER(mtmp)) { /* not lifesaved */
                     return TRUE;
                 }

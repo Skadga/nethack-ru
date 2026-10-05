@@ -298,8 +298,12 @@ choke_dialogue(void)
 
     if (i > 0 && i <= SIZE(choke_texts)) {
         if (Breathless || !rn2(50)) {
-            urgent_pline(choke_texts2[SIZE(choke_texts2) - i],
-                         body_part(NECK));
+            /* msg == 2 is "Давление на вашу %s" (accusative); every other
+               entry either has no %s or wants the nominative. */
+            int msg = SIZE(choke_texts2) - i;
+
+            urgent_pline(choke_texts2[msg],
+                         body_part_case(NECK, msg == 2 ? BP_ACC : BP_NOM));
         } else {
             const char *str = choke_texts[SIZE(choke_texts) - i];
 
@@ -1252,7 +1256,7 @@ slip_or_trip(void)
             what = strcpy(buf, what);
             buf[0] = highc(buf[0]);
             pline("Ба! %s цапает вашу %s!", what,
-                  body_part(FOOT));
+                  body_part_case(FOOT, BP_ACC));
         } else {
             You("спотыкаетесь о %s.", what);
         }
@@ -1329,7 +1333,7 @@ slip_or_trip(void)
             switch (rn2(4)) {
             case 1:
                 Your("%s выскальзывают из стремян.",
-                     makeplural(body_part(FOOT)));
+                     body_part_case(FOOT, BP_NOM | BP_PLURAL));
                 break;
             case 2:
                 You("отпускаете поводья.");
@@ -1376,7 +1380,7 @@ lantern_message(struct obj *obj)
         You_see("фонарь тускнеет.");
         break;
     case OBJ_MINVENT:
-        pline("Лампа %s тускнеет.", s_suffix(Monnam(obj->ocarry)));
+        pline("Лампа %s тускнеет.", mhis(obj->ocarry));
         break;
     }
 }

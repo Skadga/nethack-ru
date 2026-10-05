@@ -74,6 +74,32 @@ staticfn boolean thitm(int, struct monst *, struct obj *, int,
                                                          boolean) NONNULLARG2;
 staticfn void maybe_finish_sokoban(void);
 
+static const char *const trapname_ru_gen[] = {
+    /* indexed by utraptypes (include/you.h): TT_NONE, TT_BEARTRAP, TT_PIT,
+       TT_WEB, TT_LAVA, TT_INFLOOR, TT_BURIEDBALL */
+    "",                    /* TT_NONE, never reaches this function */
+    "медвежьего капкана", /* TT_BEARTRAP, defsyms[S_bear_trap] */
+    "ямы",                /* TT_PIT, defsyms[S_pit] */
+    "паутины",            /* TT_WEB, defsyms[S_web] */
+    "расплавленной лавы", /* TT_LAVA, literal in the switch below */
+    "земли",              /* TT_INFLOOR, literal in the switch below */
+    "вашего якоря",       /* TT_BURIEDBALL, literal in the switch below */
+};
+
+/* Russian: the messages at openholdingtrap() say "от %s%s", and the
+   preposition "от" requires the genitive, so trapdescr has to be genitive
+   there.  The nominative is kept separately for the "%s%s открывается."
+   message, which has no preposition.  Falls back to 'nom' when there is no
+   genitive form (e.g. hallucinated trap names). */
+static const char *
+trapname_ru(int utraptype, const char *nom)
+{
+    if (utraptype > 0 && utraptype < (int) SIZE(trapname_ru_gen)
+        && *trapname_ru_gen[utraptype])
+        return trapname_ru_gen[utraptype];
+    return nom;
+}
+
 static const char *const a_your[2] = { "", "вашу" };
 static const char *const A_Your[2] = { "", "Ваш" };
 static const char tower_of_flame[] = "столб пламени";
@@ -1337,7 +1363,8 @@ trapeffect_rocktrap(
             place_object(otmp, u.ux, u.uy);
 
             pline("В %s открывается люк, и %s падает на вашу %s!",
-                  the(ceiling(u.ux, u.uy)), an(xname(otmp)), body_part(HEAD));
+                  the(ceiling(u.ux, u.uy)), an(xname(otmp)),
+                  body_part_case(HEAD, BP_ACC));
             if (uarmh) {
                 /* normally passes_rocks() would protect against a falling
                    rock, but not when wearing a helmet */
@@ -1499,12 +1526,13 @@ trapeffect_bear_trap(
         set_utrap((unsigned) rn1(4, 4), TT_BEARTRAP);
         if (u.usteed) {
             pline("%s медвежий капкан захлопнулся на %s %s!", A_Your[trap->madeby_u],
-                  s_suffix(mon_nam(u.usteed)), mbodypart(u.usteed, FOOT));
+                  s_suffix(mon_nam(u.usteed)),
+                  mbodypart_case(u.usteed, FOOT, BP_ACC));
             if (thitm(0, u.usteed, (struct obj *) 0, dmg, FALSE))
                 reset_utrap(TRUE); /* steed died, hero not trapped */
         } else {
             pline("%s медвежий капкан захлопнулся на вашу %s!", A_Your[trap->madeby_u],
-                  body_part(FOOT));
+                  body_part_case(FOOT, BP_ACC));
             if (u.umonnum == PM_OWLBEAR || u.umonnum == PM_BUGBEAR)
                 You("воете от ярости!");
             if (wearing_iron_shoes(mtmp))
@@ -1602,11 +1630,12 @@ trapeffect_rust_trap(
          */
         switch (rn2(5)) {
         case 0:
-            pline("%s вас по голове!", A_gush_of_water_hits, body_part(HEAD));
+            pline("%s вас по голове!", A_gush_of_water_hits);
             (void) water_damage(uarmh, helm_simple_name(uarmh), TRUE);
             break;
         case 1:
-            pline("%s вашу левую %s!", A_gush_of_water_hits, body_part(ARM));
+            pline("%s вашу левую %s!", A_gush_of_water_hits,
+                  body_part_case(ARM, BP_ACC));
             if (water_damage(uarms, "щит", TRUE) != ER_NOTHING)
                 break;
             if (u.twoweap || (uwep && bimanual(uwep)))
@@ -1615,7 +1644,8 @@ trapeffect_rust_trap(
             (void) water_damage(uarmg, gloves_simple_name(uarmg), TRUE);
             break;
         case 2:
-            pline("%s вашу правую %s!", A_gush_of_water_hits, body_part(ARM));
+            pline("%s вашу правую %s!", A_gush_of_water_hits,
+                  body_part_case(ARM, BP_ACC));
             (void) water_damage(uwep, 0, TRUE);
             goto uglovecheck;
         default:
@@ -2739,7 +2769,8 @@ trapeffect_vibrating_square(
                 } else {
                     Strcpy(buf, s_suffix(monnm));
                     p = eos(strcat(buf, " "));
-                    Strcpy(p, makeplural(mbodypart(mtmp, FOOT)));
+                    Strcpy(p, mbodypart_case(mtmp, FOOT,
+                                             BP_NOM | BP_PLURAL));
                     /* avoid "beneath 'rear paws'" or 'rear hooves' */
                     (void) strsubst(p, "rear ", "");
                 }
@@ -3940,7 +3971,7 @@ float_up(void)
         } else if (u.utraptype == TT_LAVA /* molten lava */
                    || u.utraptype == TT_INFLOOR) { /* solidified lava */
             Your("тело тянет вверх, но ваши %s всё ещё застряли.",
-                 makeplural(body_part(LEG)));
+                 body_part_case(LEG, BP_NOM | BP_PLURAL));
         } else if (u.utraptype == TT_BURIEDBALL) { /* tethered */
             coord cc;
 
@@ -3952,14 +3983,14 @@ float_up(void)
             /* being chained to the floor blocks levitation from floating
                above that floor but not from enhancing carrying capacity */
             You("чувствуете себя легче, но ваша %s всё ещё прикована к %s.",
-                body_part(LEG),
+                body_part_case(LEG, BP_NOM),
                 IS_ROOM(levl[cc.x][cc.y].typ) ? "полу" : "земле");
         } else if (u.utraptype == WEB) {
             You("приподнимаетесь, но всё ещё увязли в %s.",
                 trapname(WEB, FALSE));
         } else { /* bear trap */
             You("всплываете немного, но ваша %s всё ещё застряла.",
-                body_part(LEG));
+                body_part_case(LEG, BP_NOM));
         }
         /* when still trapped, float_vs_flight() below will block levitation */
 #if 0
@@ -4189,10 +4220,10 @@ climb_pit(void)
         fill_pit(u.ux, u.uy);
         gv.vision_full_recalc = 1; /* vision limits change */
     } else if (!rn2(2) && sobj_at(BOULDER, u.ux, u.uy)) {
-        Your("%s застревает в расщелине.", body_part(LEG));
+        Your("%s застревает в расщелине.", body_part_case(LEG, BP_NOM));
         display_nhwindow(WIN_MESSAGE, FALSE);
         clear_nhwindow(WIN_MESSAGE);
-        You("освобождаете свой %s.", body_part(LEG));
+        You("освобождаете свою %s.", body_part_case(LEG, BP_NOM));
     } else if ((Flying || is_clinger(gy.youmonst.data)) && !Sokoban) {
         /* eg fell in pit, then poly'd to a flying monster;
            or used '>' to deliberately enter it */
@@ -4377,7 +4408,8 @@ domagictrap(void)
 
         /* odd feelings */
         case 13:
-            pline("Дрожь пробегает по вашей %s!", body_part(SPINE));
+            pline("Дрожь пробегает по вашему %s!",
+                  body_part_case(SPINE, BP_DAT));
             break;
         case 14:
             You_hear(Hallucination ? "как луна воет на вас."
@@ -5252,7 +5284,7 @@ could_untrap(boolean verbosely, boolean check_floor)
         Sprintf(buf, "Вам придётся сначала отпустить %s.", mon_nam(u.ustuck));
     } else if (u.ustuck || (welded(uwep) && bimanual(uwep))) {
         Sprintf(buf, "Ваши %s слишком заняты для этого.",
-                makeplural(body_part(HAND)));
+                body_part_case(HAND, BP_NOM | BP_PLURAL));
     } else if (check_floor && !can_reach_floor(FALSE)) {
         /* only checked here for autounlock of chest/box and that will
            be !verbosely so precise details of the message don't matter */
@@ -5536,7 +5568,7 @@ staticfn int
 disarm_holdingtrap(struct trap *ttmp)
 {
     struct monst *mtmp;
-    const char *which = the_your[ttmp->madeby_u];
+    const char *which = ttmp->madeby_u ? "вашу " : "";
     int fails = try_disarm(ttmp, FALSE);
 
     if (fails < 2)
@@ -5561,12 +5593,12 @@ disarm_holdingtrap(struct trap *ttmp)
 
         if (wep && wep->oartifact
             && (u_wield_art(ART_STING) || attacks(AD_FIRE, wep)))
-            pline("%s %s %s паутину!", bare_artifactname(uwep),
+            pline("%s %s %sпаутину!", bare_artifactname(uwep),
                       u_wield_art(ART_STING) ? "прорезает" : "прожигает", which);
         else if (wep)
-            You("прорезаете %s паутину.", which);
+            You("прорезаете %sпаутину.", which);
         else
-            You("успешно снимаете %s паутину.", which);
+            You("успешно снимаете %sпаутину.", which);
         deltrap(ttmp);
     }
     newsym(u.ux + u.dx, u.uy + u.dy);
@@ -5708,7 +5740,7 @@ help_monster_out(
     /* Will our hero succeed? */
     if ((uprob = untrap_prob(ttmp)) != 0 && !helpless(mtmp)) {
         You("пытаетесь протянуть свои %s, но %s скептически отшатывается.",
-            makeplural(body_part(ARM)), mon_nam(mtmp));
+            body_part_case(ARM, BP_ACC | BP_PLURAL), mon_nam(mtmp));
         return 1;
     }
 
@@ -5717,7 +5749,7 @@ help_monster_out(
         const char *mtmp_pmname = mon_pmname(mtmp);
 
         You("хватаете застрявшего %s голыми %s.",
-            mtmp_pmname, makeplural(body_part(HAND)));
+            mtmp_pmname, body_part_case(HAND, BP_INS | BP_PLURAL));
 
         if (poly_when_stoned(gy.youmonst.data) && polymon(PM_STONE_GOLEM)) {
             display_nhwindow(WIN_MESSAGE, FALSE);
@@ -5739,7 +5771,8 @@ help_monster_out(
         return 1;
     }
 
-    You("протягиваете свои %s и хватаете %s.", makeplural(body_part(ARM)),
+    You("протягиваете свои %s и хватаете %s.",
+        body_part_case(ARM, BP_ACC | BP_PLURAL),
         mon_nam(mtmp));
 
     if (mtmp->msleeping) {
@@ -6089,7 +6122,7 @@ openholdingtrap(
 {
     struct trap *t, tdummy;
     char buf[BUFSZ], whichbuf[20];
-    const char *trapdescr = 0, *which = 0;
+    const char *trapdescr = 0, *which = 0, *trapdescr_nom = 0;
     boolean ishero = (mon == &gy.youmonst);
 
     if (!mon)
@@ -6111,39 +6144,45 @@ openholdingtrap(
 
         switch (u.utraptype) {
         case TT_LAVA:
-            trapdescr = "расплавленная лава";
+            trapdescr_nom = "расплавленная лава";
             break;
         case TT_INFLOOR:
             /* solidified lava, so not "floor" even if within a room */
-            trapdescr = "земля";
+            trapdescr_nom = "земля";
             break;
         case TT_BURIEDBALL:
-            trapdescr = "ваш якорь";
+            trapdescr_nom = "ваш якорь";
             which = "";
             break;
         case TT_BEARTRAP:
         case TT_PIT:
         case TT_WEB:
-            trapdescr = defsyms[(u.utraptype == TT_WEB) ? S_web
+            trapdescr_nom = defsyms[(u.utraptype == TT_WEB) ? S_web
                                 : (u.utraptype == TT_PIT) ? S_pit
                                   : S_bear_trap].explanation;
             break;
         default:
             /* lint suppression in case 't' is unexpectedly Null
                or u.utraptype has new value we don't know about yet */
-            trapdescr = "ловушка";
+            trapdescr_nom = "ловушка";
             break;
         }
+        trapdescr = trapname_ru(u.utraptype, trapdescr_nom);
     } else {
         /* if no trap here or it's not a holding trap, we're done */
         if (!t || (t->ttyp != BEAR_TRAP && t->ttyp != WEB))
             return FALSE;
-        trapdescr = trapname(t->ttyp, FALSE);
+        /* Russian: hallucinated trap names have no genitive forms, so
+           keep the nominative there and accept the awkward "от" */
+        trapdescr_nom = trapname(t->ttyp, FALSE);
+        trapdescr = Hallucination
+                    ? trapdescr_nom
+                    : trapname_ru(t->ttyp == WEB ? TT_WEB : TT_BEARTRAP,
+                                  trapdescr_nom);
     }
     assert(t != NULL);
     if (!which)
-        which = t->tseen ? the_your[t->madeby_u]
-                         : strchr(vowels, *trapdescr) ? "an" : "a";
+        which = t->tseen ? the_your[t->madeby_u] : "";
     assert(which != 0);
     if (*which)
         which = strcat(strcpy(whichbuf, which), " ");
@@ -6179,7 +6218,8 @@ openholdingtrap(
                 pline("%s освобожден от %s%s.", Something, which,
                       trapdescr);
             else /* BEAR_TRAP */
-                pline("%s%s открывается.", upstart(strcpy(buf, which)), trapdescr);
+                pline("%s%s открывается.", upstart(strcpy(buf, which)),
+                      trapdescr_nom);
         }
         /* might pacify monster if adjacent */
         if (rn2(2) && m_next2u(mon))
@@ -6411,7 +6451,8 @@ chest_trap(
         case 15:
         case 14:
         case 13:
-            You_feel("укол иглы в вашу %s.", body_part(bodypart));
+            You_feel("укол иглы в вашу %s.",
+                     body_part_case(bodypart, BP_ACC));
             poisoned("игла", A_CON, "отравленная игла", 10, FALSE);
             exercise(A_CON, FALSE);
             break;

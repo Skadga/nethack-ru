@@ -106,6 +106,13 @@ enum misc_arti_nums {
     NROFARTIFACTS = (AFTER_LAST_ARTIFACT - 1)
 };
 
+/* grammatical form requested from glow_verb() for Sting/Orcrist/Grimtooth */
+enum glow_verb_forms {
+    GLOW_FINITE = 0,   /* "сияет" */
+    GLOW_INFINITE,     /* "сияет" -> "перестаёт сиять" */
+    GLOW_ADJ           /* "сияющий" */
+};
+
 /* related to breadcrumb struct */
 enum bcargs {override_restriction = -1};
 
@@ -148,6 +155,19 @@ enum bodypart_types {
     NOSE      = 17,
     STOMACH   = 18
 };
+
+/* Russian grammatical case selectors for body_part_case().
+   BP_PLURAL is a flag; combine it with a case, e.g. BP_GEN|BP_PLURAL. */
+enum bp_case {
+    BP_NOM  = 0, /* именительный */
+    BP_GEN  = 1, /* родительный */
+    BP_DAT  = 2, /* дательный */
+    BP_ACC  = 3, /* винительный */
+    BP_INS  = 4, /* творительный */
+    BP_PREP = 5  /* предложный */
+};
+#define BP_CASE_MASK 0x0f
+#define BP_PLURAL    0x10
 
 #define MAX_BMASK 4
 

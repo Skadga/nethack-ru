@@ -765,17 +765,18 @@ m_throw(
                         pline("‘у!  ¬ас вымазали.");
                     else
                         pline("Ќа вашем %s %s липкое.",
-                              body_part(FACE), something);
+                              body_part_case(FACE, BP_PREP), something);
                 } else if (singleobj->otyp == BLINDING_VENOM) {
-                    const char *eyes = body_part(EYE);
-
-                    if (eyecount(gy.youmonst.data) != 1)
-                        eyes = makeplural(eyes);
+                    const char *eyes = eyecount(gy.youmonst.data) != 1
+                        ? body_part_case(EYE, BP_NOM | BP_PLURAL)
+                        : body_part_case(EYE, BP_NOM);
                     /* venom in the eyes */
                     if (!Blind)
                         pline("яд ослепл€ет вас.");
                     else
-                        Your("%s %s.", eyes, vtense(eyes, "щиплют"));
+                        Your("%s %s.", eyes,
+                             eyecount(gy.youmonst.data) != 1 ? "щиплют"
+                                                             : "щиплет");
                 }
             }
             if (hitu && singleobj->otyp == EGG) {
@@ -906,10 +907,16 @@ return_from_mtoss(
             dmg = rn2(2);
             if (!dmg) {
                 if (canseemon(magr)) {
-                    pline("%s к %s, приземл€€сь %s %s %s.",
-                          Tobjnam(otmp, "возвращаетс€"), mon_nam(magr),
-                          mlevitating ? "под" : "у", mhis(magr),
-                          makeplural(mbodypart(magr, FOOT)));
+                    if (mlevitating)
+                        pline("%s к %s, приземл€€сь под %s %s.",
+                              Tobjnam(otmp, "возвращаетс€"), mon_nam(magr),
+                              mhis(magr),
+                              mbodypart_case(magr, FOOT, BP_INS | BP_PLURAL));
+                    else
+                        pline("%s к %s, приземл€€сь у %s %s.",
+                              Tobjnam(otmp, "возвращаетс€"), mon_nam(magr),
+                              mhis(magr),
+                              mbodypart_case(magr, FOOT, BP_GEN | BP_PLURAL));
                 } else if (!Deaf) {
                     You_hear("%s падает возле %s.", Something, mon_nam(magr));
                 }
@@ -918,7 +925,7 @@ return_from_mtoss(
                 if (canseemon(magr)) {
                     pline("%s обратно к %s, попада€ %s в %s!",
                           Tobjnam(otmp, "летит"), mon_nam(magr),
-                          mhis(magr), body_part(ARM));
+                          mhim(magr), mbodypart_case(magr, ARM, BP_ACC));
                 } else if (!Deaf) {
                     You_hear("%s со стуком попадает в %s!", something,
                              mon_nam(magr));
