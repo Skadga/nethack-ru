@@ -2273,8 +2273,7 @@ thitmonst(
             mon->mstrategy &= ~STRAT_WAITMASK;
         }
     } else if (guaranteed_hit) {
-        char trail[BUFSZ];
-        char *monname;
+        char trail[BUFSZ], monname[BUFSZ];
         struct permonst *md = u.ustuck->data;
 
         /* this assumes that guaranteed_hit is due to swallowing */
@@ -2291,10 +2290,11 @@ thitmonst(
         }
         Strcpy(trail,
                digests(md) ? " кишках" : is_whirly(md) ? " потоках воздуха" : "");
-        monname = mon_nam(mon);
         if (*trail)
-            monname = s_suffix(monname);
-        pline("%s в %s%s.", Tobjnam(obj, "исчезает"), monname, trail);
+            Snprintf(monname, sizeof monname, "%s%s", mhis(mon), trail);
+        else
+            Strcpy(monname, "него");
+        pline("%s в %s.", Tobjnam(obj, "исчезает"), monname);
     } else {
         tmiss(obj, mon, TRUE);
     }
@@ -2670,11 +2670,13 @@ throw_gold(struct obj *obj)
     }
     freeinv(obj);
     if (u.uswallow) {
-        const char *swallower = mon_nam(u.ustuck);
+        char swallower[BUFSZ];
 
         if (digests(u.ustuck->data))
-            /* note: s_suffix() returns a modifiable buffer */
-            swallower = strcat(s_suffix(swallower), " кишках");
+            Snprintf(swallower, sizeof swallower, "%s кишках",
+                     mhis(u.ustuck));
+        else
+            Strcpy(swallower, "него");
         pline("Золото исчезает в %s.", swallower);
         add_to_minv(u.ustuck, obj);
         return ECMD_TIME;
