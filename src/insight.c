@@ -1132,8 +1132,7 @@ status_enlightenment(int mode, int final)
         struct obj *saddle = which_armor(u.usteed, W_SADDLE);
 
         if (saddle && saddle->cursed) {
-            Sprintf(buf, "прилипли к %s %s", s_suffix(steedname),
-                    simpleonames(saddle));
+            Sprintf(buf, "прилипли к седлу (%s)", steedname);
             you_are(buf, "");
         }
     }

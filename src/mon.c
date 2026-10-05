@@ -1364,8 +1364,7 @@ meatbox(struct monst *mon, struct obj *otmp)
       the floor; this is arbitrary, but otherwise g-cubes are too
       powerful */
     if (!engulf_contents && cansee(x, y)) {
-        pline("%s содержимое высыпаетс€ на %s.",
-              s_suffix(The(distant_name(otmp, xname))),
+        pline("—одержимое (%s) высыпаетс€ на %s.", doname(otmp),
               surface_ru(x, y));
     }
     while ((cobj = otmp->cobj) != 0) {

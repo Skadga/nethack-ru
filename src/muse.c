@@ -2634,8 +2634,7 @@ RESTORE_WARNINGS
 staticfn void
 you_aggravate(struct monst *mtmp)
 {
-    pline("По какой-то причине вы знаете о присутствии %s.",
-          s_suffix(noit_mon_nam(mtmp)));
+    pline("%s рядом — вы это почему-то чувствуете.", noit_Monnam(mtmp));
     cls();
 #ifdef CLIPPING
     cliparound(mtmp->mx, mtmp->my);

@@ -94,7 +94,7 @@ use_camera(struct obj *obj)
     if (obj->cursed && !rn2(2)) {
         (void) zapyourself(obj, TRUE);
     } else if (u.uswallow) {
-        You("фотографируете %s %s.", s_suffix(mon_nam(u.ustuck)),
+        You("фотографируете %s %s.", mhis(u.ustuck),
             mbodypart_case(u.ustuck, STOMACH, BP_ACC));
     } else if (u.dz) {
         You("фотографируете %s.",
@@ -1080,8 +1080,8 @@ use_mirror(struct obj *obj)
     }
     if (u.uswallow) {
         if (useeit)
-            You("видишь отражение %s %s.", s_suffix(mon_nam(u.ustuck)),
-                mbodypart_case(u.ustuck, STOMACH, BP_ACC));
+            You("видишь отражение %s %s.", mhis(u.ustuck),
+                mbodypart_case(u.ustuck, STOMACH, BP_GEN));
         return ECMD_TIME;
     }
     if (Underwater) {

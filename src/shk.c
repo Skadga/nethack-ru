@@ -2012,9 +2012,7 @@ dopay(void)
     if (pay_done && !ANGRY(shkp) && paid) {
         if (!Deaf && !muteshk(shkp)) {
             SetVoice(shkp, 0, 80, 0);
-            verbalize("Спасибо за покупки в %s %s%s",
-                      s_suffix(shkname(shkp)),
-                      shtypes[eshkp->shoptype - SHOPBASE].name,
+            verbalize("Спасибо за покупки%s",
                       !eshkp->surcharge ? "!" : ".");
         } else {
             pline("%s кивает%s вам за покупки в %s %s%s",

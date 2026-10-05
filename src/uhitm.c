@@ -2072,15 +2072,17 @@ m_slips_free(struct monst *mdef, struct attack *mattk)
        protection might fail (33% chance) when the armor is cursed */
     if (obj && (obj->greased || obj->otyp == OILSKIN_CLOAK)
         && (!obj->cursed || rn2(3))) {
-        You("%s %s %s %s!",
-            (mattk->adtyp == AD_WRAP) ? "соскальзываете с"
-                                      : "хватаете, но не можете удержать",
-            s_suffix(mon_nam(mdef)), obj->greased ? "намасленной" : "скользкой",
-            /* avoid "slippery slippery cloak"
-               for undiscovered oilskin cloak */
-            (obj->greased || objects[obj->otyp].oc_name_known)
-                ? xname(obj)
-                : cloak_simple_name(obj));
+        const char *oitemname
+            = (obj->greased || objects[obj->otyp].oc_name_known)
+                  ? xname(obj)
+                  : cloak_simple_name(obj);
+
+        if (mattk->adtyp == AD_WRAP)
+            You("%s %s выскальзывает из рук!", mhis_up(mdef),
+                oitemname);
+        else
+            You("хватаете, но не можете удержать %s %s!", mhis(mdef),
+                oitemname);
 
         if (obj->greased && !rn2(2)) {
             pline("Смазка стирается.");
