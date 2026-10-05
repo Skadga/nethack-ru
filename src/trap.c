@@ -4667,7 +4667,7 @@ acid_damage(struct obj *obj)
                 if (victim == &gy.youmonst)
                     Your("%s.", aobjnam(obj, "меркнет"));
                 else if (vismon)
-                    pline("%s %s.", s_suffix(Monnam(victim)),
+                    pline("%s %s.", mhis_up(victim),
                           aobjnam(obj, "меркнет"));
             }
         }

@@ -2034,7 +2034,7 @@ shade_miss(
         what = (!obj || shade_aware(obj)) ? "атака" : cxname(obj);
         target = youdef ? "вас" : mon_nam(mdef);
         if (!thrown) {
-            whose = youagr ? "Ваша" : s_suffix(Monnam(magr));
+            whose = youagr ? "Ваша" : mhis_up(magr);
             pline("%s %s %s%s%s.", whose, what,
                   vtense(what, ""), harmlessly_thru, target);
         } else {
@@ -2997,7 +2997,7 @@ mhitm_ad_blnd(
                 Snprintf(buf, sizeof buf, "%s ослеплён", Monnam(mdef));
                 if (mdef->data == &mons[PM_ARCHON] && canseemon(mdef))
                     Snprintf(eos(buf), sizeof buf - strlen(buf),
-                             " сиянием %s", s_suffix(mon_nam(magr)));
+                             " сиянием %s", mhis(magr));
                 pline("%s.", buf);
             }
             rnd_tmp = d((int) mattk->damn, (int) mattk->damd);
@@ -3026,7 +3026,7 @@ mhitm_ad_curs(
             if (pd == &mons[PM_CLAY_GOLEM]) {
                 if (!Blind)
                     pline("Какая-то надпись исчезает с %s головы!",
-                          s_suffix(mon_nam(mdef)));
+                          mhis(mdef));
                 xkilled(mdef, XKILL_NOMSG);
                 /* Don't return yet; keep hp<1 and mhm.damage=0 for pet msg */
             } else {
@@ -3069,7 +3069,7 @@ mhitm_ad_curs(
             if (pd == &mons[PM_CLAY_GOLEM]) {
                 if (gv.vis && canseemon(mdef)) {
                     pline("Какая-то надпись исчезает с %s головы!",
-                          s_suffix(mon_nam(mdef)));
+                          mhis(mdef));
                     pline_mon(mdef, "%s уничтожен!", Monnam(mdef));
                 }
                 mondied(mdef);
@@ -3106,7 +3106,7 @@ mhitm_really_poison(struct monst *magr, struct attack *mattk,
                     struct monst *mdef, struct mhitm_data *mhm)
 {
     if (gv.vis && canspotmon(magr))
-        pline("%s %s был отравлен!", s_suffix(Monnam(magr)),
+        pline("%s %s был отравлен!", mhis_up(magr),
               mpoisons_subj(magr, mattk));
     if (resists_poison(mdef)) {
         if (gv.vis && canspotmon(mdef) && canspotmon(magr))
@@ -3207,7 +3207,7 @@ mhitm_ad_drin(
 
         if ((helmet = which_armor(mdef, W_ARMH)) != 0 && rn2(8)) {
             pline("%s %s блокирует вашу атаку по %s голове.",
-                  s_suffix(Monnam(mdef)), helm_simple_name(helmet),
+                  mhis_up(mdef), helm_simple_name(helmet),
                   mhis(mdef));
             return;
         }
@@ -5193,7 +5193,7 @@ gulpum(struct monst *mdef, struct attack *mattk)
             You("%s %s!", expel_verb, mon_nam(mdef));
             if ((Slow_digestion || is_animal(gy.youmonst.data)) && u_digest) {
                 pline("Очевидно, вам не понравился вкус %s.",
-                      s_suffix(mon_nam(mdef)));
+                      mhis(mdef));
             }
         }
     }

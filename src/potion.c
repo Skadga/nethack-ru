@@ -2884,7 +2884,7 @@ split_mon(
     if (mtmp)
         Sprintf(reason, " из-за %s жара",
                 (mtmp == &gy.youmonst) ? "вашего"
-                                    : (const char *) s_suffix(mon_nam(mtmp)));
+                                    : (const char *) mhis(mtmp));
 
     if (mon == &gy.youmonst) {
         if (u.mh > u.mhmax) /* sanity precaution */

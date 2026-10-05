@@ -2366,7 +2366,7 @@ drop_boulder_on_monster(coordxy x, coordxy y, boolean confused, boolean byu)
                 map_invisible(mtmp->mx, mtmp->my);
         } else if (engulfing_u(mtmp))
             You_hear("что-то ударило %s %s над твоим %s!",
-                     s_suffix(mon_nam(mtmp)),
+                     mhis(mtmp),
                      mbodypart_case(mtmp, STOMACH, BP_ACC),
                      body_part_case(HEAD, BP_INS));
 

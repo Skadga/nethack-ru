@@ -914,7 +914,7 @@ mon_wield_item(struct monst *mon)
  ? BP_DAT | BP_PLURAL
                                                 : BP_DAT);
                 pline("%s к %s %s!", Tobjnam(obj, "приваривается"),
-                      s_suffix(mon_nam(mon)), mon_hand);
+                      mhis(mon), mon_hand);
                 obj->bknown = 1;
             }
         }
@@ -922,7 +922,7 @@ mon_wield_item(struct monst *mon)
             begin_burn(obj, FALSE);
             if (canseemon(mon))
                 pline("%s %s в %s %s!", Tobjnam(obj, "сверкает"),
-                      arti_light_description(obj), s_suffix(mon_nam(mon)),
+                      arti_light_description(obj), mhis(mon),
                       mbodypart_case(mon, HAND, BP_PREP));
             /* 3.6.3: artifact might be getting wielded by invisible monst */
             else if (cansee(mon->mx, mon->my))

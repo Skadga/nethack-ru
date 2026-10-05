@@ -4892,7 +4892,7 @@ dobuzz(
                             hit(flash_str(fltyp, FALSE), mon, ".");
                             pline("%s дезинтегрируется.", Monnam(mon));
                             pline("%s тело снова становится целым у %s %s!",
-                                  s_suffix(Monnam(mon)),
+                                  mhis_up(mon),
                                   eyecount(gy.youmonst.data) == 1 ? "вашего"
                                                                   : "ваших",
                                   body_part_case(EYE,
@@ -4943,7 +4943,7 @@ dobuzz(
                             /* some armor was destroyed; no damage done */
                             if (canseemon(mon))
                                 pline("%s %s дезинтегрирован!",
-                                      s_suffix(Monnam(mon)),
+                                      mhis_up(mon),
                                       distant_name(otmp, xname));
                             m_useup(mon, otmp);
                         }

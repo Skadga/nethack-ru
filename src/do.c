@@ -741,7 +741,7 @@ drop(struct obj *obj)
             mnam_p = mon_nam(u.ustuck);
             /* doname can call s_suffix, reusing its buffer */
             if (digests(u.ustuck->data)) {
-                Sprintf(monbuf, "%s %s", s_suffix(mnam_p),
+                Sprintf(monbuf, "%s %s", mhis(u.ustuck),
                         mbodypart_case(u.ustuck, STOMACH, BP_NOM));
                 mnam_p = monbuf;
             }
