@@ -949,7 +949,7 @@ m_dowear_type(
             }
             pline_mon(mon, "%s%s надевает %s.", Monnam(mon), buf, newarm);
             if (autocurse)
-                pline("%s %s %s %s на мгновение.", s_suffix(Monnam(mon)),
+                pline("%s %s %s %s на мгновение.", mhis(mon),
                       simpleonames(best), otense(best, "светится"),
                       hcolor(NH_BLACK));
         } /* can see it */
@@ -1205,13 +1205,13 @@ mon_break_armor(struct monst *mon, boolean polyspot)
             && (otmp->otyp != MUMMY_WRAPPING || !WrappingAllowed(mdat))) {
             if (otmp->oartifact) {
                 if (vis)
-                    pline_mon(mon, "%s %s падает!", s_suffix(Monnam(mon)),
+                    pline_mon(mon, "%s %s падает!", mhis(mon),
                           cloak_simple_name(otmp));
                 m_lose_armor(mon, otmp, polyspot);
             } else {
                 Soundeffect(se_ripping_sound, 100);
                 if (vis)
-                    pline_mon(mon, "%s %s разрывается!", s_suffix(Monnam(mon)),
+                    pline_mon(mon, "%s %s разрывается!", mhis(mon),
                           cloak_simple_name(otmp));
                 else
                     You_hear("звук разрыва.");
@@ -1220,8 +1220,7 @@ mon_break_armor(struct monst *mon, boolean polyspot)
         }
         if ((otmp = which_armor(mon, W_ARMU)) != 0) {
             if (vis)
-                pline_mon(mon, "%s рубаха рвётся в клочья!",
-                          s_suffix(Monnam(mon)));
+                pline_mon(mon, "%s рубаха рвётся в клочья!", mhis(mon));
             else
                 You_hear("звук разрыва.");
             m_useup(mon, otmp);
@@ -1234,7 +1233,7 @@ mon_break_armor(struct monst *mon, boolean polyspot)
             Soundeffect(se_thud, 50);
             if (vis)
                 pline_mon(mon, "%s броня падает вокруг %s!",
-                          s_suffix(Monnam(mon)), pronoun);
+                          ppronoun, pronoun);
             else
                 You_hear("глухой удар.");
             m_lose_armor(mon, otmp, polyspot);
@@ -1245,7 +1244,7 @@ mon_break_armor(struct monst *mon, boolean polyspot)
             if (vis) {
                 if (is_whirly(mon->data))
                     pline_mon(mon, "%s %s падает, без опоры!",
-                              s_suffix(Monnam(mon)), cloak_simple_name(otmp));
+                              mhis(mon), cloak_simple_name(otmp));
                 else
                     pline_mon(mon, "%s уменьшается, выпадая из %s %s!",
                               Monnam(mon), ppronoun,
@@ -1290,7 +1289,7 @@ mon_break_armor(struct monst *mon, boolean polyspot)
             && (handless_or_tiny || !is_flimsy(otmp))) {
             if (vis)
                 pline_mon(mon, "%s шлем падает на %s!",
-                          s_suffix(Monnam(mon)), surface(mon->mx, mon->my));
+                          mhis(mon), surface(mon->mx, mon->my));
             else
                 You_hear("лязг.");
             m_lose_armor(mon, otmp, polyspot);
@@ -1300,12 +1299,10 @@ mon_break_armor(struct monst *mon, boolean polyspot)
         if ((otmp = which_armor(mon, W_ARMF)) != 0) {
             if (vis) {
                 if (is_whirly(mon->data))
-                    pline_mon(mon, "%s сапоги падают!",
-                              s_suffix(Monnam(mon)));
+                    pline_mon(mon, "%s сапоги падают!", mhis(mon));
                 else
-                    pline_mon(mon, "%s сапоги %s с %s ног!",
-                              s_suffix(Monnam(mon)),
-                          verysmall(mdat) ? "соскальзывает" : "отталкиваются", ppronoun);
+                    pline_mon(mon, "%s сапоги %s с ног!", mhis(mon),
+                          verysmall(mdat) ? "соскальзывает" : "отталкиваются");
             }
             m_lose_armor(mon, otmp, polyspot);
         }
@@ -1314,7 +1311,7 @@ mon_break_armor(struct monst *mon, boolean polyspot)
         if ((otmp = which_armor(mon, W_SADDLE)) != 0) {
             m_lose_armor(mon, otmp, polyspot);
             if (vis)
-                pline_mon(mon, "%s седло падает.", s_suffix(Monnam(mon)));
+                pline_mon(mon, "%s седло падает.", mhis(mon));
         }
         if (mon == u.usteed)
             noride = TRUE;

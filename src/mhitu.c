@@ -1792,7 +1792,7 @@ gazemu(struct monst *mtmp, struct attack *mattk)
             } else {
                 int blnd = d((int) mattk->damn, (int) mattk->damd);
 
-                You("ослеплены сиянием %s!", s_suffix(mon_nam(mtmp)));
+                You("ослеплены сиянием %s!", mhis(mtmp));
                 make_blinded((long) blnd, FALSE);
                 stop_occupation();
                 /* not blind at this point implies you're wearing
