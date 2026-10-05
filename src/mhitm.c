@@ -510,8 +510,8 @@ mattackm(
         case AT_ENGL:
             if (mdef->data == &mons[PM_SHADE]) { /* no silver teeth... */
                 if (gv.vis)
-                    pline("%s попытка поглотить %s тщетна.",
-                          s_suffix(Monnam(magr)), mon_nam(mdef));
+                    pline("%s не сумел поглотить %s.",
+                          Monnam(magr), mon_nam(mdef));
                 strike = 0;
                 break;
             }
@@ -685,8 +685,7 @@ hitmm(
                 Snprintf(buf, sizeof buf, "%s касается", magr_name);
                 break;
             case AT_TENT:
-                Snprintf(buf, sizeof buf, "%s щупальца сосут",
-                         s_suffix(magr_name));
+                Snprintf(buf, sizeof buf, "%s щупальцами сосёт", magr_name);
                 break;
             case AT_HUGS:
                 if (magr != u.ustuck) {
@@ -703,27 +702,9 @@ hitmm(
             if (*buf)
                 pline("%s %s.", buf, mon_nam_too(mdef, magr));
 
-            if (mon_hates_silver(mdef) && silverhit) {
-                char *mdef_name = mon_nam_too(mdef, magr);
-
-                /* note: mon_nam_too returns a modifiable buffer; so
-                   does s_suffix, but it returns a single static buffer
-                   and we might be calling it twice for this message */
-                Strcpy(magr_name, s_suffix(magr_name));
-                if (!noncorporeal(mdef->data) && !amorphous(mdef->data)) {
-                    if (mdef != magr) {
-                        mdef_name = s_suffix(mdef_name);
-                    } else {
-                        (void) strsubst(mdef_name, "себя", "свой");
-                        (void) strsubst(mdef_name, "себя", "своя");
-                        (void) strsubst(mdef_name, "себя", "свой");
-                    }
-                    Strcat(mdef_name, " плоть");
-                }
-
-                pline("%s %s обжигает %s!", magr_name, /* s_suffix(magr_name), */
-                      simpleonames(mwep), mdef_name);
-            }
+            if (mon_hates_silver(mdef) && silverhit)
+                pline("%s опаляет %s своим %s!", magr_name,
+                      mon_nam_too(mdef, magr), simpleonames(mwep));
         }
     } else
         noises(magr, mattk);
@@ -1251,7 +1232,7 @@ slept_monst(struct monst *mon)
 {
     if (helpless(mon) && mon == u.ustuck
         && !sticks(gy.youmonst.data) && !u.uswallow) {
-        pline_mon(mon, "%s хватка ослабевает.", s_suffix(Monnam(mon)));
+        pline_mon(mon, "%s ослабляет хватку.", Monnam(mon));
         unstuck(mon);
     }
 }
