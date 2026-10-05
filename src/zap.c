@@ -4871,12 +4871,13 @@ dobuzz(
             gn.notonhead = (mon->mx != gb.bhitpos.x
                             || mon->my != gb.bhitpos.y);
             if (!forcemiss && zap_hit(find_mac(mon), spell_type)) {
-                if (mon_reflects(mon, (char *) 0)) {
+                if (mon_reflects(mon, (char *) 0, BP_NOM)) {
                     if (cansee(mon->mx, mon->my)) {
                         hit(flash_str(fltyp, FALSE), mon, exclam(0));
                         shieldeff(mon->mx, mon->my);
                         (void) mon_reflects(mon,
-                                            "Но оно отражается от %s %s!");
+                                            "Но оно отражается от %s %s!",
+                                            BP_GEN);
                         gas_hit = FALSE;
                     }
                     dx = -dx;
@@ -4960,7 +4961,7 @@ dobuzz(
             }
         } else if (u_at(sx, sy) && range >= 0) {
             nomul(0);
-            if (u.usteed && !rn2(3) && !mon_reflects(u.usteed, (char *) 0)) {
+            if (u.usteed && !rn2(3) && !mon_reflects(u.usteed, (char *) 0, BP_NOM)) {
                 mon = u.usteed;
                 goto buzzmonst;
             } else if (!forcemiss && zap_hit((int) u.uac, 0)) {

@@ -1134,7 +1134,7 @@ use_mirror(struct obj *obj)
         if (vis)
             pline("У %s нет отражения.", Monnam(mtmp));
     } else if (monable && mtmp->data == &mons[PM_MEDUSA]) {
-        if (mon_reflects(mtmp, "Взгляд отражён %s %s!"))
+        if (mon_reflects(mtmp, "Взгляд отражён %s %s!", BP_INS))
             return ECMD_TIME;
         if (vis)
             pline("%s превращается в камень!", Monnam(mtmp));

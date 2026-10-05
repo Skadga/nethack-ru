@@ -1715,7 +1715,7 @@ gazemu(struct monst *mtmp, struct attack *mattk)
                 (void) ureflects("взгляд %s отражается вашим %s.",
                                  s_suffix(Monnam(mtmp)));
             if (mon_reflects(mtmp, !useeit ? (char *) 0
-                                  : "Взгляд отражается %s %s!"))
+                                  : "Взгляд отражается %s %s!", BP_INS))
                 break;
             if (!m_canseeu(mtmp)) { /* probably you're invisible */
                 if (useeit)
@@ -2533,7 +2533,8 @@ passiveum(
                                      flags.female ? FEMALE : MALE));
                     } else {
                         if (mon_reflects(mtmp,
-                                         "Взгляд отражается прочь от %s %s."))
+                                         "Взгляд отражается прочь от %s %s.",
+                                         BP_GEN))
                             return 1;
                         pline_mon(mtmp, "%s замирает от вашего взгляда!",
                                   Monnam(mtmp));

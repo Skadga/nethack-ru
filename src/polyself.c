@@ -3021,7 +3021,33 @@ static const struct bp_paradigm bp_paradigms[] = {
     { "ноздря", "ноздри", "ноздре",
       "ноздрю", "ноздрёй", "ноздре",
       "ноздри", "ноздрей", "ноздрям",
-      NULL, "ноздрями", "ноздрях" }
+      NULL, "ноздрями", "ноздрях" },
+    /* объектные существительные для noun_case(), не части тела */
+    /* щит */
+    { "щит", "щита", "щиту",
+      "щит", "щитом", "щите",
+      "щиты", "щитов", "щитам",
+      NULL, "щитами", "щитах" },
+    /* оружие */
+    { "оружие", "оружия", "оружию",
+      "оружие", "оружием", "оружии",
+      "оружие", "оружия", "оружиям",
+      NULL, "оружиями", "оружиях" },
+    /* амулет */
+    { "амулет", "амулета", "амулету",
+      "амулет", "амулетом", "амулете",
+      "амулеты", "амулетов", "амулетам",
+      NULL, "амулетами", "амулетах" },
+    /* броня */
+    { "броня", "брони", "броне",
+      "броню", "бронёй", "броне",
+      "брони", "броней", "броням",
+      NULL, "бронями", "бронях" },
+    /* чешуя */
+    { "чешуя", "чешуи", "чешуе",
+      "чешую", "чешуёй", "чешуе",
+      "чешуи", "чешуй", "чешуям",
+      NULL, "чешуями", "чешуях" }
 };
 const char *
 mbodypart(struct monst *mon, int part)
@@ -3244,6 +3270,30 @@ mbodypart_case(struct monst *mon, int part, int cse)
         return pg[i].p[bp_pl_slot[cs]];
     if (plural)
         return pg[i].p[bp_pl_slot[cs]] ? pg[i].p[bp_pl_slot[cs]] : nom;
+    return pg[i].s[cs] ? pg[i].s[cs] : nom;
+}
+
+/* Case-inflected form of an arbitrary noun; same bp_paradigms[] lookup as
+   mbodypart_case() but keyed by the nominative string itself. */
+const char *
+noun_case(const char *nom, int cse)
+{
+    const struct bp_paradigm *pg = bp_paradigms;
+    int cs = cse & BP_CASE_MASK;
+    int i;
+
+    if (cs < 0 || cs > BP_PREP)
+        return nom;
+    for (i = 0; i < SIZE(bp_paradigms); i++) {
+        const char *key = pg[i].s[BP_NOM] ? pg[i].s[BP_NOM] : pg[i].p[BP_NOM];
+
+        if (key && !strcmp(key, nom))
+            break;
+    }
+    if (i == SIZE(bp_paradigms))
+        return nom;
+    if (!pg[i].s[BP_NOM])
+        return pg[i].p[bp_pl_slot[cs]];
     return pg[i].s[cs] ? pg[i].s[cs] : nom;
 }
 

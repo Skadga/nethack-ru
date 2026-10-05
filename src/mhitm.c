@@ -744,14 +744,17 @@ gazemm(struct monst *magr, struct monst *mdef, struct attack *mattk)
         return M_ATTK_MISS;
     }
     /* call mon_reflects 2x, first test, then, if visible, print message */
-    if (magr->data == &mons[PM_MEDUSA] && mon_reflects(mdef, (char *) 0)) {
+    if (magr->data == &mons[PM_MEDUSA]
+        && mon_reflects(mdef, (char *) 0, BP_NOM)) {
         if (canseemon(mdef))
-            (void) mon_reflects(mdef, "Взгляд отражается прочь от %s %s.");
+            (void) mon_reflects(mdef, "Взгляд отражается прочь от %s %s.",
+                                BP_GEN);
         if (mdef->mcansee) {
-            if (mon_reflects(magr, (char *) 0)) {
+            if (mon_reflects(magr, (char *) 0, BP_NOM)) {
                 if (canseemon(magr))
                     (void) mon_reflects(magr,
-                                      "Взгляд отражается прочь от %s %s.");
+                                      "Взгляд отражается прочь от %s %s.",
+                                      BP_GEN);
                 return M_ATTK_MISS;
             }
             if (mdef->minvis && !perceives(magr->data)) {
@@ -1356,7 +1359,8 @@ passivemm(
                     (void) strNsubst(buf, "%", "%%", 0);
                     Strcat(buf, " взгляд отражается %s %s.");
                     if (mon_reflects(magr,
-                                     canseemon(magr) ? buf : (char *) 0))
+                                     canseemon(magr) ? buf : (char *) 0,
+                                     BP_INS))
                         return (mdead | mhit);
                     Strcpy(buf, Monnam(magr));
                     if (canseemon(magr))

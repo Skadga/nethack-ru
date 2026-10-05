@@ -1130,7 +1130,7 @@ dog_move(
             if ((mtmp2->data == &mons[PM_FLOATING_EYE] && rn2(10)
                  && mtmp->mcansee && haseyes(mtmp->data) && mtmp2->mcansee
                  && (!mtmp2->minvis || perceives(mtmp->data))
-                 && !mon_reflects(mtmp, (char *) NULL))
+                 && !mon_reflects(mtmp, (char *) NULL, BP_NOM))
                 || (mtmp2->data == &mons[PM_GELATINOUS_CUBE] && rn2(10))
                 || (touch_petrifies(mtmp2->data) && !resists_ston(mtmp))) {
                 /* only skip this foe if a ranged attack isn't viable */

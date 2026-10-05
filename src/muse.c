@@ -2798,25 +2798,25 @@ searches_for_item(struct monst *mon, struct obj *obj)
 DISABLE_WARNING_FORMAT_NONLITERAL
 
 boolean
-mon_reflects(struct monst *mon, const char *str)
+mon_reflects(struct monst *mon, const char *str, int cse)
 {
     struct obj *orefl = which_armor(mon, W_ARMS);
 
     if (orefl && orefl->otyp == SHIELD_OF_REFLECTION) {
         if (str) {
-            pline(str, s_suffix(mon_nam(mon)), "щитом");
+            pline(str, mhis(mon), noun_case("щит", cse));
             makeknown(SHIELD_OF_REFLECTION);
         }
         return TRUE;
     } else if (arti_reflects(MON_WEP(mon))) {
         /* due to wielded artifact weapon */
         if (str)
-            pline(str, s_suffix(mon_nam(mon)), "оружием");
+            pline(str, mhis(mon), noun_case("оружие", cse));
         return TRUE;
     } else if ((orefl = which_armor(mon, W_AMUL))
                && orefl->otyp == AMULET_OF_REFLECTION) {
         if (str) {
-            pline(str, s_suffix(mon_nam(mon)), "амулетом");
+            pline(str, mhis(mon), noun_case("амулет", cse));
             makeknown(AMULET_OF_REFLECTION);
         }
         return TRUE;
@@ -2824,13 +2824,13 @@ mon_reflects(struct monst *mon, const char *str)
                && (orefl->otyp == SILVER_DRAGON_SCALES
                    || orefl->otyp == SILVER_DRAGON_SCALE_MAIL)) {
         if (str)
-            pline(str, s_suffix(mon_nam(mon)), "бронЄй");
+            pline(str, mhis(mon), noun_case("брон€", cse));
         return TRUE;
     } else if (mon->data == &mons[PM_SILVER_DRAGON]
                || mon->data == &mons[PM_CHROMATIC_DRAGON]) {
         /* Silver dragons only reflect when mature; babies do not */
         if (str)
-            pline(str, s_suffix(mon_nam(mon)), "чешуЄй");
+            pline(str, mhis(mon), noun_case("чешу€", cse));
         return TRUE;
     }
     return FALSE;
