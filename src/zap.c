@@ -601,9 +601,9 @@ release_hold(void)
 
         unstuck(u.ustuck);
         if (!nohands(mtmp->data))
-            Sprintf(relbuf, "из хватки %s", s_suffix(mon_nam(mtmp)));
+            Sprintf(relbuf, "из хватки %s", mhis(mtmp));
         else
-            Sprintf(relbuf, "у %s", mon_nam(mtmp));
+            Sprintf(relbuf, "у %s", mhis(mtmp));
         You("освобождены %s.", relbuf);
     }
 }

@@ -3366,7 +3366,7 @@ mhitm_ad_wrap(
                     if (coil && !tailmiss)
                         You("задеваете %s.", mon_nam(mdef));
                     else
-                        You("задеваете %s %s.", s_suffix(mon_nam(mdef)),
+                        You("задеваете %s %s.", mhis(mdef),
                             tailmiss ? "хвост"
                                      : mbodypart_case(mdef, LEG, BP_ACC));
                 }
@@ -4223,7 +4223,7 @@ mhitm_ad_ston(
                     pline("%s, кажется, посылает вам воздушный поцелуй...",
                           Monnam(magr));
                 } else if (!Deaf) {
-                    You_hear("шипение %s!", s_suffix(mon_nam(magr)));
+                    You_hear("шипение %s!", mhis(magr));
                 } else if (!Blind) {
                     pline("%s, кажется, гримасничает.", Monnam(magr));
                 }
@@ -5912,7 +5912,7 @@ passive(
             if (Blind || !flags.verbose)
                 You("обрызганы!");
             else
-                You("обрызганы %s %s!", s_suffix(mon_nam(mon)),
+                You("обрызганы %s %s!", mhis(mon),
                     hliquid("acid"));
 
             if (!Acid_resistance) {
@@ -6029,7 +6029,7 @@ passive(
                 }
                 if (mon->mcansee) {
                     if (ureflects("%s взгляд отражается вашим %s.",
-                                  s_suffix(Monnam(mon)))) {
+                                  mhis_up(mon))) {
                         ;
                     } else if (Hallucination && rn2(4)) {
                         /* [it's the hero who should be getting paralyzed
@@ -6040,9 +6040,9 @@ passive(
                               !rn2(2) ? "оцепеневшим" : "одурманенным");
                     } else if (Free_action) {
                         You("на мгновение застываете под %s взглядом!",
-                            s_suffix(mon_nam(mon)));
+                            mhis(mon));
                     } else {
-                        You("заморожены %s взглядом!", s_suffix(mon_nam(mon)));
+                        You("заморожены %s взглядом!", mhis(mon));
                         nomul((ACURR(A_WIS) > 12 || rn2(4)) ? -tmp : -127);
                         /* set gm.multi_reason;
                            3.6.x used "frozen by a monster's gaze" */

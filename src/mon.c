@@ -2848,7 +2848,7 @@ lifesaved_monster(struct monst *mtmp)
          * disintegrating amulets are always visible. */
         if (cansee(mtmp->mx, mtmp->my)) {
             pline("Но подождите...");
-            pline("%s медальон начинает светиться!", s_suffix(Monnam(mtmp)));
+            pline("%s медальон начинает светиться!", mhis_up(mtmp));
             makeknown(AMULET_OF_LIFE_SAVING);
             /* amulet is visible, but monster might not be */
             if (canseemon(mtmp)) {

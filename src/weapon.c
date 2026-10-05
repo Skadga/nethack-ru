@@ -872,7 +872,7 @@ mon_wield_item(struct monst *mon)
                         otense(mw_tmp, "приваривается"), mhis(mon), mon_hand);
 
                 if (obj->otyp == PICK_AXE) {
-                    pline("Поскольку оружие %s %s,", s_suffix(mon_nam(mon)),
+                    pline("Поскольку оружие %s %s,", mhis(mon),
                           welded_buf);
                     pline("%s не может применять это %s.", mon_nam(mon),
                           xname(obj));
@@ -1056,7 +1056,7 @@ wet_a_towel(
                 pline("%s становится %s.", Yobjnam2(obj, (const char *) 0),
                       wetness);
             else if (mcarried(obj) && canseemon(obj->ocarry))
-                pline("%s %s становится %s.", s_suffix(Monnam(obj->ocarry)),
+                pline("%s %s становится %s.", mhis_up(obj->ocarry),
                       xname(obj), wetness);
         }
     }
@@ -1081,7 +1081,7 @@ dry_a_towel(
                 pline("%s высыхает%s.", Yobjnam2(obj, (const char *) 0),
                       !newspe ? " насквозь" : "");
             else if (mcarried(obj) && canseemon(obj->ocarry))
-                pline("%s %s высыхает%s.", s_suffix(Monnam(obj->ocarry)),
+                pline("%s %s высыхает%s.", mhis_up(obj->ocarry),
                       xname(obj), !newspe ? " насквозь" : "");
         }
     }
@@ -1820,7 +1820,7 @@ setmnotwielded(struct monst *mon, struct obj *obj)
         end_burn(obj, FALSE);
         if (canseemon(mon))
             pline("%s %s в %s %s.", The(xname(obj)),
-                  otense(obj, "перестаёт светить"), s_suffix(mon_nam(mon)),
+                  otense(obj, "перестаёт светить"), mhis(mon),
                   mbodypart_case(mon, HAND, BP_PREP));
     }
     if (MON_WEP(mon) == obj)

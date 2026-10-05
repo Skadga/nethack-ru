@@ -2558,7 +2558,7 @@ litroom(
             if (Blind)
                 ; /* no feedback */
             else if (digests(u.ustuck->data))
-                pline("%s %s освещён.", s_suffix(Monnam(u.ustuck)),
+                pline("%s %s освещён.", mhis_up(u.ustuck),
                       mbodypart_case(u.ustuck, STOMACH, BP_NOM));
             else if (is_whirly(u.ustuck->data))
                 pline("%s недолго сияет.", Monnam(u.ustuck));

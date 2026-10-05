@@ -972,7 +972,7 @@ check_leash(coordxy x, coordxy y)
                 }
             } else {
                 if (um_dist(mtmp->mx, mtmp->my, 5)) {
-                    pline("%s поводок лопается!", s_suffix(Monnam(mtmp)));
+                    pline("%s поводок лопается!", mhis_up(mtmp));
                     m_unleash(mtmp, FALSE);
                 } else {
                     You("тянете поводок.");
@@ -3237,7 +3237,7 @@ use_whip(struct obj *obj)
                 default:
                     /* to floor beneath mon */
                     You("вырываешь %s из %s %s!", the(onambuf),
-                        s_suffix(mon_nam(mtmp)), mon_hand);
+                        mhis(mtmp), mon_hand);
                     obj_no_longer_held(otmp);
                     place_object(otmp, mtmp->mx, mtmp->my);
                     stackobj(otmp);
