@@ -700,7 +700,7 @@ fry_by_god(aligntyp resp_god, boolean via_disintegration)
     You("%s!", !via_disintegration ? "поджариваетесь"
                                    : "рассыпаетесь в кучу пыли");
     svk.killer.format = KILLED_BY;
-    Sprintf(svk.killer.name, "гнев %s", align_gname(resp_god));
+    Sprintf(svk.killer.name, "гнев %s", god_gen(align_gname(resp_god)));
     done(DIED);
 }
 
@@ -859,8 +859,8 @@ gcrownu(void)
                                         artiname(ART_VORPAL_BLADE));
         SetVoice((struct monst *) 0, 0, 80, voice_deity);
         verbalize("Ты станешь моим Посланником Равновесия!");
-        livelog_printf(LL_DIVINEGIFT, "стал %s Посланником Равновесия",
-                       s_suffix(u_gname()));
+        livelog_printf(LL_DIVINEGIFT, "стал Посланником Равновесия по воле %s",
+                       u_gname());
         break;
     case A_CHAOTIC:
         u.uevent.uhand_of_elbereth = 3;
@@ -1557,7 +1557,7 @@ offer_real_amulet(struct obj *otmp, aligntyp altaralign)
         /*[apparently shrug/snarl can be sensed without being seen]*/
         pline("%s пожимает плечами и сохраняет власть над %s,", Moloch, u_gname());
         pline("а затем безжалостно прерывает вашу жизнь.");
-        Sprintf(svk.killer.name, "%s равнодушие", s_suffix(Moloch));
+        Sprintf(svk.killer.name, "равнодушие %s", god_gen(Moloch));
         svk.killer.format = KILLED_BY;
         done(DIED);
         /* life-saved (or declined to die in wizard/explore mode) */

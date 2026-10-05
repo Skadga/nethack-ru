@@ -855,7 +855,7 @@ ghod_hitsu(struct monst *priest)
         break;
     case 1:
         pline("Голос %s гремит:  \"Как ты посмел причинять вред моему слуге!\"",
-              s_suffix(a_gname_at(ax, ay)));
+              god_gen(a_gname_at(ax, ay)));
         break;
     default:
         pline("%s громогласно объявляет: \"Ты оскверняешь моё святилище!\"",

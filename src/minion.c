@@ -244,7 +244,7 @@ summon_minion(aligntyp alignment, boolean talk)
                 pline("Голос %s гремит:", align_gname(alignment));
             else
                 You_feel("%s громовой голос:",
-                         s_suffix(align_gname(alignment)));
+                         god_gen(align_gname(alignment)));
             SetVoice(mon, 0, 80, 0);
             verbalize("Ты ответишь за свою дерзость!");
             if (canspotmon(mon))
