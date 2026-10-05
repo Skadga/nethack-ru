@@ -303,6 +303,7 @@ struct Gender {
     const char *he;       /* he/she/it */
     const char *him;      /* him/her/it */
     const char *his;      /* his/her/its */
+    const char *his_up;   /* "His", for sentence-initial use */
     const char *filecode; /* file code */
     short allow;          /* equivalent ROLE_ mask */
 };
@@ -322,6 +323,7 @@ extern const struct Gender genders[]; /* table of available genders */
 #define mhe(mtmp)  (genders[pronoun_gender(mtmp, PRONOUN_HALLU)].he)
 #define mhim(mtmp) (genders[pronoun_gender(mtmp, PRONOUN_HALLU)].him)
 #define mhis(mtmp) (genders[pronoun_gender(mtmp, PRONOUN_HALLU)].his)
+#define mhis_up(mtmp) (genders[pronoun_gender(mtmp, PRONOUN_HALLU)].his_up)
 /* override "it" if reason is lack of visibility rather than neuter species */
 #define noit_mhe(mtmp) \
     (genders[pronoun_gender(mtmp, (PRONOUN_NO_IT | PRONOUN_HALLU))].he)

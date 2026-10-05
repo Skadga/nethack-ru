@@ -608,7 +608,7 @@ make_corpse(struct monst *mtmp, unsigned int corpseflags)
             if (canseemon(mtmp))
                 pline_mon(mtmp,
                       "%s недавно отросший рог рассыпается в пыль.",
-                      mhis(mtmp));
+                      mhis_up(mtmp));
         } else {
             obj = mksobj_at(UNICORN_HORN, x, y, TRUE, FALSE);
             if (obj && mtmp->mrevived)
@@ -3191,7 +3191,7 @@ corpse_chance(
 
     if (mdat == &mons[PM_VLAD_THE_IMPALER] || mdat->mlet == S_LICH) {
         if (cansee(mon->mx, mon->my) && !was_swallowed)
-            pline_mon(mon, "%s тело рассыпается в пыль.", mhis(mon));
+            pline_mon(mon, "%s тело рассыпается в пыль.", mhis_up(mon));
         return FALSE;
     }
 
@@ -3623,7 +3623,7 @@ xkilled(
             gz.zombify = FALSE; /* reset */
             if (burycorpse && cadaver && cansee(x, y) && !mtmp->minvis
                 && cadaver->where == OBJ_BURIED && !nomsg) {
-                pline("%s труп оказывается похоронен.", mhis(mtmp));
+                pline("%s труп оказывается похоронен.", mhis_up(mtmp));
             }
         }
     }

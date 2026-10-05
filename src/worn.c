@@ -949,7 +949,7 @@ m_dowear_type(
             }
             pline_mon(mon, "%s%s надевает %s.", Monnam(mon), buf, newarm);
             if (autocurse)
-                pline("%s %s %s %s на мгновение.", mhis(mon),
+                pline("%s %s %s %s на мгновение.", mhis_up(mon),
                       simpleonames(best), otense(best, "светится"),
                       hcolor(NH_BLACK));
         } /* can see it */
@@ -1205,13 +1205,13 @@ mon_break_armor(struct monst *mon, boolean polyspot)
             && (otmp->otyp != MUMMY_WRAPPING || !WrappingAllowed(mdat))) {
             if (otmp->oartifact) {
                 if (vis)
-                    pline_mon(mon, "%s %s падает!", mhis(mon),
+                    pline_mon(mon, "%s %s падает!", mhis_up(mon),
                           cloak_simple_name(otmp));
                 m_lose_armor(mon, otmp, polyspot);
             } else {
                 Soundeffect(se_ripping_sound, 100);
                 if (vis)
-                    pline_mon(mon, "%s %s разрывается!", mhis(mon),
+                    pline_mon(mon, "%s %s разрывается!", mhis_up(mon),
                           cloak_simple_name(otmp));
                 else
                     You_hear("звук разрыва.");
@@ -1220,7 +1220,7 @@ mon_break_armor(struct monst *mon, boolean polyspot)
         }
         if ((otmp = which_armor(mon, W_ARMU)) != 0) {
             if (vis)
-                pline_mon(mon, "%s рубаха рвётся в клочья!", mhis(mon));
+                pline_mon(mon, "%s рубаха рвётся в клочья!", mhis_up(mon));
             else
                 You_hear("звук разрыва.");
             m_useup(mon, otmp);
@@ -1233,7 +1233,7 @@ mon_break_armor(struct monst *mon, boolean polyspot)
             Soundeffect(se_thud, 50);
             if (vis)
                 pline_mon(mon, "%s броня падает вокруг %s!",
-                          ppronoun, pronoun);
+                          mhis_up(mon), pronoun);
             else
                 You_hear("глухой удар.");
             m_lose_armor(mon, otmp, polyspot);
@@ -1244,7 +1244,7 @@ mon_break_armor(struct monst *mon, boolean polyspot)
             if (vis) {
                 if (is_whirly(mon->data))
                     pline_mon(mon, "%s %s падает, без опоры!",
-                              mhis(mon), cloak_simple_name(otmp));
+                              mhis_up(mon), cloak_simple_name(otmp));
                 else
                     pline_mon(mon, "%s уменьшается, выпадая из %s %s!",
                               Monnam(mon), ppronoun,
@@ -1289,7 +1289,7 @@ mon_break_armor(struct monst *mon, boolean polyspot)
             && (handless_or_tiny || !is_flimsy(otmp))) {
             if (vis)
                 pline_mon(mon, "%s шлем падает на %s!",
-                          mhis(mon), surface(mon->mx, mon->my));
+                          mhis_up(mon), surface(mon->mx, mon->my));
             else
                 You_hear("лязг.");
             m_lose_armor(mon, otmp, polyspot);
@@ -1299,9 +1299,9 @@ mon_break_armor(struct monst *mon, boolean polyspot)
         if ((otmp = which_armor(mon, W_ARMF)) != 0) {
             if (vis) {
                 if (is_whirly(mon->data))
-                    pline_mon(mon, "%s сапоги падают!", mhis(mon));
+                    pline_mon(mon, "%s сапоги падают!", mhis_up(mon));
                 else
-                    pline_mon(mon, "%s сапоги %s с ног!", mhis(mon),
+                    pline_mon(mon, "%s сапоги %s с ног!", mhis_up(mon),
                           verysmall(mdat) ? "соскальзывает" : "отталкиваются");
             }
             m_lose_armor(mon, otmp, polyspot);
@@ -1311,7 +1311,7 @@ mon_break_armor(struct monst *mon, boolean polyspot)
         if ((otmp = which_armor(mon, W_SADDLE)) != 0) {
             m_lose_armor(mon, otmp, polyspot);
             if (vis)
-                pline_mon(mon, "%s седло падает.", mhis(mon));
+                pline_mon(mon, "%s седло падает.", mhis_up(mon));
         }
         if (mon == u.usteed)
             noride = TRUE;

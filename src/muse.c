@@ -2452,7 +2452,7 @@ use_misc(struct monst *mtmp)
         mon_set_minvis(mtmp, !otmp->cursed ? FALSE : TRUE);
         if (vismon && mtmp->minvis) { /* was seen, now invisible */
             if (canspotmon(mtmp)) {
-                pline("%s тело обретает %s прозрачность.", mhis(mtmp),
+                pline("%s тело обретает %s прозрачность.", mhis_up(mtmp),
                       Hallucination ? "обычную" : "странную");
             } else {
                 pline("Внезапно вы не можете видеть %s.", nambuf);
@@ -3236,7 +3236,7 @@ muse_unslime(
     }
     if (vis) {
         if (res && !DEADMONSTER(mon))
-            pline_mon(mon, "%s слизь сгорает дотла!", mhis(mon));
+            pline_mon(mon, "%s слизь сгорает дотла!", mhis_up(mon));
         if (otyp != STRANGE_OBJECT)
             makeknown(otyp);
     }
