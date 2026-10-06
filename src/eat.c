@@ -3587,8 +3587,8 @@ floorfood(
     char qbuf[QBUFSZ];
     char c;
     struct permonst *uptr = gy.youmonst.data;
-    boolean feeding = !strcmp(verb, "eat"),        /* corpsecheck==0 */
-            offering = !strcmp(verb, "sacrifice"); /* corpsecheck==1 */
+    boolean feeding = (corpsecheck == 0),  /* verb "eat" */
+            offering = (corpsecheck == 1); /* verb "sacrifice" */
 
     getobj_else = 0; /* haven't asked about floor food; is used to vary
                       * "you don't have anything [else] to eat" when

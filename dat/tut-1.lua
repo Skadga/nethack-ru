@@ -231,7 +231,7 @@ des.engraving({ coord = { 39,6 }, type = "engrave", text = "“ы обыскиваешь конте
 
 des.object({ coord = { 41,6 }, id = "большой €щик", broken = true, trapped = false,
              contents = function(obj)
-                des.object({ id = "обнаружение потайных дверей", class = "/", spe = 30 }); end
+                des.object({ id = "обнаружение потайных дверей", spe = 30 }); end
 });
 des.engraving({ coord = { 42,6 }, type = "engrave", text = " онтейнеры также можно опорожнить с помощью '" .. tut_key("tip") .. "'", degrade = false });
 
