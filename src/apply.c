@@ -1686,7 +1686,7 @@ use_lamp(struct obj *obj)
             check_unpaid(obj);
             pline("%s%s теперь зажжЄн.", Shk_Your(buf, obj), lamp);
         } else { /* candle(s) */
-            pline("%s плам€%s %s%s", s_suffix(Yname2(obj)), plur(obj->quan),
+            pline("ѕлам€ %s %s%s", obj_case(obj, BP_GEN),
                   otense(obj, "burn"), Blind ? "." : " €рко!");
             if (obj->unpaid && costly_spot(u.ux, u.uy)
                 && obj->age == 20L * (long) objects[obj->otyp].oc_cost) {

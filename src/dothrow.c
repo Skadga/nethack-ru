@@ -2120,8 +2120,8 @@ thitmonst(
                     /* just in case, identify the object so its name will
                        appear in the message */
                     fully_identify_obj(obj);
-                    verbalize("%s роль в этом окончена.",
-                              s_suffix(The(xname(obj))));
+                    verbalize("–оль %s в этом окончена.",
+                              The(obj_case(obj, BP_GEN)));
                     verbalize(
                "ћы охраним это на случай, если понадобитс€ снова, %s не дай.",
                               align_gname(u.ualignbase[A_ORIGINAL]));

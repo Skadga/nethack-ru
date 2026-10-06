@@ -169,6 +169,20 @@ enum bp_case {
 #define BP_CASE_MASK 0x0f
 #define BP_PLURAL    0x10
 
+/* Russian case forms for object names used by obj_case().
+   obj_paradigms[] is keyed by otyp, arti_paradigms[] by an
+   enum artifacts_nums value, since several artifacts share one otyp.
+   s[] is the singular nom/gen/dat/acc/ins/prep, p[] the plural;
+   Russian accusative plural equals nominative plural, so p[BP_ACC]
+   is a NULL placeholder that obj_case() never selects.  A NULL means
+   the form is unavailable and obj_case() falls back to xname().
+   Plural forms of artifacts are fiction (artifacts have quantity 1)
+   but are filled in so the table is complete. */
+struct obj_paradigm {
+    int key;
+    const char *s[6], *p[6];
+};
+
 #define MAX_BMASK 4
 
 struct bubble {
