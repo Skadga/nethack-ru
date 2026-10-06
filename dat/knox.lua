@@ -42,9 +42,9 @@ des.teleport_region({ region = {06,15,09,16}, dir="down" })
 des.region({ x1=37,y1=08,x2=46,y2=11, lit=1, type="throne", filled=1 })
 --   50% chance each to move throne and/or fort's entry secret door up one row
 if percent(50) then
-   des.monster({ id = "Croesus", x=43, y=10, peaceful = 0 })
+   des.monster({ id = "Крёз", x=43, y=10, peaceful = 0 })
 else
-   des.monster({ id = "Croesus", x=43, y=09, peaceful = 0 })
+   des.monster({ id = "Крёз", x=43, y=09, peaceful = 0 })
    des.terrain(43,09, "\\")
    des.terrain(43,10, ".")
 end

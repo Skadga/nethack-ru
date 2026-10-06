@@ -46,10 +46,10 @@ des.stair("down", 10,10)
 -- Portal arrival point; just about anywhere on the right hand side of the map
 des.levregion({ region = {51,2,77,18}, region_islev = 1, type="branch" })
 -- Orion
-des.monster({ id = "Orion", coord = {20, 10}, inventory = function()
+des.monster({ id = "Орион", coord = {20, 10}, inventory = function()
    des.object({ id = "кожаная куртка", spe = 4 });
    des.object({ id = "юми", spe = 4 });
-   des.object({ id = "ya", spe = 4, quantity = 50 });
+   des.object({ id = "я", spe = 4, quantity = 50 });
 end })
 -- The treasure of Orion
 des.object("сундук", 20, 10)

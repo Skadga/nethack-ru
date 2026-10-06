@@ -69,7 +69,7 @@ des.door("open",23,13)
 des.door("open",25,10)
 des.door("open",28,05)
 -- Elder
-des.monster({ id = "Pelias", coord = {10, 07}, inventory = function()
+des.monster({ id = "Пелий", coord = {10, 07}, inventory = function()
    des.object({ id = "рунический меч", spe = 5 });
    des.object({ id = "цепная кольчуга", spe = 5 });
 end })

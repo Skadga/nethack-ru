@@ -74,7 +74,7 @@ des.door("closed",51,10)
 des.door("locked",53,08)
 des.door("closed",65,05)
 -- Random monsters.
-des.monster({ id = "Scorpius", x=37, y=10, peaceful=0 })
+des.monster({ id = "Скорпиус", x=37, y=10, peaceful=0 })
 des.monster({ id = "Лесной Кентавр", x=36, y=09, peaceful=0 })
 des.monster({ id = "Лесной Кентавр", x=36, y=10, peaceful=0 })
 des.monster({ id = "Лесной Кентавр", x=36, y=11, peaceful=0 })

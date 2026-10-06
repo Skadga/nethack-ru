@@ -55,7 +55,7 @@ des.trap()
 des.trap()
 des.trap()
 -- Random monsters.
-des.monster({ id = "Cyclops", x=20, y=06, peaceful=0 })
+des.monster({ id = "циклоп", x=20, y=06, peaceful=0 })
 des.monster("Бешеная Крыса")
 des.monster("Бешеная Крыса")
 des.monster("Бешеная Крыса")

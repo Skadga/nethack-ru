@@ -54,7 +54,7 @@ des.door("locked",19,06)
 -- The temple altar (this will force a priest(ess) to be created)
 des.altar({ x=36,y=02, align="coaligned", type="shrine" })
 -- Shaman Karnov
-des.monster({ id = "Shaman Karnov", coord = {35, 02}, inventory = function()
+des.monster({ id = "шаман Карнов", coord = {35, 02}, inventory = function()
    des.object({ id = "кожаная куртка", spe = 5 });
    des.object({ id = "дубинка", spe = 5 });
 end })
