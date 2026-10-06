@@ -80,7 +80,7 @@ des.feature("fountain", othloc);
 --
 -- same spot as Medusa plus downstairs
 des.object({ id="стату€", coord=medloc, buc="uncursed",
-                      montype="knight", historic=1, male=1,name="Perseus",
+                      montype="рыцарь", historic=1, male=1,name="Perseus",
                       contents = function()
                          if percent(75) then
                             des.object({ id = "щит отражени€", buc="cursed", spe=0 })

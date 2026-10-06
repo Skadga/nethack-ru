@@ -82,7 +82,7 @@ des.object("кристальный €дро", 07,08)
 --
 -- same spot as Medusa plus downstairs
 des.object({ id="стату€", coord=medloc, buc="uncursed",
-                      montype="knight", historic=1, male=1,name="Perseus",
+                      montype="рыцарь", historic=1, male=1,name="Perseus",
                       contents = function()
                          if percent(75) then
                             des.object({ id = "щит отражени€", buc="cursed", spe=0 })
@@ -129,12 +129,12 @@ end
 if percent(25) then
    des.monster({ id = "ƒетЄныш ∆Єлтого ƒракона", x=04, y=05, asleep=1 })
 end
-des.object({ id = "€йцо", x=05, y=04, montype="yellow dragon" });
+des.object({ id = "€йцо", x=05, y=04, montype="жЄлтый дракон" });
 if percent(50) then
-   des.object({ id = "€йцо", x=05, y=04, montype="yellow dragon" });
+   des.object({ id = "€йцо", x=05, y=04, montype="жЄлтый дракон" });
 end
 if percent(25) then
-   des.object({ id = "€йцо", x=05, y=04, montype="yellow dragon" });
+   des.object({ id = "€йцо", x=05, y=04, montype="жЄлтый дракон" });
 end
 --
 des.monster("гигантский угорь")

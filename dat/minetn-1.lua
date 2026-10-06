@@ -75,17 +75,17 @@ local place = { {05,04},{09,05},{13,04},{26,04},{31,05},{30,14},{05,14},{10,13},
 shuffle(place);
 
 -- scatter some bodies
-des.object({ id = "труп", x=20,y=12, montype="aligned cleric" })
-des.object({ id = "труп", coord = place[1], montype="shopkeeper" })
-des.object({ id = "труп", coord = place[2], montype="shopkeeper" })
-des.object({ id = "труп", coord = place[3], montype="shopkeeper" })
-des.object({ id = "труп", coord = place[4], montype="shopkeeper" })
-des.object({ id = "труп", coord = place[5], montype="shopkeeper" })
-des.object({ id = "труп", montype="watchman" })
-des.object({ id = "труп", montype="watchman" })
-des.object({ id = "труп", montype="watchman" })
-des.object({ id = "труп", montype="watchman" })
-des.object({ id = "труп", montype="watch captain" })
+des.object({ id = "труп", x=20,y=12, montype="выровненный клирик" })
+des.object({ id = "труп", coord = place[1], montype="лавочник" })
+des.object({ id = "труп", coord = place[2], montype="лавочник" })
+des.object({ id = "труп", coord = place[3], montype="лавочник" })
+des.object({ id = "труп", coord = place[4], montype="лавочник" })
+des.object({ id = "труп", coord = place[5], montype="лавочник" })
+des.object({ id = "труп", montype="стражник" })
+des.object({ id = "труп", montype="стражник" })
+des.object({ id = "труп", montype="стражник" })
+des.object({ id = "труп", montype="стражник" })
+des.object({ id = "труп", montype="капитан стражи" })
 
 -- Rubble!
 for i = 1, math.random(10,19) do

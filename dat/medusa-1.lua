@@ -58,7 +58,7 @@ des.levregion({ region = {01,00,79,20}, exclude = {30,06,46,13}, type = "branch"
 des.non_diggable(selection.area(30,06,46,13))
 -- Objects
 des.object({ id = "стату€", x=36,y=10, buc="uncursed",
-             montype="knight", historic=1, male = 1, name="Perseus",
+             montype="рыцарь", historic=1, male = 1, name="Perseus",
              contents = function()
                 if percent(75) then
                    des.object({ id = "щит отражени€", buc="cursed", spe=0 })

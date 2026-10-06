@@ -152,11 +152,11 @@ themeroom_fills = {
       contents = function(rm)
          local diff = nh.level_difficulty()
          -- start with [1..4] for low difficulty
-         local zombifiable = { "kobold", "gnome", "orc", "dwarf" };
+         local zombifiable = { "кобольд", "гном", "орк", "дварф" };
          if diff > 3 then          -- medium difficulty
-            zombifiable[5], zombifiable[6] = "elf", "human";
+            zombifiable[5], zombifiable[6] = "эльф", "человек";
             if diff > 6 then       -- high difficulty (relatively speaking)
-               zombifiable[7], zombifiable[8] = "ettin", "giant";
+               zombifiable[7], zombifiable[8] = "эттин", "великан";
             end
          end
          for i = 1, (rm.width * rm.height) / 2 do
@@ -172,14 +172,14 @@ themeroom_fills = {
    {
       name = "Massacre",
       contents = function(rm)
-         local mon = { "apprentice", "warrior", "ninja", "thug",
-                     "hunter", "acolyte", "abbot", "page",
-                     "attendant", "neanderthal", "chieftain",
-                     "student", "wizard", "valkyrie", "tourist",
-                     "samurai", "rogue", "ranger", "priestess",
-                     "priest", "monk", "knight", "healer",
-                     "cavewoman", "caveman", "barbarian",
-                     "archeologist" };
+         local mon = { "подмастерье", "воин", "ниндзя", "головорез",
+                     "охотник", "послушник", "аббат", "паж",
+                     "служитель", "неандерталец", "вождь",
+                     "ученик", "волшебник", "валькирия", "турист",
+                     "самурай", "плут", "следопыт", "жрица",
+                     "жрец", "монах", "рыцарь", "целитель",
+                     "пещерная женщина", "пещерный человек", "варвар",
+                     "археолог" };
          local idx = math.random(#mon);
          for i = 1, d(5,5) do
             if (percent(10)) then idx = math.random(#mon); end

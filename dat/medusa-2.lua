@@ -53,7 +53,7 @@ des.non_diggable(selection.area(01,02,06,17))
 des.non_diggable(selection.area(60,02,73,17))
 -- Objects
 des.object({ id = "стату€", x=68,y=10,buc="uncursed",
-                      montype="knight", historic=1, male=1,name="Perseus",
+                      montype="рыцарь", historic=1, male=1,name="Perseus",
                       contents = function()
                          if percent(25) then
                             des.object({ id = "щит отражени€", buc="cursed", spe=0 })
