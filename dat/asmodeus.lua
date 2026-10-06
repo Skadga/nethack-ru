@@ -37,7 +37,7 @@ local asmo1 = des.map({ halign = "half-left", valign = "center", map = [[
    -- Entire main area
    des.region(selection.area(01,01,20,10),"unlit")
    -- The fellow in residence
-   des.monster("Asmodeus",12,07)
+   des.monster("Асмодей",12,07)
    -- Some random weapons and armor.
    des.object("[")
    des.object("[")

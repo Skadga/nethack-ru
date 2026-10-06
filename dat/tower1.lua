@@ -26,7 +26,7 @@ shuffle(niches);
 
 des.ladder("down", 11,05)
 -- The lord and his court
-des.monster("Vlad the Impaler", 06, 05)
+des.monster("Влад Цепеш", 06, 05)
 des.monster("V",niches[1])
 des.monster("V",niches[2])
 des.monster("V",niches[3])

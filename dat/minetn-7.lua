@@ -39,9 +39,9 @@ des.room({ type="ordinary", lit=1, x=3,y=3,
                  des.room({ type="ordinary", lit=1, x=10,y=2, w=3,h=4,
                             contents = function()
                                des.monster("гном")
-                               des.monster("мартышка")
-                               des.monster("мартышка")
-                               des.monster("мартышка")
+                               des.monster("обезьяна")
+                               des.monster("обезьяна")
+                               des.monster("обезьяна")
                                des.door({ state = "closed", wall="south" })
                             end
                  })
@@ -161,8 +161,8 @@ des.room({ type="ordinary", lit=1, x=3,y=3,
               des.monster("гном")
               des.monster("гном")
               des.monster("Гном-Лорд")
-              des.monster("мартышка")
-              des.monster("мартышка")
+              des.monster("обезьяна")
+              des.monster("обезьяна")
 
            end
 })

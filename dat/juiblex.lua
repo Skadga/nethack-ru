@@ -67,7 +67,7 @@ des.monster({ id = "гигантская мимикрия", coord = place:rndcoord(1), appear_as =
 des.monster({ id = "гигантская мимикрия", coord = place:rndcoord(1), appear_as = "ter:fountain" })
 des.monster({ id = "гигантская мимикрия", coord = place:rndcoord(1), appear_as = "ter:fountain" })
 -- The demon of the swamp
-des.monster("Juiblex",25,08)
+des.monster("Жуиблекс",25,08)
 -- And a couple demons
 des.monster("Лемур",43,08)
 des.monster("Лемур",44,08)

@@ -85,7 +85,7 @@ des.trap()
 des.trap()
 des.trap("rolling boulder",46,14)
 -- Random monsters.
-des.monster("Приспешник of Huhetotl", 50, 14)
+des.monster("прислужник Хухетотла", 50, 14)
 des.monster("S")
 des.monster("S")
 des.monster("S")

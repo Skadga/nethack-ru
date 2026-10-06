@@ -83,7 +83,7 @@ des.trap()
 des.trap()
 des.trap()
 -- Random monsters.
-des.monster("Ashikaga Takauji", 22, 10)
+des.monster("Асикага Такаудзи", 22, 10)
 des.monster({ id = "самурай", peaceful=0 })
 des.monster({ id = "самурай", peaceful=0 })
 des.monster({ id = "самурай", peaceful=0 })

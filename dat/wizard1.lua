@@ -55,7 +55,7 @@ local wiz1 = des.map({ halign = "center", valign = "center", map = [[
    -- The wizard and his guards
    des.monster({ id = "Волшебник Йендора", x=16, y=05, asleep=1 })
    des.monster("Адская Гончая", 15, 05)
-   des.monster("вампир лорд", 17, 05)
+   des.monster("вампир-лорд", 17, 05)
    -- The local treasure
    des.object("Книга Мёртвых", 16, 05)
    -- Surrounding terror

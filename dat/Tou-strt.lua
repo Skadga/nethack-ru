@@ -114,8 +114,8 @@ des.monster("проводник", 57, 03)
 des.monster("проводник", 62, 04)
 des.monster("проводник", 66, 04)
 -- path guards
-des.monster("сторож", 35, 08)
-des.monster("сторож", 36, 08)
+des.monster("стражник", 35, 08)
+des.monster("стражник", 36, 08)
 -- river monsters
 des.monster("гигантский угорь", 62, 12)
 des.monster("пиранья", 47, 10)

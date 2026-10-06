@@ -73,7 +73,7 @@ des.trap("board")
 des.trap()
 des.trap()
 -- Random monsters.
-des.monster("Лорд Surtur", 17, 08)
+des.monster("лорд Суртур", 17, 08)
 des.monster("Огненный Муравей")
 des.monster("Огненный Муравей")
 des.monster("Огненный Муравей")

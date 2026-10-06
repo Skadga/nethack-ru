@@ -155,9 +155,9 @@ des.monster("призрак")
 des.monster("призрак")
 des.monster("призрак")
 -- Add a few bats for atmosphere.
-des.monster("Летучая Мышь-Вампир")
-des.monster("Летучая Мышь-Вампир")
-des.monster("Летучая Мышь-Вампир")
+des.monster("вампирская летучая мышь")
+des.monster("вампирская летучая мышь")
+des.monster("вампирская летучая мышь")
 -- And a lich for good measure.
 des.monster("L")
 -- Some undead nasties for good measure

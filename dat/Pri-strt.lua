@@ -98,5 +98,5 @@ des.trap()
 des.trap()
 -- Monsters on siege duty.
 for i = 1, 12 do
-   des.monster("человеческий зомби", spacelocs:rndcoord(1));
+   des.monster("зомби человека", spacelocs:rndcoord(1));
 end

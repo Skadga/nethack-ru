@@ -141,7 +141,7 @@ des.monster("солдат",57,10)
 des.monster("солдат",57,09)
 des.monster("лейтенант",15,08)
 -- Possible source of a boulder
-des.monster("Каменный Гигант",03,01)
+des.monster("каменный великан",03,01)
 -- Four dragons guarding each side
 des.monster("D",18,09)
 des.monster("D",49,10)

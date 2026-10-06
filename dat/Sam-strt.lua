@@ -65,14 +65,14 @@ end })
 -- The treasure of Lord Sato
 des.object("сундук", 20, 04)
 -- roshi guards for the audience chamber
-des.monster("roshi", 18, 04)
-des.monster("roshi", 18, 05)
-des.monster("roshi", 18, 06)
-des.monster("roshi", 18, 07)
-des.monster("roshi", 26, 04)
-des.monster("roshi", 26, 05)
-des.monster("roshi", 26, 06)
-des.monster("roshi", 26, 07)
+des.monster("роси", 18, 04)
+des.monster("роси", 18, 05)
+des.monster("роси", 18, 06)
+des.monster("роси", 18, 07)
+des.monster("роси", 26, 04)
+des.monster("роси", 26, 05)
+des.monster("роси", 26, 06)
+des.monster("роси", 26, 07)
 -- Non diggable walls
 des.non_diggable(selection.area(00,00,75,19))
 -- Random traps

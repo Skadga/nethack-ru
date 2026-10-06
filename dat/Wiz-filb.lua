@@ -34,7 +34,7 @@ des.room({ type = "ordinary",
               des.object()
               des.trap()
               des.monster({ class = "i", peaceful=0 })
-              des.monster("Летучая Мышь-Вампир")
+              des.monster("вампирская летучая мышь")
            end
 })
 
@@ -51,7 +51,7 @@ des.room({ type = "ordinary",
            contents = function()
               des.object()
               des.trap()
-              des.monster("Летучая Мышь-Вампир")
+              des.monster("вампирская летучая мышь")
            end
 })
 

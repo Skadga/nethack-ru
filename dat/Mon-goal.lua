@@ -53,7 +53,7 @@ des.trap("fire")
 des.trap()
 des.trap()
 -- Random monsters.
-des.monster("Повелитель Kaen",place[placeidx])
+des.monster("мастер Каэн",place[placeidx])
 des.altar({ coord = place[placeidx], align="noalign", type="altar" })
 des.monster("Земляной Элементаль")
 des.monster("Земляной Элементаль")
