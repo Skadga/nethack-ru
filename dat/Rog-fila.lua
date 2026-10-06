@@ -16,7 +16,7 @@ des.room({ type = "ordinary",
               des.object()
               des.object()
               des.monster({ id = "Лепрекон", peaceful=0 })
-              des.monster({ id = "Страж-Нага", peaceful=0 })
+              des.monster({ id = "нага-хранительница", peaceful=0 })
            end
 })
 
@@ -37,7 +37,7 @@ des.room({ type = "ordinary",
               des.trap()
               des.trap()
               des.monster({ class = "l", peaceful=0 })
-              des.monster({ id = "Страж-Нага", peaceful=0 })
+              des.monster({ id = "нага-хранительница", peaceful=0 })
            end
 })
 

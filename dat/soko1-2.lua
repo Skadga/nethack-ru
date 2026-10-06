@@ -83,8 +83,8 @@ des.trap("hole",21,01)
 des.trap("hole",22,01)
 des.trap("hole",23,01)
 
-des.monster({ id = "Гигантский Мимик", appear_as = "obj:валун" });
-des.monster({ id = "Гигантский Мимик", appear_as = "obj:валун" });
+des.monster({ id = "гигантская мимикрия", appear_as = "obj:валун" });
+des.monster({ id = "гигантская мимикрия", appear_as = "obj:валун" });
 
 -- Random objects
 des.object({ class = "%" });

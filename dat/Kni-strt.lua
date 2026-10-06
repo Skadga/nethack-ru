@@ -62,7 +62,7 @@ des.door("closed",45,03)
 des.door("closed",04,12)
 des.door("closed",45,12)
 -- King Arthur
-des.monster({ id = "Король Arthur", coord = {09, 07}, inventory = function()
+des.monster({ id = "король Артур", coord = {09, 07}, inventory = function()
    des.object({ id = "длинный меч", spe = 4, buc = "blessed", name = "Excalibur" });
    des.object({ id = "пластинчатая кольчуга", spe = 4 });
 end })

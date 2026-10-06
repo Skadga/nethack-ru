@@ -95,6 +95,6 @@ des.monster("Огненный Муравей", 54, 02)
 des.monster("Огненный Муравей", 55, 07)
 des.monster("Огненный Муравей", 58, 14)
 des.monster("Огненный Муравей", 63, 17)
-des.monster({ id = "Огненный Гигант", x=18, y=01, peaceful = 0 })
-des.monster({ id = "Огненный Гигант", x=10, y=16, peaceful = 0 })
+des.monster({ id = "огненный великан", x=18, y=01, peaceful = 0 })
+des.monster({ id = "огненный великан", x=10, y=16, peaceful = 0 })
 

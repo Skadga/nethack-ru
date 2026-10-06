@@ -70,7 +70,7 @@ des.door("locked",24,14)
 des.door("closed",31,14)
 des.door("locked",49,14)
 -- Lord Carnarvon
-des.monster({ id = "Лорд Carnarvon", coord = {25, 10}, inventory = function()
+des.monster({ id = "лорд Карнарвон", coord = {25, 10}, inventory = function()
    des.object({ id = "федора", spe = 5 });
    des.object({ id = "плеть", spe = 4 });
 end })

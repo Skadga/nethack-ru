@@ -94,11 +94,11 @@ des.room({ type = "ordinary", lit=1, x=3,y=3,
                          end
               })
 
-              des.monster({ id = "сторож", peaceful = 1 })
-              des.monster({ id = "сторож", peaceful = 1 })
-              des.monster({ id = "сторож", peaceful = 1 })
-              des.monster({ id = "сторож", peaceful = 1 })
-              des.monster({ id = "стража капитан", peaceful = 1 })
+              des.monster({ id = "стражник", peaceful = 1 })
+              des.monster({ id = "стражник", peaceful = 1 })
+              des.monster({ id = "стражник", peaceful = 1 })
+              des.monster({ id = "стражник", peaceful = 1 })
+              des.monster({ id = "капитан стражи", peaceful = 1 })
            end
 })
 

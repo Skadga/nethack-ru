@@ -63,7 +63,7 @@ themeroom_fills = {
       contents = function(rm)
          local fog = selection.room();
          for i = 1, (fog:numpoints() / 4) do
-            des.monster({ id = "Туманное Облако", asleep = true });
+            des.monster({ id = "облако тумана", asleep = true });
          end
          des.gas_cloud({ selection = fog });
       end,

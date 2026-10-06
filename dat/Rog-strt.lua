@@ -48,9 +48,9 @@ local place = { {33,0}, {0,12}, {25,20}, {75,05} }
 shuffle(place)
 
 des.stair({ dir = "down", coord = place[1] })
-des.monster({ id = "Гигантский Мимик", coord = place[2], appear_as = "ter:staircase down" })
-des.monster({ id = "Большой Мимик", coord = place[3], appear_as = "ter:staircase down" })
-des.monster({ id = "Малый Мимик", coord = place[4], appear_as = "ter:staircase down" })
+des.monster({ id = "гигантская мимикрия", coord = place[2], appear_as = "ter:staircase down" })
+des.monster({ id = "большая мимикрия", coord = place[3], appear_as = "ter:staircase down" })
+des.monster({ id = "маленькая мимикрия", coord = place[4], appear_as = "ter:staircase down" })
 -- Portal arrival point
 des.levregion({ region = {19,09,19,09}, type="branch" })
 -- Doors (secret)
@@ -103,7 +103,7 @@ des.door("closed",  6,18)
 des.door("closed", 65,18)
 des.door("closed", 68,18)
 -- Master of Thieves
-des.monster({ id = "Повелитель of Thieves", coord = {36, 11}, inventory = function()
+des.monster({ id = "Мастер Воров", coord = {36, 11}, inventory = function()
    des.object({ id = "кожаная куртка", spe = 5 });
    des.object({ id = "серебряная кинжал", spe = 4 });
    des.object({ id = "кинжал", spe = 2, quantity = d(2,4), buc = "not-cursed" });

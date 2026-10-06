@@ -120,12 +120,12 @@ local near_temple = selection.area(17,8, 23,14) & inside
 
 for i = 1, math.random(5,15) do
    if percent(50) then
-      des.monster({ id = "Капитан Орков", coord = inside:rndcoord(1), peaceful=0 });
+      des.monster({ id = "орк-капитан", coord = inside:rndcoord(1), peaceful=0 });
    else
       if percent(80) then
-         des.monster({ id = "Урук-хай", coord = inside:rndcoord(1), peaceful=0 })
+         des.monster({ id = "урок-хай", coord = inside:rndcoord(1), peaceful=0 })
       else
-         des.monster({ id = "Мордорский Орк", coord = inside:rndcoord(1), peaceful=0 })
+         des.monster({ id = "орк Мордора", coord = inside:rndcoord(1), peaceful=0 })
       end
    end
 end
@@ -139,7 +139,7 @@ end
 -- to run into outside the bars
 for i = 1, math.random(10,19) do
    if percent(90) then
-      des.monster({ id = "холмовой орк", peaceful = 0 })
+      des.monster({ id = "горный орк", peaceful = 0 })
    else
       des.monster({ id = "Гоблин", peaceful = 0 })
    end

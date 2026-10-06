@@ -29,7 +29,7 @@ des.monster("Огненный Муравей")
 des.monster("Огненный Муравей")
 des.monster("Огненный Муравей")
 des.monster("a")
-des.monster({ id = "Огненный Гигант", peaceful = 0 })
+des.monster({ id = "огненный великан", peaceful = 0 })
 --
 des.trap()
 des.trap()

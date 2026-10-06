@@ -107,7 +107,7 @@ des.object("?")
 des.object("?")
 -- Some monsters.
 des.monster({ id = "рогатый дьявол", x=14,y=12,peaceful=0 })
-des.monster({ id = "шипастый дьявол", x=18,y=08,peaceful=0 })
+des.monster({ id = "колючий дьявол", x=18,y=08,peaceful=0 })
 des.monster({ id = "эриния", x=10,y=04,peaceful=0 })
 des.monster({ id = "марилит", x=07,y=09,peaceful=0 })
 des.monster({ id = "налфешни", x=27,y=08,peaceful=0 })

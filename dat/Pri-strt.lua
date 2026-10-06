@@ -71,7 +71,7 @@ des.door("closed",52,14)
 -- Unattended Altar - unaligned due to conflict - player must align it.
 des.altar({ x=28, y=09, align="noalign", type="altar" })
 -- High Priest
-des.monster({ id = "Арх Priest", coord = {28, 10}, inventory = function()
+des.monster({ id = "Верховный жрец", coord = {28, 10}, inventory = function()
    des.object({ id = "ряса", spe = 4 });
    des.object({ id = "булава", spe = 4 });
 end })

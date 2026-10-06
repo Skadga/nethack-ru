@@ -27,7 +27,7 @@ des.monster({ id = " вазит", peaceful=0 })
 des.monster({ id = " вазит", peaceful=0 })
 des.monster({ id = " вазит", peaceful=0 })
 des.monster({ class = "i", peaceful=0 })
-des.monster({ id = "ќхристое ∆еле", peaceful=0 })
+des.monster({ id = "охристый студень", peaceful=0 })
 --
 des.trap()
 des.trap()

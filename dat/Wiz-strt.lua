@@ -61,7 +61,7 @@ des.door("closed",15,10)
 des.door("locked",19,10)
 des.door("locked",20,10)
 -- Neferet the Green, the quest leader
-des.monster({ id = "Neferet the зелёный", coord = {23, 05}, inventory = function()
+des.monster({ id = "Неферет Зелёная", coord = {23, 05}, inventory = function()
    des.object({ id = "эльфийский плащ", spe = 5 });
    des.object({ id = "цеп", spe = 5 });
 end })
