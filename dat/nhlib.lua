@@ -45,7 +45,7 @@ function percent(threshold)
 end
 
 function monkfoodshop()
-   if (u.role == "Monk") then
+   if (u.role == "Монах") then
       return "health food shop";
    end
    return "food shop";

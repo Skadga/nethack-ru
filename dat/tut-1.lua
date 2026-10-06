@@ -80,7 +80,7 @@ local diagmovekeys = tut_key("movesouthwest") .. " " ..
 des.engraving({ coord = { 9,3 }, type = "engrave", text = "Двигайся с помощью " .. movekeys, degrade = false });
 des.engraving({ coord = { 5,2 }, type = "engrave", text = "Двигайся по диагонали с помощью " .. diagmovekeys, degrade = false });
 
-if (u.role == "Knight") then
+if (u.role == "Рыцарь") then
    des.engraving({ coord = { 12,1 }, type = "engrave", text = "Рыцари могут прыгать с помощью '" .. tut_key("jump") .. "'", degrade = false });
 end
 
@@ -142,7 +142,7 @@ des.door({ coord = { 18,13 }, state = "closed" });
 
 des.engraving({ coord = { 19,13 }, type = "engrave", text = "Подбирай предметы с помощью '" .. tut_key("pickup") .. "'", degrade = false });
 
-local armor = (u.role == "Monk") and "кожаные перчатки" or "кожаная куртка";
+local armor = (u.role == "Монах") and "кожаные перчатки" or "кожаная куртка";
 
 des.object({ id = armor, spe = 0, buc = "cursed", coord = { 19,14} });
 
