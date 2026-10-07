@@ -61,7 +61,7 @@ des.non_diggable(selection.area(00,00,75,19))
 -- The altar of Huhetotl.  Unattended.
 des.altar({ x=50,y=14,align="chaos",type="altar" })
 -- Objects
-des.object({ id = "кристальный ядро", x=50, y=14,buc="blessed",spe=5,name="The Orb of Detection" })
+des.object({ id = "хрустальный шар", x=50, y=14,buc="blessed",spe=5,name="The Orb of Detection" })
 des.object()
 des.object()
 des.object()

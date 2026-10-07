@@ -149,7 +149,7 @@ des.object({ id = "сундук", trapped = 0, locked = 1, coord = loc ,
 });
 -- Prevent monsters from eating it.  (@'s never eat objects)
 des.engraving({ coord = loc, type="burn", text="Elbereth" })
-des.object({ id = "запугивание монстра", coord = loc, buc="cursed" })
+des.object({ id = "отпугивание монстра", coord = loc, buc="cursed" })
 -- The treasure of the lord
 des.object("сундук",37,08)
 -- Traps

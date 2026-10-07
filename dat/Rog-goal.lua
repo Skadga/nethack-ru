@@ -41,7 +41,7 @@ des.non_diggable(selection.area(00,00,75,20))
 -- One trap to keep the gnomes at bay.
 des.trap("spiked pit",37,07)
 -- Objects
-des.object({ id = "скелетный ключ", x=38, y=10, buc="blessed", spe=0, name="The Master Key of Thievery" })
+des.object({ id = "отмычка", x=38, y=10, buc="blessed", spe=0, name="The Master Key of Thievery" })
 des.object({ id = "банка", x=26, y=12, montype="хамелеон" })
 des.object()
 des.object()

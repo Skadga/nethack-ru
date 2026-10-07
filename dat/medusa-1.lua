@@ -64,10 +64,10 @@ des.object({ id = "статуя", x=36,y=10, buc="uncursed",
                    des.object({ id = "щит отражения", buc="cursed", spe=0 })
                 end
                 if percent(25) then
-                   des.object({ id = "сапоги левитации", spe=0 })
+                   des.object({ id = "ботинки левитации", spe=0 })
                 end
                 if percent(50) then
-                   des.object({ id = "сабля", buc="blessed", spe=2 })
+                   des.object({ id = "ятаган", buc="blessed", spe=2 })
                 end
                 if percent(50) then
                    des.object("мешок")

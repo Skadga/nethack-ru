@@ -67,7 +67,7 @@ des.object({ id = "сундук", coord=niches[4],
 });
 des.object({ id = "сундук", coord=niches[5],
              contents = function()
-                des.object({ id = "говяжий свеча", quantity=math.random(4,8) })
+                des.object({ id = "сальная свеча", quantity=math.random(4,8) })
              end
 });
 -- We have to protect the tower against outside attacks

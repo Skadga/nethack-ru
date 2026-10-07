@@ -61,7 +61,7 @@ des.door("locked",26,10)
 des.door("locked",43,10)
 -- Norn
 des.monster({ id = "норна", coord = {35, 10}, inventory = function()
-   des.object({ id = "полосатая кольчуга", spe = 5 });
+   des.object({ id = "полосатый доспех", spe = 5 });
    des.object({ id = "длинный меч", spe = 4 });
 end })
 -- The treasure of the Norn

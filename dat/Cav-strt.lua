@@ -56,7 +56,7 @@ des.altar({ x=36,y=02, align="coaligned", type="shrine" })
 -- Shaman Karnov
 des.monster({ id = "шаман  арнов", coord = {35, 02}, inventory = function()
    des.object({ id = "кожана€ куртка", spe = 5 });
-   des.object({ id = "дубинка", spe = 5 });
+   des.object({ id = "дубина", spe = 5 });
 end })
 -- The treasure of Shaman Karnov
 des.object("сундук", 34, 02)

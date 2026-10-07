@@ -59,7 +59,7 @@ des.door("closed",50,04)
 des.door("closed",50,06)
 -- Lord Sato
 des.monster({ id = "лорд Сато", coord = {20, 04}, inventory = function()
-   des.object({ id = "ленточная кольчуга", spe = 5, eroded=-1, buc="not-cursed" });
+   des.object({ id = "доспех из пластин", spe = 5, eroded=-1, buc="not-cursed" });
    des.object({ id = "катана", spe = 4, eroded=-1, buc="not-cursed" });
 end })
 -- The treasure of Lord Sato

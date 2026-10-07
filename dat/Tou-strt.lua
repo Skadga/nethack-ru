@@ -96,7 +96,7 @@ des.monster("Лесной Кентавр")
 des.monster("C")
 -- Twoflower
 des.monster({ id = "Двацветок", coord = {64, 03}, inventory = function()
-   des.object({ id = "низкие сапоги", spe = 3 });
+   des.object({ id = "низкие ботинки", spe = 3 });
    des.object({ id = "Гавайская рубашка", spe = 3 });
 end })
 -- The treasure of Twoflower

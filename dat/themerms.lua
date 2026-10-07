@@ -205,7 +205,7 @@ themeroom_fills = {
       name = "Light source",
       eligible = function(rm) return rm.lit == false; end,
       contents = function(rm)
-         des.object({ id = "масло лампа", lit = true });
+         des.object({ id = "масляная лампа", lit = true });
       end
    },
 

@@ -105,7 +105,7 @@ des.door("closed", 68,18)
 -- Master of Thieves
 des.monster({ id = "Мастер Воров", coord = {36, 11}, inventory = function()
    des.object({ id = "кожаная куртка", spe = 5 });
-   des.object({ id = "серебряная кинжал", spe = 4 });
+   des.object({ id = "серебряный кинжал", spe = 4 });
    des.object({ id = "кинжал", spe = 2, quantity = d(2,4), buc = "not-cursed" });
 end })
 -- The treasure of Master of Thieves

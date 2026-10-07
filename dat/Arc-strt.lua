@@ -72,7 +72,7 @@ des.door("locked",49,14)
 -- Lord Carnarvon
 des.monster({ id = "лорд  арнарвон", coord = {25, 10}, inventory = function()
    des.object({ id = "федора", spe = 5 });
-   des.object({ id = "плеть", spe = 4 });
+   des.object({ id = "бычий бич", spe = 4 });
 end })
 -- The treasure of Lord Carnarvon
 des.object("сундук", 25, 10)

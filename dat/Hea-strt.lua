@@ -61,7 +61,7 @@ des.door("closed",48,12)
 des.door("locked",50,10)
 -- Hippocrates
 des.monster({ id = "Гиппократ", coord = {37, 10}, inventory = function()
-   des.object({ id = "серебряная кинжал", spe = 5 });
+   des.object({ id = "серебряный кинжал", spe = 5 });
 end })
 -- The treasure of Hippocrates
 des.object("сундук", 37, 10)

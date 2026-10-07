@@ -100,18 +100,18 @@ des.object({ id = "восковая свеча", coord = place[4], quantity = math.random(1,2
 
 des.object({ id = "восковая свеча", coord = place[1], quantity = math.random(2,4) })
 des.object({ id = "восковая свеча", coord = place[2], quantity = math.random(1,2) })
-des.object({ id = "говяжий свеча", coord = place[3], quantity = math.random(1,3) })
-des.object({ id = "говяжий свеча", coord = place[2], quantity = math.random(1,2) })
-des.object({ id = "говяжий свеча", coord = place[4], quantity = math.random(1,2) })
+des.object({ id = "сальная свеча", coord = place[3], quantity = math.random(1,3) })
+des.object({ id = "сальная свеча", coord = place[2], quantity = math.random(1,2) })
+des.object({ id = "сальная свеча", coord = place[4], quantity = math.random(1,2) })
 
 -- go ahead and leave a lamp next to one corpse to be suggestive
 -- and some empty wands...
 des.object("масляная лампа",place[2])
-des.object({ id = "ударный", coord = place[1], buc="uncursed", spe=0 })
-des.object({ id = "ударный", coord = place[3], buc="uncursed", spe=0 })
-des.object({ id = "ударный", coord = place[4], buc="uncursed", spe=0 })
-des.object({ id = "магический снаряд", coord = place[4], buc="uncursed", spe=0 })
-des.object({ id = "магический снаряд", coord = place[5], buc="uncursed", spe=0 })
+des.object({ id = "удар", coord = place[1], buc="uncursed", spe=0 })
+des.object({ id = "удар", coord = place[3], buc="uncursed", spe=0 })
+des.object({ id = "удар", coord = place[4], buc="uncursed", spe=0 })
+des.object({ id = "магическая стрела", coord = place[4], buc="uncursed", spe=0 })
+des.object({ id = "магическая стрела", coord = place[5], buc="uncursed", spe=0 })
 
 -- the Orcish Army
 

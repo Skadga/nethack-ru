@@ -70,7 +70,7 @@ des.non_diggable(selection.area(00,00,75,19))
 -- The altar.  This is not a shrine.
 des.altar({ coord={16,11}, aligned="noncoaligned", type="altar" })
 -- Objects
-des.object({ id = "амулет ясновидения", x=16, y=11, buc="blessed", spe=0, name="The Eye of the Aethiopica" })
+des.object({ id = "амулет экстрасенсорного восприятия", x=16, y=11, buc="blessed", spe=0, name="The Eye of the Aethiopica" })
 des.object()
 des.object()
 des.object()

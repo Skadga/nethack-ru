@@ -274,7 +274,7 @@ des.door({ coord = { 40,15 }, state = "random" });
 
 --
 
-des.object({ coord = { 48,7 }, id = "ring of левитация", buc = "not-cursed" });
+des.object({ coord = { 48,7 }, id = "кольцо левитация", buc = "not-cursed" });
 
 des.engraving({ coord = { 48,10 }, type = "burn", text = "Надевай украшения с помощью '" .. tut_key("puton") .. "'", degrade = false });
 
@@ -319,7 +319,7 @@ if (u.uenmax < 5) then
    des.engraving({ coord = { 59,2 }, type = "engrave", text = "К сожалению, у тебя недостаточно энергии, чтобы творить заклинания.", degrade = false });
 end
 des.engraving({ coord = { 57,2 }, type = "engrave", text = "Подними книгу заклинаний с помощью '" .. tut_key("pickup") .. "'", degrade = false });
-des.object({ coord = { 57,2 }, id = "spellbook of свет", buc = "blessed" });
+des.object({ coord = { 57,2 }, id = "книга заклинаний: свет", buc = "blessed" });
 des.engraving({ coord = { 55,2 }, type = "engrave", text = "Прочитай книгу заклинаний с помощью '" .. tut_key("read") .. "'", degrade = false });
 des.engraving({ coord = { 53,2 }, type = "engrave", text = "Используй '" .. tut_key("cast") .. "', чтобы сотворить заклинание", degrade = false });
 des.region(selection.area(53,01, 59, 3), "unlit");
@@ -327,7 +327,7 @@ des.region(selection.area(53,01, 59, 3), "unlit");
 --
 
 des.engraving({ coord = { 72,2 }, type = "engrave", text = "Ты \"отпиваешь\" зелья с помощью '" .. tut_key("quaff") .. "'", degrade = false });
-des.object({ coord = { 72,2 }, id = "potion of обнаружение предметов", buc = "blessed" });
+des.object({ coord = { 72,2 }, id = "зелье обнаружение предметов", buc = "blessed" });
 
 
 ----------------

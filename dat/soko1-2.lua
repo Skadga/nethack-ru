@@ -103,11 +103,11 @@ des.region({ region={18,09, 22,15}, lit = 1, type = "zoo", filled = 1, irregular
 
 local pt = selection.rndcoord(place);
 if percent(25) then
-   des.object({ id="сумка хранения", coord=pt,
+   des.object({ id="мешок вместительности", coord=pt,
 		buc="not-cursed", achievement=1 });
 else
    des.object({ id="амулет отражения", coord=pt,
 		buc="not-cursed", achievement=1 });
 end
 des.engraving({ coord = pt, type = "burn", text = "Elbereth" });
-des.object({ id = "запугивание монстра", coord = pt, buc = "cursed" });
+des.object({ id = "отпугивание монстра", coord = pt, buc = "cursed" });

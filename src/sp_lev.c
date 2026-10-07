@@ -3485,13 +3485,18 @@ find_objtype(lua_State *L, const char *s, char oclass)
             { "scroll of ", SCROLL_CLASS },
             { "spellbook of ", SPBOOK_CLASS },
             { "wand of ", WAND_CLASS },
+            { "кольцо ", RING_CLASS },
+            { "зелье ", POTION_CLASS },
+            { "свиток ", SCROLL_CLASS },
+            { "книга заклинаний: ", SPBOOK_CLASS },
+            { "волшебная палочка ", WAND_CLASS },
             { NULL, 0 }
         };
 
         if (class == MAXOCLASSES)
             class = 0;
 
-        if (strstri(s, " of ")) {
+        {
             for (i = 0; class_prefixes[i].prefix; i++) {
                 const char *p = class_prefixes[i].prefix;
 

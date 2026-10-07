@@ -72,7 +72,7 @@ des.door("closed",52,14)
 des.altar({ x=28,y=09, align="noalign", type="altar" })
 -- The Grand Master
 des.monster({ id = "Великий Мастер", coord = {28, 10}, inventory = function()
-   des.object({ id = "ряса", spe = 6 });
+   des.object({ id = "мантия", spe = 6 });
 end })
 -- No treasure chest!
 -- guards for the audience chamber
@@ -105,4 +105,4 @@ end
 -- there's no protection against a xorn eating these tins; BUC state is random
 des.object({ id="банка", coord = {29, 9}, quantity=2, montype="spinach" })
 -- ensure enough vegetarian food generates for vegetarian games
-des.object({ id="еда паёк", coord = {46, 4}, quantity = 4})
+des.object({ id="паёк", coord = {46, 4}, quantity = 4})
