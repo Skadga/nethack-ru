@@ -34,7 +34,7 @@ des.monster("Щенок Адской Гончей",place[3])
 des.monster("Зимний Волк",place[4])
 des.object({ id = "сундук", coord = place[5],
              contents = function()
-                des.object("амулет спасения жизни")
+                des.object("амулет спасения")
              end
 });
 des.object({ id = "сундук", coord = place[6],
@@ -42,8 +42,8 @@ des.object({ id = "сундук", coord = place[6],
                 des.object("амулет удушения")
              end
 });
-des.object("водоходные сапоги",place[7])
-des.object("кристальная пластинчатая кольчуга",place[8])
+des.object("ботинки хождения по воде",place[7])
+des.object("хрустальный латный доспех",place[8])
 
 local spbooks = {
    "spellbook of invisibility",

@@ -110,8 +110,8 @@ des.object({ id = "статуя", contents=0 })
 for i=1,8 do
    des.object()
 end
-des.object("чистый бумага",48,18)
-des.object("чистый бумага",48,18)
+des.object("чистый лист",48,18)
+des.object("чистый лист",48,18)
 --
 des.trap("rust")
 des.trap("rust")

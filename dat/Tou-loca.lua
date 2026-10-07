@@ -124,8 +124,8 @@ des.object()
 des.object()
 des.object()
 -- Toilet paper
-des.object("чистый бумага", 71, 12)
-des.object("чистый бумага", 71, 12)
+des.object("чистый лист", 71, 12)
+des.object("чистый лист", 71, 12)
 -- Random traps - must avoid the 2 shops
 local validtraps = selection.area(00,00,75,19):filter_mapchar('.')
 validtraps = validtraps - (selection.area(15,03,20,05) + selection.area(62,03,71,04))

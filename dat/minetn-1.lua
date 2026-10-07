@@ -106,7 +106,7 @@ des.object({ id = "говяжий свеча", coord = place[4], quantity = math.random(1,2)
 
 -- go ahead and leave a lamp next to one corpse to be suggestive
 -- and some empty wands...
-des.object("масло лампа",place[2])
+des.object("масляная лампа",place[2])
 des.object({ id = "ударный", coord = place[1], buc="uncursed", spe=0 })
 des.object({ id = "ударный", coord = place[3], buc="uncursed", spe=0 })
 des.object({ id = "ударный", coord = place[4], buc="uncursed", spe=0 })

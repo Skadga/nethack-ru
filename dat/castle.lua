@@ -143,8 +143,8 @@ des.object(object[4],55,11)
 local loc = place:rndcoord(1);
 des.object({ id = "сундук", trapped = 0, locked = 1, coord = loc ,
              contents = function()
-                des.object("wishing");
-                des.object("прирост уровня");
+                des.object("желание");
+                des.object("получение уровня");
              end
 });
 -- Prevent monsters from eating it.  (@'s never eat objects)

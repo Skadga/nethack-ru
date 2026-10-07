@@ -78,7 +78,7 @@ des.levregion({ region = {27,00,79,20}, type="branch" });
 --
 des.non_diggable(selection.area(01,01,22,14));
 --
-des.object("кристальный ядро", 07,08)
+des.object("хрустальный шар", 07,08)
 --
 -- same spot as Medusa plus downstairs
 des.object({ id="статуя", coord=medloc, buc="uncursed",
