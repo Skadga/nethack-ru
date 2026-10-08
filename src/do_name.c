@@ -1615,13 +1615,13 @@ static const struct mon_paradigm mon_paradigms[] = {
       { "летучие мыши", "летучих мышей", "летучим мышам", NULL, "летучими мышами", "летучих мышах" } },
 };
 
-/* Case-inflected monster name; cse is an enum bp_case value optionally
-   OR'ed with BP_PLURAL.  No article, no possessive, no pluralizing
-   "s".  Unlisted names and missing forms fall back to the nominative. */
+/* Case-inflected monster name from a nominative string; cse is an
+   enum bp_case value optionally OR'ed with BP_PLURAL. No article,
+   no possessive. Unlisted names and missing forms fall back to
+   the nominative. */
 const char *
-mon_gen(struct monst *mon, int cse)
+mon_gen_nom(const char *nom, int cse)
 {
-    const char *nom = mon_pmname(mon);
     const struct mon_paradigm *pg = mon_paradigms;
     int cs = cse & BP_CASE_MASK, plural = !!(cse & BP_PLURAL), i;
 
@@ -1637,6 +1637,13 @@ mon_gen(struct monst *mon, int cse)
     if (plural)
         return pg[i].p[mon_pl_slot[cs]] ? pg[i].p[mon_pl_slot[cs]] : nom;
     return pg[i].s[cs] ? pg[i].s[cs] : nom;
+}
+
+/* Case-inflected monster name of a live monster (wraps mon_gen_nom). */
+const char *
+mon_gen(struct monst *mon, int cse)
+{
+    return mon_gen_nom(mon_pmname(mon), cse);
 }
 
 /* mons[]->pmname for a corpse or statue or figurine */

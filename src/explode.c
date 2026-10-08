@@ -488,16 +488,10 @@ explode(
                 if (!mtmp)
                     continue;
                 if (do_hallu) {
-                    int tryct = 0;
-
                     /* replace "gas spore" with a different description
-                       for each target (we can't distinguish personal names
-                       like "Barney" here in order to suppress "the" below,
-                       so avoid any which begins with a capital letter) */
-                    do {
-                        Sprintf(hallu_buf, "%s explosion",
-                                s_suffix(rndmonnam((char *) 0)));
-                    } while (*hallu_buf != lowc(*hallu_buf) && ++tryct < 20);
+                       for each target */
+                    Sprintf(hallu_buf, "взрыв %s",
+                            mon_gen_nom(rndmonnam((char *) 0), BP_GEN));
                     str = hallu_buf;
                 }
                 if (engulfing_u(mtmp)) {
@@ -505,7 +499,7 @@ explode(
                 } else if (cansee(xx, yy)) {
                     if (mtmp->m_ap_type)
                         seemimic(mtmp);
-                    pline("%s is caught in the %s!", Monnam(mtmp), str);
+                    pline("%s попал в %s!", Monnam(mtmp), str);
                 }
 
                 itemdmg = destroy_items(mtmp, (int) adtyp, dam);
@@ -593,13 +587,11 @@ explode(
            or player-induced one other than scroll of fire */
         if (flags.verbose && (type < 0 || olet != SCROLL_CLASS)) {
             if (do_hallu) { /* (see explanation above) */
-                do {
-                    Sprintf(hallu_buf, "%s explosion",
-                            s_suffix(rndmonnam((char *) 0)));
-                } while (*hallu_buf != lowc(*hallu_buf));
+                Sprintf(hallu_buf, "взрыв %s",
+                        mon_gen_nom(rndmonnam((char *) 0), BP_GEN));
                 str = hallu_buf;
             }
-            You("are caught in the %s!", str);
+            You("попали в %s!", str);
             iflags.last_msg = PLNMSG_CAUGHT_IN_EXPLOSION;
         }
         /* do property damage first, in case we end up leaving bones */
