@@ -734,6 +734,7 @@ extern const char *pmname(struct permonst *, int) NONNULLARG1;
 #endif
 extern const char *mon_pmname(struct monst *) NONNULLARG1;
 extern const char *obj_pmname(struct obj *) NONNULLARG1;
+extern const char *mon_gen(struct monst *, int) NONNULLARG1;
 
 /* ### do_wear.c ### */
 

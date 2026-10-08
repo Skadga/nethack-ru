@@ -626,7 +626,7 @@ failed_grab(
             } else {
                 /* hero poly'd into long worm can't grow tail
                    so no 'youmonst' handling is needed here */
-                Sprintf(mdefnam, "%s хвост", s_suffix(some_mon_nam(mdef)));
+                Sprintf(mdefnam, "хвост %s", mon_gen(mdef, BP_GEN));
             }
             /* unsolid grab misses are actually somewhat iffy--how come
                ordinary attacks don't also pass right through? */

@@ -1713,7 +1713,7 @@ gazemu(struct monst *mtmp, struct attack *mattk)
 
             if (useeit)
                 (void) ureflects("взгляд %s отражается вашим %s.",
-                                 s_suffix(Monnam(mtmp)));
+                                 mon_gen(mtmp, BP_GEN));
             if (mon_reflects(mtmp, !useeit ? (char *) 0
                                   : "Взгляд отражается %s %s!", BP_INS))
                 break;

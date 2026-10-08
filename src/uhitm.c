@@ -1277,18 +1277,19 @@ hmon_hitmon_misc_obj(
                 pline("яд ослепл€ет %s%s!", mon_nam(mon),
                           mon->mcansee ? "" : " ≈щЄ сильнее");
             } else {
-                char *whom = mon_nam(mon);
                 char *what = The(xname(obj));
 
                 if (!hmd->thrown && obj->quan > 1L)
                     what = An(singular(obj, xname));
-                /* note: s_suffix returns a modifiable buffer */
                 if (haseyes(hmd->mdat)
                     && hmd->mdat != &mons[PM_FLOATING_EYE])
-                    whom = strcat(strcat(s_suffix(whom), " "),
-                                  mbodypart_case(mon, FACE, BP_ACC));
-                pline("%s %s на %s!", what,
-                      vtense(what, "брызгает"), whom);
+                    pline("%s %s в %s %s!", what,
+                          vtense(what, "брызгает"),
+                          mbodypart_case(mon, FACE, BP_ACC),
+                          mon_gen(mon, BP_GEN));
+                else
+                    pline("%s %s на %s!", what,
+                          vtense(what, "брызгает"), mon_gen(mon, BP_GEN));
             }
             setmangry(mon, TRUE);
             mon->mcansee = 0;

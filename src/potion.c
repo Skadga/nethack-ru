@@ -1660,13 +1660,10 @@ potionhit(struct monst *mon, struct obj *obj, int how)
             char buf[BUFSZ];
 
             if (hit_saddle && saddle) {
-                Sprintf(buf, "седло %s",
-                        s_suffix(x_monnam(mon, ARTICLE_THE, (char *) 0,
-                                          (SUPPRESS_IT | SUPPRESS_SADDLE),
-                                          FALSE)));
+                Sprintf(buf, "седло %s", mon_gen(mon, BP_GEN));
             } else if (has_head(mon->data)) {
-                Sprintf(buf, "%s %s", s_suffix(mnam),
-                        (gn.notonhead ? "тело" : "голову"));
+                Sprintf(buf, "%s %s", (gn.notonhead ? "тело" : "голову"),
+                        mon_gen(mon, BP_GEN));
             } else {
                 Strcpy(buf, mnam);
             }

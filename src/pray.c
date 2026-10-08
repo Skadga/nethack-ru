@@ -796,8 +796,8 @@ at_your_feet(const char *str)
     if (u.uswallow) {
         /* barrier between you and the floor */
         pline("%s %s в %s %s.", str, vtense(str, "падает"),
-              s_suffix(mon_nam(u.ustuck)),
-              mbodypart_case(u.ustuck, STOMACH, BP_ACC));
+              mbodypart_case(u.ustuck, STOMACH, BP_ACC),
+              mon_gen(u.ustuck, BP_GEN));
     } else {
         if (Levitation)
             pline("%s %s под вашими %s!", str,

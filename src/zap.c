@@ -417,8 +417,8 @@ bhitm(struct monst *mtmp, struct obj *otmp)
         } else if ((obj = which_armor(mtmp, W_SADDLE)) != 0) {
             char buf[BUFSZ];
 
-            Sprintf(buf, "%s %s", s_suffix(Monnam(mtmp)),
-                    distant_name(obj, xname));
+            Sprintf(buf, "%s %s", distant_name(obj, xname),
+                    mon_gen(mtmp, BP_GEN));
             if (cansee(mtmp->mx, mtmp->my)) {
                 if (!canspotmon(mtmp))
                     Strcpy(buf, An(distant_name(obj, xname)));

@@ -1641,8 +1641,7 @@ meatobj(struct monst *mtmp) /* for gelatinous cubes */
         if (cansee(mtmp->mx, mtmp->my) && flags.verbose && buf[0])
             pline1(buf);
         else if (flags.verbose)
-            You_hear("%s звук чавканья%s.",
-                     (ecount == 1) ? "a" : "several", plur(ecount));
+            You_hear((ecount == 1) ? "чавканье." : "многократное чавканье.");
     }
     return (count > 0 || ecount > 0) ? 1 : 0;
 }
@@ -1732,22 +1731,22 @@ mon_give_prop(struct monst *mtmp, int prop)
        teleport control or whatever, ignore it. */
     switch (prop) {
     case FIRE_RES:
-        msg = "%s shivers slightly.";
+        msg = "%s слегка вздрагивает.";
         break;
     case COLD_RES:
-        msg = "%s looks quite warm.";
+        msg = "%s выглядит совсем тёплым.";
         break;
     case SLEEP_RES:
-        msg = "%s looks wide awake.";
+        msg = "%s выглядит полностью проснувшимся.";
         break;
     case DISINT_RES:
-        msg = "%s looks very firm.";
+        msg = "%s выглядит очень крепким.";
         break;
     case SHOCK_RES:
-        msg = "%s crackles with static electricity.";
+        msg = "%s потрескивает статическим электричеством.";
         break;
     case POISON_RES:
-        msg = "%s looks healthy.";
+        msg = "%s выглядит здоровым.";
         break;
     default:
         return; /* can't give it */
@@ -1805,9 +1804,9 @@ mon_givit(struct monst *mtmp, struct permonst *ptr)
             mon_set_minvis(mtmp, FALSE);
             if (vis)
                 pline_mon(mtmp, "%s %s.", mtmpbuf,
-                      !canspotmon(mtmp) ? "vanishes"
-                      : mtmp->invis_blkd ? "seems to flicker"
-                        : "becomes invisible");
+                      !canspotmon(mtmp) ? "исчезает"
+                      : mtmp->invis_blkd ? "словно мерцает"
+                        : "становится невидимым");
         }
         mtmp->mstun = 1; /* no timeout but will eventually wear off */
         return;
@@ -1834,8 +1833,8 @@ mpickgold(struct monst *mtmp)
         add_to_minv(mtmp, gold);
         if (cansee(mtmp->mx, mtmp->my)) {
             if (flags.verbose && !mtmp->isgd)
-                pline_mon(mtmp, "%s picks up some %s.", Monnam(mtmp),
-                         mat_idx == GOLD ? "gold" : "money");
+                pline_mon(mtmp, "%s подбирает немного %s.", Monnam(mtmp),
+                         mat_idx == GOLD ? "золота" : "денег");
             newsym(mtmp->mx, mtmp->my);
         }
     }
@@ -1894,7 +1893,7 @@ mpickstuff(struct monst *mtmp)
                 char *otmpname = distant_name(otmp, doname);
 
                 if (flags.verbose)
-                    pline_mon(mtmp, "%s picks up %s.",
+                    pline_mon(mtmp, "%s подбирает %s.",
                               Monnam(mtmp), otmpname);
             }
             obj_extract_self(otmp3);      /* remove from floor */
@@ -2909,13 +2908,13 @@ vamprises(struct monst *mtmp)
 
         /* construct a 'before' argument to pass to pline(); this used
            to construct a dynamic format string but that's overkill */
-        Snprintf(action, sizeof action, "%s%s %s%s and rises as",
-                 Unaware ? "you dream that " : "",
+        Snprintf(action, sizeof action, "%s%s %s%s и восстаёт как",
+                 Unaware ? "вам снится, что " : "",
                  x_monnam(mtmp, ARTICLE_THE,
-                          spec_mon ? (char *) 0 : "seemingly dead",
+                          spec_mon ? (char *) 0 : "как мёртвый",
                           (SUPPRESS_INVISIBLE | AUGMENT_IT), FALSE),
-                 Unaware ? "" : "suddenly ",
-                 spec_death ? "reconstitutes" : "transforms");
+                 Unaware ? "" : "внезапно ",
+                 spec_death ? "восстанавливается" : "преображается");
         mtmp->mcanmove = 1;
         mtmp->mfrozen = 0;
         set_mon_min_mhpmax(mtmp, 10); /* mtmp->mhpmax=max(m_lev+1,10) */
@@ -4320,9 +4319,9 @@ void
 wake_msg(struct monst *mtmp, boolean interesting)
 {
     if (mtmp->msleeping && canseemon(mtmp)) {
-        pline_mon(mtmp, "%s wakes up%s%s",
+        pline_mon(mtmp, "%s просыпается%s%s",
               Monnam(mtmp), interesting ? "!" : ".",
-              mtmp->data == &mons[PM_FLESH_GOLEM] ? " It's alive!" : "");
+              mtmp->data == &mons[PM_FLESH_GOLEM] ? " Оно живо!" : "");
     }
 }
 
