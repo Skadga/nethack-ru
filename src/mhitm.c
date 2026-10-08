@@ -1318,7 +1318,7 @@ passivemm(
             Strcpy(buf, Monnam(magr));
             if (canseemon(magr))
                 pline("%s забрызган %s %s!", buf,
-                      s_suffix(mon_nam(mdef)), hliquid("кислота"));
+                      mon_gen(mdef, BP_GEN), hliquid("кислота"));
             if (resists_acid(magr)) {
                 if (canseemon(magr))
                     pline("%s не затронут.", Monnam(magr));
@@ -1355,7 +1355,7 @@ passivemm(
                 if (magr->mcansee && haseyes(madat) && mdef->mcansee
                     && (perceives(madat) || !mdef->minvis)) {
                     /* construct format string; guard against '%' in Monnam */
-                    Strcpy(buf, s_suffix(Monnam(mdef)));
+                    Strcpy(buf, mon_gen(mdef, BP_GEN));
                     (void) strNsubst(buf, "%", "%%", 0);
                     Strcat(buf, " взгляд отражается %s %s.");
                     if (mon_reflects(magr,
@@ -1365,7 +1365,7 @@ passivemm(
                     Strcpy(buf, Monnam(magr));
                     if (canseemon(magr))
                         pline("%s заморожен взглядом %s!", buf,
-                              s_suffix(mon_nam(mdef)));
+                              mon_gen(mdef, BP_GEN));
                     paralyze_monst(magr, tmp);
                     return (mdead | mhit);
                 }

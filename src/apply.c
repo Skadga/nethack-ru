@@ -2479,7 +2479,7 @@ fig_transform(anything *arg, long timeout)
                 /* figurine carrying monster might be invisible */
                 if (canseemon(figurine->ocarry)
                     && (!mon->wormno || cansee(mon->mx, mon->my)))
-                    Sprintf(carriedby, "%s сумку", s_suffix(a_monnam(mon)));
+                    Sprintf(carriedby, "сумки %s", mon_gen(mon, BP_GEN));
                 else if (is_pool(mon->mx, mon->my))
                     Strcpy(carriedby, "пустой воды");
                 else

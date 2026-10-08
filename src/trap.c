@@ -1526,7 +1526,7 @@ trapeffect_bear_trap(
         set_utrap((unsigned) rn1(4, 4), TT_BEARTRAP);
         if (u.usteed) {
             pline("%s медвежий капкан захлопнулся на %s %s!", A_Your[trap->madeby_u],
-                  s_suffix(mon_nam(u.usteed)),
+                  mon_gen(u.usteed, BP_GEN),
                   mbodypart_case(u.usteed, FOOT, BP_ACC));
             if (thitm(0, u.usteed, (struct obj *) 0, dmg, FALSE))
                 reset_utrap(TRUE); /* steed died, hero not trapped */

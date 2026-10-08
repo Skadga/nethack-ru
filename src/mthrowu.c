@@ -511,8 +511,8 @@ ucatchgem(
 {
     /* won't catch rock or gray stone; catch (then drop) worthless glass */
     if (gem->otyp <= LAST_GLASS_GEM && is_unicorn(gy.youmonst.data)) {
-        char *gem_xname = xname(gem),
-             *mon_s_name = s_suffix(mon_nam(mon));
+        char *gem_xname = xname(gem);
+        const char *mon_s_name = mon_gen(mon, BP_GEN);
 
         if (gem->otyp >= FIRST_GLASS_GEM) {
             You("ловите %s.", gem_xname);
@@ -889,7 +889,7 @@ return_from_mtoss(
 
             if (!do_not_annoy || (svm.moves - do_not_annoy) > 500L) {
                 pline("%s обратно в %s руку.", Tobjnam(otmp, "возвращается"),
-                      s_suffix(mon_nam(magr)));
+                      mon_gen(magr, BP_GEN));
                 do_not_annoy = svm.moves;
             }
             if (otmp) {
@@ -1032,7 +1032,7 @@ spitmm(struct monst *mtmp, struct attack *mattk, struct monst *mtarg)
         if (!Deaf && mdistu(mtmp) < BOLT_LIM * BOLT_LIM) {
             if (canspotmon(mtmp)) {
                 pline("Сухой хрип доносится из горла %s.",
-                      s_suffix(mon_nam(mtmp)));
+                      mon_gen(mtmp, BP_GEN));
             } else {
                 Soundeffect(se_dry_throat_rattle, 50);
                 You_hear("сухое дребезжание поблизости.");

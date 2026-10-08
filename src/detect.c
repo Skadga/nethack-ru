@@ -393,11 +393,7 @@ gold_detect(struct obj *sobj)
                "¬ы чувствуете беспокойство о своЄм будущем финансовом положении.");
         else if (steedgold)
             Sprintf(buf, "¬ы чувствуете интерес к финансовому положению %s.",
-                    s_suffix(x_monnam(u.usteed,
-                                      u.usteed->mtame ? ARTICLE_YOUR
-                                                      : ARTICLE_THE,
-                                      (char *) 0,
-                                      SUPPRESS_SADDLE, FALSE)));
+                    mon_gen(u.usteed, BP_GEN));
         else
             Strcpy(buf, "¬ы чувствуете себ€ материально бедным.");
 

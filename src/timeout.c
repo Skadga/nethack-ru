@@ -1149,7 +1149,7 @@ hatch_egg(anything *arg, long timeout)
                 if (canseemon(mon2)
                     && (!mon2->wormno || cansee(mon2->mx, mon2->my))) {
                     Sprintf(carriedby, "мешка %s",
-                            s_suffix(a_monnam(mon2)));
+                            mon_gen(mon2, BP_GEN));
                     knows_egg = TRUE;
                 } else if (is_pool(mon->mx, mon->my)) {
                     Strcpy(carriedby, "пустой воды");

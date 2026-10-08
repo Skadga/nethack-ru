@@ -928,11 +928,13 @@ obstructed(coordxy x, coordxy y, boolean quietly)
         if (M_AP_TYPE(mtmp) == M_AP_OBJECT)
             goto objhere;
         if (!quietly) {
+            char tb[BUFSZ];
             char *Mn = Some_Monnam(mtmp); /* Monnam, Someone or Something */
 
-            if ((mtmp->mx != x || mtmp->my != y) && canspotmon(mtmp))
-                /* s_suffix() returns a modifiable buffer */
-                Mn = strcat(s_suffix(Mn), " хвост");
+            if ((mtmp->mx != x || mtmp->my != y) && canspotmon(mtmp)) {
+                Sprintf(tb, "хвост %s", mon_gen(mtmp, BP_GEN));
+                Mn = tb;
+            }
 
             pline("%s преграждает путь!", Mn);
         }

@@ -1736,7 +1736,7 @@ dogaze(void)
                 if (mtmp->data == &mons[PM_FLOATING_EYE] && !mtmp->mcan) {
                     if (!Free_action) {
                         You("застываете от взгляда %s!",
-                            s_suffix(mon_nam(mtmp)));
+                            mon_gen(mtmp, BP_GEN));
                         nomul((u.ulevel > 6 || rn2(4))
                                   ? -d((int) mtmp->m_lev + 1,
                                        (int) mtmp->data->mattk[0].damd)
@@ -1746,7 +1746,7 @@ dogaze(void)
                         return ECMD_TIME;
                     } else
                         You("на мгновение деревенеете под взглядом %s.",
-                            s_suffix(mon_nam(mtmp)));
+                            mon_gen(mtmp, BP_GEN));
                 }
                 /* Technically this one shouldn't affect you at all because
                  * the Medusa gaze is an active monster attack that only
@@ -1924,10 +1924,9 @@ domindblast(void)
                unless it will survive the psychic blast, otherwise hero
                would avoid the penalty for killing it while peaceful */
             wakeup(mtmp, (dmg > mtmp->mhp) ? TRUE : FALSE);
-            You("наводитесь на %s %s.", s_suffix(mon_nam(mtmp)),
-                u_sen ? "телепатию"
+            You("наводитесь на %s %s.", u_sen ? "телепатию"
                 : telepathic(mtmp->data) ? "скрытую телепатию"
-                  : "разум");
+                  : "разум", mon_gen(mtmp, BP_GEN));
             mtmp->mhp -= dmg;
             if (DEADMONSTER(mtmp))
                 killed(mtmp);
