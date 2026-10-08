@@ -423,10 +423,12 @@ ohitmon(
             /* note: extra silver damage is handled by dmgval() */
             if (vis) {
                 char *m_name = mon_nam(mtmp);
+                char fleshbuf[BUFSZ];
 
                 if (flesh) /* s_suffix returns a modifiable buffer */
-                    m_name = strcat(s_suffix(m_name), " плоть");
-                pline_The("Серебро обжигает %s!", m_name);
+                    Sprintf(fleshbuf, "плоть %s", mon_gen(mtmp, BP_GEN));
+                pline_The("Серебро обжигает %s!",
+                          flesh ? fleshbuf : m_name);
             } else if (verbose && !gm.mtarget) {
                 pline("%s облянойкова!", flesh ? "Его плоть" : "Оно");
             }
