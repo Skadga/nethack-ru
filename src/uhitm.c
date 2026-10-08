@@ -3154,8 +3154,8 @@ mhitm_ad_drst(
         }
         hitmsg(magr, mattk);
         if (!negated && !rn2(8)) {
-            Sprintf(buf, "%s %s", s_suffix(Monnam(magr)),
-                    mpoisons_subj(magr, mattk));
+            Sprintf(buf, "%s %s", mpoisons_subj(magr, mattk),
+                    mon_gen(magr, BP_GEN));
             poisoned(buf, ptmp, pmname(pa, Mgender(magr)), 30, FALSE);
         }
     } else {
@@ -3273,8 +3273,6 @@ mhitm_ad_drin(
         }
     } else {
         /* mhitm */
-        char buf[BUFSZ];
-
         if (gn.notonhead || !has_head(pd)) {
             if (gv.vis && canspotmon(mdef))
                 pline_mon(mdef, "%s, кажется, не пострадал.", Monnam(mdef));
@@ -3287,9 +3285,9 @@ mhitm_ad_drin(
         }
         if ((mdef->misc_worn_check & W_ARMH) && rn2(8)) {
             if (gv.vis && canspotmon(magr) && canseemon(mdef)) {
-                Strcpy(buf, s_suffix(Monnam(mdef)));
-                pline("%s шлем блокирует атаку %s по %s голове.", buf,
-                      s_suffix(mon_nam(magr)), mhis(mdef));
+                pline("шлем %s блокирует атаку %s по %s голове.",
+                      mon_gen(mdef, BP_GEN), mon_gen(magr, BP_GEN),
+                      mhis(mdef));
             }
             return;
         }
@@ -4113,8 +4111,8 @@ mhitm_ad_phys(
                     /* similar to mhitm_really_poison, but we don't use the
                      * exact same values, nor do we want same 1/8 chance of
                      * poison taking (use 1/4, same as in the mhitm case). */
-                    Sprintf(buf, "%s %s", s_suffix(Monnam(magr)),
-                            mpoisons_subj(magr, mattk));
+                    Sprintf(buf, "%s %s", mpoisons_subj(magr, mattk),
+                            mon_gen(magr, BP_GEN));
                     /* arbitrary, but most poison sources in the game are
                      * strength-based. With hpdamchance = 10, HP damage occurs
                      * 1/2 of the time and it will hit Str rest of the time.

@@ -149,11 +149,11 @@ mpoisons_subj(
         struct obj *mwep = (mtmp == &gy.youmonst) ? uwep : MON_WEP(mtmp);
         /* "Foo's attack was poisoned." is pretty lame, but at least
            it's better than "sting" when not a stinging attack... */
-        return (!mwep || !mwep->opoisoned) ? "attack" : "weapon";
+        return (!mwep || !mwep->opoisoned) ? "удар" : "удар";
     } else {
-        return (mattk->aatyp == AT_TUCH) ? "contact"
-                  : (mattk->aatyp == AT_GAZE) ? "gaze"
-                       : (mattk->aatyp == AT_BITE) ? "bite" : "sting";
+        return (mattk->aatyp == AT_TUCH) ? "контакт"
+                  : (mattk->aatyp == AT_GAZE) ? "взгляд"
+                       : "укус";
     }
 }
 
@@ -1735,7 +1735,7 @@ gazemu(struct monst *mtmp, struct attack *mattk)
         }
         if (canseemon(mtmp) && couldsee(mtmp->mx, mtmp->my)
             && !Stone_resistance && !Unaware) {
-            You("встречаетесь взглядом с %s.", s_suffix(mon_nam(mtmp)));
+            You("встречаетесь с взглядом %s.", mon_gen(mtmp, BP_GEN));
             stop_occupation();
             if (poly_when_stoned(gy.youmonst.data) && polymon(PM_STONE_GOLEM))
                 break;
@@ -1756,7 +1756,7 @@ gazemu(struct monst *mtmp, struct attack *mattk)
                 mtmp->mspec_used = mtmp->mspec_used + (conf + rn2(6));
                 if (!Confusion)
                     pline_mon(mtmp, "взгляд %s сбивает вас с толку!",
-                              s_suffix(Monnam(mtmp)));
+                              mon_gen(mtmp, BP_GEN));
                 else
                     You("становитесь всё более и более сбитыми с толку.");
                 make_confused(HConfusion + conf, FALSE);
@@ -1850,7 +1850,7 @@ gazemu(struct monst *mtmp, struct attack *mattk)
             } else {
                 fall_asleep(-rnd(10), TRUE);
                 pline("взгляд %s навевает на вас сонливость...",
-                      s_suffix(Monnam(mtmp)));
+                      mon_gen(mtmp, BP_GEN));
                 monstunseesu(M_SEEN_SLEEP);
             }
         }

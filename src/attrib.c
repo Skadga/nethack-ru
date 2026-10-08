@@ -329,7 +329,8 @@ poisoned(
        "poison dart", etc have implicitly given poison messages too... */
     if (!blast && !strstri(reason, "poison")) {
         const char *gend = "";
-        unsigned char lc = (unsigned char) reason[strlen(reason) - 1];
+        int wlen = (int) strcspn(reason, " \t");
+        unsigned char lc = (unsigned char) reason[wlen ? wlen - 1 : 0];
 
         /* RU: no articles; short passive verb agrees with noun ending */
         if (lc == 'à' || lc == 'ÿ')

@@ -1055,8 +1055,8 @@ mon_explodes(
 
     /* This might end up killing you, too; you never know...
      * also, it is used in explode() messages */
-    Sprintf(svk.killer.name, "%s explosion",
-            s_suffix(pmname(mon->data, Mgender(mon))));
+    Sprintf(svk.killer.name, "взрыв %s",
+            mon_gen(mon, BP_GEN));
     svk.killer.format = KILLED_BY_AN;
 
     explode(mon->mx, mon->my, type, dmg, MON_EXPLODE,
