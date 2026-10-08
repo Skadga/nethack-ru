@@ -2,7 +2,7 @@
 
 Дата последнего обновления: 2026-10-08
 Ветка: main
-Последний коммит: b74a0b5
+Последний коммит: 7a53987
 
 ## Сборка
 
@@ -47,6 +47,10 @@
   polyself, shk, timeout, trap — 17 мест s_suffix.
 - s_suffix B-остаток (закоммичено b74a0b5): apply.c:851 («хвост <род>»),
   potion.c:1712 («седло <род> светится/намокает», cxname+otense).
+- s_suffix плоть + const (закоммичено 7a53987): uhitm
+  hmon_hitmon_msg_silver/_lightobj — «плоть <род>» через mon_gen(BP_GEN),
+  флаг flesh, fem-шаблон для невидимой ветки; noncorporeal/amorphous не
+  тронута; uhitm.c:6334 → const char *hands, *hands_ins (C4090).
 
 ## Что осталось
 
@@ -56,16 +60,17 @@
    67 частых имён (фолбэк на номинатив). Осталось наполнять по мере
    новых вызовов; NAMS-монстры — см. п.16.
 
-2. s_suffix — batch A2+B и B-остаток (apply/potion) закрыты
-   (~23 места из ~50). Остаток (29):
-   - shkname: shk.c:711/817/831/847/850/1027/5898 + zap.c:5554 — 8 мест
-     (следующий крупный блок; проверить shkname() на параметр падежа)
-   - отложено (E): mhitm.c:622, mhitu.c:600, uhitm.c:1696/1716/1727
-     (плоть / объект hmd->saved_oname), trap.c:2770
-   - explode.c:499/598 — галлюцинация
-   - не-монстры: cmd.c:4478 (#if0), end.c:241 (комм.), mhitm.c:618/619
-     (комм.), files.c:3215, mkobj.c:2433, mthrowu.c:428, nhlua.c:881-888
-     (Lua API), objnam.c:1853, questpgr.c:389
+2. s_suffix — закрыто (A2+B, Batch 1, B-остаток, плоть+const).
+   Остаток вызовов (28 строк всего; не считая определения hacklib.c:345,
+   комментариев end.c:241, mhitm.c:618/619 и Lua-API nhlua.c:65/881/883/888):
+   - shkname — ОТЛОЖЕНО (п.18): shk.c:711/817/831/847/850/1027/5898,
+     zap.c:5554
+   - отложено (E): mhitm.c:622 (ghost capture), mhitu.c:600, trap.c:2770;
+     объект uhitm.c:1725 (hmd->saved_oname) — объектная кампания
+   - mthrowu.c:428 — «плоть» (m_name); explode.c:499/598 — галлюцинация
+     (rndmonnam)
+   - не-монстры: cmd.c:4478 (#if0), files.c:3215 (gamename),
+     mkobj.c:2433 (doname), objnam.c:1853 (mnam), questpgr.c:389 (convert_arg)
 
 ### Средний приоритет
 
@@ -140,5 +145,9 @@
 - 7e38932 — s_suffix: Batch A2+B (attrib, explode, mhitu, uhitm)
 - 6e273b8 — s_suffix: Batch 1 (apply, detect, lock, mhitm, mthrowu,
   polyself, shk, timeout, trap)
-Оба батча (A2+B и Batch 1) закоммичены, рабочее дерево чистое
-(кроме данного PROGRESS.md).
+- b74a0b5 — s_suffix: B-остаток (apply.c:851, potion.c:1712)
+- 685f5f3 — PROGRESS.md: журнал коммитов s_suffix
+- 8bf804a — PROGRESS.md: apply/potion закрыты
+- 974cd40 — PROGRESS.md: shkname-блок отложен (п.10+18)
+- 7a53987 — uhitm: плоть %s (mon_gen), const для body_part_case
+Все батчи s_suffix закоммичены, рабочее дерево чистое (кроме PROGRESS.md).
