@@ -686,11 +686,11 @@ const struct Race races[NUM_RACES + 1] = {
 
 /* Table of all genders */
 const struct Gender genders[] = {
-    { "мужской", "он", "его", "Его", "Mal", ROLE_MALE },
-    { "женская", "она", "её", "Её", "Fem", ROLE_FEMALE },
-    { "средний", "оно", "его", "Его", "Ntr", ROLE_NEUTER },
+    { "мужской", "он", "его", "его", "Его", "Mal", ROLE_MALE },
+    { "женская", "она", "её", "её", "Её", "Fem", ROLE_FEMALE },
+    { "средний", "оно", "его", "его", "Его", "Ntr", ROLE_NEUTER },
     /* used by pronoun_gender() when hallucinating */
-    { "группа", "они", "их", "Их", "Grp", 0 },
+    { "группа", "они", "их", "их", "Их", "Grp", 0 },
 };
 
 /* Table of all alignments */
