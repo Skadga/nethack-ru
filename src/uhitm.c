@@ -1669,6 +1669,9 @@ hmon_hitmon_msg_silver(
     const char *fmt;
     char *whom = mon_nam(mon);
     char silverobjbuf[BUFSZ];
+    char fleshbuf[BUFSZ];
+    const char *whom2 = whom;
+    boolean flesh = !noncorporeal(hmd->mdat) && !amorphous(hmd->mdat);
 
     if (canspotmon(mon)) {
         if (hmd->barehand_silver_rings == 1)
@@ -1689,13 +1692,16 @@ hmon_hitmon_msg_silver(
             fmt = "Серебро обжигает %s!";
     } else {
         *whom = highc(*whom); /* "it" -> "It" */
-        fmt = "%s обожжено!";
+        fmt = flesh ? "%s обожжена!" : "%s обожжено!";
     }
-    /* note: s_suffix returns a modifiable buffer */
-    if (!noncorporeal(hmd->mdat) && !amorphous(hmd->mdat))
-        whom = strcat(s_suffix(whom), " плоть");
+    if (flesh) {
+        Sprintf(fleshbuf, "плоть %s", mon_gen(mon, BP_GEN));
+        if (!canspotmon(mon))
+            fleshbuf[0] = highc(fleshbuf[0]);
+        whom2 = fleshbuf;
+    }
     DISABLE_WARNING_FORMAT_NONLITERAL
-    pline(fmt, whom);
+    pline(fmt, whom2);
     RESTORE_WARNING_FORMAT_NONLITERAL
 }
 
@@ -1708,6 +1714,9 @@ hmon_hitmon_msg_lightobj(
     const char *fmt;
     char *whom = mon_nam(mon);
     char emitlightobjbuf[BUFSZ];
+    char fleshbuf[BUFSZ];
+    const char *whom2 = whom;
+    boolean flesh = !noncorporeal(hmd->mdat) && !amorphous(hmd->mdat);
 
     if (canspotmon(mon)) {
         if (hmd->saved_oname[0]) {
@@ -1720,13 +1729,16 @@ hmon_hitmon_msg_lightobj(
             fmt = "Свет обжигает %s!";
     } else {
         *whom = highc(*whom); /* "it" -> "It" */
-        fmt = "%s обожжено!";
+        fmt = flesh ? "%s обожжена!" : "%s обожжено!";
     }
-    /* note: s_suffix returns a modifiable buffer */
-    if (!noncorporeal(hmd->mdat) && !amorphous(hmd->mdat))
-        whom = strcat(s_suffix(whom), " плоть");
+    if (flesh) {
+        Sprintf(fleshbuf, "плоть %s", mon_gen(mon, BP_GEN));
+        if (!canspotmon(mon))
+            fleshbuf[0] = highc(fleshbuf[0]);
+        whom2 = fleshbuf;
+    }
     DISABLE_WARNING_FORMAT_NONLITERAL
-    pline(fmt, whom);
+    pline(fmt, whom2);
     RESTORE_WARNING_FORMAT_NONLITERAL
 }
 
@@ -6319,7 +6331,7 @@ disguised_as_mon(struct monst *mtmp)
 staticfn void
 nohandglow(struct monst *mon)
 {
-    char *hands, *hands_ins;
+    const char *hands, *hands_ins;
     boolean altfeedback;
 
     if (!u.umconf || mon->mconf)
