@@ -2,7 +2,7 @@
 
 Дата последнего обновления: 2026-10-08
 Ветка: main
-Последний коммит: 7a53987
+Последний коммит: 7d9a948
 
 ## Сборка
 
@@ -169,4 +169,7 @@
 - 8bf804a — PROGRESS.md: apply/potion закрыты
 - 974cd40 — PROGRESS.md: shkname-блок отложен (п.10+18)
 - 7a53987 — uhitm: плоть %s (mon_gen), const для body_part_case
+- c1655fa — PROGRESS.md: uhitm плоть+const закрыты, остаток s_suffix
+- 3150033 — mthrowu: плоть %s; PROGRESS: objnam отложен (п.22)
+- 7d9a948 — explode/mon_gen: mon_gen_nom (lookup по строке), «взрыв %s»
 Все батчи s_suffix закоммичены, рабочее дерево чистое (кроме PROGRESS.md).
