@@ -845,14 +845,15 @@ use_leash_core(struct obj *obj, struct monst *mtmp, coord *cc, int spotmon)
                   Monnam(mtmp));
         } else if (!leashable(mtmp)) {
             char lmonbuf[BUFSZ];
-            char *lmonnam = l_monnam(mtmp);
 
             if (cc->x != mtmp->mx || cc->y != mtmp->my) {
-                Sprintf(lmonbuf, "%s хвост", s_suffix(lmonnam));
-                lmonnam = lmonbuf;
+                Sprintf(lmonbuf, "хвост %s", mon_gen(mtmp, BP_GEN));
+                pline("ѕоводок не наденетс€ на %s%s.", spotmon ? "ваш " : "",
+                      lmonbuf);
+            } else {
+                pline("ѕоводок не наденетс€ на %s%s.", spotmon ? "вашу " : "",
+                      l_monnam(mtmp));
             }
-            pline("ѕоводок не наденетс€ на %s%s.", spotmon ? "вашу " : "",
-                  lmonnam);
         } else {
             You("накидываете поводок на %s%s.", spotmon ? "вашу " : "",
                 l_monnam(mtmp));

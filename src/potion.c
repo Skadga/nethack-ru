@@ -1703,18 +1703,15 @@ potionhit(struct monst *mon, struct obj *obj, int how)
             break;
         }
     } else if (hit_saddle && saddle) {
-        char *mnam, buf[BUFSZ], saddle_glows[BUFSZ];
+        char saddle_glows[BUFSZ];
         boolean affected = FALSE;
         boolean useeit = !Blind && canseemon(mon) && cansee(tx, ty);
 
-        mnam = x_monnam(mon, ARTICLE_THE, (char *) 0,
-                        (SUPPRESS_IT | SUPPRESS_SADDLE), FALSE);
-        Sprintf(buf, "%s", upstart(s_suffix(mnam)));
-
         switch (obj->otyp) {
         case POT_WATER:
-            Snprintf(saddle_glows, sizeof(saddle_glows), "%s %s",
-                     buf, aobjnam(saddle, "светится"));
+            Snprintf(saddle_glows, sizeof(saddle_glows), "%s %s %s",
+                     upstart(cxname(saddle)), mon_gen(mon, BP_GEN),
+                     otense(saddle, "светится"));
             affected = H2Opotion_dip(obj, saddle, useeit, saddle_glows);
             break;
         case POT_POLYMORPH:
@@ -1722,7 +1719,8 @@ potionhit(struct monst *mon, struct obj *obj, int how)
             break;
         }
         if (useeit && !affected)
-            pline("%s %s.", buf, aobjnam(saddle, "намокает"));
+            pline("%s %s %s.", upstart(cxname(saddle)), mon_gen(mon, BP_GEN),
+                  otense(saddle, "намокает"));
     } else {
         boolean angermon = your_fault, cureblind = FALSE;
 
