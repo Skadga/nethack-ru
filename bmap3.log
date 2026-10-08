@@ -1,0 +1,183 @@
+
+  allmain.c
+  alloc.c
+  apply.c
+  artifact.c
+C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\src\apply.c(3065,85): warning C4474: "sprintf" : для строки формата передано слишком много аргументов [C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\sys\windows\vs\NetHack\NetHack.vcxproj]
+      C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\src\apply.c(3065,85):
+      заполнители и их параметры ожидают переменное число аргументов в количестве 1, но было предоставлено 2
+  
+C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\src\apply.c(4128,74): warning C4474: "sprintf" : для строки формата передано слишком много аргументов [C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\sys\windows\vs\NetHack\NetHack.vcxproj]
+      C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\src\apply.c(4128,74):
+      заполнители и их параметры ожидают переменное число аргументов в количестве 0, но было предоставлено 1
+  
+  attrib.c
+  ball.c
+  bones.c
+  botl.c
+  calendar.c
+  cfgfiles.c
+  cmd.c
+  coloratt.c
+  dbridge.c
+  date.c
+  decl.c
+  detect.c
+  dig.c
+  display.c
+  dlb.c
+  do.c
+  Компиляция...
+  dog.c
+  dogmove.c
+  dokick.c
+  dothrow.c
+  do_name.c
+  do_wear.c
+  drawing.c
+  dungeon.c
+  earlyarg.c
+  eat.c
+  end.c
+  engrave.c
+  exper.c
+  explode.c
+  extralev.c
+  files.c
+  fountain.c
+  getpos.c
+  glyphs.c
+  hack.c
+  Компиляция...
+  insight.c
+C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\src\insight.c(1480,17): warning C4189: somewhat: локальная переменная инициализирована, но не использована [C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\sys\windows\vs\NetHack\NetHack.vcxproj]
+  iactions.c
+  invent.c
+  isaac64.c
+  light.c
+  lock.c
+  mail.c
+  makemon.c
+  mcastu.c
+  mdlib.c
+  mhitm.c
+  mhitu.c
+  minion.c
+  mklev.c
+  mkmap.c
+  mkmaze.c
+  mkobj.c
+  mkroom.c
+  mon.c
+  mondata.c
+  Компиляция...
+  monmove.c
+  monst.c
+  mplayer.c
+  mthrowu.c
+  muse.c
+  music.c
+  nhlobj.c
+  nhlsel.c
+  nhlua.c
+  objects.c
+  objnam.c
+C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\src\objnam.c(2107,35): warning C4100: "str": неиспользованный параметр [C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\sys\windows\vs\NetHack\NetHack.vcxproj]
+  options.c
+  o_init.c
+  pager.c
+  pickup.c
+  pline.c
+  polyself.c
+  potion.c
+  pray.c
+  priest.c
+  Компиляция...
+  quest.c
+  questpgr.c
+  read.c
+  rect.c
+  region.c
+  report.c
+  restore.c
+  rip.c
+  rnd.c
+  role.c
+C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\src\role.c(689,60): warning C4047: инициализация: "const char *" отличается по уровням косвенного обращения от "int" [C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\sys\windows\vs\NetHack\NetHack.vcxproj]
+C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\src\role.c(690,58): warning C4047: инициализация: "const char *" отличается по уровням косвенного обращения от "int" [C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\sys\windows\vs\NetHack\NetHack.vcxproj]
+C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\src\role.c(691,62): warning C4047: инициализация: "const char *" отличается по уровням косвенного обращения от "int" [C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\sys\windows\vs\NetHack\NetHack.vcxproj]
+  rumors.c
+  save.c
+  selvar.c
+  sfstruct.c
+  shk.c
+C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\src\shk.c(1699,66): warning C4474: "sprintf" : для строки формата передано слишком много аргументов [C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\sys\windows\vs\NetHack\NetHack.vcxproj]
+      C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\src\shk.c(1699,66):
+      заполнители и их параметры ожидают переменное число аргументов в количестве 0, но было предоставлено 1
+  
+C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\src\shk.c(1707,90): warning C4474: "sprintf" : для строки формата передано слишком много аргументов [C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\sys\windows\vs\NetHack\NetHack.vcxproj]
+      C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\src\shk.c(1707,90):
+      заполнители и их параметры ожидают переменное число аргументов в количестве 0, но было предоставлено 1
+  
+  shknam.c
+  sit.c
+  sounds.c
+  spell.c
+  sp_lev.c
+  Компиляция...
+  stairs.c
+  steal.c
+  steed.c
+C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\src\steed.c(301,22): warning C4189: t: локальная переменная инициализирована, но не использована [C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\sys\windows\vs\NetHack\NetHack.vcxproj]
+  strutil.c
+  symbols.c
+  sys.c
+  teleport.c
+C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\src\teleport.c(1358,21): warning C4474: "sprintf" : для строки формата передано слишком много аргументов [C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\sys\windows\vs\NetHack\NetHack.vcxproj]
+      C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\src\teleport.c(1358,21):
+      заполнители и их параметры ожидают переменное число аргументов в количестве 0, но было предоставлено 1
+  
+  timeout.c
+  topten.c
+  track.c
+  trap.c
+  uhitm.c
+C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\src\uhitm.c(6329,11): warning C4090: "=": разные квалификаторы "const" [C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\sys\windows\vs\NetHack\NetHack.vcxproj]
+C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\src\uhitm.c(6330,15): warning C4090: "=": разные квалификаторы "const" [C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\sys\windows\vs\NetHack\NetHack.vcxproj]
+  u_init.c
+C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\src\u_init.c(1182,46): warning C4100: "trop": неиспользованный параметр [C:\Users\user\Desktop\nethack-500\NetHack-5.0.0\sys\windows\vs\NetHack\NetHack.vcxproj]
+  utf8map.c
+  vault.c
+  version.c
+  vision.c
+  weapon.c
+  were.c
+  wield.c
+  Компиляция...
+  windows.c
+  wizard.c
+  wizcmds.c
+  worm.c
+  worn.c
+  write.c
+  zap.c
+  random.c
+  consoletty.c
+  windmain.c
+  windsys.c
+  windsound.c
+  getline.c
+  topl.c
+  wintty.c
+  cursdial.c
+  cursinit.c
+  cursinvt.c
+  cursmain.c
+  Curses wide support not defined so NetHack curses message window functionality reduced
+  cursmesg.c
+  Curses wide support not defined so NetHack curses message window functionality reduced
+  Компиляция...
+  cursmisc.c
+  cursstat.c
+  curswins.c
+  sfbase.c

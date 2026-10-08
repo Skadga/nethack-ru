@@ -1,0 +1,22 @@
+diff --git a/dat/Arc-goal.lua b/dat/Arc-goal.lua
+index 53a69d5..a45761a 100644
+--- a/dat/Arc-goal.lua
++++ b/dat/Arc-goal.lua
+@@ -61,7 +61,7 @@ des.non_diggable(selection.area(00,00,75,19))
+ -- The altar of Huhetotl.  Unattended.
+ des.altar({ x=50,y=14,align="chaos",type="altar" })
+ -- Objects
+-des.object({ id = "кристальный ядро", x=50, y=14,buc="blessed",spe=5,name="The Orb of Detection" })
++des.object({ id = "хрустальный шар", x=50, y=14,buc="blessed",spe=5,name="The Orb of Detection" })
+ des.object()
+ des.object()
+ des.object()
+@@ -85,7 +85,7 @@ des.trap()
+ des.trap()
+ des.trap("rolling boulder",46,14)
+ -- Random monsters.
+-des.monster("Приспешник of Huhetotl", 50, 14)
++des.monster("прислужник Хухетотла", 50, 14)
+ des.monster("S")
+ des.monster("S")
+ des.monster("S")
