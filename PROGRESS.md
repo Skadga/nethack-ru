@@ -2,7 +2,7 @@
 
 Дата последнего обновления: 2026-10-08
 Ветка: main
-Последний коммит: 06d16625
+Последний коммит: 6e273b8
 
 ## Сборка
 
@@ -40,21 +40,31 @@
   номинатив mon_pmname(), фолбэк на номинатив. Прототип в extern.h.
   Заменены s_suffix: uhitm:1280, mhitm:629, mhitu:1716, zap:420,
   potion:1662, pray:798
+- s_suffix batch A2+B (закоммичено 7e38932): mon_gen + рус. заменители
+  (mpoisons_subj рус. муж. сущ., poisoned — род по первому слову).
+  Файлы: mhitu, uhitm, explode, attrib. Итого ~21 место из ~50.
+- Batch 1 (НЕ закоммичено, рабочее дерево): apply, detect, lock, mhitm,
+  mthrowu, polyself, shk, timeout, trap — 17 мест s_suffix.
 
 ## Что осталось
 
 ### Высокий приоритет
 
 1. mon_gen() — таблица падежей монстров (do_name.c). Сделано: каркас +
-   67 частых имён (фолбэк на номинатив). Осталось: наполнять таблицу и
-   заменить остальные вызовы s_suffix (36 мест: mhitm, mhitu, shk,
-   uhitm, trap, potion, zap, explode, polyself и др.).
+   67 частых имён (фолбэк на номинатив). Осталось наполнять по мере
+   новых вызовов; NAMS-монстры — см. п.16.
 
-2. s_suffix остаток: 63 строки в 22 файлах
-   - 36 ждут mon_gen
-   - 5 ждут падежей предметов (apply.c:1689, dothrow.c:2124/2296/2677)
-   - 9 не s_suffix (комментарии, #if 0, Lua API)
-   - ~13 прочее
+2. s_suffix — batch A2+B закрыт (~21 место из ~50). Остаток (31):
+   - apply.c:851 — B, «вашу … хвост» (перестройка pline)
+   - potion.c:1712 — B, «седло <род> светится» (перестройка)
+   - shk.c:711/817/831/847/850/1027/5898 + zap.c:5554 — shkname, 8 мест
+   - uhitm.c:3157 — закрыт в B (mpoisons_subj рус. + mon_gen)
+   - отложено (E): mhitm.c:622, mhitu.c:600, uhitm.c:1695/1726 (плоть),
+     uhitm.c:1715-объект (hmd->saved_oname), trap.c:2770
+   - explode.c:499/598 — галлюцинация
+   - не-монстры: cmd.c:4478 (#if0), end.c:241 (комм.), files.c:3215,
+     mkobj.c:2433, mthrowu.c:428, nhlua.c:881-888 (Lua API),
+     objnam.c:1853, questpgr.c:389
 
 ### Средний приоритет
 
@@ -110,3 +120,12 @@
 - PDB (символы): binary\Release\x64\NetHackW.pdb
 - paniclog: C:\Users\user\NetHack\5.0\paniclog
 - procdump для дампов: Temp\opencode\dumps\
+
+## Журнал коммитов s_suffix
+
+- fccb005 — mon_gen: падежи монстров (67 имён), 7 правок s_suffix
+- 7e38932 — s_suffix: Batch A2+B (attrib, explode, mhitu, uhitm)
+- 6e273b8 — s_suffix: Batch 1 (apply, detect, lock, mhitm, mthrowu,
+  polyself, shk, timeout, trap)
+Оба батча (A2+B и Batch 1) закоммичены, рабочее дерево чистое
+(кроме данного PROGRESS.md).
