@@ -3020,10 +3020,11 @@ logdeadmon(struct monst *mtmp, int mndx)
             /* ", the <shoptype> proprietor" needs a trailing comma for
                the alternate phrasing "<shk>, shkdetails, has been killed"
                when hero isn't directly responsible */
-            Snprintf(shkdetail, sizeof shkdetail, ", the %s %s%s",
-                     shtypes[ESHK(mtmp)->shoptype - SHOPBASE].name,
-                     /* in case shk name doesn't include Mr or Ms honorific */
-                     mtmp->female ? "proprietrix" : "proprietor",
+            Snprintf(shkdetail, sizeof shkdetail, ", %s %s%s",
+                     mtmp->female ? "владелица" : "владелец",
+                     shoptype_case(
+                         shoptype_name(ESHK(mtmp)->shoptype - SHOPBASE),
+                         BP_GEN),
                      herodidit ? "" : ",");
         } else if (mndx == PM_HIGH_CLERIC) {
             /* the high priest[ess] monster is not unique; we know that

@@ -1646,6 +1646,102 @@ mon_gen(struct monst *mon, int cse)
     return mon_gen_nom(mon_pmname(mon), cse);
 }
 
+/* Russian case forms for shop type names used by shoptype_case().
+   Keyed by the display name (shtypes[].annotation when present, else
+   shtypes[].name).  s[] is singular nom/gen/dat/acc/ins/prep; NULL
+   means the form is unavailable and falls back to the nominative.
+   Shops have no distinct plural display form here. */
+struct shoptype_paradigm {
+    const char *key;
+    const char *s[6];
+};
+
+static const struct shoptype_paradigm shoptype_paradigms[] = {
+    /* универсальный магазин */
+    { "универсальный магазин",
+      { "универсальный магазин", "универсального магазина",
+        "универсальному магазину", "универсальный магазин",
+        "универсальным магазином", "универсальном магазине" } },
+    /* лавка брони */
+    { "лавка брони",
+      { "лавка брони", "лавки брони", "лавке брони", "лавку брони",
+        "лавкой брони", "лавке брони" } },
+    /* лавка свитков */
+    { "лавка свитков",
+      { "лавка свитков", "лавки свитков", "лавке свитков", "лавку свитков",
+        "лавкой свитков", "лавке свитков" } },
+    /* лавка зелий */
+    { "лавка зелий",
+      { "лавка зелий", "лавки зелий", "лавке зелий", "лавку зелий",
+        "лавкой зелий", "лавке зелий" } },
+    /* лавка оружия */
+    { "лавка оружия",
+      { "лавка оружия", "лавки оружия", "лавке оружия", "лавку оружия",
+        "лавкой оружия", "лавке оружия" } },
+    /* лавка еды */
+    { "лавка еды",
+      { "лавка еды", "лавки еды", "лавке еды", "лавку еды",
+        "лавкой еды", "лавке еды" } },
+    /* лавка колец */
+    { "лавка колец",
+      { "лавка колец", "лавки колец", "лавке колец", "лавку колец",
+        "лавкой колец", "лавке колец" } },
+    /* лавка жезлов */
+    { "лавка жезлов",
+      { "лавка жезлов", "лавки жезлов", "лавке жезлов", "лавку жезлов",
+        "лавкой жезлов", "лавке жезлов" } },
+    /* лавка инструментов */
+    { "лавка инструментов",
+      { "лавка инструментов", "лавки инструментов", "лавке инструментов",
+        "лавку инструментов", "лавкой инструментов", "лавке инструментов" } },
+    /* книжный магазин */
+    { "книжный магазин",
+      { "книжный магазин", "книжного магазина", "книжному магазину",
+        "книжный магазин", "книжным магазином", "книжном магазине" } },
+    /* вегетарианская лавка */
+    { "вегетарианская лавка",
+      { "вегетарианская лавка", "вегетарианской лавки",
+        "вегетарианской лавке", "вегетарианскую лавку",
+        "вегетарианской лавкой", "вегетарианской лавке" } },
+    /* лавка светильников */
+    { "лавка светильников",
+      { "лавка светильников", "лавки светильников", "лавке светильников",
+        "лавку светильников", "лавкой светильников", "лавке светильников" } },
+};
+
+/* Case-inflected shop type name from a nominative string; cse is an
+   enum bp_case value.  Unlisted names and missing forms fall back to
+   the nominative. */
+const char *
+shoptype_case(const char *nom, int cse)
+{
+    const struct shoptype_paradigm *sp = shoptype_paradigms;
+    int cs = cse & BP_CASE_MASK, i;
+
+    if (!nom || !*nom)
+        return "";
+    if (cs > BP_PREP || (cse & BP_PLURAL))
+        return nom;
+    for (i = 0; i < SIZE(shoptype_paradigms); i++)
+        if (sp[i].key && !strcmp(sp[i].key, nom))
+            break;
+    if (i == SIZE(shoptype_paradigms))
+        return nom;
+    return sp[i].s[cs] ? sp[i].s[cs] : nom;
+}
+
+/* Shop type display name: short annotation when present, else full name. */
+const char *
+shoptype_name(int shoptype)
+{
+    extern const struct shclass shtypes[]; /* defined in shknam.c */
+
+    if (shoptype < 0)
+        return "";
+    return shtypes[shoptype].annotation ? shtypes[shoptype].annotation
+                                        : shtypes[shoptype].name;
+}
+
 /* mons[]->pmname for a corpse or statue or figurine */
 const char *
 obj_pmname(struct obj *obj)

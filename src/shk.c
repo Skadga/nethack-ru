@@ -818,7 +818,8 @@ u_entered_shop(char *enterstring)
         } else {
             pline("%s, похоже, %s из-за вашего возвращения в %s %s!",
                   Shknam(shkp), ROLL_FROM(angrytexts),
-                  noit_mhis(shkp), shtypes[rt - SHOPBASE].name);
+                  noit_mhis(shkp),
+                  shoptype_case(shoptype_name(rt - SHOPBASE), BP_ACC));
         }
     } else if (eshkp->surcharge) {
         if (!Deaf && !muteshk(shkp)) {
@@ -2017,7 +2018,9 @@ dopay(void)
         } else {
             pline("%s кивает%s вам за покупки в %s %s%s",
                   Shknam(shkp), !eshkp->surcharge ? " одобрительно" : "",
-                  noit_mhis(shkp), shtypes[eshkp->shoptype - SHOPBASE].name,
+                  noit_mhis(shkp),
+                  shoptype_case(shoptype_name(eshkp->shoptype - SHOPBASE),
+                                BP_PREP),
                   !eshkp->surcharge ? "!" : ".");
         }
     }
