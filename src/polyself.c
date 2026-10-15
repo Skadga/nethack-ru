@@ -3046,7 +3046,19 @@ static const struct bp_paradigm bp_paradigms[] = {
     { "чешу€", "чешуи", "чешуе",
       "чешую", "чешуЄй", "чешуе",
       "чешуи", "чешуй", "чешу€м",
-      NULL, "чешу€ми", "чешу€х" }
+      NULL, "чешу€ми", "чешу€х" },
+    /* перчатки -- ARM_GLOVES (plural-only) */
+    { NULL, NULL, NULL, NULL, NULL, NULL,
+      "перчатки", "перчаток", "перчаткам", NULL,
+      "перчатками", "перчатках" },
+    /* рукавицы -- ARM_GLOVES gauntlets (plural-only) */
+    { NULL, NULL, NULL, NULL, NULL, NULL,
+      "рукавицы", "рукавиц", "рукавицам", NULL,
+      "рукавицами", "рукавицах" },
+    /* ботинки -- ARM_BOOTS (plural-only) */
+    { NULL, NULL, NULL, NULL, NULL, NULL,
+      "ботинки", "ботинок", "ботинкам", NULL,
+      "ботинками", "ботинках" },
 };
 const char *
 mbodypart(struct monst *mon, int part)

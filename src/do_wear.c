@@ -60,7 +60,7 @@ const char *
 fingers_or_gloves(boolean check_gloves, int cse)
 {
     return ((check_gloves && uarmg)
-            ? gloves_simple_name(uarmg) /* "перчатки" or "рукавицы" */
+            ? noun_case(gloves_simple_name(uarmg), cse) /* "перчатки" or "рукавицы" */
             : body_part_case(FINGER, cse | BP_PLURAL));
 }
 
