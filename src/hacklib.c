@@ -75,14 +75,30 @@ letter(char c)
 char
 highc(char c)
 {
-    return (char) (('a' <= c && c <= 'z') ? (c & ~040) : c);
+    unsigned char u = (unsigned char) c;
+
+    if ('a' <= c && c <= 'z')
+        return (char) (c & ~040);
+    if (0xE0 <= u && u <= 0xFF)
+        return (char) (u - 0x20); /* CP1251 lowercase cyrillic -> uppercase */
+    if (u == 0xB8)
+        return (char) 0xA8; /* CP1251 yo -> YO */
+    return c;
 }
 
 /* force 'c' into lowercase */
 char
 lowc(char c)
 {
-    return (char) (('A' <= c && c <= 'Z') ? (c | 040) : c);
+    unsigned char u = (unsigned char) c;
+
+    if ('A' <= c && c <= 'Z')
+        return (char) (c | 040);
+    if (0xC0 <= u && u <= 0xDF)
+        return (char) (u + 0x20); /* CP1251 uppercase cyrillic -> lowercase */
+    if (u == 0xA8)
+        return (char) 0xB8; /* CP1251 YO -> yo */
+    return c;
 }
 
 /* convert a string into all lowercase */
@@ -92,8 +108,7 @@ lcase(char *s)
     char *p;
 
     for (p = s; *p; p++)
-        if ('A' <= *p && *p <= 'Z')
-            *p |= 040;
+        *p = lowc(*p);
     return s;
 }
 
@@ -104,8 +119,7 @@ ucase(char *s)
     char *p;
 
     for (p = s; *p; p++)
-        if ('a' <= *p && *p <= 'z')
-            *p &= ~040;
+        *p = highc(*p);
     return s;
 }
 
