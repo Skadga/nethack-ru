@@ -43,3 +43,4 @@ eat_apply_report.txt
 *.bak_nkp
 *.bak_svk
 *.bak_losehp
+*.log
