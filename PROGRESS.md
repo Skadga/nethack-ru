@@ -98,8 +98,9 @@
    английские глаголы (feel, tingle, sting). Отдельные места.
    ЗАКРЫТО (bd286ae): do.c:2467 (feel, heal_legs) и sit.c:173
    (tingle, throne_sit_effect) — русские формы по числу, vtense убран.
-   Осталось 15 английских литералов из 17 в карте:
-   apply.c×5 (1352 flicker, 1353 die, 1357 are, 1367 are, 1447 ignite),
+   ЗАКРЫТО (aa647c8): apply.c×5 (1352 flicker, 1353 die, 1357 are,
+   1367 are, 1447 ignite) + « more» — use_candelabrum/use_candle.
+   Осталось 10 из 15 английских литералов:
    do.c:104 push, makemon.c:1495 appear, mcastu.c:697/699 appear,
    mkobj.c:2885 spill, polyself.c:1236 pierce / 1297 fall,
    sounds.c:103 stand / 108 seem, wield.c:781 are.
@@ -223,8 +224,15 @@
 25. mbodypart четвероногих (polyself.c:3186/3190) — 'paw'/'rear paw'
     НЕ переведены. Обнажается в trap.c:2770. Отдельная задача.
 
-26. apply.c:1447 — опечатка «НОвые» (заглавная О посреди слова),
-    чинить при переводе vtense в apply.c.
+26. apply.c:1447 — ЗАКРЫТО (aa647c8): опечатка «НОвые» исправлена
+    («Новая свеча» / «Новые свечи»), вместе с vtense-группой apply.c.
+
+27. Tobjnam/otense: 69 английских глаголов в 21 файле. Карта — TBD.
+    Кампания. Сюда же « more» (apply.c:1441) как отдельный тип.
+
+28. Связки (are/have/go) — 12 мест (detect.c:1226, do.c:870, light.c:289,
+    pickup.c:2592/2810/2997/3669, worn.c:427/985, wield.c:1078,
+    apply.c:1511, engrave.c:830). Шаблоны переписываются без связки.
 
 ## Как продолжить
 
