@@ -49,6 +49,7 @@ extern int distmin(coordxy, coordxy, coordxy, coordxy);
 extern int dist2(coordxy, coordxy, coordxy, coordxy);
 extern int isqrt(int);
 extern boolean online2(coordxy, coordxy, coordxy, coordxy);
+extern int nethack_strnicmp(const char *, const char *, int) NONNULLPTRS;
 #ifndef STRNCMPI
 extern int strncmpi(const char *, const char *, int) NONNULLPTRS;
 #endif

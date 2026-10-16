@@ -724,11 +724,10 @@ online2(coordxy x0, coordxy y0, coordxy x1, coordxy y1)
     return (boolean) (!dy || !dx || dy == dx || dy == -dx);
 }
 
-#ifndef STRNCMPI
 /* case-insensitive counted string comparison */
 /*{ aka strncasecmp }*/
 int
-strncmpi(
+nethack_strnicmp(
     const char *s1, const char *s2,
     int n) /*(should probably be size_t, which is unsigned)*/
 {
@@ -745,6 +744,13 @@ strncmpi(
             return (t1 > t2) ? 1 : -1;
     }
     return 0; /* s1 == s2 */
+}
+
+#ifndef STRNCMPI
+int
+strncmpi(const char *s1, const char *s2, int n)
+{
+    return nethack_strnicmp(s1, s2, n);
 }
 #endif /* STRNCMPI */
 

@@ -167,7 +167,9 @@ typedef SSIZE_T ssize_t;
 
 #include <string.h> /* Provides prototypes of strncmpi(), etc.     */
 #ifdef STRNCMPI
-#define strncmpi(a, b, c) strnicmp(a, b, c)
+#define strncmpi(a, b, c) nethack_strnicmp((a), (b), (c))
+#define strcmpi(a, b) nethack_strnicmp((a), (b), -1)
+#define strnicmp(a, b, c) nethack_strnicmp((a), (b), (c))
 #endif
 
 
