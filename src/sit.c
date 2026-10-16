@@ -170,7 +170,10 @@ throne_sit_effect(void)
                         FALLTHROUGH;
                         /*FALLTHRU*/
                     case 1: /* one eye (Cyclops, floating eye) */
-                        Your("%s %s...", eye, vtense(eye, "tingle"));
+                        Your("%s %s...",
+                             eye,
+                             (num_of_eyes >= 2) ? "покалывают"
+                                                : "покалывает");
                         break;
                     case 0: /* no eyes */
                         You("испытываете очень странное ощущение в %s.",

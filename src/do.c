@@ -2464,7 +2464,9 @@ heal_legs(
                                        : BP_NOM);
             /* this used to say "somewhat better" but that was
                misleading since legs are being fully healed */
-            Your("%s %s лучше.", legs, vtense(legs, "feel"));
+            Your("%s %s лучше.", legs,
+                 (EWounded_legs & BOTH_SIDES) == BOTH_SIDES
+                     ? "чувствуют себя" : "чувствует себя");
         }
 
         HWounded_legs = EWounded_legs = 0L;
