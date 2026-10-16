@@ -1967,7 +1967,7 @@ armoroff(struct obj *otmp)
         if (what) {
             /* sizeof offdelaybuf == 60; increase it if this becomes longer */
             Snprintf(offdelaybuf, sizeof offdelaybuf,
-                     "Вы заканчиваете снимать свой %s.", what);
+                     "Вы заканчиваете снимать %s.", what);
             gn.nomovemsg = offdelaybuf;
         }
     } else {
@@ -3240,7 +3240,9 @@ disintegrate_arm(struct obj *atmp)
         urgent_pline("Ваш %s рассыпается на мелкие нити и разваливается!",
                      shirt_simple_name(otmp)); /* always "рубашка" */
     } else if ((otmp = maybe_destroy_armor(uarmh, atmp, &resisted)) != 0) {
-        urgent_pline("Ваш %s превращается в пыль и уносится!",
+        urgent_pline(hard_helmet(otmp)
+                         ? "Ваш %s превращается в пыль и уносится!"
+                         : "Ваша %s превращается в пыль и уносится!",
                      helm_simple_name(otmp)); /* "шлем" or "шляпа" */
     } else if ((otmp = maybe_destroy_armor(uarmg, atmp, &resisted)) != 0) {
         urgent_pline("Ваши %s исчезают!", gloves_simple_name(otmp));
