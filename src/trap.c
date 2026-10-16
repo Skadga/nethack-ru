@@ -2761,18 +2761,15 @@ trapeffect_vibrating_square(
         if (see_it && !Blind) {
             seetrap(trap); /* before messages */
             if (in_sight) {
-                char buf[BUFSZ], *p, *monnm = mon_nam(mtmp);
+                char buf[BUFSZ];
 
                 if (nolimbs(mtmp->data) || m_in_air(mtmp)) {
                     /* just "beneath <mon>" */
-                    Strcpy(buf, monnm);
+                    Strcpy(buf, mon_nam(mtmp));
                 } else {
-                    Strcpy(buf, s_suffix(monnm));
-                    p = eos(strcat(buf, " "));
-                    Strcpy(p, mbodypart_case(mtmp, FOOT,
-                                             BP_NOM | BP_PLURAL));
-                    /* avoid "beneath 'rear paws'" or 'rear hooves' */
-                    (void) strsubst(p, "rear ", "");
+                    Sprintf(buf, "%s %s",
+                            mbodypart_case(mtmp, FOOT, BP_INS | BP_PLURAL),
+                            mon_gen(mtmp, BP_GEN));
                 }
                 You_see("странную вибрацию под %s.", buf);
             } else {

@@ -597,8 +597,8 @@ mattacku(struct monst *mtmp)
 
             obj = which_armor(mtmp, WORN_HELMET);
             if (hard_helmet(obj)) {
-                Your("удар соскальзывает с %s %s.", s_suffix(mon_nam(mtmp)),
-                     helm_case(obj, BP_GEN));
+                Your("удар соскальзывает с %s %s.", helm_case(obj, BP_GEN),
+                     mon_gen(mtmp, BP_GEN));
             } else {
                 if (3 + find_mac(mtmp) <= rnd(20)) {
                     pline("%s поражён падающим колючником (это вы)!",
