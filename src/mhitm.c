@@ -610,19 +610,17 @@ failed_grab(
             || magr == &gy.youmonst || mdef == &gy.youmonst) {
             char magrnam[BUFSZ], mdefnam[BUFSZ];
             boolean tailmiss = gn.notonhead;
-            const char *verb = (mattk->adtyp == AD_DGST) ? "глотает"
-                               : (mattk->adtyp == AD_STCK) ? "прилипает"
-                                 : "хватает";
+            const char *verb = (mattk->adtyp == AD_DGST) ? "проглотить"
+                               : (mattk->adtyp == AD_STCK) ? "прилипнуть"
+                                 : "схватить";
 
-            /* beware of "Foo's grab passes through Bar's ghost";
-               mon_nam(x_monnam) calls s_suffix() for named ghosts and
-               s_suffix() uses a single static buffer; make copies of both
-               names to overcome that [note: comment predates 'tailmiss'] */
-            Strcpy(magrnam, (magr == &gy.youmonst) ? "Ваш"
-                                                   : s_suffix(Monnam(magr)));
+            if (magr == &gy.youmonst)
+                Sprintf(magrnam, "Ваша попытка %s", verb);
+            else
+                Sprintf(magrnam, "Попытка %s %s", mon_gen(magr, BP_GEN), verb);
             if (!tailmiss) {
-                Strcpy(mdefnam, (mdef == &gy.youmonst) ? "вы"
-                                                       : mon_nam(mdef));
+                Strcpy(mdefnam, (mdef == &gy.youmonst) ? "вас"
+                                                       : mon_gen(mdef, BP_ACC));
             } else {
                 /* hero poly'd into long worm can't grow tail
                    so no 'youmonst' handling is needed here */
@@ -630,9 +628,8 @@ failed_grab(
             }
             /* unsolid grab misses are actually somewhat iffy--how come
                ordinary attacks don't also pass right through? */
-            pline("%.99s %s попытка %s %.99s!", magrnam, verb,
-                  !tailmiss ? "проходит насквозь" : "не может удержать",
-                  mdefnam);
+            pline("%s %s %s!", magrnam, mdefnam,
+                  !tailmiss ? "проходит насквозь" : "проваливается");
         }
         return TRUE;
     }
