@@ -1348,14 +1348,16 @@ use_candelabrum(struct obj *obj)
         return;
     }
     if (u.uswallow || obj->cursed) {
-        if (!Blind)
-            pline("%s %s Мгновение, затем %s.", s, vtense(s, "flicker"),
-                      vtense(s, "die"));
+        if (!Blind) {
+            if (obj->spe == 1)
+                pline("%s мерцает мгновение, затем гаснет.", s);
+            else
+                pline("%s мерцают мгновение, затем гаснут.", s);
+        }
         return;
     }
     if (obj->spe < 7) {
-        There("%s только %d %s в %s.", vtense(s, "are"), obj->spe, s,
-              the(xname(obj)));
+        pline("В %s только %d %s.", the(xname(obj)), obj->spe, s);
         if (!Blind)
             pline("%s.  %s тускло.", obj->spe == 1 ? "Он горит" : "Они горят",
                   Tobjnam(obj, "shine"));
@@ -1364,7 +1366,10 @@ use_candelabrum(struct obj *obj)
               (Blind ? "." : " ярко!"));
     }
     if (!invocation_pos(u.ux, u.uy) || On_stairs(u.ux, u.uy)) {
-        pline("%s %s Стремительно расходуются!", s, vtense(s, "are"));
+        if (obj->spe == 1)
+            pline("%s быстро расходуется!", s);
+        else
+            pline("%s быстро расходуются!", s);
         /* this used to be obj->age /= 2, rounding down; an age of
            1 would yield 0, confusing begin_burn() and producing an
            unlightable, unrefillable candelabrum; round up instead */
@@ -1438,14 +1443,17 @@ use_candle(struct obj **optr)
         if (was_lamplit)
             end_burn(obj, TRUE);
 
-        You("прикрепляешь %ld%s %s к %s.", obj->quan, !otmp->spe ? "" : " more", s,
-            the(xname(otmp)));
+        You("прикрепляешь %s%ld %s к %s.",
+            otmp->spe ? "ещё " : "", obj->quan, s, the(xname(otmp)));
         if (!otmp->spe || otmp->age > obj->age)
             otmp->age = obj->age;
         otmp->spe += (int) obj->quan;
-        if (otmp->lamplit && !was_lamplit)
-            pline("НОвые %s магически %s!", s, vtense(s, "ignite"));
-        else if (!otmp->lamplit && was_lamplit)
+        if (otmp->lamplit && !was_lamplit) {
+            if (obj->quan == 1)
+                pline("Новая свеча магически вспыхивает!");
+            else
+                pline("Новые свечи магически вспыхивают!");
+        } else if (!otmp->lamplit && was_lamplit)
             pline("%s.", (obj->quan > 1L) ? "Они гаснут" : "Оно гаснет");
         if (obj->unpaid) {
             struct monst *shkp VOICEONLY
