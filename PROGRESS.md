@@ -26,6 +26,8 @@
 - nethack_strnicmp (hacklib.c) — всегда компилируется, не под STRNCMPI.
   strncmpi — обёртка для не-Windows. Редиректы strncmpi/strcmpi/strnicmp
   в windconf.h (только WIN32).
+- Перед побайтовой правкой — dry-run: проверять счётчик вхождений маркера
+  и отступ строки ДО записи; при сомнении — сохранять бэкап .bak в temp.
 
 ## Что сделано
 
@@ -94,6 +96,13 @@
 
 4. vtense — plural-only (волосы, перья, соки, реснички, споры),
    английские глаголы (feel, tingle, sting). Отдельные места.
+   ЗАКРЫТО (bd286ae): do.c:2467 (feel, heal_legs) и sit.c:173
+   (tingle, throne_sit_effect) — русские формы по числу, vtense убран.
+   Осталось 15 английских литералов из 17 в карте:
+   apply.c×5 (1352 flicker, 1353 die, 1357 are, 1367 are, 1447 ignite),
+   do.c:104 push, makemon.c:1495 appear, mcastu.c:697/699 appear,
+   mkobj.c:2885 spill, polyself.c:1236 pierce / 1297 fall,
+   sounds.c:103 stand / 108 seem, wield.c:781 are.
 
 5. Энциклопедия dat/data — английские описания богов и монстров
    (Huan Ti, Issek, Kos, Mog, Ishtar, tribute).
@@ -213,6 +222,9 @@
 
 25. mbodypart четвероногих (polyself.c:3186/3190) — 'paw'/'rear paw'
     НЕ переведены. Обнажается в trap.c:2770. Отдельная задача.
+
+26. apply.c:1447 — опечатка «НОвые» (заглавная О посреди слова),
+    чинить при переводе vtense в apply.c.
 
 ## Как продолжить
 
