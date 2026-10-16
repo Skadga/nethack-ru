@@ -425,12 +425,12 @@ ohitmon(
                 char *m_name = mon_nam(mtmp);
                 char fleshbuf[BUFSZ];
 
-                if (flesh) /* s_suffix returns a modifiable buffer */
+                if (flesh)
                     Sprintf(fleshbuf, "ïëîòü %s", mon_gen(mtmp, BP_GEN));
                 pline_The("Ñåğåáğî îáæèãàåò %s!",
                           flesh ? fleshbuf : m_name);
             } else if (verbose && !gm.mtarget) {
-                pline("%s îáëÿíîéêîâà!", flesh ? "Åãî ïëîòü" : "Îíî");
+                pline("%s!", flesh ? "Åãî ïëîòü îïàëåíà" : "Îíî îáîææåíî");
             }
         }
         if (otmp->otyp == ACID_VENOM && cansee(mtmp->mx, mtmp->my)) {
