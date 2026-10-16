@@ -1940,7 +1940,7 @@ armoroff(struct obj *otmp)
             ga.afternmv = Shield_off;
             break;
         case ARM_HELM:
-            what = helm_simple_name(otmp);
+            what = helm_case(otmp, BP_ACC);
             ga.afternmv = Helmet_off;
             break;
         case ARM_GLOVES:
@@ -2070,7 +2070,7 @@ canwearobj(struct obj *otmp, long *mask, boolean noisy)
     if (is_helmet(otmp)) {
         if (uarmh) {
             if (noisy)
-                already_wearing(an(helm_simple_name(uarmh)));
+                already_wearing(an(helm_case(uarmh, BP_ACC)));
             err++;
         } else if (Upolyd && has_horns(gy.youmonst.data) && !is_flimsy(otmp)) {
             /* (flimsy exception matches polyself handling) */

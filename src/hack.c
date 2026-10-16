@@ -3482,7 +3482,7 @@ spoteffects(boolean pick)
                 ;
             } else if (hard_helmet(uarmh)) {
                 pline("Его удар скользит по вашему %s.",
-                      helm_simple_name(uarmh));
+                      helm_case(uarmh, BP_DAT));
             } else if (u.uac + 3 <= rnd(20)) {
                 You("чуть не задеты %s!",
                     x_monnam(mtmp, ARTICLE_A, "падающего", 0, TRUE));

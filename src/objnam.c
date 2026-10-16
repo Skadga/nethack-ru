@@ -6140,6 +6140,14 @@ helm_simple_name(struct obj *helmet)
     return !hard_helmet(helmet) ? "шл€па" : "шлем";
 }
 
+/* helm_case declines helm_simple_name()'s nominative result for messages
+   that need genitive, dative, or accusative */
+const char *
+helm_case(struct obj *helmet, int cse)
+{
+    return noun_case(helm_simple_name(helmet), cse);
+}
+
 /* gloves vs gauntlets; depends upon discovery state */
 const char *
 gloves_simple_name(struct obj *gloves)
