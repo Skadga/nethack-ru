@@ -100,10 +100,11 @@
    (tingle, throne_sit_effect) — русские формы по числу, vtense убран.
    ЗАКРЫТО (aa647c8): apply.c×5 (1352 flicker, 1353 die, 1357 are,
    1367 are, 1447 ignite) + « more» — use_candelabrum/use_candle.
-   Осталось 10 из 15 английских литералов:
+   ЗАКРЫТО (f8fe530): polyself.c:1236 (pierce, рога) и 1297 (fall,
+   очки) — break_armor; подлежащие переведены, ветка otyp == LENSES.
+   Осталось 8 из 15 английских литералов:
    do.c:104 push, makemon.c:1495 appear, mcastu.c:697/699 appear,
-   mkobj.c:2885 spill, polyself.c:1236 pierce / 1297 fall,
-   sounds.c:103 stand / 108 seem, wield.c:781 are.
+   mkobj.c:2885 spill, sounds.c:103 stand / 108 seem, wield.c:781 are.
 
 5. Энциклопедия dat/data — английские описания богов и монстров
    (Huan Ti, Issek, Kos, Mog, Ishtar, tribute).
