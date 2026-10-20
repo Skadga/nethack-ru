@@ -1229,12 +1229,12 @@ break_armor(void)
     if (has_horns(uptr)) {
         if ((otmp = uarmh) != 0) {
             if (is_flimsy(otmp) && !donning(otmp)) {
-                char hornbuf[BUFSZ];
-
                 /* Future possibilities: This could damage/destroy helmet */
-                Sprintf(hornbuf, "horn%s", plur(num_horns(uptr)));
-                Your("%s %s through %s.", hornbuf, vtense(hornbuf, "pierce"),
-                     yname(otmp));
+                Your("Ваш%s %s %s %s!",
+                     num_horns(uptr) == 1 ? "" : "и",
+                     num_horns(uptr) == 1 ? "рог" : "рога",
+                     num_horns(uptr) == 1 ? "пробивает" : "пробивают",
+                     the(xname(otmp)));
             } else {
                 if (donning(otmp))
                     cancel_don();
@@ -1289,12 +1289,10 @@ break_armor(void)
        but putting accessories on doesn't reject those cases [yet?]);
        amulet stays worn */
     if ((otmp = ublindf) != 0 && !has_head(uptr)) {
-        int l;
         const char *eyewear = simpleonames(otmp); /* blindfold|towel|lenses */
 
-        if (!strncmp(eyewear, "pair of ", l = 8)) /* lenses */
-            eyewear += l;
-        Your("%s %s!", eyewear, vtense(eyewear, "fall"));
+        Your("%s %s!", eyewear,
+             otmp->otyp == LENSES ? "спадают" : "спадает");
         (void) Blindf_off((struct obj *) 0); /* Null: skip usual off mesg */
         dropp(otmp);
     }
