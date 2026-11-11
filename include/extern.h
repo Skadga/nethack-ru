@@ -2529,6 +2529,7 @@ extern const char *body_part(int);
 extern const char *mbodypart_case(struct monst *, int, int) NONNULLARG1;
 extern const char *body_part_case(int, int);
 extern const char *noun_case(const char *, int);
+extern boolean noun_is_plural(const char *);
 extern const char *obj_case(struct obj *, int);
 extern int poly_gender(void);
 extern void ugolemeffects(int, int);

@@ -3314,6 +3314,21 @@ noun_case(const char *nom, int cse)
     return pg[i].s[cs] ? pg[i].s[cs] : nom;
 }
 
+boolean
+noun_is_plural(const char *nom)
+{
+    const struct bp_paradigm *pg = bp_paradigms;
+    int i;
+
+    for (i = 0; i < SIZE(bp_paradigms); i++) {
+        const char *key = pg[i].s[BP_NOM] ? pg[i].s[BP_NOM] : pg[i].p[BP_NOM];
+
+        if (key && !strcmp(key, nom))
+            return (boolean) !pg[i].s[BP_NOM];
+    }
+    return FALSE;
+}
+
 /* Object names for obj_case(); the otyp-keyed table covers ordinary
    objects, the ART_-keyed table covers artifacts, which xname() takes
    from artilist[] rather than from objects[otyp].oc_name.  Forms repeat

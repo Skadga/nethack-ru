@@ -98,14 +98,14 @@ morgue_mon_sound(struct monst *mtmp)
             You("внезапно понимаете, что неестественно тихо.");
             break;
         case 1:
-            pline_The("%s on the back of your %s %s up.", hair,
-                      body_part_case(NECK, BP_GEN),
-                      vtense(hair, "stand"));
+            pline("%s на %s %s.", The(hair),
+                  body_part_case(NECK, BP_PREP),
+                  noun_is_plural(hair) ? "встают дыбом" : "встаёт дыбом");
             break;
         case 2:
-            pline_The("%s on your %s %s to stand up.", hair,
-                      body_part_case(HEAD, BP_GEN),
-                      vtense(hair, "seem"));
+            pline("%s на %s %s.", The(hair),
+                  body_part_case(HEAD, BP_PREP),
+                  noun_is_plural(hair) ? "встают дыбом" : "встаёт дыбом");
             break;
         }
         return TRUE;
