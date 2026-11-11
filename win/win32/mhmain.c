@@ -1140,7 +1140,8 @@ About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
         SetDlgItemText(hDlg, IDC_ABOUT_VERSION,
                        NH_A2W(buf, wbuf, sizeof(wbuf)));
 
-        Sprintf(buf, "%s\n%s\n%s\n%s",
+        Sprintf(buf, "%s\n%s\n%s\n%s\nНад переводом работал: Skadga\n"
+                      "https://boosty.to/skadga",
                 COPYRIGHT_BANNER_A, COPYRIGHT_BANNER_B,
                 nomakedefs.copyright_banner_c, COPYRIGHT_BANNER_D);
         SetDlgItemText(hDlg, IDC_ABOUT_COPYRIGHT,

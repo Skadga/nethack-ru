@@ -148,7 +148,7 @@ mswin_display_splash_window(BOOL show_ver)
     strbuf_reserve(&strbuf, BUFSIZ);
     Sprintf(strbuf.str, "%s\n%s\n%s\n%s\n\n", COPYRIGHT_BANNER_A,
             COPYRIGHT_BANNER_B, nomakedefs.copyright_banner_c, COPYRIGHT_BANNER_D);
-    strbuf_append(&strbuf, "Над переводом работал: Skadga\n\n");
+    strbuf_append(&strbuf, "Над переводом работал: Skadga\nhttps://boosty.to/skadga\n\n");
 
     if (show_ver) {
         /* Show complete version information */

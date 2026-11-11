@@ -592,6 +592,7 @@ tty_init_nhwindows(int *argcp UNUSED, char **argv UNUSED)
         tty_putstr(BASE_WINDOW, 0, copyright_banner_line(i));
     tty_putstr(BASE_WINDOW, 0,
               "\xCD\xE0\xE4 \xEF\xE5\xF0\xE5\xE2\xEE\xE4\xEE\xEC \xF0\xE0\xE1\xEE\xF2\xE0\xEB: Skadga");
+    tty_putstr(BASE_WINDOW, 0, "https://boosty.to/skadga");
     tty_putstr(BASE_WINDOW, 0, "");
     tty_display_nhwindow(BASE_WINDOW, FALSE);
 
