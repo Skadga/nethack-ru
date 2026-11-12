@@ -1,8 +1,8 @@
 # NetHack 5.0.0 RU — Состояние перевода
 
-Дата последнего обновления: 2026-10-16
+Дата последнего обновления: 2026-11-11
 Ветка: main
-Последний коммит: b12584e
+Последний коммит: 4f2d7fc
 
 ## Сборка
 
@@ -268,3 +268,24 @@
 - 1c1644f — bp_paradigms: перчатки/рукавицы/ботинки (plural-only),
   noun_case в fingers_or_gloves
 Все батчи s_suffix закоммичены, рабочее дерево чистое (кроме PROGRESS.md).
+## 2026-11-11 — баг алтаря расшифрован, титулы, синк с Android
+
+- Баг алтаря (краш NetHackW 12.10, «игра требует перезапуска»): причина
+  найдена по дампу NetHackW.exe.16388.dmp — AV 0xC0000005 READ @ 0x2000
+  в strnlen(0x2000, 3) из формата "%.3s" (save.c:1007
+  store_plname_in_file / bones.c:581). В билде d3c1acd (06.10) таблица
+  genders[] в role.c содержала 6 значений на строку при 7 полях
+  struct Gender → сдвиг: filecode получал ROLE_FEMALE=0x2000 вместо
+  указателя. Героиня (flags.female=1) → AV при СОХРАНЕНИИ игры
+  («перезапуск» = WER-диалог Windows). Исправлено коммитом 06d1662
+  (08.10); текущий билд чист, новых NetHack-дампов нет, сейвы пишутся.
+  «Трупы не принимаются» отдельным крашем не подтверждено.
+- 949e192 — sounds: noun_is_plural (волосы дыбом, morgue_mon_sound).
+- 4f2d7fc — титулы: «Над переводом работал: Skadga» +
+  https://boosty.to/skadga — splash (mhsplash.c), About-диалог (mhmain.c;
+  NetHackW.rc: IDD_ABOUTBOX 75→93, IDC_ABOUT_COPYRIGHT 40→56 DLU),
+  tty-баннер (wintty.c). Сборка 11.11 — 0 ошибок.
+- nethack-500-2 (Android): незакоммиченные shoptype-правки (do_name.c
+  shoptype_paradigms/case/name, mon.c logdeadmon, shk.c 2 места,
+  extern.h) совпадают с нашим 808b140 — переноса не требуется.
+  Переводы вести параллельно в обеих копиях.
