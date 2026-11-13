@@ -289,3 +289,19 @@
   shoptype_paradigms/case/name, mon.c logdeadmon, shk.c 2 места,
   extern.h) совпадают с нашим 808b140 — переноса не требуется.
   Переводы вести параллельно в обеих копиях.
+
+## 2026-11-13 — граффити «#######  #??#?»
+
+- Симптом: «Здесь есть граффити на полу. Вы читаете: "#######  #??#?
+  ### ##? ####?# # ###?#?### ##?."».
+- Причина: в include/config.h был включён MAKEDEFS_FILTER_NONASCII.
+  makedefs при генерации dat/rumors (read_rumors_file, dofilter=TRUE)
+  заменял каждый байт >126 (CP1251) на '#'. Игра затем wipeout_text
+  (engrave.c) менял часть '#' на '?'. В dat/rumors лежало «####### ##
+  ######...» — буквы уничтожались ещё при сборке, не при выводе.
+- Исправление: MAKEDEFS_FILTER_NONASCII закомментирован в config.h
+  (ru-build), пересборка Build Release x64: makedefs заново создал
+  dat/rumors, oracles, engrave, epitaph, bogusmon, data; nhdat500
+  перепакован. Проверка: dat/rumors декодируется в русский текст,
+  строка «Повязка на глазах...» найдена в nhdat500.
+- data.base остаётся английским (hi=0) — отдельная задача локализации.

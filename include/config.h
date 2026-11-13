@@ -320,7 +320,8 @@
  *      won't necessarily work as intended within nethack but at least
  *      makedefs wouldn't reject them.)
  */
-#define MAKEDEFS_FILTER_NONASCII
+/* ru-build: data files are CP1251; filtering turns Cyrillic into '#' */
+/* #define MAKEDEFS_FILTER_NONASCII */
 
 /*
  *      PERSMAX, POINTSMIN, ENTRYMAX, PERS_IS_UID:
