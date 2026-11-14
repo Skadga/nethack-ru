@@ -652,7 +652,7 @@ mcast_insects(struct monst *mtmp)
     boolean success = FALSE, seecaster;
     int i, quan, oldseen, newseen;
     coord bypos;
-    const char *fmt, *what;
+    const char *fmt, *what, *what_nom, *what_sg;
 
     oldseen = monster_census(TRUE);
     quan = (mtmp->m_lev < 2) ? 1 : rnd((int) mtmp->m_lev / 2);
@@ -673,9 +673,14 @@ mcast_insects(struct monst *mtmp)
 
     /* not canspotmon() which includes unseen things sensed via warning */
     seecaster = canseemon(mtmp) || tp_sensemon(mtmp) || Detect_monsters;
-    what = (let == S_SNAKE) ? "snakes" : "insects";
-    if (Hallucination)
-        what = makeplural(bogusmon(whatbuf, (char *) 0));
+    what = (let == S_SNAKE) ? "змей" : "насекомых";
+    what_nom = (let == S_SNAKE) ? "змеи" : "насекомые";
+    what_sg = (let == S_SNAKE) ? "змея" : "насекомое";
+    if (Hallucination) {
+        what_nom = makeplural(bogusmon(whatbuf, (char *) 0));
+        what = what_nom;
+        what_sg = makesingular(what_nom);
+    }
 
     fmt = 0;
     if (!seecaster) {
@@ -685,18 +690,21 @@ mcast_insects(struct monst *mtmp)
             You_hear("кого-то, призывающего %s.", what);
         } else {
             char *arg;
+            boolean one = (newseen == oldseen + 1);
 
-            if (what != whatbuf)
-                what = strcpy(whatbuf, what);
+            if (what_nom != whatbuf)
+                (void) strcpy(whatbuf, what_nom);
             /* unseen caster summoned seen critter(s) */
-            arg = (newseen == oldseen + 1) ? an(makesingular(what))
-                                           : whatbuf;
+            arg = one ? an(what_sg) : whatbuf;
             if (!Deaf) {
                 Soundeffect(se_someone_summoning, 100);
                 You_hear("кого-то, призывающего что-то, и %s %s.", arg,
-                         vtense(arg, "appear"));
+                         one ? "появляется"
+                             : "появляются");
             } else {
-                pline("%s %s.", upstart(arg), vtense(arg, "appear"));
+                pline("%s %s.", upstart(arg),
+                      one ? "появляется"
+                          : "появляются");
             }
         }
 

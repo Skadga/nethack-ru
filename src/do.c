@@ -97,11 +97,12 @@ boulder_hits_pool(
             if (pushing) {
                 char whobuf[BUFSZ];
 
-                Strcpy(whobuf, "you");
+                Strcpy(whobuf, "вы");
                 if (u.usteed)
                     Strcpy(whobuf, y_monnam(u.usteed));
                 pline("%s %s %s в %s.", upstart(whobuf),
-                      vtense(whobuf, "push"), the(xname(otmp)), what);
+                      u.usteed ? "толкает" : "толкаете",
+                      the(xname(otmp)), what);
                 if (flags.verbose && !Blind)
                     pline("Теперь вы можете пересечь её!");
                 /* no splashing in this case */

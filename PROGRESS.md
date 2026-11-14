@@ -102,9 +102,14 @@
    1367 are, 1447 ignite) + « more» — use_candelabrum/use_candle.
    ЗАКРЫТО (f8fe530): polyself.c:1236 (pierce, рога) и 1297 (fall,
    очки) — break_armor; подлежащие переведены, ветка otyp == LENSES.
-   Осталось 8 из 15 английских литералов:
-   do.c:104 push, makemon.c:1495 appear, mcastu.c:697/699 appear,
-   mkobj.c:2885 spill, sounds.c:103 stand / 108 seem, wield.c:781 are.
+   ЗАКРЫТО (vtense-кампания, 6 мест):
+   wield.c:780 (пусты/пуста), do.c:103 (толкает/толкаете),
+   mkobj.c:2877-2885 (Зелья/Зелье/Еда + вываливаются/вываливается),
+   makemon.c:1492 (внезапно появляется), mcastu.c:676-699
+   (змеи/насекомые, появляется/появляются).
+   Остаток: глаголы движения в mondata.c locomotion()/stagger()
+   (float/fly/slither/ooze/wiggle/crawl) — 8 английских литералов;
+   используются в monmove.c:42, muse.c×4, do_name.c:1242.
 
 5. Энциклопедия dat/data — английские описания богов и монстров
    (Huan Ti, Issek, Kos, Mog, Ishtar, tribute).

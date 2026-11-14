@@ -2862,6 +2862,7 @@ hornoplenty(
     } else {
         struct obj *obj;
         const char *what;
+        boolean plural;
 
         consume_obj_charge(horn, !tipping);
         if (!rn2(13)) {
@@ -2874,15 +2875,19 @@ hornoplenty(
                 if (obj->otyp == POT_OIL)
                     fixup_oil(obj, (struct obj *) NULL);
             }
-            what = (obj->quan > 1L) ? "Some potions" : "A potion";
+            plural = (obj->quan > 1L);
+            what = plural ? "Зелья" : "Зелье";
         } else {
             obj = mkobj(FOOD_CLASS, FALSE);
             if (obj->otyp == FOOD_RATION && !rn2(7))
                 obj->otyp = LUMP_OF_ROYAL_JELLY;
-            what = "Some food";
+            plural = FALSE;
+            what = "Еда";
         }
         ++objcount;
-        pline("%s %s out.", what, vtense(what, "spill"));
+        pline("%s %s.", what,
+              plural ? "вываливаются"
+                     : "вываливается");
         obj->blessed = horn->blessed;
         obj->cursed = horn->cursed;
         obj->owt = weight(obj);

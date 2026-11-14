@@ -777,8 +777,8 @@ can_twoweapon(void)
             (!uwep && !uswapwep) ? body_part_case(HAND, BP_NOM | BP_PLURAL)
                                  : body_part_case(HAND, BP_NOM);
         /* "your hands are empty" or "your {left|right} hand is empty" */
-        Your("%s%s %s пусто.", uwep ? "левой " : uswapwep ? "правой " : "",
-             hand_s, vtense(hand_s, "are"));
+        Your("%s%s %s.", uwep ? "левая " : uswapwep ? "правая " : "",
+             hand_s, (!uwep && !uswapwep) ? "пусты" : "пуста");
     } else if (!TWOWEAPOK(uwep) || !TWOWEAPOK(uswapwep)) {
         otmp = !TWOWEAPOK(uwep) ? uwep : uswapwep;
         pline("%s %s подходящее %s оружие%s.", Yname2(otmp),
