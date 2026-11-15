@@ -507,10 +507,16 @@ use_magic_whistle(struct obj *obj)
             tele_to_rnd_pet();
     } else {
         /* it's magic!  it works underwater too (at a higher pitch) */
-        You(Deaf ? alt_whistle_str : whistle_str,
-            Hallucination ? "normal"
-            : (Underwater && !Deaf) ? "strange, high-pitched"
-              : "strange");
+        if (Deaf)
+            You(alt_whistle_str,
+                Hallucination ? "обычную"
+                : Underwater ? "странную, пронзительную"
+                  : "странную");
+        else
+            You(whistle_str,
+                Hallucination ? "обычный"
+                : Underwater ? "странный, пронзительный"
+                  : "странный");
         Soundeffect(se_shrill_whistle, 80);
         magic_whistled(obj);
     }
@@ -1567,9 +1573,13 @@ splash_lit(struct obj *obj)
 
         if (useeit || uhearit)
             pline("%s %s%s%s.", Yname2(obj),
-                  uhearit ? "crackles" : "",
-                  (uhearit && useeit) ? " and " : "",
-                  useeit ? "flickers" : "");
+                  uhearit ? ((obj->quan == 1L) ? "потрескивает"
+                                             : "потрескивают")
+                          : "",
+                  (uhearit && useeit) ? " и " : "",
+                  useeit ? ((obj->quan == 1L) ? "мерцает"
+                                            : "мерцают")
+                         : "");
         if (!dunk && !snuff)
             return FALSE;
     }
@@ -1611,10 +1621,12 @@ catch_lit(struct obj *obj)
         if (obj->where == OBJ_INVENT || cansee(x, y)) {
             if (obj->where == OBJ_FLOOR && cansee(x, y))
                 set_msg_xy(x, y);
-            pline("%s %s %s", Yname2(obj),
-                  /* "catches light!" or "feels warm." */
-                  otense(obj, Blind ? "feel" : "catch"),
-                  Blind ? "warm." : "light!");
+            pline("%s %s", Yname2(obj),
+                  /* "загорается!" или "кажется тёплым." */
+                  Blind ? ((obj->quan == 1L) ? "кажется тёплым"
+                                             : "кажутся тёплыми")
+                        : ((obj->quan == 1L) ? "загорается!"
+                                             : "загораются!"));
         }
         if (obj->otyp == POT_OIL)
             makeknown(obj->otyp);
@@ -1625,9 +1637,8 @@ catch_lit(struct obj *obj)
             /* if it catches while you have it, then it's your tough luck */
             check_unpaid(obj);
             SetVoice(shkp, 0, 80, 0);
-            verbalize("Это, конечно, в дополнение к стоимости %s %s.",
-                      yname(obj),
-                      (obj->quan == 1L) ? "itself" : "themselves");
+            verbalize("Это, конечно, в дополнение к стоимости %s.",
+                      yname(obj));
             bill_dummy_object(obj);
         }
         begin_burn(obj, FALSE);
@@ -1662,8 +1673,8 @@ use_lamp(struct obj *obj)
     }
     if (Underwater) {
         pline("%s.",
-              !Is_candle(obj) ? "This is not a diving lamp"
-                              : "Sorry, fire and water don't mix");
+              !Is_candle(obj) ? "Это не водолазная лампа"
+                              : "Увы, огонь и вода несовместимы");
         return;
     }
     /* magic lamps with an spe == 0 (wished for) cannot be lit */

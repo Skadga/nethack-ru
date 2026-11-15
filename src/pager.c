@@ -2106,9 +2106,10 @@ look_all(
     if (count)
         display_nhwindow(win, TRUE);
     else
-        pline("No %s are currently shown %s.",
-              do_mons ? "monsters" : "objects",
-              nearby ? "nearby" : "on the map");
+        pline("%s сейчас не показано %s.",
+              nearby ? "Рядом" : "На карте",
+              do_mons ? "ни одного монстра"
+                      : "ни одного предмета");
     destroy_nhwindow(win);
 }
 
@@ -2408,19 +2409,8 @@ doidtrap(void)
                 if (u.dz < 0 ? is_hole(tt) : tt == ROCKTRAP)
                     break;
             }
-            pline("That is %s%s%s.",
-                  an(trapname(tt, FALSE)),
-                  !trap->madeby_u
-                     ? ""
-                     : (tt == WEB)
-                        ? " woven"
-                        /* trap doors & spiked pits can't be made by
-                           player, and should be considered at least
-                           as much "set" as "dug" anyway */
-                        : (tt == HOLE || tt == PIT)
-                           ? " dug"
-                           : " set",
-                  !trap->madeby_u ? "" : " by you");
+            pline("Это %s%s.", an(trapname(tt, FALSE)),
+                  !trap->madeby_u ? "" : ", и это сделали вы");
             return ECMD_OK;
         }
     pline("Я не вижу там ловушку.");
@@ -2702,9 +2692,9 @@ dowhatdoes(void)
     char q, *reslt;
 
     if (!once) {
-        pline("Ask about '&' or '?' to get more info.%s",
+        pline("Спросите о '&' или '?' для подробностей.%s",
 #ifdef ALTMETA
-              iflags.altmeta ? "  (For ESC, type it twice.)" :
+              iflags.altmeta ? "  (Для ESC нажмите дважды.)" :
 #endif
               "");
         once = TRUE;
@@ -2712,7 +2702,7 @@ dowhatdoes(void)
 #if defined(UNIX) || defined(VMS)
     introff(); /* disables ^C but not ^\ */
 #endif
-    q = yn_function("What command?", (char *) 0, '\0', TRUE);
+    q = yn_function("Какая команда?", (char *) 0, '\0', TRUE);
 #ifdef ALTMETA
     if (q == '\033' && iflags.altmeta) {
         /* in an ideal world, we would know whether another keystroke

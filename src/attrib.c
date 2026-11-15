@@ -8,17 +8,19 @@
 
 /* part of the output on gain or loss of attribute */
 static const char
-    *const plusattr[] = { "strong", "smart", "wise",
-                          "agile",  "tough", "charismatic" },
-    *const minusattr[] = { "weak",    "stupid",
-                           "foolish", "clumsy",
-                           "fragile", "repulsive" };
+    *const plusattr[] = { "сильными", "умными",
+                          "мудрыми", "ловкими",
+                          "крепкими", "обаятельными" },
+    *const minusattr[] = { "слабыми", "глупыми",
+                           "неразумными", "неловкими",
+                           "хилыми", "отвратительными" };
 /* also used by enlightenment in insight.c for non-abbreviated status info */
 extern const char *const attrname[6];
 
 const char
-    *const attrname[] = { "strength", "intelligence", "wisdom",
-                          "dexterity", "constitution", "charisma" };
+    *const attrname[] = { "сила", "интеллект",
+                          "мудрость", "ловкость",
+                          "телосложение", "харизма" };
 
 static const struct innate {
     schar ulevel;
@@ -175,13 +177,15 @@ adjattrib(
     if (ACURR(ndx) == old_acurr) {
         if (msgflg == 0 && flags.verbose) {
             if (ABASE(ndx) == old_abase && AMAX(ndx) == old_amax) {
-                pline("Вы %s, насколько %s возможно.",
-                      abonflg ? "сейчас" : "уже", attrstr);
+                pline("%s %s на пределе.", upstart((char *) attrname[ndx]),
+                      abonflg ? "сейчас" : "уже");
             } else {
                 /* current stayed the same but base value changed, or
                    base is at minimum and reduction caused max to drop */
-                Your("innate %s has %s.", attrname[ndx],
-                     (incr > 0) ? "improved" : "declined");
+                Your("%s: врождённое значение %s.",
+                     upstart((char *) attrname[ndx]),
+                     (incr > 0) ? "улучшилось"
+                                : "ухудшилось");
             }
         }
         return FALSE;
@@ -192,7 +196,8 @@ adjattrib(
 
     disp.botl = TRUE;
     if (msgflg <= 0)
-        You_feel("%s%s!", (incr > 1 || incr < -1) ? "very " : "", attrstr);
+        You_feel("себя %s%s!", (incr > 1 || incr < -1) ? "очень " : "",
+                 attrstr);
     if (program_state.in_moveloop && (ndx == A_STR || ndx == A_CON))
         encumber_msg();
     return TRUE;
@@ -592,11 +597,15 @@ exerper(void)
 /* exercise/abuse text (must be in attribute order, not botl order);
    phrased as "You must have been [][0]." or "You haven't been [][1]." */
 static NEARDATA const char *const exertext[A_MAX][2] = {
-    { "exercising diligently", "exercising properly" },           /* Str */
+    { "усердно тренировались",
+      "тренировались как следует" },  /* Str */
     { 0, 0 },                                                     /* Int */
-    { "very observant", "paying attention" },                     /* Wis */
-    { "working on your reflexes", "working on reflexes lately" }, /* Dex */
-    { "leading a healthy life-style", "watching your health" },   /* Con */
+    { "были очень наблюдательны",
+      "были внимательны" },  /* Wis */
+    { "работали над рефлексами",
+      "работали над рефлексами в последнее время" }, /* Dex */
+    { "вели здоровый образ жизни",
+      "следили за здоровьем" },  /* Con */
     { 0, 0 },                                                     /* Cha */
 };
 
@@ -667,8 +676,8 @@ exerchk(void)
                 /* if you actually changed an attrib - zero accumulation */
                 AEXE(i) = ax = 0;
                 /* then print an explanation */
-                You("%s %s.",
-                    (mod_val > 0) ? "must have been" : "haven't been",
+                You((mod_val > 0) ? ", должно быть, %s."
+                                  : ", видимо, не %s.",
                     exertext[i][(mod_val > 0) ? 0 : 1]);
             }
  nextattrib:
