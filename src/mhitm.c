@@ -1394,7 +1394,7 @@ passivemm(
                 magr->mstun = 1;
                 if (canseemon(magr))
                     pline_mon(magr, "%s %s...", Monnam(magr),
-                          makeplural(stagger(magr->data, "пошатывается")));
+                          stagger(magr->data, "пошатывается"));
             }
             tmp = 0;
             break;

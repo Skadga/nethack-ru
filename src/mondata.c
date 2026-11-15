@@ -1364,17 +1364,24 @@ raceptr(struct monst *mtmp)
 }
 
 typedef const char *const locoverbs[4];
-static locoverbs levitate = { "float", "Float", "wobble", "Wobble" },
-                 flys = { "fly", "Fly", "flutter", "Flutter" },
-                 flyl = { "fly", "Fly", "stagger", "Stagger" },
-                 slither = { "slither", "Slither", "falter", "Falter" },
+static locoverbs levitate = { "парит", "Парит",
+                              "покачивается", "Покачивается" },
+                 flys = { "летит", "Летит",
+                          "порхает", "Порхает" },
+                 flyl = { "летит", "Летит",
+                          "пошатывается", "Пошатывается" },
+                 slither = { "ползёт", "Ползёт",
+                             "спотыкается", "Спотыкается" },
                  /* it would be useful to incorporate "swim" but we lack
                   * sufficient information to know whether water is involved
                  swim = { "swim", "Swim", "flop", "Flop" },
                   */
-                 ooze = { "ooze", "Ooze", "tremble", "Tremble" },
-                 immobile = { "wiggle", "Wiggle", "pulsate", "Pulsate" },
-                 crawl = { "crawl", "Crawl", "falter", "Falter" };
+                 ooze = { "растекается", "Растекается",
+                          "дрожит", "Дрожит" },
+                 immobile = { "извивается", "Извивается",
+                              "пульсирует", "Пульсирует" },
+                 crawl = { "ползёт", "Ползёт",
+                           "спотыкается", "Спотыкается" };
 
 const char *
 locomotion(const struct permonst *ptr, const char *def)

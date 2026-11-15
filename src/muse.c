@@ -1046,7 +1046,7 @@ use_defensive(struct monst *mtmp)
         t = t_at(gt.trapx, gt.trapy);
         if (vis) {
             pline_mon(mtmp, "%s %s в %s!", Monnam(mtmp),
-                  vtense(fakename[0], locomotion(mtmp->data, "jump")),
+                  vtense(fakename[0], locomotion(mtmp->data, "прыгает")),
                   trapname(t->ttyp, FALSE));
         }
         /* if trap was in a concealed niche, it's no longer concealed */
@@ -1143,7 +1143,7 @@ use_defensive(struct monst *mtmp)
         t = t_at(gt.trapx, gt.trapy);
         if (vis) {
             pline_mon(mtmp, "%s %s на %s!", Monnam(mtmp),
-                  vtense(fakename[0], locomotion(mtmp->data, "jump")),
+                  vtense(fakename[0], locomotion(mtmp->data, "прыгает")),
                   trapname(t->ttyp, FALSE));
         }
         /* if trap was in a concealed niche, it's no longer concealed */
@@ -2524,7 +2524,7 @@ use_misc(struct monst *mtmp)
         if (vismon || vistrapspot) {
             pline_mon(mtmp, "%s намеренно %s на %s!",
                   Some_Monnam(mtmp),
-                  vtense(fakename[0], locomotion(mtmp->data, "jump")),
+                  vtense(fakename[0], locomotion(mtmp->data, "прыгает")),
                   t->tseen ? trapname(t->ttyp, FALSE) : "скрытую ловушку");
             /* note: if mtmp is unseen because it is invisible, its new
                shape will also be invisible and could produce "Its armor
@@ -3136,9 +3136,8 @@ muse_unslime(
                 worm_move(mon);
             newsym(mon->mx, mon->my);
             if (vis)
-                pline("%s %s %s %s огненную ловушку!", Mnam,
-                      vtense(fakename[0], locomotion(mon->data, "move")),
-                      is_floater(mon->data) ? "на" : "на",
+                pline("%s %s на %s огненную ловушку!", Mnam,
+                      vtense(fakename[0], locomotion(mon->data, "прыгает")),
                       trap->tseen ? "эту" : "некую");
         }
         (void) mintrap(mon, FORCETRAP);

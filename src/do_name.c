@@ -1240,7 +1240,9 @@ monverbself(
     Strcpy(selfbuf, mon_nam_too(mon, mon));
     /* verb starts plural; this will yield singular except for "себя" */
     verbs = vtense(selfbuf, verb);
-    if (!strcmp(verb, verbs)) { /* a match indicates that it stayed plural */
+    /* a match indicates that it stayed plural; Russian verbs are already
+       inflected and would always match */
+    if (!(*verb & 0x80) && !strcmp(verb, verbs)) {
         monnamtext = makeplural(monnamtext);
         /* for "оно", makeplural() produces "их" but we want "they" */
         if (!strcmpi(monnamtext, genders[3].he)) {

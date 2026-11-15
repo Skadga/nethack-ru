@@ -39,11 +39,11 @@ msg_mon_movement(struct monst *mtmp, coordxy omx, coordxy omy)
             closer = !n2u && (distu(nix, niy) <= distu(omx, omy));
 
         pline_xy(nix, niy, "%s %s%s.", Monnam(mtmp),
-                 vtense((char *) 0, locomotion(mtmp->data, "move")),
-                 n2u ? " next to you"
-                 : (close && closer) ? " closer"
-                 : (close && !closer) ? " further away"
-                 : " in the distance");
+                 vtense((char *) 0, locomotion(mtmp->data, "двигается")),
+                 n2u ? " рядом с вами"
+                 : (close && closer) ? " ближе"
+                 : (close && !closer) ? " дальше"
+                 : " в отдалении");
     }
 }
 
@@ -1634,10 +1634,10 @@ postmov(
                 dissolve_bars(mtmp->mx, mtmp->my);
                 return MMOVE_DONE;
             } else if (flags.verbose && canseemon(mtmp))
-                Norep("%s %s %s the iron bars.", Monnam(mtmp),
-                      /* pluralization fakes verb conjugation */
-                      makeplural(locomotion(ptr, "pass")),
-                      passes_walls(ptr) ? "through" : "between");
+                Norep("%s %s.", Monnam(mtmp),
+                      passes_walls(ptr)
+                          ? "проходит сквозь железные прутья"
+                          : "проходит между железными прутьями");
         } /* doors and bars */
 
         /* possibly dig */
