@@ -122,59 +122,59 @@ engulfer_explosion_msg(uchar adtyp, char olet)
     if (digests(u.ustuck->data)) {
         switch (adtyp) {
         case AD_FIRE:
-            adj = "heartburn";
+            adj = "страдает изжогой";
             break;
         case AD_COLD:
-            adj = "chilly";
+            adj = "замерзает";
             break;
         case AD_DISN:
             if (olet == WAND_CLASS)
-                adj = "irradiated by pure energy";
+                adj = "облучается чистой энергией";
             else
-                adj = "perforated";
+                adj = "продырявливается";
             break;
         case AD_ELEC:
-            adj = "shocked";
+            adj = "бьётся током";
             break;
         case AD_DRST:
-            adj = "poisoned";
+            adj = "травится";
             break;
         case AD_ACID:
-            adj = "an upset stomach";
+            adj = "мучается животом";
             break;
         default:
-            adj = "fried";
+            adj = "поджаривается";
             break;
         }
-        pline("%s gets %s!", Monnam(u.ustuck), adj);
+        pline("%s %s!", Monnam(u.ustuck), adj);
     } else {
         switch (adtyp) {
         case AD_FIRE:
-            adj = "toasted";
+            adj = "подрумянивается";
             break;
         case AD_COLD:
-            adj = "chilly";
+            adj = "замерзает";
             break;
         case AD_DISN:
             if (olet == WAND_CLASS)
-                adj = "overwhelmed by pure energy";
+                adj = "подавляется чистой энергией";
             else
-                adj = "perforated";
+                adj = "продырявливается";
             break;
         case AD_ELEC:
-            adj = "shocked";
+            adj = "бьётся током";
             break;
         case AD_DRST:
-            adj = "intoxicated";
+            adj = "пьянеет";
             break;
         case AD_ACID:
-            adj = "burned";
+            adj = "обжигается";
             break;
         default:
-            adj = "fried";
+            adj = "поджаривается";
             break;
         }
-        pline("%s gets slightly %s!", Monnam(u.ustuck), adj);
+        pline("%s слегка %s!", Monnam(u.ustuck), adj);
     }
 }
 
@@ -767,7 +767,8 @@ scatter(
             && rn2(10)) {
             if (otmp->otyp == BOULDER) {
                 if (cansee(sx, sy)) {
-                    pline("%s apart.", Tobjnam(otmp, "break"));
+                    pline("%s разлетается на куски!",
+                          Tobjnam(otmp, (char *) 0));
                 } else {
                     Soundeffect(se_stone_breaking, 100);
                     You_hear("ломающийся камень.");

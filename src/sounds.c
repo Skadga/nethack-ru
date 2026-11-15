@@ -1399,13 +1399,13 @@ dochat(void)
     }
     if (Deaf) {
         const char *xresponse = humanoid(gy.youmonst.data)
-                    ? "остаётся без ответа"
-                    : "не слышен";
+                    ? "не отзывается"
+                    : "молчит";
 
-        pline("Any response%s%s %s.",
-              canspotmon(mtmp) ? " from " : "",
-              canspotmon(mtmp) ? mon_nam(mtmp) : "",
-              xresponse);
+        if (canspotmon(mtmp))
+            pline("%s %s.", Monnam(mtmp), xresponse);
+        else
+            pline("Ответа нет.");
         return ECMD_OK;
     }
     return domonnoise(mtmp);
@@ -1510,12 +1510,12 @@ tiphat(void)
             if ((otmp = which_armor(mtmp, W_ARMH)) == 0) {
                 pline("%s машет.", Monnam(mtmp));
             } else if (otmp->cursed) {
-                pline("%s grasps %s %s but can't remove it.", Monnam(mtmp),
-                      mhis(mtmp), helm_simple_name(otmp));
+                pline("%s хватается за %s %s, но не может это снять.",
+                      Monnam(mtmp), mhis(mtmp), helm_simple_name(otmp));
                 otmp->bknown = 1;
             } else {
-                pline("%s tips %s %s in response.", Monnam(mtmp),
-                      mhis(mtmp), helm_simple_name(otmp));
+                pline("%s приподнимает %s %s в ответ.",
+                      Monnam(mtmp), mhis(mtmp), helm_simple_name(otmp));
             }
         } else if (vismon && humanoid(mtmp->data)) {
             static const char *const reaction[3] = {

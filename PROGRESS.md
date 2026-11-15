@@ -77,6 +77,10 @@
   Сборка build12: 0 ошибок (без коммита).
 - s_suffix полностью закрыт (кроме shkname/группы B, ждёт п.18):
   mhitm.c:613-635 рерайт шаблона (см. п.24). build15: 0 ошибок.
+- vtense — КАМПАНИЯ ЗАКРЫТА (39e3927): 6 мест (wield/do/mkobj/makemon/
+  mcastu), глаголы по числу. Остаток — locomotion()/stagger() в mondata.c.
+- Английские видимые литералы, батч №1: ball.c (5), explode.c (4),
+  region.c (4), sounds.c (3) — 16 мест. Сборка Release x64: 0 ошибок.
 
 ## Что осталось
 
@@ -88,6 +92,15 @@
 
 2. s_suffix — КАМПАНИЯ ЗАКРЫТА. Остатки в п.9/10/12/16/18/20/22
    и не-монстры (files.c:3215, questpgr.c:389).
+
+2a. Английские видимые литералы (87 в 34 файлах). Батч №1 закрыт:
+   ball.c, explode.c, region.c, sounds.c (16 мест). Остаток:
+   wizard.c 7, mkobj.c 6, apply.c 4, attrib.c 4, mkmaze.c 4,
+   wizcmds.c 4, cfgfiles.c 3, files.c 3, mail.c 3, options.c 3,
+   pager.c 3, shknam.c 3, bones.c 2, display.c 2, engrave.c 2,
+   nhlua.c 2, o_init.c 2, steed.c 2, dig.c/end.c/exper.c/hack.c/
+   invent.c/makemon.c/mplayer.c/polyself.c/priest.c/read.c/shk.c/
+   uhitm.c по 1. Полный список — temp\eng2.txt.
 
 ### Средний приоритет
 

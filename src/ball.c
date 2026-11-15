@@ -890,7 +890,7 @@ drop_ball(coordxy x, coordxy y)
     }
 
     if (x != u.ux || y != u.uy) {
-        static const char pullmsg[] = "The ball pulls you out of the ";
+        static const char pullmsg[] = "ядро вытаскивает вас из ";
         struct trap *t;
         long side;
 
@@ -898,24 +898,24 @@ drop_ball(coordxy x, coordxy y)
             && u.utraptype != TT_INFLOOR && u.utraptype != TT_BURIEDBALL) {
             switch (u.utraptype) {
             case TT_PIT:
-                pline("%s%s!", pullmsg, "pit");
+                pline("%s%s!", pullmsg, "€мы");
                 break;
             case TT_WEB:
-                pline("%s%s!", pullmsg, "web");
+                pline("%s%s!", pullmsg, "паутины");
                 Soundeffect(se_destroy_web, 30);
                 pline("ѕаутина уничтожена!");
                 deltrap(t_at(u.ux, u.uy));
                 break;
             case TT_LAVA:
-                pline("%s%s!", pullmsg, hliquid("lava"));
+                pline("%s%s!", pullmsg, "лавы");
                 break;
             case TT_BEARTRAP:
                 side = rn2(3) ? LEFT_SIDE : RIGHT_SIDE;
-                pline("%s%s!", pullmsg, "bear trap");
+                pline("%s%s!", pullmsg, "медвежьего капкана");
                 set_wounded_legs(side, rn1(1000, 500));
                 if (!u.usteed) {
-                    Your("%s %s is severely damaged.",
-                         (side == LEFT_SIDE) ? "left" : "right",
+                    Your("¬аша %s %s серьЄзно повреждена.",
+                         (side == LEFT_SIDE) ? "лева€" : "права€",
                          body_part(LEG));
                     losehp(Maybe_Half_Phys(2),
                            "повреждени€ ноги при вырывании из медвежьего капкана",
@@ -972,9 +972,9 @@ litter(void)
         nextobj = otmp->nobj;
         if (otmp != uball && rnd(capacity) <= (int) otmp->owt) {
             if (canletgo(otmp, "")) {
-                You("drop %s and %s %s down the stairs with you.",
-                    yname(otmp), (otmp->quan == 1L) ? "it" : "they",
-                    otense(otmp, "fall"));
+                You("рон€ете %s, и %s %s вниз по лестнице вместе с вами.",
+                    yname(otmp), (otmp->quan == 1L) ? "оно" : "они",
+                    (otmp->quan == 1L) ? "падает" : "падают");
                 setnotworn(otmp);
                 freeinv(otmp);
                 hitfloor(otmp, FALSE);

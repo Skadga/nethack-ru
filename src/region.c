@@ -987,15 +987,15 @@ enter_force_field(genericptr_t p1, genericptr_t p2)
 
     if (p2 == (genericptr_t) 0) { /* That means the player */
         if (!Blind)
-            You("bump into %s.  Ouch!",
-                Hallucination ? "an invisible tree"
-                              : "some kind of invisible wall");
+            You("натыкаетесь на %s. Ой!",
+                Hallucination ? "невидимое дерево"
+                              : "какую-то невидимую стену");
         else
             pline("Ой!");
     } else {
         mtmp = (struct monst *) p2;
         if (canseemon(mtmp))
-            pline("%s bumps into %s!", Monnam(mtmp), something);
+            pline("%s натыкается на %s!", Monnam(mtmp), something);
     }
     return FALSE;
 }
@@ -1138,7 +1138,7 @@ inside_gas_cloud(genericptr_t p1, genericptr_t p2)
             if (!is_silent(mtmp->data)) {
                 if (cansee(mtmp->mx, mtmp->my)
                     || (distu(mtmp->mx, mtmp->my) < 8))
-                    pline("%s coughs!", Monnam(mtmp));
+                    pline("%s кашляет!", Monnam(mtmp));
                 wake_nearto(mtmp->mx, mtmp->my, 2);
             }
             if (heros_fault(reg))
@@ -1195,11 +1195,11 @@ make_gas_cloud(
     add_region(cloud);
 
     if (!gi.in_mklev && !inside_cloud && is_hero_inside_gas_cloud()) {
-        You("are enveloped in a cloud of %s!",
+        You("оказываетесь в облаке %s!",
             /* FIXME: "steam" is wrong if this cloud is just the trail of
                a fog cloud's movement; changing to "vapor" would handle
                that but seems a step backward when it really is steam */
-            damage ? "noxious gas" : "steam");
+            damage ? "ядовитого газа" : "пара");
         iflags.last_msg = PLNMSG_ENVELOPED_IN_GAS;
     }
 }
