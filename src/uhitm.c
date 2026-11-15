@@ -2546,7 +2546,7 @@ mhitm_ad_fire(
             return;
         }
         if (!Blind)
-            pline("%s is %s!", Monnam(mdef), on_fire(pd, mattk));
+            pline("%s %s!", Monnam(mdef), on_fire(pd, mattk, FALSE));
         if (completelyburns(pd)) { /* paper golem or straw golem */
             if (!Blind)
                 /* note: the life-saved case is hypothetical because
@@ -2576,7 +2576,7 @@ mhitm_ad_fire(
         /* mhitu */
         hitmsg(magr, mattk);
         if (!mhitm_mgc_atk_negated(magr, mdef, TRUE)) {
-            pline("Вы %s!", on_fire(pd, mattk));
+            pline("Вы %s!", on_fire(pd, mattk, TRUE));
             if (completelyburns(pd)) { /* paper or straw golem */
                 You("вспыхиваете пламенем!");
                 monstunseesu(M_SEEN_FIRE);
@@ -2605,7 +2605,7 @@ mhitm_ad_fire(
             return;
         }
         if (gv.vis && canseemon(mdef))
-            pline_mon(mdef, "%s is %s!", Monnam(mdef), on_fire(pd, mattk));
+            pline_mon(mdef, "%s %s!", Monnam(mdef), on_fire(pd, mattk, FALSE));
         if (completelyburns(pd)) { /* paper golem or straw golem */
             /* note: the life-saved case is hypothetical because
                life-saving doesn't work for golems */

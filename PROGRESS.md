@@ -106,6 +106,13 @@
   nhlua.c — «ТЕСТ:»/«Сброс времени на ход #%ld.», shknam.c — «Комната в
   ...»/«дверь [...]», display.c — «проблемы с режимом стен». Сборка
   Release x64: 0 ошибок.
+- Батч №6 (on_fire): on_fire() в mondata.c получил параметр `you` и
+  возвращает русские формы («уже горит/горите», «кипит/кипите»,
+  «плавится/плавитесь», «раскаляется/раскаляетесь», «зажаривается/
+  зажариваетесь», «горит/горите»); uhitm.c×3, mon.c — выбор глагола
+  для лавы по русским строкам («выкипает/расплавляется/сгорает
+  дотла»); extern.h. Сборка Release x64: 0 ошибок. Кампания
+  английских литералов закрыта.
 
 ## Что осталось
 
@@ -118,15 +125,15 @@
 2. s_suffix — КАМПАНИЯ ЗАКРЫТА. Остатки в п.9/10/12/16/18/20/22
    и не-монстры (files.c:3215, questpgr.c:389).
 
-2a. Английские видимые литералы (87 в 34 файлах). Закрыты батчи №1-5
-   (осталось 1): ball.c, explode.c, region.c, sounds.c, mkobj.c,
+2a. Английские видимые литералы (87 в 34 файлах) — КАМПАНИЯ ЗАКРЫТА
+   (батчи №1-6): ball.c, explode.c, region.c, sounds.c, mkobj.c,
    priest.c, wizard.c, steed.c, invent.c, apply.c, attrib.c, pager.c,
    wizcmds.c, mail.c, bones.c, engrave.c, o_init.c, dig.c, end.c,
    exper.c, hack.c, mplayer.c, polyself.c, read.c, options.c,
-   cfgfiles.c, files.c, mkmaze.c, nhlua.c, shknam.c, display.c.
-   Остаток: uhitm.c 1 (on_fire — отложено: общий текст для героя и
-   монстра). Мёртвый код shk.c (#if 0) и makemon.c (HPUX-only) — вне
-   охвата. Полный список — temp\eng2.txt.
+   cfgfiles.c, files.c, mkmaze.c, nhlua.c, shknam.c, display.c,
+   mondata.c/uhitm.c/mon.c (on_fire).
+   Вне охвата: мёртвый код shk.c (#if 0) и makemon.c (HPUX-only).
+   Полный список — temp\eng2.txt.
 
 ### Средний приоритет
 

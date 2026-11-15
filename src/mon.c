@@ -1023,12 +1023,12 @@ minliquid_core(struct monst *mtmp)
             if (!resists_fire(mtmp)) {
                 if (cansee(mtmp->mx, mtmp->my)) {
                     struct attack *dummy = &mtmp->data->mattk[0];
-                    const char *how = on_fire(mtmp->data, dummy);
+                    const char *how = on_fire(mtmp->data, dummy, FALSE);
 
                     pline_mon(mtmp, "%s %s.", Monnam(mtmp),
-                          !strcmp(how, "boiling") ? "boils away"
-                             : !strcmp(how, "melting") ? "melts away"
-                                : "burns to a crisp");
+                          !strcmp(how, "кипит") ? "выкипает"
+                             : !strcmp(how, "плавится") ? "расплавляется"
+                                : "сгорает дотла");
                 }
                 /* unlike fire -> melt ice -> pool, there's no way for the
                    hero to create lava beneath a monster, so the !mon_moving

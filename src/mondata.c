@@ -1408,7 +1408,7 @@ stagger(const struct permonst *ptr, const char *def)
 
 /* return phrase describing the effect of fire attack on a type of monster */
 const char *
-on_fire(struct permonst *mptr, struct attack *mattk)
+on_fire(struct permonst *mptr, struct attack *mattk, boolean you)
 {
     const char *what;
 
@@ -1417,16 +1417,16 @@ on_fire(struct permonst *mptr, struct attack *mattk)
     case PM_FIRE_VORTEX:
     case PM_FIRE_ELEMENTAL:
     case PM_SALAMANDER:
-        what = "already on fire";
+        what = you ? "уже горите" : "уже горит";
         break;
     case PM_WATER_ELEMENTAL:
     case PM_FOG_CLOUD:
     case PM_STEAM_VORTEX:
-        what = "boiling";
+        what = you ? "кипите" : "кипит";
         break;
     case PM_ICE_VORTEX:
     case PM_GLASS_GOLEM:
-        what = "melting";
+        what = you ? "плавитесь" : "плавится";
         break;
     case PM_STONE_GOLEM:
     case PM_CLAY_GOLEM:
@@ -1435,10 +1435,14 @@ on_fire(struct permonst *mptr, struct attack *mattk)
     case PM_EARTH_ELEMENTAL:
     case PM_DUST_VORTEX:
     case PM_ENERGY_VORTEX:
-        what = "heating up";
+        what = you ? "раскаляетесь"
+                   : "раскаляется";
         break;
     default:
-        what = (mattk->aatyp == AT_HUGS) ? "being roasted" : "on fire";
+        what = (mattk->aatyp == AT_HUGS)
+                   ? (you ? "зажариваетесь"
+                          : "зажаривается")
+                   : (you ? "горите" : "горит");
         break;
     }
     return what;
