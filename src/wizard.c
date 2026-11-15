@@ -441,7 +441,7 @@ tactics(struct monst *mtmp)
 
                 if ((otmp = on_ground(which_arti(targ))) != 0) {
                     if (cansee(mtmp->mx, mtmp->my))
-                        pline("%s picks up %s.", Monnam(mtmp),
+                        pline("%s ןמהבטנאוע %s.", Monnam(mtmp),
                               distant_name(otmp, doname));
                     obj_extract_self(otmp);
                     (void) mpickobj(mtmp, otmp);

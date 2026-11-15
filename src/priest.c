@@ -127,7 +127,7 @@ move_special(struct monst *mtmp, boolean in_his_shop, schar appr,
 #if 0 /* dead code; maybe someday someone will track down why... */
         if (ib) {
             if (cansee(mtmp->mx, mtmp->my))
-                pline("%s picks up %s.", Monnam(mtmp),
+                pline("%s ןמהבטנאוע %s.", Monnam(mtmp),
                       distant_name(ib, doname));
             obj_extract_self(ib);
             (void) mpickobj(mtmp, ib);

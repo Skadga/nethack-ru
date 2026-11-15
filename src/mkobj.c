@@ -742,9 +742,18 @@ bill_dummy_object(struct obj *otmp)
 
 /* alteration types; must match COST_xxx macros in hack.h */
 static const char *const alteration_verbs[] = {
-    "cancel", "drain", "uncharge", "unbless", "uncurse", "disenchant",
-    "degrade", "dilute", "erase", "burn", "neutralize", "destroy", "splatter",
-    "bite", "open", "break the lock on", "rust", "rot", "tarnish", "crack",
+    "отмен€ете", "истощаете",
+    "разр€жаете", "снимаете благословение с",
+    "снимаете прокл€тие с",
+    "лишаете магии", "портите",
+    "разбавл€ете", "стираете надпись на",
+    "сжигаете", "нейтрализуете",
+    "уничтожаете", "разбрызгиваете",
+    "кусаете", "открываете",
+    "взламываете замок на",
+    "покрываете ржавчиной",
+    "покрываете гнилью",
+    "окисл€ете", "раскалываете",
 };
 
 /* possibly bill for an object which the player has just modified */
@@ -786,9 +795,9 @@ costly_alteration(struct obj *obj, int alter_type)
     }
 
     if (obj->quan == 1L)
-        those = "that", them = "it";
+        those = "это", them = "него";
     else
-        those = "those", them = "them";
+        those = "эти", them = "них";
 
     /* when shopkeeper describes the object as being uncursed or unblessed
        hero will know that it is now uncursed; will also make the feedback
@@ -803,7 +812,7 @@ costly_alteration(struct obj *obj, int alter_type)
         if (shkp) {
             SetVoice(shkp, 0, 80, 0);
         }
-        verbalize("You %s %s %s, you pay for %s!",
+        verbalize("¬ы %s %s %s, вы платите за %s!",
                   alteration_verbs[alter_type], those, simpleonames(obj),
                   them);
         bill_dummy_object(obj);
@@ -815,7 +824,7 @@ costly_alteration(struct obj *obj, int alter_type)
             if (shkp) {
                 SetVoice(shkp, 0, 80, 0);
             }
-            verbalize("You %s %s, you pay for %s!",
+            verbalize("¬ы %s %s, вы платите за %s!",
                       alteration_verbs[alter_type], those, them);
             bill_dummy_object(obj);
         } else {
@@ -1605,7 +1614,8 @@ shrink_glob(
             pline("%s %s.", globnambuf,
                   /* globs always have quantity 1 so we don't need otense()
                      because the verb always references a singular item */
-                  gone ? "dissolves completely" : "shrinks");
+                  gone ? "раствор€етс€ полностью"
+                       : "сжимаетс€");
         updinv = TRUE;
     } else if (contnr) {
         /* when in a container, it might be nested so find outermost one */
@@ -1629,13 +1639,14 @@ shrink_glob(
                however, always say the bag is lighter for the 'gone' case */
             if (gone || (shrink && topcontnr->owt != old_top_owt)
                 || near_capacity() != go.oldcap)
-                pline("%s %s%s lighter.", Yname2(topcontnr),
+                pline("%s %s%s легче.", Yname2(topcontnr),
                       /* containers also always have quantity 1 */
-                      (topcontnr->owt != old_top_owt) ? "becomes" : "seems",
+                      (topcontnr->owt != old_top_owt) ? "становитс€"
+                                                      : "кажетс€",
                       /* TODO?  maybe also skip "slightly" if description
                          is changing (from "very large" to "large",
                          "large" to "medium", or "medium to "small") */
-                      !gone ? " slightly" : "");
+                      !gone ? " немного" : "");
             updinv = TRUE;
         }
     }
@@ -1718,7 +1729,7 @@ maybe_adjust_light(struct obj *obj, int old_range)
             *buf = '\0';
             if (iflags.last_msg == PLNMSG_OBJ_GLOWS)
                 /* we just saw "The <obj> glows <color>." from dipping */
-                Strcpy(buf, (obj->quan == 1L) ? "It" : "They");
+                Strcpy(buf, (obj->quan == 1L) ? "ќно" : "ќни");
             else if (carried(obj) || cansee(ox, oy))
                 Strcpy(buf, Yname2(obj));
             if (*buf) {
@@ -1727,9 +1738,9 @@ maybe_adjust_light(struct obj *obj, int old_range)
                    when changing intensity, using "less brightly" is
                    straightforward for dimming, but we need "brighter"
                    rather than "more brightly" for brightening; ugh */
-                pline("%s %s %s%s.", buf, otense(obj, "shine"),
-                      (abs(delta) > 1) ? "much " : "",
-                      (delta > 0) ? "brighter" : "less brightly");
+                pline("%s %s %s%s.", buf, otense(obj, "светитс€"),
+                      (abs(delta) > 1) ? "намного " : "",
+                      (delta > 0) ? "€рче" : "тусклее");
             }
         }
     }

@@ -724,15 +724,14 @@ dismount_steed(
             if (grounded(mdat)) {
                 if (is_pool(u.ux, u.uy)) {
                     if (!Underwater)
-                        pline("%s falls into the %s!", Monnam(mtmp),
-                              surface(u.ux, u.uy));
+                        pline("%s падает в воду!", Monnam(mtmp));
                     if (!cant_drown(mdat)) {
                         killed(mtmp);
                         adjalign(-1);
                     }
                 } else if (is_lava(u.ux, u.uy)) {
-                    pline("%s is pulled into the %s!", Monnam(mtmp),
-                          hliquid("lava"));
+                    pline("%s соскальзывает в лаву!",
+                          Monnam(mtmp));
                     if (!likes_lava(mdat)) {
                         killed(mtmp);
                         adjalign(-1);

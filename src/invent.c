@@ -2114,20 +2114,21 @@ silly_thing(const char *word,
        and for corresponding armor commands ('W','T') on accessories */
     if (ocls == ARMOR_CLASS) {
         if (!strcmp(word, "put on"))
-            s1 = "W", s2 = "wear", s3 = "";
+            s1 = "W", s2 = "надеть", s3 = "";
         else if (!strcmp(word, "remove"))
-            s1 = "T", s2 = "take", s3 = " off";
+            s1 = "T", s2 = "снять", s3 = "";
     } else if ((ocls == RING_CLASS || otyp == MEAT_RING)
                || ocls == AMULET_CLASS
                || (otyp == BLINDFOLD || otyp == TOWEL || otyp == LENSES)) {
         if (!strcmp(word, "wear"))
-            s1 = "P", s2 = "put", s3 = " on";
+            s1 = "P", s2 = "надеть", s3 = "";
         else if (!strcmp(word, "take off"))
-            s1 = "R", s2 = "remove", s3 = "";
+            s1 = "R", s2 = "снять", s3 = "";
     }
     if (s1)
-        pline("Use the '%s' command to %s %s%s.", s1, s2,
-              !(is_plural(otmp) || pair_of(otmp)) ? "that" : "those", s3);
+        pline("Используйте команду '%s', чтобы %s %s%s.",
+              s1, s2,
+              !(is_plural(otmp) || pair_of(otmp)) ? "это" : "эти", s3);
     else
 #endif
     /* see comment about Amulet of Yendor in objtyp_is_callable(do_name.c);
