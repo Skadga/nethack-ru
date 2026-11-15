@@ -1411,7 +1411,8 @@ nhl_test(lua_State *L)
     y = (coordxy) get_table_int(L, "y");
     name = get_table_str_opt(L, "name", Player);
 
-    pline("TEST:{ x=%i, y=%i, name=\"%s\" }", (int) x, (int) y, name);
+    pline("ТЕСТ:{ x=%i, y=%i, name=\"%s\" }",
+          (int) x, (int) y, name);
 
     free(name);
 
@@ -1735,7 +1736,7 @@ nhl_gamestate(lua_State *L)
 
         /* restore game state */
         svm.moves = gg.gmst_moves;
-        pline("Resetting time to move #%ld.", svm.moves);
+        pline("Сброс времени на ход #%ld.", svm.moves);
         gg.gmst_moves = 0L;
 
         gl.lastinvnr = 51;

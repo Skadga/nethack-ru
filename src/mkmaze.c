@@ -1978,21 +1978,21 @@ mv_bubble(struct bubble *b, coordxy dx, coordxy dy, boolean ini)
             colli |= 1;
 
         if (b->x < gbxmin) {
-            pline("bubble xmin: x = %d, xmin = %d", b->x, gbxmin);
+            pline("пузырь: x = %d < xmin = %d", b->x, gbxmin);
             b->x = gbxmin;
         }
         if (b->y < gbymin) {
-            pline("bubble ymin: y = %d, ymin = %d", b->y, gbymin);
+            pline("пузырь: y = %d < ymin = %d", b->y, gbymin);
             b->y = gbymin;
         }
         if ((int) (b->x + b->bm[0] - 1) > gbxmax) {
-            pline("bubble xmax: x = %d, xmax = %d", b->x + b->bm[0] - 1,
-                  gbxmax);
+            pline("пузырь: x = %d > xmax = %d",
+                  b->x + b->bm[0] - 1, gbxmax);
             b->x = gbxmax - b->bm[0] + 1;
         }
         if ((int) (b->y + b->bm[1] - 1) > gbymax) {
-            pline("bubble ymax: y = %d, ymax = %d", b->y + b->bm[1] - 1,
-                  gbymax);
+            pline("пузырь: y = %d > ymax = %d",
+                  b->y + b->bm[1] - 1, gbymax);
             b->y = gbymax - b->bm[1] + 1;
         }
 

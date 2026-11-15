@@ -3346,7 +3346,7 @@ set_wall_state(void)
         if (bad_count[x]) {
             if (y == 0) {
                 y = 1; /* only prcoordxy once */
-                pline("set_wall_type: wall mode problems with: ");
+                pline("set_wall_type: проблемы с режимом стен: ");
             }
             pline("%s %d;", type_names[x], bad_count[x]);
         }

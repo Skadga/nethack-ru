@@ -102,6 +102,10 @@
   открытий; dig.c — surface_ru; end.c, exper.c, hack.c (люк/дыра),
   mplayer.c (реплики), polyself.c, read.c, options.c, cfgfiles.c,
   files.c. Сборка Release x64: 0 ошибок, новых warning'ов нет.
+- Батч №5: mkmaze.c — диагностика пузырей («пузырь: x = ... < xmin»),
+  nhlua.c — «ТЕСТ:»/«Сброс времени на ход #%ld.», shknam.c — «Комната в
+  ...»/«дверь [...]», display.c — «проблемы с режимом стен». Сборка
+  Release x64: 0 ошибок.
 
 ## Что осталось
 
@@ -114,16 +118,15 @@
 2. s_suffix — КАМПАНИЯ ЗАКРЫТА. Остатки в п.9/10/12/16/18/20/22
    и не-монстры (files.c:3215, questpgr.c:389).
 
-2a. Английские видимые литералы (87 в 34 файлах). Закрыты батчи №1-4
-   (осталось ~11): ball.c, explode.c, region.c, sounds.c, mkobj.c,
+2a. Английские видимые литералы (87 в 34 файлах). Закрыты батчи №1-5
+   (осталось 1): ball.c, explode.c, region.c, sounds.c, mkobj.c,
    priest.c, wizard.c, steed.c, invent.c, apply.c, attrib.c, pager.c,
    wizcmds.c, mail.c, bones.c, engrave.c, o_init.c, dig.c, end.c,
    exper.c, hack.c, mplayer.c, polyself.c, read.c, options.c,
-   cfgfiles.c, files.c. Остаток: mkmaze.c 4 (отладка), shknam.c 3,
-   display.c 2 (отладка), nhlua.c 2, makemon.c 1 (отладка),
-   shk.c 1 (мёртвый код #if 0), uhitm.c 1 (on_fire — отложено:
-   общий текст для героя и монстра).
-   Полный список — temp\eng2.txt.
+   cfgfiles.c, files.c, mkmaze.c, nhlua.c, shknam.c, display.c.
+   Остаток: uhitm.c 1 (on_fire — отложено: общий текст для героя и
+   монстра). Мёртвый код shk.c (#if 0) и makemon.c (HPUX-only) — вне
+   охвата. Полный список — temp\eng2.txt.
 
 ### Средний приоритет
 

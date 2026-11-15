@@ -642,12 +642,13 @@ shkinit(const struct shclass *shp, struct mkroom *sroom)
             int j = sroom->doorct;
 
             impossible("Where is shopdoor?");
-            pline("Room at (%d,%d),(%d,%d).", sroom->lx, sroom->ly, sroom->hx,
-                  sroom->hy);
+            pline("Комната в (%d,%d),(%d,%d).", sroom->lx,
+                  sroom->ly, sroom->hx, sroom->hy);
             pline("doormax=%d doorct=%d fdoor=%d", gd.doorindex, sroom->doorct,
                   sh);
             while (j--) {
-                pline("door [%d,%d]", svd.doors[sh].x, svd.doors[sh].y);
+                pline("дверь [%d,%d]", svd.doors[sh].x,
+                      svd.doors[sh].y);
                 sh++;
             }
             display_nhwindow(WIN_MESSAGE, FALSE);
