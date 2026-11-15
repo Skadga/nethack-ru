@@ -1738,7 +1738,8 @@ maybe_adjust_light(struct obj *obj, int old_range)
                    when changing intensity, using "less brightly" is
                    straightforward for dimming, but we need "brighter"
                    rather than "more brightly" for brightening; ugh */
-                pline("%s %s %s%s.", buf, otense(obj, "светитс€"),
+                pline("%s %s %s%s.", buf,
+                      (obj->quan == 1L) ? "светитс€" : "свет€тс€",
                       (abs(delta) > 1) ? "намного " : "",
                       (delta > 0) ? "€рче" : "тусклее");
             }
