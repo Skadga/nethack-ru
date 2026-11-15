@@ -1352,10 +1352,10 @@ really_done(int how)
         /* give this feedback even if bones aren't going to be created,
            so that its presence or absence doesn't tip off the player to
            new bones or their lack; it might be a lie if makemon fails */
-        Your("%s as %s...",
+        Your("%s: %s...",
              (u.ugrave_arise != PM_GREEN_SLIME)
-                 ? "body rises from the dead"
-                 : "revenant persists",
+                 ? "Тело восстаёт из мёртвых"
+                 : "Призрак не исчезает",
              an(pmname(&mons[u.ugrave_arise], Ugender)));
         display_nhwindow(WIN_MESSAGE, FALSE);
     }

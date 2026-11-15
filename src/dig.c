@@ -2247,13 +2247,13 @@ escape_tomb(void)
             || (unsolid(gy.youmonst.data)
                 && gy.youmonst.data != &mons[PM_WATER_ELEMENTAL])
             || (tunnels(gy.youmonst.data) && !needspick(gy.youmonst.data))) {
-            You("%s up through the %s.",
+            You("%s в %s.",
                 (tunnels(gy.youmonst.data) && !needspick(gy.youmonst.data))
-                   ? "try to tunnel"
+                   ? "пробиваетесь"
                    : (amorphous(gy.youmonst.data))
-                      ? "ooze"
-                      : "phase",
-                surface(u.ux, u.uy));
+                      ? "просачиваетесь"
+                      : "проходите",
+                surface_ru(u.ux, u.uy));
 
             good = (tunnels(gy.youmonst.data) && !needspick(gy.youmonst.data))
                       ? dighole(TRUE, FALSE, (coord *) 0) : TRUE;

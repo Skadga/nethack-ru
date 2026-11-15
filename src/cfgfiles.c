@@ -1547,7 +1547,7 @@ config_erradd(const char *buf)
     const char *punct;
 
     if (!buf || !*buf)
-        buf = "Unknown error";
+        buf = "Неизвестная ошибка";
 
     /* if buf[] doesn't end in a period, exclamation point, or question mark,
        we'll include a period (in the message, not appended to buf[]) */
@@ -1580,11 +1580,11 @@ config_erradd(const char *buf)
         config_error_data->origline_shown = TRUE;
     }
     if (config_error_data->line_num > 0 && !config_error_data->secure) {
-        Sprintf(lineno, "Line %d: ", config_error_data->line_num);
+        Sprintf(lineno, "Строка %d: ", config_error_data->line_num);
     } else
         lineno[0] = '\0';
 
-    pline("%s %s%s%s", config_error_data->secure ? "Error:" : " *",
+    pline("%s %s%s%s", config_error_data->secure ? "Ошибка:" : " *",
           lineno, buf, punct);
 }
 
@@ -1607,9 +1607,7 @@ config_error_done(void)
     }
 #endif
     if (n) {
-        boolean cmdline = !strcmp(config_error_data->source, "command line");
-
-        pline("\n%d error%s %s %s.\n", n, plur(n), cmdline ? "on" : "in",
+        pline("\nОшибок: %d — %s.\n", n,
               *config_error_data->source ? config_error_data->source
                                          : configfile);
         wait_synch();

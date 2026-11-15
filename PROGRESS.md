@@ -86,6 +86,22 @@
   растворяется/сжимается, контейнер легче, «Оно/Они светится/светятся
   ярче/тусклее»; priest.c:130 + wizard.c:444 «подбирает»; steed.c
   «падает в воду»/«соскальзывает в лаву»; invent.c подсказка команды.
+- Батч №3 (dc425cc): attrib.c — plusattr/minusattr/attrname/exertext,
+  «<Атрибут>: врождённое значение улучшилось/ухудшилось», «на пределе»,
+  «чувствуете себя очень сильными», «должно быть, ...»/«видимо, не ...»;
+  apply.c — свисток (Deaf-ветка), потрескивает/мерцает, загорается/
+  кажется тёплым, «не водолазная лампа», verbalize без itself; pager.c —
+  «не показано ни одного ...», «и это сделали вы», «Спросите о '&'»,
+  «Какая команда?».
+- Батч №4: attrib.c — gainstr/losestr в творительном падеже, шаблоны
+  «себя %s!»/«себя менее %s!»; wizard.c — амулет обжигает/тёплый, «с
+  ужасом чувствуете...», «замечаете ... сияние», «злобно смеётся»;
+  wizcmds.c — принюхивание, «не издаёте запаха», «Таймаут для»,
+  «Мигрируют:»; mail.c, bones.c; engrave.c — everb2 (1-е лицо),
+  eloc=surface_ru, иней/пыль, «заканчиваете %s»; o_init.c — меню
+  открытий; dig.c — surface_ru; end.c, exper.c, hack.c (люк/дыра),
+  mplayer.c (реплики), polyself.c, read.c, options.c, cfgfiles.c,
+  files.c. Сборка Release x64: 0 ошибок, новых warning'ов нет.
 
 ## Что осталось
 
@@ -98,14 +114,16 @@
 2. s_suffix — КАМПАНИЯ ЗАКРЫТА. Остатки в п.9/10/12/16/18/20/22
    и не-монстры (files.c:3215, questpgr.c:389).
 
-2a. Английские видимые литералы (87 в 34 файлах). Батч №1 закрыт:
-   ball.c, explode.c, region.c, sounds.c (16 мест). Остаток:
-   wizard.c 7, mkobj.c 6, apply.c 4, attrib.c 4, mkmaze.c 4,
-   wizcmds.c 4, cfgfiles.c 3, files.c 3, mail.c 3, options.c 3,
-   pager.c 3, shknam.c 3, bones.c 2, display.c 2, engrave.c 2,
-   nhlua.c 2, o_init.c 2, steed.c 2, dig.c/end.c/exper.c/hack.c/
-   invent.c/makemon.c/mplayer.c/polyself.c/priest.c/read.c/shk.c/
-   uhitm.c по 1. Полный список — temp\eng2.txt.
+2a. Английские видимые литералы (87 в 34 файлах). Закрыты батчи №1-4
+   (осталось ~11): ball.c, explode.c, region.c, sounds.c, mkobj.c,
+   priest.c, wizard.c, steed.c, invent.c, apply.c, attrib.c, pager.c,
+   wizcmds.c, mail.c, bones.c, engrave.c, o_init.c, dig.c, end.c,
+   exper.c, hack.c, mplayer.c, polyself.c, read.c, options.c,
+   cfgfiles.c, files.c. Остаток: mkmaze.c 4 (отладка), shknam.c 3,
+   display.c 2 (отладка), nhlua.c 2, makemon.c 1 (отладка),
+   shk.c 1 (мёртвый код #if 0), uhitm.c 1 (on_fire — отложено:
+   общий текст для героя и монстра).
+   Полный список — temp\eng2.txt.
 
 ### Средний приоритет
 

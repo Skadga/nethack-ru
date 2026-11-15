@@ -923,10 +923,13 @@ wiz_smell(void)
         /* Is it a monster? */
         if (mptr) {
             if (is_you)
-                You("surreptitiously sniff under your %s.", body_part(ARM));
-            if (!usmellmon(mptr))
-                pline("%s to not give off any smell.",
-                      is_you ? "You seem" : "That monster seems");
+                You("украдкой принюхиваетесь под %s.", body_part_case(ARM, BP_INS));
+            if (!usmellmon(mptr)) {
+                if (is_you)
+                    pline("Вы, похоже, не издаёте никакого запаха.");
+                else
+                    pline("Этот монстр, похоже, не издаёт никакого запаха.");
+            }
             if (!glyph_is_monster(glyph))
                 map_invisible(cc.x, cc.y);
         } else {
@@ -1073,8 +1076,8 @@ wiz_intrinsic(void)
                 if (p != GLIB)
                     incr_itimeout(&u.uprops[p].intrinsic, amt);
                 disp.botl = TRUE; /* have pline() do a status update */
-                pline("Timeout for %s %s %d.", propname,
-                      oldtimeout ? "increased by" : "set to", amt);
+                pline("Таймаут для %s %s %d.", propname,
+                      oldtimeout ? "увеличен на" : "установлен в", amt);
                 break;
             }
             /* this has to be after incr_itimeout() */
@@ -1526,9 +1529,9 @@ list_migrating_mons(
     if (here + nxtlv + other == 0) {
         pline("Сейчас никакие монстры не мигрируют.");
     } else {
-        pline(
-      "%d mon%s pending for current level, %d for next level, %d for others.",
-              here, plur(here), nxtlv, other);
+        pline("Мигрируют: %d на текущем уровне,"
+              " %d на следующем, %d на остальных.",
+              here, nxtlv, other);
         prmpt[0] = xtra[0] = '\0';
         (void) strkitten(here ? prmpt : xtra, 'c');
         (void) strkitten(nxtlv ? prmpt : xtra, 'n');

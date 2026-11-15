@@ -954,8 +954,8 @@ polymon(int mntmp)
 
     if (u.usteed) {
         if (touch_petrifies(u.usteed->data) && !Stone_resistance && rnl(3)) {
-            pline("%s touch %s.", no_longer_petrify_resistant,
-                  mon_nam(u.usteed));
+            pline("%s касаетесь скакуна.",
+                  no_longer_petrify_resistant);
             Sprintf(buf, "riding %s",
                     an(pmname(u.usteed->data, Mgender(u.usteed))));
             instapetrify(buf);

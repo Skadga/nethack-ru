@@ -339,7 +339,7 @@ md_rush(struct monst *md,
             if (mon)
                 verbalize1(md_exclamations());
             else if (u_at(fx, fy))
-                verbalize("Excuse me.");
+                verbalize("Простите.");
         }
 
         if (mon)
@@ -370,7 +370,7 @@ md_rush(struct monst *md,
         newsym(fx, fy);
         if (!Deaf) {
             SetVoice(md, 0, 80, 0);
-            verbalize("This place's too crowded.  I'm outta here.");
+            verbalize("Здесь слишком людно. Я ухожу.");
         } else {
             pline("%s.", Never_mind);
         }
@@ -431,7 +431,7 @@ newmail(struct mail_info *info)
         if (!m_next2u(md)) {
             if (!Deaf) {
                 SetVoice(md, 0, 80, 0);
-                verbalize("Catch!");
+                verbalize("Ловите!");
             } else {
                 /* don't bother with nonverbal alternative ... */
                 ;

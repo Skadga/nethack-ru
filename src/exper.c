@@ -221,7 +221,7 @@ losexp(
        without reducing level and that isn't fatal so suppress the message
        in that situation */
     if (u.ulevel > 1 || drainer)
-        pline("%s level %d.", Goodbye(), u.ulevel);
+        pline("%s, %d-й уровень.", Goodbye(), u.ulevel);
 
     if (u.ulevel > 1) {
         u.ulevel -= 1;

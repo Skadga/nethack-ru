@@ -32,8 +32,9 @@ struct _doengrave_ctx {
     char qbuf[QBUFSZ];        /* Buffer for query text */
     char post_engr_text[BUFSZ]; /* Text displayed after engraving prompt */
     char *writer;      /* text of item used for writing */
-    const char *everb; /* Present tense of engraving type */
-    const char *eloc;  /* Where the engraving is (ie dust/floor/...) */
+    const char *everb;  /* infinitive phrasing, for prompts */
+    const char *everb2; /* 1st person plural phrasing, for "You ..." */
+    const char *eloc;   /* Where the engraving is (ie dust/floor/...) */
 
     size_t len;          /* # of nonspace chars of new engraving text */
 };
@@ -899,27 +900,44 @@ doengrave_ctx_verb(struct _doengrave_ctx *de)
     default:
         de->everb = de->adding ? "дописать к странной надписи на"
                                : "странно писать на";
+        de->everb2 = de->adding ? "дописываете к странной надписи на"
+                                : "странно пишете на";
         break;
     case DUST:
         de->everb = de->adding ? "дописать к надписи в" : "писать в";
-        de->eloc = de->frosted ? "инея" : "пыль";
+        de->everb2 = de->adding ? "дописываете к надписи в"
+                                : "пишете в";
+        de->eloc = de->frosted ? "инее" : "пыли";
         break;
     case HEADSTONE:
         de->everb = de->adding ? "дописать к эпитафии на" : "выгравировать на";
+        de->everb2 = de->adding ? "дописываете к эпитафии на"
+                                : "выгравировываете на";
         break;
     case ENGRAVE:
         de->everb = de->adding ? "дописать к надписи в" : "гравировать в";
+        de->everb2 = de->adding ? "дописываете к надписи в"
+                                : "гравируете в";
         break;
     case BURN:
         de->everb = de->adding ? (de->frosted ? "дописать к тексту, впаянному в"
                                   : "дописать к тексту, выжженному в")
                        : (de->frosted ? "впаять в" : "выжечь в");
+        de->everb2 = de->adding
+                       ? (de->frosted
+                             ? "дописываете к тексту, впаянному в"
+                             : "дописываете к тексту, выжженному в")
+                       : (de->frosted ? "впаиваете в" : "выжигаете в");
         break;
     case MARK:
         de->everb = de->adding ? "дописать к граффити на" : "нацарапать на";
+        de->everb2 = de->adding ? "дописываете к граффити на"
+                                : "нацарапываете на";
         break;
     case ENGR_BLOOD:
         de->everb = de->adding ? "дописать к каракулям на" : "нацарапать на";
+        de->everb2 = de->adding ? "дописываете к каракулям на"
+                                : "нацарапываете на";
         break;
     }
 }
@@ -1168,21 +1186,21 @@ doengrave(void)
         }
     }
 
-    de->eloc = surface(u.ux, u.uy);
+    de->eloc = surface_ru(u.ux, u.uy);
     de->adding = (de->oep && !de->eow);
     doengrave_ctx_verb(de);
 
     /* Tell adventurer what is going on */
     if (de->otmp != &hands_obj)
-        You("%s the %s with %s%s.", de->everb, de->eloc,
+        You("%s %s %s%s.", de->everb2, de->eloc,
             /* since doname() yields "N items" when quantity is more than
                one, match that by using "1 of" rather than "one of" when
                informing the player that the stack will be split */
-            (de->type == ENGRAVE && de->otmp->quan > 1L) ? "1 of " : "",
+            (de->type == ENGRAVE && de->otmp->quan > 1L) ? "1 из " : "",
             doname(de->otmp));
     else
         You("%s %s вашим %s.",
-            de->everb, de->eloc, body_part_case(FINGERTIP, BP_INS));
+            de->everb2, de->eloc, body_part_case(FINGERTIP, BP_INS));
 
     /* Prompt for engraving! */
     Sprintf(de->qbuf, "Что вы хотите %s на %s здесь?",
@@ -1411,7 +1429,7 @@ engrave(void)
 
     switch (svc.context.engraving.type) {
     default:
-        finishverb = "твою странную надпись";
+        finishverb = "вашу странную надпись";
         break;
     case DUST:
         finishverb = is_ice(u.ux, u.uy) ? "писание в инее"
@@ -1422,14 +1440,14 @@ engrave(void)
         finishverb = "гравировку";
         break;
     case BURN:
-        finishverb = is_ice(u.ux, u.uy) ? "вплавление твоего послания в лёд"
-                     : "выжигание твоего послания в пол";
+        finishverb = is_ice(u.ux, u.uy) ? "вплавление вашего послания в лёд"
+                     : "выжигание вашего послания в полу";
         break;
     case MARK:
-        finishverb = "портит подземелье";
+        finishverb = "порчу подземелья";
         break;
     case ENGR_BLOOD:
-        finishverb = "царапать";
+        finishverb = "царапание";
     }
 
     /* actions that happen at the end of every engraving action go here */
@@ -1482,7 +1500,7 @@ engrave(void)
             You("больше не можете писать.");
         } else if (!firsttime) {
             /* only print this if engraving took multiple actions */
-            You("finish %s.", finishverb);
+            You("заканчиваете %s.", finishverb);
         }
         svc.context.engraving.text[0] = '\0';
         svc.context.engraving.nextc = (char *) 0;

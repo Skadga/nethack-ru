@@ -1701,7 +1701,8 @@ docompress_file(const char *filename, boolean uncomp)
         nh_terminate(EXIT_FAILURE);
     } else if (f == -1) {
         perror((char *) 0);
-        pline("Fork to %scompress %s failed.", uncomp ? "un" : "", filename);
+        pline("Не удалось запустить %sсжатие файла %s.",
+              uncomp ? "рас" : "", filename);
         free((genericptr_t) cfn);
         return;
     }
@@ -1858,7 +1859,7 @@ docompress_file(const char *filename, boolean uncomp)
 
         uncompressedfile = fopen(filename, RDBMODE);
         if (!uncompressedfile) {
-            pline("Error in zlib docompress_file %s", filename);
+            pline("Ошибка zlib в docompress_file: %s", filename);
             return;
         }
         compressedfile = gzopen(cfn, "wb");
@@ -1935,7 +1936,7 @@ docompress_file(const char *filename, boolean uncomp)
         }
         uncompressedfile = fopen(filename, WRBMODE);
         if (!uncompressedfile) {
-            pline("Error in zlib docompress file uncompress %s", filename);
+            pline("Ошибка zlib при распаковке: %s", filename);
             gzclose(compressedfile);
 #ifdef SFCTOOL
             free(cfn);

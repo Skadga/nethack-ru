@@ -357,21 +357,21 @@ mplayer_talk(struct monst *mtmp)
 {
     static const char
         *same_class_msg[3] = {
-            "I can't win, and neither will you!",
+            "Мне не выиграть, и тебе тоже!",
             "Вы не заслужили победы!",
-            "Mine should be the honor, not yours!",
+            "Награда должна достаться мне, а не вам!",
         },
         *other_class_msg[3] = {
-            "The low-life wants to talk, eh?",
-            "Fight, scum!",
-            "Here is what I have to say!",
+            "Эта шваль хочет поговорить, да?",
+            "Сражайся, мразь!",
+            "Вот что я хочу сказать!",
         };
 
     if (mtmp->mpeaceful)
         return; /* will drop to humanoid talk */
 
     SetVoice(mtmp, 0, 80, 0);
-    verbalize("Talk? -- %s", mtmp->data == &mons[gu.urole.mnum]
+    verbalize("Поговорим? -- %s", mtmp->data == &mons[gu.urole.mnum]
                                 ? same_class_msg[rn2(3)]
                                 : other_class_msg[rn2(3)]);
 }

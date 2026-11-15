@@ -549,14 +549,10 @@ moverock_core(coordxy sx, coordxy sy)
                         pline("Бульк! Вы больше не чувствуете %s.",
                               the(xname(otmp)));
                     else
-                        pline("%s%s and %s a %s in the %s!",
-                              Tobjnam(otmp, (ttmp->ttyp == TRAPDOOR)
-                                                ? "trigger"
-                                                : "fall"),
-                              (ttmp->ttyp == TRAPDOOR) ? "" : " into",
-                              otense(otmp, "plug"),
-                              (ttmp->ttyp == TRAPDOOR) ? "trap door" : "hole",
-                              surface(rx, ry));
+                        pline("%s %s!", Tobjnam(otmp, (char *) 0),
+                              (ttmp->ttyp == TRAPDOOR)
+                                  ? "срабатывает и закупоривает люк"
+                                  : "падает и закупоривает дыру");
                     deltrap(ttmp);
                     useupf(otmp, 1L);
                     bury_objs(rx, ry);

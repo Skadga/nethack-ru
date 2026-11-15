@@ -75,11 +75,11 @@ amulet(void)
             if (ttmp->ttyp == MAGIC_PORTAL) {
                 int du = distu(ttmp->tx, ttmp->ty);
                 if (du <= 9)
-                    pline("%s hot!", Tobjnam(amu, "feel"));
+                    pline("%s %s!", Tobjnam(amu, (char *) 0), "обжигает");
                 else if (du <= 64)
-                    pline("%s very warm.", Tobjnam(amu, "feel"));
+                    pline("%s %s.", Tobjnam(amu, (char *) 0), "очень тёплый");
                 else if (du <= 144)
-                    pline("%s warm.", Tobjnam(amu, "feel"));
+                    pline("%s %s.", Tobjnam(amu, (char *) 0), "тёплый");
                 /* else, the amulet feels normal */
                 break;
             }
@@ -96,7 +96,7 @@ amulet(void)
             mtmp->msleeping = 0;
             if (!m_next2u(mtmp))
                 You(
-      "get the creepy feeling that somebody noticed your taking the Amulet.");
+      "с ужасом чувствуете, что кто-то заметил, как вы взяли Амулет.");
             return;
         }
     }
@@ -794,7 +794,7 @@ intervene(void)
         break;
     case 2:
         if (!Blind)
-            You("notice a %s glow surrounding you.", hcolor(NH_BLACK));
+            You("замечаете %s сияние вокруг себя.", hcolor(NH_BLACK));
         rndcurse();
         break;
     case 3:
@@ -849,7 +849,7 @@ cuss(struct monst *mtmp)
         return;
     if (mtmp->iswiz) {
         if (!rn2(5)) { /* typical bad guy action */
-            pline("%s laughs fiendishly.", Monnam(mtmp));
+            pline("%s злобно смеётся.", Monnam(mtmp));
         } else if (u.uhave.amulet && !rn2(SIZE(random_insult))) {
             SetVoice(mtmp, 0, 80, 0);
             verbalize("Верни амулет, %s!",

@@ -662,7 +662,7 @@ getbones(void)
     program_state.reading_bonesfile = 1;
     if (validate(nhfp, gb.bones, FALSE) != SF_UPTODATE) {
         if (!wizard)
-            pline("Discarding unusable bones; no need to panic...");
+            pline("ќтбрасываю непригодные кости; паниковать не нужно...");
         ok = FALSE;
         program_state.reading_bonesfile = 0;
     } else {
@@ -804,9 +804,9 @@ fix_ghostly_obj(struct obj *obj)
         case ORCISH_BOW:
         case YUMI:
         case BOOMERANG:
-            You("make adjustments to %s to suit your %s hand.",
+            You("приспосабливаете %s к своей %s руке.",
                 the(xname(obj)),
-                URIGHTY ? "right" : "left");
+                URIGHTY ? "правой" : "левой");
             break;
         default:
             break;

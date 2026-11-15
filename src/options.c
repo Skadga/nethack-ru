@@ -4001,8 +4001,8 @@ optfn_sortvanquished(
         (void) set_vanq_order(TRUE); /* insight.c */
         pline("'%s' %s \"%s: %s\".", optname,
               (flags.vanq_sortmode == prev_sortmode)
-                 ? "not changed, still"
-                 : "changed to",
+                 ? "не изменено, по-прежнему"
+                 : "изменено на",
               vanqorders[flags.vanq_sortmode][0],
               vanqorders[flags.vanq_sortmode][1]);
     }
@@ -4512,7 +4512,8 @@ optfn_versinfo(
         /* return handler_versinfo(); */
         (void) handler_versinfo();
         pline("'%s' %s %u.", optname,
-              (flags.versinfo == vi) ? "not changed, still" : "changed to",
+              (flags.versinfo == vi) ? "не изменено, по-прежнему"
+                                     : "изменено на",
               flags.versinfo);
     } else if (req == get_val) {
         char vbuf[QBUFSZ];
@@ -7580,7 +7581,7 @@ feature_alert_opts(char *op, const char *optn)
         Sprintf(buf, "%lu.%lu.%lu", FEATURE_NOTICE_VER_MAJ,
                 FEATURE_NOTICE_VER_MIN, FEATURE_NOTICE_VER_PATCH);
         pline(
-          "Feature change alerts disabled for NetHack %s features and prior.",
+          "Оповещения об изменениях отключены для NetHack %s и более ранних версий.",
               buf);
     }
     return 1;

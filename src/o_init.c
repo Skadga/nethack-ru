@@ -891,10 +891,10 @@ int
 doclassdisco(void)
 {
     static NEARDATA const char
-        prompt[] = "View discoveries for which sort of objects?",
-        havent_discovered_any[] = "haven't discovered any %s yet.",
-        unique_items[] = "unique items or relics",
-        artifact_items[] = "artifacts";
+        prompt[] = "Открытия какого рода предметов показать?",
+        havent_discovered_any[] = "пока не открыли ничего из раздела «%s».",
+        unique_items[] = "уникальные предметы и реликвии",
+        artifact_items[] = "артефакты";
     winid tmpwin = WIN_ERR;
     menu_item *pick_list = 0;
     anything any;
@@ -1066,7 +1066,7 @@ doclassdisco(void)
            but requires at least one artifact discovery for other styles
            [could fix that by forcing the 'a' choice into the pick-class
            menu when running in wizard mode] */
-        if (wizard && y_n("Dump information about all artifacts?") == 'y') {
+        if (wizard && y_n("Вывести сведения обо всех артефактах?") == 'y') {
             dump_artifact_info(tmpwin);
             ct = NROFARTIFACTS; /* non-zero vs zero is what matters below */
             break;
@@ -1081,10 +1081,11 @@ doclassdisco(void)
         /* this should never happen but has been observed via the fuzzer */
         if (oclass == MAXOCLASSES)
             impossible("doclassdisco: invalid object class '%s'", visctrl(c));
-        Sprintf(buf, "Discovered %s in %s", let_to_name(oclass, FALSE, FALSE),
-                (flags.discosort == 'o') ? "order of discovery"
-                : (flags.discosort == 's') ? "'sortloot' order"
-                  : "alphabetical order");
+        Sprintf(buf, "Открытия: %s, порядок: %s",
+                let_to_name(oclass, FALSE, FALSE),
+                (flags.discosort == 'o') ? "по мере обнаружения"
+                : (flags.discosort == 's') ? "по 'sortloot'"
+                  : "по алфавиту");
         putstr(tmpwin, 0, buf); /* skip iflags.menu_headings */
         sorted_ct = 0;
         for (i = svb.bases[(int) oclass]; i <= svb.bases[oclass + 1] - 1;
@@ -1178,11 +1179,11 @@ rename_disco(void)
         }
     }
     if (ct == 0) {
-        You("haven't discovered anything yet...");
+        You("пока ничего не открыли...");
     } else if (mn == 0) {
         pline("Ни одному из ваших открытий не можно присвоить имя...");
     } else {
-        end_menu(tmpwin, "Pick an object type to name");
+        end_menu(tmpwin, "Выберите тип предмета, чтобы дать имя");
         dis = STRANGE_OBJECT;
         sl = select_menu(tmpwin, PICK_ONE, &selected);
         if (sl > 0) {

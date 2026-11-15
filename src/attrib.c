@@ -27,66 +27,66 @@ static const struct innate {
     long *ability;
     const char *gainstr, *losestr;
 } arc_abil[] = { { 1, &(HSearching), "", "" },
-                 { 5, &(HStealth), "stealthy", "" },
-                 { 10, &(HFast), "quick", "slow" },
+                 { 5, &(HStealth), "скрытным", "" },
+                 { 10, &(HFast), "быстрым", "медленным" },
                  { 0, 0, 0, 0 } },
 
   bar_abil[] = { { 1, &(HPoison_resistance), "", "" },
-                 { 7, &(HFast), "quick", "slow" },
-                 { 15, &(HStealth), "stealthy", "" },
+                 { 7, &(HFast), "быстрым", "медленным" },
+                 { 15, &(HStealth), "скрытным", "" },
                  { 0, 0, 0, 0 } },
 
-  cav_abil[] = { { 7, &(HFast), "quick", "slow" },
-                 { 15, &(HWarning), "sensitive", "" },
+  cav_abil[] = { { 7, &(HFast), "быстрым", "медленным" },
+                 { 15, &(HWarning), "чутким", "" },
                  { 0, 0, 0, 0 } },
 
   hea_abil[] = { { 1, &(HPoison_resistance), "", "" },
-                 { 15, &(HWarning), "sensitive", "" },
+                 { 15, &(HWarning), "чутким", "" },
                  { 0, 0, 0, 0 } },
 
-  kni_abil[] = { { 7, &(HFast), "quick", "slow" }, { 0, 0, 0, 0 } },
+  kni_abil[] = { { 7, &(HFast), "быстрым", "медленным" }, { 0, 0, 0, 0 } },
 
   mon_abil[] = { { 1, &(HFast), "", "" },
                  { 1, &(HSleep_resistance), "", "" },
                  { 1, &(HSee_invisible), "", "" },
-                 { 3, &(HPoison_resistance), "healthy", "" },
-                 { 5, &(HStealth), "stealthy", "" },
-                 { 7, &(HWarning), "sensitive", "" },
-                 { 9, &(HSearching), "perceptive", "unaware" },
-                 { 11, &(HFire_resistance), "cool", "warmer" },
-                 { 13, &(HCold_resistance), "warm", "cooler" },
-                 { 15, &(HShock_resistance), "insulated", "conductive" },
-                 { 17, &(HTeleport_control), "controlled", "uncontrolled" },
+                 { 3, &(HPoison_resistance), "здоровым", "" },
+                 { 5, &(HStealth), "скрытным", "" },
+                 { 7, &(HWarning), "чутким", "" },
+                 { 9, &(HSearching), "проницательным", "невнимательным" },
+                 { 11, &(HFire_resistance), "невосприимчивым к огню", "уязвимым к огню" },
+                 { 13, &(HCold_resistance), "невосприимчивым к холоду", "уязвимым к холоду" },
+                 { 15, &(HShock_resistance), "изолированным от электричества", "проводящим электричество" },
+                 { 17, &(HTeleport_control), "контролирующим телепортацию", "не контролирующим телепортацию" },
                  { 0, 0, 0, 0 } },
 
-  pri_abil[] = { { 15, &(HWarning), "sensitive", "" },
-                 { 20, &(HFire_resistance), "cool", "warmer" },
+  pri_abil[] = { { 15, &(HWarning), "чутким", "" },
+                 { 20, &(HFire_resistance), "невосприимчивым к огню", "уязвимым к огню" },
                  { 0, 0, 0, 0 } },
 
   ran_abil[] = { { 1, &(HSearching), "", "" },
-                 { 7, &(HStealth), "stealthy", "" },
+                 { 7, &(HStealth), "скрытным", "" },
                  { 15, &(HSee_invisible), "", "" },
                  { 0, 0, 0, 0 } },
 
   rog_abil[] = { { 1, &(HStealth), "", "" },
-                 { 10, &(HSearching), "perceptive", "" },
+                 { 10, &(HSearching), "проницательным", "" },
                  { 0, 0, 0, 0 } },
 
   sam_abil[] = { { 1, &(HFast), "", "" },
-                 { 15, &(HStealth), "stealthy", "" },
+                 { 15, &(HStealth), "скрытным", "" },
                  { 0, 0, 0, 0 } },
 
-  tou_abil[] = { { 10, &(HSearching), "perceptive", "" },
-                 { 20, &(HPoison_resistance), "hardy", "" },
+  tou_abil[] = { { 10, &(HSearching), "проницательным", "" },
+                 { 20, &(HPoison_resistance), "выносливым", "" },
                  { 0, 0, 0, 0 } },
 
   val_abil[] = { { 1, &(HCold_resistance), "", "" },
-                 { 3, &(HStealth), "stealthy", "" },
-                 { 7, &(HFast), "quick", "slow" },
+                 { 3, &(HStealth), "скрытным", "" },
+                 { 7, &(HFast), "быстрым", "медленным" },
                  { 0, 0, 0, 0 } },
 
-  wiz_abil[] = { { 15, &(HWarning), "sensitive", "" },
-                 { 17, &(HTeleport_control), "controlled", "uncontrolled" },
+  wiz_abil[] = { { 15, &(HWarning), "чутким", "" },
+                 { 17, &(HTeleport_control), "контролирующим телепортацию", "не контролирующим телепортацию" },
                  { 0, 0, 0, 0 } },
 
   /* Intrinsics conferred by race */
@@ -94,7 +94,7 @@ static const struct innate {
                  { 0, 0, 0, 0 } },
 
   elf_abil[] = { { 1, &HInfravision, "", "" },
-                 { 4, &HSleep_resistance, "awake", "tired" },
+                 { 4, &HSleep_resistance, "бодрым", "сонливым" },
                  { 0, 0, 0, 0 } },
 
   gno_abil[] = { { 1, &HInfravision, "", "" },
@@ -1064,15 +1064,15 @@ adjabil(int oldlevel, int newlevel)
                 *(abil->ability) |= mask;
             if (!(*(abil->ability) & INTRINSIC & ~mask)) {
                 if (*(abil->gainstr))
-                    You_feel("%s!", abil->gainstr);
+                    You_feel("себя %s!", abil->gainstr);
             }
         } else if (oldlevel >= abil->ulevel && newlevel < abil->ulevel) {
             *(abil->ability) &= ~mask;
             if (!(*(abil->ability) & INTRINSIC)) {
                 if (*(abil->losestr))
-                    You_feel("%s!", abil->losestr);
+                    You_feel("себя %s!", abil->losestr);
                 else if (*(abil->gainstr))
-                    You_feel("less %s!", abil->gainstr);
+                    You_feel("себя менее %s!", abil->gainstr);
             }
         }
         if (prevabil != *(abil->ability)) /* it changed */
