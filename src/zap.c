@@ -5762,7 +5762,7 @@ item_what(int dmgtyp)
         /* format the output to be ready for enl_msg() to append it to
            "Your items {are,were} protected against <damage-type>" */
         if (what) /* strlen(what) will be less than 30 */
-            Sprintf(whatbuf, " вашей %.40s", what);
+            Sprintf(whatbuf, " (%.40s)", what);
     }
     return whatbuf;
 }

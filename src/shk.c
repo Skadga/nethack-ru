@@ -707,9 +707,11 @@ rob_shop(struct monst *shkp)
     /* by this point, we know an actual robbery has taken place */
     eshkp->robbed += total;
     You("украли товара на %ld %s.", total, currency(total));
-    livelog_printf(LL_ACHIEVE, "украл товара на %ld %s из %s %s",
-                   total, currency(total), s_suffix(shkname(shkp)),
-                   shtypes[eshkp->shoptype - SHOPBASE].name);
+    livelog_printf(LL_ACHIEVE, "украл товара на %ld %s из %s «%s»",
+                   total, currency(total),
+                   shoptype_case(shoptype_name(eshkp->shoptype - SHOPBASE),
+                                 BP_GEN),
+                   shkname(shkp));
 
     if (!Role_if(PM_ROGUE)) /* stealing is unlawful */
         adjalign(-sgn(u.ualign.type));
@@ -813,8 +815,10 @@ u_entered_shop(char *enterstring)
     if (ANGRY(shkp)) {
         if (!Deaf && !muteshk(shkp)) {
             SetVoice(shkp, 0, 80, 0);
-            verbalize("Итак, %s, вы посмели вернуться в %s %s?!", svp.plname,
-                      s_suffix(shkname(shkp)), shtypes[rt - SHOPBASE].name);
+            verbalize("Итак, %s, вы посмели вернуться в %s «%s»?!",
+                      svp.plname,
+                      shoptype_case(shoptype_name(rt - SHOPBASE), BP_PREP),
+                      shkname(shkp));
         } else {
             pline("%s, похоже, %s из-за вашего возвращения в %s %s!",
                   Shknam(shkp), ROLL_FROM(angrytexts),
@@ -828,8 +832,9 @@ u_entered_shop(char *enterstring)
                       svp.plname,
                       mbodypart_case(shkp, EYE, BP_GEN | BP_PLURAL));
         } else {
-            pline("Атмосфера в %s %s недружелюбная.",
-                      s_suffix(shkname(shkp)), shtypes[rt - SHOPBASE].name);
+            pline("Атмосфера в %s «%s» недружелюбная.",
+                  shoptype_case(shoptype_name(rt - SHOPBASE), BP_PREP),
+                  shkname(shkp));
         }
     } else if (eshkp->robbed) {
         if (!Deaf) {
@@ -843,13 +848,14 @@ u_entered_shop(char *enterstring)
     } else {
         if (!Deaf && !muteshk(shkp)) {
             set_voice(shkp, 0, 80, 0);
-            verbalize("%s, %s!  Добро пожаловать%s в %s %s!", Hello(shkp), svp.plname,
-                      eshkp->visitct++ ? " снова" : "",
-                      s_suffix(shkname(shkp)), shtypes[rt - SHOPBASE].name);
+            verbalize("%s, %s!  Добро пожаловать%s в %s «%s»!", Hello(shkp),
+                      svp.plname, eshkp->visitct++ ? " снова" : "",
+                      shoptype_case(shoptype_name(rt - SHOPBASE), BP_PREP),
+                      shkname(shkp));
         } else {
-            You("вошли в %s %s%s!",
-                s_suffix(shkname(shkp)),
-                shtypes[rt - SHOPBASE].name,
+            You("вошли в %s «%s»%s!",
+                shoptype_case(shoptype_name(rt - SHOPBASE), BP_PREP),
+                shkname(shkp),
                 eshkp->visitct++ ? " снова" : "");
         }
     }
@@ -1024,9 +1030,10 @@ shopper_financial_report(void)
                 continue;
             eshkp = ESHK(shkp);
             if ((amt = eshkp->credit) != 0)
-                You("имеете кредит в %ld %s в %s %s.", amt, currency(amt),
-                    s_suffix(shkname(shkp)),
-                    shtypes[eshkp->shoptype - SHOPBASE].name);
+                You("имеете кредит в %ld %s в %s «%s».", amt, currency(amt),
+                    shoptype_case(shoptype_name(eshkp->shoptype - SHOPBASE),
+                                  BP_PREP),
+                    shkname(shkp));
             else if (shkp == this_shkp)
                 You("не имеете здесь кредита.");
             if ((amt = shop_debt(eshkp)) != 0)
@@ -5859,7 +5866,7 @@ block_entry(coordxy x, coordxy y)
     return FALSE;
 }
 
-/* "your " or "Foobar's " (note the trailing space) */
+/* "ваш " or "неоплаченный " (note the trailing space) */
 char *
 shk_your(char *buf, struct obj *obj)
 {
@@ -5898,7 +5905,7 @@ shk_owns(char *buf, struct obj *obj)
         shkp = shop_keeper(inside_shop(x, y));
         if (!shkp)
             return (char *) 0;
-        return strcpy(buf, s_suffix(shkname(shkp)));
+        return strcpy(buf, "неоплаченный");
     }
     return (char *) 0;
 }

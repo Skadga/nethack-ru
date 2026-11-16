@@ -565,7 +565,7 @@ wash_hands(void)
         uarmg ? " в перчатках" : "", hliquid("вода"));
     if (Glib) {
         make_glib(0);
-        Your("%s больше не скользкие.", fingers_or_gloves(TRUE, BP_INS));
+        Your("%s больше не скользкие.", fingers_or_gloves(TRUE, BP_NOM));
     }
     if (uarmg)
         res = water_damage(uarmg, (const char *) 0, TRUE);
@@ -724,7 +724,7 @@ dipsink(struct obj *obj)
            since sink will be converted into a fountain, hero can dip again */
         breaksink(u.ux, u.uy); /* "The pipes break!  Water spurts out!" */
         if (Glib && is_hands)
-            Your("%s всё ещё скользкие.", fingers_or_gloves(TRUE, BP_INS));
+            Your("%s всё ещё скользкие.", fingers_or_gloves(TRUE, BP_NOM));
         return;
     } else if (is_hands) {
         (void) wash_hands();

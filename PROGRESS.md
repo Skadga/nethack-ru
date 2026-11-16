@@ -120,6 +120,14 @@
   muse.c «прыгает»); makeplural убран; monverbself() больше не
   принимает русский глагол за множественное число. Сборка Release
   x64: 0 ошибок.
+- Батч №8 (0c4f17a): fountain.c — fingers_or_gloves() в именительном
+  падеже; trap.c — helm_material_ru() (родовые формы прилагательных по
+  hard_helmet), «рубашка» как подлежащее в water_damage(); zap.c —
+  item_what() даёт « (шлем)» без «вашей»; apply.c — snuff_candle() без
+  английских 's/is/are («Пламя свечи/свечей/подсвечника гаснет.»);
+  shk.c — лавки «Имя» с падежом shoptype_case(shoptype_name(...)),
+  shk_owns() вместо s_suffix() возвращает «неоплаченный». Сборка
+  Release x64: 0 ошибок, новых warning'ов нет.
 
 ## Что осталось
 

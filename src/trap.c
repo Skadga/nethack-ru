@@ -108,6 +108,70 @@ static const char *const blindgas[6] = { "гнилостного", "удушливого",
                                          "едкого",   "леденящего",
                                          "резкого",  "кусачего" };
 
+/* Russian material adjective for a helm or hat, with gender matching
+   helm_simple_name(); the result includes a trailing space, or is empty
+   when the material has no adjective */
+static const char *
+helm_material_ru(struct obj *item)
+{
+    boolean hat = !hard_helmet(item);
+
+    switch (objects[item->otyp].oc_material) {
+    case WAX:
+        return hat ? "восковая " : "восковой ";
+    case VEGGY:
+        return hat ? "растительная "
+                   : "растительный ";
+    case FLESH:
+        return hat ? "мясная " : "мясной ";
+    case PAPER:
+        return hat ? "бумажная " : "бумажный ";
+    case CLOTH:
+        return hat ? "тканевая " : "тканевый ";
+    case LEATHER:
+        return hat ? "кожаная " : "кожаный ";
+    case WOOD:
+        return hat ? "деревянная "
+                   : "деревянный ";
+    case BONE:
+        return hat ? "костяная " : "костяной ";
+    case DRAGON_HIDE:
+        return hat ? "драконья " : "драконий ";
+    case IRON:
+        return hat ? "железная " : "железный ";
+    case METAL:
+        return hat ? "металлическая "
+                   : "металлический ";
+    case COPPER:
+        return hat ? "медная " : "медный ";
+    case SILVER:
+        return hat ? "серебряная "
+                   : "серебряный ";
+    case GOLD:
+        return hat ? "золотая " : "золотой ";
+    case PLATINUM:
+        return hat ? "платиновая "
+                   : "платиновый ";
+    case MITHRIL:
+        return hat ? "мифриловая "
+                   : "мифриловый ";
+    case PLASTIC:
+        return hat ? "пластиковая "
+                   : "пластиковый ";
+    case GLASS:
+        return hat ? "стеклянная "
+                   : "стеклянный ";
+    case GEMSTONE:
+        return hat ? "самоцветная "
+                   : "самоцветный ";
+    case MINERAL:
+        return hat ? "каменная " : "каменный ";
+    default:
+        break;
+    }
+    return "";
+}
+
 /* called when you're hit by fire (dofiretrap,buzz,zapyourself,explode);
    returns TRUE if hit on torso */
 boolean
@@ -115,7 +179,7 @@ burnarmor(struct monst *victim)
 {
     struct obj *item;
     char buf[BUFSZ];
-    int mat_idx, oldspe;
+    int oldspe;
     boolean hitting_u;
 
     if (!victim)
@@ -139,11 +203,9 @@ burnarmor(struct monst *victim)
         switch (rn2(5)) {
         case 0:
             item = hitting_u ? uarmh : which_armor(victim, W_ARMH);
-            if (item) {
-                mat_idx = objects[item->otyp].oc_material;
-                Sprintf(buf, "%s %s", materialnm[mat_idx],
+            if (item)
+                Sprintf(buf, "%s%s", helm_material_ru(item),
                         helm_simple_name(item));
-            }
             if (!burn_dmg(item, item ? buf : "шлем"))
                 continue;
             break;
@@ -1663,7 +1725,7 @@ trapeffect_rust_trap(
             else if (uarm)
                 (void) water_damage(uarm, suit_simple_name(uarm), TRUE);
             else if (uarmu)
-                (void) water_damage(uarmu, "рубашку", TRUE);
+                (void) water_damage(uarmu, "рубашка", TRUE);
         }
         update_inventory();
 

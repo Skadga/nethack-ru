@@ -1494,15 +1494,13 @@ snuff_candle(struct obj *otmp)
 
     if ((candle || otmp->otyp == CANDELABRUM_OF_INVOCATION)
         && otmp->lamplit) {
-        char buf[BUFSZ];
         coordxy x, y;
         boolean many = candle ? (otmp->quan > 1L) : (otmp->spe > 1);
 
         (void) get_obj_location(otmp, &x, &y, 0);
         if (otmp->where == OBJ_MINVENT ? cansee(x, y) : !Blind)
-            pline("%s%sсвеч%s пламя%s погашено.", Shk_Your(buf, otmp),
-                  (candle ? "" : "подсвечника "), (many ? "s'" : "'s"),
-                  (many ? "s are" : " is"));
+            pline("Пламя %s гаснет.",
+                  candle ? (many ? "свечей" : "свечи") : "подсвечника");
         end_burn(otmp, TRUE);
         return TRUE;
     }
