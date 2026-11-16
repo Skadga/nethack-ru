@@ -832,37 +832,40 @@ use_leash_core(struct obj *obj, struct monst *mtmp, coord *cc, int spotmon)
     if (!spotmon && !glyph_is_invisible(levl[cc->x][cc->y].glyph)) {
         /* for the unleash case, we don't verify whether this unseen
            monster is the creature attached to the current leash */
-        You("не можете %sприв€зать что-то.", obj->leashmon ? "от" : "");
+        You("не можете %s что-то.",
+            obj->leashmon ? "отв€зать" : "прив€зать");
         /* trying again will work provided the monster is tame
            (and also that it doesn't change location by retry time) */
         map_invisible(cc->x, cc->y);
     } else if (!mtmp->mtame) {
-        pline("%s %s прив€зан!", Monnam(mtmp),
-              (!obj->leashmon) ? "не может быть" : "не");
+        if (!obj->leashmon)
+            pline("Ќе удаЄтс€ прив€зать поводок к %s.",
+                  spotmon ? mon_gen(mtmp, BP_DAT) : "нему");
+        else
+            pline("%s уже на поводке.", Monnam(mtmp));
     } else if (!obj->leashmon) {
         /* applying a leash which isn't currently in use */
         if (mtmp->mleashed) {
-            pline("Ётот %s уже прив€зан.",
-                  spotmon ? l_monnam(mtmp) : "существо");
+            pline("ѕоводок уже прив€зан к %s.",
+                  spotmon ? mon_gen(mtmp, BP_DAT) : "существу");
         } else if (unsolid(mtmp->data)) {
             pline("ѕоводок просто соскользнЄт.");
         } else if (nolimbs(mtmp->data) && !has_head(mtmp->data)) {
-            pline("” %s нет конечностей, на которые наделс€ бы поводок.",
+            pline("%s не имеет конечностей, на которые наделс€ бы поводок.",
                   Monnam(mtmp));
         } else if (!leashable(mtmp)) {
             char lmonbuf[BUFSZ];
 
             if (cc->x != mtmp->mx || cc->y != mtmp->my) {
                 Sprintf(lmonbuf, "хвост %s", mon_gen(mtmp, BP_GEN));
-                pline("ѕоводок не наденетс€ на %s%s.", spotmon ? "ваш " : "",
-                      lmonbuf);
+                pline("ѕоводок не наденетс€ на %s.", lmonbuf);
             } else {
-                pline("ѕоводок не наденетс€ на %s%s.", spotmon ? "вашу " : "",
-                      l_monnam(mtmp));
+                pline("ѕоводок не наденетс€ на %s.",
+                      spotmon ? mon_gen(mtmp, BP_ACC) : "него");
             }
         } else {
-            You("накидываете поводок на %s%s.", spotmon ? "вашу " : "",
-                l_monnam(mtmp));
+            You("накидываете поводок на %s.",
+                spotmon ? mon_gen(mtmp, BP_ACC) : "него");
             mtmp->mleashed = 1;
             obj->leashmon = (int) mtmp->m_id;
             mtmp->msleeping = 0;
@@ -879,8 +882,8 @@ use_leash_core(struct obj *obj, struct monst *mtmp, coord *cc, int spotmon)
             mtmp->mleashed = 0;
             obj->leashmon = 0;
             update_inventory();
-            You("снимаете поводок с %s%s.",
-                spotmon ? "your " : "", l_monnam(mtmp));
+            You("снимаете поводок с %s.",
+                spotmon ? mon_gen(mtmp, BP_GEN) : "него");
         }
     }
 }
