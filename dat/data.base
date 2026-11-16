@@ -2616,11 +2616,13 @@ hunger
 	hunger, and with death, and with the beasts of the earth.
 		[ Revelations of John, 6:1-8 ]
 huan*ti
-	The first of five mythical Chinese emperors, Huan Ti is known
-	as the yellow emperor.  He rules the _moving_ heavens, as
-	opposed to the _dark_ heavens.  He is an inventor, said to
-	have given mankind among other things, the wheel, armour, and
-	the compass.  He is the god of fortune telling and war.
+хуан-ди
+хуан ди
+	Хуан-ди — первый из пяти мифических китайских императоров,
+	известный как Жёлтый император.  Он правит _движущимися_
+	небесами в отличие от _тёмных_ небес.  Он изобретатель:
+	говорят, он дал человечеству, среди прочего, колесо, доспехи
+	и компас.  Он бог гадания и войны.
 # citation used to be [ after the Encyclopedia of Gods... ] -- not sure what
 # that was intended to mean
 hu*h*eto*l
@@ -2787,47 +2789,48 @@ iron bars
 	  Enjoy such liberty.
 		[ To Althea from Prison, by Richard Lovelace ]
 ishtar
-	Ishtar (the star of heaven) is the Mesopotamian goddess of
-	fertility and war.  She is usually depicted with wings and
-	weapon cases at her shoulders, carrying a ceremonial double-
-	headed mace-scimitar embellished with lion heads, frequently
-	being accompanied by a lion.  She is symbolized by an eight-
-	pointed star.
-		[ Encyclopedia of Gods, by Michael Jordan ]
+иштар
+	Иштар (звезда небес) — месопотамская богиня плодородия и
+	войны.  Обычно её изображают с крыльями и колчанами у плеч:
+	она несёт церемониальную двуглавую булаву-ятаган, украшенную
+	львиными головами, и часто её сопровождает лев.  Её символ —
+	восьмиконечная звезда.
+		[ «Энциклопедия богов», Майкл Джордан ]
 issek
-	Now Issek of the Jug, whom Fafhrd chose to serve, was once
-	of the most lowly and unsuccessful of the gods, godlets
-	rather, in Lankhmar.  He had dwelt there for about thirteen
-	years, during which time he had traveled only two squares up
-	the Street of the Gods and was now back again, ready for
-	oblivion.  He is not to be confused with Issek the Armless,
-	Issek of the Burnt Legs, Flayed Issek, or any other of the
-	numerous and colorfully mutilated divinities of that name.
-	Indeed, his unpopularity may have been due in part to the
-	fact that the manner of his death -- racking -- was not
-	deemed particularly spectacular. ... However, after Fafhrd
-	became his acolyte, things somehow began to change.
-		[ Swords In The Mist, by Fritz Leiber ]
+изек
+	Изек Кувшинный, которому Фафхрд решил служить, был некогда
+	одним из самых низких и неудачливых богов — вернее, божков —
+	в Ланкмаре.  Он обитал там около тринадцати лет, за которые
+	продвинулся лишь на два квартала вверх по Улице Богов, а
+	теперь вернулся назад, готовый кануть в забвение.  Его не
+	следует путать с Изеком Безруким, Изеком Обгоревшими Ногами,
+	Свежёванным Изеком и прочими многочисленными и причудливо
+	изувеченными божествами того же имени.  Впрочем, его
+	непопулярность могла отчасти объясняться тем, что способ его
+	смерти — дыба — не считался особенно эффектным. ... Однако
+	после того, как Фафхрд стал его послушником, дела почему-то
+	начали меняться.
+		[ «Мечи в тумане», Фриц Лейбер ]
 izchak
-	The shopkeeper of the lighting shop in the town level of the
-	gnomish mines is a tribute to Izchak Miller, a founding member
-	of the NetHack development team and a personal friend of a large
-	number of us.  Izchak contributed greatly to the game, coding a
-	large amount of the shopkeep logic (hence the nature of the tribute)
-	as well as a good part of the alignment system, the prayer code and
-	the rewrite of "hell" in the 3.1 release.  Izchak was a professor
-	of Philosophy, who taught at many respected institutions, including
-	MIT and Stanford, and who also worked, for a period of time, at
-	Xerox PARC.  Izchak was the first "librarian" of the NetHack project,
-	and was a founding member of the DevTeam, joining in 1986 while he
-	was working at the University of Pennsylvania (hence our former
-	mailing list address).  Until the 3.1.3 release, Izchak carefully
-	kept all of the code synchronized and arbitrated disputes between
-	members of the development teams.  Izchak Miller passed away at the
-	age of 58, in the early morning hours of April 1, 1994 from
-	complications due to cancer.  We then dedicated NetHack 3.2 in his
-	memory.
-			[ Mike Stephenson, for the NetHack DevTeam ]
+изак
+	Лавочник в лавке светильников на городском уровне гномьих
+	шахт — дань памяти Изака Миллера, одного из основателей
+	команды разработчиков NetHack и личного друга многих из нас.
+	Изак внёс огромный вклад в игру: он написал значительную
+	часть логики лавочников (отсюда и характер этой дани), а
+	также немалую часть системы мировоззрений, код молитв и
+	переработку «ада» в версии 3.1.  Изак был профессором
+	философии, преподавал во многих уважаемых учебных заведениях,
+	включая MIT и Стэнфорд, а какое-то время работал и в Xerox
+	PARC.  Изак был первым «библиотекарем» проекта NetHack и одним
+	из основателей DevTeam: он присоединился в 1986 году, когда
+	работал в Пенсильванском университете (отсюда наш прежний
+	адрес рассылки).  До версии 3.1.3 Изак тщательно поддерживал
+	синхронизацию всего кода и разрешал споры между членами
+	команд разработчиков.  Изак Миллер скончался в возрасте 58 лет
+	ранним утром 1 апреля 1994 года от осложнений, вызванных
+	раком.  Мы посвятили NetHack 3.2 его памяти.
+			[ Майк Стивенсон, от команды разработчиков NetHack ]
 jabberwock
 vorpal*
 	"Beware the Jabberwock, my son!
@@ -3064,12 +3067,13 @@ rubber hose
 	humor.  Sennett got the humor.)
 		[ Silent Stars, by Jeanine Basinger ]
 kos
-	"I am not a coward!" he cried.  "I'll dare Thieves' House
-	and fetch you Krovas' head and toss it with blood a-drip at
-	Vlana's feet.  I swear that, witness me, Kos the god of
-	dooms, by the brown bones of Nalgron my father and by his
-	sword Graywand here at my side!"
-	   [ Swords and Deviltry, by Fritz Leiber ]
+кос
+	— Я не трус! — вскричал он. — Я осмелюсь войти в Дом Воров
+	и принесу тебе голову Кроваса, и брошу её, сочащуюся кровью,
+	к ногам Вланы.  Клянусь тебе, свидетель мне, Кос, бог судеб,
+	коричневыми костями Налгрона, моего отца, и его мечом Серым
+	Жезлом, что у моего бока!
+	   [ «Мечи и дьявольщина», Фриц Лейбер ]
 koto
 	A Japanese harp.
 kraken
@@ -3697,8 +3701,9 @@ mjollnir
 	governance over the entire cycle of life - fertility, birth,
 	destruction, and resurrection.
 mog
-	Mog is known as the Spider God.  Mog resembles a four-limbed
-	spider with a handsome, if not entirely human, face.
+мог
+	Мог известен как Бог-Паук.  Мог похож на четырёхногого
+	паука с красивым, хотя и не вполне человеческим, лицом.
 ~slime mold
 *mold
 	Mold, multicellular organism of the division Fungi, typified

@@ -1295,7 +1295,7 @@ do_data(void)
             free((genericptr_t) line);
             continue;
         }
-        if (*line > ' ') { /* got an entry name */
+        if ((uchar) *line > ' ') { /* got an entry name */
             /* first finish previous entry */
             if (line_cnt)
                 Fprintf(ofp, "%d\n", line_cnt), line_cnt = 0;
