@@ -2159,234 +2159,232 @@ questtext = {
    },
    Sam = {
       assignquest = {
-         synopsis = "[You must enter %i, then regain %o from %n.]",
+         synopsis = "[Войди в %i и отбей %o у %n.]",
          output = "text",
-         text = [["Domo %p-san, indeed you are ready.  I can now tell you what
-it is that I require of you.
+         text = [["Домо, %p-сан, ты и вправду готов.  Теперь я могу сказать,
+что мне от тебя нужно.
 
-"The daimyo, %n, has betrayed us.  He has stolen from us
-%o and taken it to his donjon deep within
+"Даймё %n предал нас.  Он похитил у нас
+%o и унёс в свой замок в глубине
 %i.
 
-"If I cannot show the emperor %o when he comes
-for the festival he will know that I have failed in my duty, and
-request that I commit seppuku.
+"Если я не смогу показать императору %o, когда он
+прибудет на праздник, он узнает, что я не исполнил долг,
+и велит мне совершить сэппуку.
 
-"You must gain entrance to %i and retrieve the
-emperor's property.  Be quick!  The emperor will be here for the
-cha-no-you in 5 sticks.
+"Ты должен проникнуть в %i и вернуть
+имущество императора.  Спеши!  Император будет здесь
+на ча-но-ю через 5 палочек.
 
-"Wakarimasu ka?"]],
+"Вакаримасу ка?"]],
       },
       badalign = {
-         synopsis = "[When you can think %a and act %a then return.]",
+         synopsis = "[Возвращайся, когда научишься думать и поступать верно.]",
          output = "text",
-         text = [["%p-san, you would do better to join the kyokaku.
+         text = [["%p-сан, тебе лучше вступить в кёкаку.
 
-"You have skills, but until you can call upon the bushido to know when and
-how to use them you are not samurai.  When you can think %a and
-act %a then return."]],
+"У тебя есть умения, но пока ты не постигнешь бусидо — когда
+и как их применять, — ты не самурай.  Когда научишься думать
+и поступать сообразно своему пути, возвращайся."]],
       },
       badlevel = {
-         synopsis = "[\"I require %Ra to defeat %n.  Return when you are ready.\"]",
+         synopsis = "[\"Мне нужен воин звания %R, чтобы одолеть %n.  Возвращайся, когда будешь готов.\"]",
          output = "text",
-         text = [["%p-san, you have learned well and honored your family.
-I require the skills of %Ra in order to defeat %n.
-Go and seek out teachers.  Learn what they have learned.  When you
-are ready, return to me."]],
+         text = [["%p-сан, ты хорошо учился и почтил свою семью.
+Чтобы одолеть %n, мне нужен воин звания %R.
+Ступай и ищи учителей.  Узнай то, что узнали они.  Когда будешь
+готов, возвращайся ко мне."]],
       },
       discourage = {
-         "\"Ahh, I finally meet the daimyo of the kyokaku!\"",
-         "\"There is no honor for me in your death.\"",
-         "\"You know that I cannot resash my swords until they have killed.\"",
-         "\"Your presence only compounds the dishonor of %l in not coming %liself.\"",
-         "\"I will make tea with your hair and serve it to %l.\"",
-         "\"Your fear shows in your eyes, coward!\"",
-         "\"I have not heard of you, %p-san; has your life been that unworthy?\"",
-         "\"If you will not obey me, you will die.\"",
-         "\"Kneel now and make the two cuts of honor.  I will tell your %sp of your honorable death.\"",
-         "\"Your master was a poor teacher.  You will pay for his mistakes in your teaching.\"",
+         "\"Ах, наконец я встретил даймё кёкаку!\"",
+         "\"В твоей смерти нет для меня чести.\"",
+         "\"Ты знаешь, что я не уберу мечи в ножны, пока они не убьют.\"",
+         "\"Твоё присутствие лишь усугубляет позор %l, который не пришёл сам.\"",
+         "\"Я заварю чай на твоих волосах и подам его %l.\"",
+         "\"Страх виден в твоих глазах, трус!\"",
+         "\"Я не слыхал о тебе, %p-сан; неужели твоя жизнь была столь никчёмной?\"",
+         "\"Если не подчинишься мне, ты умрёшь.\"",
+         "\"Встань на колени и соверши два разреза чести.  Я расскажу твоим близким о твоей достойной смерти.\"",
+         "\"Твой господин был плохим учителем.  Ты заплатишь за его ошибки в твоём обучении.\"",
       },
       encourage = {
-         "\"To defeat %n you must overcome the seven emotions: hate, adoration, joy, anxiety, anger, grief, and fear.\"",
-         "\"Remember your honor is my honor, you perform in my name.\"",
-         "\"I will go to the temple and burn incense for your safe return.\"",
-         "\"Sayonara.\"",
-         "\"There can be honor in defeat, but no gain.\"",
-         "\"Your kami must be strong in order to succeed.\"",
-         "\"You are indeed a worthy %R, but now you must be a worthy samurai.\"",
-         "\"If you fail, %n will be like a tai-fun on the land.\"",
-         "\"If you are truly %a, %d will listen.\"",
-         "\"Sharpen your swords and your wits for the task before you.\"",
+         "\"Чтобы одолеть %n, ты должен победить семь чувств: ненависть, обожание, радость, тревогу, гнев, скорбь и страх.\"",
+         "\"Помни: твоя честь — моя честь, ты действуешь моим именем.\"",
+         "\"Я пойду в храм и воскурю благовония о твоём благополучном возвращении.\"",
+         "\"Саёнара.\"",
+         "\"В поражении может быть честь, но нет выгоды.\"",
+         "\"Твой ками должен быть силён, чтобы ты преуспел.\"",
+         "\"Ты и вправду достойный %R, но теперь ты должен стать достойным самураем.\"",
+         "\"Если ты потерпишь неудачу, %n обрушится на землю, как тайфун.\"",
+         "\"Если ты воистину верен своему пути, %d услышит.\"",
+         "\"Отточи мечи и разум для дела, что перед тобой.\"",
       },
       firsttime = {
-         synopsis = "[The banner of %n flies above town.  What has happened to %l?]",
+         synopsis = "[Над городом реет знамя %n.  Что случилось с %l?]",
          output = "text",
-         text = [[Even before your senses adjust, you recognize the kami of
+         text = [[Ещё не успев освоиться, ты узнаёшь ками
 %H.
 
-You %x the standard of your teki, %n, flying above
-the town.  How could such a thing have happened?  Why are ninja
-wandering freely; where are the samurai of your daimyo, %l?
+Ты видишь знамя своего тэки, %n, над
+городом.  Как такое могло случиться?  Почему ниндзя
+бродят свободно; где самураи твоего даймё %l?
 
-You quickly say a prayer to Izanagi and Izanami and walk towards
-town.]],
+Ты быстро возносишь молитву Идзанаги и Идзанами и идёшь
+к городу.]],
       },
       goal_alt = {
-         text = "As you arrive once again at the home of %n.",
+         text = "Ты снова приходишь к дому %n.",
       },
       goal_first = {
-         synopsis = "[You feel the taunts %n, but after offering a prayer to %d, you proceed.]",
+         synopsis = "[Ты слышишь насмешки %n, но, вознеся молитву %d, идёшь дальше.]",
          output = "text",
-         text = [[In your mind, you hear the taunts of %n.
+         text = [[В мыслях ты слышишь насмешки %n.
 
-You become like the rice plant and bend to the ground, offering a
-prayer to %d.  But when the wind has passed, you stand
-proudly again.  Putting your kami in the hands of fate, you advance.]],
+Ты становишься подобен рисовому стеблю и склоняешься к земле,
+вознося молитву %d.  Но когда ветер стихает, ты снова
+стоишь гордо.  Вверив своего ками судьбе, ты идёшь вперёд.]],
       },
       goal_next = {
-         text = [[As you arrive once again at the home of %n, your thoughts
-turn only to %o.]],
+         text = [[Снова придя к дому %n, ты думаешь лишь о %o.]],
       },
       gotit = {
-         synopsis = "[You feel the power of %o and are humbled.]",
+         synopsis = "[Ты чувствуешь силу %o и смиряешься.]",
          output = "text",
-         text = [[As you pick up %o, you feel the strength of its karma.
-You realize at once why so many good samurai had to die to defend it.
-You are humbled knowing that you hold one of the artifacts of the
-sun goddess.]],
+         text = [[Поднимая %o, ты чувствуешь мощь его кармы.
+Тут же понимаешь, почему столько добрых самураев погибло, защищая его.
+Ты смиряешься, зная, что держишь в руках одну из реликвий
+богини солнца.]],
       },
       guardtalk_after = {
-         "\"Come, join us in celebrating with some sake.\"",
-         "\"Ikaga desu ka?\"",
-         "\"You have brought our clan and %l much honor.\"",
-         "\"Please %r, sit for a while and tell us how you overcame the Ninja.\"",
-         "\"%lC still lives!  You have saved us from becoming ronin.\"",
+         "\"Пойдём, отпразднуем с сакэ.\"",
+         "\"Икага дэсу ка?\"",
+         "\"Ты принёс нашему клану и %l великую честь.\"",
+         "\"Прошу, %r, посиди немного и расскажи, как ты одолел ниндзя.\"",
+         "\"%lC ещё жив!  Ты спас нас от участи ронинов.\"",
       },
       guardtalk_before = {
-         "\"To succeed, you must walk like a butterfly on the wind.\"",
-         "\"Ikaga desu ka?\"",
-         "\"I fear for The Land of The Gods.\"",
-         "\"%nC has hired the Ninja -- be careful.\"",
-         "\"If %o is not returned, we will all be ronin.\"",
+         "\"Чтобы преуспеть, ты должен порхать, как бабочка на ветру.\"",
+         "\"Икага дэсу ка?\"",
+         "\"Я боюсь за Землю Богов.\"",
+         "\"%nC нанял ниндзя — будь осторожен.\"",
+         "\"Если %o не вернут, мы все станем ронинами.\"",
       },
       hasamulet = {
-         synopsis = "[Take the Amulet to the Astral Plane to finish your task.]",
+         synopsis = "[Отнеси Амулет на Астральный план и заверши дело.]",
          output = "text",
-         text = [["Ah, %p-sama.  You have wasted your efforts returning home.
-Now that you are in possession of the Amulet, you are honor-bound to
-finish the quest you have undertaken.  There will be plenty of time
-for saki and stories when you have finished.
+         text = [["Ах, %p-сама.  Ты зря потратил силы на возвращение домой.
+Теперь, когда Амулет у тебя, честь велит тебе
+завершить начатый поход.  Будет ещё время
+для сакэ и историй, когда всё закончится.
 
-"Go now, and may our prayers be a wind at your back."]],
+"Ступай же, и пусть наши молитвы будут попутным ветром."]],
       },
       killed_nemesis = {
-         synopsis = "[%nC dies without honor.]",
+         synopsis = "[%nC умирает без чести.]",
          output = "text",
-         text = [[Your healing skills tell you that %ns wounds are mortal.
+         text = [[Ты понимаешь: %n смертельно ранен.
 
-You know that the bushido tells you to finish him and let his kami
-die with honor, but the thought of so many samurai dead due to this
-man's dishonor prevents you from giving the final blow.
+Бусидо велит тебе прикончить его и дать его ками
+умереть с честью, но мысль о стольких самураях, погибших из-за
+бесчестия этого человека, не даёт тебе нанести последний удар.
 
-You order that his unwashed head be given to the crows and his body
-thrown into the sea.]],
+Ты велишь отдать его непогребённую голову воронам, а тело
+бросить в море.]],
       },
       leader_first = {
-         synopsis = "[%lC needs someone to lead %lj samurai against %n.  Are you ready?]",
+         synopsis = "[%lC ищет того, кто поведёт его самураев против %n.  Готов ли ты?]",
          output = "text",
-         text = [["Ah, %p-san, it is good to see you again.  I need someone who can
-lead my samurai against %n.  If you are ready, you will be
-that person."]],
+         text = [["Ах, %p-сан, рад снова тебя видеть.  Мне нужен тот, кто сможет
+повести моих самураев против %n.  Если ты готов, им будешь
+ты."]],
       },
       leader_last = {
-         synopsis = "[Leave and do not come back.]",
+         synopsis = "[Уходи и не возвращайся.]",
          output = "text",
-         text = [["You are no longer my samurai, %p.
+         text = [["Ты больше не мой самурай, %p.
 
-"Hara-kiri is denied.  You are ordered to shave your head and then to
-become a monk.  Your fief and family are forfeit.  Wakarimasu ka?"]],
+"В харакири отказано.  Тебе велено обрить голову и стать
+монахом.  Твой удел и семья отобраны.  Вакаримасу ка?"]],
       },
       leader_next = {
-         text = [["Once again, %p-san, you kneel before me.  Are you yet capable of
-being my vassal?"]],
+         text = "Снова, %p-сан, ты преклоняешь передо мной колени.  Способен ли ты ещё быть моим вассалом?",
       },
       leader_other = {
-         synopsis = "[Are you truly a samurai?]",
+         synopsis = "[Ты и вправду самурай?]",
          output = "text",
-         text = [["You begin to test my matsu, %p-san.
-If you cannot determine what I want in a samurai, how can I rely on you
-to figure out what I need from a samurai?"]],
+         text = [["Ты начинаешь испытывать моё мацу, %p-сан.
+Если ты не можешь понять, какого самурая я хочу, как я могу на тебя
+положиться в том, что ты поймёшь, что мне нужно от самурая?"]],
       },
       locate_first = {
-         text = [[You instinctively reach for your swords.  You do not recognize the
-lay of this land, but you know that your teki are everywhere.]],
+         text = [[Ты машинально тянешься к мечам.  Ты не узнаёшь этой земли,
+но знаешь: твои тэки повсюду.]],
       },
       locate_next = {
-         text = [[Thankful that your %sp at %H cannot see
-your fear, you prepare again to advance.]],
+         text = [[Благодарный за то, что твои близкие в %H не видят
+твоего страха, ты снова готовишься идти вперёд.]],
       },
       nemesis_first = {
-         text = [["Ah, so it is to be you, %p-san.  I offer you seppuku.
-I will be your second if you wish."]],
+         text = [["Ах, значит, это ты, %p-сан.  Предлагаю тебе сэппуку.
+Если хочешь, я стану твоим секундантом."]],
       },
       nemesis_next = {
-         text = [["I have offered you the honorable exit.  Now I will have your
-head to send unwashed to %l."]],
+         text = [["Я предложил тебе достойный выход.  Теперь я заберу твою
+голову и отошлю непогребённой %l."]],
       },
       nemesis_other = {
-         text = "\"After I have dispatched you, I will curse your kami.\"",
+         text = "\"Покончив с тобой, я прокляну твоего ками.\"",
       },
       nemesis_wantsit = {
-         text = [["You have fought my samurai; surely you must know that you
-will not be able to take %o back to
+         text = [["Ты сражался с моими самураями; ты должен знать, что
+тебе не унести %o обратно в
 %H."]],
       },
       nexttime = {
-         text = "Once again, you are back at %H.",
+         text = "Ты снова в %H.",
       },
       offeredit = {
-         synopsis = "[The emperor wants you to take %o and recover the Amulet.]",
+         synopsis = "[Император велит тебе взять %o и вернуть Амулет.]",
          output = "text",
-         text = [[As you bow before %l, he welcomes you:
+         text = [[Склоняясь перед %l, ты слышишь его приветствие:
 
-    "You have brought your family great honor, %p-sama.
+    "Ты принёс своей семье великую честь, %p-сама.
 
-    "While you have been gone the emperor's advisors have discovered in
-    the ancient texts that the karma of the samurai who seeks to recover
-    the Amulet and the karma of %o are joined
-    as the seasons join to make a year.
+    "Пока тебя не было, советники императора нашли в
+    древних свитках, что карма самурая, что ищет Амулет,
+    и карма %o слиты воедино,
+    как времена года сливаются в год.
 
-    "Because you have shown such fidelity, the emperor requests
-    that you take leave of other obligations and continue on the
-    road that fate has set your feet upon.  I would consider it
-    an honor if you would allow me to watch your household until
-    you return with the Amulet."
+    "За то, что ты явил такую верность, император просит
+    тебя оставить прочие обязанности и продолжить
+    путь, что указала тебе судьба.  Я почту за честь,
+    если ты позволишь мне присмотреть за твоим домом,
+    пока ты не вернёшься с Амулетом."
 
-With that, %l bows, and places his sword atop
+С этими словами %l кланяется и возлагает свой меч на
 %o.]],
       },
       offeredit2 = {
-         synopsis = "[Take %o, return to %Z, and recover the Amulet.]",
+         synopsis = "[Возьми %o, вернись в %Z и добудь Амулет.]",
          output = "text",
-         text = [[%l holds %o tightly for a moment, then returns
-his gaze to you.
+         text = [[%l недолго крепко держит %o, затем снова
+смотрит на тебя.
 
-"The time is ripe to recover the Amulet.  Return to %Z
-through the magic portal that transported you here so that you may
-achieve the destiny which awaits you."]],
+"Пришло время вернуть Амулет.  Возвращайся в %Z
+через магический портал, что перенёс тебя сюда, и исполни
+предназначение, что тебя ждёт."]],
       },
       othertime = {
-         synopsis = "[%HC is threatened by %n.]",
+         synopsis = "[%H в опасности из-за %n.]",
          output = "text",
-         text = [[You are back at %H.
+         text = [[Ты снова в %H.
 
-Instantly you sense a subtle change in your karma.  You seem to know that
-if you do not succeed in your quest, %n will have destroyed
-the kami of %H before you return again.]],
+Тут же чувствуешь тонкую перемену в своей карме.  Кажется, ты знаешь:
+если не исполнишь свой поход, %n уничтожит
+ками %H прежде, чем ты вернёшься.]],
       },
       posthanks = {
-         text = "%lC bows.  \"%p-sama, tell us of your search for the Amulet.\"",
+         text = "%lC кланяется.  \"%p-сама, расскажи нам о поисках Амулета.\"",
       },
    },
    Tou = {
