@@ -74,63 +74,62 @@ questtext = {
  t suffix:	return strip_the_prefix(root);]],
       },
       angel_cuss = {
-         "\"Repent, and thou shalt be saved!\"",
-         "\"Thou shalt pay for thine insolence!\"",
-         "\"Very soon, my child, thou shalt meet thy maker.\"",
-         "\"The great %D has sent me to make you pay for your sins!\"",
-         "\"The wrath of %D is now upon you!\"",
-         "\"Thy life belongs to %D now!\"",
-         "\"Dost thou wish to receive thy final blessing?\"",
-         "\"Thou art but a godless void.\"",
-         "\"Thou art not worthy to seek the Amulet.\"",
-         "\"No one expects the Spanish Inquisition!\"",
-         "\"Judgment hath been passed upon thee, %p.\"",
-         "\"Thy reckoning is at hand, %p.\"",
-         "\"Thou shalt be brought before %D for thy crimes!\"",
-         "\"With %D as my witness, I shall strike thee down.\"",
+         "\"Покайся, и будешь спасён!\"",
+         "\"Ты заплатишь за свою дерзость!\"",
+         "\"Очень скоро, дитя моё, ты предстанешь перед творцом.\"",
+         "\"Великий %D послал меня, чтобы ты поплатился за грехи!\"",
+         "\"%D разгневан и обрушит кару на тебя!\"",
+         "\"Теперь %D владеет твоей жизнью!\"",
+         "\"Не желаешь ли получить последнее благословение?\"",
+         "\"Ты — лишь безбожная пустота.\"",
+         "\"Ты недостоин искать Амулет.\"",
+         "\"Никто не ждёт испанскую инквизицию!\"",
+         "\"Приговор тебе уже вынесен, смертный.\"",
+         "\"Твой час расплаты близок, смертный.\"",
+         "\"За твои преступления тебя покарает %D!\"",
+         "\"Пусть %D будет свидетелем: я тебя сражу!\"",
       },
       banished = {
          synopsis = "[You are banished from %H for betraying your allegiance to %d.]",
          output = "text",
-         text = [["You have betrayed all those who hold allegiance to %d, as you once did.
-My allegiance to %d holds fast and I cannot condone or accept what you
-have done.
+         text = [["Ты предал всех, для кого %d — бог, как когда-то и для тебя.
+%d остаётся моим богом, и я не могу ни оправдать, ни принять
+того, что ты совершил.
 
-Leave this place.  You shall never set foot at %H again.
-That which you seek is now lost forever, for without the Bell of Opening,
-you will never be able to enter the place where he who has the Amulet
-resides.
+Покинь эти земли.  Ты больше никогда не вернёшься в %H.
+То, что ты ищешь, утрачено навсегда: без Колокола Открытия
+ты никогда не войдёшь туда, где обитает тот, у кого Амулет.
 
-Go now!  You are banished from this place.]],
+Уходи!  Ты изгнан из этого места.]],
       },
       demon_cuss = {
-         "\"I first mistook thee for a statue, when I regarded thy head of stone.\"",
-         "\"Come here often?\"",
-         "\"Doth pain excite thee?  Wouldst thou prefer the whip?\"",
-         "\"Thinkest thou it shall tickle as I rip out thy lungs?\"",
-         "\"Eat slime and die!\"",
-         "\"Go ahead, fetch thy mama!  I shall wait.\"",
-         "\"Go play leapfrog with a herd of unicorns!\"",
-         "\"Hast thou been drinking, or art thou always so clumsy?\"",
-         "\"This time I shall let thee off with a spanking, but let it not happen again.\"",
-         "\"I've met smarter (and prettier) acid blobs.\"",
-         "\"Look!  Thy bootlace is undone!\"",
-         "\"Mercy!  Dost thou wish me to die of laughter?\"",
-         "\"Run away!  Live to flee another day!\"",
-         "\"Thou hadst best fight better than thou canst dress!\"",
-         "\"Twixt thy cousin and thee, Medusa is the prettier.\"",
-         "\"Methinks thou wert unnaturally stirred by yon corpse back there, eh, varlet?\"",
-         "\"Up thy nose with a rubber hose!\"",
-         "\"Verily, thy corpse could not smell worse!\"",
-         "\"Wait!  I shall polymorph into a grid bug to give thee a fighting chance!\"",
-         "\"Why search for the Amulet?  Thou wouldst but lose it, cretin.\"",
-         "\"Thou ought to be a comedian, thy skills are so laughable!\"",
-         "\"Thy gaze is so vacant, I thought thee a floating eye!\"",
-         "\"Thy head is unfit for a mind flayer to munch upon!\"",
-         "\"Only thy reflection could love thee!\"",
-         "\"Hast thou considered masking thine odour?\"",
-         "\"Hold! Thy face is a most exquisite torture!\"",
-         "\"I should fart in thy direction, but it might improve thy smell!\"",
+         "\"Сперва я принял тебя за статую, взглянув на твою каменную башку.\"",
+         "\"Часто бываешь здесь?\"",
+         "\"Тебя возбуждает боль?  Может, предпочтёшь плеть?\"",
+         "\"Думаешь, будет щекотно, когда я вырву тебе лёгкие?\"",
+         "\"Подавись слизью!\"",
+         "\"Ну давай, беги за мамочкой!  Я подожду.\"",
+         "\"Иди поиграй в чехарду со стадом единорогов!\"",
+         "\"Ты пьян или всегда такой неуклюжий?\"",
+         "\"На этот раз отделаешься поркой, но чтобы это было в последний раз.\"",
+         "\"Я встречал и поумнее (и покрасивее) кислотные сгустки.\"",
+         "\"Глянь!  У тебя развязался шнурок!\"",
+         "\"Пощади!  Ты хочешь, чтобы я умер со смеху?\"",
+         "\"Беги!  Живи, чтобы завтра снова сбежать!\"",
+         "\"Дрался бы ты лучше, чем одеваешься!\"",
+         "\"Между тобой и твоей кузиной Медуза всё же красивее.\"",
+         "\"Сдаётся мне, тот труп взволновал тебя неестественно, а, негодяй?\"",
+         "\"Резиновый шланг тебе в нос!\"",
+         "\"Воистину, твой труп не может пахнуть хуже!\"",
+         "\"Стой!  Я превращусь в сетчатого клопа, чтобы дать тебе шанс!\"",
+         "\"Зачем искать Амулет?  Ты его только потеряешь, кретин.\"",
+         "\"Тебе бы в комики — твои умения так смешны!\"",
+         "\"Твой взгляд так пуст, что я принял тебя за парящий глаз!\"",
+         "\"Твоя голова не годится даже в пищу пожирателю разума!\"",
+         "\"Тебя полюбит только твоё отражение!\"",
+         "\"Не думал замаскировать свой запах?\"",
+         "\"Стой!  Твоя рожа — изощрённейшая пытка!\"",
+         "\"Я бы пукнул в твою сторону, да боюсь улучшить твой запах!\"",
       },
       legacy = {
          synopsis = "[%dC избрал тебя, чтобы ты вернул Амулет Ендора.]",
@@ -176,21 +175,21 @@ Go now!  You are banished from this place.]],
 ступай дерзновенно: %d с тобой!]],
       },
       quest_complete_no_bell = {
-         text = [["The silver bell which was hoarded by %n will be
-essential in locating the Amulet of Yendor."]],
+         text = [["Серебряный колокол, который берёг %n, необходим,
+чтобы найти Амулет Ендора."]],
       },
       quest_portal = {
          output = "pline",
-         text = [[You receive a faint telepathic message from %l:
-Your help is urgently needed at %H!
-Look for a ...ic transporter.
-You couldn't quite make out that last message.]],
+         text = [[До тебя доносится слабый телепатический зов от %l:
+Твоя помощь срочно нужна в %H!
+Ищи ...ческий переносчик.
+Последнюю часть послания разобрать не удалось.]],
       },
       quest_portal_again = {
-         text = "You again sense %l pleading for help.",
+         text = "Ты снова чувствуешь, как %l молит о помощи.",
       },
       quest_portal_demand = {
-         text = "You again sense %l demanding your attendance.",
+         text = "Ты снова чувствуешь, как %l требует твоего присутствия.",
       },
    },
    Arc = {
