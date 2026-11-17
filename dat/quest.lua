@@ -852,452 +852,441 @@ questtext = {
    },
    Hea = {
       assignquest = {
-         synopsis = "[Travel to %i on your way to recover %o from %n.]",
+         synopsis = "[Отправляйся в %i, чтобы отнять %o у %n.]",
          output = "text",
-         text = [[For the first time, you sense a smile on %ls face.
+         text = [[Впервые %l улыбается тебе.
 
-    "You have indeed learned as much as we can teach you in preparation
-    for this task.  Let me tell you what I know of the symptoms and hope
-    that you can provide a cure.
+    "Ты и вправду усвоил всё, чему мы могли тебя научить перед этим
+    делом.  Позволь рассказать о симптомах — надеюсь, ты сможешь
+    найти лекарство.
 
-    "A short while ago, the dreaded %nt was fooled by the gods
-    into thinking that %nh could use %o to find a
-    cure for old age.  Think of it, eternal youth!  But %nj good
-    health is accomplished by drawing the health from those around %ni.
+    "Недавно боги внушили грозному %n, будто с помощью %o можно
+    отыскать лекарство от старости.  Подумай: вечная молодость!
+    Но своё здоровье %nh черпает из здоровья окружающих.
 
-    "He has exhausted %nj own supply of healthy people and now %nh seeks to
-    extend %nj influence into our world.  You must recover from %ni
-    %o and break the spell.
+    "Здоровые люди в %nj владениях кончились, и теперь %nh ищет
+    новых в нашем мире.  Ты должен отнять у %ni %o и разрушить чары.
 
-    "You must travel into the swamps to %i, and from there
-    follow the trail to %ns island lair.  Be careful."]],
+    "Ты должен пробраться через болота в %i, а оттуда — по следу
+    к острову, где обитает %n.  Будь осторожен."]],
       },
       badalign = {
-         synopsis = "[Return when you are more %a.]",
+         synopsis = "[Возвращайся, когда очистишься.]",
          output = "text",
-         text = [["You have learned much of the remedies that benefit, but you must also
-know which physic for which ail.  That is why %ds teachings are a
-part of your training.
+         text = [["Ты много узнал о целебных средствах, но нужно ещё знать,
+какое лекарство от какой болезни.  Потому ты и изучаешь заветы,
+что дал %d.
 
-"Return to us when you have healed thyself."]],
+"Возвращайся к нам, когда излечишь себя."]],
       },
       badlevel = {
-         synopsis = "[You are too inexperienced.  Return when you are %Ra.]",
+         synopsis = "[Ты слишком неопытен.  Возвращайся, когда получишь звание.]",
          output = "text",
-         text = [["Alas, %p, you are yet too inexperienced to deal with the rigors
-of such a task.  You must be able to draw on the knowledge of botany,
-alchemy and veterinary practices before I can send you on this quest 
-with good conscience.
+         text = [["Увы, %p, ты пока слишком неопытен для тягот такого дела.
+Нужно владеть знаниями ботаники, алхимии и врачевания, прежде чем
+я смогу с чистой совестью отправить тебя в этот поход.
 
-"Return when you wear %Ra's caduceus."]],
+"Возвращайся, когда наденешь кадуцей звания %R."]],
       },
       discourage = {
-         "\"They might as well give scalpels to wizards as to let you try to use %o!\"",
-         "\"If I could strike %l, surrounded by %lj %gP, imagine what I can do to you here by yourself.\"",
-         "\"I will put my %Rp to work making a physic out of your ashes.\"",
-         "\"As we speak, Hades gathers your patients to join you.\"",
-         "\"After I'm done with you, I'll destroy %l as well.\"",
-         "\"You will have to kill me if you ever hope to leave this place.\"",
-         "\"I will impale your head on my caduceus for all to see.\"",
-         "\"There is no materia medica in your sack which will cure you of me!\"",
-         "\"Do not fight too hard, I want your soul strong, not weakened!\"",
-         "\"You should have stopped studying at veterinary.\"",
+         "\"Лучше бы уж дали скальпель волшебнику, чем позволили тебе взяться за %o!\"",
+         "\"Даже %l под защитой свиты мне не страшен.  Представь, что я сделаю с тобой здесь, в одиночку.\"",
+         "\"Я заставлю своих учеников приготовить снадобье из твоего праха.\"",
+         "\"Пока мы беседуем, Аид собирает твоих пациентов, чтобы они к тебе присоединились.\"",
+         "\"Покончив с тобой, я позабочусь о том, чтобы и %l не ушёл.\"",
+         "\"Тебе придётся убить меня, если ты надеешься покинуть это место.\"",
+         "\"Я насажу твою голову на свой кадуцей всем на обозрение.\"",
+         "\"В твоей сумке нет снадобья, которое излечит тебя от меня!\"",
+         "\"Не дерись слишком яростно: мне нужна твоя душа сильной, а не истощённой!\"",
+         "\"Тебе следовало остановиться на ветеринарии.\"",
       },
       encourage = {
-         "\"Remember, %p, to always wash your hands before operating.\"",
-         "\"%nC has no real magic of %nj own.  To this %nh is vulnerable.\"",
-         "\"If you have been true to %d, you can draw on the power of %o.\"",
-         "\"Bring with you antidotes for poisons.\"",
-         "\"Remember this, %n can twist the powers of %o to hurt instead of heal.\"",
-         "\"I have sent for Chiron, but I am afraid he will come too late.\"",
-         "\"Maybe when you return the snakes will once again begin to shed.\"",
-         "\"The plague grows worse as we speak.  Hurry, %p!\"",
-         "\"Many times %n has caused trouble in these lands.  It is time that %nh was eradicated like the diseases %nh has caused.\"",
-         "\"With but one eye, %n should be easy to blind.  Remember this.\"",
+         "\"Помни, %p: перед операцией всегда мой руки.\"",
+         "\"%nC не владеет настоящей магией.  Этим %nh и уязвим.\"",
+         "\"%o даст тебе силу, если ты верен %d.\"",
+         "\"Возьми с собой противоядия.\"",
+         "\"Помни: %n может обратить %o во вред вместо исцеления.\"",
+         "\"Я послал за Хироном, но боюсь, он придёт слишком поздно.\"",
+         "\"Может быть, когда ты вернёшься, змеи снова начнут линять.\"",
+         "\"Чума усиливается с каждым мгновением.  Спеши, %p!\"",
+         "\"%n не раз приносил беды этим землям.  Пора истребить %ni, как болезни, что %nh насылает.\"",
+         "\"%n видит лишь одним глазом — ослепить его легко.  Помни об этом.\"",
       },
       firsttime = {
-         synopsis = "[You arrive back at %H and must find %l.]",
+         synopsis = "[Ты возвращаешься в %H и должен найти %l.]",
          output = "text",
-         text = [[What sorcery has brought you back to %H?  The smell
-of fresh funeral pyres tells you that something is amiss with the healing
-powers that used to practice here.
+         text = [[Каким колдовством тебя занесло обратно в %H?  Запах свежих
+погребальных костров говорит, что с целительными силами, что прежде
+здесь практиковали, неладно.
 
-No rhizotomists are tending the materia medica gardens, and where are the
-common folk who used to come for the cures?
+Никто не ухаживает за садами лекарственных трав, и где те простые
+люди, что приходили сюда за исцелением?
 
-You know that you must quickly make your way to the collegium, and
-%ls iatreion, and find out what has happened in your absence.]],
+Ты знаешь, что должен поскорее добраться до коллегиума, где
+принимает %l, и выяснить, что случилось без тебя.]],
       },
       goal_first = {
-         synopsis = "[You have reached the lair of %n.  Take %o away from %ni.]",
+         synopsis = "[Ты достиг острова, где обитает %n.  Отними %o у %ni.]",
          output = "text",
-         text = [[You stand within sight of the infamous Isle of %n.  Even
-the words of %l had not prepared you for this.
+         text = [[Ты стоишь в виду печально известного острова, где обитает %n.
+Даже то, о чём говорил %l, не подготовило тебя к этому.
 
-Steeling yourself against the wails of the ill that pierce your ears,
-you hurry on your task.  Maybe with %o you can
-heal them on your return, but not now.]],
+Стиснув зубы под воплями больных, что пронзают слух, ты спешишь
+к своей цели.  Может быть, с %o ты исцелишь их на обратном пути,
+но не теперь.]],
       },
       goal_next = {
-         text = "Once again, you %x the Isle of %n in the distance.",
+         text = "Ты снова видишь вдали остров, где обитает %n.",
       },
       gotit = {
-         synopsis = "[You feel the healing power of %o and should return it to %l.]",
+         synopsis = "[Ты чувствуешь целительную силу %o — пора вернуть его.]",
          output = "text",
-         text = [[As you pick up %o, you feel its healing begin to
-warm your soul.  You curse Zeus for taking it from its rightful owner,
-but at least you hope that %l can put it to good use once
-again.]],
+         text = [[Поднимая %o, ты чувствуешь, как его целительная сила
+согревает душу.  Ты проклинаешь Зевса за то, что он отнял его
+у законного владельца, но надеешься, что %l сумеет снова пустить
+его в дело.]],
       },
       guardtalk_after = {
-         "\"Did you read that new treatise on the therapeutic use of leeches?\"",
-         "\"Paint a red caduceus on your shield and monsters won't hit you.\"",
-         "\"How are you feeling?  Perhaps a good bleeding will improve your spirits.\"",
-         "\"Have you heard the absurd new theory that diseases are caused by microscopic organisms, and not ill humors?\"",
-         "\"I see that you bring %o, now you can cure this plague!\"",
+         "\"Ты читал новый трактат о лечебном применении пиявок?\"",
+         "\"Нарисуй на щите красный кадуцей — и монстры тебя не тронут.\"",
+         "\"Как ты себя чувствуешь?  Может, хорошее кровопускание поднимет тебе настроение.\"",
+         "\"Ты слышал нелепую новую теорию, будто болезни вызывают мельчайшие организмы, а не дурные соки?\"",
+         "\"Вижу, ты принёс %o — теперь ты сможешь победить эту чуму!\"",
       },
       guardtalk_before = {
-         "\"Did you read that new treatise on the therapeutic use of leeches?\"",
-         "\"Paint a red caduceus on your shield and monsters won't hit you.\"",
-         "\"I passed handwriting so they are demoting me a rank.\"",
-         "\"I've heard that even %l has not been able to cure Chiron.\"",
-         "\"We think %n has used %nj alchemists, and %o, to unleash a new disease we call 'the cold' on Gehennom.\"",
+         "\"Ты читал новый трактат о лечебном применении пиявок?\"",
+         "\"Нарисуй на щите красный кадуцей — и монстры тебя не тронут.\"",
+         "\"Я завалил чистописание, и меня понижают в звании.\"",
+         "\"Говорят, даже %l не смог вылечить Хирона.\"",
+         "\"Мы думаем, %n использовал %nj алхимиков и %o, чтобы напустить на Геенну новую болезнь, которую мы зовём «простуда».\"",
       },
       hasamulet = {
-         synopsis = "[\"You have recovered the Amulet.  Travel to the Astral Plane and return it to %d.\"]",
+         synopsis = "[\"Ты добыл Амулет.  Отправляйся на Астральный план и отдай Амулет.\"]",
          output = "text",
-         text = [["Ah, you have recovered the Amulet, %p.  Well done!
+         text = [["Ах, ты добыл Амулет, %p.  Отлично!
 
-"Now, you should know that you must travel through the Elemental Planes
-to the Astral, and there return the Amulet to %d.  Go forth and
-may our prayers be as a wind upon your back."]],
+"Теперь знай: тебе предстоит пройти через Стихийные планы
+к Астральному и там отдать Амулет.  Ступай, и пусть наши молитвы
+будут попутным ветром."]],
       },
       killed_nemesis = {
-         synopsis = "[%nC curses you as %nh dies.]",
+         synopsis = "[%nC проклинает тебя, умирая.]",
          output = "text",
-         text = [[The battered body of %n slumps to the ground and gasps
-out one last curse:
+         text = [[Израненный %n оседает на землю и с трудом выдыхает
+последнее проклятие:
 
-    "You have defeated me, %p, but I shall have my revenge.
-    How, I shall not say, but this curse shall be like a cancer
-    on you."
+    "Ты одолел меня, %p, но я отомщу.  Как — не скажу, но это
+    проклятие будет разъедать тебя, как рак."
 
-With that %n dies.]],
+С этими словами %n умирает.]],
       },
       leader_first = {
-         synopsis = "[%l is weak from the struggle with %n.  %lH wants to examine you.]",
+         synopsis = "[%l ослаб в борьбе с %n и хочет осмотреть тебя.]",
          output = "text",
-         text = [[Feebly, %l raises %lj head to look at you.
+         text = [[С трудом %l поднимает голову, чтобы взглянуть на тебя.
 
-"It is good to see you again, %p.  I see the concern in your
-eyes, but do not worry for me.  I am not ready for Hades yet.  We have
-exhausted much of our healing powers holding off %n.
-I need your fresh strength to carry on our work.
+"Рад снова тебя видеть, %p.  Я вижу тревогу в твоих глазах, но
+не тревожься обо мне.  В Аид мне ещё рано.  Мы израсходовали почти
+все наши целительные силы, сдерживая %n.  Мне нужна твоя свежая
+сила, чтобы продолжить наше дело.
 
-"Come closer and let me lay hands on you, and determine if you have
-the skills necessary to accomplish this mission."]],
+"Подойди ближе, дай возложить на тебя руки и понять, хватит ли
+у тебя умения исполнить это поручение."]],
       },
       leader_last = {
-         synopsis = "[You are a failure as a healer.]",
+         synopsis = "[Ты провалился как лекарь.]",
          output = "text",
-         text = [["You have failed us, %p.  You are a quack!  A charlatan!
+         text = [["Ты подвёл нас, %p.  Ты шарлатан!  Обманщик!
 
-"Hades will be happy to hear that you are once again practicing your
-arts on the unsuspecting."]],
+"Аид будет рад узнать, что ты снова упражняешься в своём ремесле
+на доверчивых простаках."]],
       },
       leader_next = {
-         text = [["Again you return to me, %p.  I sense that each trip back
-the pleurisy and maladies of our land begin to infect you.  Let us
-hope and pray to %d that you become ready for your task before
-you fall victim to the bad humors."]],
+         text = [["Ты снова вернулся ко мне, %p.  Чувствую, с каждым
+возвращением плеврит и хвори наших земель всё сильнее тебя заражают.
+Будем надеяться и молить %d, чтобы ты успел подготовиться к своему
+делу, прежде чем падёшь жертвой дурных соков."]],
       },
       leader_other = {
-         text = [["Chiron has fallen, Hermes has fallen, what else must I tell you to
-impress upon you the importance of your mission!  I hope that you
-have come prepared this time."]],
+         text = [["Хирон пал, Гермес пал — что ещё сказать, чтобы ты понял
+важность своего поручения!  Надеюсь, на этот раз ты пришёл
+подготовленным."]],
       },
       locate_first = {
-         synopsis = "[You have reached %i but all is not well.]",
+         synopsis = "[Ты добрался до %i, но не всё ладно.]",
          output = "text",
-         text = [[You stand before the entrance to %i.  Strange
-scratching noises come from within the building.
+         text = [[Ты стоишь перед входом в %i.  Из здания доносятся
+странные царапающие звуки.
 
-The swampy ground around you seems to stink with disease.]],
+Болотистая земля вокруг, кажется, сочится болезнью.]],
       },
       locate_next = {
-         text = "Once again you stand at the entrance to %i.",
+         text = "Ты снова стоишь у входа в %i.",
       },
       nemesis_first = {
-         synopsis = "[\"I will take your life, then defeat %l.\"]",
+         synopsis = "[\"Я заберу твою жизнь, и %l меня уже не остановит.\"]",
          output = "text",
-         text = [["They have made a mistake in sending you, %p.
+         text = [["Они ошиблись, послав тебя, %p.
 
-"When I add your youth to mine, it will just make it easier for me
-to defeat %l."]],
+"Твоя молодость лишь укрепит меня, и %l не устоит."]],
       },
       nemesis_next = {
-         text = "\"Unlike your patients, you seem to keep coming back, %p!\"",
+         text = "\"В отличие от твоих пациентов, ты, кажется, всё возвращаешься, %p!\"",
       },
       nemesis_other = {
-         text = "\"Which would you like, %p?  Boils, pleurisy, convulsions?\"",
+         text = "\"Чего желаешь, %p?  Нарывов, плеврита, судорог?\"",
       },
       nemesis_wantsit = {
-         text = [["I'll have %o back from you, %r.  You are
-not going to live to escape this place."]],
+         text = [["Я отниму у тебя %o, %r.  Живым ты
+отсюда не выйдешь."]],
       },
       nexttime = {
-         text = [[After your last experience you expected to be here, but you certainly
-did not expect to see things so much worse.  This time you must succeed.]],
+         text = [[После прошлого раза ты ожидал оказаться здесь, но уж точно
+не ждал увидеть всё настолько хуже.  На этот раз ты должен победить.]],
       },
       offeredit = {
-         synopsis = "[%l touches %o and tells %lj %gP to do so too, then tells you to take it with you.]",
+         synopsis = "[%l касается %o, велит свите сделать то же и говорит, что ты должен взять его с собой.]",
          output = "text",
-         text = [[As soon as %l sees %o %lh summons %lj
-%gP.
+         text = [[Едва увидев %o, %l созывает свиту.
 
-Gently, %l reaches out and touches %o.
-He instructs each of the assembled to do the same.  When everyone
-has finished %lh speaks to you.
+Осторожно %l протягивает руку и касается %o.
+Каждому из собравшихся велено сделать то же.  Когда все
+закончили, %l обращается к тебе.
 
-    "Now that we have been replenished we can defeat this plague.  You must
-    take %o with you and replenish the worlds you have
-    been called upon to travel next.  I wish you could ride Chiron to the
-    end of your journey, but I need him to help me spread the cure.  Go
-    now and continue your journey."]],
+    "Теперь, когда силы восстановлены, мы одолеем эту чуму.  Ты должен
+    взять %o с собой и вернуть силы мирам, куда тебе
+    предстоит отправиться.  Хотел бы я, чтобы Хирон домчал тебя
+    до конца пути, но он нужен мне, чтобы разнести лекарство.  Ступай
+    и продолжай свой путь."]],
       },
       offeredit2 = {
-         synopsis = "[%l tells you to keep %o and return to %Z to search for the Amulet.]",
+         synopsis = "[%l велит оставить %o себе и вернуться в %Z за Амулетом.]",
          output = "text",
-         text = [[%l cautiously handles %o while watching you.
+         text = [[Осторожно держа %o, %l следит за тобой.
 
-"You are its keeper now, and the time has come to resume your search
-for the Amulet.  %Z await your return through the
-magic portal which brought you here."]],
+"Теперь ты его хранитель, и пора продолжить поиски Амулета.
+%Z ждут твоего возвращения через магический портал,
+что привёл тебя сюда."]],
       },
       othertime = {
-         text = [[Again, you %x %H in the distance.
+         text = [[Ты снова видишь вдали %H.
 
-The smell of death and disease permeates the air.  You do not have
-to be %Ra to know that %n is on the verge of victory.]],
+Воздух пропитан запахом смерти и болезней.  Не нужно быть лекарем,
+чтобы понять: %n на грани победы.]],
       },
       posthanks = {
-         text = [["You have again returned to us, %p.  We have done well in your
-absence, yes?  How fare you upon your quest for the Amulet?"]],
+         text = [["Ты снова вернулся к нам, %p.  Мы неплохо справились
+без тебя, верно?  Как идут твои поиски Амулета?"]],
       },
    },
    Kni = {
       assignquest = {
-         synopsis = "[Pass through %i to reach %n.  Destroy %ni and return with %o.]",
+         synopsis = "[Пройди через %i, чтобы добраться до %n.  Уничтожь %ni и вернись с %o.]",
          output = "text",
-         text = [["Ah, %p.  Thou art truly ready, as no %c before thee hath
-been.  Hear now Our words:
+         text = [["Ах, %p.  Ты и вправду готов, как не был готов ни один %c до
+тебя.  Выслушай же Наши слова:
 
-"As thou noticed as thou approached %H, a great battle hath
-been fought recently in these fields.  Know thou that Merlin himself
-came to aid Us here as We battled the foul %n.  In the midst of that
-battle, %n struck Merlin a great blow, felling him.  Then, as Our
-forces were pressed back, %n stole %o.
+"Как ты заметил, приближаясь к %H, недавно на этих полях шла
+великая битва.  Знай: сам Мерлин пришёл на помощь Нам, когда Мы
+сражались с подлым %n.  В разгар битвы %n нанёс Мерлину тяжкий удар
+и поверг его.  Затем, когда Наши силы отступали, %n похитил %o.
 
-"We eventually turned the tide, but lost many %cP in doing so.
-Merlin was taken off by his apprentice, but hath not recovered.  We have
-been told that so long as %n possesseth %o,
-Merlin will not regain his health.
+"В конце концов Мы переломили ход битвы, но потеряли многих.
+Мерлина унёс его ученик, но он так и не оправился.  Нам сказали:
+пока %n владеет %o, Мерлин не восстановит здоровья.
 
-"We hereby charge thee with this most important of duties:
+"Сим Мы возлагаем на тебя важнейшую из обязанностей:
 
-"Go forth from this place, to the fens, and there thou wilt find
-%i.  From there, thou must track down %n.  Destroy the
-beast, and return to Us %o.  Only then can
-We restore Merlin to health."]],
+"Ступай отсюда к болотам и там найдёшь %i.  Оттуда ты должен
+выследить %n.  Уничтожь зверя и верни Нам %o.  Только
+тогда Мы вернём Мерлину здоровье."]],
       },
       badalign = {
-         synopsis = "[Go and do penance.  Return when you are truly %a.]",
+         synopsis = "[Ступай и принеси покаяние.  Возвращайся, когда очистишься.]",
          output = "text",
-         text = [["Thou dishonourest Us, %p!  Thou hast strayed from the path of
-chivalry! Go from Our presence and do penance.  Only when thou art again
-pure mayst thou return hence."]],
+         text = [["Ты позоришь Нас, %p!  Ты сбился с пути рыцарства!  Ступай прочь
+от Нас и принеси покаяние.  Только когда снова станешь чист,
+сможешь вернуться."]],
       },
       badlevel = {
-         synopsis = "[You are not prepared to face %n.  Return when you are %Ra.]",
+         synopsis = "[%n тебя одолеет.  Возвращайся, когда получишь звание %R.]",
          output = "text",
-         text = [["Verily, %p, thou hast done well.  That thou hast survived thus
-far is a credit to thy valor, but thou art yet unprepared for
-the demands required as Our Champion.  %rA, no matter how
-pure, could never hope to defeat the foul %n.
+         text = [["Воистину, %p, ты молодец.  То, что ты дожил до этих пор, —
+заслуга твоей доблести, но ты пока не готов к тому, чего Мы требуем
+от Нашего защитника.  Сколь бы чист ни был %r, подлый %n его одолеет.
 
-"Journey forth from this place, and hone thy skills.  Return to
-Our presence when thou hast attained the noble title of %R."]],
+"Отправляйся в путь и оттачивай мастерство.  Вернись к Нам, когда
+обретёшь благородное звание %R."]],
       },
       discourage = {
-         "\"A mere %r can never withstand me!\"",
-         "\"I shall kill thee now, and feast!\"",
-         "\"Puny %c.  What manner of death dost thou wish?\"",
-         "\"First thee, %p, then I shall feast upon %l.\"",
-         "\"Hah!  Thou hast failed, %r.  Now thou shalt die.\"",
-         "\"Die, %c.  Thou art as nothing against my might.\"",
-         "\"I shall suck the marrow from thy bones, %c.\"",
-         "\"Let's see...  Baked?  No.  Fried?  Nay.  Broiled?  Yea verily, that is the way I like my %c for dinner.\"",
-         "\"Thy strength waneth, %p.  The time of thy death draweth near.\"",
-         "\"Call upon thy precious %d, %p.  It shall not avail thee.\"",
+         "\"Жалкий %r мне не соперник!\"",
+         "\"Я убью тебя и устрою пир!\"",
+         "\"Жалкий %c.  Какой смерти ты желаешь?\"",
+         "\"Сначала тебя, %p, а на закуску — %l.\"",
+         "\"Ха!  Ты провалился, %r.  Теперь ты умрёшь.\"",
+         "\"Умри, %c.  Ты ничто против моей мощи.\"",
+         "\"Я высосу мозг из твоих костей, %c.\"",
+         "\"Поглядим...  Запечённый?  Нет.  Жареный?  Не то.  На вертеле?  Воистину, вот как я люблю ужинать: %c — главное блюдо.\"",
+         "\"Твоя сила угасает, %p.  Час твоей смерти близок.\"",
+         "\"Пусть твой драгоценный %d придёт тебе на помощь, %p.  Это тебя не спасёт.\"",
       },
       encourage = {
-         "\"Remember, %p, follow always the path of %d.\"",
-         "\"Though %n is verily a mighty foe, We have confidence in thy victory.\"",
-         "\"Beware, for %n hath surrounded %niself with hordes of foul creatures.\"",
-         "\"Great treasure, 'tis said, is hoarded in the lair of %n.\"",
-         "\"If thou possessest %o, %p, %ns magic shall therewith be thwarted.\"",
-         "\"The gates of %i are guarded by forces unseen, %p. Go carefully.\"",
-         "\"Return %o to Us quickly, %p.\"",
-         "\"Destroy %n, %p, else %H shall surely fall.\"",
-         "\"Call upon %d when thou art in need.\"",
-         "\"To find %i, thou must keep thy heart pure.\"",
+         "\"Помни, %p: всегда следуй заветам, что дал %d.\"",
+         "\"Хотя %n воистину могучий враг, Мы верим в твою победу.\"",
+         "\"Берегись: %n окружил себя ордами мерзких тварей.\"",
+         "\"Говорят, %n стережёт великие сокровища в своём логове.\"",
+         "\"Если у тебя будет %o, %p, чары, что творит %n, окажутся бессильны.\"",
+         "\"%i охраняют незримые силы, %p.  Иди осторожно.\"",
+         "\"Поскорее верни Нам %o, %p.\"",
+         "\"%n должен погибнуть, %p, иначе %H непременно падёт.\"",
+         "\"В час нужды пусть %d поможет тебе.\"",
+         "\"Чтобы найти %i, ты должен хранить сердце чистым.\"",
       },
       firsttime = {
-         synopsis = "[Signs of battle include long gouges in the walls of %H.]",
+         synopsis = "[Длинные борозды на стенах — следы битвы.]",
          output = "text",
-         text = [[You materialize in the shadows of %H.  Immediately, you notice
-that something is wrong.  The fields around the castle are trampled and
-withered, as if some great battle has been recently fought.
+         text = [[%H встречает тебя тенью.  Сразу замечаешь, что что-то не так.
+Поля вокруг замка вытоптаны и увяли, будто недавно здесь шла
+великая битва.
 
-Exploring further, you %x long gouges in the walls of %H.
-You know of only one creature that makes those kinds of marks...]],
+Осматриваясь, ты замечаешь длинные борозды на стенах.
+Ты знаешь лишь одно существо, что оставляет такие следы...]],
       },
       goal_first = {
-         synopsis = "[You %x the entrance to a cavern inside a hill.]",
+         synopsis = "[Ты видишь вход в пещеру в склоне холма.]",
          output = "text",
-         text = [[As you exit the swamps, you %x before you a huge, gaping hole in the
-side of a hill.  From within, you smell the foul stench of carrion.
+         text = [[Выйдя из болот, ты видишь перед собой огромную зияющую дыру
+в склоне холма.  Изнутри тянет мерзкой вонью падали.
 
-The pools on either side of the entrance are fouled with blood, and
-pieces of rusted metal and broken weapons show above the surface.]],
+Лужи по обе стороны от входа загажены кровью, а из воды торчат
+куски ржавого металла и обломки оружия.]],
       },
       goal_next = {
-         text = "Again, you stand at the entrance to %ns lair.",
+         text = "Ты снова стоишь у входа в логово, где обитает %n.",
       },
       gotit = {
-         synopsis = "[You feel the magic of %o.]",
+         synopsis = "[Ты чувствуешь, как %o излучает магию.]",
          output = "text",
-         text = [[As you pick up %o, you feel its protective fields
-form around your body.  You also feel a faint stirring in your mind, as
-if you are in two places at once, and in the second, you are waking from
-a long sleep.]],
+         text = [[Поднимая %o, ты чувствуешь, как вокруг тела образуются
+защитные поля.  В сознании тоже слабое движение, будто ты
+находишься в двух местах сразу, и во втором просыпаешься
+от долгого сна.]],
       },
       guardtalk_after = {
-         "\"Hail, %p!  Verily, thou lookest well.\"",
-         "\"So, %p, didst thou find %n in the fens near %i?\"",
-         "\"Worthy %p, hast thou proven thy right purpose on the body of %n?\"",
-         "\"Verily, %l could have no better champion, %p.\"",
-         "\"Hast thou indeed recovered %o?\"",
+         "\"Приветствую, %p!  Воистину, ты хорошо выглядишь.\"",
+         "\"Ну что, %p, %n попался тебе в болотах близ %i?\"",
+         "\"Достойный %p, доказал ли ты своё право, когда %n пал от твоей руки?\"",
+         "\"Воистину, %l не мог бы желать лучшего защитника, %p.\"",
+         "\"Ты и вправду вернул %o?\"",
       },
       guardtalk_before = {
-         "\"Hail, %p!  Verily, thou lookest well.\"",
-         "\"There is word, %p, that %n hath been sighted in the fens near %i.\"",
-         "\"Thou art our only hope now, %p.\"",
-         "\"Verily, %l could have no better champion, %p.\"",
-         "\"Many brave %cP died when %n attacked.\"",
+         "\"Приветствую, %p!  Воистину, ты хорошо выглядишь.\"",
+         "\"Говорят, %p, что %n видели в болотах близ %i.\"",
+         "\"Ты теперь наша единственная надежда, %p.\"",
+         "\"Воистину, %l не мог бы желать лучшего защитника, %p.\"",
+         "\"Много храбрых воинов погибло, когда %n напал.\"",
       },
       hasamulet = {
-         synopsis = "[Take the Amulet to the Astral Plane and deliver it to %d.]",
+         synopsis = "[Отнеси Амулет на Астральный план и передай его.]",
          output = "text",
-         text = [["Thou hast succeeded, We see, %p!  Now thou art commanded to take
-the Amulet to be sacrificed to %d in the Plane of the Astral.
+         text = [["Ты преуспел, как Мы видим, %p!  Теперь тебе велено отнести
+Амулет и принести его в жертву на Астральном плане — %d примет её.
 
-"Merlin hath counseled Us that thou must travel always upwards through
-the Planes of the Elements, to achieve this goal.
+"Мерлин советовал Нам: чтобы достичь этого, ты должен подниматься
+всё выше через Стихийные планы.
 
-"Go with %d, %p."]],
+"Пусть %d сопутствует тебе, %p."]],
       },
       killed_nemesis = {
-         synopsis = "[%nC curses you as %nh dies.]",
+         synopsis = "[%nC проклинает тебя, умирая.]",
          output = "text",
-         text = [[As %n sinks to the ground, blood gushing from %nj open mouth, %nh
-defiantly curses you and %l:
+         text = [[Оседая на землю, пока из раскрытой пасти хлещет кровь, %n
+с вызовом проклинает тебя и твоего повелителя:
 
-    "Thou hast not won yet, %r.  By the gods, I shall return
-    and dog thy steps to the grave!"
+    "Ты ещё не победил, %r.  Клянусь богами, я вернусь
+    и буду преследовать тебя до могилы!"
 
-%nJ tail flailing madly, %n tries to crawl towards you, but slumps
-to the ground and dies in a pool of %nj own blood.]],
+Бешено хлеща хвостом, %n пытается ползти к тебе, но оседает
+на землю и умирает в луже собственной крови.]],
       },
       leader_first = {
-         synopsis = "[%lC checks whether you are ready for a great undertaking.]",
+         synopsis = "[%lC проверяет, готов ли ты к великому делу.]",
          output = "text",
-         text = [["Ah, %p.  We see thou hast received Our summons.
-We are in dire need of thy prowess.  But first, We must needs
-decide if thou art ready for this great undertaking."]],
+         text = [["Ах, %p.  Мы видим, ты получил Наш зов.
+Нам отчаянно нужна твоя доблесть.  Но сперва Мы должны
+решить, готов ли ты к этому великому делу."]],
       },
       leader_last = {
-         synopsis = "[You are a disgrace as %ca.]",
+         synopsis = "[Ты позор своего звания.]",
          output = "text",
-         text = [["Thou disgracest this noble court with thine impure presence.  We have been
-lenient with thee, but no more.  Thy name shall be spoken no more.  We
-hereby strip thee of thy title, thy lands, and thy standing as %ca.
-Begone from Our sight!"]],
+         text = [["Ты позоришь этот благородный двор своим нечистым присутствием.
+Мы были к тебе снисходительны, но больше не будем.  Твоё имя больше
+не произнесут.  Сим Мы лишаем тебя звания, земель и положения.
+Сгинь с Наших глаз!"]],
       },
       leader_next = {
-         text = "\"Welcome again, %p.  We hope thou art ready now.\"",
+         text = "\"С возвращением, %p.  Надеемся, теперь ты готов.\"",
       },
       leader_other = {
-         text = "\"Once again, thou standest before Us, %p.  Art thou ready now?\"",
+         text = "\"Ты снова стоишь перед Нами, %p.  Готов ли ты теперь?\"",
       },
       locate_first = {
-         synopsis = "[You have reached %i and can %x a shrine.]",
+         synopsis = "[Ты добрался до %i и видишь святилище.]",
          output = "text",
-         text = [[You stand at the foot of %i.  Atop, you can %x a shrine.
-Strange energies seem to be focused here, and the hair on the back of
-your neck stands on end.]],
+         text = [[%i высится перед тобой.  Наверху видно святилище.
+Кажется, сюда сходятся странные энергии, и волосы на затылке
+встают дыбом.]],
       },
       locate_next = {
-         text = "Again, you stand at the foot of %i.",
+         text = "%i снова перед тобой.",
       },
       nemesis_first = {
-         synopsis = "[%nC taunts you and issues a threat against %H.]",
+         synopsis = "[%nC насмехается над тобой и грозит уничтожить %H.]",
          output = "text",
-         text = [["Hah!  Another puny %c seeks death.  I shall dine well tonight,
-then tomorrow, %H shall fall!"]],
+         text = [["Ха!  Ещё один жалкий %c ищет смерти.  Сегодня я славно
+поужинаю, а завтра %H падёт!"]],
       },
       nemesis_next = {
-         text = "\"Again, thou challengest me, %r?  So be it.  Thou wilt die here.\"",
+         text = "\"Ты снова бросаешь мне вызов, %r?  Что ж.  Ты умрёшь здесь.\"",
       },
       nemesis_other = {
-         text = "\"Thou art truly foolish, %r.  I shall dispatch thee anon.\"",
+         text = "\"Ты воистину глуп, %r.  Я прикончу тебя вмиг.\"",
       },
       nemesis_wantsit = {
-         text = [["So, thou darest touch MY property!  I shall have that bauble back,
-puny %r.  Thou wilt die in agony!"]],
+         text = [["Так ты осмелился тронуть МОЮ собственность!  Я верну себе
+эту побрякушку, жалкий %r.  Ты умрёшь в муках!"]],
       },
       nexttime = {
-         text = "Once again you stand in the shadows of %H.",
+         text = "%H снова встречает тебя тенью.",
       },
       offeredit = {
-         synopsis = "[%oC is yours now.  It will aid in your search for the Amulet.]",
+         synopsis = "[Теперь %oC принадлежит тебе.  Это поможет в поисках Амулета.]",
          output = "text",
-         text = [[As you approach %l, %lh beams at you and says:
+         text = [[При твоём приближении %l сияет и говорит:
 
-    "Well done!  Thou art truly the Champion of %H.  We
-    have received word that Merlin is recovering, and shall soon
-    rejoin Us.
+    "Отлично!  Ты воистину защитил %H.  До Нас дошла весть,
+    что Мерлин поправляется и скоро вернётся к Нам.
 
-    "He hath instructed Us that thou art now to be the guardian of
-    %o.  He feeleth that thou mayst have need of
-    its powers in thine adventures.  It is Our wish that thou keepest
-    %o with thee as thou searchest for the fabled
-    Amulet of Yendor."]],
+    "Он наказал Нам, чтобы отныне ты был хранителем
+    %o.  Он чувствует, что в странствиях тебе могут
+    понадобиться его силы.  Мы желаем, чтобы %o
+    оставался с тобой, пока ты ищешь легендарный
+    Амулет Ендора."]],
       },
       offeredit2 = {
-         synopsis = "[You are the keeper of %o.  Return to %Z and find the Amulet.]",
+         synopsis = "[Теперь %o хранится у тебя.  Вернись в %Z за Амулетом.]",
          output = "text",
-         text = [["Careful, %p!  %oC might break, and that would
-be a tragic loss.  Thou art its keeper now, and the time hath come
-to resume thy search for the Amulet.  %Z await thy
-return through the magic portal that brought thee here."]],
+         text = [["Осторожно, %p!  %oC может разбиться, а это была бы
+трагическая утрата.  Теперь ты его хранитель, и пора продолжить
+поиски Амулета.  %Z ждут твоего возвращения через магический
+портал, что привёл тебя сюда."]],
       },
       othertime = {
-         text = [[Again, you stand before %H.  You vaguely sense that this
-may be the last time you stand before %l.]],
+         text = [[Ты снова перед %H.  Смутно чувствуешь: возможно, %l
+видит тебя в последний раз.]],
       },
       posthanks = {
-         text = "\"Well met, %p.  How goeth thy search for the Amulet of Yendor?\"",
+         text = "\"Приветствую, %p.  Как идут поиски Амулета Ендора?\"",
       },
    },
    Mon = {
