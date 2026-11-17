@@ -1949,210 +1949,212 @@ questtext = {
    },
    Rog = {
       assignquest = {
-         synopsis = "[Get %o from %n and bring it to %l.]",
+         synopsis = "[Забери %o у %n и принеси его %l.]",
          output = "text",
-         text = [["Will everyone not going to retrieve %o from that
-jerk, %n, take one step backwards.  Good choice,
-%p, because I was going to send you anyway.  My other %gp
-are too valuable to me.
+         text = [["Пусть все, кто не идёт отбирать %o у этого
+мерзавца %n, сделают шаг назад.  Хороший выбор,
+%p, я ведь всё равно собирался послать тебя.  Остальные мои
+ребята мне слишком дороги.
 
-"Here's the deal.  I want %o, %n
-has %o.  You are going to get %o
-and bring it back to me.  So simple an assignment even you can understand
-it."]],
+"Вот в чём дело.  Мне нужен %o, а %n
+владеет %o.  Ты добудешь %o
+и принесёшь мне.  Поручение такое простое, что поймёт даже
+такой, как ты."]],
       },
       badalign = {
-         synopsis = "[Come back when you are really %a.]",
+         synopsis = "[Возвращайся, когда станешь по-настоящему верен.]",
          output = "text",
-         text = [["Maybe I should chain you to my perch here for a while.  Perhaps watching
-real %a men at work will bring some sense back to you.  I don't
-think I could stand the sight of you for that long though.  Come back
-when you can be trusted to act properly."]],
+         text = [["Может, приковать тебя на время к моей жёрдочке?  Глядишь,
+понаблюдав за работой настоящих мастеров, ты образумишься.  Хотя
+вряд ли я вытерплю твою рожу так долго.  Возвращайся,
+когда тебе можно будет доверять."]],
       },
       badlevel = {
-         synopsis = "[%rA is not adequately trained to handle this job.]",
+         synopsis = "[%r ещё недостаточно обучен для этого дела.]",
          output = "text",
-         text = [["In the time that you've been gone you've only been able to master the
-arts of %ra?  I've trained ten times again as many %Rp
-in that time.  Maybe I should send one of them, no?  Where would that
-leave you, %p?  Oh yeah, I remember, I was going to kill you!"]],
+         text = [["За всё время, что тебя не было, ты освоил лишь
+ремесло %r?  Я за это время обучил в десять раз больше
+новичков.  Может, послать кого-то из них, а?  И где бы тогда
+оказался ты, %p?  Ах да, я ведь собирался тебя убить!"]],
       },
       discourage = {
-         "\"May I suggest a compromise.  Are you interested in gold or gems?\"",
-         "\"Please don't force me to kill you.\"",
-         "\"Grim times are upon us all.  Will you not see reason?\"",
-         "\"I knew %l, and you're no %lt, thankfully.\"",
-         "\"It is a shame that we are not meeting under more pleasant circumstances.\"",
-         "\"I was once like you are now, %p.  Believe in me -- our way is better.\"",
-         "\"Stay with me, and I will make you %os guardian.\"",
-         "\"When you return, with or without %o, %l will have you killed.\"",
-         "\"Do not be fooled; I am prepared to kill to defend %o.\"",
-         "\"I can reunite you with the Twain.  Oh, the stories you can swap.\"",
+         "\"Позволь предложить компромисс.  Интересуешься золотом или камнями?\"",
+         "\"Не заставляй меня тебя убивать.\"",
+         "\"Настали мрачные времена.  Неужели ты не образумишься?\"",
+         "\"Я знал %l, а ты, к счастью, не он.\"",
+         "\"Жаль, что мы встретились не при более приятных обстоятельствах.\"",
+         "\"Когда-то я был таким, как ты, %p.  Поверь мне: наш путь лучше.\"",
+         "\"Останься со мной, и я сделаю тебя хранителем %o.\"",
+         "\"Когда вернёшься — с %o или без, — %l тебя убьёт.\"",
+         "\"Не обманывайся: я готов убивать, защищая %o.\"",
+         "\"Я могу воссоединить тебя с Близнецами.  Вот уж будет о чём поговорить.\"",
       },
       encourage = {
-         "\"You don't seem to understand, %o isn't here so neither should you be!\"",
-         "\"May %d curse you with lead fingers.  Get going!\"",
-         "\"We don't have all year.  GET GOING!\"",
-         "\"How would you like a scar necklace?  I'm just the jeweler to do it!\"",
-         "\"Lazy S.O.B.  Maybe I should call up someone else...\"",
-         "\"Maybe I should open your skull and see if my instructions are inside?\"",
-         "\"This is not a task you can complete in the afterlife, you know.\"",
-         "\"Inside every living person is a dead person trying to get out, and I have your key!\"",
-         "\"We're almost out of hell-hound chow, so why don't you just get moving!\"",
-         "\"You know, %o isn't going to come when you whistle.  You must get it yourself.\"",
+         "\"Ты, кажется, не понимаешь: раз %o здесь нет, то и тебе здесь не место!\"",
+         "\"Пусть %d наградит тебя свинцовыми пальцами.  Пошевеливайся!\"",
+         "\"У нас нет целого года.  ПОШЕВЕЛИВАЙСЯ!\"",
+         "\"Хочешь ожерелье из шрамов?  Я как раз тот ювелир, кто его сделает!\"",
+         "\"Ленивая скотина.  Может, позвать кого-нибудь другого...\"",
+         "\"Может, вскрыть тебе череп и проверить, там ли мои указания?\"",
+         "\"Знаешь, на том свете это поручение не выполнить.\"",
+         "\"В каждом живом сидит мёртвый и рвётся наружу, и ключ от него у меня!\"",
+         "\"Корм для адских псов почти кончился, так что давай шевелись!\"",
+         "\"Знаешь, %o на свист не явится.  Его нужно добыть самому.\"",
       },
       firsttime = {
-         synopsis = "[You are in Ransmannsby, where you trained.  Find %l.]",
+         synopsis = "[Ты в Рансмансби, где учился.  Найди %l.]",
          output = "text",
-         text = [[Unexpectedly, you find yourself back in Ransmannsby, where you trained to
-be a thief.  Quickly you make the guild sign, hoping that you AND word
-of your arrival reach %ls den.]],
+         text = [[Неожиданно ты оказываешься в Рансмансби, где учился
+на вора.  Ты быстро подаёшь знак гильдии, надеясь, что и ты,
+и весть о твоём прибытии дойдут до логова %l.]],
       },
       goal_first = {
-         synopsis = "[You sense %o.]",
+         synopsis = "[Ты чувствуешь %o.]",
          output = "text",
-         text = [[You feel a great swelling up of courage, sensing the presence of
-%o.  Or is it fear?]],
+         text = [[Ты чувствуешь, как в тебе поднимается волна храбрости:
+ты ощущаешь присутствие %o.  Или это страх?]],
       },
       goal_next = {
-         text = "The hairs on the back of your neck whisper -- it's fear.",
+         text = "Волоски на затылке шепчут: это страх.",
       },
       gotit = {
-         synopsis = "[You pick up %o and know that %l should not have it.]",
+         synopsis = "[Ты поднимаешь %o и понимаешь, что %l не должен им владеть.]",
          output = "text",
-         text = [[As you pick up %o, the hairs on the back of your
-neck fall out.  At once you realize why %n was
-willing to die to keep it out of %ls hands.  Somehow
-you know that you must do likewise.]],
+         text = [[Поднимая %o, ты чувствуешь, как волоски на затылке
+встают дыбом.  Тут же понимаешь, почему %n был
+готов умереть, лишь бы не отдать это в руки %l.  Почему-то
+ты знаешь, что должен поступить так же.]],
       },
       guardtalk_after = {
-         "\"I was sure wrong about Lady Tyvefelle's house; I barely got away with my life and lost my lock pick in the process.\"",
-         "\"You're back?  Even the Twain don't come back anymore.\"",
-         "\"Can you spare an old cutpurse a zorkmid for some grog?\"",
-         "\"Fritz tried to join the other side, and now he's hell-hound chow.\"",
-         "\"Be careful what you steal, I hear the boss has perfected turning rocks into worthless pieces of glass.\"",
+         "\"Я сильно ошибся насчёт дома леди Тивефелль: едва унёс ноги и потерял отмычку.\"",
+         "\"Ты вернулся?  Даже Близнецы больше не возвращаются.\"",
+         "\"Не найдётся ли старому срезателю кошельков зоркмида на выпивку?\"",
+         "\"Фриц попытался перейти к другим, и теперь он корм для адских псов.\"",
+         "\"Осторожнее с тем, что крадёшь: говорят, босс научился превращать камни в никчёмные стекляшки.\"",
       },
       guardtalk_before = {
-         "\"I hear that Lady Tyvefelle's household is lightly guarded.\"",
-         "\"You're back?  Even the Twain don't come back anymore.\"",
-         "\"Can you spare an old cutpurse a zorkmid for some grog?\"",
-         "\"Fritz tried to join the other side, and now he's hell-hound chow.\"",
-         "\"Be careful what you steal, I hear the boss has perfected turning rocks into worthless pieces of glass.\"",
+         "\"Говорят, дом леди Тивефелль охраняют слабо.\"",
+         "\"Ты вернулся?  Даже Близнецы больше не возвращаются.\"",
+         "\"Не найдётся ли старому срезателю кошельков зоркмида на выпивку?\"",
+         "\"Фриц попытался перейти к другим, и теперь он корм для адских псов.\"",
+         "\"Осторожнее с тем, что крадёшь: говорят, босс научился превращать камни в никчёмные стекляшки.\"",
       },
       hasamulet = {
-         synopsis = "[Take the Amulet to the Astral Plane and find %ds temple.]",
+         synopsis = "[Отнеси Амулет на Астральный план и найди храм %d.]",
          output = "text",
-         text = [["I see that with your abilities, and my brains, we could rule this world.
+         text = [["Вижу, с твоими способностями и моими мозгами мы могли бы
+править этим миром.
 
-"All that we would need to be all-powerful is for you to take that little
-trinket you've got there up to the Astral Plane.  From there, %d will
-show you what to do with it.  Once that's done, we will be invincible!"]],
+"Для всемогущества нужно лишь одно: отнеси эту безделушку,
+что у тебя в руках, на Астральный план.  Там %d
+подскажет, что с ней делать.  А когда всё будет сделано, мы станем
+непобедимы!"]],
       },
       killed_nemesis = {
-         synopsis = "[Before dying, %n tells you to use the %o wisely.]",
+         synopsis = "[Умирая, %n велит тебе разумно распорядиться %o.]",
          output = "text",
-         text = [["I know what you are thinking, %p.  It is not too late for you
-to use %o wisely.  For the sake of your guild
-%sp, do what is right."
+         text = [["Я знаю, о чём ты думаешь, %p.  Ещё не поздно
+разумно распорядиться %o.  Ради твоих собратьев
+по гильдии сделай то, что должно."
 
-You sit and wait for death to come for %n, and then you
-brace yourself for your next meeting with %l!]],
+Ты сидишь и ждёшь, когда смерть придёт за %n, а затем
+готовишься к новой встрече с %l!]],
       },
       leader_first = {
-         synopsis = "[You owe back dues to your guild.  You can pay them off if you're up to the job.]",
+         synopsis = "[Ты задолжал взносы гильдии.  Отработаешь, если справишься с делом.]",
          output = "text",
-         text = [["Well, look who it is boys -- %p has come home.  You seem to have
-fallen behind in your dues.  I should kill you as an example to these
-other worthless cutpurses, but I have a better plan.  If you are ready
-maybe you could work off your back dues by performing a little job for
-me.  Let us just see if you are ready..."]],
+         text = [["Ну-ка, глядите, парни, — %p вернулся домой.  Кажется,
+ты запустил взносы.  Я бы убил тебя в назидание этим
+никчёмным срезателям кошельков, но у меня есть план получше.  Если готов,
+можешь отработать долг, выполнив для меня одно дельце.
+Вот и посмотрим, готов ли ты..."]],
       },
       leader_last = {
-         synopsis = "[You must go.]",
+         synopsis = "[Тебе пора уходить.]",
          output = "text",
-         text = [["Well %gp, it looks like our friend has forgotten who is the boss
-around here.  Our friend seems to think that %rp have been put in
-charge.  Wrong.  DEAD WRONG!"
+         text = [["Ну что, ребята, кажется, наш друг забыл, кто здесь
+хозяин.  Наш друг, видимо, решил, что командовать теперь будет он.
+Ошибся.  МЁРТВО ОШИБСЯ!"
 
-Your sudden shift in surroundings prevents you from hearing the end
-of %ls curse.]],
+Внезапная перемена места не даёт тебе услышать конец
+проклятия %l.]],
       },
       leader_next = {
-         synopsis = "[Are you stupid or are you ready?]",
+         synopsis = "[Ты глуп или готов?]",
          output = "text",
-         text = [["Well, I didn't expect to see you back.  It shows that you are either stupid,
-or you are finally ready to accept my offer.  Let us hope for your sake it
-isn't stupidity that brings you back."]],
+         text = [["Ну, не ждал, что ты вернёшься.  Значит, ты либо глуп,
+либо наконец готов принять моё предложение.  Будем надеяться,
+что тебя привела не глупость."]],
       },
       leader_other = {
-         text = [["Did you perhaps mistake me for some other %lt?  You must
-think me as stupid as your behavior.  I warn you not to try my patience."]],
+         text = [["Ты, случаем, не принял меня за другого %l?  Должно быть,
+ты считаешь меня таким же глупым, как сам себя ведёшь.  Предупреждаю:
+не испытывай моё терпение."]],
       },
       locate_first = {
-         text = "Those damn little hairs tell you that you are nearer to %o.",
+         text = "Эти проклятые волоски подсказывают: ты ближе к %o.",
       },
       locate_next = {
-         text = "Not wanting to face %l without having stolen %o, you continue.",
+         text = "Не желая предстать перед %l без %o, ты идёшь дальше.",
       },
       nemesis_first = {
-         text = "\"Ah!  You must be %ls ... er, `hero'.  A pleasure to meet you.\"",
+         text = "\"Ах!  Ты, должно быть, тот самый «герой» от %l.  Приятно познакомиться.\"",
       },
       nemesis_next = {
-         text = "\"We meet again.  Please reconsider your actions.\"",
+         text = "\"Мы снова встретились.  Прошу, передумай.\"",
       },
       nemesis_other = {
-         synopsis = "[You cannot trust %l.]",
+         synopsis = "[%l доверять нельзя.]",
          output = "text",
-         text = [["Surely, %p, you have learned that you cannot trust any bargains
-that %l has made.  I can show you how to continue on
-your quest without having to run into him again."]],
+         text = [["Несомненно, %p, ты понял, что нельзя доверять никаким сделкам
+с %l.  Я могу показать, как продолжить поиски,
+не попадаясь ему на глаза."]],
       },
       nemesis_wantsit = {
-         synopsis = "[%lC should not have %o.]",
+         synopsis = "[%l не должен владеть %o.]",
          output = "text",
-         text = [["Please, think for a moment about what you are doing.  Do you truly
-believe that %d would want %l to have
-%o?"]],
+         text = [["Прошу, подумай мгновение о том, что делаешь.  Неужели
+ты веришь, что %d хотел бы, чтобы %l
+владел %o?"]],
       },
       nexttime = {
-         text = [[Once again, you find yourself back in Ransmannsby.  Fond memories are
-replaced by fear, knowing that %l is waiting for you.]],
+         text = [[Ты снова в Рансмансби.  Тёплые воспоминания сменяются
+страхом: ты знаешь, что %l ждёт тебя.]],
       },
       offeredit = {
-         synopsis = "[Take %o with you and go.]",
+         synopsis = "[Забери %o с собой и ступай.]",
          output = "text",
-         text = [["Well, I'll be damned.  You got it.  I am proud of you, a fine %r
-you've turned out to be.
+         text = [["Ну, будь я проклят.  Ты добыл его.  Горжусь тобой: славный
+из тебя вышел %r.
 
-"While you were gone I got to thinking, you and %o
-together could bring me more treasure than either of you apart, so why don't
-you take it with you.  All I ask is a cut of whatever loot you come by.
-That is a better deal than I offered %n.
+"Пока тебя не было, я подумал: ты и %o
+вместе принесёте мне больше добычи, чем по отдельности.  Так что забирай
+его с собой.  Прошу лишь долю от любой добычи.
+Это выгоднее, чем я предлагал %n.
 
-"But, you see what happened to %n when he refused.
-Don't make me find another to send after you this time."]],
+"Но ты видел, что случилось с %n, когда он отказался.
+Не заставляй меня в этот раз искать другого, чтобы послать за тобой."]],
       },
       offeredit2 = {
-         synopsis = "[Take %o and acquire the Amulet.]",
+         synopsis = "[Забери %o и добудь Амулет.]",
          output = "text",
-         text = [[%lC seems tempted to swap %o for
-the mundane one you detect in his pocket, but noticing your alertness,
-evidently chickens out.
+         text = [[%lC, кажется, готов обменять %o на
+обычный лук, что ты замечаешь у него в кармане, но, видя твою
+настороженность, трусит.
 
-"Go filch the Amulet before someone else beats you to it.
-%Z are back the way you came, through the magic portal."]],
+"Ступай укради Амулет, пока кто-нибудь не опередил тебя.
+%Z — там, откуда ты пришёл, за магическим порталом."]],
       },
       othertime = {
-         text = [[You rub your hands through your hair, hoping that the little ones on
-the back of your neck stay down, and prepare yourself for your meeting
-with %l.]],
+         text = [[Ты ерошишь волосы, надеясь, что волоски на затылке
+не встанут дыбом, и готовишься к встрече
+с %l.]],
       },
       posthanks = {
-         synopsis = "[How about trading %o for something?]",
+         synopsis = "[Как насчёт обмена %o на что-нибудь?]",
          output = "text",
-         text = [["Quite the little thief, aren't we, %p.  Can I interest you in a
-swap for %o?  Look around, anything in the keep
-is yours for the asking."]],
+         text = [["Ну и воришка из тебя вышел, %p.  Не желаешь обменять
+%o?  Осмотрись: всё в этой крепости — твоё, только попроси."]],
       },
    },
    Sam = {
