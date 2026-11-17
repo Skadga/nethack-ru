@@ -147,6 +147,17 @@
   склоняются обе части через дефис, «леди» не склоняется. Простые (5):
   жрица, клирик, верховный жрец, верховная жрица, верховный клирик
   (последние три — через пробел). Сборка Release x64: 0 ошибок.
+- Батч №12 (11db990): dat/quest.lua — секция common (46 замен):
+  angel_cuss, banished, demon_cuss, quest_complete_no_bell,
+  quest_portal, quest_portal_again, quest_portal_demand.
+- Батч №13 (b126caa): dat/quest.lua — секция Arc (29 ключей).
+- Батч №14 (c04650d): dat/quest.lua — секции Bar и Cav (по 29 ключей).
+- Батч №15 (ac86fb2): dat/quest.lua — секции Hea и Kni (по 28 ключей).
+- Батч №16: dat/quest.lua — секции Mon и Pri (по 28 ключей).
+  В текстах квестов работают %p (имя игрока), %c, %r, %R, %s, %S,
+  %l, %n, %i, %o/%O, %H, %d, %a, %g, %Z и суффиксы C/c, h/H, i/I,
+  j/J (род); непереносимые %na/%ns/%ls/%ra/%ca/%lt/%shood и суффиксы
+  a/A, p/P, s/S, t заменены перестройкой фраз.
 
 ## Что осталось
 
