@@ -827,8 +827,7 @@ doengrave_sfx_item(struct _doengrave_ctx *de)
                 pline("%s может лишь поцарапать %s.",
                       Yname2(de->otmp), surface(u.ux, u.uy));
             else if ((int) de->otmp->spe <= -3)
-                pline("%s слишком тупой для гравировки.",
-                      Yobjnam2(de->otmp, "are"));
+                pline("%s слишком тупой для гравировки.", Yname2(de->otmp));
             else
                 de->type = ENGRAVE;
         }
@@ -860,7 +859,7 @@ doengrave_sfx_item(struct _doengrave_ctx *de)
                     if (!Blind)
                         You("стираете послание здесь.");
                     else
-                        pline("%s %s.", Yobjnam2(de->otmp, "get"),
+                        pline("%s %s.", Yname2(de->otmp),
                               de->frosted ? "в инее" : "в пыли");
                     de->dengr = TRUE;
                 } else {
@@ -868,7 +867,7 @@ doengrave_sfx_item(struct _doengrave_ctx *de)
                           Yname2(de->otmp));
                 }
             } else {
-                pline("%s %s.", Yobjnam2(de->otmp, "get"),
+                pline("%s %s.", Yname2(de->otmp),
                       de->frosted ? "в инее" : "в пыли");
             }
             break;

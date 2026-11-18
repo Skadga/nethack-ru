@@ -2589,7 +2589,7 @@ in_container(struct obj *obj)
         pline("%s не может быть заключён в такие одежды.", The(xname(obj)));
         return 0;
     } else if (obj->otyp == LEASH && obj->leashmon != 0) {
-        pline("%s прикреплён к вашему питомцу.", Tobjnam(obj, "are"));
+        pline("%s прикреплён к вашему питомцу.", The(xname(obj)));
         return 0;
     } else if (obj == uwep) {
         if (welded(obj)) {
@@ -2807,7 +2807,7 @@ mbag_item_gone(boolean held, struct obj *item, boolean silent)
 
     if (!silent) {
         if (item->dknown)
-            pline("%s %s исчез!", Doname2(item), otense(item, "have"));
+            pline("%s пропадает!", Doname2(item));
         else
             You("%s %s исчезают!", Blind ? "замечаете" : "видите", doname(item));
     }
@@ -2994,7 +2994,7 @@ use_container(
             update_inventory();
     }
     if (obj->olocked) {
-        pline("%s заперто.", Tobjnam(obj, "are"));
+        pline("%s заперт.", The(xname(obj)));
         if (held)
             You("нужно положить его, чтобы открыть.");
         return ECMD_OK;
@@ -3666,7 +3666,7 @@ dotip(void)
     }
     /* anything not covered yet */
     if (cobj->oclass == POTION_CLASS) /* can't pour potions... */
-        pline("%s %s Надёжно запечатан.", xname(cobj), otense(cobj, "are"));
+        pline("%s надёжно запечатано.", The(xname(cobj)));
     else if (uarmh && cobj == uarmh)
         return tiphat() ? ECMD_TIME : ECMD_OK;
     else if (cobj->otyp == STATUE)

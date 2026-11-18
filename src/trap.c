@@ -455,7 +455,7 @@ grease_protect(
         else if (vismon)
             pline("%s защищено слоем жира!", ostr);
     } else if (victim == &gy.youmonst || vismon) {
-        pline("%s защищено слоем жира!", Yobjnam2(otmp, ""));
+        pline("%s защищено слоем жира!", Yname2(otmp));
     }
     if (!rn2(2)) {
         otmp->greased = 0;

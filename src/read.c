@@ -679,9 +679,11 @@ p_glow2(struct obj *otmp, const char *color)
 staticfn void
 p_glow3(struct obj *otmp, const char *color)
 {
-    pline("%s слабо%s%s на мгновение.",
-          Yobjnam2(otmp, Blind ? "vibrate" : "glow"),
-          Blind ? "" : " ", Blind ? "" : hcolor(color));
+    (void) color;
+    if (Blind)
+        pline("%s слабо дрожит на мгновение.", Yname2(otmp));
+    else
+        pline("%s слабо светится синим на мгновение.", Yname2(otmp));
 }
 
 /* getobj callback for object to charge */
@@ -1351,7 +1353,7 @@ seffect_destroy_armor(struct obj **sobjp)
     if (scursed) {
         if (otmp && otmp->cursed) {
             /* armor and scroll both cursed */
-            pline("%s.", Yobjnam2(otmp, "vibrate"));
+            pline("%s дрожит.", Yname2(otmp));
             if (otmp->spe >= -6) {
                 otmp->spe += -1;
                 adj_abon(otmp, -1);
@@ -1588,8 +1590,8 @@ seffect_remove_curse(struct obj **sobjp)
                 /* like rndcurse(sit.c), effect on regular inventory
                    doesn't show things glowing but saddle does */
                 if (!Blind) {
-                    pline("%s %s.", Yobjnam2(obj, "glow"),
-                              hcolor("amber"));
+                    pline("%s светится %s.", Yname2(obj),
+                              hcolor("янтарным"));
                     obj->bknown = Hallucination ? 0 : 1;
                 } else {
                     obj->bknown = 0; /* skip set_bknown() */

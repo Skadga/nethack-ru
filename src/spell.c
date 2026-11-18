@@ -345,7 +345,7 @@ book_cursed(struct obj *book)
 {
     if (book->cursed && gm.multi >= 0
         && go.occupation == learn && svc.context.spbook.book == book) {
-        pline("%s захлопывается!", Tobjnam(book, "slam"));
+        pline("%s захлопывается!", The(xname(book)));
         set_bknown(book, 1);
         stop_occupation();
     }

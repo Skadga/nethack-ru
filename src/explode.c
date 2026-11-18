@@ -786,7 +786,7 @@ scatter(
                 if ((trap = t_at(sx, sy)) && trap->ttyp == STATUE_TRAP)
                     deltrap(trap);
                 if (cansee(sx, sy)) {
-                    pline("%s.", Tobjnam(otmp, "crumble"));
+                    pline("%s рассыпается.", The(xname(otmp)));
                 } else {
                     Soundeffect(se_stone_crumbling, 100);
                     You_hear("рассыпающийся камень.");

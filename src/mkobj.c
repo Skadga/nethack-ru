@@ -2937,8 +2937,8 @@ hornoplenty(
                 if (IS_ALTAR(levl[u.ux][u.uy].typ))
                     doaltarobj(obj); /* does its own drop message */
                 else
-                    pline("%s %s на %s.", Doname2(obj),
-                          otense(obj, "drop"), surface(u.ux, u.uy));
+                    pline("%s падает на %s.", Doname2(obj),
+                          surface(u.ux, u.uy));
                 dropy(obj);
             }
         }

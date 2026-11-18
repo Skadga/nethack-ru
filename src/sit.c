@@ -611,7 +611,7 @@ rndcurse(void)
 
             if (otmp->oartifact && spec_ability(otmp, SPFX_INTEL)
                 && rn2(10) < 8) {
-                pline("%s!", Tobjnam(otmp, "resist"));
+                pline("%s сопротивляется!", The(xname(otmp)));
                 continue;
             }
 
@@ -631,8 +631,8 @@ rndcurse(void)
         else
             curse(otmp);
         if (!Blind) {
-            pline("%s %s.", Yobjnam2(otmp, "glow"),
-                  hcolor(otmp->cursed ? NH_BLACK : (const char *) "коричневым"));
+            pline("%s светится %s.", Yname2(otmp),
+                  otmp->cursed ? "чёрным" : "коричневым");
             otmp->bknown = Hallucination ? 0 : 1; /* bypass set_bknown() */
         } else {
             otmp->bknown = 0; /* bypass set_bknown() */

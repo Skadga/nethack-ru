@@ -1244,7 +1244,7 @@ use_bell(struct obj **optr)
                                NO_MINVENT | MM_NOMSG)) != 0) {
             You("призываете %s!", a_monnam(mtmp));
             if (!obj_resists(obj, 93, 100)) {
-                pline("%s разбилось вдребезги!", Tobjnam(obj, "have"));
+                pline("%s разбиваетс€ вдребезги!", The(xname(obj)));
                 useup(obj);
                 *optr = 0;
             } else
@@ -1282,7 +1282,7 @@ use_bell(struct obj **optr)
             wakem = TRUE;
 
         } else if (invoking) {
-            pline("%s издаЄт тревожный пронзительный звук...", Tobjnam(obj, "issue"));
+            pline("%s издаЄт тревожный пронзительный звук...", The(xname(obj)));
             obj->age = svm.moves;
             learno = TRUE;
             wakem = TRUE;
@@ -1368,8 +1368,8 @@ use_candelabrum(struct obj *obj)
     if (obj->spe < 7) {
         pline("¬ %s только %d %s.", the(xname(obj)), obj->spe, s);
         if (!Blind)
-            pline("%s.  %s тускло.", obj->spe == 1 ? "ќн горит" : "ќни гор€т",
-                  Tobjnam(obj, "shine"));
+            pline("%s.  —вет тусклый.",
+                  obj->spe == 1 ? "ќн горит" : "ќни гор€т");
     } else {
         pline("%s: %s гор€т%s", The(xname(obj)), s,
               (Blind ? "." : " €рко!"));
@@ -1393,9 +1393,9 @@ use_candelabrum(struct obj *obj)
     } else {
         if (obj->spe == 7) {
             if (Blind)
-                pline("%s излучает странное тепло!", Tobjnam(obj, "radiate"));
+                pline("%s излучает странное тепло!", The(xname(obj)));
             else
-                pline("%s светитс€ странным светом!", Tobjnam(obj, "glow"));
+                pline("%s светитс€ странным светом!", The(xname(obj)));
         }
         obj->known = 1;
     }
@@ -1523,7 +1523,7 @@ snuff_lit(struct obj *obj)
             || obj->otyp == BRASS_LANTERN || obj->otyp == POT_OIL) {
             (void) get_obj_location(obj, &x, &y, 0);
             if (obj->where == OBJ_MINVENT ? cansee(x, y) : !Blind)
-                pline("%s %s гаснет!", Yname2(obj), otense(obj, "go"));
+                pline("%s гаснет!", Yname2(obj));
             end_burn(obj, TRUE);
             return TRUE;
         }
@@ -1697,8 +1697,7 @@ use_lamp(struct obj *obj)
                       fingers_or_gloves(TRUE, BP_ACC));
             make_glib((int) (Glib & TIMEOUT) + d(2, 10));
         } else if (!Blind) {
-            pline("%s мгновение, затем %s.", Tobjnam(obj, "flicker"),
-                  otense(obj, "die"));
+            pline("%s мигает мгновение, затем гаснет.", The(xname(obj)));
         } else {
             pline("%s", nothing_seems_to_happen);
         }
@@ -1707,8 +1706,8 @@ use_lamp(struct obj *obj)
             check_unpaid(obj);
             pline("%s%s теперь зажжЄн.", Shk_Your(buf, obj), lamp);
         } else { /* candle(s) */
-            pline("ѕлам€ %s %s%s", obj_case(obj, BP_GEN),
-                  otense(obj, "burn"), Blind ? "." : " €рко!");
+            pline("ѕлам€ %s%s", obj_case(obj, BP_GEN),
+                  Blind ? "." : " €рко!");
             if (obj->unpaid && costly_spot(u.ux, u.uy)
                 && obj->age == 20L * (long) objects[obj->otyp].oc_cost) {
                 const char *ithem = (obj->quan > 1L) ? "их" : "его";
@@ -2631,7 +2630,7 @@ use_grease(struct obj *obj)
     struct obj *otmp;
 
     if (Glib) {
-        pline("%s из твоих %s.", Tobjnam(obj, "slip"),
+        pline("%s выскальзывает из твоих %s.", The(xname(obj)),
               fingers_or_gloves(FALSE, BP_GEN));
         dropx(obj);
         return ECMD_TIME;
@@ -2643,7 +2642,7 @@ use_grease(struct obj *obj)
         if ((obj->cursed || Fumbling) && !rn2(2)) {
             consume_obj_charge(obj, TRUE);
 
-            pline("%s из твоих %s.", Tobjnam(obj, "slip"),
+            pline("%s выскальзывает из твоих %s.", The(xname(obj)),
                   fingers_or_gloves(FALSE, BP_GEN));
             dropx(obj);
             return ECMD_TIME;
@@ -2670,9 +2669,9 @@ use_grease(struct obj *obj)
         }
     } else {
         if (obj->known)
-            pline("%s пуст.", Tobjnam(obj, "are"));
+            pline("%s пуст.", The(xname(obj)));
         else
-            pline("%s кажетс€ пустым.", Tobjnam(obj, "seem"));
+            pline("%s кажетс€ пустым.", The(xname(obj)));
     }
     update_inventory();
     return ECMD_TIME;
@@ -2787,13 +2786,13 @@ use_stone(struct obj *tstone)
     default:
         switch (objects[obj->otyp].oc_material) {
         case CLOTH:
-            pline("%s теперь немного более отполирован.", Tobjnam(tstone, "look"));
+            pline("%s теперь немного более отполирован.", The(xname(tstone)));
             return ECMD_TIME;
         case LIQUID:
             if (!obj->known) /* note: not "whetstone" */
                 You("должно быть, думаете, что это мокрый камень, да?");
             else
-                pline("%s теперь немного мокрее.", Tobjnam(tstone, "are"));
+                pline("%s теперь немного мокрее.", The(xname(tstone)));
             return ECMD_TIME;
         case WAX:
             streak_color = "восковые";
@@ -3676,7 +3675,7 @@ use_royal_jelly(struct obj **optr)
 
     if (obj->cursed) {
         if (eobj->timed || eobj->corpsenm != oldcorpsenm)
-            pline("%s %s слабо.", xname(eobj), otense(eobj, "quiver"));
+            pline("%s слабо дрожит.", xname(eobj));
         else
             pline("%s", nothing_seems_to_happen);
         kill_egg(eobj);
@@ -3695,7 +3694,7 @@ use_royal_jelly(struct obj **optr)
 
     if ((eobj->timed && !was_timed) || eobj->spe == 2
         || eobj->corpsenm != oldcorpsenm)
-        pline("%s %s недолго.", xname(eobj), otense(eobj, "quiver"));
+        pline("%s слабо дрожит недолго.", xname(eobj));
     else
         pline("%s", nothing_seems_to_happen);
 
@@ -4340,7 +4339,7 @@ doapply(void)
             /* sometimes the blessing will be worn off */
             if (!rn2(49)) {
                 if (!Blind) {
-                    pline("%s %s.", Yobjnam2(obj, "glow"), hcolor("brown"));
+                    pline("%s светитс€ %s.", Yname2(obj), hcolor("коричневым"));
                     set_bknown(obj, 1);
                 }
                 unbless(obj);

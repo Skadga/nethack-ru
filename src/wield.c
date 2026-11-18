@@ -1075,7 +1075,7 @@ weldmsg(struct obj *obj)
     obj->owornmask = 0L; /* suppress doname()'s "(weapon in hand)";
                           * Yobjnam2() doesn't actually need this because
                           * it is based on xname() rather than doname() */
-    pline("%s приварен к %s%s!", Yobjnam2(obj, "are"), hand_pos, hand);
+    pline("%s к %s%s!", Yobjnam2(obj, "приварен"), hand_pos, hand);
     obj->owornmask = savewornmask;
 }
 

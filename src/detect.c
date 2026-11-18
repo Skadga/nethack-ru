@@ -1223,30 +1223,30 @@ use_crystal_ball(struct obj **optr)
 
         switch (rnd((obj->oartifact || obj->blessed) ? 4 : 5)) {
         case 1:
-            pline("%s слишком сложно для понимания!", Tobjnam(obj, "are"));
+            pline("%s не поддаётся пониманию!", The(xname(obj)));
             break;
         case 2:
-            pline("%s вас!", Tobjnam(obj, "confuse"));
+            pline("%s сбивает вас с толку!", The(xname(obj)));
             make_confused((HConfusion & TIMEOUT) + impair, FALSE);
             break;
         case 3:
             if (!resists_blnd(&gy.youmonst)) {
-                pline("%s ваше зрение!", Tobjnam(obj, "damage"));
+                pline("%s портит ваше зрение!", The(xname(obj)));
                 make_blinded(BlindedTimeout + impair, FALSE);
                 if (!Blind)
                     Your1(vision_clears);
             } else {
-                pline("%s ваше зрение.", Tobjnam(obj, "assault"));
+                pline("%s не может повредить ваше зрение.", The(xname(obj)));
                 You("не затронуты!");
             }
             break;
         case 4:
-            pline("%s ваш разум!", Tobjnam(obj, "zap"));
+            pline("%s затуманивает ваш разум!", The(xname(obj)));
             (void) make_hallucinated((HHallucination & TIMEOUT) + impair,
                                      FALSE, 0L);
             break;
         case 5:
-            pline("%s!", Tobjnam(obj, "explode"));
+            pline("%s взрывается!", The(xname(obj)));
             useup(obj);
             *optr = obj = 0; /* it's gone */
             /* physical damage cause by the shards and force */
@@ -1322,7 +1322,7 @@ use_crystal_ball(struct obj **optr)
 
         if (obj->spe < 0) { /* destroy ball if used after being cancelled */
  implode:   /* no damage to hero but 'multi' has a small negative value */
-            pline("%s!", Tobjnam(obj, "implode"));
+            pline("%s схлопывается!", The(xname(obj)));
             useup(obj);
             *optr = obj = (struct obj *) 0; /* it's gone */
             return;

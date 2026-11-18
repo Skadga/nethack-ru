@@ -423,8 +423,8 @@ check_wornmask_slots(void)
             Sprintf(whybuf, "%s wrong bit set in owornmask [0x%08lx]",
                     what, o->owornmask);
         else if (!Is_dragon_scales(o))
-            Sprintf(whybuf, "%s (%s) %s не драконья чешуя.",
-                    what, simpleonames(o), otense(o, "are"));
+            Sprintf(whybuf, "%s (%s): не драконья чешуя.",
+                    what, simpleonames(o));
         else if (Dragon_scales_to_pm(o) != &mons[u.umonnum])
             Sprintf(whybuf, "%s, герой не %s",
                     what, an(mons[u.umonnum].pmnames[NEUTRAL]));
@@ -981,8 +981,7 @@ m_dowear_type(
                 pline("%s %s сиять %s.", Yname2(best),
                       otense(best, "начинает"), adesc);
             else if (canseemon(mon)) /* didn't see it until new light */
-                pline("%s %s сиять %s.", Yname2(best),
-                      otense(best, "are"), adesc);
+                pline("%s сияет %s.", Yname2(best), adesc);
             else if (sawloc) /* saw location but not invisible monster */
                 pline("%s начинает сиять %s.", Something, adesc);
             else /* didn't see location until new light */

@@ -508,7 +508,7 @@ moverock_core(coordxy sx, coordxy sy)
                         obj_extract_self(otmp);
                         place_object(otmp, rx, ry);
                         newsym(sx, sy);
-                        pline("%s! %s %s мина.",
+                        pline("%s! %s подрывается на %s.",
                               /* "kablam" is a variation of "ka-boom" or
                                  "kablooey", rather cartoonish descriptions
                                  of the sound of an explosion, but give it
@@ -518,8 +518,8 @@ moverock_core(coordxy sx, coordxy sy)
                                  the floor/ground/whatever shake (or maybe
                                  a weak shockwave if levitating or flying) */
                                                 : "Gadzooks",
-                              Tobjnam(otmp, "trigger"),
-                              ttmp->madeby_u ? "your" : "a");
+                              The(xname(otmp)),
+                              ttmp->madeby_u ? "вашей мине" : "мине");
                         blow_up_landmine(ttmp);
                         /* if the boulder remains, it should fill the pit */
                         fill_pit(u.ux, u.uy);
@@ -603,8 +603,7 @@ moverock_core(coordxy sx, coordxy sy)
                         if (tox == ttmp->launch2.x && toy == ttmp->launch2.y)
                             break;
                     }
-                    pline("%s от вас!",
-                          Tobjnam(otmp, "suddenly roll"));
+                    pline("%s катится от вас!", The(xname(otmp)));
                     feeltrap(ttmp);
                     launch_obj(BOULDER, sx, sy, tox, toy, ROLL | LAUNCH_KNOWN);
                     return sobj_at(BOULDER, sx, sy) ? -1 : 0;

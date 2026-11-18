@@ -293,7 +293,7 @@ flooreffects(
                 Soundeffect(se_item_tumble_downwards, 50);
                 You_hear("%s катится вниз.", the(xname(obj)));
             } else {
-                pline("%s в %sяму.", Tobjnam(obj, "tumble"),
+                pline("%s падает в %sяму.", The(xname(obj)),
                       t->madeby_u ? "вашу " : "");
             }
         } else if (ship_object(obj, x, y, FALSE)) {
@@ -333,8 +333,8 @@ flooreffects(
         if (cansee(x,y)) {
             /* unconditional "ground" is safe as this only runs for
                room and corridor tiles */
-            pline("%s, когда %s раскалённой земли.", Tobjnam(obj, "heat"),
-                  is_plural(obj) ? "они касаются" : "оно касается");
+            pline("%s нагревается, коснувшись раскалённой земли.",
+                  The(xname(obj)));
         }
 
         int survival_chance = obj->blessed ? 70 : 50;
@@ -378,13 +378,12 @@ doaltarobj(struct obj *obj)
     }
 
     if (obj->blessed || obj->cursed) {
-        There("%s вспышка: %s %s алтарь.",
-              an(hcolor(obj->blessed ? NH_AMBER : NH_BLACK)), doname(obj),
-              otense(obj, "hit"));
+        There("%s вспышка: %s касается алтаря.",
+              obj->blessed ? "янтарная" : "чёрная", doname(obj));
         if (!Hallucination)
             obj->bknown = 1; /* ok to bypass set_bknown() */
     } else {
-        pline("%s %s на алтаре.", Doname2(obj), otense(obj, "land"));
+        pline("%s оказывается на алтаре.", Doname2(obj));
         if (obj->oclass != COIN_CLASS)
             obj->bknown = 1; /* ok to bypass set_bknown() */
     }
@@ -561,8 +560,7 @@ dosinkring(struct obj *obj)
             if (otmp != uball && otmp != uchain
                 && !obj_resists(otmp, 1, 99)) {
                 if (!Blind) {
-                    pline("Внезапно %s %s из раковины!", doname(otmp),
-                          otense(otmp, "vanish"));
+                    pline("Внезапно %s исчезает из раковины!", doname(otmp));
                     ideed = TRUE;
                 }
                 delobj(otmp);
@@ -868,7 +866,7 @@ engulfer_digests_food(struct obj *obj)
             could_slime = TRUE;
         }
         /* see or feel the effect */
-        pline("%s мгновенно переваривается!", Tobjnam(obj, "are"));
+        pline("%s мгновенно переваривается!", The(xname(obj)));
 
         if (could_poly || could_slime) {
             (void) newcham(u.ustuck, could_slime ? &mons[PM_GREEN_SLIME] : 0,

@@ -1376,7 +1376,7 @@ rehumanize(void)
                be wearing an amulet of life-saving */
             return; /* don't rehumanize after all */
         } else if (uamul && uamul->otyp == AMULET_OF_UNCHANGING) {
-            Your("%s %s!", simpleonames(uamul), otense(uamul, "fail"));
+            Your("%s не срабатывает!", simpleonames(uamul));
             observe_object(uamul);
             makeknown(AMULET_OF_UNCHANGING);
         }
