@@ -4612,7 +4612,7 @@ there_cmd_menu_next2u(
 
     if ((mtmp && !(mtmp->mpeaceful || mtmp->mtame))
         || glyph_is_invisible(glyph_at(x, y))) {
-        Sprintf(buf, "Атаковать %s", mtmp ? mon_nam(mtmp) : "невидимое существо");
+        Sprintf(buf, "Атаковать %s", mtmp ? mon_gen(mtmp, BP_ACC) : "невидимое существо");
         mcmd_addmenu(win, MCMD_ATTACK_NEXT2U, buf), ++K;
         /* attacking overrides any other automatic action */
         *act = MCMD_ATTACK_NEXT2U;

@@ -284,7 +284,7 @@ do_pit(coordxy x, coordxy y, unsigned tu_pit)
                                         has_mgivenname(mtmp)
                                          ? SUPPRESS_SADDLE : 0,
                                         FALSE)
-                             : mon_nam(mtmp));
+                             : mon_gen(mtmp, BP_ACC));
                     }
                     xkilled(mtmp, XKILL_NOMSG);
                 }

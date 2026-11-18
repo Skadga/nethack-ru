@@ -1755,7 +1755,7 @@ trapeffect_rust_trap(
             if (in_sight)
                 pline_mon(mtmp,
                       "%s %s по голове!", A_gush_of_water_hits,
-                      mon_nam(mtmp));
+                      mon_gen(mtmp, BP_ACC));
             target = which_armor(mtmp, W_ARMH);
             (void) water_damage(target, helm_simple_name(target), TRUE);
             break;
@@ -1763,7 +1763,7 @@ trapeffect_rust_trap(
             if (in_sight)
                 pline_mon(mtmp,
                       "%s %s по левой руке!", A_gush_of_water_hits,
-                      mon_nam(mtmp));
+                      mon_gen(mtmp, BP_ACC));
             target = which_armor(mtmp, W_ARMS);
             if (water_damage(target, "щит", TRUE) != ER_NOTHING)
                 break;
@@ -1778,7 +1778,7 @@ trapeffect_rust_trap(
             if (in_sight)
                 pline_mon(mtmp,
                       "%s %s по правой руке!", A_gush_of_water_hits,
-                      mon_nam(mtmp));
+                      mon_gen(mtmp, BP_ACC));
             (void) water_damage(MON_WEP(mtmp), 0, TRUE);
             goto mglovecheck;
         default:
@@ -2831,7 +2831,7 @@ trapeffect_vibrating_square(
 
                 if (nolimbs(mtmp->data) || m_in_air(mtmp)) {
                     /* just "beneath <mon>" */
-                    Strcpy(buf, mon_nam(mtmp));
+                    Strcpy(buf, mon_gen(mtmp, BP_GEN));
                 } else {
                     Sprintf(buf, "%s %s",
                             mbodypart_case(mtmp, FOOT, BP_INS | BP_PLURAL),
@@ -4065,7 +4065,7 @@ float_up(void)
         if (is_animal(u.ustuck->data))
             You("всплываете в %s.", surface_ru(u.ux, u.uy));
         else
-            You("ввинчиваетесь вверх внутрь %s.", mon_nam(u.ustuck));
+            You("ввинчиваетесь вверх внутрь %s.", mon_gen(u.ustuck, BP_GEN));
     } else if (Hallucination) {
         pline("Вверх, вверх, и аааа!  Вы идёте по воздуху!");
     } else if (Is_airlevel(&u.uz)) {
@@ -5348,7 +5348,7 @@ could_untrap(boolean verbosely, boolean check_floor)
                || !gy.youmonst.data->mmove) {
         Strcpy(buf, "И как же вы намереваетесь это сделать?");
     } else if (u.ustuck && sticks(gy.youmonst.data)) {
-        Sprintf(buf, "Вам придётся сначала отпустить %s.", mon_nam(u.ustuck));
+        Sprintf(buf, "Вам придётся сначала отпустить %s.", mon_gen(u.ustuck, BP_ACC));
     } else if (u.ustuck || (welded(uwep) && bimanual(uwep))) {
         Sprintf(buf, "Ваши %s слишком заняты для этого.",
                 body_part_case(HAND, BP_NOM | BP_PLURAL));
@@ -5832,7 +5832,7 @@ help_monster_out(
     }
     /* need to do cockatrice check first if sleeping or paralyzed */
     if (uprob) {
-        You("пытаетесь схватить %s, но не можете крепко ухватить его.", mon_nam(mtmp));
+        You("пытаетесь схватить %s, но не можете крепко ухватить его.", mon_gen(mtmp, BP_ACC));
         if (mtmp->msleeping) {
             mtmp->msleeping = 0;
             pline("%s просыпается.", Monnam(mtmp));
@@ -5842,7 +5842,7 @@ help_monster_out(
 
     You("протягиваете свои %s и хватаете %s.",
         body_part_case(ARM, BP_ACC | BP_PLURAL),
-        mon_nam(mtmp));
+        mon_gen(mtmp, BP_ACC));
 
     if (mtmp->msleeping) {
         mtmp->msleeping = 0;

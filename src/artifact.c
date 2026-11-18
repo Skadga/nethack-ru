@@ -1338,7 +1338,7 @@ Mb_hit(struct monst *magr, /* attacker */
                    update its name if necessary */
                 if (mdef->data != old_mdat) {
                     Strcpy(hittee, mon_nam(mdef));
-                    Strcpy(hittee_acc, mon_nam(mdef));
+                    Strcpy(hittee_acc, mon_gen(mdef, BP_ACC));
                 }
                 if (mdef->data == &mons[PM_CLAY_GOLEM])
                     mdef->mhp = 1; /* cancelled clay golems will die */
@@ -1472,7 +1472,7 @@ artifact_hit(
     char hittee_acc[BUFSZ];
 
     Strcpy(hittee, youdefend ? "Вы" : mon_nam(mdef));
-    Strcpy(hittee_acc, youdefend ? "вас" : mon_nam(mdef));
+    Strcpy(hittee_acc, youdefend ? "вас" : mon_gen(mdef, BP_ACC));
 
     /* The following takes care of most of the damage, but not all--
      * the exception being for level draining, which is specially
@@ -1582,7 +1582,7 @@ artifact_hit(
                     return TRUE;
                 }
                 *dmgptr = 2 * mdef->mhp + FATAL_DAMAGE_MODIFIER;
-                pline("%s разрезает %s пополам!", wepdesc, mon_nam(mdef));
+                pline("%s разрезает %s пополам!", wepdesc, mon_gen(mdef, BP_ACC));
                 observe_object(otmp);
                 return TRUE;
             } else {
@@ -1628,7 +1628,7 @@ artifact_hit(
                 }
                 *dmgptr = 2 * mdef->mhp + FATAL_DAMAGE_MODIFIER;
                 pline(ROLL_FROM(behead_msg), wepdesc,
-                      mon_nam(mdef));
+                      mon_gen(mdef, BP_ACC));
                 if (Hallucination && !flags.female)
                     pline("Молодец, Генри, но эта была не Энн.");
                 observe_object(otmp);

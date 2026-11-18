@@ -1577,7 +1577,7 @@ gulpmu(struct monst *mtmp, struct attack *mattk)
                          : "изгнаны");
         if (flags.verbose
             && (digests(mtmp->data) && Slow_digestion))
-            pline("Похоже, %s не нравится ваш вкус.", mon_nam(mtmp));
+            pline("Похоже, %s не нравится ваш вкус.", mon_gen(mtmp, BP_DAT));
         expels(mtmp, mtmp->data, FALSE);
     }
     return M_ATTK_HIT;

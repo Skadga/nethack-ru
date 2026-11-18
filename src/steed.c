@@ -68,7 +68,7 @@ use_saddle(struct obj *otmp)
     if (touch_petrifies(ptr) && !uarmg && !Stone_resistance) {
         char kbuf[BUFSZ];
 
-        You("касаетесь %s.", mon_nam(mtmp));
+        You("касаетесь %s.", mon_gen(mtmp, BP_GEN));
         if (!(poly_when_stoned(gy.youmonst.data) && polymon(PM_STONE_GOLEM))) {
             Sprintf(kbuf, "пытаясь оседлать %s",
                     an(pmname(mtmp->data, Mgender(mtmp))));

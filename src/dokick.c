@@ -204,7 +204,7 @@ kick_monster(struct monst *mon, coordxy x, coordxy y)
                 /* doesn't matter whether it would have hit or missed,
                    and shades have no passive counterattack */
                 Your("Ваш пинок безвредно проходит сквозь %s.",
-                     mon_nam(mon));
+                     mon_gen(mon, BP_ACC));
                 break; /* skip any additional kicks */
             } else if (tmp > kickdieroll) {
                 You("пинаете %s.", mon_gen(mon, BP_ACC));
@@ -304,7 +304,7 @@ ghitm(struct monst *mtmp, struct obj *gold)
         /* too light to do real damage */
         if (canseemon(mtmp)) {
             pline_The("%s безвредно %s %s.", xname(gold),
-                      otense(gold, "задевает"), mon_nam(mtmp));
+                      otense(gold, "задевает"), mon_gen(mtmp, BP_ACC));
             msg_given = TRUE;
         }
     } else {

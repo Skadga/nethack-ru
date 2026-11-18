@@ -507,7 +507,7 @@ mattackm(
             if (mdef->data == &mons[PM_SHADE]) { /* no silver teeth... */
                 if (gv.vis)
                     pline("%s не сумел поглотить %s.",
-                          Monnam(magr), mon_nam(mdef));
+                          Monnam(magr), mon_gen(mdef, BP_ACC));
                 strike = 0;
                 break;
             }
@@ -660,7 +660,7 @@ hitmm(
         if (compat) {
             Snprintf(buf, sizeof buf, "%s %s", magr_name,
                     mdef->mcansee ? "улыбается" : "разговаривает с");
-            pline("%s %s %s.", buf, mon_nam(mdef),
+            pline("%s %s %s.", buf, mon_gen(mdef, mdef->mcansee ? BP_DAT : BP_INS),
                   (compat == 2) ? "увлекательно" : "соблазнительно");
         } else {
             buf[0] = '\0';
@@ -726,7 +726,7 @@ gazemm(struct monst *magr, struct monst *mdef, struct attack *mattk)
                 altmesg ? Adjmonnam(magr, "ослеплён") : Monnam(magr),
                 altmesg ? "по направлению к" : "в");
         pline("%s %s...", buf,
-              canspotmon(mdef) ? mon_nam(mdef) : "что-то");
+              canspotmon(mdef) ? mon_gen(mdef, altmesg ? BP_DAT : BP_ACC) : "что-то");
     }
 
     if (magr->mcan || !mdef->mcansee
@@ -840,7 +840,7 @@ gulpmm(
               digests(magr->data) ? "проглатывает"
               : enfolds(magr->data) ? "заключает"
                 : "поглощает",
-              mon_nam(mdef));
+              mon_gen(mdef, BP_ACC));
     }
     if (!flaming(magr->data)) {
         for (obj = mdef->minvent; obj; obj = obj->nobj)

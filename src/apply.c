@@ -963,7 +963,7 @@ check_leash(coordxy x, coordxy y)
                     || (mtmp->mhp -= rnd(2)) <= 0) {
                     long save_pacifism = u.uconduct.killer;
 
-                    Your("Ваш поводок душит %s насмерть!", mon_nam(mtmp));
+                    Your("Ваш поводок душит %s насмерть!", mon_gen(mtmp, BP_ACC));
                     /* hero might not have intended to kill pet, but
                        that's the result of his actions; gain experience,
                        lose pacifism, take alignment and luck hit, make

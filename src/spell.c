@@ -1051,7 +1051,7 @@ cast_chain_lightning(void)
                     if (DEADMONSTER(mon)) {
                         xkilled(mon, XKILL_GIVEMSG);
                     } else {
-                        pline("Вы поражаете молнией %s%s", mon_nam(mon), exclam(dmg));
+                        pline("Вы поражаете молнией %s%s", mon_gen(mon, BP_ACC), exclam(dmg));
                         /* if a long worm, only map 'I' for its head */
                         if (!canseemon(mon) && !gn.notonhead)
                             /* FIXME: this doesn't work, possibly because

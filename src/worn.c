@@ -814,7 +814,7 @@ m_dowear_type(
         return; /* probably putting previous item on */
 
     /* Get a copy of monster's name before altering its visibility */
-    Strcpy(nambuf, See_invisible ? Monnam(mon) : mon_nam(mon));
+    Strcpy(nambuf, See_invisible ? Monnam(mon) : mon_gen(mon, BP_ACC));
 
     old = which_armor(mon, flag);
     if (old && old->cursed)

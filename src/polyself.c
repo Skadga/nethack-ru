@@ -1515,7 +1515,7 @@ dospinweb(void)
         return ECMD_OK;
     }
     if (u.uswallow) {
-        You("выпускаете паутинную жидкость внутри %s.", mon_nam(u.ustuck));
+        You("выпускаете паутинную жидкость внутри %s.", mon_gen(u.ustuck, BP_GEN));
         if (is_animal(u.ustuck->data)) {
             expels(u.ustuck, u.ustuck->data, TRUE);
             return ECMD_OK;
@@ -1723,7 +1723,7 @@ dogaze(void)
                     You("атакуете %s огненным взглядом!",
                         mon_gen(mtmp, BP_ACC));
                     if (resists_fire(mtmp)) {
-                        pline("Огонь не сжигает %s!", mon_nam(mtmp));
+                        pline("Огонь не сжигает %s!", mon_gen(mtmp, BP_ACC));
                         dmg = 0;
                     }
                     if (lev > rn2(20)) {

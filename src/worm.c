@@ -440,7 +440,7 @@ cutworm(struct monst *worm, coordxy x, coordxy y,
             if (canspotmon(worm))
                 pline("Часть хвоста %s отрублена.", mhis(worm));
         } else
-            You("отрубили часть хвоста %s.", mon_nam(worm));
+            You("отрубили часть хвоста %s.", mon_gen(worm, BP_GEN));
         toss_wsegs(new_tail, TRUE);
         if (worm->mhp > 1)
             worm->mhp /= 2;
@@ -472,7 +472,7 @@ cutworm(struct monst *worm, coordxy x, coordxy y,
     if (svc.context.mon_moving)
         pline("%s разрублен пополам.", Monnam(worm));
     else
-        You("разрубили %s пополам.", mon_nam(worm));
+        You("разрубили %s пополам.", mon_gen(worm, BP_ACC));
 }
 
 /*

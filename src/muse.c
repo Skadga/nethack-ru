@@ -1076,7 +1076,7 @@ use_defensive(struct monst *mtmp)
             if (vismon)
                 pline("Когда %s поднимается по лестнице, таинственная сила"
                       " на мгновение окружает %s...",
-                      mon_nam(mtmp), mhim(mtmp));
+                      mon_gen(mtmp, BP_ACC), mhim(mtmp));
             /* simpler than for the player; this will usually be
                the Wizard and he'll immediately go right to the
                upstairs, so there's not much point in having any
@@ -1901,7 +1901,7 @@ use_offensive(struct monst *mtmp)
         /* Identify the scroll */
         if (canspotmon(mtmp)) {
             pline_The("%s грохочет %s %s!", ceiling(mtmp->mx, mtmp->my),
-                      otmp->blessed ? "вокруг" : "над", mon_nam(mtmp));
+                      otmp->blessed ? "вокруг" : "над", mon_gen(mtmp, otmp->blessed ? BP_GEN : BP_INS));
             if (oseen)
                 makeknown(otmp->otyp);
         } else if (cansee(mtmp->mx, mtmp->my)) {
@@ -2450,7 +2450,7 @@ use_misc(struct monst *mtmp)
         } else
             mquaffmsg(mtmp, otmp);
         /* format monster's name before altering its visibility */
-        Strcpy(nambuf, mon_nam(mtmp));
+        Strcpy(nambuf, mon_gen(mtmp, BP_ACC));
         mon_set_minvis(mtmp, !otmp->cursed ? FALSE : TRUE);
         if (vismon && mtmp->minvis) { /* was seen, now invisible */
             if (canspotmon(mtmp)) {

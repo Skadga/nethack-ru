@@ -198,7 +198,7 @@ pri_move(struct monst *priest)
         || (Conflict && !resist_conflict(priest))) {
         if (monnear(priest, u.ux, u.uy)) {
             if (Displaced)
-                Your("Ваша замещённая проекция не обманет %s!", mon_nam(priest));
+                Your("Ваша замещённая проекция не обманет %s!", mon_gen(priest, BP_ACC));
             (void) mattacku(priest);
             return 0;
         } else if (strchr(u.urooms, temple)) {

@@ -423,7 +423,7 @@ ohitmon(
 
             /* note: extra silver damage is handled by dmgval() */
             if (vis) {
-                char *m_name = mon_nam(mtmp);
+                const char *m_name = mon_gen(mtmp, BP_ACC);
                 char fleshbuf[BUFSZ];
 
                 if (flesh)
@@ -441,7 +441,7 @@ ohitmon(
             } else {
                 if (vis)
                     pline_The("%s обжигает %s!", hliquid("кислота"),
-                              mon_nam(mtmp));
+                              mon_gen(mtmp, BP_ACC));
                 else if (verbose && !gm.mtarget)
                     pline("Оно обожжено!");
             }

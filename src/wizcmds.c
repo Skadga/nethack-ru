@@ -267,7 +267,7 @@ wiz_kill(void)
         mtmp = 0;
         if (u_at(cc.x, cc.y)) {
             if (u.usteed) {
-                Sprintf(qbuf, "Убить %.110s?", mon_nam(u.usteed));
+                Sprintf(qbuf, "Убить %.110s?", mon_gen(u.usteed, BP_ACC));
                 if ((c = ynq(qbuf)) == 'q')
                     break;
                 if (c == 'y')

@@ -316,7 +316,7 @@ attack_checks(
         if (canspotmon(mtmp)) {
             char qbuf[QBUFSZ];
 
-            Sprintf(qbuf, "Действительно атаковать %s?", mon_nam(mtmp));
+            Sprintf(qbuf, "Действительно атаковать %s?", mon_gen(mtmp, BP_ACC));
             if (!paranoid_query(ParanoidHit, qbuf)) {
                 svc.context.move = 0;
                 return TRUE;
@@ -904,7 +904,7 @@ hmon_hitmon_weapon_ranged(
         boolean more_than_1 = (obj->quan > 1L);
 
         pline("Когда вы бьёте %s, %s%s разлетается на щепки.",
-              mon_nam(mon), more_than_1 ? "одна из " : "",
+              mon_gen(mon, BP_ACC), more_than_1 ? "одна из " : "",
               yname(obj));
         if (!more_than_1)
             uwepgone(); /* set gu.unweapon */
@@ -1152,7 +1152,7 @@ hmon_hitmon_misc_obj(
         if (touch_petrifies(&mons[obj->corpsenm])) {
             hmd->dmg = 1;
             hmd->hittxt = TRUE;
-            You("бьёте %s %s.", mon_nam(mon),
+            You("бьёте %s %s.", mon_gen(mon, BP_ACC),
                 corpse_case(obj, BP_INS));
             observe_object(obj);
             if (!munstone(mon, TRUE))
@@ -1202,7 +1202,7 @@ hmon_hitmon_misc_obj(
             && touch_petrifies(&mons[obj->corpsenm])) {
             /*learn_egg_type(obj->corpsenm);*/
             pline("Шлёп! Вы бьёте %s %s %s %s!",
-                  mon_nam(mon),
+                  mon_gen(mon, BP_ACC),
                   obj->known ? "то" : cnt > 1L ? "несколько" : "одно",
                   obj->known ? mons[obj->corpsenm].pmnames[NEUTRAL]
                   : "окаменяющее",
@@ -1224,7 +1224,7 @@ hmon_hitmon_misc_obj(
                     ? the(mons[mnum].pmnames[NEUTRAL])
                     : (cnt > 1L) ? "какие-то" : "какое-то";
 
-            You("бьёте %s %s %s.", mon_nam(mon), eggp,
+            You("бьёте %s %s %s.", mon_gen(mon, BP_ACC), eggp,
                 (cnt == 1L) ? "яйцо" : "яиц");
             if (touch_petrifies(hmd->mdat) && !stale_egg(obj)) {
                 pline("%s", (cnt == 1L) ? "Яйцо уже не живое..."
@@ -1272,7 +1272,7 @@ hmon_hitmon_misc_obj(
                 pline(obj->otyp == CREAM_PIE ? "Шлёп!"
                       : "Плеск!");
             } else if (obj->otyp == BLINDING_VENOM) {
-                pline("Яд ослепляет %s%s!", mon_nam(mon),
+                pline("Яд ослепляет %s%s!", mon_gen(mon, BP_ACC),
                           mon->mcansee ? "" : " Ещё сильнее");
             } else {
                 char *what = The(xname(obj));
@@ -1656,7 +1656,7 @@ hmon_hitmon_msg_hit(
                            || is_wet_towel(obj))) ? "хлещете"
                   : Role_if(PM_BARBARIAN) ? "сокрушаете"
                     : "бьёте",
-                mon_nam(mon), canseemon(mon) ? exclam(hmd->dmg) : ".");
+                mon_gen(mon, BP_ACC), canseemon(mon) ? exclam(hmd->dmg) : ".");
     }
 }
 
@@ -2055,7 +2055,7 @@ shade_miss(
         static const char harmlessly_thru[] = " безвредно проходит сквозь ";
 
         what = (!obj || shade_aware(obj)) ? "атака" : cxname(obj);
-        target = youdef ? "вас" : mon_nam(mdef);
+        target = youdef ? "вас" : mon_gen(mdef, BP_ACC);
         if (!thrown) {
             whose = youagr ? "Ваша" : mhis_up(magr);
             pline("%s %s %s%s%s.", whose, what,
@@ -2232,11 +2232,11 @@ steal_it(struct monst *mdef, struct attack *mattk)
         if (gender(mdef) == (int) u.mfemale
             && gy.youmonst.data->mlet == S_NYMPH)
             You("очаровываете %s. %s охотно отдаёт %s%s имущество.",
-                mon_nam(mdef), upstart(strcpy(heshe, mhe(mdef))),
+                mon_gen(mdef, BP_ACC), upstart(strcpy(heshe, mhe(mdef))),
                 !gold ? "" : "большую часть из ", mhis(mdef));
         else
             You("соблазняете %s, и %s начинает снимать %s одежду.",
-                mon_nam(mdef), mhe(mdef), mhis(mdef));
+                mon_gen(mdef, BP_ACC), mhe(mdef), mhis(mdef));
     }
 
     /* prevent gold from being stolen so that steal-item isn't a superset
@@ -2575,7 +2575,7 @@ mhitm_ad_fire(
         }
         if (resists_fire(mdef) || defended(mdef, AD_FIRE)) {
             if (!Blind)
-                pline("Огонь не нагревает %s!", mon_nam(mdef));
+                pline("Огонь не нагревает %s!", mon_gen(mdef, BP_ACC));
             golemeffects(mdef, AD_FIRE, mhm->damage);
             shieldeff(mdef->mx, mdef->my);
             mhm->damage = 0;
@@ -2636,7 +2636,7 @@ mhitm_ad_fire(
         }
         if (resists_fire(mdef) || defended(mdef, AD_FIRE)) {
             if (gv.vis && canseemon(mdef))
-                pline("Огонь, кажется, не жжёт %s!", mon_nam(mdef));
+                pline("Огонь, кажется, не жжёт %s!", mon_gen(mdef, BP_ACC));
             shieldeff(mdef->mx, mdef->my);
             golemeffects(mdef, AD_FIRE, mhm->damage);
             mhm->damage = 0;
@@ -2664,7 +2664,7 @@ mhitm_ad_cold(
         if (resists_cold(mdef) || defended(mdef, AD_COLD)) {
             shieldeff(mdef->mx, mdef->my);
             if (!Blind)
-                pline("Иней не охлаждает %s!", mon_nam(mdef));
+                pline("Иней не охлаждает %s!", mon_gen(mdef, BP_ACC));
             golemeffects(mdef, AD_COLD, mhm->damage);
             mhm->damage = 0;
         }
@@ -2695,7 +2695,7 @@ mhitm_ad_cold(
             pline_mon(mdef, "%s покрыт инеем!", Monnam(mdef));
         if (resists_cold(mdef) || defended(mdef, AD_COLD)) {
             if (gv.vis && canseemon(mdef))
-                pline("Иней, кажется, не охлаждает %s!", mon_nam(mdef));
+                pline("Иней, кажется, не охлаждает %s!", mon_gen(mdef, BP_ACC));
             shieldeff(mdef->mx, mdef->my);
             golemeffects(mdef, AD_COLD, mhm->damage);
             mhm->damage = 0;
@@ -2721,7 +2721,7 @@ mhitm_ad_elec(
             pline("%s поражён электрошоком!", Monnam(mdef));
         if (resists_elec(mdef) || defended(mdef, AD_ELEC)) {
             if (!Blind)
-                pline("Разряд не бьёт %s током!", mon_nam(mdef));
+                pline("Разряд не бьёт %s током!", mon_gen(mdef, BP_ACC));
             golemeffects(mdef, AD_ELEC, mhm->damage);
             shieldeff(mdef->mx, mdef->my);
             mhm->damage = 0;
@@ -2753,7 +2753,7 @@ mhitm_ad_elec(
             pline_mon(mdef, "%s получает электрошок!", Monnam(mdef));
         if (resists_elec(mdef) || defended(mdef, AD_ELEC)) {
             if (gv.vis && canseemon(mdef))
-                pline("Разряд не бьёт %s током!", mon_nam(mdef));
+                pline("Разряд не бьёт %s током!", mon_gen(mdef, BP_ACC));
             shieldeff(mdef->mx, mdef->my);
             golemeffects(mdef, AD_ELEC, mhm->damage);
             mhm->damage = 0;
@@ -3476,7 +3476,7 @@ mhitm_ad_plys(
                 if (Blind)
                     You("заморожены!");
                 else
-                    You("заморожены %s!", mon_nam(magr));
+                    You("заморожены %s!", mon_gen(magr, BP_INS));
                 gn.nomovemsg = You_can_move_again;
                 nomul(-rnd(10));
                 /* set gm.multi_reason;
@@ -3493,7 +3493,7 @@ mhitm_ad_plys(
                 char buf[BUFSZ];
 
                 Strcpy(buf, Monnam(mdef));
-                pline("%s заморожен %s.", buf, mon_nam(magr));
+                pline("%s заморожен %s.", buf, mon_gen(magr, BP_INS));
             }
             paralyze_monst(mdef, rnd(10));
         }
@@ -3528,7 +3528,7 @@ mhitm_ad_slee(
             if (Blind)
                 You("усыплены!");
             else
-                You("усыплены %s!", mon_nam(magr));
+                You("усыплены %s!", mon_gen(magr, BP_INS));
         }
     } else {
         /* mhitm */
@@ -3538,7 +3538,7 @@ mhitm_ad_slee(
                 char buf[BUFSZ];
 
                 Strcpy(buf, Monnam(mdef));
-                pline("%s усыплён %s.", buf, mon_nam(magr));
+                pline("%s усыплён %s.", buf, mon_gen(magr, BP_INS));
             }
             mdef->mstrategy &= ~STRAT_WAITFORU;
             slept_monst(mdef);
@@ -4241,7 +4241,7 @@ mhitm_ad_ston(
         if (!rn2(3)) {
             if (magr->mcan) {
                 if (!Deaf)
-                    You_hear("кашель %s!", mon_nam(magr));
+                    You_hear("кашель %s!", mon_gen(magr, BP_GEN));
             } else {
                 if (Hallucination && !Blind) {
                     Soundeffect(se_cockatrice_hiss, 50);
@@ -4971,7 +4971,7 @@ start_engulf(struct monst *mdef)
     }
     You("%s %s%s!",
         u_digest ? "глотаете" : u_enfold ? "охватываете" : "поглощаете",
-        mon_nam(mdef), u_digest ? " целиком" : "");
+        mon_gen(mdef, BP_ACC), u_digest ? " целиком" : "");
     nh_delay_output();
     nh_delay_output();
 }
@@ -5053,7 +5053,7 @@ gulpum(struct monst *mdef, struct attack *mattk)
 
             if (!type_is_pname(pd))
                 mnam = an(mnam);
-            You("%s %s.", u_digest ? "заглатываете" : "поглощаете", mon_nam(mdef));
+            You("%s %s.", u_digest ? "заглатываете" : "поглощаете", mon_gen(mdef, BP_ACC));
             Sprintf(kbuf, "%s %s%s",
                     u_digest ? "заглатывание"
                     : u_enfold ? "окутывание"
@@ -5217,7 +5217,7 @@ gulpum(struct monst *mdef, struct attack *mattk)
                 if (DEADMONSTER(mdef)) /* not lifesaved */
                     return M_ATTK_DEF_DIED;
             }
-            You("%s %s!", expel_verb, mon_nam(mdef));
+            You("%s %s!", expel_verb, mon_gen(mdef, BP_ACC));
             if ((Slow_digestion || is_animal(gy.youmonst.data)) && u_digest) {
                 pline("Очевидно, вам не понравился вкус %s.",
                       mhis(mdef));
@@ -5614,7 +5614,7 @@ hmonas(struct monst *mon)
                     You("%s %s %s.",
                         (mon->mcansee && haseyes(mon->data)) ? "улыбаетесь"
                                                              : "разговариваете с",
-                        mon_nam(mon),
+                        mon_gen(mon, (mon->mcansee && haseyes(mon->data)) ? BP_DAT : BP_INS),
                         (compat == 2) ? "завлекающе" : "соблазнительно");
                     /* doesn't anger it; no wakeup() */
                     sum[i] = damageum(mon, mattk, 0);
@@ -5686,11 +5686,11 @@ hmonas(struct monst *mon)
                         break; /* miss; message already given */
 
                     if (mattk->aatyp == AT_TENT) {
-                        Your("Ваши щупальца высасывают %s.", mon_nam(mon));
+                        Your("Ваши щупальца высасывают %s.", mon_gen(mon, BP_ACC));
                     } else {
                         if (mattk->aatyp == AT_CLAW)
                             verb = "бьёте"; /* not "claws" */
-                        You("%s %s.", verb, mon_nam(mon));
+                        You("%s %s.", verb, mon_gen(mon, BP_ACC));
                         if (silverhit && flags.verbose)
                             silver_sears(&gy.youmonst, mon, silverhit);
                     }
@@ -5754,7 +5754,7 @@ hmonas(struct monst *mon)
                    for normal hug, or blessed gloves or silver ring(s) for
                    choking hug; deals damage but never grabs hold */
                 if (specialdmg) {
-                    You("%s %s%s", verb, mon_nam(mon), exclam(specialdmg));
+                    You("%s %s%s", verb, mon_gen(mon, BP_ACC), exclam(specialdmg));
                     if (silverhit && flags.verbose)
                         silver_sears(&gy.youmonst, mon, silverhit);
                     sum[i] = damageum(mon, mattk, specialdmg);
@@ -5808,7 +5808,7 @@ hmonas(struct monst *mon)
                 /* can't engulf unsolid creatures */
                 if (mon->data == &mons[PM_SHADE]) {
                     /* no specialdmg check needed */
-                    Your("Ваша попытка окружить %s безвредна.", mon_nam(mon));
+                    Your("Ваша попытка окружить %s безвредна.", mon_gen(mon, BP_ACC));
                 } else if (failed_grab(&gy.youmonst, mon, mattk)) {
                     ; /* non-shade miss; message already given */
                 } else {
@@ -6087,7 +6087,7 @@ passive(
             } else if (Free_action) {
                 You("на мгновение застываете.");
             } else { /* gelatinous cube */
-                You("заморожены %s!", mon_nam(mon));
+                You("заморожены %s!", mon_gen(mon, BP_INS));
                 gn.nomovemsg = You_can_move_again;
                 nomul(-tmp);
                 /* set gm.multi_reason;
@@ -6419,7 +6419,7 @@ flash_hits_mon(
     if (mtmp->msleeping && haseyes(mtmp->data)) {
         mtmp->msleeping = 0;
         if (useeit) {
-            pline("Вспышка будит %s.", mon_nam(mtmp));
+            pline("Вспышка будит %s.", mon_gen(mtmp, BP_ACC));
             res = 1;
         }
     } else if (mtmp->data->mlet != S_LIGHT) {
@@ -6448,7 +6448,7 @@ flash_hits_mon(
                 shieldeff(mx, my);
             if (flags.verbose) {
                 if (lev->lit)
-                    pline("Вспышка света озаряет %s.", mon_nam(mtmp));
+                    pline("Вспышка света озаряет %s.", mon_gen(mtmp, BP_ACC));
                 else
                     pline("%s освещён.", Monnam(mtmp));
                 res = 2; /* 'message has been given' temporary value */

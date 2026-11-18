@@ -617,7 +617,7 @@ god_zaps_you(aligntyp resp_god)
     if (u.uswallow) {
         pline(
           "Внезапно с небес в вас ударяет молния!");
-        pline("Она поражает %s!", mon_nam(u.ustuck));
+        pline("Она поражает %s!", mon_gen(u.ustuck, BP_ACC));
         if (!resists_elec(u.ustuck)) {
             pline("%s поджаривается до хруста!", Monnam(u.ustuck));
             /* Yup, you get experience.  It takes guts to successfully

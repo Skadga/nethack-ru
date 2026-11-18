@@ -384,10 +384,10 @@ bribe(struct monst *mtmp, const char *prompt)
         You("отказываетесь.");
         return 0L;
     } else if (offer >= umoney) {
-        You("отдаёте %s всё своё золото.", mon_nam(mtmp));
+        You("отдаёте %s всё своё золото.", mon_gen(mtmp, BP_DAT));
         offer = umoney;
     } else {
-        You("даёте %s %ld %s.", mon_nam(mtmp), offer, currency(offer));
+        You("даёте %s %ld %s.", mon_gen(mtmp, BP_DAT), offer, currency(offer));
     }
     (void) money2mon(mtmp, offer);
     disp.botl = TRUE;

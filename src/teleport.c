@@ -1952,7 +1952,7 @@ tele_restrict(struct monst *mon)
     if (noteleport_level(mon)) {
         if (canseemon(mon))
             pline("“аинственна€ сила не даЄт %s телепортироватьс€!",
-                  mon_nam(mon));
+                  mon_gen(mon, BP_DAT));
         return TRUE;
     }
     return FALSE;
@@ -2269,7 +2269,7 @@ u_teleport_mon(
     if (svl.level.flags.stasis_until >= svm.moves) {
         if (give_feedback)
             pline("“аинственна€ сила не даЄт вам телепортировать %s!",
-                  mon_nam(mtmp));
+                  mon_gen(mtmp, BP_ACC));
         return FALSE;
     } else if (mtmp->ispriest && *in_rooms(mtmp->mx, mtmp->my, TEMPLE)) {
         if (give_feedback)
@@ -2277,7 +2277,7 @@ u_teleport_mon(
         return FALSE;
     } else if (engulfing_u(mtmp) && noteleport_level(mtmp)) {
         if (give_feedback)
-            You("больше не находитесь внутри %s!", mon_nam(mtmp));
+            You("больше не находитесь внутри %s!", mon_gen(mtmp, BP_GEN));
         unstuck(mtmp);
         if (!rloc(mtmp, RLOC_MSG))
             m_into_limbo(mtmp);

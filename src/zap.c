@@ -3588,15 +3588,15 @@ hit(
                                  || canspotmon(mtmp) || engulfing_u(mtmp))));
 
     pline("%s %s %s%s", The(str), vtense(str, "ударяет"),
-          verbosely ? mon_nam(mtmp) : "его", force);
+          verbosely ? mon_gen(mtmp, BP_ACC) : "его", force);
 }
 
 void
 miss(const char *str, struct monst *mtmp)
 {
-    pline("%s %s %s.", The(str), vtense(str, "промахивается"),
+    pline("%s %s %s.", The(str), vtense(str, "не попадает в"),
           ((cansee(gb.bhitpos.x, gb.bhitpos.y) || canspotmon(mtmp))
-           && flags.verbose) ? mon_nam(mtmp) : "его");
+           && flags.verbose) ? mon_gen(mtmp, BP_ACC) : "него");
 }
 
 staticfn void
