@@ -525,7 +525,9 @@ background_enlightenment(int unused_mode UNUSED, int final)
     if (!strcmpi(rank_titl, role_titl)) {
         /* omit role when rank title matches it */
         Sprintf(eos(buf), "%s, уровень %d %s", rank_titl, u.ulevel,
-                gu.urace.noun);
+                (innategend == FEMALE && gu.urace.individual.f)
+                    ? gu.urace.individual.f
+                    : gu.urace.noun);
     } else {
         Sprintf(eos(buf), "%s, уровень %d %s", rank_titl, u.ulevel,
                 ru_hero_subject(innategend));

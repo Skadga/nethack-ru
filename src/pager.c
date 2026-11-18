@@ -107,16 +107,17 @@ append_str(char *buf, const char *new_str)
 char *
 self_lookat(char *outbuf)
 {
-    char race[QBUFSZ], trapbuf[QBUFSZ];
+    char trapbuf[QBUFSZ];
 
     /* include race with role unless polymorphed */
-    race[0] = '\0';
-    if (!Upolyd)
-        Sprintf(race, "%s ", gu.urace.adj);
-    Sprintf(outbuf, "%s%s%s по имени %s",
+    Sprintf(outbuf, "%s%s по имени %s",
             /* being blinded may hide invisibility from self */
-            (Invis && (senseself() || !Blind)) ? (Ugender == FEMALE ? "невидимая " : "невидимый ") : "", race,
-            pmname(&mons[u.umonnum], Ugender), svp.plname);
+            (Invis && (senseself() || !Blind))
+                ? (Ugender == FEMALE ? "невидимая " : "невидимый ")
+                : "",
+            Upolyd ? pmname(&mons[u.umonnum], Ugender)
+                   : ru_hero_subject(Ugender == FEMALE),
+            svp.plname);
     if (u.usteed)
         Sprintf(eos(outbuf), ", едет верхом на %s", y_monnam(u.usteed));
     if (u.uundetected || (Upolyd && U_AP_TYPE)

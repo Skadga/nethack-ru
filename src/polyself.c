@@ -1404,8 +1404,7 @@ rehumanize(void)
         /* can only happen if some bit of code reduces u.uhp
            instead of u.mh while poly'd */
         Your("Ваша прежняя форма была недостаточно здорова, чтобы выжить.");
-        Sprintf(svk.killer.name, "возврата к прежней расе: %s",
-                gu.urace.noun);
+        Strcpy(svk.killer.name, "возврата к прежней расе");
         svk.killer.format = KILLED_BY;
         done(DIED);
     }
