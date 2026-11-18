@@ -1339,6 +1339,22 @@ adjalign(int n)
     }
 }
 
+/* instrumental case of an alignment adjective: "законопослушным" */
+staticfn const char *
+align_ins(int a)
+{
+    static char bufs[3][BUFSZ];
+    static int bufi = 0;
+    char *out;
+
+    bufi = (bufi + 1) % SIZE(bufs);
+    out = bufs[bufi];
+    Strcpy(out, aligns[a].adj);
+    if (strlen(out) > 2 && !strcmp(eos(out) - 2, "ый"))
+        Strcpy(eos(out) - 2, "ым");
+    return out;
+}
+
 /* change hero's alignment type, possibly losing use of artifacts */
 void
 uchangealign(
@@ -1353,8 +1369,9 @@ uchangealign(
     disp.botl = TRUE; /* status line needs updating */
     if (reason == A_CG_CONVERT) {
         /* conversion via altar */
-        livelog_printf(LL_ALIGNMENT, "навсегда порвал с %s",
-                       aligns[1 - newalign].adj);
+        livelog_printf(LL_ALIGNMENT,
+                       "навсегда порвал с %s мировоззрением",
+                       align_ins(1 - newalign));
         u.ualignbase[A_CURRENT] = (aligntyp) newalign;
         /* worn helm of opposite alignment might block change */
         if (!uarmh || uarmh->otyp != HELM_OF_OPPOSITE_ALIGNMENT)
@@ -1372,8 +1389,9 @@ uchangealign(
             if (Is_astralevel(&u.uz) || ((unsigned) rn2(50) < u.ualign.abuse))
                 summon_furies(Is_astralevel(&u.uz) ? 0 : 1);
             /* don't livelog taking it back off */
-            livelog_printf(LL_ALIGNMENT, "использовал шлем, чтобы стать %s",
-                           aligns[1 - newalign].adj);
+            livelog_printf(LL_ALIGNMENT,
+                           "использовал шлем, чтобы стать %s",
+                           align_ins(1 - newalign));
         } else if (reason == A_CG_HELM_OFF) {
             Your("Ваши мысли %s.", Hallucination
                                     ? "превращаются в кашу"
