@@ -27,16 +27,16 @@
 # Some entries include blank lines to separate paragraphs but many don't.
 #
 аббат
-	For it had been long apparent to Count Landulf that nothing
-	could be done with his seventh son Thomas, except to make him
-	an Abbot or something of that kind.  Born in 1226, he had from
-	childhood a mysterious objection to becoming a predatory eagle,
-	or even to taking an ordinary interest in falconry or tilting
-	or any other gentlemanly pursuits.  He was a large and heavy and
-	quiet boy, and phenomenally silent, scarcely opening his mouth
-	except to say suddenly to his schoolmaster in an explosive
-	manner, "What is God?"  The answer is not recorded but it is
-	probable that the asker went on worrying out answers for himself.
+	Ибо граф Ландульф давно уже видел, что с его седьмым сыном Фомой
+	ничего нельзя поделать, разве что сделать его аббатом или кем-то
+	в этом роде.  Родившись в 1226 году, он с детства
+	питал таинственное отвращение к тому, чтобы стать хищным орлом,
+	или хотя бы к обычному интересу к соколиной охоте, турнирам
+	или любым другим дворянским забавам.  Он был крупным, тяжёлым и
+	тихим мальчиком и феноменально молчаливым: едва открывал рот,
+	разве что чтобы вдруг сказать своему наставнику взрывным
+	тоном: «Что есть Бог?»  Ответ не записан, но
+	вероятно, спрашивавший продолжал сам искать ответы.
 		[ The Runaway Abbot, by G.K. Chesterton ]
 # takes "suit or piece of armor" when specifying '['
 # FIXME: "dragon scales, dragon scale mail" needs its own entry
@@ -361,20 +361,16 @@ athen*
 axe
 battle?axe
 double?headed?axe
-	"For ev'ry silver ringing blow,
-	Cities and palaces shall grow!"
-
-	"Bite deep and wide, O Axe, the tree,
-	Tell wider prophecies to me."
-
-	"When rust hath gnaw'd me deep and red,
-	A nation strong shall lift his head.
-
-	"His crown the very Heav'ns shall smite,
-	Aeons shall build him in his might."
-
-	"Bite deep and wide, O Axe, the tree;
-	Bright Seer, help on thy prophecy!"
+	«За каждый серебряный звонкий удар,
+	Города и дворцы вырастут!»
+	«Кусай глубоко и широко, о топор, дерево,
+	Говори мне более широкие пророчества».
+	«Когда ржавчина изгложет меня глубоко и до красна,
+	Сильный народ поднимет голову.
+	«Его венец сами небеса поразит,
+	Века воздвигнут его в его мощи».
+	«Кусай глубоко и широко, о топор, дерево;
+	Светлый провидец, помоги своему пророчеству!»
 		[ Malcolm's Katie, by Isabella Valancey Crawford ]
 axolotl
 	Обычная саламандра, безвредна.
@@ -544,16 +540,16 @@ bell of opening
 	From the jingling and the tinkling of the bells.
 		[ The Bells, by Edgar Allan Poe ]
 blindfold
-	The blindfolding was performed by binding a piece of the
-	yellowish linen whereof those of the Amahagger who condescended
-	to wear anything in particular made their dresses tightly round
-	the eyes.  This linen I afterwards discovered was taken from the
-	tombs, and was not, as I had first supposed, of native
-	manufacture.  The bandage was then knotted at the back of the
-	head, and finally brought down again and the ends bound under
-	the chin to prevent its slipping.  Ustane was, by the way, also
-	blindfolded, I do not know why, unless it was from fear that she
-	should impart the secrets of the route to us.
+	Завязывание глаз совершалось путём обвязывания куска
+	желтоватого полотна, из которого амахаггеры, снисходившие
+	носить хоть что-нибудь определённое, делали свои одежды, туго вокруг
+	глаз.  Это полотно, как я позже обнаружил, было взято из
+	гробниц и не было, как я сначала думал, местного
+	производства.  Повязку затем завязывали узлом на затылке
+	головы и наконец снова опускали и концы привязывали под
+	подбородком, чтобы она не сползала.  Устан, кстати, тоже была
+	с завязанными глазами, не знаю почему, разве что из страха, что она
+	выдаст нам секреты маршрута.
 		[ She, by H. Rider Haggard ]
 blind io
 	В этот самый день Слепой Ио, благодаря постоянной бдительности
@@ -624,16 +620,16 @@ boomerang
 #	can get the morning paper and come back with it."
 #		[ Raising Steam, by Terry Pratchett ]
 #
-	Rincewind pulled himself up and thought about reaching for his
-	stick.  And then he thought again.  The man had a couple of spears
-	stuck in the ground, and people here were good at spears, because
-	if you didn't get efficient at hitting the things that moved fast
-	you had to eat the things that moved slowly.  He was also holding
-	a boomerang, and it wasn't one of those toy ones that came back.
-	This was one of the big, heavy, gently curved sort that didn't
-	come back because it was sticking in something's ribcage.  You
-	could laugh at the idea of wooden weapons until you saw the kind
-	of wood that grew here.
+	Ринсвинд поднялся и подумал, не потянуться ли ему за своей
+	палкой.  И тут он подумал снова.  У человека в земле торчало
+	несколько копий, а здешние люди хорошо владели копьём, потому что
+	если ты не научился метко попадать в то, что движется быстро,
+	тебе приходилось есть то, что движется медленно.  Он также держал
+	бумеранг, и это был не один из тех игрушечных, что возвращаются.
+	Это был большой, тяжёлый, плавно изогнутый, который не
+	возвращался, потому что застревал в чьей-то грудной клетке.  Можно
+	смеяться над мыслью о деревянном оружии, пока не увидишь,
+	какое дерево здесь растёт.
 		[ The Last Continent, by Terry Pratchett ]
 ~*jack*boot*
 *boot*
@@ -698,16 +694,16 @@ bow
 	girdle he had four farthings'-worth of wine."
 		[ The White Company, by Sir Arthur Conan Doyle ]
 brigit
-	Brigit (Brigid, Bride, Banfile), which means the Exalted One,
-	was the Celtic (continental European and Irish) fertility
-	goddess.  She was originally celebrated on February first in
-	the festival of Imbolc, which coincided with the beginning
-	of lactation in ewes and was regarded in Scotland as the date
-	on which Brigit deposed the blue-faced hag of winter.  The
-	Christian calendar adopted the same date for the Feast of St.
-	Brigit.  There is no record that a Christian saint ever
-	actually existed, but in Irish mythology she became the
-	midwife to the Virgin Mary.
+	Бригит (Бригида, Брайд, Банфиле), что означает «Возвышенная»,
+	была кельтской (континентальной европейской и ирландской) богиней
+	плодородия.  Изначально её чествовали первого февраля на
+	празднике Имболк, который совпадал с началом
+	лактации у овец и считался в Шотландии датой,
+	когда Бригит свергала синеликую старуху зимы.  Христианский
+	календарь принял ту же дату для праздника святой
+	Бригит.  Нет свидетельств, что христианская святая когда-либо
+	действительно существовала, но в ирландской мифологии она стала
+	повитухой Девы Марии.
 		[ Encyclopedia of Gods, by Michael Jordan ]
 ~stormbringer
 *broadsword
@@ -745,16 +741,16 @@ bullwhip
 	чтобы добыть огонь трением священных огневых палочек.
 		[ Encyclopedia of Gods, by Michael Jordan ]
 camelot*
-	The seat of Arthur's power in medieval romance.  The name is
-	of unknown origin and refers to the castle but also includes
-	the surrounding town.  ...  Camelot appears, most significantly,
-	as a personal capital as opposed to a permanent or national
-	one.  It is Arthur's and Arthur's alone.  There are no previous
-	lords and Arthur's successor, Constantine, does not take up
-	residence there.  Camelot is actually said to have been
-	demolished after Arthur and Lancelot were gone by Mark.  Fazio
-	degli Uberti, the Italian poet, claims to have seen the ruins
-	in the 14th century.
+	Место власти Артура в средневековом романе.  Название
+	неизвестного происхождения и относится к замку, но также включает
+	окружающий город.  ...  Камелот предстаёт, что важнее всего,
+	как личная столица, в отличие от постоянной или национальной.
+	Он принадлежит Артуру и только Артуру.  Прежних
+	владык нет, и преемник Артура, Константин, не селится
+	там.  Говорят, что Камелот
+	был разрушен после ухода Артура и Ланселота Марком.  Фацио
+	дельи Уберти, итальянский поэт, утверждает, что видел развалины
+	в XIV веке.
 		[ Encyclopedia Mythica, ed. M.F. Lindemans ]
 candy bar
 	Only once a year, on his birthday, did Charlie Bucket ever
@@ -809,17 +805,16 @@ s*d*g*r* cat
 *cat
 *feline
 котёнок
-	Well-known quadruped domestic animal from the family of
-	predatory felines (_Felis ochreata domestica_), with a thick,
-	soft pelt; often kept as a pet.  Various folklores have the
-	cat associated with magic and the gods of ancient Egypt.
-		[]
-
-	So Ulthar went to sleep in vain anger; and when the people
-	awakened at dawn - behold!  Every cat was back at his
-	accustomed hearth!  Large and small, black, grey, striped,
-	yellow and white, none was missing.  Very sleek and fat did
-	the cats appear, and sonorous with purring content.
+	Хорошо известное четвероногое домашнее животное из семейства
+	хищных кошачьих (_Felis ochreata domestica_), с густой,
+	мягкой шкурой; часто держат как питомца.  В различных
+	фольклорах кошка связана с магией и богами древнего Египта.
+	[]
+	И вот Ултар заснул в напрасном гневе; и когда люди
+	пробудились на рассвете — смотрите!  Каждая кошка вернулась к своему
+	привычному очагу!  Большие и малые, чёрные, серые, полосатые,
+	жёлтые и белые — ни одна не пропала.  Очень гладкими и жирными
+	казались кошки и звучными от довольного мурлыканья.
 		[ The Cats of Ulthar, by H.P. Lovecraft ]
 # this one doesn't work very well for dwarven and gnomish cavemen
 обитатель пещер
@@ -878,17 +873,17 @@ gnom* cave*man
 #		  it appears that Volume 1 (of 13) was written by
 #		  William Sherwood Fox and edited by Louis Herbert Gray ]
 сороконожка
-	I observed here, what I had often seen before, that certain
-	districts abound in centipedes.  Here they have light
-	reddish bodies and blue legs; great myriapedes are seen
-	crawling every where.  Although they do no harm, they excite
-	in man a feeling of loathing.  Perhaps our appearance
-	produces a similar feeling in the elephant and other large
-	animals.  Where they have been much disturbed, they
-	certainly look upon us with great distrust, as the horrid
-	biped that ruins their peace.
+	Я заметил здесь то, что часто видел и раньше: некоторые
+	местности изобилуют сороконожками.  Здесь у них светлые
+	красноватые тела и синие ноги; огромные многоножки видны
+	ползающими повсюду.  Хотя они не причиняют вреда, они вызывают
+	в человеке чувство отвращения.  Возможно, наш вид
+	производит похожее чувство у слона и других крупных
+	животных.  Там, где их сильно беспокоили, они
+	несомненно смотрят на нас с большим недоверием, как на ужасное
+	двуногое, что разрушает их покой.
 		[ Travels and Researches in South Africa,
-			by Dr. David Livingstone ]
+		by Dr. David Livingstone ]
 цербер
 kerberos
 	Цербер (по-гречески Кербер) был трёхголовым псом,
@@ -1422,17 +1417,17 @@ pup*
 ~*spellbook*
 *door
 doorway
-	Through me you pass into the city of woe:
-	Through me you pass into eternal pain:
-	Through me among the people lost for aye.
-	Justice the founder of my fabric mov'd:
-	To rear me was the task of power divine,
-	Supremest wisdom, and primeval love.
-	Before me things create were none, save things
-	Eternal, and eternal I endure.
-	All hope abandon ye who enter here.
-	    [ The Inferno, from The Divine Comedy of Dante Alighieri,
-	      translated by H.F. Cary ]
+	Через меня ты входишь в город скорби:
+	Через меня ты входишь в вечную боль:
+	Через меня — к народу, погибшему навек.
+	Правосудие подвигло моего создателя:
+	Воздвигнуть меня было делом силы божественной,
+	Высочайшей мудрости и любви изначальной.
+	До меня не было создано вещей, кроме вечных,
+	И вечен я.  Оставьте всякую надежду,
+	Входящие.
+		[ The Inferno, from The Divine Comedy of Dante Alighieri,
+		translated by H.F. Cary ]
 доппельгангер
 	"Then we can only give thanks that this is Antarctica, where
 	there is not one, single, solitary, living thing for it to
@@ -1764,16 +1759,16 @@ excalibur
 	blue-green color of the ocean.
 		[ Knight Life, by Peter David ]
 expensive camera
-	There was a time when Rincewind had quite liked the iconoscope.
-	He believed, against all experience, that the world was
-	fundamentally understandable, and that if he could only equip
-	himself with the right mental toolbox he could take the back off
-	and see how it worked.  He was, of course, dead wrong.  The
-	iconoscope didn't take pictures by letting light fall onto
-	specially treated paper, as he had surmised, but by the far
-	simpler method of imprisoning a small demon with a good eye for
-	colour and a speedy hand with a paintbrush.  He had been very
-	upset to find that out.
+	Было время, когда Ринсвинд довольно любил иконоскоп.
+	Он верил, вопреки всему опыту, что мир в основе своей
+	понятен и что если только вооружиться правильным мысленным
+	ящиком с инструментами, можно снять заднюю стенку
+	и увидеть, как он работает.  Он, конечно, жестоко ошибался.
+	Иконоскоп не делал снимков, позволяя свету падать на
+	особым образом обработанную бумагу, как он предполагал, а
+	гораздо более простым способом: запирая маленького демона с хорошим глазом
+	на цвет и быстрой рукой с кистью.  Он был очень
+	расстроен, узнав это.
 		[ The Light Fantastic, by Terry Pratchett ]
 eye of the aethiopica
 	Это могущественный амулет телепатии.  Помимо своих обычных
@@ -1808,16 +1803,16 @@ fedora
 	многого.
 		[ Anansi Boys, by Neil Gaiman ]
 figurine*
-	Then it appeared in Paris at just about the time that Paris
-	was full of Carlists who had to get out of Spain.  One of
-	them must have brought it with him, but, whoever he was, it's
-	likely he knew nothing about its real value.  It had been --
-	no doubt as a precaution during the Carlist trouble in Spain
-	-- painted or enameled over to look like nothing more than a
-	fairly interesting black statuette.  And in that disguise,
-	sir, it was, you might say, kicked around Paris for seventy
-	years by private owners and dealers too stupid to see what
-	it was under the skin.
+	Затем она появилась в Париже как раз в то время, когда Париж
+	был полон карлистов, которым пришлось уехать из Испании.  Один из
+	них, должно быть, привёз её с собой, но кем бы он ни был,
+	скорее всего он ничего не знал о её настоящей ценности.  Она была —
+	без сомнения, в качестве предосторожности во время карлистской смуты в Испании
+	— покрыта краской или эмалью, чтобы выглядеть не более чем
+	довольно интересной чёрной статуэткой.  И в этом обличье,
+	сэр, её, можно сказать, пинали по Парижу семьдесят
+	лет частные владельцы и торговцы, слишком глупые, чтобы разглядеть,
+	что было под оболочкой.
 		[ The Maltese Falcon, by Dashiell Hammett ]
 fire trap
 	'Let him be for a while,' said Cohen.  'I reckon the fish
@@ -1942,16 +1937,15 @@ fountain
 	And thank the great god Pan for all!
 		[ For a Fountain, by Bryan Waller Procter ]
 лиса
-	One hot summer's day a Fox was strolling through an orchard
-	till he came to a bunch of Grapes just ripening on a vine
-	which had been trained over a lofty branch. "Just the thing
-	to quench my thirst," quoth he. Drawing back a few paces, he
-	took a run and a jump, and just missed the bunch. Turning
-	round again with a One, Two, Three, he jumped up, but with
-	no greater success. Again and again he tried after the
-	tempting morsel, but at last had to give it up, and walked
-	away with his nose in the air, saying: "I am sure they are
-	sour."
+	В жаркий летний день Лиса прогуливалась по саду,
+	пока не подошла к грозди Винограда, как раз поспевавшего на лозе,
+	которую пустили по высокой ветке. «Вот то самое,
+	что утолит мою жажду», — сказала она. Отойдя на несколько шагов,
+	она разбежалась и прыгнула и чуть не достала гроздь. Повернувшись
+	снова с раз-два-три, она прыгнула, но с
+	не большим успехом. Снова и снова она пыталась достать
+	заманчивый кусочек, но наконец пришлось сдаться, и она пошла
+	прочь, задрав нос, говоря: «Я уверена, они кислые».
 		[ Aesop's Fables ]
 fruit
 fruitname
@@ -2446,16 +2440,16 @@ hermes
 	среди слабейших демонов, но всё же весьма грозен,
 	главным образом из-за вони.
 гиппократ
-	Greek physician, recognized as the father of medicine.  He
-	is believed to have been born on the island of Cos, to have
-	studied under his father, a physician, to have traveled for
-	some time, perhaps studying in Athens, and to have then
-	returned to practice, teach, and write at Cos.  The
-	Hippocratic or Coan school that formed around him was of
-	enormous importance in separating medicine from superstition
-	and philosophic speculation, placing it on a strictly
-	scientific plane based on objective observation and critical
-	deductive reasoning.
+	Греческий врач, признанный отцом медицины.  Считается,
+	что он родился на острове Кос, учился
+	у своего отца-врача, некоторое время путешествовал,
+	возможно, учась в Афинах, а затем
+	вернулся практиковать, учить и писать на Косе.  Школа
+	Гиппократа, или Косская школа, сложившаяся вокруг него, имела
+	огромное значение для отделения медицины от суеверия
+	и философских умозрений, поставив её на строго
+	научную основу, опирающуюся на объективное наблюдение и критическое
+	дедуктивное мышление.
 		[ The Columbia Encyclopedia, Sixth Edition ]
 хоббит
 	Хоббиты — незаметный, но очень древний народ, более
@@ -2761,16 +2755,16 @@ imp or minor demon
 		[ Exodus, 10:4-6 ]
 *iron ball
 *iron chain
-	"You are fettered, " said Scrooge, trembling.  "Tell me why?"
-	"I wear the chain I forged in life," replied the Ghost.  "I
-	made it link by link, and yard by yard; I girded it on of my
-	own free will, and of my own free will I wore it.  Is its
-	pattern strange to you?"
-	Scrooge trembled more and more.
-	"Or would you know," pursued the Ghost, "the weight and
-	length of the strong coil you bear yourself?  It was full as
-	heavy and as long as this, seven Christmas Eves ago.  You
-	have laboured on it, since.  It is a ponderous chain!"
+	«Вы скованы, — сказал Скрудж, дрожа. — Скажите, почему?»
+	«Я ношу цепь, которую выковал в жизни, — ответил Призрак. — Я
+	сделал её звено за звеном и ярд за ярдом; я надел её по
+	своей воле и по своей воле носил.  Не странен ли тебе
+	её узор?»
+	Скрудж дрожал всё сильнее.
+	«Или ты хотел бы узнать, — продолжал Призрак, — вес и
+	длину тяжёлой цепи, которую носишь сам?  Она была так же
+	тяжела и длинна, как эта, семь рождественских сочельников назад.  Ты
+	трудился над ней с тех пор.  Это тяжкая цепь!»
 		[ A Christmas Carol, by Charles Dickens ]
 iron bars
 	Каменные стены не создают тюрьмы,
@@ -2914,17 +2908,17 @@ jubilex
 # in nethack they weigh the same and K-ration provides more nutrition?
 k?ration
 c?ration
-	The C ration was a predecessor of the K ration.
-		[]
-	The K ration was the [ Quartermaster Subsistence Research
-	and Development Laboratory's ] answer to the demand for an
-	individual, easy-to-carry ration that could be used in
-	assault and combat operations.  It was noted for compactness
-	and superior packaging and was acknowledged as the ration
-	that provided the greatest variety of nutritionally balanced
-	components within the smallest space.
+	Рацион C был предшественником рациона K.
+	[]
+	Рацион K был [ ответом ] Лаборатории исследований и разработки
+	продовольственного снабжения квартирмейстерской службы на спрос на
+	индивидуальный, удобный для переноски рацион, который можно использовать в
+	штурмовых и боевых операциях.  Он отличался компактностью
+	и превосходной упаковкой и признавался рационом,
+	обеспечивающим наибольшее разнообразие питательно сбалансированных
+	компонентов в наименьшем объёме.
 		[ Special Rations for the Armed Forces, 1946-53,
-		  by Franz A. Koehler ]
+		by Franz A. Koehler ]
 kabuto
 	The kabuto is the helmet worn by the samurai.  It was
 	characterized by a prominent beaked front which jutted out over
@@ -3528,16 +3522,16 @@ master key of thievery
 	вдвое уменьшает весь физический урон.  Наконец, при воззвании
 	он может обезвредить любой запертый замок с ловушкой.
 мастер воров
-	There was a flutter of wings at the window.  Ymor shifted his
-	bulk out of the chair and crossed the room, coming back with
-	a large raven.  After he'd unfastened the message capsule from
-	its leg it flew up to join its fellows lurking among the
-	rafters.  Withel regarded it without love.  Ymor's ravens were
-	notoriously loyal to their master, to the extent that Withel's
-	one attempt to promote himself to the rank of greatest thief
-	in Ankh-Morpork had cost their master's right hand man his
-	left eye.  But not his life, however.  Ymor never grudged a
-	man his ambitions.
+	У окна раздался шорох крыльев.  Имор сдвинул своё
+	грузное тело с кресла и пересёк комнату, вернувшись с
+	большим вороном.  После того как он отвязал от его лапы
+	капсулу с посланием, тот взлетел, чтобы присоединиться к сородичам, таившимся среди
+	стропил.  Уител смотрел на него без любви.  Вороны Имора были
+	известны преданностью хозяину, до такой степени, что единственная попытка Уитела
+	возвыситься до звания величайшего вора
+	в Анк-Морпорке стоила правой руке хозяина
+	левого глаза.  Но не жизни.  Имор никогда не отказывал
+	человеку в его амбициях.
 		[ The Colour of Magic, by Terry Pratchett ]
 мастодонт
 	Любое крупное слоноподобное млекопитающее родов Mammut, Mastodon
@@ -4052,16 +4046,16 @@ p*thia
 		[ Mythology, by Edith Hamilton ]
 orange
 pear
-	What was the fruit like?  Unfortunately, no one can describe
-	a taste.  All I can say is that, compared with those fruits,
-	the freshest grapefruit you've ever eaten was dull, and the
-	juiciest orange was dry, and the most melting pear was hard
-	and woody, and the sweetest wild strawberry was sour.  And
-	there were no seeds or stones, and no wasps.  If you had once
-	eaten that fruit, all the nicest things in this world would
-	taste like medicines after it.  But I can't describe it.  You
-	can't find out what it is like unless you can get to that
-	country and taste it for yourself.
+	Каков был плод на вкус?  К сожалению, никто не может описать
+	вкус.  Всё, что я могу сказать: по сравнению с теми плодами
+	самый свежий грейпфрут, какой вы когда-либо ели, был безвкусен, и
+	самый сочный апельсин был сух, и самая тающая груша была твёрдой
+	и деревянистой, и самая сладкая лесная земляника была кислой.  И
+	в них не было семян или косточек, и не было ос.  Если ты однажды
+	съел тот плод, всё самое лучшее в этом мире после него
+	вкусило бы как лекарства.  Но я не могу это описать.  Ты
+	не узнаешь, каков он, если не сможешь добраться до той
+	страны и попробовать сам.
 		[ The Last Battle, by C.S. Lewis ]
 *orb of detection
 	Этот Шар — хрустальный шар исключительной силы.  При
@@ -4252,17 +4246,16 @@ platinum yendorian express card
 player
 play* style
 user
-	Be bold,
-	be bold,
-	but not too bold.
-	Or else your life's blood,
-	shall run cold.
+	Будь смел,
+	будь смел,
+	но не слишком смел.
+	Иначе твоя кровь
+	застынет.
 		[ The White Road, by Neil Gaiman ]
-
-	People think I'm crazy to worry all the time;
-	If you paid attention, you'd be worried too.
-	You better pay attention, or this world we love so much
-	Might just kill you.
+	Люди думают, что я сумасшедший, раз всё время волнуюсь;
+	Если бы ты обращал внимание, ты бы тоже волновался.
+	Лучше обрати внимание, иначе этот мир, который мы так любим,
+	может просто убить тебя.
 		[ It's a Jungle Out There, by Randy Newman ]
 #			[ theme song from "Monk" ]
 poison
@@ -4462,17 +4455,16 @@ ptah
 	back, around that corner, desperately striving to get out of
 	its sight.
 питон
-	A monstrous serpent in Greek mythology, and the child of Gaia,
-	the goddess earth.  It was produced from the slime and mud
-	that was left on the earth by the great flood of Deucalion.
-	It lived in a cave and guarded the oracle of Delphi on mount
-	Parnassus.
-
-	No man dared to approach the beast and the people asked Apollo
-	for help.  He came down from Mount Olympus with his silver bow
-	and golden arrows.  With using only one arrow he killed the
-	serpent and claimed the oracle for himself. ... The old name of
-	Delphi, Pytho, refers to the serpent.
+	Чудовищный змей в греческой мифологии, дитя Геи,
+	богини земли.  Он произошёл из тины и грязи,
+	оставшихся на земле после великого потопа Девкалиона.
+	Он жил в пещере и охранял оракул Дельф на горе
+	Парнас.
+	Никто не смел приблизиться к зверю, и люди попросили Аполлона
+	о помощи.  Он спустился с горы Олимп со своим серебряным луком
+	и золотыми стрелами.  Одной лишь стрелой он убил
+	змея и забрал оракул себе. ... Древнее название
+	Дельф, Пифон, относится к змею.
 		[ Encyclopedia Mythica, ed. M.F. Lindemans ]
 quadruped
 	Леса и другие края населяют множество
@@ -4621,17 +4613,17 @@ ring of invisibility
 	leadership."
 		[ The Republic, by Plato, translated by James Adam ]
 robe
-	Robes are the only garments, apart from Shirts, ever to have
-	sleeves.  They have three uses:
-	1.  As the official uniform of Priests, Priestesses, Monks,
-	Nuns (see Nunnery), and Wizards.  The OMT [ Official Management
-	Term ] prescribed for the Robes of Priests and Nuns is that
-	they _fall in severe folds_; of Priestesses that they _float_;
-	and of Wizards that they _swirl_.  You can thus see who you
-	are dealing with.
-	2.  For Kings.  The OMT here is _falling in stately folds_.
-	3.  As the garb of Desert Nomads.  [...]
-	    [ The Tough Guide to Fantasyland, by Diana Wynne Jones ]
+	Мантии — единственная одежда, кроме рубашек, у которой
+	когда-либо были рукава.  У них три назначения:
+	1.  Официальная форма жрецов, жриц, монахов,
+	монахинь (см. Монастырь) и волшебников.  Официальный управленческий
+	термин, предписанный для мантий жрецов и монахинь, — что они
+	_ниспадают строгими складками_; жриц — что они _парят_;
+	а волшебников — что они _кружатся_.  Так вы можете видеть, с кем
+	имеете дело.
+	2.  Для королей.  Здесь термин — _ниспадают величественными складками_.
+	3.  Как одежда пустынных кочевников.  [...]
+		[ The Tough Guide to Fantasyland, by Diana Wynne Jones ]
 rock
 large rock
 	Bilbo saw that the moment had come when he must do something.
@@ -4670,17 +4662,17 @@ rodent*
 		of the English Language ]
 плут
 * rogue
-	I understand the business, I hear it: to have an open ear, a
-	quick eye, and a nimble hand, is necessary for a cut-purse; a
-	good nose is requisite also, to smell out work for the other
-	senses.  I see this is the time that the unjust man doth
-	thrive.  ...  The prince himself is about a piece of iniquity,
-	stealing away from his father with his clog at his heels:  if
-	I thought it were a piece of honesty to acquaint the king
-	withal, I would not do't:  I hold it the more knavery to
-	conceal it; and therein am I constant to my profession.
+	Я понимаю это дело, я слышу его: иметь открытое ухо,
+	быстрый глаз и ловкую руку необходимо карманнику; хороший
+	нюх тоже нужен, чтобы вынюхивать работу для остальных
+	чувств.  Я вижу, что это время, когда несправедливый человек
+	процветает.  ...  Сам принц занят неким беззаконием,
+	убегая от отца со своей колодкой на пятках:  если
+	я думал, что донести королю — дело честное,
+	я бы этого не сделал:  я считаю большим плутовством
+	скрывать это; и в этом я верен своему ремеслу.
 		[ Autolycus the Rogue, from The Winter's Tale by
-			William Shakespeare ]
+		William Shakespeare ]
 root
 dwarven root
 	But when they were cooked these roots proved good to eat,
@@ -4786,16 +4778,16 @@ sake
 		[ Salamanders, by Cherie Winner ]
 самурай
 * samurai
-	By that time, Narahara had already slipped his arm from the
-	sleeve of his outer robe, drew out his two-and-a-half-foot
-	Fujiwara Tadahiro sword, and, brandishing it over his head,
-	began barreling toward the foreigners.  In less than a minute,
-	he had charged upon them and cut one of them through the torso.
-	The man fled, clutching his bulging guts, finally to fall from
-	his horse at the foot of a pine tree about a thousand yards
-	away.  Kaeda Takeji finished him off.  The other two Englishmen
-	were severely wounded as they tried to flee.  Only the woman
-	managed to escape virtually unscathed.
+	К тому времени Нарахара уже высвободил руку из
+	рукава верхней мантии, вытащил свой меч Фудзивара Тадахиро длиной два с половиной
+	фута и, размахивая им над головой,
+	бросился на иностранцев.  Меньше чем за минуту
+	он налетел на них и разрубил одного пополам.
+	Человек убежал, держась за вываливающиеся внутренности, чтобы наконец упасть с
+	лошади у подножия сосны примерно в тысяче ярдов
+	оттуда.  Каэда Такэдзи прикончил его.  Двое других англичан
+	были тяжело ранены, пытаясь бежать.  Только женщине
+	удалось спастись почти невредимой.
 		[ The Fox-horse, from Drunk as a Lord, by Ryotaro Shiba ]
 сандестин
 	Ildefonse left the terrace and almost immediately sounds
@@ -5071,16 +5063,16 @@ slime mold
 	обычны.
 		[ Encyclopaedia Britannica, 1977 ]
 sling
-	And it came to pass, when the Philistine arose, and came and
-	drew nigh to meet David, that David hasted, and ran toward
-	the army to meet the Philistine.
-	And David put his hand in his bag, and took thence a stone,
-	and slang it, and smote the Philistine in his forehead, that
-	the stone sunk into his forehead; and he fell upon his face
-	to the earth.
-	So David prevailed over the Philistine with a sling and with
-	a stone, and smote the Philistine, and slew him; but there
-	was no sword in the hand of David.
+	И случилось, когда филистимлянин поднялся и пошёл
+	приблизиться навстречу Давиду, что Давид поспешил и побежал к
+	войску навстречу филистимлянину.
+	И Давид опустил руку в сумку, взял оттуда камень,
+	и пустил его, и поразил филистимлянина в лоб, так что
+	камень вонзился в его лоб; и он упал лицом
+	на землю.
+	Так Давид одолел филистимлянина пращой и
+	камнем, и поразил филистимлянина, и убил его; но
+	меча не было в руке Давида.
 		[ 1 Samuel 17:48-50 ]
 *snake
 serpent
@@ -5118,17 +5110,16 @@ snickersnee
 	-- Коко, верховный палач Титипу
 		[ The Mikado, by Sir W.S. Gilbert ]
 sokoban
-	Sokoban (Japanese for "warehouse keeper") is a transport puzzle
-	in which the player pushes boxes around a maze, viewed from
-	above, and tries to put them in designated locations.  Only one
-	box may be pushed at a time, not two, and boxes cannot be pulled.
-	As the puzzle would be extremely difficult to create physically,
-	it is usually implemented as a video game.
-
-	Sokoban was created in 1982 by Hiroyuki Imabayashi, and was
-	published by Thinking Rabbit, a software house based in
-	Takarazuka, Japan.  Thinking Rabbit also released three sequels:
-	Boxxle, Sokoban Perfect and Sokoban Revenge.
+	Сокобан (по-японски «кладовщик») — логическая головоломка
+	о перемещении, в которой игрок толкает ящики по лабиринту, видя его
+	сверху, и старается поставить их в обозначенные места.  За раз
+	можно толкать только один ящик, не два, и ящики нельзя тянуть.
+	Поскольку головоломку было бы крайне трудно создать физически,
+	её обычно реализуют как видеоигру.
+	Сокобан создал в 1982 году Хироюки Имабаяси, и
+	его издала Thinking Rabbit, софтверная фирма из
+	Такарадзуки, Япония.  Thinking Rabbit также выпустила три продолжения:
+	Boxxle, Sokoban Perfect и Sokoban Revenge.
 		[ Wikipedia, the free encyclopedia ]
 *soldier
 сержант
@@ -5355,16 +5346,16 @@ glorkum*
 	казался живым.
 		[ Crime and Punishment, by Fyodor Dostoevsky ]
 соломенный голем
-	Dorothy leaned her chin upon her hand and gazed thoughtfully
-	at the Scarecrow.  Its head was a small sack stuffed with
-	straw, with eyes, nose, and mouth painted on it to represent
-	a face.  An old, pointed blue hat, that had belonged to some
-	Munchkin, was perched on his head, and the rest of the figure
-	was a blue suit of clothes, worn and faded, which had also
-	been stuffed with straw.  On the feet were some old boots with
-	blue tops, such as every man wore in this country, and the
-	figure was raised above the stalks of corn by means of the
-	pole stuck up its back.
+	Дороти оперлась подбородком на руку и задумчиво посмотрела
+	на Страшилу.  Его голова была небольшим мешком, набитым
+	соломой, с нарисованными глазами, носом и ртом, изображавшими
+	лицо.  Старая островерхая синяя шляпа, принадлежавшая какому-то
+	жевуну, сидела на его голове, а остальная фигура
+	была синим костюмом, поношенным и выцветшим, который тоже
+	был набит соломой.  На ногах были старые сапоги с
+	синими голенищами, какие носил каждый в этой стране,
+	и фигура была поднята над стеблями кукурузы с помощью
+	шеста, воткнутого ей в спину.
 		[ The Wonderful Wizard of Oz, by L. Frank Baum ]
 sunsword
 	То, что ты ищешь, — клинок света,
@@ -5441,17 +5432,16 @@ thoth*amon
 	В обычной речи слово употребляется для любого жестокого «крутого».
 		[ Brewer's Concise Dictionary of Phrase and Fable ]
 тигр
-	1.  A well-known tropical predator (_Felis tigris_): a
-	feline.  It has a yellowish skin with darker spots or
-	stripes.  2.  Figurative: _a paper tiger_, something that is
-	meant to scare, but has no really scaring effect whatsoever,
-	(after a statement by Mao Ze Dong, August 1946).
+	1.  Хорошо известный тропический хищник (_Felis tigris_):
+	кошачье.  У него желтоватая шкура с более тёмными пятнами или
+	полосами.  2.  В переносном смысле: _бумажный тигр_ — нечто,
+	призванное пугать, но не производящее никакого пугающего эффекта
+	(по заявлению Мао Цзэдуна, август 1946 г.).
 		[ Van Dale's Groot Woordenboek der Nederlandse Taal ]
-
-	Tyger! Tyger! burning bright
-	In the forests of the night,
-	What immortal hand or eye
-	Could frame thy fearful symmetry?
+	Тигр!  Тигр!  ярко горящий
+	В лесах ночи,
+	Какая бессмертная рука или глаз
+	Мог создать твою страшную симметрию?
 		[ The Tyger, by William Blake ]
 tin
 tin of *
@@ -5486,16 +5476,16 @@ tin opener
 	And inside the rock was Alphabetti spaghetti in tomato sauce.
 		[ Red Dwarf, by Rob Grant and Doug Naylor ]
 титан
-	Gaea, mother earth, arose from the Chaos and gave birth to
-	Uranus, heaven, who became her consort.  Uranus hated all
-	their children, because he feared they might challenge his
-	own authority.  Those children, the Titans, the Gigantes,
-	and the Cyclops, were banished to the nether world.  Their
-	enraged mother eventually released the youngest titan,
-	Chronos (time), and encouraged him to castrate his father and
-	rule in his place.  Later, he too was challenged by his own
-	son, Zeus, and he and his fellow titans were ousted from
-	Mount Olympus.
+	Гея, мать-земля, возникла из Хаоса и родила
+	Урана, небо, который стал её супругом.  Уран ненавидел всех
+	их детей, ибо боялся, что они могут бросить вызов его
+	собственной власти.  Эти дети — титаны, гиганты
+	и циклопы — были изгнаны в подземный мир.  Их
+	разъярённая мать в конце концов освободила младшего титана
+	Хроноса (время) и побудила его оскопить отца и
+	править вместо него.  Позже и ему бросил вызов его собственный
+	сын Зевс, и он вместе с другими титанами был изгнан
+	с горы Олимп.
 		[ Greek Mythology, by Richard Patrick ]
 topaz
 	Минерал из алюмосиликатов с гидроксильными радикалами или
@@ -5772,16 +5762,16 @@ vampire l*
 	the blood of sleeping persons. ..."
 		[]
 venus
-	Venus, the goddess of love and beauty, was the daughter of
-	Jupiter and Dione.  Others say that Venus sprang from the
-	foam of the sea.  The zephyr wafted her along the waves to
-	the Isle of Cyprus, where she was received and attired by
-	the Seasons, and then led to the assembly of the gods.  All
-	were charmed with her beauty, and each one demanded her
-	for his wife.  Jupiter gave her to Vulcan, in gratitude for
-	the service he had rendered in forging thunderbolts.  So
-	the most beautiful of the goddesses became the wife of the
-	most ill-favoured of gods.
+	Венера, богиня любви и красоты, была дочерью
+	Юпитера и Дионы.  Другие говорят, что Венера возникла из
+	пены морской.  Зефир нёс её по волнам к
+	острову Кипр, где её приняли и одели
+	Времена года, а затем привели в собрание богов.  Все
+	были очарованы её красотой, и каждый требовал её
+	себе в жёны.  Юпитер отдал её Вулкану в благодарность за
+	услугу, которую тот оказал, выковывая громовые стрелы.  Так
+	прекраснейшая из богинь стала женой
+	самого уродливого из богов.
 		[ Bulfinch's Mythology, by Thomas Bulfinch ]
 vlad*
 	Влад Дракула Пронзатель был монархом XV века
@@ -6025,18 +6015,16 @@ winning
 	  [ The Sorcerer's Apprentice, by Johann Wolfgang von Goethe,
 	      translation by Edwin Zeydel ]
 лесной сурок
-	The Usenet Oracle requires an answer to this question!
-
-	> How much wood could a woodchuck chuck if a woodchuck could
-	> chuck wood?
-
-	"Oh, heck!  I'll handle *this* one!"  The Oracle spun the terminal
-	back toward himself, unlocked the ZOT-guard lock, and slid the
-	glass guard away from the ZOT key.  "Ummmm....could you turn around
-	for a minute?  ZOTs are too graphic for the uninitiated.  Even *I*
-	get a little squeamish sometimes..."  The neophyte turned around,
-	and heard the Oracle slam his finger on a computer key, followed
-	by a loud ZZZZOTTTTT and the smell of ozone.
+	Оракул Usenet требует ответа на этот вопрос!
+	> Сколько дров мог бы заготовить лесной сурок, если бы лесной сурок мог
+	> заготавливать дрова?
+	«О, чёрт!  Я займусь *этим*!»  Оракул повернул терминал
+	к себе, отпер замок защиты ZOT и сдвинул
+	стеклянный щиток с клавиши ZOT.  «Мммм... не могли бы вы отвернуться
+	на минуту?  ZOT слишком нагляден для непосвящённых.  Даже *я*
+	иногда слегка содрогаюсь...»  Новичок отвернулся
+	и услышал, как Оракул хлопнул пальцем по клавише компьютера, а затем
+	громкое ЗЗЗЗЗОТТТТТ и запах озона.
 		[ Excerpted from Internet Oracularity 576.6 ]
 *worm
 хвост длинного червя
@@ -6079,18 +6067,17 @@ crysknife
 	густого грязно-бурого цвета, и без усилий удерживают ваш взгляд.
 		[ Hunter, In Darkness, by Andrew Plotkin ]
 ксан
-	They sent their friend the mosquito [xan] ahead of them to
-	find out what lay ahead.  "Since you are the one who sucks
-	the blood of men walking along paths," they told the mosquito,
-	"go and sting the men of Xibalba."  The mosquito flew
-	down the dark road to the Underworld.  Entering the house of
-	the Lords of Death, he stung the first person that he saw...
-
-	The mosquito stung this man as well, and when he yelled, the
-	man next to him asked, "Gathered Blood, what's wrong?"  So
-	he flew along the row stinging all the seated men until he
-	knew the names of all twelve.
-			[ Popul Vuh, as translated by Ralph Nelson ]
+	Они послали своего друга комара [ксана] впереди себя, чтобы
+	разузнать, что впереди.  «Раз уж ты тот, кто сосёт
+	кровь людей, идущих по дорогам, — сказали они комару, —
+	ступай и укуси людей Шибальбы».  Комар полетел
+	вниз по тёмной дороге в Подземный мир.  Войдя в дом
+	Владык Смерти, он укусил первого, кого увидел...
+	Комар укусил и этого человека, и когда тот закричал,
+	человек рядом с ним спросил: «Собранная Кровь, что случилось?»  Так
+	он летел вдоль ряда, кусая всех сидевших, пока не
+	узнал имена всех двенадцати.
+		[ Popul Vuh, as translated by Ralph Nelson ]
 ксорн
 	Далёкий родич земляного элементаля, ксорн умеет
 	так перестраивать клетки своего тела,
@@ -6156,17 +6143,17 @@ spelunker
 speleologist
 collector
 curator
-	Archeologist ranks
-	  title            level
-	Digger            1 to 2
-	Field Worker      3 to 5
-	Investigator      6 to 9
-	Exhumer          10 to 13
-	Excavator        14 to 17
-	Spelunker        18 to 21
-	Speleologist     22 to 25
-	Collector        26 to 29
-	Curator             30
+	Звания археолога
+	звание              уровень
+	Землекоп              1-2
+	Полевой рабочий       3-5
+	Следователь           6-9
+	Эксгуматор         10-13
+	Землерой            14-17
+	Спелеолог-любитель  18-21
+	Спелеолог           22-25
+	Коллекционер        26-29
+	Хранитель              30
 bar* ranks
 варвар
 plunder?*
@@ -6205,17 +6192,17 @@ roamer
 nomad
 rover
 pioneer
-	Caveman/Cavewoman/Cave Dweller ranks
-	  title            level
-	Troglodyte        1 to 2
-	Aborigine         3 to 5
-	Wanderer          6 to 9
-	Vagrant          10 to 13
-	Wayfarer         14 to 17
-	Roamer           18 to 21
-	Nomad            22 to 25
-	Rover            26 to 29
-	Pioneer             30
+	Звания пещерника
+	звание              уровень
+	Троглодит             1-2
+	Абориген              3-5
+	Странник              6-9
+	Бродяга             10-13
+	Путник              14-17
+	Кочевник            18-21
+	Номад               22-25
+	Скиталец            26-29
+	Пионер                 30
 hea* ranks
 целитель
 rhizotomist
