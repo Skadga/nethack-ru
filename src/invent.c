@@ -1519,48 +1519,53 @@ carrying_stoning_corpse(void)
 /* Fictional and not-so-fictional currencies.
  * http://concord.wikia.com/wiki/List_of_Fictional_Currencies
  */
-static const char *const currencies[][2] = {
-    /* singular, plural */
-    { "алтарианский доллар", "алтарианские доллары" },
+static const char *const currencies[][3] = {
+    /* им. ед., род. ед., род. мн. */
+    { "алтарианский доллар", "алтарианского доллара",
+      "алтарианских долларов" },
         /* The Hitchhiker's Guide to the Galaxy */
-    { "доллар Анк-Морпорка", "доллары Анк-Морпорка" },   /* Discworld */
-    { "аурик", "аурики" },                     /* The Domination of Draka */
-    { "бакзаоид", "бакзаоиды" },                        /* Space Quest */
-    { "цирбозоид", "цирбозоиды" },                        /* Starslip */
-    { "кредитный жетон", "кредитные жетоны" },              /* Deus Ex */
-    { "кубит", "кубиты" },                     /* Battlestar Galactica */
-    { "фланианская бусина поббла", "фланианские бусины поббла" },
+    { "доллар Анк-Морпорка", "доллара Анк-Морпорка",
+      "долларов Анк-Морпорка" },                        /* Discworld */
+    { "аурик", "аурика", "ауриков" },       /* The Domination of Draka */
+    { "бакзаоид", "бакзаоида", "бакзаоидов" },          /* Space Quest */
+    { "цирбозоид", "цирбозоида", "цирбозоидов" },          /* Starslip */
+    { "кредитный жетон", "кредитного жетона",
+      "кредитных жетонов" },                                /* Deus Ex */
+    { "кубит", "кубита", "кубитов" },      /* Battlestar Galactica */
+    { "фланианская бусина поббла", "фланианской бусины поббла",
+      "фланианских бусин поббла" },
         /* The Hitchhiker's Guide to the Galaxy */
-    { "фретцер", "фретцеры" },                          /* Jules Verne */
-    { "имперский кредит", "имперские кредиты" },          /* Star Wars */
-    { "гонконгский лунный доллар", "гонконгские лунные доллары" },
+    { "фретцер", "фретцера", "фретцеров" },             /* Jules Verne */
+    { "имперский кредит", "имперского кредита",
+      "имперских кредитов" },                             /* Star Wars */
+    { "гонконгский лунный доллар", "гонконгского лунного доллара",
+      "гонконгских лунных долларов" },
         /* The Moon is a Harsh Mistress */
-    { "конгбак", "конгбаки" },                          /* Snow Crash */
-    { "нанит", "наниты" },                        /* System Shock 2 */
-    { "кватлу", "кватлу" },                 /* Star Trek, Sim City */
-    { "симолеон", "симолеоны" },                          /* Sim City */
-    { "солари", "солари" },                             /* Spaceballs */
-    { "спейсбак", "спейсбаки" },                        /* Spaceballs */
-    { "споробак", "споробаки" },                            /* Spore */
-    { "триганический пу", "триганические пу" },
+    { "конгбак", "конгбака", "конгбаков" },             /* Snow Crash */
+    { "нанит", "нанита", "нанитов" },               /* System Shock 2 */
+    { "кватлу", "кватлу", "кватлу" },       /* Star Trek, Sim City */
+    { "симолеон", "симолеона", "симолеонов" },            /* Sim City */
+    { "солари", "солари", "солари" },                   /* Spaceballs */
+    { "спейсбак", "спейсбака", "спейсбаков" },          /* Spaceballs */
+    { "споробак", "споробака", "споробаков" },              /* Spore */
+    { "триганический пу", "триганического пу",
+      "триганических пу" },
         /* The Hitchhiker's Guide to the Galaxy */
-    { "вулонг", "вулонги" },                            /* Cowboy Bebop */
-    { "зоркмид", "зоркмиды" },                      /* Zork, NetHack */
+    { "вулонг", "вулонга", "вулонгов" },                /* Cowboy Bebop */
+    { "зоркмид", "зоркмида", "зоркмидов" },         /* Zork, NetHack */
 };
 
 const char *
 currency(long amount)
 {
-    const char *res;
+    static const char *const zorkmid[3] = {
+        "зоркмид", "зоркмида", "зоркмидов"
+    };
+    int form = ru_num_form(amount);
 
-    if (Hallucination) {
-        int i = rn2(SIZE(currencies));
-
-        res = currencies[i][(amount != 1L) ? 1 : 0];
-    } else {
-        res = (amount == 1L) ? "зоркмид" : "зоркмиды";
-    }
-    return res;
+    if (Hallucination)
+        return currencies[rn2(SIZE(currencies))][form];
+    return zorkmid[form];
 }
 
 struct obj *

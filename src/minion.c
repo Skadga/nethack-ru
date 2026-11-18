@@ -13,6 +13,12 @@ static const int elementals[4] = {
     PM_EARTH_ELEMENTAL, PM_WATER_ELEMENTAL
 };
 
+/* default currency forms for permanent log messages: nominative singular,
+   genitive singular, genitive plural */
+static const char *const zorkmid_forms[3] = {
+    "зоркмид", "зоркмида", "зоркмидов"
+};
+
 void
 newemin(struct monst *mtmp)
 {
@@ -352,7 +358,7 @@ demon_talk(struct monst *mtmp)
        also, avoid random hallucinatory currency() units */
     livelog_printf(LL_UMONST, "подкупили %s на %ld %s за беспрепятственный проход",
                    x_monnam(mtmp, ARTICLE_A, (char *) 0, EXACT_NAME, FALSE),
-                   offer, (offer == 1L) ? "зоркмид" : "зоркмиды");
+                   offer, zorkmid_forms[ru_num_form(offer)]);
     mongone(mtmp);
     return 1;
 }

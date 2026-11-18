@@ -606,12 +606,13 @@ priest_talk(struct monst *priest)
         if (coaligned && !strayed) {
             long pmoney = money_cnt(priest->minvent);
             if (pmoney > 0L) {
-                const char *bits;
-                bits = (Hallucination) ? currency(pmoney)
-                                       : (pmoney == 1L) ? "монету" : "монеты";
                 /* Note: two bits is actually 25 cents.  Hmm. */
-                pline("%s даёт вам %s%s за пиво.", Monnam(priest),
-                      (pmoney == 1L) ? "одну " : "две ", bits);
+                if (Hallucination)
+                    pline("%s даёт вам немного денег за пиво.",
+                          Monnam(priest));
+                else
+                    pline("%s даёт вам %s за пиво.", Monnam(priest),
+                          (pmoney == 1L) ? "одну монету" : "две монеты");
                 money2u(priest, pmoney > 1L ? 2 : 1);
             } else
                 pline("%s проповедует добродетель бедности.", Monnam(priest));
