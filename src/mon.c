@@ -5463,7 +5463,7 @@ newcham(
         } else { /* saw/sensed it before, still see/sense it now */
             pline_mon(mtmp, "%s превращается в %s!", oldname,
                       /* "a <monster type>" even if it has a name assigned */
-                      noname_monnam(mtmp, ARTICLE_A));
+                      ru_noun_case(noname_monnam(mtmp, ARTICLE_A), BP_ACC));
         }
     }
 

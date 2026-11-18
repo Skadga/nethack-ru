@@ -3338,7 +3338,8 @@ mhitm_ad_stck(
         if (!negated && !sticks(pd) && m_next2u(mdef)) {
             set_ustuck(mdef); /* it's now stuck to you */
             if (barbs)
-                Your("Ваши шипы впиваются в %s!", y_monnam(mdef));
+                Your("Ваши шипы впиваются в %s!",
+                     mon_gen(mdef, BP_ACC));
         }
     } else if (mdef == &gy.youmonst) {
         /* mhitu */

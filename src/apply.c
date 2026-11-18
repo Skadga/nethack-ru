@@ -3079,8 +3079,8 @@ use_whip(struct obj *obj)
             }
             if (otmp && proficient) {
                 You("обматываете хлыст вокруг %s на %s.",
-                    an(singular(otmp, xname)),
-                    surface_case(u.ux, u.uy, BP_GEN), surface_ru(u.ux, u.uy));
+                    ru_noun_case(xname(otmp), BP_GEN),
+                    surface_case(u.ux, u.uy, BP_PREP));
                 if (rnl(6) || pickup_object(otmp, 1L, TRUE) < 1)
                     pline1(msg_slipsfree);
                 return ECMD_TIME;
@@ -3128,7 +3128,7 @@ use_whip(struct obj *obj)
                monster is present, or an unseen big one, use the boulder
                or furniture if available, otherwise attack */
             if (bigmonst(mtmp->data) && canspotmon(mtmp))
-                wrapped_what = strcpy(buf, mon_nam(mtmp));
+                wrapped_what = strcpy(buf, mon_gen(mtmp, BP_GEN));
 
             if (!wrapped_what)
                 goto whipattack;
@@ -3190,12 +3190,13 @@ use_whip(struct obj *obj)
             Strcpy(onambuf, cxname(otmp));
             if (gotit) {
                 mon_hand = mbodypart_case(mtmp, HAND, bimanual(otmp)
-                                                           ? BP_GEN | BP_PLURAL
-                                                           : BP_GEN);
+                                                           ? BP_DAT | BP_PLURAL
+                                                           : BP_DAT);
             } else
                 mon_hand = 0; /* lint suppression */
 
-            You("обматываете хлыст вокруг %s.", yname(otmp));
+            You("обматываете хлыст вокруг %s.",
+                ru_noun_case(yname(otmp), BP_GEN));
             if (gotit && mwelded(otmp)) {
                 pline("%s к %s %s%c",
                       (otmp->quan == 1L) ? "Он горит" : "Они горят", mhis(mtmp),

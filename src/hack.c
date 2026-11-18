@@ -519,7 +519,7 @@ moverock_core(coordxy sx, coordxy sy)
                               /* use an alternate exclamation when feeling
                                  the floor/ground/whatever shake (or maybe
                                  a weak shockwave if levitating or flying) */
-                                                : "Gadzooks",
+                                                : "Батюшки",
                               The(xname(otmp)),
                               ttmp->madeby_u ? "вашей мине" : "мине");
                         blow_up_landmine(ttmp);
@@ -2722,7 +2722,8 @@ escape_from_sticky_mon(coordxy x, coordxy y)
                 /*FALLTHRU*/
             default:
                 if (Conflict || u.ustuck->mconf || !u.ustuck->mtame) {
-                    You("не можете вырваться от %s!", y_monnam(u.ustuck));
+                    You("не можете вырваться от %s!",
+                        ru_noun_case(y_monnam(u.ustuck), BP_GEN));
                     nomul(0);
                     return TRUE;
                 }
@@ -2733,7 +2734,8 @@ escape_from_sticky_mon(coordxy x, coordxy y)
             case 2:
                 mtmp = u.ustuck;
                 set_ustuck((struct monst *) 0);
-                You("вырываетесь от %s.", y_monnam(mtmp));
+                You("вырываетесь от %s.",
+                    ru_noun_case(y_monnam(mtmp), BP_GEN));
                 break;
             }
         }

@@ -197,9 +197,8 @@ you_were(void)
     if (Unchanging || u.umonnum == u.ulycn)
         return;
     if (controllable_poly) {
-        /* `+4' => skip "were" prefix to get name of beast */
         Sprintf(qbuf, "Хотите превратиться в %s?",
-                an(mons[u.ulycn].pmnames[NEUTRAL] + 4));
+                ru_noun_case(mons[u.ulycn].pmnames[NEUTRAL], BP_ACC));
         if (!paranoid_query(ParanoidWerechange, qbuf))
             return;
     } else if (monster_nearby()) {

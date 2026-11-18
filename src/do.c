@@ -740,13 +740,14 @@ drop(struct obj *obj)
         if (flags.verbose) {
             char *onam_p, *mnam_p, monbuf[BUFSZ];
 
-            mnam_p = mon_nam(u.ustuck);
             /* doname can call s_suffix, reusing its buffer */
             if (digests(u.ustuck->data)) {
                 Sprintf(monbuf, "%s %s", mhis(u.ustuck),
-                        mbodypart_case(u.ustuck, STOMACH, BP_NOM));
-                mnam_p = monbuf;
+                        mbodypart_case(u.ustuck, STOMACH, BP_ACC));
+            } else {
+                Strcpy(monbuf, mon_gen(u.ustuck, BP_ACC));
             }
+            mnam_p = monbuf;
             onam_p = is_unpaid(obj) ? yobjnam(obj, (char *) 0) : doname(obj);
 
             You("бросаете %s в %s.", onam_p, mnam_p);

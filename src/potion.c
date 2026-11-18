@@ -1664,7 +1664,7 @@ potionhit(struct monst *mon, struct obj *obj, int how)
             Soundeffect(se_potion_crash_and_break, 60);
             pline("Треск!");
         } else {
-            char *mnam = mon_nam(mon);
+            char *mnam = (char *) mon_gen(mon, BP_ACC);
             char buf[BUFSZ];
 
             if (hit_saddle && saddle) {

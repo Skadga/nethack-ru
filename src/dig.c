@@ -1313,7 +1313,7 @@ use_pick_axe2(struct obj *obj)
     } else if (is_pool_or_lava(u.ux, u.uy)) {
         /* Monsters which swim also happen not to be able to dig */
         You("не можете долго пробыть под %s.",
-            is_pool(u.ux, u.uy) ? "водой" : " лавой");
+            is_pool(u.ux, u.uy) ? "водой" : "лавой");
     } else if ((trap = t_at(u.ux, u.uy)) != 0
                && (uteetering_at_seen_pit(trap) || uescaped_shaft(trap))) {
         dotrap(trap, FORCEBUNGLE);

@@ -2447,7 +2447,8 @@ doturn(void)
     if (!can_chant(&gy.youmonst)) {
         /* "evilness": "demons and undead" is too verbose and too precise */
         You("не можете %s к %s, дабы отвратить зло.",
-            Strangled ? "обратиться" : "воззвать", Gname);
+            Strangled ? "обратиться" : "воззвать",
+            god_case(Gname, BP_DAT));
         /* violates agnosticism due to intent; conduct tracking is not
            supposed to affect play but we make an exception here:  use a
            move if this is the first time agnostic conduct has been broken */

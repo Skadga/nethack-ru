@@ -2447,8 +2447,8 @@ loot_mon(struct monst *mtmp, int *passed_info, boolean *prev_loot)
         if (passed_info)
             *passed_info = 1;
         Sprintf(qbuf, "’отите сн€ть седло с %s?",
-                x_monnam(mtmp, ARTICLE_THE, (char *) 0,
-                         SUPPRESS_SADDLE, FALSE));
+                ru_noun_case(x_monnam(mtmp, ARTICLE_THE, (char *) 0,
+                                      SUPPRESS_SADDLE, FALSE), BP_GEN));
         if ((c = yn_function(qbuf, ynqchars, 'n', TRUE)) == 'y') {
             if (nolimbs(gy.youmonst.data)) {
                 You_cant("сделать это без конечностей."); /* not body_part(HAND) */
@@ -2456,8 +2456,8 @@ loot_mon(struct monst *mtmp, int *passed_info, boolean *prev_loot)
             }
             if (otmp->cursed) {
                 You("не можете.  —едло, кажетс€, приклеено к %s.",
-                    x_monnam(mtmp, ARTICLE_THE, (char *) 0,
-                             SUPPRESS_SADDLE, FALSE));
+                    ru_noun_case(x_monnam(mtmp, ARTICLE_THE, (char *) 0,
+                                          SUPPRESS_SADDLE, FALSE), BP_DAT));
                 /* the attempt costs you time */
                 return 1;
             }

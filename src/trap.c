@@ -3104,17 +3104,16 @@ dotrap(struct trap *trap, unsigned trflags)
          * reason why the player cannot escape the trap with a dexterity
          * check, clinging to the ceiling, etc.
          */
-        pline("¬оздушные потоки т€нут вас вниз в €му.",
-              a_your[trap->madeby_u],
-              trapname(ttype, TRUE)); /* do force "pit" while hallucinating */
+        /* do force "pit" while hallucinating */
+        pline("¬оздушные потоки т€нут вас вниз в €му.");
         /* then proceed to normal trap effect */
     } else if (!forcetrap) {
         if (floor_trigger(ttype) && check_in_air(&gy.youmonst, trflags)) {
             if (already_seen) {
                 You("%s через %s %s.", u_locomotion("step"),
                     (ttype == ARROW_TRAP && !trap->madeby_u)
-                    ? "an" : a_your[trap->madeby_u],
-                    trapname(ttype, FALSE));
+                    ? "эту" : a_your[trap->madeby_u],
+                    ru_noun_case(trapname(ttype, FALSE), BP_ACC));
             }
             return;
         }
@@ -3122,11 +3121,11 @@ dotrap(struct trap *trap, unsigned trflags)
             && ttype != ANTI_MAGIC && !forcebungle && !plunged
             && !conj_pit && !adj_pit
             && (!rn2(5) || (is_pit(ttype) && is_clinger(gy.youmonst.data)))) {
-                You("избегаете %s %s.",
+                You("обходите %s %s.",
                           (ttype == ARROW_TRAP && !trap->madeby_u)
-                          ? "этой"
+                          ? "эту"
                           : a_your[trap->madeby_u],
-                trapname(ttype, FALSE));
+                ru_noun_case(trapname(ttype, FALSE), BP_ACC));
             return;
         }
     }
@@ -4028,7 +4027,8 @@ float_up(void)
     if (u.utrap) {
         if (u.utraptype == TT_PIT) {
             reset_utrap(FALSE);
-            You("взлетаете вверх, из %s!", trapname(PIT, FALSE));
+            You("взлетаете вверх из %s!",
+                ru_noun_case(trapname(PIT, FALSE), BP_GEN));
             gv.vision_full_recalc = 1; /* vision limits change */
             fill_pit(u.ux, u.uy);
         } else if (u.utraptype == TT_LAVA /* molten lava */
@@ -4050,7 +4050,7 @@ float_up(void)
                 IS_ROOM(levl[cc.x][cc.y].typ) ? "полу" : "земле");
         } else if (u.utraptype == WEB) {
             You("приподнимаетесь, но всЄ ещЄ ув€зли в %s.",
-                trapname(WEB, FALSE));
+                ru_noun_case(trapname(WEB, FALSE), BP_PREP));
         } else { /* bear trap */
             You("всплываете немного, но ваша %s всЄ ещЄ застр€ла.",
                 body_part_case(LEG, BP_NOM));
@@ -4275,7 +4275,7 @@ climb_pit(void)
     if (!u.utrap || u.utraptype != TT_PIT)
         return;
 
-    pitname = trapname(PIT, FALSE);
+    pitname = ru_noun_case(trapname(PIT, FALSE), BP_GEN);
     if (Passes_walls) {
         /* marked as trapped so they can pick things up */
         You("поднимаетесь из %s.", pitname);
@@ -5546,7 +5546,8 @@ try_disarm(
         if ((gi.invent && (inv_weight() + weight_cap() > WT_TOOMUCH_DIAGONAL))
             || bigmonst(gy.youmonst.data)) {
             /* don't allow untrap if they can't get thru to it */
-            You("не можете дот€нутьс€ до %s!", trapname(ttype, FALSE));
+            You("не можете дот€нутьс€ до %s!",
+                ru_noun_case(trapname(ttype, FALSE), BP_GEN));
             return 0;
         }
     }
@@ -5555,7 +5556,8 @@ try_disarm(
         if (u.usteed && P_SKILL(P_RIDING) < P_BASIC)
             rider_cant_reach();
         else
-            You("не можете дот€нутьс€ до %s!", trapname(ttype, FALSE));
+            You("не можете дот€нутьс€ до %s!",
+                ru_noun_case(trapname(ttype, FALSE), BP_GEN));
         return 0;
     }
 
@@ -5599,10 +5601,10 @@ try_disarm(
                 move_into_trap(ttmp);
             }
         } else {
-            pline("%s %s трудно %s.",
-                  ttmp->madeby_u ? "¬аш" : under_u ? "Ётот" : "“от",
-                  trapname(ttype, FALSE),
-                  (ttype == WEB) ? "сн€ть" : "обезвредить");
+            pline("“рудно %s %s %s.",
+                  (ttype == WEB) ? "сн€ть" : "обезвредить",
+                  ttmp->madeby_u ? "вашу" : under_u ? "эту" : "ту",
+                  ru_noun_case(trapname(ttype, FALSE), BP_ACC));
         }
         return 1;
     }
@@ -6011,10 +6013,11 @@ untrap(
     } else { /* deal_with_floor_trap */
 
         if (ttmp) {
-            Strcpy(the_trap, the(trapdescr));
+            Strcpy(the_trap, ru_noun_case(trapdescr, BP_ACC));
             if (boxcnt) {
                 if (is_pit(ttmp->ttyp)) {
-                    You_cant("многого сделать с %s%s.", the_trap,
+                    You_cant("многого сделать с %s%s.",
+                             ru_noun_case(trapdescr, BP_INS),
                              u.utrap ? ", в которой вы застр€ли"
                                      : ", сто€ на краю еЄ");
                     trap_skipped = TRUE;
@@ -6041,7 +6044,7 @@ untrap(
             if (deal_with_floor_trap) {
                 if (u.utrap) {
                     You("не можете справитьс€ с %s, пока вы сами в ловушке!",
-                            the_trap);
+                            ru_noun_case(trapdescr, BP_INS));
                     return 1;
                 }
                 if ((mtmp = m_at(x, y)) != 0

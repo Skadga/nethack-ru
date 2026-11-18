@@ -610,7 +610,8 @@ polyself(int psflags)
                     pm_name = the(pm_name);
                 else if (!type_is_pname(&mons[mntmp]))
                     pm_name = an(pm_name);
-                You_cant("превратиться в %s.", pm_name);
+                You_cant("превратиться в %s.",
+                         ru_noun_case(pm_name, BP_ACC));
             } else
                 break;
         } while (--tryct > 0);
@@ -680,7 +681,8 @@ polyself(int psflags)
             }
             if (controllable_poly) {
                 Sprintf(buf, "Превратиться в %s?",
-                        an(pmname(&mons[mntmp], gvariant)));
+                        ru_noun_case(pmname(&mons[mntmp], gvariant),
+                                     BP_ACC));
                 if (y_n(buf) != 'y')
                     return;
             }
@@ -1686,7 +1688,7 @@ dogaze(void)
                 looked--;
                 continue;
             } else if (flags.safe_dog && mtmp->mtame && !Confusion) {
-                You("избегаете смотреть на %s.", y_monnam(mtmp));
+                You("избегаете смотреть на %s.", mon_gen(mtmp, BP_ACC));
             } else {
                 if (flags.confirm && mtmp->mpeaceful && !Confusion) {
                     Sprintf(qbuf, "Действительно %s %s?",

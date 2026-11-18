@@ -873,12 +873,16 @@ gd_letknow(struct monst *grd)
                     m_carrying(grd, TIN_WHISTLE)
                         ? "пронзительный звук свистка стража"
                         : "гневные крики");
-    else
-        You(um_dist(grd->mx, grd->my, 2)
-                ? "видите, как приближается %s."
-                : "сталкиваетесь лицом к лицу с %s.",
-            /* "an angry guard" */
-            x_monnam(grd, ARTICLE_A, "сердитый", 0, FALSE));
+    else {
+        char gbuf[BUFSZ];
+
+        Strcpy(gbuf, x_monnam(grd, ARTICLE_A, "сердитый", 0, FALSE));
+        if (um_dist(grd->mx, grd->my, 2))
+            You("видите, как приближается %s.", gbuf);
+        else
+            You("сталкиваетесь лицом к лицу с %s.",
+                ru_noun_case(gbuf, BP_INS));
+    }
 }
 
 /*

@@ -330,14 +330,10 @@ mattackm(
         newsym(mdef->mx, mdef->my);
         if (canseemon(mdef) && !sensemon(mdef)) {
             if (Unaware) {
-                boolean justone = (mdef->data->geno & G_UNIQ) != 0L;
                 const char *montype;
 
-                montype = noname_monnam(mdef, justone ? ARTICLE_THE
-                                                      : ARTICLE_NONE);
-                if (!justone)
-                    montype = makeplural(montype);
-                You("сон о %s.", montype);
+                montype = noname_monnam(mdef, ARTICLE_NONE);
+                pline("Вам снится %s.", montype);
             } else {
                 if (iflags.last_msg == PLNMSG_HIDE_UNDER
                     && mdef->m_id == gl.last_hider)

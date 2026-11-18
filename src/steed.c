@@ -16,7 +16,8 @@ staticfn void maybewakesteed(struct monst *);
 void
 rider_cant_reach(void)
 {
-    You("недостаточно ловки, чтобы дотянуться, сидя на %s.", y_monnam(u.usteed));
+    You("недостаточно ловки, чтобы дотянуться, сидя на %s.",
+        mon_gen(u.usteed, BP_PREP));
 }
 
 /*** Putting the saddle on ***/
@@ -264,7 +265,8 @@ mount_steed(
            attempting to mount a tail segment when hero was not adjacent
            to worm's head could trigger an impossible() in worm_cross()
            called from test_move(), so handle not-on-head before that */
-        You("не можете ехать на %s, не то что на его хвосте.", a_monnam(mtmp));
+        You("не можете ехать на %s, не то что на его хвосте.",
+            mon_gen(mtmp, BP_PREP));
         return FALSE;
     }
     if (u.uswallow || u.ustuck || u.utrap || Punished
