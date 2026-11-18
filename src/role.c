@@ -1584,7 +1584,7 @@ build_plselection_prompt(
     char *buf, int buflen,
     int rolenum, int racenum, int gendnum, int alignnum)
 {
-    const char *defprompt = "Подобрать персонажа для тебя? [ynaq] ";
+    const char *defprompt = "Подобрать персонажа для вас? [ynaq] ";
     int num_post_attribs = 0;
     char tmpbuf[BUFSZ], *p;
 
@@ -1593,7 +1593,7 @@ build_plselection_prompt(
 
     Strcpy(tmpbuf, "Подобрать ");
     if (racenum != ROLE_NONE || validrole(rolenum))
-        Strcat(tmpbuf, "твой ");
+        Strcat(tmpbuf, "ваш ");
     else
         Strcat(tmpbuf, "некоего ");
     /* <your> */
@@ -1647,7 +1647,7 @@ build_plselection_prompt(
             Strcat(buf, "мировоззрение");
         }
     }
-    Strcat(buf, " для тебя? [ynaq] ");
+    Strcat(buf, " для вас? [ynaq] ");
     return buf;
 }
 

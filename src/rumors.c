@@ -543,7 +543,7 @@ outrumor(
         } else if (Blind) {
             if (mechanism == BY_COOKIE)
                 pline(fortune_msg);
-            pline("Какая жалость, что ты не можешь этого прочитать!");
+            pline("Какая жалость, что вы не можете этого прочитать!");
             return;
         }
     }
@@ -710,7 +710,7 @@ doconsult(struct monst *oracl)
         pline("%s не расположен к консультациям.", Monnam(oracl));
         return ECMD_OK;
     } else if (!umoney) {
-        You("у тебя нет золота.");
+        You("у вас нет золота.");
         return ECMD_OK;
     }
 
@@ -722,7 +722,7 @@ doconsult(struct monst *oracl)
         return ECMD_OK;
     case 'y':
         if (umoney < (long) minor_cost) {
-            You("у тебя даже нет столько золота!");
+            You("у вас даже нет столько золота!");
             return ECMD_OK;
         }
         u_pay = minor_cost;

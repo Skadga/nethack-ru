@@ -698,7 +698,7 @@ mswin_askname(void)
 {
     logDebug("mswin_askname()\n");
 
-    if (mswin_getlin_window("Кто ты?", svp.plname, PL_NSIZ) == IDCANCEL) {
+    if (mswin_getlin_window("Как вас зовут?", svp.plname, PL_NSIZ) == IDCANCEL) {
         bail("bye-bye");
         /* not reached */
     }

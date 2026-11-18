@@ -602,7 +602,7 @@ doengrave_sfx_item_WAN(struct _doengrave_ctx *de)
          */
     case WAN_STRIKING:
         Strcpy(de->post_engr_text,
-               "Палочка безуспешно сопротивляется твоей попытке написать!");
+               "Палочка безуспешно сопротивляется вашей попытке написать!");
         break;
     case WAN_SLOW_MONSTER:
         if (!Blind) {
@@ -843,7 +843,7 @@ doengrave_sfx_item(struct _doengrave_ctx *de)
         switch (de->otmp->otyp) {
         case MAGIC_MARKER:
             if (de->otmp->spe <= 0)
-                Your("твой маркер высох.");
+                Your("маркер высох.");
             else
                 de->type = MARK;
             break;
@@ -1421,7 +1421,7 @@ engrave(void)
         update_inventory();
         if (stylus->spe == 0) {
             /* can't engrave any further; truncate the string */
-            Your("твой маркер высыхает.");
+            Your("маркер высыхает.");
             truncate = TRUE;
         }
     }

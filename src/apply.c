@@ -1167,7 +1167,7 @@ use_mirror(struct obj *obj)
         if (vis) {
             char buf[BUFSZ]; /* "She" or "He" */
 
-            pline("%s любуется собой в твоём %s.",
+            pline("%s любуется собой в вашем %s.",
                   Monnam(mtmp), mirror);
             pline("%s берёт его!", upstart(strcpy(buf, mhe(mtmp))));
         } else
@@ -1778,7 +1778,7 @@ light_cocktail(struct obj **optr)
     if (split1off) {
         obj_extract_self(obj); /* free from inv */
         obj->nomerge = 1;
-        obj = hold_another_object(obj, "Ты роняешь %s!", doname(obj),
+        obj = hold_another_object(obj, "Вы роняете %s!", doname(obj),
                                   (const char *) 0);
         if (obj)
             obj->nomerge = 0;
@@ -2629,7 +2629,7 @@ use_grease(struct obj *obj)
     struct obj *otmp;
 
     if (Glib) {
-        pline("%s выскальзывает из твоих %s.", The(xname(obj)),
+        pline("%s выскальзывает из ваших %s.", The(xname(obj)),
               fingers_or_gloves(FALSE, BP_GEN));
         dropx(obj);
         return ECMD_TIME;
@@ -2641,7 +2641,7 @@ use_grease(struct obj *obj)
         if ((obj->cursed || Fumbling) && !rn2(2)) {
             consume_obj_charge(obj, TRUE);
 
-            pline("%s выскальзывает из твоих %s.", The(xname(obj)),
+            pline("%s выскальзывает из ваших %s.", The(xname(obj)),
                   fingers_or_gloves(FALSE, BP_GEN));
             dropx(obj);
             return ECMD_TIME;
@@ -2659,7 +2659,7 @@ use_grease(struct obj *obj)
             otmp->greased = 1;
             if (obj->cursed && !nohands(gy.youmonst.data)) {
                 make_glib(oldglib + rn1(6, 10)); /* + 10..15 */
-                pline("Часть смазки попадает на твои %s.",
+                pline("Часть смазки попадает на ваши %s.",
                       fingers_or_gloves(TRUE, BP_ACC));
             }
         } else {
@@ -3089,7 +3089,7 @@ use_whip(struct obj *obj)
         return ECMD_TIME;
 
     } else if ((Fumbling || Glib) && !rn2(5)) {
-        pline("Хлыст выскальзывает из твоих %s.", body_part_case(HAND, BP_GEN));
+        pline("Хлыст выскальзывает из ваших %s.", body_part_case(HAND, BP_GEN));
         dropx(obj);
 
     } else if (u.utrap && u.utraptype == TT_PIT) {
@@ -3162,9 +3162,9 @@ use_whip(struct obj *obj)
                blind or formerly hidden monster is also invisible) */
             spotitnow = canspotmon(mtmp);
             if (spotitnow || !glyph_is_invisible(levl[rx][ry].glyph)) {
-                pline("Там есть %s, которого ты %s.",
+                pline("Там есть %s, которого вы %s.",
                       !spotitnow ? "нечто" : Amonnam(mtmp),
-                      !Blind ? "не смог увидеть" : "не заметил");
+                      !Blind ? "не смогли увидеть" : "не заметили");
                 if (!spotitnow)
                     map_invisible(rx, ry);
                 else
@@ -3223,7 +3223,7 @@ use_whip(struct obj *obj)
                         hitu = thitu(hitvalu, Maybe_Half_Phys(dam),
                                      &otmp, (char *) 0);
                         if (hitu) {
-                            pline("%s Бьёт тебя, когда ты пытаешься схватить его!",
+                            pline("%s бьёт вас, когда вы пытаетесь схватить его!",
                                       the(onambuf));
                         }
                         place_object(otmp, u.ux, u.uy);
@@ -3253,7 +3253,7 @@ use_whip(struct obj *obj)
                         /* life-saved; free the corpse again */
                         obj_extract_self(otmp);
                     }
-                    (void) hold_another_object(otmp, "Ты роняешь %s!",
+                    (void) hold_another_object(otmp, "Вы роняете %s!",
                                                doname(otmp), (const char *) 0);
                     break;
                 default:
@@ -3298,7 +3298,7 @@ use_whip(struct obj *obj)
 
 static const char
     not_enough_room[] = "Здесь недостаточно места, чтобы использовать это.",
-    where_to_hit[] = "Куда ты хочешь ударить?",
+    where_to_hit[] = "Куда вы хотите ударить?",
     cant_see_spot[] = "не попадёшь ни во что, если не видишь это место.",
     cant_reach[] = "не можешь дотянуться до этого места отсюда.";
 
@@ -3451,7 +3451,7 @@ snickersnee_used_dist_attk(struct obj *obj)
 int
 use_pole(struct obj *obj, boolean autohit)
 {
-    const char thump[] = "Бум!  Твой удар безвредно отскакивает от %s.";
+    const char thump[] = "Бум!  Ваш удар безвредно отскакивает от %s.";
     int res = ECMD_OK, max_range, min_range, glyph;
     coord cc;
     struct monst *mtmp;
@@ -3613,7 +3613,7 @@ use_cream_pie(struct obj *obj)
         u.ucreamed += blindinc;
         make_blinded(BlindedTimeout + (long) blindinc, FALSE);
         if (!Blind || (Blind && wasblind))
-            pline("По всему твоему %s %sлипкая дрянь.",
+            pline("По всему вашему %s %sлипкая дрянь.",
                   wascreamed ? "ещё " : "", body_part_case(FACE, BP_DAT));
         else /* Blind  && !wasblind */
             You_cant("видеть сквозь липкую дрянь на своём %s.",
@@ -3880,7 +3880,7 @@ use_grapple(struct obj *obj)
         if (IS_AIR(levl[cc.x][cc.y].typ) || is_pool(cc.x, cc.y))
             pline("Крюк прорезает %s.", surface(cc.x, cc.y));
         else {
-            You("тебя тянет рывком к %s!", surface(cc.x, cc.y));
+            pline("Вас тянет рывком к %s!", surface(cc.x, cc.y));
             hurtle(sgn(cc.x - u.ux), sgn(cc.y - u.uy), 1, FALSE);
             spoteffects(TRUE);
         }
@@ -3959,11 +3959,11 @@ do_break_wand(struct obj *obj)
     }
     if (!paranoid_query(ParanoidBreakwand,
                         safe_qbuf(confirm,
-                                  "Ты действительно хочешь сломать ",
+                                  "Вы действительно хотите сломать ",
                                   "?", obj, yname, ysimple_name, "жезл")))
         return ECMD_OK;
-    pline("Подняв %s высоко над твоей %s, ты %s его пополам!", yname(obj),
-          body_part_case(HEAD, BP_INS), is_fragile ? "ломаешь" : "ломаешь");
+    pline("Подняв %s высоко над вашей %s, вы %s его пополам!", yname(obj),
+          body_part_case(HEAD, BP_INS), is_fragile ? "ломаете" : "ломаете");
 
     /* [ALI] Do this first so that wand is removed from bill. Otherwise,
      * the freeinv() below also hides it from setpaid() which causes problems.
@@ -4034,7 +4034,7 @@ do_break_wand(struct obj *obj)
     case WAN_STRIKING:
         /* we want this before the explosion instead of at the very end */
         Soundeffect(se_wall_of_force, 65);
-        pline("Стена силы обрушивается вокруг тебя!");
+        pline("Стена силы обрушивается вокруг вас!");
         dmg = d(1 + obj->spe, 6); /* normally 2d12 */
         FALLTHROUGH;
         /*FALLTHRU*/
@@ -4563,7 +4563,7 @@ flip_coin(struct obj *obj)
         lose_coin = TRUE;
     } else if (Glib || Fumbling
                || (ACURR(A_DEX) < 10 && !rn2(ACURR(A_DEX)))) {
-        pline("Она выскальзывает из твоих %s.",
+        pline("Она выскальзывает из ваших %s.",
               fingers_or_gloves(FALSE, BP_GEN));
         lose_coin = TRUE;
     }

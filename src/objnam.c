@@ -1523,7 +1523,7 @@ doname_base(
                 Concat(bp, 0, " ");
                 Concat(bp, 0, mon_gen_nom(obj_pmname(obj), BP_GEN));
                 if (obj->spe == 1)
-                    Concat(bp, 0, " (снесено тобой)");
+                    Concat(bp, 0, " (снесено вами)");
             }
         } else if (obj->otyp == MEAT_RING) {
             goto ring;
@@ -1533,7 +1533,7 @@ doname_base(
     case CHAIN_CLASS:
         add_erosion_words(obj, prefix);
         if (obj->owornmask & (W_BALL | W_CHAIN))
-            ConcatF1(bp, 0, " (%s к тебе)",
+            ConcatF1(bp, 0, " (%s к вам)",
                      (obj->owornmask & W_BALL) ? "железный шар" : "железная цепь");
         break;
     }
@@ -5943,7 +5943,7 @@ readobjnam(char *bp, struct obj *no_wish)
         artifact_exists(d.otmp, safe_oname(d.otmp), FALSE, ONAME_NO_FLAGS);
         obfree(d.otmp, (struct obj *) 0);
         d.otmp = &hands_obj;
-        pline("На мгновение ты ощущаешь %s в своих %s, но оно исчезает!",
+        pline("На мгновение вы ощущаете %s в своих %s, но оно исчезает!",
               something, body_part_case(HAND, BP_PREP | BP_PLURAL));
         return d.otmp;
     }

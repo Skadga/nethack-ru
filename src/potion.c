@@ -471,8 +471,8 @@ void
 self_invis_message(void)
 {
     pline("%s %s.",
-          Hallucination ? "Клёво, чувак!  Ты"
-                        : "Ого!  Внезапно, ты",
+          Hallucination ? "Клёво, чувак!  Вы"
+                        : "Ого!  Внезапно, вы",
           See_invisible ? "можете видеть себя насквозь"
                         : "не можете себя видеть");
 }

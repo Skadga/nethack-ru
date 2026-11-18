@@ -503,7 +503,7 @@ itemactions(struct obj *otmp)
         *buf = '\0';
         if (otmp->oclass == AMULET_CLASS) {
             Strcpy(buf, !uamul ? "Надеть этот амулет"
-                               : "[на тебе уже надет амулет]");
+                               : "[на вас уже надет амулет]");
         } else if (otmp->oclass == RING_CLASS || otmp->otyp == MEAT_RING) {
             if (!uleft || !uright)
                 Strcpy(buf, "Надеть это кольцо");
@@ -513,7 +513,7 @@ itemactions(struct obj *otmp)
         } else if (otmp->otyp == BLINDFOLD || otmp->otyp == TOWEL
                    || otmp->otyp == LENSES) {
             if (ublindf)
-                Strcpy(buf, "[на тебе уже очки]");
+                Strcpy(buf, "[на вас уже очки]");
             else if (otmp->otyp == LENSES)
                 Strcpy(buf, "Надеть эти линзы");
             else
@@ -638,7 +638,7 @@ itemactions(struct obj *otmp)
             if (!o)
                 Strcpy(buf, "Надеть эти доспехи");
             else
-                Sprintf(buf, "[на тебе уже %s]", an(armor_simple_name(o)));
+                Sprintf(buf, "[на вас уже %s]", an(armor_simple_name(o)));
 
             ia_addmenu(win, IA_WEAR_OBJ, 'W', buf);
         }
@@ -647,13 +647,13 @@ itemactions(struct obj *otmp)
     /* x: Swap main and readied weapon */
     if (otmp == uwep && uswapwep)
         ia_addmenu(win, IA_SWAPWEAPON, 'x',
-                   "Обменять с твоим запасным оружием");
+                   "Обменять с вашим запасным оружием");
     else if (otmp == uwep)
         ia_addmenu(win, IA_SWAPWEAPON, 'x',
                    "Подготовить как запасное оружие");
     else if (otmp == uswapwep)
         ia_addmenu(win, IA_SWAPWEAPON, 'x',
-                   "Обменять с твоим основным оружием");
+                   "Обменять с вашим основным оружием");
 
     /* this is based on TWOWEAPOK() in wield.c; we don't call can_two_weapon()
        because it is very verbose; attempting to two-weapon might be rejected

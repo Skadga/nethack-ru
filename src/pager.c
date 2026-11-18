@@ -1755,7 +1755,7 @@ do_look(int mode, coord *click_cc)
                      /* [don't use 'i' as lootabc group accelerator because
                         it will make the regular 'i' choice inaccessible] */
                      flags.lootabc ? 0 : any.a_char, 0, ATR_NONE,
-                     clr, "что-то у теб€ с собой", MENU_ITEMFLAGS_NONE);
+                     clr, "что-то у вас с собой", MENU_ITEMFLAGS_NONE);
             any.a_char = '?';
             add_menu(win, &nul_glyphinfo, &any,
                      flags.lootabc ? 0 : any.a_char,
@@ -1817,7 +1817,7 @@ do_look(int mode, coord *click_cc)
                          clr, "все видимые или запомненные надписи",
                          MENU_ITEMFLAGS_NONE);
             }
-            end_menu(win, "„то ты хочешь осмотреть:");
+            end_menu(win, "„то вы хотите осмотреть:");
             if (select_menu(win, PICK_ONE, &pick_list) > 0) {
                 i = pick_list->item.a_char;
                 free((genericptr_t) pick_list);

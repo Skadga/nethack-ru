@@ -235,7 +235,7 @@ forcelock(void)
             /* for a +0 weapon, probability that it survives an unsuccessful
              * attempt to force the lock is (.992)^50 = .67
              */
-            pline("%s %s сломалс€!", (uwep->quan > 1L) ? "ќдин из твоих" : "“вой",
+            pline("%s %s сломалс€!", (uwep->quan > 1L) ? "ќдин из ваших" : "¬аш",
                   xname(uwep));
             useup(uwep);
             You("отказываетесь от попытки взломать замок.");
@@ -382,7 +382,7 @@ pick_lock(
 
     /* check whether we're resuming an interrupted previous attempt */
     if (gx.xlock.usedtime && picktyp == gx.xlock.picktyp) {
-        static char no_longer[] = "  сожалению, ты больше не можешь %s %s.";
+        static char no_longer[] = "  сожалению, вы больше не можете %s %s.";
 
         if (nohands(gy.youmonst.data)) {
             const char *what = (picktyp == LOCK_PICK) ? "отмычку" : "ключ";
@@ -407,7 +407,7 @@ pick_lock(
     }
 
     if (nohands(gy.youmonst.data)) {
-        You_cant("держать %s Ч у теб€ нет рук!", doname(pick));
+        You_cant("держать %s Ч у вас нет рук!", doname(pick));
         return PICKLOCK_DID_NOTHING;
     } else if (u.uswallow) {
         You_cant("%sотпереть %s.", (picktyp == CREDIT_CARD) ? "" : "запереть или ",
@@ -786,7 +786,7 @@ doopen_indir(coordxy x, coordxy y)
     int res = ECMD_OK;
 
     if (nohands(gy.youmonst.data)) {
-        You_cant("открыть что-либо Ч у теб€ нет рук!");
+        You_cant("открыть что-либо Ч у вас нет рук!");
         return ECMD_OK;
     }
 
@@ -961,7 +961,7 @@ doclose(void)
     int res = ECMD_OK;
 
     if (nohands(gy.youmonst.data)) {
-        You_cant("закрыть что-либо Ч у теб€ нет рук!");
+        You_cant("закрыть что-либо Ч у вас нет рук!");
         return ECMD_OK;
     }
 

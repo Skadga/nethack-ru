@@ -261,7 +261,7 @@ choke(struct obj *food)
             You("задыхаешься, но приходишь в себя.");
             return;
         }
-        You("набиваешь желудок, а потом тебя обильно рвёт.");
+        You("набиваешь желудок, а потом вас обильно рвёт.");
         morehungry(Hunger ? (u.uhunger - 60) : 1000); /* just got very sick! */
         vomit();
     } else {
@@ -652,7 +652,7 @@ eat_brains(
             } else {
                 if (magr->mtame && !visflag)
                     /* parallels mhitm.c's brief_feeling */
-                    You("на мгновение тебе становится грустно, потом это проходит.");
+                    You("на мгновение вам становится грустно, потом это проходит.");
                 return M_ATTK_AGR_DIED;
             }
         }
@@ -705,7 +705,7 @@ eat_brains(
                 svk.killer.format = KILLED_BY;
                 done(DIED);
                 /* amulet of life saving has now been used up */
-                pline("К сожалению, твой мозг всё ещё отсутствует.");
+                pline("К сожалению, ваш мозг всё ещё отсутствует.");
                 /* sanity check against adding other forms of life-saving */
                 u.uprops[LIFESAVED].extrinsic =
                     u.uprops[LIFESAVED].intrinsic = 0L;
@@ -778,7 +778,7 @@ maybe_cannibal(int pm, boolean allowmsg)
             || (ismnum(u.ulycn) && were_beastie(pm) == u.ulycn))) {
         if (allowmsg) {
             if (Upolyd && your_race(fptr))
-                You("глубоко внутри тебя возникает дурное чувство.");
+                You("глубоко внутри вас возникает дурное чувство.");
             You("каннибал! Пожалеете об этом!");
         }
         HAggravate_monster |= FROMOUTSIDE;
@@ -870,10 +870,10 @@ fix_petrification(void)
     char buf[BUFSZ];
 
     if (Hallucination)
-        Sprintf(buf, "Как жаль — ты только что испортил будущий %s!",
+        Sprintf(buf, "Как жаль — вы только что испортили будущий %s!",
                 ACURR(A_CHA) > 15 ? "изящный шедевр" : "арт");
     else
-        Strcpy(buf, "Ты чувствуешь себя гибким!");
+        Strcpy(buf, "Вы чувствуете себя гибким!");
     make_stoned(0L, buf, 0, (char *) 0);
 }
 
@@ -1543,7 +1543,7 @@ consume_tin(const char *mesg)
         return;
     }
 
-    pline1(mesg); /* "Тебе удаётся открыть банку." */
+    pline1(mesg); /* "Вам удаётся открыть банку." */
 
     if (r != SPINACH_TIN) {
         mnum = tin->corpsenm;
@@ -1646,7 +1646,7 @@ consume_tin(const char *mesg)
             int alreadyglib = (int) (Glib & TIMEOUT);
 
             make_glib(alreadyglib + rn1(11, 5)); /* 5..15 */
-            pline("Еда «%s» сделала твои %s %s скользкими.",
+            pline("Еда «%s» сделала ваши %s %s скользкими.",
                   tintxts[r].txt, fingers_or_gloves(TRUE, BP_ACC),
                   alreadyglib ? "ещё более" : "очень");
         }
@@ -1678,7 +1678,7 @@ consume_tin(const char *mesg)
         if (!u.uconduct.food++)
             livelog_printf(LL_CONDUCT, "ate for the first time (spinach)");
         if (!tin->cursed)
-            pline("Теперь ты чувствуешь себя как %s!",
+            pline("Теперь вы чувствуете себя как %s!",
                   /* "Сладкий Горошек" is a character from the Popeye cartoons */
                   Hallucination ? "Сладкий Горошек"
                   /* "чувствуешь себя как Попай" unless sustain ability suppresses
@@ -1722,7 +1722,7 @@ opentin(void)
     if (svc.context.tin.usedtime < svc.context.tin.reqtime)
         return 1; /* still busy */
 
-    consume_tin("Тебе удаётся открыть банку.");
+    consume_tin("Вам удаётся открыть банку.");
     return 0;
 }
 
@@ -1734,7 +1734,7 @@ start_tin(struct obj *otmp)
     int tmp;
 
     if (metallivorous(gy.youmonst.data)) {
-        mesg = "Ты вгрызаешься прямо в металлическую банку...";
+        mesg = "Вы вгрызаетесь прямо в металлическую банку...";
         tmp = 0;
     } else if (cantwield(gy.youmonst.data)) { /* nohands || verysmall */
         You("не можешь правильно обращаться с банкой, чтобы открыть её.");
@@ -1754,7 +1754,7 @@ start_tin(struct obj *otmp)
     } else if (uwep) {
         switch (uwep->otyp) {
         case TIN_OPENER:
-            mesg = "Ты легко открываешь банку."; /* iff tmp==0 */
+            mesg = "Вы легко открываете банку."; /* iff tmp==0 */
             tmp = rn2(uwep->cursed ? 3 : !uwep->blessed ? 2 : 1);
             break;
         case DAGGER:
@@ -1774,12 +1774,12 @@ start_tin(struct obj *otmp)
         default:
             goto no_opener;
         }
-        pline("Используя %s, ты пытаешься открыть банку.", yobjnam(uwep, (char *) 0));
+        pline("Используя %s, вы пытаетесь открыть банку.", yobjnam(uwep, (char *) 0));
     } else {
  no_opener:
         pline("Эту банку открыть не так просто.");
         if (Glib) {
-            pline_The("банка выскальзывает из твоих %s.",
+            pline_The("банка выскальзывает из ваших %s.",
                       fingers_or_gloves(FALSE, BP_GEN));
             if (otmp->quan > 1L) {
                 otmp = splitobj(otmp, 1L);
@@ -1845,16 +1845,16 @@ rottenfood(struct obj *obj)
         if (!Blind)
             what = "темнеет", where = "темнота";
         else if (Levitation || Is_airlevel(&u.uz) || Is_waterlevel(&u.uz))
-            what = "ты теряешь контроль над", where = "собой";
+            what = "вы теряете контроль над", where = "собой";
         else
-            what = "ты бьёшься о",
+            what = "вы бьётесь о",
             where = (u.usteed) ? "седло" : surface(u.ux, u.uy);
         pline_The("мир вращается, и %s %s.", what, where);
         incr_itimeout(&HDeaf, duration);
         disp.botl = TRUE;
         nomul(-duration);
         gm.multi_reason = "без сознания от гнилой еды";
-        gn.nomovemsg = "Ты снова в сознании.";
+        gn.nomovemsg = "Вы снова в сознании.";
         ga.afternmv = Hear_again;
         return 1;
     }
@@ -1911,7 +1911,7 @@ eatcorpse(struct obj *otmp)
               (mons[mnum].mlet == S_FUNGUS) ? "грибная растительность"
               : vegetarian(&mons[mnum]) ? "протоплазма"
                 : "мясо",
-              cannibal ? ", ты каннибал" : "");
+              cannibal ? ", вы каннибал" : "");
         if (Sick_resistance) {
             pline("Впрочем, это совсем не вызывает тошноты...");
         } else {
@@ -1938,7 +1938,7 @@ eatcorpse(struct obj *otmp)
         return 2;
     } else if (acidic(&mons[mnum]) && !Acid_resistance) {
         tp++;
-        You("у тебя сильный приступ желудочной кислоты.");   /* not body_part() */
+        You("у вас сильный приступ желудочной кислоты.");   /* not body_part() */
         losehp(rnd(15), !glob ? "кислого трупа" : "кислой глобы",
                KILLED_BY_AN); /* acid damage */
     } else if (poisonous(&mons[mnum]) && rn2(5)) {
@@ -2144,7 +2144,7 @@ fprefx(struct obj *otmp)
         /* 700-1+800 remains below 1500, the choking threshold which
            triggers "тебе трудно это проглотить" feedback */
         else if (u.uhunger < 700)
-            pline("Это насыщает твой %s!",
+            pline("Это насыщает ваш %s!",
                  body_part_case(STOMACH, BP_ACC));
         /* [satiation message may be inaccurate if eating gets interrupted] */
         break;
@@ -2277,7 +2277,7 @@ bounded_increase(int old, int inc, int typ)
 staticfn void
 accessory_has_effect(struct obj *otmp)
 {
-    pline("Волшебство распространяется по телу, пока ты перевариваешь %s.",
+    pline("Волшебство распространяется по телу, пока вы перевариваете %s.",
           (otmp->oclass == RING_CLASS) ? "кольцо" : "амулет");
 }
 
@@ -2315,7 +2315,7 @@ eataccessory(struct obj *otmp)
                 if (Invis && !oldprop && !ESee_invisible
                     && !perceives(gy.youmonst.data) && !Blind) {
                     newsym(u.ux, u.uy);
-                    pline("Вдруг ты видишь себя.");
+                    pline("Вдруг вы видите себя.");
                     makeknown(typ);
                 }
                 break;
@@ -2612,7 +2612,7 @@ fpostfx(struct obj *otmp)
                 You("засыпаешь.");
             } else {
                 Soundeffect(se_sinister_laughter, 100);
-                You_hear("зловещий смех, пока ты засыпаешь...");
+                You_hear("зловещий смех, пока вы засыпаете...");
             }
             fall_asleep(-rn1(11, 20), TRUE);
         }
@@ -2725,7 +2725,7 @@ edibility_prompts(struct obj *otmp)
         Snprintf(buf, sizeof buf, "%s довольно кислый.", foodsmell);
     } else if (Upolyd && u.umonnum == PM_RUST_MONSTER && is_metallic(otmp)
                && otmp->oerodeproof) {
-        Snprintf(buf, sizeof buf, "%s отвратителен для тебя сейчас.",
+        Snprintf(buf, sizeof buf, "%s отвратителен для вас сейчас.",
                  foodsmell);
 
     /*
@@ -2735,13 +2735,13 @@ edibility_prompts(struct obj *otmp)
                && ((material == LEATHER || material == BONE
                     || material == DRAGON_HIDE || material == WAX)
                    || (cadaver && !vegan(&mons[mnum])))) {
-        Snprintf(buf, sizeof buf, "%s прогнил и незнаком тебе.",
+        Snprintf(buf, sizeof buf, "%s прогнил и незнаком вам.",
                  foodsmell);
     } else if (!u.uconduct.unvegetarian
                && ((material == LEATHER || material == BONE
                     || material == DRAGON_HIDE)
                    || (cadaver && !vegetarian(&mons[mnum])))) {
-        Snprintf(buf, sizeof buf, "%s незнаком тебе.", foodsmell);
+        Snprintf(buf, sizeof buf, "%s незнаком вам.", foodsmell);
     }
 
     if (*buf) {
@@ -2846,7 +2846,7 @@ doeat(void)
     int ll_conduct = 0;
 
     if (Strangled) {
-        pline("Если ты не можешь дышать воздухом, как же ты будешь есть твёрдую пищу?");
+        pline("Если вы не можете дышать воздухом, как же вы будете есть твёрдую пищу?");
         return ECMD_OK;
     }
     if (!(otmp = floorfood("съесть", 0)))
@@ -2890,7 +2890,7 @@ doeat(void)
     } else if ((otmp->owornmask & (W_ARMOR | W_TOOL | W_AMUL | W_SADDLE))
                != 0) {
         /* let them eat rings */
-        You_cant("съесть %s, который ты носишь.", something);
+        You_cant("съесть %s, который вы носите.", something);
         return ECMD_OK;
     } else if (!(carried(otmp) ? retouch_object(&otmp, FALSE)
                                : touch_artifact(otmp, &gy.youmonst))) {
@@ -3334,8 +3334,8 @@ lesshungry(int num)
             && (!svc.context.victual.eating
                 || (svc.context.victual.eating
                     && !svc.context.victual.fullwarn))) {
-            pline("Тебе трудно запихнуть всё это в себя.");
-            gn.nomovemsg = "Ты наконец-то закончил.";
+            pline("Вам трудно запихнуть всё это в себя.");
+            gn.nomovemsg = "Вы наконец-то закончили.";
             if (!svc.context.victual.eating) {
                 gm.multi = -2;
             } else {
@@ -3377,7 +3377,7 @@ void
 reset_faint(void)
 {
     if (ga.afternmv == unfaint)
-        unmul("Ты оживаешь.");
+        unmul("Вы оживаете.");
 }
 
 /* compute and comment on your (new?) hunger status */
@@ -3447,11 +3447,11 @@ newuhs(boolean incr)
                 disp.botl = TRUE;
                 nomul(-duration);
                 gm.multi_reason = "упал в обморок от нехватки еды";
-                gn.nomovemsg = "Ты приходишь в себя.";
+                gn.nomovemsg = "Вы приходите в себя.";
                 ga.afternmv = unfaint;
                 newhs = FAINTED;
                 if (!Levitation)
-                    selftouch("Падая, ты");
+                    selftouch("Падая, вы");
             }
 
         /* this used to be -(200 + 20 * Con) but that was when being asleep
@@ -3491,10 +3491,10 @@ newuhs(boolean incr)
         switch (newhs) {
         case HUNGRY:
             if (Hallucination) {
-                You(!incr ? "теперь у тебя ослаб голод."
-                    : "начинаешь испытывать голод.");
+                You(!incr ? "чувствуете, что голод ослаб."
+                    : "начинаете испытывать голод.");
             } else
-                You("%s.", !incr ? "теперь ты только голоден"
+                You("%s.", !incr ? "теперь только голодны"
                            : (u.uhunger < 145) ? "чувствуешь голод"
                              : "начинаешь чувствовать голод");
             if (incr && go.occupation
@@ -3504,8 +3504,8 @@ newuhs(boolean incr)
             break;
         case WEAK:
             if (Hallucination)
-                pline(!incr ? "Ты всё ещё голоден."
-              : "Голод мешает тебе двигаться.");
+                pline(!incr ? "Вы всё ещё голодны."
+              : "Голод мешает вам двигаться.");
             else if (incr && (Role_if(PM_WIZARD) || Race_if(PM_ELF)
                               || Role_if(PM_VALKYRIE)))
                 pline("%s остро нуждается в еде!",
@@ -3633,7 +3633,7 @@ floorfood(
                be a chance to becoming trapped?  Probably not, because
                then the trap would just get eaten on the _next_ turn... */
             Sprintf(qbuf, "Здесь капкан (%s); съесть?",
-                    u_in_beartrap ? "держит тебя" : "взведён");
+                    u_in_beartrap ? "держит вас" : "взведён");
             if ((c = yn_function(qbuf, ynqchars, 'n', TRUE)) == 'y') {
                 struct obj *beartrap;
 
@@ -3641,7 +3641,7 @@ floorfood(
                 if (u_in_beartrap)
                     reset_utrap(TRUE);
                 beartrap = mksobj(BEARTRAP, TRUE, FALSE);
-                Sprintf(qbuf,"Тебе удаётся лишь %s медвежьи капканы.",
+                Sprintf(qbuf,"Вам удаётся лишь %s медвежьи капканы.",
                         u_in_beartrap ? "освободиться от" : "обезвредить");
                 if (check_capacity(qbuf) && beartrap) {
                     obj_extract_self(beartrap);
@@ -3661,7 +3661,7 @@ floorfood(
             c = 'n';
             Strcpy(qbuf, "Здесь железные прутья");
             if (nodig || u.uhunger > 1500) {
-                pline("%s но ты %s их съесть.", qbuf,
+                pline("%s но вы %s их съесть.", qbuf,
                       nodig ? "не можешь" : "слишком сыт, чтобы");
             } else {
                 Strcat(qbuf, (!svc.context.digging.chew
@@ -3803,7 +3803,7 @@ vomit(void) /* A good idea from David Neves */
             /* TODO: if there's a web here, destroy that too (before ice) */
             if (is_ice(u.ux, u.uy))
                 melt_ice(u.ux, u.uy,
-                         "Твоя желудочная кислота проходит сквозь лёд!");
+                         "Ваша желудочная кислота проходит сквозь лёд!");
         }
     }
 }
