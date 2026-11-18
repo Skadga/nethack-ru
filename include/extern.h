@@ -746,6 +746,7 @@ extern const char *ru_gender_form(int, const char *, const char *,
                                   const char *, const char *);
 extern int ru_obj_gender(struct obj *);
 extern int ru_num_form(long);
+extern char *ru_quan_name(const char *, long);
 extern const char *mon_gen(struct monst *, int) NONNULLARG1;
 extern const char *shoptype_case(const char *, int);
 extern const char *shoptype_name(int);

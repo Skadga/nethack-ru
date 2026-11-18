@@ -363,10 +363,6 @@ staticfn char *
 N_times(long n, char *outbuf)
 {
     switch (n) {
-    case 0:
-    default:
-        Sprintf(outbuf, "%ld раз", n);
-        break;
     case 1:
         Strcpy(outbuf, "один раз");
         break;
@@ -375,6 +371,13 @@ N_times(long n, char *outbuf)
         break;
     case 3:
         Strcpy(outbuf, "три раза");
+        break;
+    case 4:
+        Strcpy(outbuf, "четыре раза");
+        break;
+    default:
+        Sprintf(outbuf, "%ld %s", n,
+                (n > 4 && ru_num_form(n) == 1) ? "раза" : "раз");
         break;
     }
     return outbuf;
@@ -1617,7 +1620,8 @@ attributes_enlightenment(
     warnspecies =  svc.context.warntype.speciesidx;
     if (Warn_of_mon && ismnum(warnspecies)) {
         Sprintf(buf, "ощущаете присутствие %s",
-                makeplural(mons[warnspecies].pmnames[NEUTRAL]));
+                mon_gen_nom(mons[warnspecies].pmnames[NEUTRAL],
+                            BP_GEN | BP_PLURAL));
         you_are(buf, from_what(WARN_OF_MON));
     }
     if (Undead_warning)
@@ -2914,7 +2918,10 @@ list_vanquished(char defquery, boolean ask)
                         Strcpy(buf, mons[i].pmnames[NEUTRAL]);
                     else
                         Sprintf(buf, "%3d %s", nkilled,
-                                makeplural(mons[i].pmnames[NEUTRAL]));
+                                mon_gen_nom(mons[i].pmnames[NEUTRAL],
+                                            (ru_num_form((long) nkilled) == 1)
+                                                ? BP_GEN
+                                                : (BP_GEN | BP_PLURAL)));
                 }
                 /* number of leading spaces to match 3 digit prefix */
                 pfx = !strncmpi(buf, "the ", 4) ? 0
@@ -3098,7 +3105,9 @@ list_genocided(char defquery, boolean ask)
                            upstart(buf));
                     prev_mlet = mlet;
                 }
-                Sprintf(buf, " %s", makeplural(mons[mndx].pmnames[NEUTRAL]));
+                Sprintf(buf, " %s",
+                        mon_gen_nom(mons[mndx].pmnames[NEUTRAL],
+                                    BP_NOM | BP_PLURAL));
                 /*
                  * "Extinct" is unfortunate terminology.  A species
                  * is marked extinct when its birth limit is reached,

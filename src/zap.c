@@ -4667,7 +4667,8 @@ burn_floor_objects(
                 cnt += delquan;
                 if (give_feedback) {
                     if (delquan > 1L)
-                        pline("%ld %s горят.", delquan, buf2);
+                        pline("%ld %s горят.", delquan,
+                              ru_quan_name(buf2, delquan));
                     else
                         pline("%s горит.", An(buf1));
                 }

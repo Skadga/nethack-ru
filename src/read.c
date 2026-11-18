@@ -2741,7 +2741,8 @@ do_class_genocide(void)
             if (mons[i].mlet == class) {
                 char nam[BUFSZ];
 
-                Strcpy(nam, makeplural(mons[i].pmnames[NEUTRAL]));
+                Strcpy(nam, mon_gen_nom(mons[i].pmnames[NEUTRAL],
+                                        BP_NOM | BP_PLURAL));
                 /* Although "genus" is Latin for race, the hero benefits
                  * from both race and role; thus genocide affects either.
                  */
@@ -2971,14 +2972,19 @@ do_genocide(
         if (!num_genocides())
             livelog_printf(LL_CONDUCT | LL_GENOCIDE,
                            "совершил %s первый геноцид (%s)",
-                           uhis(), makeplural(realbuf));
+                           uhis(),
+                           mon_gen_nom(realbuf, BP_NOM | BP_PLURAL));
         else
-            livelog_printf(LL_GENOCIDE, "уничтожил %s", makeplural(realbuf));
+            livelog_printf(LL_GENOCIDE, "уничтожил %s",
+                           mon_gen_nom(realbuf, BP_NOM | BP_PLURAL));
 
         /* setting no-corpse affects wishing and random tin generation */
         svm.mvitals[mndx].mvflags |= (G_GENOD | G_NOCORPSE);
-        pline("Уничтожено %s%s.", which,
-              (*which) ? makeplural(buf) : buf);
+        if (*which)
+            pline("Истреблены все %s.",
+                  mon_gen_nom(buf, BP_NOM | BP_PLURAL));
+        else
+            pline("Уничтожено существо: %s.", mon_gen_nom(buf, BP_NOM));
 
         if (killplayer) {
             u.uhp = -1;
@@ -3024,7 +3030,8 @@ do_genocide(
                assume bringing in new mon(s) didn't remove any old ones */
             cnt = monster_census(FALSE) - census;
             pline("Отправлено: %s.",
-                  (cnt > 1) ? makeplural(buf) : an(buf));
+                  (cnt > 1) ? mon_gen_nom(buf, BP_NOM | BP_PLURAL)
+                            : mon_gen_nom(buf, BP_NOM));
         } else
             pline1(nothing_happens);
     }

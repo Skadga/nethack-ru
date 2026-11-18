@@ -523,7 +523,9 @@ dosinkring(struct obj *obj)
         break;
     case RIN_AGGRAVATE_MONSTER:
         pline("Несколько %s злобно жужжат вокруг раковины.",
-              Hallucination ? makeplural(rndmonnam(NULL)) : "мух");
+              Hallucination
+                  ? mon_gen_nom(rndmonnam(NULL), BP_GEN | BP_PLURAL)
+                  : "мух");
         break;
     case RIN_SHOCK_RESISTANCE:
         pline("Статическое электричество окружает раковину.");

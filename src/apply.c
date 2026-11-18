@@ -1335,14 +1335,14 @@ use_candelabrum(struct obj *obj)
     const char *s = (obj->spe != 1) ? "свечи" : "свеча";
 
     if (obj->lamplit) {
-        You("гасите %s.", s);
+        You("гасите %s.", (obj->spe == 1) ? "свечу" : "свечи");
         end_burn(obj, TRUE);
         return;
     }
     if (obj->spe <= 0) {
         struct obj *otmp;
 
-        pline("В %s нет %s.", ru_noun_case(xname(obj), BP_PREP), s);
+        pline("В %s нет свечей.", ru_noun_case(xname(obj), BP_PREP));
         /* only output tip if candles are in inventory */
         for (otmp = gi.invent; otmp; otmp = otmp->nobj)
             if (Is_candle(otmp))
@@ -1367,7 +1367,8 @@ use_candelabrum(struct obj *obj)
     }
     if (obj->spe < 7) {
         pline("В %s только %d %s.", ru_noun_case(xname(obj), BP_PREP),
-              obj->spe, s);
+              obj->spe, (obj->spe == 1) ? "свеча"
+                        : (ru_num_form(obj->spe) == 1) ? "свечи" : "свечей");
         if (!Blind)
             pline("%s.  Свет тусклый.",
                   obj->spe == 1 ? "Он горит" : "Они горят");

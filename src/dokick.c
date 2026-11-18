@@ -1162,7 +1162,8 @@ kick_nondoor(coordxy x, coordxy y, int avrg_attrib)
                 treefruit = mksobj(frtype, TRUE, FALSE);
                 treefruit->quan = nfruit - nfall;
                 pline("%ld %s застряли на ветках.",
-                      nfruit - nfall, xname(treefruit));
+                      nfruit - nfall,
+                      ru_quan_name(xname(treefruit), nfruit - nfall));
                 dealloc_obj(treefruit);
             }
             exercise(A_DEX, TRUE);

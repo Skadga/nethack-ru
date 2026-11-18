@@ -1568,7 +1568,7 @@ consume_tin(const char *mesg)
         which = 0; /* 0=>plural, 1=>as-is, 2=>"the" prefix */
         if ((mnum == PM_COCKATRICE || mnum == PM_CHICKATRICE)
             && (Stone_resistance || Hallucination)) {
-            what = "chicken";
+            what = "курица";
             which = 1; /* suppress pluralization */
         } else if (Hallucination) {
             what = rndmonnam(NULL);
@@ -1580,7 +1580,7 @@ consume_tin(const char *mesg)
                 which = 1;
         }
         if (which == 0)
-            what = makeplural(what);
+            what = mon_gen_nom(what, BP_NOM | BP_PLURAL);
         else if (which == 2)
             what = the(what);
 

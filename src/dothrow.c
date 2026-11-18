@@ -243,7 +243,8 @@ throw_obj(struct obj *obj, int shotlimit)
         /* "You shoot N arrows." or "You throw N daggers." */
         You("%s %d %s.", gm.m_shot.s ? "выпускаете" : "бросаете",
             multishot, /* (might be 1 if player gave shotlimit) */
-            (multishot == 1) ? singular(obj, xname) : xname(obj));
+            (multishot == 1) ? singular(obj, xname)
+                              : ru_quan_name(xname(obj), multishot));
     }
 
     wep_mask = obj->owornmask;

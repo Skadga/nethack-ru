@@ -1498,7 +1498,8 @@ really_done(int how)
                         free_oname(otmp);
                     otmp->quan = count;
                     Sprintf(pbuf, "%8ld %s (стоит %ld %s),", count,
-                            xname(otmp), count * (long) objects[typ].oc_cost,
+                            ru_quan_name(xname(otmp), count),
+                            count * (long) objects[typ].oc_cost,
                             currency(2L));
                     obfree(otmp, (struct obj *) 0);
                 } else {

@@ -413,7 +413,8 @@ dowield(void)
         if (uquiver->quan > 1L && inv_cnt(FALSE) < invlet_basic
                                     && splittable(uquiver)) {
             Sprintf(qbuf, "У вас %ld %s готовы. Владеть одним?",
-                    uquiver->quan, simpleonames(uquiver));
+                    uquiver->quan,
+                    ru_quan_name(simpleonames(uquiver), uquiver->quan));
             switch (ynq(qbuf)) {
             case 'q':
                 return ECMD_OK;
@@ -580,7 +581,9 @@ doquiver_core(const char *verb) /* "ready" or "fire" */
         if (uwep->quan > 1L && inv_cnt(FALSE) < invlet_basic
                                     && splittable(uwep)) {
             Sprintf(qbuf, "У вас %ld %s. Приготовить %ld из них?",
-                    uwep->quan, simpleonames(uwep), uwep->quan - 1L);
+                    uwep->quan,
+                    ru_quan_name(simpleonames(uwep), uwep->quan),
+                    uwep->quan - 1L);
             switch (ynq(qbuf)) {
             case 'q':
                 return ECMD_OK;
@@ -617,7 +620,8 @@ doquiver_core(const char *verb) /* "ready" or "fire" */
             Sprintf(qbuf, "%s %ld %s. Приготовить %ld из них?",
                     u.twoweap ? "Вы владеете двумя оружиями одновременно"
                               : "Ваше запасное оружие —",
-                    uswapwep->quan, simpleonames(uswapwep),
+                    uswapwep->quan,
+                    ru_quan_name(simpleonames(uswapwep), uswapwep->quan),
                     uswapwep->quan - 1L);
             switch (ynq(qbuf)) {
             case 'q':

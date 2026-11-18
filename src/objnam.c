@@ -35,7 +35,7 @@ struct _readobjnam_data {
 staticfn char *strprepend(char *, const char *) NONNULL NONNULLARG1;
 staticfn char *nextobuf(void) NONNULL;
 staticfn void releaseobuf(char *) NONNULLARG1;
-staticfn char *ru_quan_name(const char *, long);
+char *ru_quan_name(const char *, long);
 staticfn void ru_adj_gen_plural(char *);
 staticfn void xcalled(char *, int, const char *, const char *);
 staticfn char *xname_flags(struct obj *, unsigned);
@@ -3522,7 +3522,7 @@ ru_num_form(long quan)
    "5 стрел".  The head noun is the first word found in the table;
    adjectives in front of it agree with the numeral.  Returns a new
    obuf, or oldstr itself when nothing needs to be changed. */
-staticfn char *
+char *
 ru_quan_name(const char *oldstr, long quan)
 {
     struct rupl *rp;

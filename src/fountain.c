@@ -43,7 +43,9 @@ dowatersnakes(void)
     if (!(svm.mvitals[PM_WATER_MOCCASIN].mvflags & G_GONE)) {
         if (!Blind) {
             pline("Бесконечный поток %s вырывается наружу!",
-                  Hallucination ? makeplural(rndmonnam(NULL)) : "змей");
+                  Hallucination
+                      ? mon_gen_nom(rndmonnam(NULL), BP_GEN | BP_PLURAL)
+                      : "змей");
         } else {
             Soundeffect(se_snakes_hissing, 75);
             You_hear("%s шипит!", something);
