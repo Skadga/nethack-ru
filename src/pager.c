@@ -730,19 +730,19 @@ lookat(coordxy x, coordxy y, char *buf, char *monbuf)
                 how |= 4;
 
             if (how)
-                Sprintf(eos(buf), " [seen: %s%s%s%s%s]",
-                        (how & 1) ? "infravision" : "",
+                Sprintf(eos(buf), " [видно: %s%s%s%s%s]",
+                        (how & 1) ? "инфравидение" : "",
                         /* add comma if telep and infrav */
                         ((how & 3) > 2) ? ", " : "",
-                        (how & 2) ? "telepathy" : "",
+                        (how & 2) ? "телепатия" : "",
                         /* add comma if detect and (infrav or telep or both) */
                         ((how & 7) > 4) ? ", " : "",
-                        (how & 4) ? "monster detection" : "");
+                        (how & 4) ? "обнаружение монстров" : "");
         }
     } else if (u.uswallow) {
         /* when swallowed, we're only called for spots adjacent to hero,
            and blindness doesn't prevent hero from feeling what holds him */
-        Sprintf(buf, "interior of %s", mon_nam(u.ustuck));
+        Sprintf(buf, "внутренность %s", mon_gen(u.ustuck, BP_GEN));
         pm = u.ustuck->data;
     } else if (glyph_is_monster(glyph)) {
         if ((mtmp = m_at(x, y)) != 0) {
@@ -765,7 +765,7 @@ lookat(coordxy x, coordxy y, char *buf, char *monbuf)
     } else if (glyph_is_invisible(glyph)) {
         Strcpy(buf, invisexplain); /* redundant; handled by caller */
     } else if (glyph_is_nothing(glyph)) {
-        Strcpy(buf, "dark part of a room");
+        Strcpy(buf, "тёмная часть комнаты");
     } else if (glyph_is_unexplored(glyph)) {
         if (Underwater && !Is_waterlevel(&u.uz)) {
             /* "unknown" == previously mapped but not visible when
@@ -783,14 +783,14 @@ lookat(coordxy x, coordxy y, char *buf, char *monbuf)
         case S_altar:
             amsk = altarmask_at(x, y);
             algn = Amask2align(amsk & AM_MASK);
-            Sprintf(buf, "%s %saltar",
+            Sprintf(buf, "%s%s алтарь",
+                    (amsk & AM_SANCTUM) ? "священный " : "",
                     /* like endgame high priests, endgame high altars
                        are only recognizable when immediately adjacent */
                     (Is_astralevel(&u.uz) && !next2u(x, y)
                      && (amsk & AM_SANCTUM))
-                        ? "aligned"
-                        : align_str(algn),
-                    (amsk & AM_SANCTUM) ? "high " : "");
+                        ? "неизвестный"
+                        : align_str(algn));
             break;
         case S_ndoor:
             if (is_drawbridge_wall(x, y) >= 0)
@@ -916,8 +916,8 @@ checkfile(
      * that wishing already understands and most of this duplicates
      * stuff already done for wish handling or monster generation.
      */
-    if (!strncmp(dbase_str, "interior of ", 12))
-        dbase_str += 12;
+    if (!strncmp(dbase_str, "внутренность ", 13))
+        dbase_str += 13;
     if (!strncmp(dbase_str, "a ", 2))
         dbase_str += 2;
     else if (!strncmp(dbase_str, "an ", 3))
@@ -1097,7 +1097,7 @@ checkfile(
                     char *entrytext = pass ? alt : dbase_str;
                     char question[QBUFSZ];
 
-                    Strcpy(question, "More info about \"");
+                    Strcpy(question, "Дополнительная информация о \"");
                     /* +2 => length of "\"?" */
                     copynchars(eos(question), entrytext,
                                (int) (sizeof question - 1
@@ -1183,19 +1183,13 @@ add_cmap_descr(
     char *out_str)      /* input/output: current description gets appended */
 {
     char *mbuf = NULL;
-    const char *p;
     int absidx = abs(idx);
+
+    /* RU: articles ("a"/"the") are not used in Russian */
+    article = 0;
 
     if (glyph == NO_GLYPH) {
         /* use x_str [almost] as-is */
-        if (!strcmp(x_str, "water")) {
-            /* duplicate some transformations performed by waterbody_name() */
-            if (idx == S_pool)
-                x_str = "pool of water";
-            else if (idx == S_water)
-                x_str = !Is_waterlevel(&u.uz) ? "wall of water"
-                                              : "limitless water";
-        }
         if (absidx == S_pool)
             idx = S_pool;
     } else if (absidx == S_pool || idx == S_water
@@ -1232,31 +1226,12 @@ add_cmap_descr(
         else if (!strcmp(mbuf, "расплавленная лава"))
             Strcpy(mbuf, "лава");
         x_str = mbuf;
-        /* avoid "an ice" and so forth; "a pool", "a moat", and
-           "a wall of ..." are grammatically correct but make
-           "a pool or a moat or a wall of water" become too verbose */
-        article = !(!strncmp(x_str, "water", 5)
-                    || !strncmp(x_str, "ice", 3)
-                    || !strncmp(x_str, "pool", 4)
-                    || !strncmp(x_str, "moat", 4)
-                    || !strncmp(x_str, "lava", 4)
-                    || !strncmp(x_str, "swamp", 5)
-                    || !strncmp(x_str, "molten", 6)
-                    || !strncmp(x_str, "shallow", 7)
-                    || !strncmp(x_str, "limitless", 9)
-                    || !strncmp(x_str, "wall of lava", 12)
-                    || !strncmp(x_str, "wall of water", 13)
-                    /* ice while hallucinating */
-                    || !strncmp(x_str, "frozen", 6)
-                    /* thawing ice ("solid ice", "thin ice", &c) */
-                    || ((p = strchr(x_str, ' ')) != 0 && !strcmpi(p, " ice"))
-                    );
     }
 
     if (!found) {
         /* this is the first match */
         if (is_cmap_trap(idx) && idx != S_vibrating_square) {
-            Sprintf(out_str, "%sa trap", prefix);
+            Sprintf(out_str, "%sловушка", prefix);
             *hit_trap = TRUE;
         } else {
             Sprintf(out_str, "%s%s", prefix, (article == 2) ? the(x_str)
@@ -1289,8 +1264,8 @@ do_screen_description(
     const char **firstmatch,
     struct permonst **for_supplement)
 {
-    static const char mon_interior[] = "the interior of a monster",
-                      unreconnoitered[] = "unreconnoitered";
+    static const char mon_interior[] = "внутренность монстра",
+                      unreconnoitered[] = "неразведано";
     static char look_buf[BUFSZ];
     char prefix[BUFSZ];
     int i, j, alt_i, glyph = NO_GLYPH,
@@ -1389,7 +1364,7 @@ do_screen_description(
                        && u_at(cc.x, cc.y))
                     : (sym == def_monsyms[S_HUMAN].sym && !flags.showrace))
             && !(Race_if(PM_HUMAN) || Race_if(PM_ELF)) && !Upolyd)
-            found += append_str(out_str, "you"); /* tack on "or you" */
+            found += append_str(out_str, "вы"); /* tack on "or you" */
     }
 
     /* Now check for objects */
@@ -1458,7 +1433,7 @@ do_screen_description(
     }
     if ((glyph && glyph_is_nothing(glyph))
         || (looked && sym == gs.showsyms[SYM_NOTHING + SYM_OFF_X])) {
-        x_str = "the dark part of a room";
+        x_str = "тёмная часть комнаты";
         if (!found) {
             Sprintf(out_str, "%s%s", prefix, x_str);
             *firstmatch = x_str;
@@ -1469,9 +1444,9 @@ do_screen_description(
     }
     if ((glyph && glyph_is_unexplored(glyph))
         || (looked && sym == gs.showsyms[SYM_UNEXPLORED + SYM_OFF_X])) {
-        x_str = "unexplored";
+        x_str = "неисследовано";
         if (submerged)
-            x_str = "land"; /* replace "unexplored" */
+            x_str = "суша"; /* replace "unexplored" */
         if (!found) {
             Sprintf(out_str, "%s%s", prefix, x_str);
             *firstmatch = x_str;
@@ -1561,7 +1536,7 @@ do_screen_description(
             /* Kludge: warning trumps boulders on the display.
                Reveal the boulder too or player can get confused */
             if (looked && sobj_at(BOULDER, cc.x, cc.y))
-                Strcat(out_str, " co-located with a boulder");
+                Strcat(out_str, " вместе с валуном");
             break; /* out of for loop*/
         }
     }
@@ -1625,7 +1600,7 @@ do_screen_description(
         /* 3.6.3: this used to be "That can be many things" (without prefix)
            which turned it into a sentence that lacked its terminating period;
            we could add one below but reinstating the prefix here is better */
-        Sprintf(out_str, "%scan be many things", prefix);
+        Sprintf(out_str, "%sможет быть многое", prefix);
 
  didlook:
     if (looked) {
@@ -1638,11 +1613,13 @@ do_screen_description(
             pm = lookat(cc.x, cc.y, look_buf, monbuf);
             if (pm && for_supplement)
                 *for_supplement = pm;
-            if (!strcmp(look_buf, "ice"))
+            if (is_ice(cc.x, cc.y)
+                && (!strcmp(look_buf, "лёд")
+                    || !strcmp(look_buf, "замёрзшая вода")))
                 (void) ice_descr(cc.x, cc.y, look_buf);
-            if (!strcmp(look_buf, "staircase down")
+            if (!strcmp(look_buf, "лестница вниз")
                 && on_level(&u.uz, &qstart_level) && !ok_to_quest())
-                Strcpy(look_buf, "blocked staircase down");
+                Strcpy(look_buf, "заблокированная лестница вниз");
 
             if (look_buf[0] != '\0')
                 *firstmatch = look_buf;
@@ -1655,7 +1632,7 @@ do_screen_description(
                 found = 1; /* we have something to look up */
             }
             if (monbuf[0]) {
-                Snprintf(temp_buf, sizeof temp_buf, " [seen: %s]", monbuf);
+                Snprintf(temp_buf, sizeof temp_buf, " [видно: %s]", monbuf);
                 (void) strncat(out_str, temp_buf,
                                BUFSZ - strlen(out_str) - 1);
             }
@@ -1707,7 +1684,7 @@ add_quoted_engraving(
 }
 
 /* also used by getpos hack in getpos.c */
-const char what_is_a_location[] = "a monster, object or location";
+const char what_is_a_location[] = "монстру, предмету или месту";
 
 int
 do_look(int mode, coord *click_cc)
@@ -1881,7 +1858,7 @@ do_look(int mode, coord *click_cc)
           }
         case '?':
             from_screen = FALSE;
-            getlin("Specify what? (type the word)", out_str);
+            getlin("Что именно? (введите слово)", out_str);
             if (strcmp(out_str, " ")) /* keep single space as-is */
                 /* remove leading and trailing whitespace and
                    condense consecutive internal whitespace */
@@ -1945,7 +1922,7 @@ do_look(int mode, coord *click_cc)
                     pline("Пожалуйста, переместите курсор к %s.",
                           what_is_a_location);
                 else
-                    pline("Выберите %s.", what_is_a_location);
+                    pline("Выберите что-нибудь на карте.");
 
                 ans = getpos(&cc, quick, what_is_a_location);
                 if (ans < 0 || cc.x < 0)
@@ -2064,16 +2041,15 @@ look_all(
                 cmode = (iflags.getpos_coords != GPCOORDS_NONE)
                            ? iflags.getpos_coords : GPCOORDS_MAP;
                 if (count == 1) {
-                    Strcpy(which, do_mons ? "monsters" : "objects");
+                    Strcpy(which, do_mons ? "монстры" : "предметы");
                     if (nearby)
-                        Sprintf(outbuf, "%s currently shown near %s:",
+                        Sprintf(outbuf, "%s сейчас рядом с %s:",
                                 upstart(which),
                                 (cmode != GPCOORDS_COMPASS)
                                   ? coord_desc(u.ux, u.uy, coordbuf, cmode)
-                                  : !canspotself() ? "your position" : "you");
+                                  : "вами");
                     else
-                        Sprintf(outbuf, "All %s currently shown on the map:",
-                                which);
+                        Sprintf(outbuf, "Все %s на карте:", which);
                     putstr(win, 0, outbuf);
                     /* hack alert! Qt watches a text window for any line
                        with 4 consecutive spaces and renders the window
@@ -2140,7 +2116,7 @@ look_traps(boolean nearby)
                        && ((!Is_waterlevel(&u.uz) && !Is_airlevel(&u.uz))
                            || couldsee(x, y))) {
                 Strcpy(lookbuf, trapname(t->ttyp, FALSE));
-                Sprintf(eos(lookbuf), ", obscured by %s", encglyph(glyph));
+                Sprintf(eos(lookbuf), ", скрыто %s", encglyph(glyph));
                 glyph = trap_to_glyph(t);
                 ++count;
             }
@@ -2150,9 +2126,9 @@ look_traps(boolean nearby)
                 cmode = (iflags.getpos_coords != GPCOORDS_NONE)
                            ? iflags.getpos_coords : GPCOORDS_MAP;
                 if (count == 1) {
-                    Sprintf(outbuf, "%sseen or remembered traps%s:",
-                            nearby ? "nearby " : "",
-                            nearby ? "" : " on this level");
+                    Strcpy(outbuf, nearby
+                                   ? "Виденные или запомненные ловушки поблизости:"
+                                   : "Виденные или запомненные ловушки на этом уровне:");
                     putstr(win, 0, upstart(outbuf));
                     /* hack alert! Qt watches a text window for any line
                        with 4 consecutive spaces and renders the window
@@ -2229,7 +2205,7 @@ look_engrs(boolean nearby)
             } else {
                 /* engraving or grave covered by object(s) */
                 Snprintf(eos(lookbuf), sizeof lookbuf - strlen(lookbuf),
-                         ", obscured by %s", encglyph(glyph));
+                         ", скрыто %s", encglyph(glyph));
                 glyph = is_headstone ? cmap_to_glyph(S_grave)
                                      : engraving_to_glyph(e);
                 ++count;
@@ -2270,24 +2246,24 @@ look_engrs(boolean nearby)
 }
 
 static const char *suptext1[] = {
-    "%s is a member of a marauding horde of orcs",
-    "rumored to have brutally attacked and plundered",
-    "the ordinarily sheltered town that is located ",
+    "%s состоит в мародёрствующей орде орков,",
+    "которая, по слухам, жестоко напала и разграбила",
+    "обычно тихий городок, расположенный ",
     "глубоко внутри Гномьих шахт.",
     "",
-    "The members of that vicious horde proudly and ",
-    "defiantly acclaim their allegiance to their",
-    "leader %s in their names.",
+    "Члены этой свирепой орды гордо и ",
+    "дерзко провозглашают верность своему",
+    "вождю %s в своих именах.",
     (char *) 0,
 };
 
 static const char *suptext2[] = {
-    "\"%s\" is the common dungeon name of",
-    "a nefarious orc who is known to acquire property",
-    "from thieves and sell it off for profit.",
+    "\"%s\" — обычное подземное имя",
+    "злодейского орка, который, как известно, отбирает",
+    "имущество у воров и перепродаёт его ради наживы.",
     "",
-    "The perpetrator was last seen hanging around the",
-    "stairs leading to the Gnomish Mines.",
+    "Преступника в последний раз видели ",
+    "у лестницы, ведущей в Гномьи шахты.",
     (char *) 0,
 };
 
@@ -2318,7 +2294,7 @@ do_supplemental_info(
         if (bp || bp2) {
             Strcpy(fullname, name);
             if (!without_asking) {
-                Strcpy(question, "More info about \"");
+                Strcpy(question, "Дополнительная информация о \"");
                 /* +2 => length of "\"?" */
                 copynchars(eos(question), entrytext,
                         (int) (sizeof question - 1 - (strlen(question) + 2)));
@@ -2753,23 +2729,24 @@ docontact(void)
 
     if (sysopt.support) {
         /*XXX overflow possibilities*/
-        Sprintf(buf, "To contact local support, %s", sysopt.support);
+        Sprintf(buf, "Чтобы связаться с местной поддержкой, %s",
+                sysopt.support);
         putstr(cwin, 0, buf);
         putstr(cwin, 0, "");
     } else if (sysopt.fmtd_wizard_list) { /* formatted SYSCF WIZARDS */
-        Sprintf(buf, "To contact local support, contact %s.",
+        Sprintf(buf, "Чтобы связаться с местной поддержкой, напишите %s.",
                 sysopt.fmtd_wizard_list);
         putstr(cwin, 0, buf);
         putstr(cwin, 0, "");
     }
-    putstr(cwin, 0, "To contact the NetHack development team directly,");
+    putstr(cwin, 0, "Чтобы напрямую связаться с командой разработчиков NetHack,");
     /*XXX overflow possibilities*/
-    Sprintf(buf, "see the 'Contact' form on our website or email <%s>.",
+    Sprintf(buf, "используйте форму 'Contact' на сайте или напишите <%s>.",
             DEVTEAM_EMAIL);
     putstr(cwin, 0, buf);
     putstr(cwin, 0, "");
-    putstr(cwin, 0, "For more information on NetHack, or to report a bug,");
-    Sprintf(buf, "visit our website \"%s\".", DEVTEAM_URL);
+    putstr(cwin, 0, "Дополнительные сведения о NetHack и сообщения об ошибках:");
+    Sprintf(buf, "наш сайт \"%s\".", DEVTEAM_URL);
     putstr(cwin, 0, buf);
     display_nhwindow(cwin, FALSE);
     destroy_nhwindow(cwin);
@@ -2955,7 +2932,7 @@ setopt_cmd(char *outbuf)
         Sprintf(eos(outbuf), "%s%.31s", (*cmdnm != '#') ? "#" : "", cmdnm);
 
         /* since there's no key bound to #optionsfull, include 'm O' */
-        Strcat(outbuf, "\' or \'");
+        Strcat(outbuf, "\' или \'");
         /* m prefix plus #options */
         key = cmd_from_func(do_reqmenu);
         if (key) {
