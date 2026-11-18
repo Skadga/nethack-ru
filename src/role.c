@@ -415,11 +415,11 @@ const struct Role roles[NUM_ROLES+1] = {
         { "Ронин", 0 },          /* no allegiance */
         { "Ниндзя", "Куноити" }, /* secret society */
         { "Дзёсю", 0 },          /* heads a castle */
-        { "исю", 0 },         /* has a territory */
+        { "Рюсю", 0 },         /* has a territory */
         { "Кокусю", 0 },        /* heads a province */
         { "Даймё", 0 },         /* a samurai lord */
         { "Кугэ", 0 },           /* Noble of the Court */
-        { "игун", 0 } },       /* supreme commander, warlord */
+        { "Сёгун", 0 } },       /* supreme commander, warlord */
       "_Аматэрасу Омиками", "Райдзин", "Сусаноо", /* Japanese */
       "Sam",
       "the Castle of the Taro Clan",
