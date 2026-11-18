@@ -2075,9 +2075,8 @@ canwearobj(struct obj *otmp, long *mask, boolean noisy)
         } else if (Upolyd && has_horns(gy.youmonst.data) && !is_flimsy(otmp)) {
             /* (flimsy exception matches polyself handling) */
             if (noisy)
-                pline("%s Не наденется поверх ваших рог%s.",
-                          helm_simple_name(otmp),
-                          plur(num_horns(gy.youmonst.data)));
+                pline("%s не наденется поверх ваших рогов.",
+                          helm_simple_name(otmp));
             err++;
         } else
             *mask = W_ARMH;

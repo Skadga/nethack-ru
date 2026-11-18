@@ -1829,9 +1829,8 @@ dohide(void)
                 corpse_name = an(corpse_name);
             /* no need to check poly_when_stoned(); no hide-underers can
                turn into stone golems instead of becoming petrified */
-            pline("Прятаться под %s%s — роковая ошибка...",
-                  corpse_name, plur(ct));
-            Sprintf(kbuf, "прятался под %s%s", corpse_name, plur(ct));
+            pline("Прятаться под %s — роковая ошибка...", corpse_name);
+            Sprintf(kbuf, "прятался под %s", corpse_name);
             instapetrify(kbuf);
             /* only reach here if life-saved */
             u.uundetected = 0;

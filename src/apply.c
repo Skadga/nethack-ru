@@ -1167,9 +1167,8 @@ use_mirror(struct obj *obj)
         if (vis) {
             char buf[BUFSZ]; /* "She" or "He" */
 
-            pline("%s в твоём %s.", /* "<mon> admires self in your mirror " */
-                  monverbself(mtmp, Monnam(mtmp), "admire", (char *) 0),
-                  mirror);
+            pline("%s любуется собой в твоём %s.",
+                  Monnam(mtmp), mirror);
             pline("%s берёт его!", upstart(strcpy(buf, mhe(mtmp))));
         } else
             pline("Оно крадёт вашу %s!", mirror);
@@ -2824,7 +2823,7 @@ use_stone(struct obj *tstone)
         break; /* default oclass */
     }
 
-    Sprintf(stonebuf, "stone%s", plur(tstone->quan));
+    Sprintf(stonebuf, "%s", (tstone->quan == 1) ? "камне" : "камнях");
     if (do_scratch)
         You("оставляешь %s%sцарапины на %s.",
             streak_color ? streak_color : (const char *) "",
@@ -3030,10 +3029,10 @@ use_whip(struct obj *obj)
         proficient = 0;
 
     if (u.uswallow) {
-        There("is недостаточно места, чтобы щёлкнуть хлыстом.");
+        There("недостаточно места, чтобы щёлкнуть хлыстом.");
 
     } else if (Underwater) {
-        There("is слишком большое сопротивление, чтобы щёлкнуть хлыстом.");
+        There("слишком сильное сопротивление, чтобы щёлкнуть хлыстом.");
 
     } else if (u.dz < 0) {
         You("смахиваешь жука с %s.", ceiling(u.ux, u.uy));
@@ -3490,7 +3489,7 @@ use_pole(struct obj *obj, boolean autohit)
     if (!autohit) {
         getpos_sethilite(display_polearm_positions,
                          get_valid_polearm_position);
-        if (getpos(&cc, TRUE, "the spot to hit") < 0)
+        if (getpos(&cc, TRUE, "месту удара") < 0)
             /* ESC; uses turn iff polearm became wielded */
             return (res | ECMD_CANCEL);
     }
@@ -3782,7 +3781,7 @@ use_grapple(struct obj *obj)
     cc.x = u.ux;
     cc.y = u.uy;
     getpos_sethilite(display_grapple_positions, can_grapple_location);
-    if (getpos(&cc, TRUE, "the spot to hit") < 0)
+    if (getpos(&cc, TRUE, "месту удара") < 0)
         /* ESC; uses turn iff grapnel became wielded */
         return (res | ECMD_CANCEL);
 

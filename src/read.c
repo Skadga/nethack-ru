@@ -508,7 +508,7 @@ doread(void)
         if (flags.verbose)
             pline("Надпись:");
         Sprintf(buf, "%s", pmname(pm, NEUTRAL));
-        pline("\"Маркер Magic Marker(TM) %s, красные чернила.  Водорастворимый.\"",
+        pline("\"Магический маркер(TM) %s, красные чернила.  Водорастворимый.\"",
               upwords(buf));
         if (!u.uconduct.literate++)
             livelog_printf(LL_CONDUCT,
@@ -2810,8 +2810,7 @@ do_class_genocide(void)
                         if (i == PM_HIGH_CLERIC)
                             uniq = FALSE;
 
-                        You("не имеете права истреблять %s%s.",
-                            (uniq && !named) ? "the " : "",
+                        You("не имеете права истреблять %s.",
                             (uniq || named) ? mons[i].pmnames[NEUTRAL] : nam);
                     }
                 }
@@ -2941,7 +2940,7 @@ do_genocide(
         mndx = monsndx(ptr); /* needed for the 'no free pass' cases */
     }
 
-    which = "all ";
+    which = "все ";
     Strcpy(realbuf, ptr->pmnames[NEUTRAL]); /* standard singular */
     if (Hallucination) {
         /* hallucinate hero's type */
@@ -2957,7 +2956,7 @@ do_genocide(
         /* use actual type */
         Strcpy(buf, realbuf);
         if ((ptr->geno & G_UNIQ) && ptr != &mons[PM_HIGH_CLERIC])
-            which = !type_is_pname(ptr) ? "the " : "";
+            which = "";
     }
 
     if (how & REALLY) {
@@ -2971,7 +2970,7 @@ do_genocide(
         /* setting no-corpse affects wishing and random tin generation */
         svm.mvitals[mndx].mvflags |= (G_GENOD | G_NOCORPSE);
         pline("Уничтожено %s%s.", which,
-              (*which != 'a') ? buf : makeplural(buf));
+              (*which) ? makeplural(buf) : buf);
 
         if (killplayer) {
             u.uhp = -1;

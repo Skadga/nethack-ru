@@ -6996,13 +6996,18 @@ lava_effects(void)
                 ++burncount;
             }
         }
-        if (usurvive && burncount > burnmesgcount)
-            pline("%s предмет%s в вашем инвентаре %s уничтожен.",
-                  (burnmesgcount > 0)
-                    ? ((burncount - burnmesgcount == 1) ? "Еще один" : "Другой")
-                    : ((burncount == 1) ? "Один" : "Несколько"),
-                  plur(burncount - burnmesgcount),
-                  (burncount - burnmesgcount == 1) ? "" : "");
+        if (usurvive && burncount > burnmesgcount) {
+            int n = burncount - burnmesgcount;
+
+            if (burnmesgcount > 0)
+                pline("%s", (n == 1)
+                    ? "Ещё один предмет в вашем инвентаре уничтожен."
+                    : "Ещё несколько предметов в вашем инвентаре уничтожены.");
+            else
+                pline("%s", (n == 1)
+                    ? "Один предмет в вашем инвентаре уничтожен."
+                    : "Несколько предметов в вашем инвентаре уничтожены.");
+        }
 
         /* s/he died... */
         boil_away = (u.umonnum == PM_WATER_ELEMENTAL

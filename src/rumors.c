@@ -922,7 +922,7 @@ init_CapMons(void)
         winid tmpwin = create_nhwindow(NHW_TEXT);
 
         putstr(tmpwin, 0,
-              "Имена типов чудовищ с заглавной буквы, обычно с предшествующим \"the\":");
+              "Имена типов чудовищ, которые пишутся с заглавной буквы:");
         for (i = 0; i < CapMonSiz - 1; ++i) {
             Sprintf(buf, "  %.77s", CapMons[i]);
             putstr(tmpwin, 0, buf);

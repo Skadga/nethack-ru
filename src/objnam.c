@@ -1449,11 +1449,10 @@ doname_base(
             break;
         }
         if (obj->otyp == CANDELABRUM_OF_INVOCATION) {
-            char suffix[20]; /* longest value is "s attached" */
+            char suffix[20]; /* longest value is " прикреплено" */
 
             /* separately formatted suffix avoids need for ConcatF3() */
-            Sprintf(suffix, "%s%s", plur(obj->spe),
-                    !obj->lamplit ? " прикреплено" : ", горит");
+            Sprintf(suffix, "%s", !obj->lamplit ? " прикреплено" : ", горит");
             ConcatF2(bp, 0, " (%d из 7 свечей%s)", obj->spe, suffix);
             break;
         } else if (obj->otyp == OIL_LAMP || obj->otyp == MAGIC_LAMP

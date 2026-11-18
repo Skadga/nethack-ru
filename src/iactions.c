@@ -370,8 +370,8 @@ itemactions(struct obj *otmp)
         ia_addmenu(win, IA_APPLY_OBJ, 'a', buf);
     } else if (otmp->oclass == POTION_CLASS) {
         /* FIXME? this should probably be moved to 'D' rather than be 'a' */
-        Sprintf(buf, "Окунуть что-нибудь в %s зелье%s",
-                is_plural(otmp) ? "одно из этих" : "это", plur(otmp->quan));
+        Sprintf(buf, "Окунуть что-нибудь в %s зелье",
+                is_plural(otmp) ? "одно из этих" : "это");
         ia_addmenu(win, IA_DIP_OBJ, 'a', buf);
     } else if (otmp->otyp == EXPENSIVE_CAMERA)
         ia_addmenu(win, IA_APPLY_OBJ, 'a', "Сделать фотографию");

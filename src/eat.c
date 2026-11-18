@@ -2849,7 +2849,7 @@ doeat(void)
         pline("Если ты не можешь дышать воздухом, как же ты будешь есть твёрдую пищу?");
         return ECMD_OK;
     }
-    if (!(otmp = floorfood("eat", 0)))
+    if (!(otmp = floorfood("съесть", 0)))
         return ECMD_OK;
     if (check_capacity((char *) 0))
         return ECMD_OK;
@@ -3141,7 +3141,7 @@ use_tin_opener(struct obj *obj)
         res = ECMD_TIME;
     }
 
-    otmp = getobj("open", tinopen_ok, GETOBJ_NOFLAGS);
+    otmp = getobj("открыть", tinopen_ok, GETOBJ_NOFLAGS);
     if (!otmp)
         return (res|ECMD_CANCEL);
 
@@ -3732,9 +3732,9 @@ floorfood(
     /* We cannot use GETOBJ_PROMPT since we don't want a prompt in the case
        where nothing edible is being carried. */
     if (feeding) {
-        otmp = getobj("eat", eat_ok, GETOBJ_NOFLAGS);
+        otmp = getobj("съесть", eat_ok, GETOBJ_NOFLAGS);
     } else if (offering) {
-        otmp = getobj("sacrifice", offer_ok, GETOBJ_NOFLAGS);
+        otmp = getobj("принести в жертву", offer_ok, GETOBJ_NOFLAGS);
     } else if (corpsecheck == 2) {
         otmp = getobj(verb, tin_ok, GETOBJ_NOFLAGS);
     } else {

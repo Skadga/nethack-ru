@@ -532,26 +532,23 @@ dosinkring(struct obj *obj)
         You_hear("громкие звуки из слива.");
         break;
     case RIN_SUSTAIN_ABILITY: /* KMH */
-        pline("%s Поток кажется установившимся.", hliquid("water"));
+        pline("Поток воды кажется установившимся.");
         break;
     case RIN_GAIN_STRENGTH:
-        pline("Поток %s теперь кажется %s.",
-                  hliquid("water"),
-                  (obj->spe < 0) ? "Слабее" : "Сильнее");
+        pline("Поток воды теперь кажется %s.",
+                  (obj->spe < 0) ? "слабее" : "сильнее");
         break;
     case RIN_GAIN_CONSTITUTION:
-        pline("Поток %s теперь кажется %s.",
-                  hliquid("water"),
-                  (obj->spe < 0) ? "Меньше" : "Больше");
+        pline("Поток воды теперь кажется %s.",
+                  (obj->spe < 0) ? "меньше" : "больше");
         break;
     case RIN_INCREASE_ACCURACY: /* KMH */
-        pline("Поток %s %s слив.",
-                  hliquid("water"),
-                  (obj->spe < 0) ? "Не попадает в" : "Попадает в");
+        pline("Поток воды %s слив.",
+                  (obj->spe < 0) ? "не попадает в" : "попадает в");
         break;
     case RIN_INCREASE_DAMAGE:
         pline("Сила воды теперь кажется %s.",
-                  (obj->spe < 0) ? "Слабее" : "Больше");
+                  (obj->spe < 0) ? "меньше" : "больше");
         break;
     case RIN_HUNGER:
         ideed = FALSE;
@@ -677,7 +674,7 @@ canletgo(struct obj *obj, const char *word)
             const char *hand =
                 body_part_case(HAND, bimanual(uwep) ? BP_DAT | BP_PLURAL
                                                     : BP_DAT);
-            Norep("Вы не можете %s %s, намертво приваренный к вашей %s.", word, something,
+            Norep("Вы не можете %s %s, намертво приваренное к вашей %s.", word, something,
                   hand);
         }
         return FALSE;
@@ -688,10 +685,14 @@ canletgo(struct obj *obj, const char *word)
         if (*word) {
             /* getobj() ignores a count for throwing since that is
                implicitly forced to be 1; replicate its kludge... */
-            if (!strcmp(word, "throw") && obj->quan > 1L)
+            if ((!strcmp(word, "throw") || !strcmp(word, "бросить"))
+                && obj->quan > 1L)
                 obj->corpsenm = 1;
-            pline("По какой-то причине вы не можете %s%s камень%s!", word,
-                  obj->corpsenm ? " ни один из" : "", plur(obj->quan));
+            if (obj->corpsenm)
+                pline("По какой-то причине вы не можете %s ни один из камней!",
+                      word);
+            else
+                pline("По какой-то причине вы не можете %s камень!", word);
         }
         obj->corpsenm = 0; /* reset */
         set_bknown(obj, 1);
@@ -716,7 +717,7 @@ drop(struct obj *obj)
 {
     if (!obj)
         return ECMD_FAIL;
-    if (!canletgo(obj, "drop"))
+    if (!canletgo(obj, "выбросить"))
         return ECMD_FAIL;
     if (obj->otyp == CORPSE && better_not_try_to_drop_that(obj))
         return ECMD_FAIL;

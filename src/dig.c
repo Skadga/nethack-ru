@@ -2309,7 +2309,7 @@ wiz_debug_cmd_bury(void)
     else
         /* usual case; if uball got buried, uchain went away and won't be
            counted as buried */
-        pline("Закопано предметов: %d%s.", diff, plur(diff));
+        pline("Закопано предметов: %d.", diff);
     return ECMD_OK;
 }
 #endif /* DEBUG */

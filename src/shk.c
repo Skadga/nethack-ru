@@ -862,24 +862,24 @@ u_entered_shop(char *enterstring)
     /* can't do anything about blocking if teleported in */
     if (!inside_shop(u.ux, u.uy)) {
         boolean should_block, not_upset = !eshkp->surcharge;
-        int cnt;
-        const char *tool;
+        int cnt, kind;
+        const char *tool_acc, *tool_ins;
         struct obj *pick = carrying(PICK_AXE),
                    *mattock = carrying(DWARVISH_MATTOCK);
 
         if (pick || mattock) {
             cnt = 1;               /* so far */
             if (pick && mattock) { /* carrying both types */
-                tool = "инструмент для копания";
+                kind = 0;
                 cnt = 2; /* `more than 1' is all that matters */
             } else if (pick) {
-                tool = "кирка";
+                kind = 1;
                 /* hack: `pick' already points somewhere into inventory */
                 while ((pick = pick->nobj) != 0)
                     if (pick->otyp == PICK_AXE)
                         ++cnt;
             } else { /* assert(mattock != 0) */
-                tool = "мотыга";
+                kind = 2;
                 while ((mattock = mattock->nobj) != 0)
                     if (mattock->otyp == DWARVISH_MATTOCK)
                         ++cnt;
@@ -887,17 +887,27 @@ u_entered_shop(char *enterstring)
                 if (!Blind)
                     makeknown(DWARVISH_MATTOCK);
             }
+            if (kind == 0) {
+                tool_acc = "инструменты для копания";
+                tool_ins = "инструментами для копания";
+            } else if (kind == 1) {
+                tool_acc = (cnt == 1) ? "кирку" : "кирки";
+                tool_ins = (cnt == 1) ? "киркой" : "кирками";
+            } else {
+                tool_acc = (cnt == 1) ? "мотыгу" : "мотыги";
+                tool_ins = (cnt == 1) ? "мотыгой" : "мотыгами";
+            }
             if (!Deaf && !muteshk(shkp)) {
                 SetVoice(shkp, 0, 80, 0);
                 verbalize(not_upset
-                              ? "Не оставите ли вы вашу %s%s снаружи?"
-                              : "Оставьте %s%s снаружи.",
-                          tool, plur(cnt));
+                              ? "Не оставите ли вы %s снаружи?"
+                              : "Оставьте %s снаружи.",
+                          tool_acc);
             } else {
-                pline("%s %s впускать вас с вашей %s%s.",
+                pline("%s %s впускать вас с %s.",
                       Shknam(shkp),
                       not_upset ? "не решается" : "отказывается",
-                      tool, plur(cnt));
+                      tool_ins);
             }
             should_block = TRUE;
         } else if (u.usteed) {
@@ -3128,10 +3138,12 @@ special_stock(
                     verbalize("Нет уж, я бы придержал это, будь я на вашем месте.");
                     if (obj->spe < 7) {
                         SetVoice(shkp, 0, 80, 0);
+                        int need = 7 - obj->spe;
+
                         verbalize(
-                             "Чтобы зажечь их, вам понадобится ещё %d%s candle%s.",
-                                (7 - obj->spe), (obj->spe > 0) ? "" : "",
-                                  plur(7 - obj->spe));
+                             "Чтобы зажечь их, вам понадобится ещё %d %s.",
+                                need, (need == 1) ? "свеча"
+                                      : (need <= 4) ? "свечи" : "свечей");
                     }
                     /* [what if hero is already carrying enough candles?
                        should Izchak explain how to attach them instead?] */
@@ -5628,8 +5640,9 @@ kops_gone(boolean silent)
         }
     }
     if (cnt && !silent)
-        pline("КОп%s (разочарованные) растворя%sются в воздухе.",
-                  plur(cnt), (cnt == 1) ? "es" : "");
+        pline("%s", (cnt == 1)
+                    ? "КОп (разочарованный) растворяется в воздухе."
+                    : "КОпы (разочарованные) растворяются в воздухе.");
 }
 
 staticfn long

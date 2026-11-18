@@ -3341,7 +3341,7 @@ optfn_pickup_types(
                 boolean wasspace;
 
                 use_menu = FALSE;
-                Sprintf(qbuf, "Новое %s: [%s am] (%s)", allopt[optidx].name,
+                Sprintf(qbuf, "Новое %s: [%s или m] (%s)", allopt[optidx].name,
                         ocl, *tbuf ? tbuf : "всё");
                 abuf[0] = '\0';
                 getlin(qbuf, abuf);
@@ -6267,7 +6267,7 @@ handler_whatis_coord(void)
 #else
 #define COL80ARG ""
 #endif
-    Sprintf(buf, "экран: верхний-левый: [%02d,%02d], lower-right: [%d,%d]%s",
+    Sprintf(buf, "экран: верхний-левый: [%02d,%02d], правый-нижний: [%d,%d]%s",
             0 + 2, 1, ROWNO - 1 + 2, COLNO - 1, COL80ARG);
 #undef COL80ARG
     add_menu_str(tmpwin, buf);

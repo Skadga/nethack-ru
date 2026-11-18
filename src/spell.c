@@ -388,9 +388,7 @@ learn(void)
         return 0;
     }
 
-    Sprintf(splname,
-            objects[booktype].oc_name_known ? "\"%s\"" : "the \"%s\" spell",
-            OBJ_NAME(objects[booktype]));
+    Sprintf(splname, "«%s»", OBJ_NAME(objects[booktype]));
     for (i = 0; i < MAXSPELL; i++)
         if (spellid(i) == booktype || spellid(i) == NO_SPELL)
             break;
@@ -406,7 +404,7 @@ learn(void)
             /* reset spestudied as if polymorph had taken place */
             book->spestudied = rn2(book->spestudied);
         } else {
-            Your("ваши знания о %s %s.", splname,
+            Your("ваши знания о заклинании %s %s.", splname,
                  spellknow(i) ? "углубились" : "восстановлены");
             incrnknow(i, 1);
             book->spestudied++;
@@ -430,9 +428,9 @@ learn(void)
             book->spestudied++;
             if (!i)
                 /* first is always 'a', so no need to mention the letter */
-                You("выучиваете %s.", splname);
+                You("выучиваете заклинание %s.", splname);
             else
-                You("добавляете %s в свой репертуар под буквой '%c'.",
+                You("добавляете заклинание %s в свой репертуар под буквой '%c'.",
                     splname, spellet(i));
         }
     }

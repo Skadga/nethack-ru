@@ -1851,9 +1851,10 @@ pickup_object(
         } else if (!obj->spe && !obj->cursed) {
             obj->spe = 1;
         } else {
-            pline("Свиток%s %s в пыль, когда вы %s %s.", plur(obj->quan),
-                      otense(obj, "Превращается"), telekinesis ? "Поднимает" : "Поднимает",
-                      (obj->quan == 1L) ? "Его" : "Их");
+            if (obj->quan == 1L)
+                pline("Свиток превращается в пыль, когда вы поднимаете его.");
+            else
+                pline("Свитки превращаются в пыль, когда вы поднимаете их.");
             trycall(obj);
             useupf(obj, obj->quan);
             return 1; /* tried to pick something up and failed, but
@@ -2576,7 +2577,8 @@ in_container(struct obj *obj)
         return 0;
     } else if ((obj->otyp == LOADSTONE) && obj->cursed) {
         set_bknown(obj, 1);
-        pline("Камень%s не покинет вас.", plur(obj->quan));
+        pline("%s", (obj->quan == 1L) ? "Камень не покинет вас."
+                                      : "Камни не покинут вас.");
         return 0;
     } else if (obj->otyp == AMULET_OF_YENDOR
                || obj->otyp == CANDELABRUM_OF_INVOCATION

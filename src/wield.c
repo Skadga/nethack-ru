@@ -780,10 +780,9 @@ can_twoweapon(void)
              hand_s, (!uwep && !uswapwep) ? "пусты" : "пуста");
     } else if (!TWOWEAPOK(uwep) || !TWOWEAPOK(uswapwep)) {
         otmp = !TWOWEAPOK(uwep) ? uwep : uswapwep;
-        pline("%s %s подходящее %s оружие%s.", Yname2(otmp),
+        pline("%s %s подходящее %s оружие.", Yname2(otmp),
               is_plural(otmp) ? "не" : "не является",
-              (otmp == uwep) ? "первичное" : "вторичное",
-              plur(otmp->quan));
+              (otmp == uwep) ? "первичное" : "вторичное");
     } else if (bimanual(uwep) || bimanual(uswapwep)) {
         otmp = bimanual(uwep) ? uwep : uswapwep;
         pline("%s не одноручное.", Yname2(otmp));

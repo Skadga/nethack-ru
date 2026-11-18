@@ -1201,12 +1201,12 @@ hmon_hitmon_misc_obj(
         if (ismnum(obj->corpsenm)
             && touch_petrifies(&mons[obj->corpsenm])) {
             /*learn_egg_type(obj->corpsenm);*/
-            pline("ЎлЄп! ¬ы бьЄте %s %s %s €йц%s!",
+            pline("ЎлЄп! ¬ы бьЄте %s %s %s %s!",
                   mon_nam(mon),
                   obj->known ? "то" : cnt > 1L ? "несколько" : "одно",
                   obj->known ? mons[obj->corpsenm].pmnames[NEUTRAL]
                   : "окамен€ющее",
-                  plur(cnt));
+                  (cnt == 1L) ? "€йцо" : "€иц");
             obj->known = 1; /* (not much point...) */
             useup_eggs(obj);
             if (!munstone(mon, TRUE))
@@ -1224,11 +1224,11 @@ hmon_hitmon_misc_obj(
                     ? the(mons[mnum].pmnames[NEUTRAL])
                     : (cnt > 1L) ? "какие-то" : "какое-то";
 
-            You("бьЄте %s %s €йц%s.", mon_nam(mon), eggp,
-                plur(cnt));
+            You("бьЄте %s %s %s.", mon_nam(mon), eggp,
+                (cnt == 1L) ? "€йцо" : "€иц");
             if (touch_petrifies(hmd->mdat) && !stale_egg(obj)) {
-                pline("яйц%s уже %s живыми...", plur(cnt),
-                          (cnt == 1L) ? "не живое" : "не живые");
+                pline("%s", (cnt == 1L) ? "яйцо уже не живое..."
+                                        : "яйца уже не живые...");
                 if (obj->timed)
                     obj_stop_timers(obj);
                 obj->otyp = ROCK;
