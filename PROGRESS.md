@@ -956,3 +956,17 @@ timeout.c:2045-2050; report.c:314.
 - files.c, options.c, rumors.c, shknam.c: заглавная в pline().
 - Сборка Release x64: 0 ошибок, 15 warning'ов (те же).
 - Android-копия синхронизирована (12 файлов, identical True).
+
+## 2026-11-18 — батч 85: «ты» -> «вы» в сообщениях от лица игрока
+
+- Заменены неформальные формы («ты», «тебя», «твой») на вежливые
+  («вы», «вас», «ваш») в 13 файлах: apply.c, eat.c, engrave.c,
+  iactions.c, lock.c, objnam.c, pager.c, potion.c, read.c, role.c,
+  rumors.c, win/win32/NetHackW.rc, win/win32/mswproc.c.
+- Прямая речь NPC, богов, жрецов, оракула, стражника и Волшебника
+  Йендора оставлена на «ты» (verbalize/godvoice/mon_yells).
+- Окно ввода имени: «Кто ты?» -> «Как вас зовут?».
+- apply.c: «По всему вашему %s …»; read.c: «над вашим %s»;
+  eat.c: «пока вы засыпаете…».
+- Сборка Release x64: 0 ошибок, 15 warning'ов (те же).
+- Android-копия синхронизирована (13 файлов, identical True).
