@@ -245,7 +245,7 @@ _CrtSetReportFile(_CRT_ASSERT, _CRTDBG_FILE_STDERR);*/
      * the game is exited.
      */
     if (getcwd(orgdir, sizeof orgdir) == (char *) 0)
-        error("NetHack: current directory path too long");
+        error("NetHack: слишком длинный путь текущего каталога");
 #endif
     getreturn_enabled = TRUE;
     initoptions_init(); // This allows OPTIONS in syscf on Windows.
@@ -316,7 +316,7 @@ _CrtSetReportFile(_CRT_ASSERT, _CRTDBG_FILE_STDERR);*/
         if (file_exists(DLBFILE))
             pline("\nМожет быть, ты пытаешься запустить NetHack из zip-архива "
                   "?");
-        error("dlb_init failure.");
+        error("сбой dlb_init.");
     }
 #endif
 
@@ -428,9 +428,9 @@ attempt_restore:
         if (dorecover(nhfp)) {
             resuming = TRUE; /* not starting new game */
             if (discover)
-                You("are in non-scoring discovery mode.");
+                You("в режиме исследования без учёта результатов.");
             if (discover || wizard) {
-                if (y_n("Do you want to keep the save file?") == 'n')
+                if (y_n("Оставить файл сохранения?") == 'n')
                     (void) delete_savefile();
                 else {
                     nh_compress(fqname(gs.SAVEF, SAVEPREFIX, 0));
@@ -459,7 +459,7 @@ attempt_restore:
         }
         newgame();
         if (discover)
-            You("are in non-scoring discovery mode.");
+            You("в режиме исследования без учёта результатов.");
     }
 
         // iflags.debug_fuzzer = TRUE;
@@ -531,7 +531,7 @@ early_options(int argc, char *argv[])
                 dir = argv[0];
             }
             if (!*dir)
-                error("Flag -d must be followed by a directory name.");
+                error("После флага -d должно идти имя каталога.");
             Strcpy(gh.hackdir, dir);
         }
 
@@ -710,14 +710,14 @@ copy_file(const char *dst_folder, const char *dst_name,
     strcat(src_path, src_name);
 
     if (!file_exists(src_path))
-        error("Unable to copy file '%s' as it does not exist", src_path);
+        error("Не удалось скопировать файл '%s': его нет", src_path);
 
     if (file_exists(dst_path) && !copy_even_if_it_exists)
         return;
 
     BOOL success = CopyFileA(src_path, dst_path, !copy_even_if_it_exists);
     if (!success)
-        error("Failed to copy '%s' to '%s' (%d)", src_path, dst_path, errno);
+        error("Не удалось скопировать '%s' в '%s' (%d)", src_path, dst_path, errno);
 }
 
 /* update file copying if it does not exist or src is newer then dst */
@@ -739,7 +739,7 @@ update_file(const char *dst_folder, const char *dst_name,
     strcat(save_path, ".save");
 
     if (!file_exists(src_path))
-        error("Unable to copy file '%s' as it does not exist", src_path);
+        error("Не удалось скопировать файл '%s': его нет", src_path);
 
     if (!file_newer(src_path, dst_path))
         return;
@@ -749,7 +749,7 @@ update_file(const char *dst_folder, const char *dst_name,
 
     BOOL success = CopyFileA(src_path, dst_path, FALSE);
     if (!success)
-        error("Failed to update '%s' to '%s'", src_path, dst_path);
+        error("Не удалось обновить '%s' до '%s'", src_path, dst_path);
 }
 
 void
@@ -1034,7 +1034,7 @@ getlock(void)
 #if defined(CHDIR) && !defined(NOCWD_ASSUMPTIONS)
         chdirx(orgdir, 0);
 #endif
-        error("Quitting.");
+        error("Выход.");
     }
 
     /* regularize(lock); */ /* already done in pcmain */
@@ -1047,7 +1047,7 @@ getlock(void)
 #if defined(CHDIR) && !defined(NOCWD_ASSUMPTIONS)
         chdirx(orgdir, 0);
 #endif
-        error("Bad directory or name: %s\n%s\n", fq_lock,
+        error("Неверный каталог или имя: %s\n%s\n", fq_lock,
                   strerror(errno));
         unlock_file(HLOCK);
         Sprintf(oops, "Не удаётся открыть %s", fq_lock);
@@ -1125,8 +1125,9 @@ gotlock:
 #if defined(CHDIR) && !defined(NOCWD_ASSUMPTIONS)
         chdirx(orgdir, 0);
 #endif
-        Sprintf(oops, "cannot creat file (%s.)\n%s\n%s\"%s\" exists?\n", fq_lock,
-              strerror(ern), " Are you sure that the directory",
+        Sprintf(oops, "не удаётся создать файл (%s.)\n%s\n%s\"%s\" существует?\n",
+              fq_lock, strerror(ern),
+              " Вы уверены, что каталог",
               gf.fqn_prefix[LEVELPREFIX]);
         raw_print(oops);
     } else {
@@ -1135,13 +1136,13 @@ gotlock:
 #if defined(CHDIR) && !defined(NOCWD_ASSUMPTIONS)
             chdirx(orgdir, 0);
 #endif
-            error("cannot write lock (%s)", fq_lock);
+            error("не удаётся записать блокировку (%s)", fq_lock);
         }
         if (nhclose(fd) == -1) {
 #if defined(CHDIR) && !defined(NOCWD_ASSUMPTIONS)
             chdirx(orgdir, 0);
 #endif
-            error("cannot close lock (%s)", fq_lock);
+            error("не удаётся закрыть блокировку (%s)", fq_lock);
         }
     }
     return prompt_result;
@@ -1313,7 +1314,7 @@ chdirx(const char *dir, boolean wr)
     static char thisdir[] = ".";
 
     if (dir && chdir(dir) < 0) {
-        error("Cannot chdir to %s.", dir);
+        error("Не удаётся перейти в каталог %s.", dir);
     }
 
     /* warn the player if we can't write the record file */

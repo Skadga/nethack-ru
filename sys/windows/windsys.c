@@ -766,9 +766,9 @@ sys_random_seed(void)
         const char *emsg;
 
         if (status == (NTSTATUS) STATUS_NOT_FOUND)
-            emsg = "BCRYPT_RNG_ALGORITHM not avail, falling back";
+            emsg = "BCRYPT_RNG_ALGORITHM недоступен, используется запасной вариант";
         else
-            emsg = "Other failure than algorithm not avail";
+            emsg = "Другая ошибка, не связанная с недоступностью алгоритма";
         paniclog("sys_random_seed", emsg); /* leaves clue, doesn't exit */
         (void) time(&datetime);
         ourseed = (unsigned long) datetime;
@@ -1180,7 +1180,7 @@ struct CRctxt *ctxp = &ctxp_;    // XXX should this now be in gc.* ?
 
 int
 win32_cr_helper(char cmd, struct CRctxt *contextp, void *p, int d){
-    char *errname = (char *) "unknown";
+    char *errname = (char *) "неизвестно";
     switch (cmd) {
     default:
         /* Not panic - we don't want to upgrade an impossible to a
@@ -1285,7 +1285,7 @@ win32_cr_helper(char cmd, struct CRctxt *contextp, void *p, int d){
     }
     return 0;        /* ok */
 error:
-    raw_printf("WIN32 function %s failed: status=%" PRIx64 "\n",
+    raw_printf("Сбой функции WIN32 %s: статус=%" PRIx64 "\n",
             errname, (uint64)contextp->st);
     return 1;        /* fail */
 }
@@ -1388,7 +1388,7 @@ win32_cr_gettrace(int maxframes, char *out, int outsize){
         // XXX may need to pass the binary's dir
         //XXX check for different flags
     if(!SymInitialize(me, NULL, TRUE)){
-        snprintf(buf, BSIZE, "no stack trace: SymInitialize: %d\n",
+        snprintf(buf, BSIZE, "нет трассировки стека: SymInitialize: %d\n",
                 (int) GetLastError());
         return 1;
     }

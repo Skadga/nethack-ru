@@ -34,34 +34,34 @@ void win10_init(void)
         HINSTANCE hUser32 = LoadLibraryA("user32.dll");
 
         if (hUser32 == NULL) 
-            panic("Unable to load user32.dll");
+            panic("Не удалось загрузить user32.dll");
 
         gWin10.SetThreadDpiAwarenessContext = (SetThreadDpiAwarenessContextProc) GetProcAddress(hUser32, "SetThreadDpiAwarenessContext");
         if (gWin10.SetThreadDpiAwarenessContext == NULL)
-            panic("Unable to get address of SetThreadDpiAwarenessContext()");
+            panic("Не удалось получить адрес SetThreadDpiAwarenessContext()");
 
         gWin10.GetThreadDpiAwarenessContext = (GetThreadDpiAwarenessContextProc) GetProcAddress(hUser32, "GetThreadDpiAwarenessContext");
         if (gWin10.GetThreadDpiAwarenessContext == NULL)
-            panic("Unable to get address of GetThreadDpiAwarenessContext()");
+            panic("Не удалось получить адрес GetThreadDpiAwarenessContext()");
 
         gWin10.AreDpiAwarenessContextsEqual = (AreDpiAwarenessContextsEqualProc) GetProcAddress(hUser32, "AreDpiAwarenessContextsEqual");
         if (gWin10.AreDpiAwarenessContextsEqual == NULL)
-            panic("Unable to get address of AreDpiAwarenessContextsEqual");
+            panic("Не удалось получить адрес AreDpiAwarenessContextsEqual");
 
         gWin10.GetDpiForWindow = (GetDpiForWindowProc) GetProcAddress(hUser32, "GetDpiForWindow");
         if (gWin10.GetDpiForWindow == NULL)
-            panic("Unable to get address of GetDpiForWindow");
+            panic("Не удалось получить адрес GetDpiForWindow");
 
         FreeLibrary(hUser32);
 
         HINSTANCE hKernel32 = LoadLibraryA("kernel32.dll");
 
         if (hKernel32 == NULL) 
-            panic("Unable to load kernel32.dll");
+            panic("Не удалось загрузить kernel32.dll");
 
         gWin10.GetCurrentPackageFullName = (GetCurrentPackageFullNameProc) GetProcAddress(hKernel32, "GetCurrentPackageFullName");
         if (gWin10.GetCurrentPackageFullName == NULL)
-            panic("Unable to get address of GetCurrentPackageFullName");
+            panic("Не удалось получить адрес GetCurrentPackageFullName");
 
         FreeLibrary(hKernel32);
 
@@ -71,12 +71,12 @@ void win10_init(void)
     if (gWin10.Valid) {
         if (!gWin10.SetThreadDpiAwarenessContext(
                 DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2))
-            panic("Unable to set DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2");
+            panic("Не удалось задать DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2");
 
         if (!gWin10.AreDpiAwarenessContextsEqual(
                 gWin10.GetThreadDpiAwarenessContext(),
                 DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2))
-            panic("Unexpected DpiAwareness state");
+            panic("Неожиданное состояние DpiAwareness");
     }
 
 }
