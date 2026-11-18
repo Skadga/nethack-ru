@@ -727,7 +727,8 @@ uptodate(NHFILE *nhfp, const char *name, unsigned long utdflags)
                                                              != SF_UPTODATE) {
         if (sfstatus > 0 && idx_1st_mismatch) {
             if (!quietly)
-                raw_printf("comparison of critical bytes mismatched at %d (%s).",
+                raw_printf("несовпадение критических байтов"
+                           " в позиции %d (%s).",
                            critical_sizes[idx_1st_mismatch].ucsize,
                            critical_sizes[idx_1st_mismatch].nm);
         }
@@ -771,8 +772,8 @@ compare_critical_bytes(NHFILE *nhfp, int *idx_1st_mismatch, unsigned long utdfla
     Sfi_char(nhfp, &file_csc_count, "count-critical_sizes", 1);
     if (file_csc_count > cnt) {
         if (!quietly)
-            raw_printf("critical byte counts do not match"
-                       ", file:%d, critical_sizes:%d.",
+            raw_printf("счётчики критических байтов не совпадают"
+                       ", файл:%d, critical_sizes:%d.",
                        file_csc_count, SIZE(critical_sizes));
         return SF_CRITICAL_BYTE_COUNT_MISMATCH;
     }

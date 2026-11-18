@@ -293,7 +293,7 @@ choose_windows(const char *s)
         windowprocs.win_wait_synch = def_wait_synch;
 
     if (!winchoices[0].procs) {
-        raw_printf("No window types supported?");
+        raw_printf("Нет поддерживаемых типов окон?");
         nh_terminate(EXIT_FAILURE);
     }
     /* 50: arbitrary, no real window_type names are anywhere near that long;
@@ -358,7 +358,7 @@ addto_windowchain(const char *s)
 
     windowprocs.win_raw_print = def_raw_print;
 
-    raw_printf("Window processor %s not recognized.  Choices are:", s);
+    raw_printf("Обработчик окна %s не распознан.  Варианты:", s);
     for (i = 0; winchoices[i].procs; i++) {
         if ('+' != winchoices[i].procs->name[0])
             continue;
@@ -386,7 +386,7 @@ commit_windowchain(void)
     p = wl_new();
     p->wincp = win_choices_find("-chainin");
     if (!p->wincp) {
-        raw_printf("Can't locate processor '-chainin'");
+        raw_printf("Не удаётся найти обработчик '-chainin'");
         exit(EXIT_FAILURE);
     }
     wl_addhead(p);
@@ -394,7 +394,7 @@ commit_windowchain(void)
     p = wl_new();
     p->wincp = win_choices_find("-chainout");
     if (!p->wincp) {
-        raw_printf("Can't locate processor '-chainout'");
+        raw_printf("Не удаётся найти обработчик '-chainout'");
         exit(EXIT_FAILURE);
     }
     wl_addtail(p);

@@ -258,7 +258,7 @@ fopen_config_file(const char *filename, int src)
              * control (but SYSCF_FILE is not under the player's
              * control so it's OK).
              */
-            raw_printf("Access to %s denied (%d).", configfile, errno);
+            raw_printf("Доступ к %s запрещён (%d).", configfile, errno);
             wait_synch();
             /* fall through to standard names */
         } else
@@ -268,8 +268,8 @@ fopen_config_file(const char *filename, int src)
 #if defined(UNIX) || defined(VMS)
         } else {
             /* access() above probably caught most problems for UNIX */
-            raw_printf("Couldn't open requested config file %s (%d).",
-                       configfile, errno);
+            raw_printf("Не удаётся открыть запрошенный файл"
+                       " конфигурации %s (%d).", configfile, errno);
             wait_synch();
 #endif
         }
@@ -362,8 +362,8 @@ fopen_config_file(const char *filename, int src)
         if ((details = strerror(errno)) == 0)
 #endif
             details = "";
-        raw_printf("Couldn't open default config file %s %s(%d).",
-                   configfile, details, errno);
+        raw_printf("Не удаётся открыть файл конфигурации"
+                   " по умолчанию %s %s(%d).", configfile, details, errno);
         wait_synch();
     }
 #endif /* !VMS => Unix */
@@ -428,7 +428,7 @@ get_uchars(char *bufp,       /* current pointer */
 
         default:
  gi_error:
-            raw_printf("Syntax error in %s", name);
+            raw_printf("Синтаксическая ошибка в %s", name);
             wait_synch();
             return count;
         }
@@ -2063,7 +2063,7 @@ assure_syscf_file(void)
     if (gd.deferred_showpaths)
         do_deferred_showpaths(1); /* does not return */
 #endif
-    raw_printf("Unable to open SYSCF_FILE.\n");
+    raw_printf("Не удаётся открыть SYSCF_FILE.\n");
     exit(EXIT_FAILURE);
 }
 

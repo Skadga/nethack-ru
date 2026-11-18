@@ -323,7 +323,7 @@ early_options(int *argc_p, char ***argv_p, char **hackdir_p)
                 if (nextarg[0] != '-') {
                     (void) strncpy(svp.plname, nextarg, sizeof(svp.plname) - 1);
                 } else {
-                    raw_print("Player name expected after -u\n");
+                    raw_print("После -u ожидается имя игрока\n");
                 }
             }
 #endif
@@ -512,8 +512,8 @@ argcheck(int argc, char *argv[], enum earlyarg e_arg)
                     dump_version_info();
                     return 2; /* done */
                 } else if (!match_optname(extended_opt, "show", 4, FALSE)) {
-                    raw_printf("-%sversion can only be extended with"
-                               " -%sversion:copy or :dump or :show.\n",
+                    raw_printf("-%sversion можно расширить только как"
+                               " -%sversion:copy, :dump или :show.\n",
                                dashdash, dashdash);
                     /* exit after we've reported bad command line argument */
                     return 2;

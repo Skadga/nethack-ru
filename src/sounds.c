@@ -1525,8 +1525,9 @@ tiphat(void)
             int which = !Deaf ? rn2(3) : rn1(2, 1),
                 twice = (Deaf || which > 0 || rn2(3)) ? 0 : rn1(2, 1);
 
-            pline("%s %s%s%s at you...", Monnam(mtmp), reaction[which],
-                  twice ? " и " : "", twice ? reaction[twice] : "");
+            pline("%s %s%s%s в вашу сторону...", Monnam(mtmp),
+                  reaction[which], twice ? " и " : "",
+                  twice ? reaction[twice] : "");
         } else if (next2u(x, y) && !Deaf && domonnoise(mtmp)) {
             if (!vismon)
                 map_invisible(x, y);

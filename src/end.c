@@ -400,7 +400,7 @@ panic VA_DECL(const char *, str)
 
     gb.bot_disabled = TRUE;
     if (iflags.window_inited) {
-        raw_print("\r\nOops...");
+        raw_print("\r\nОй...");
         wait_synch(); /* make sure all pending output gets flushed */
         if (soundprocs.sound_exit_nhsound)
             (*soundprocs.sound_exit_nhsound)("panic");
@@ -409,32 +409,32 @@ panic VA_DECL(const char *, str)
     }
 
     raw_print(program_state.gameover
-                  ? "Postgame wrapup disrupted."
+                  ? "Подведение итогов игры прервано."
                   : !program_state.something_worth_saving
-                        ? "Program initialization has failed."
-                        : "Suddenly, the dungeon collapses.");
+                        ? "Инициализация программы не удалась."
+                        : "Внезапно подземелье обрушивается.");
 #ifndef MICRO
 #ifdef NOTIFY_NETHACK_BUGS
     if (!wizard)
-        raw_printf("Report the following error to \"%s\" or at \"%s\".",
+        raw_printf("Сообщите об этой ошибке на \"%s\" или на \"%s\".",
                    DEVTEAM_EMAIL, DEVTEAM_URL);
     else if (program_state.something_worth_saving)
-        raw_print("\nError save file being written.\n");
+        raw_print("\nОшибка при записи файла сохранения.\n");
 #else /* !NOTIFY_NETHACK_BUGS */
     if (!wizard) {
         const char *maybe_rebuild = !program_state.something_worth_saving
                                      ? "."
-                                     : "\nand it may be possible to rebuild.";
+                                     : "\nи, возможно, игру удастся восстановить.";
 
 // XXX this may need an update if defined(CRASHREPORT) TBD
         if (sysopt.support)
-            raw_printf("To report this error, %s%s", sysopt.support,
-                       maybe_rebuild);
+            raw_printf("Чтобы сообщить об этой ошибке, %s%s",
+                       sysopt.support, maybe_rebuild);
         else if (sysopt.fmtd_wizard_list) /* formatted SYSCF WIZARDS */
-            raw_printf("To report this error, contact %s%s",
+            raw_printf("Чтобы сообщить об этой ошибке, свяжитесь с %s%s",
                        sysopt.fmtd_wizard_list, maybe_rebuild);
         else
-            raw_printf("Report error to \"%s\"%s", WIZARD_NAME,
+            raw_printf("Сообщите об ошибке на \"%s\"%s", WIZARD_NAME,
                        maybe_rebuild);
     }
 #endif /* ?NOTIFY_NETHACK_BUGS */

@@ -957,8 +957,9 @@ do_symset(boolean rogueflag)
                 big_desc = thissize;
         }
         if (!setcount) {
-            There("are no appropriate %s symbol sets available.",
-                  rogueflag ? "rogue level" : "primary");
+            There(rogueflag
+                      ? "нет подходящих наборов символов для уровня rogue."
+                      : "нет подходящих основных наборов символов.");
             return TRUE;
         }
 

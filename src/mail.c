@@ -623,8 +623,8 @@ read_simplemail(const char *mbox, boolean adminmsg)
             fl.l_type = F_UNLCK;
             fcntl(fileno(mb), F_UNLCK, &fl);
 #endif
-            There("is a%s message on this scroll.",
-                  seen_one_already ? "nother" : "");
+            There("%s сообщение на этом свитке.",
+                  seen_one_already ? "ещё одно" : "есть");
         }
         msg = strchr(curline, ':');
 

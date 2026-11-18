@@ -209,6 +209,7 @@ explode(
     boolean visible, any_shield;
     int uhurt = 0; /* 0=unhurt, 1=items damaged, 2=you and items damaged */
     const char *str = (const char *) 0;
+    boolean str_gen = FALSE; /* str is genitive "взрыва <монстр>" */
     struct monst *mtmp, *mdef = 0;
     uchar adtyp;
     int explmask[3][3]; /* 0=normal explosion, 1=do shieldeff, 2=do nothing */
@@ -299,9 +300,8 @@ explode(
         /* when explode() is called recursively, svk.killer.name might change
            so retain a copy of the current value for this explosion */
         str = strcpy(killr_buf, svk.killer.name);
-        do_hallu = (Hallucination
-                    && (strstri(str, "'s explosion")
-                        || strstri(str, "s' explosion")));
+        str_gen = TRUE;
+        do_hallu = (Hallucination && strstri(str, "взрыва "));
     }
     if (type == PHYS_EXPL_TYPE) {
         /* currently only gas spores */
@@ -313,34 +313,35 @@ explode(
 
         switch (abs(type) % 10) {
         case 0:
-            adstr = "magical blast";
+            adstr = "магический взрыв";
             adtyp = AD_MAGM;
             break;
         case 1:
-            adstr = (olet == BURNING_OIL) ? "burning oil"
-                     : (olet == SCROLL_CLASS) ? "tower of flame" : "fireball";
+            adstr = (olet == BURNING_OIL) ? "горящая нефть"
+                     : (olet == SCROLL_CLASS) ? "башня пламени"
+                                              : "огненный шар";
             /* fire damage, not physical damage */
             adtyp = AD_FIRE;
             break;
         case 2:
-            adstr = "ball of cold";
+            adstr = "шар холода";
             adtyp = AD_COLD;
             break;
         case 4:
-            adstr = (olet == WAND_CLASS) ? "death field"
-                                         : "disintegration field";
+            adstr = (olet == WAND_CLASS) ? "поле смерти"
+                                         : "поле дезинтеграции";
             adtyp = AD_DISN;
             break;
         case 5:
-            adstr = "ball of lightning";
+            adstr = "шар молнии";
             adtyp = AD_ELEC;
             break;
         case 6:
-            adstr = "poison gas cloud";
+            adstr = "облако ядовитого газа";
             adtyp = AD_DRST;
             break;
         case 7:
-            adstr = "splash of acid";
+            adstr = "брызги кислоты";
             adtyp = AD_ACID;
             break;
         default:
@@ -438,7 +439,7 @@ explode(
         tmp_at(DISP_END, 0); /* clear the explosion */
     } else {
         if (olet == MON_EXPLODE || olet == TRAP_EXPLODE) {
-            str = "explosion";
+            str = "взрыв";
             generic = TRUE;
         }
         if (!Deaf && olet != SCROLL_CLASS) {
@@ -493,13 +494,16 @@ explode(
                     Sprintf(hallu_buf, "взрыв %s",
                             mon_gen_nom(rndmonnam((char *) 0), BP_GEN));
                     str = hallu_buf;
+                    str_gen = FALSE;
                 }
                 if (engulfing_u(mtmp)) {
                     engulfer_explosion_msg(adtyp, olet);
                 } else if (cansee(xx, yy)) {
                     if (mtmp->m_ap_type)
                         seemimic(mtmp);
-                    pline("%s попал в %s!", Monnam(mtmp), str);
+                    pline(str_gen ? "%s попал под удар взрыва!"
+                                  : "%s попал под удар (%s)!",
+                          Monnam(mtmp), str);
                 }
 
                 itemdmg = destroy_items(mtmp, (int) adtyp, dam);
@@ -528,7 +532,10 @@ explode(
                     if (resist(mtmp, olet, 0, FALSE)) {
                         /* inside_engulfer: <xx,yy> == <u.ux,u.uy> */
                         if (cansee(xx, yy) || inside_engulfer)
-                            pline("%s resists the %s!", Monnam(mtmp), str);
+                            pline(str_gen
+                                      ? "%s сопротивляется взрыву!"
+                                      : "%s сопротивляется (%s)!",
+                                  Monnam(mtmp), str);
                         mdam = (dam + 1) / 2;
                     }
                     /* if grabber is reaching into hero's spot and
@@ -590,8 +597,10 @@ explode(
                 Sprintf(hallu_buf, "взрыв %s",
                         mon_gen_nom(rndmonnam((char *) 0), BP_GEN));
                 str = hallu_buf;
+                str_gen = FALSE;
             }
-            You("попали в %s!", str);
+            You(str_gen ? "попали под удар взрыва!"
+                        : "попали под удар (%s)!", str);
             iflags.last_msg = PLNMSG_CAUGHT_IN_EXPLOSION;
         }
         /* do property damage first, in case we end up leaving bones */
@@ -643,25 +652,26 @@ explode(
                 } else if (olet == TRAP_EXPLODE) {
                     svk.killer.format = NO_KILLER_PREFIX;
                     Snprintf(svk.killer.name, sizeof svk.killer.name,
-                             "caught %sself in a %s", uhim(),
-                             str);
+                             generic ? "погиб от взрыва"
+                                     : "погиб от взрыва (%s)", str);
                 } else if (type >= 0 && olet != SCROLL_CLASS) {
                     svk.killer.format = NO_KILLER_PREFIX;
                     Snprintf(svk.killer.name, sizeof svk.killer.name,
-                             "caught %sself in %s own %s", uhim(),
-                             uhis(), str);
+                             generic ? "погиб от собственного взрыва"
+                                     : "погиб от собственного взрыва (%s)",
+                             str);
                 } else {
-                    svk.killer.format = (!strcmpi(str, "tower of flame")
-                                     || !strcmpi(str, "fireball"))
-                                        ? KILLED_BY_AN
-                                        : KILLED_BY;
-                    Strcpy(svk.killer.name, str);
+                    svk.killer.format = NO_KILLER_PREFIX;
+                    Snprintf(svk.killer.name, sizeof svk.killer.name,
+                             generic ? "погиб от взрыва"
+                                     : "погиб от взрыва (%s)", str);
                 }
                 if (iflags.last_msg == PLNMSG_CAUGHT_IN_EXPLOSION
                     || iflags.last_msg == PLNMSG_TOWER_OF_FLAME) /*seffects()*/
                     pline("Это смертельно.");
                 else
-                    pline_The("%s is fatal.", str);
+                    pline(str_gen ? "Смертельно."
+                                  : "Смертельно: %s.", str);
                 /* Known BUG: BURNING suppresses corpse in bones data,
                    but done does not handle killer reason correctly */
                 done((adtyp == AD_FIRE) ? BURNING : DIED);
@@ -1048,7 +1058,7 @@ mon_explodes(
 
     /* This might end up killing you, too; you never know...
      * also, it is used in explode() messages */
-    Sprintf(svk.killer.name, "взрыв %s",
+    Sprintf(svk.killer.name, "взрыва %s",
             mon_gen(mon, BP_GEN));
     svk.killer.format = KILLED_BY_AN;
 

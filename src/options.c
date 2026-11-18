@@ -7367,8 +7367,8 @@ initoptions_finish(void)
      * is even initialized, so check for that too.
      */
     if (iflags.hilite_delta && !wc2_supported("statushilites")) {
-        raw_printf("Status highlighting not supported for %s interface.",
-                    windowprocs.name);
+        raw_printf("Подсветка статуса не поддерживается"
+                    " для интерфейса %s.", windowprocs.name);
         iflags.hilite_delta = 0;
     }
 #endif

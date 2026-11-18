@@ -702,7 +702,7 @@ topten(int how, time_t when)
 #ifdef LOGFILE /* used for debugging (who dies of what, where) */
     if (lock_file(LOGFILE, SCOREPREFIX, 10)) {
         if (!(lfile = fopen_datafile(LOGFILE, "a", SCOREPREFIX))) {
-            HUP raw_print("Cannot open log file!");
+            HUP raw_print("Не удаётся открыть файл журнала!");
         } else {
             writeentry(lfile, t0);
             (void) fclose(lfile);
@@ -713,7 +713,7 @@ topten(int how, time_t when)
 #ifdef XLOGFILE
     if (lock_file(XLOGFILE, SCOREPREFIX, 10)) {
         if (!(xlfile = fopen_datafile(XLOGFILE, "a", SCOREPREFIX))) {
-            HUP raw_print("Cannot open extended log file!");
+            HUP raw_print("Не удаётся открыть расширенный файл журнала!");
         } else {
             writexlentry(xlfile, t0, how);
             (void) fclose(xlfile);
@@ -746,7 +746,7 @@ topten(int how, time_t when)
 #endif
 
     if (!rfile) {
-        HUP raw_print("Cannot open record file!");
+        HUP raw_print("Не удаётся открыть файл рекордов!");
         unlock_file(RECORD);
         goto destroywin;
     }
@@ -819,7 +819,7 @@ topten(int how, time_t when)
 #else
         (void) fclose(rfile);
         if (!(rfile = fopen_datafile(RECORD, "w", SCOREPREFIX))) {
-            HUP raw_print("Cannot write record file");
+            HUP raw_print("Не удаётся записать файл рекордов");
             unlock_file(RECORD);
             free_ttlist(tt_head);
             goto destroywin;
@@ -1223,13 +1223,13 @@ prscore(int argc, char **argv)
            : Strlen(argv[1]);
     if (ln < 2 || (strncmp(argv[1], "-s", 2)
                    && strcmp(argv[1], "--scores"))) {
-        raw_printf("prscore: bad arguments (%d)", argc);
+        raw_printf("prscore: неверные аргументы (%d)", argc);
         return;
     }
 
     rfile = fopen_datafile(RECORD, "r", SCOREPREFIX);
     if (!rfile) {
-        raw_print("Cannot open record file!");
+        raw_print("Не удаётся открыть файл рекордов!");
         return;
     }
 
