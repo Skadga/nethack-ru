@@ -475,7 +475,6 @@ describe_level(
     }
     if (addbranch) {
         Sprintf(eos(buf), ", %s", svd.dungeons[u.uz.dnum].dname);
-        (void) strsubst(buf, "The ", "the ");
     }
     if (addspace)
         Strcat(buf, " ");

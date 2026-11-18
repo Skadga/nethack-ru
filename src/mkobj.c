@@ -1663,9 +1663,6 @@ shrink_glob(
 
         if (seeit) {
             newsym(ox, oy);
-            if ((ox != u.ux || oy != u.uy) && !strncmp(globnambuf, "The ", 4))
-                /* fortunately none of the glob adjectives warrant "An " */
-                (void) strsubst(globnambuf, "The ", "A ");
             /* again, quantity is always 1 so no need for otense()/vtense() */
             pline("%s исчезает.", globnambuf);
         }

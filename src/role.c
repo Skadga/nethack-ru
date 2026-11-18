@@ -1600,10 +1600,6 @@ build_plselection_prompt(
 
     (void) root_plselection_prompt(eos(tmpbuf), buflen - Strlen(tmpbuf),
                                    rolenum, racenum, gendnum, alignnum);
-    /* "Shall I pick a character's role, race, gender, and alignment for you?"
-       plus " [ynaq] (y)" is a little too long for a conventional 80 columns;
-       also, "pick a character's <anything>" sounds a bit stilted */
-    strsubst(tmpbuf, "pick a character", "pick character");
     Strcpy(buf, tmpbuf); /* RU translation: no possessive */
     /* don't bother splitting caveman/cavewoman or priest/priestess
        in order to apply possessive suffix to both halves, but do

@@ -195,8 +195,9 @@ stairs_description(
     const char *stairs, *updown;
 
     tolev = sway->tolev;
-    stairs = sway->isladder ? "ladder" : stcase ? "staircase" : "stairs";
-    updown = sway->up ? "up" : "down";
+    /* RU: "лестница" covers both staircase and ladder */
+    stairs = sway->isladder ? "лестница" : stcase ? "лестница" : "ступени";
+    updown = sway->up ? "вверх" : "вниз";
 
     if (!known_branch_stairs(sway)) {
         /* ordinary stairs or branch stairs to not-yet-visited branch */
@@ -206,7 +207,7 @@ stairs_description(
                                     || single_level_branch(&tolev)); /* knox */
             int to_dlev = specialdepth ? dunlev(&tolev) : depth(&tolev);
 
-            Sprintf(eos(outbuf), " to level %d", to_dlev);
+            Sprintf(eos(outbuf), " на уровень %d", to_dlev);
         }
     } else if (u.uz.dnum == 0 && u.uz.dlevel == 1 && sway->up) {
         /* stairs up from level one are a special case; they are marked
@@ -214,22 +215,20 @@ stairs_description(
            the game by coming down them, but the remote side varies
            depending on whether the Amulet is being carried */
         Sprintf(outbuf, "%s%s %s %s",
-                !u.uhave.amulet ? "" : "branch ",
+                !u.uhave.amulet ? "" : "ответвление: ",
                 stairs, updown,
-                !u.uhave.amulet ? "out of the dungeon"
+                !u.uhave.amulet ? "из подземелья"
                 /* minimize our expectations about what comes next */
                 : (on_level(&tolev, &earth_level)
                    || on_level(&tolev, &air_level)
                    || on_level(&tolev, &fire_level)
                    || on_level(&tolev, &water_level))
-                  ? "to the Elemental Planes"
-                  : "to the end game");
+                  ? "к Стихийным Планам"
+                  : "к финалу игры");
     } else {
         /* known branch stairs; tacking on destination level is too verbose */
-        Sprintf(outbuf, "branch %s %s to %s",
+        Sprintf(outbuf, "ветка: %s %s (%s)",
                 stairs, updown, svd.dungeons[tolev.dnum].dname);
-        /* dungeons[].dname is capitalized; undo that for "The <Branch>" */
-        (void) strsubst(outbuf, "The ", "the ");
     }
     return outbuf;
 }

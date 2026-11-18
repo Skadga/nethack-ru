@@ -152,11 +152,11 @@ formatkiller(
     if (incl_helpless && gm.multi < 0) {
         /* X <= siz: 'sizeof "string"' includes 1 for '\0' terminator */
         if (gm.multi_reason
-            && strlen(gm.multi_reason) + sizeof ", while " <= siz)
-            Sprintf(buf, ", while %s", gm.multi_reason);
+            && strlen(gm.multi_reason) + sizeof ", " <= siz)
+            Sprintf(buf, ", %s", gm.multi_reason);
         /* either gm.multi_reason wasn't specified or wouldn't fit */
-        else if (sizeof ", while helpless" <= siz)
-            Strcpy(buf, ", while helpless");
+        else if (sizeof ", в беспомощном состоянии" <= siz)
+            Strcpy(buf, ", в беспомощном состоянии");
         /* else extra death info won't fit, so leave it out */
     }
 }
@@ -945,7 +945,7 @@ DISABLE_WARNING_FORMAT_NONLITERAL
 staticfn void
 outentry(int rank, struct toptenentry *t1, boolean so)
 {
-    boolean second_line = TRUE;
+    boolean second_line = TRUE, ru_death = FALSE;
     char linebuf[BUFSZ];
     char *bp, hpbuf[24], linebuf3[BUFSZ];
     int hppos, lngr;
@@ -971,7 +971,8 @@ outentry(int rank, struct toptenentry *t1, boolean so)
     else
         Strcat(linebuf, " ");
     if (!strncmp("escaped", t1->death, 7)) {
-        Sprintf(eos(linebuf), "escaped the dungeon %s[max level %d]",
+        Sprintf(eos(linebuf), "%s из подземелья %s[макс. уровень %d]",
+                (t1->plgend[0] == 'F') ? "сбежала" : "сбежал",
                 !strncmp(" (", t1->death + 7, 2) ? t1->death + 7 + 2 : "",
                 t1->maxlvl);
         /* fixup for closing paren in "escaped... with...Amulet)[max..." */
@@ -979,59 +980,73 @@ outentry(int rank, struct toptenentry *t1, boolean so)
             *bp = (t1->deathdnum == astral_level.dnum) ? '\0' : ' ';
         second_line = FALSE;
     } else if (!strncmp("ascended", t1->death, 8)) {
-        Sprintf(eos(linebuf), "ascended to demigod%s-hood",
-                (t1->plgend[0] == 'F') ? "dess" : "");
+        Strcat(linebuf, (t1->plgend[0] == 'F')
+                        ? "вознеслась до полубога" : "вознёсся до полубога");
         second_line = FALSE;
     } else {
         if (!strncmp(t1->death, "quit", 4)) {
-            Strcat(linebuf, "quit");
+            Strcat(linebuf, "вышел из игры");
             second_line = FALSE;
         } else if (!strncmp(t1->death, "died of st", 10)) {
-            Strcat(linebuf, "starved to death");
+            Strcat(linebuf, "умер от голода");
             second_line = FALSE;
         } else if (!strncmp(t1->death, "choked", 6)) {
-            Sprintf(eos(linebuf), "choked on h%s food",
-                    (t1->plgend[0] == 'F') ? "er" : "is");
+            Strcat(linebuf, (t1->plgend[0] == 'F')
+                            ? "подавилась едой" : "подавился едой");
         } else if (!strncmp(t1->death, "poisoned", 8)) {
-            Strcat(linebuf, "was poisoned");
+            Strcat(linebuf, (t1->plgend[0] == 'F')
+                            ? "была отравлена" : "был отравлен");
         } else if (!strncmp(t1->death, "crushed", 7)) {
-            Strcat(linebuf, "was crushed to death");
+            Strcat(linebuf, (t1->plgend[0] == 'F')
+                            ? "раздавлена" : "раздавлен");
         } else if (!strncmp(t1->death, "petrified by ", 13)) {
-            Strcat(linebuf, "turned to stone");
+            Strcat(linebuf, (t1->plgend[0] == 'F')
+                            ? "окаменела" : "окаменел");
+        } else if ((unsigned char) t1->death[0] >= 0x80) {
+            /* RU: the death phrase already contains the cause of death */
+            Strcat(linebuf, t1->death);
+            second_line = FALSE;
+            ru_death = TRUE;
+            if (t1->deathdnum != astral_level.dnum
+                && t1->deathdnum != knox_level.dnum)
+                Sprintf(eos(linebuf), " на уровне %d", t1->deathlev);
         } else
-            Strcat(linebuf, "died");
+            Strcat(linebuf, (t1->plgend[0] == 'F') ? "погибла" : "погиб");
 
-        if (t1->deathdnum == astral_level.dnum) {
-            const char *arg, *fmt = " on the Plane of %s";
+        if (!ru_death) {
+            if (t1->deathdnum == astral_level.dnum) {
+                const char *arg, *fmt = " на плане %s";
 
-            switch (t1->deathlev) {
-            case -5:
-                fmt = " on the %s Plane";
-                arg = "Astral";
-                break;
-            case -4:
-                arg = "Water";
-                break;
-            case -3:
-                arg = "Fire";
-                break;
-            case -2:
-                arg = "Air";
-                break;
-            case -1:
-                arg = "Earth";
-                break;
-            default:
-                arg = "Void";
-                break;
+                switch (t1->deathlev) {
+                case -5:
+                    fmt = " на %s плане";
+                    arg = "Астральном";
+                    break;
+                case -4:
+                    arg = "Водном";
+                    break;
+                case -3:
+                    arg = "Огненном";
+                    break;
+                case -2:
+                    arg = "Воздушном";
+                    break;
+                case -1:
+                    arg = "Земляном";
+                    break;
+                default:
+                    arg = "Пустоты";
+                    break;
+                }
+                Sprintf(eos(linebuf), fmt, arg);
+            } else {
+                Sprintf(eos(linebuf), " в %s",
+                        svd.dungeons[t1->deathdnum].dname);
+                if (t1->deathdnum != knox_level.dnum)
+                    Sprintf(eos(linebuf), " на уровне %d", t1->deathlev);
+                if (t1->deathlev != t1->maxlvl)
+                    Sprintf(eos(linebuf), " [макс. %d]", t1->maxlvl);
             }
-            Sprintf(eos(linebuf), fmt, arg);
-        } else {
-            Sprintf(eos(linebuf), " in %s", svd.dungeons[t1->deathdnum].dname);
-            if (t1->deathdnum != knox_level.dnum)
-                Sprintf(eos(linebuf), " on level %d", t1->deathlev);
-            if (t1->deathlev != t1->maxlvl)
-                Sprintf(eos(linebuf), " [max %d]", t1->maxlvl);
         }
 
         /* kludge for "quit while already on Charon's boat" */

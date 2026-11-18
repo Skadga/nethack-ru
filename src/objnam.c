@@ -559,7 +559,7 @@ reorder_fruit(boolean forward)
     }
 }
 
-/* add "<pfx> called <sfx>" to end of buf, truncating if necessary */
+/* add "<pfx> под названием <sfx>" to end of buf, truncating if necessary */
 staticfn void
 xcalled(
     char *buf,       /* eos(obuf) or eos(&obuf[PREFIX]) */
@@ -568,13 +568,13 @@ xcalled(
     const char *sfx) /* user assigned type name */
 {
     int bufsiz = siz - 1 - (int) strlen(buf),
-        pfxlen = (int) (strlen(pfx) + sizeof " called " - sizeof "");
+        pfxlen = (int) (strlen(pfx) + strlen(" под названием "));
 
     if (pfxlen > bufsiz)
         panic("xcalled: not enough room for prefix (%d > %d)",
               pfxlen, bufsiz);
 
-    Sprintf(eos(buf), "%s called %.*s", pfx, bufsiz - pfxlen, sfx);
+    Sprintf(eos(buf), "%s под названием %.*s", pfx, bufsiz - pfxlen, sfx);
 }
 
 char *

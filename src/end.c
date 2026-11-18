@@ -275,9 +275,7 @@ done_in_by(struct monst *mtmp, int how)
     } else {
         Strcat(buf, pmname(mptr, Mgender(mtmp)));
         if (has_mgivenname(mtmp)) {
-            Sprintf(eos(buf), " %s %s",
-                    has_ebones(mtmp) ? "of" : "called",
-                    MGIVENNAME(mtmp));
+            Sprintf(eos(buf), " по имени %s", MGIVENNAME(mtmp));
         }
     }
 

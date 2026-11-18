@@ -3784,11 +3784,6 @@ print_mapseen(
                 /* disclosure occurs before bones creation, so listing dead
                    hero here doesn't give away whether bones are produced */
                 formatkiller(tmpbuf, sizeof tmpbuf, how, TRUE);
-                /* rephrase a few death reasons to work with "you" */
-                (void) strsubst(tmpbuf, " himself", " yourself");
-                (void) strsubst(tmpbuf, " herself", " yourself");
-                (void) strsubst(tmpbuf, " his ", " your ");
-                (void) strsubst(tmpbuf, " her ", " your ");
                 Snprintf(buf, sizeof(buf), "%s%sâû, %s%c", PREFIX, TAB,
                          tmpbuf, --kncnt ? ',' : '.');
                 add_menu_str(win, buf);
