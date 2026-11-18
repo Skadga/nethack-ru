@@ -207,7 +207,7 @@ doextversion(void)
         f = dlb_fopen(OPTIONS_USED, "r");
         if (!f) {
             putstr(win, 0, "");
-            Sprintf(buf, "[Configuration '%s' not available?]", OPTIONS_USED);
+            Sprintf(buf, "[Конфигурация '%s' недоступна?]", OPTIONS_USED);
             putstr(win, 0, buf);
             done_dlb = TRUE;
         }
@@ -306,7 +306,7 @@ early_version_info(boolean pastebuf)
          */
         port_insert_pastebuf(buf);
 #else
-        raw_printf("%s", "Paste buffer copy is not available.\n");
+        raw_printf("%s", "Копирование в буфер обмена недоступно.\n");
 #endif
     }
 }

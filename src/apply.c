@@ -604,14 +604,14 @@ magic_whistled(struct obj *obj)
                 mnam = y_monnam(mtmp);
                 if (oseen) {
                     if (++shift == 1)
-                        Sprintf(shiftbuf, "%s shifts location", mnam);
+                        Sprintf(shiftbuf, "%s перемещается", mnam);
                 } else {
                     if (++appear == 1)
-                        Sprintf(appearbuf, "%s appears", mnam);
+                        Sprintf(appearbuf, "%s появляется", mnam);
                 }
             } else if (oseen) {
                 if (++disappear == 1)
-                    Sprintf(disappearbuf, "%s disappears", mnam);
+                    Sprintf(disappearbuf, "%s исчезает", mnam);
             }
         }
     }
@@ -643,18 +643,18 @@ magic_whistled(struct obj *obj)
     } else {
         /* could use array of cardinal number names like wishcmdassist() but
            extra precision above 3 or 4 seems pedantic; not used for 0 or 1 */
-#define HowMany(n) (((n) < 2) ? "sqrt(-1)"          \
-                    : ((n) == 2) ? "two"            \
-                      : ((n) == 3) ? "three"        \
-                        : ((n) == 4) ? "four"       \
-                          : ((n) <= 7) ? "several"  \
-                            : "many")
+#define HowMany(n) (((n) < 2) ? "sqrt(-1)"           \
+                    : ((n) == 2) ? "двое"           \
+                      : ((n) == 3) ? "трое"          \
+                        : ((n) == 4) ? "четверо"     \
+                          : ((n) <= 7) ? "несколько" \
+                            : "много")
         /* magic whistle is already discovered so rloc() message(s)
            were suppressed above; if any discernible relocation occurred,
            construct a message now and issue it below */
         if (shift > 0) {
             if (shift > 1)
-                Sprintf(shiftbuf, "%s creatures shift locations",
+                Sprintf(shiftbuf, "%s существ перемещаются",
                         HowMany(shift));
             copynchars(buf, upstart(shiftbuf), (int) sizeof buf - 1);
         }
@@ -663,10 +663,10 @@ magic_whistled(struct obj *obj)
                 /* shift==0: N creatures appear;
                    shift==1: Foo shifts location and N other creatures appear;
                    shift >1: M creatures shift locations and N others appear */
-                Sprintf(appearbuf, "%s %s appear", HowMany(appear),
-                        (shift == 0) ? "creatures"
-                        : (shift == 1) ? "other creatures"
-                          : "others");
+                Sprintf(appearbuf, "%s %s появляются", HowMany(appear),
+                        (shift == 0) ? "существ"
+                        : (shift == 1) ? "других существ"
+                          : "других");
             if (shift == 0)
                 copynchars(buf, upstart(appearbuf), (int) sizeof buf - 1);
             else
@@ -675,18 +675,18 @@ magic_whistled(struct obj *obj)
                             so "shifters, appearers" if disappear != 0
                             with ", and disappearers" yet to be appended,
                             or "shifters and appearers" otherwise */
-                         disappear ? "," : " and", appearbuf);
+                         disappear ? "," : " и", appearbuf);
         }
         if (disappear > 0) {
             if (disappear > 1)
-                Sprintf(disappearbuf, "%s %s disappear", HowMany(disappear),
-                        (shift == 0 && appear == 0) ? "creatures"
-                        : (shift < 2 && appear < 2) ? "other creatures"
-                          : "others");
+                Sprintf(disappearbuf, "%s %s исчезают", HowMany(disappear),
+                        (shift == 0 && appear == 0) ? "существ"
+                        : (shift < 2 && appear < 2) ? "других существ"
+                          : "других");
             if (shift + appear == 0)
                 copynchars(buf, upstart(disappearbuf), (int) sizeof buf - 1);
             else
-                Snprintf(eos(buf), sizeof buf - strlen(buf), "%s and %s",
+                Snprintf(eos(buf), sizeof buf - strlen(buf), "%s и %s",
                          (shift && appear) ? "," : "", disappearbuf);
         }
     }
@@ -1136,9 +1136,8 @@ use_mirror(struct obj *obj)
         /* infravision doesn't produce an image in the mirror */
     } else if ((how_seen & SEENMON) == MONSEEN_INFRAVIS) {
         if (vis) /* (redundant) */
-            pline("%s в темноте.",
-                  monverbself(mtmp, Monnam(mtmp), "are",
-                              "too far away to see"));
+            pline("%s слишком далеко, чтобы разглядеть.",
+                  Monnam(mtmp));
         /* some monsters do special things */
     } else if (mlet == S_VAMPIRE || mlet == S_GHOST || is_vampshifter(mtmp)) {
         if (vis)

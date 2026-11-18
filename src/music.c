@@ -234,7 +234,7 @@ do_pit(coordxy x, coordxy y, unsigned tu_pit)
     if ((otmp = sobj_at(BOULDER, x, y)) != 0) {
         if (cansee(x, y))
             pline("КАДУМ!  Валун падает в пропасть%s!",
-                  u_at(x, y) ? " below you" : "");
+                  u_at(x, y) ? " прямо под вами" : "");
         if (mtmp)
             mtmp->mtrapped = 0;
         obj_extract_self(otmp);

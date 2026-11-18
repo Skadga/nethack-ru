@@ -4835,13 +4835,13 @@ optfn_windowborders(
     }
     if (req == get_val) {
         Sprintf(opts, "%s",
-                (iflags.wc2_windowborders == 0) ? "0=off"
-                : (iflags.wc2_windowborders == 1) ? "1=on"
-                  : (iflags.wc2_windowborders == 2) ? "2=auto"
+                (iflags.wc2_windowborders == 0) ? "0=выкл"
+                : (iflags.wc2_windowborders == 1) ? "1=вкл"
+                  : (iflags.wc2_windowborders == 2) ? "2=авто"
                     : (iflags.wc2_windowborders == 3)
-                      ? "3=on, except off for perm_invent"
+                      ? "3=вкл, кроме perm_invent"
                       : (iflags.wc2_windowborders == 4)
-                        ? "4=auto, except off for perm_invent"
+                        ? "4=авто, кроме perm_invent"
                         : defopt);
         return optn_ok;
     }

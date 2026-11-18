@@ -1286,17 +1286,20 @@ lookaround_known_room(coordxy x, coordxy y)
 
     if (u_have_seen_whole_selection(sel)) {
         boolean u_in = (boolean) selection_getpoint(x, y, sel);
+        const char *place = (rmno >= 0) ? "комната" : "область";
 
-        You("%s %s %s.",
-            u_at(x, y) && u_in && u_can_see_whole_selection(sel) ? "находитесь в"
-            : (u_at(x, y)) ? "помните это как" : "помните то как",
-            an(selection_size_description(sel, qbuf)),
-            rmno >= 0 ? "комната" : "область");
+        if (u_at(x, y) && u_in && u_can_see_whole_selection(sel))
+            You("находитесь в %s %s.", noun_case(place, BP_PREP),
+                selection_size_description(sel, qbuf));
+        else
+            You("помните %s как %s %s.", u_at(x, y) ? "это" : "то",
+                noun_case(place, BP_ACC),
+                selection_size_description(sel, qbuf));
     } else if (u_have_seen_bounds_selection(sel)) {
-        You("предполагаете, что %s является %s %s.",
+        You("предполагаете, что %s — %s %s.",
             u_at(x, y) ? "это" : "то",
-            an(selection_size_description(sel, qbuf)),
-            rmno >= 0 ? "комната" : "область");
+            rmno >= 0 ? "комната" : "область",
+            selection_size_description(sel, qbuf));
     } else {
         You("не можете предположить размер %s области.",
             u_at(x, y) ? "этой" : "той");
@@ -4213,7 +4216,7 @@ help_dir(
     if (!viawindow) {
         if (prefixhandling) {
             if (!*buf)
-                Sprintf(buf, "Invalid direction for '%s' prefix.",
+                Sprintf(buf, "Недопустимое направление для префикса '%s'.",
                         visctrl(spkey));
             pline("%s", buf);
             return TRUE;

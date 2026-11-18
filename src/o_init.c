@@ -635,11 +635,11 @@ choose_disco_sort(
            chosen sort will stick and also apply to '\' usage */
         add_menu_str(tmpwin, "");
         add_menu_str(tmpwin,
-                     "Note: full alphabetical and alphabetical within class");
+                     "ѕримечание: полный алфавитный пор€док и алфавитный");
         add_menu_str(tmpwin,
-                     "      are equivalent for single class discovery, but");
+                     "      внутри класса совпадают дл€ открытий одного");
         add_menu_str(tmpwin,
-                    "      will matter for future use of total discoveries.");
+                     "      класса, но повли€ют на общий список открытий.");
     }
     end_menu(tmpwin, "ѕор€док открытий");
 

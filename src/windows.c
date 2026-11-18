@@ -311,7 +311,7 @@ choose_windows(const char *s)
 
     if (!winchoices[1].procs) {
         config_error_add(
-                     "Window type %s not recognized.  The only choice is: %s",
+                     "Тип окна %s не распознан. Единственный вариант: %s",
                          s, winchoices[0].procs->name);
     } else {
         char buf[BUFSZ];
@@ -327,7 +327,7 @@ choose_windows(const char *s)
                     first ? "" : ", ", winchoices[i].procs->name);
             first = FALSE;
         }
-        config_error_add("Window type %s not recognized.  Choices are:  %s",
+        config_error_add("Тип окна %s не распознан. Варианты: %s",
                          s, buf);
     }
     if (tmps)

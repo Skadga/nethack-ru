@@ -769,11 +769,10 @@ selection_size_description(struct selectionvar *sel, char *buf)
     selection_getbounds(sel, &rect);
     dx = rect.hx - rect.lx + 1;
     dy = rect.hy - rect.ly + 1;
-    Sprintf(buf, "%s %i by %i",
-            selection_is_irregular(sel) ? "irregularly shaped"
-            : (dx == dy) ? "square"
-              : "rectangular",
-            dx, dy);
+    Sprintf(buf, "размером %i на %i (%s)", dx, dy,
+            selection_is_irregular(sel) ? "неправильной формы"
+            : (dx == dy) ? "квадратная"
+              : "прямоугольная");
     return buf;
 }
 
