@@ -579,22 +579,22 @@ eating_conducts(struct permonst *pd)
     int ll_conduct = 0;
 
     if (!u.uconduct.food++) {
-        livelog_printf(LL_CONDUCT, "ate for the first time - %s",
-                       pd->pmnames[NEUTRAL]);
+        livelog_printf(LL_CONDUCT, "впервые съел - %s",
+                       pmname(pd, NEUTRAL));
         ll_conduct++;
     }
     if (!vegan(pd)) {
         if (!u.uconduct.unvegan++ && !ll_conduct) {
             livelog_printf(LL_CONDUCT,
-                           "consumed animal products (%s) for the first time",
-                           pd->pmnames[NEUTRAL]);
+                           "впервые употребил продукты животного происхождения (%s)",
+                           pmname(pd, NEUTRAL));
             ll_conduct++;
         }
     }
     if (!vegetarian(pd)) {
         if (!u.uconduct.unvegetarian && !ll_conduct)
-            livelog_printf(LL_CONDUCT, "tasted meat (%s) for the first time",
-                           pd->pmnames[NEUTRAL]);
+            livelog_printf(LL_CONDUCT, "впервые попробовал мясо (%s)",
+                           pmname(pd, NEUTRAL));
         violated_vegetarian();
     }
 }
@@ -1201,7 +1201,7 @@ cpostfx(int pm)
 
             if (!u.uconduct.polyselfs++) /* you're changing form */
                 livelog_printf(LL_CONDUCT,
-                            "changed form for the first time by mimicking %s",
+                            "впервые изменил форму, притворившись %s",
                                tempshape);
             You("не выдерживаете соблазна стать %s.", tempshape);
             /* A pile of gold can't ride. */
@@ -1678,7 +1678,7 @@ consume_tin(const char *mesg)
          */
         /* don't need vegetarian checks for spinach */
         if (!u.uconduct.food++)
-            livelog_printf(LL_CONDUCT, "ate for the first time (spinach)");
+            livelog_printf(LL_CONDUCT, "впервые съел (шпинат)");
         if (!tin->cursed)
             pline("Теперь вы чувствуете себя как %s!",
                   /* "Сладкий Горошек" is a character from the Popeye cartoons */

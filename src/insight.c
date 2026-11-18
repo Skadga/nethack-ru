@@ -2532,7 +2532,7 @@ record_achievement(schar achidx)
 
     if (absidx >= ACH_RNK1 && absidx <= ACH_RNK8) {
         livelog_printf(achieve_msg[absidx].llflag,
-                       "attained the rank of %s (level %d)",
+                       "получил звание %s (уровень %d)",
                        rank_of(rank_to_xlev(absidx - (ACH_RNK1 - 1)),
                                Role_switch, (achidx < 0) ? TRUE : FALSE),
                        u.ulevel);
