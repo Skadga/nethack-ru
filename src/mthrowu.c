@@ -913,26 +913,27 @@ return_from_mtoss(
                 if (canseemon(magr)) {
                     if (mlevitating)
                         pline("%s к %s, приземляясь под %s %s.",
-                              Tobjnam(otmp, "возвращается"), mon_nam(magr),
-                              mhis(magr),
+                              Tobjnam(otmp, "возвращается"),
+                              mon_gen(magr, BP_DAT), mhis(magr),
                               mbodypart_case(magr, FOOT, BP_INS | BP_PLURAL));
                     else
                         pline("%s к %s, приземляясь у %s %s.",
-                              Tobjnam(otmp, "возвращается"), mon_nam(magr),
-                              mhis(magr),
+                              Tobjnam(otmp, "возвращается"),
+                              mon_gen(magr, BP_DAT), mhis(magr),
                               mbodypart_case(magr, FOOT, BP_GEN | BP_PLURAL));
                 } else if (!Deaf) {
-                    You_hear("%s падает возле %s.", Something, mon_nam(magr));
+                    You_hear("%s падает возле %s.", Something,
+                             mon_gen(magr, BP_GEN));
                 }
             } else {
                 dmg += rnd(3);
                 if (canseemon(magr)) {
                     pline("%s обратно к %s, попадая %s в %s!",
-                          Tobjnam(otmp, "летит"), mon_nam(magr),
+                          Tobjnam(otmp, "летит"), mon_gen(magr, BP_DAT),
                           mhim(magr), mbodypart_case(magr, ARM, BP_ACC));
                 } else if (!Deaf) {
                     You_hear("%s со стуком попадает в %s!", something,
-                             mon_nam(magr));
+                             mon_gen(magr, BP_ACC));
                 }
                 hits_thrower = TRUE;
             }

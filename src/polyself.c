@@ -1706,7 +1706,8 @@ dogaze(void)
                  */
                 if (adtyp == AD_CONF) {
                     if (!mtmp->mconf)
-                        Your("Ваш взгляд сбивает с толку %s!", mon_nam(mtmp));
+                        Your("Ваш взгляд сбивает с толку %s!",
+                             mon_gen(mtmp, BP_ACC));
                     else
                         pline("%s становится всё более и более сбитым с толку.",
                               Monnam(mtmp));

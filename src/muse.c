@@ -2573,11 +2573,12 @@ use_misc(struct monst *mtmp)
                                              ? BP_GEN | BP_PLURAL
                                              : BP_GEN));
             if (obj->otyp == HEAVY_IRON_BALL) {
-                pline("%s не удаётся обвиться вокруг %s.", The_whip, the_weapon);
+                pline("%s не удаётся обвиться вокруг %s.", The_whip,
+                      ru_noun_case(xname(obj), BP_GEN));
                 return 1;
             }
-            urgent_pline("%s обвивается вокруг %s, который вы держите!", The_whip,
-                         the_weapon);
+            urgent_pline("%s обвивается вокруг %s!", The_whip,
+                         ru_noun_case(xname(obj), BP_GEN));
             if (welded(obj)) {
                 pline("%s приварен к вашему %s%c",
                       !is_plural(obj) ? "Он" : "Они",

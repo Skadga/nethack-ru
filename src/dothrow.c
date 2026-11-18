@@ -813,7 +813,8 @@ hurtle_step(genericptr_t arg, coordxy x, coordxy y)
             You("врезаетесь в железные пруть€.  ќй!");
         } else if ((obj = sobj_at(BOULDER, x, y)) != 0) {
             why = "удар о валун";
-            You("удар€етесь о %s.  ќй!", xname(obj));
+            You("удар€етесь о %s.  ќй!",
+                ru_noun_case(xname(obj), BP_ACC));
         }  else if (!may_pass) {
             /* did we hit a no-dig non-wall position? */
             why = "касание кра€ вселенной";
@@ -1025,7 +1026,8 @@ mhurtle_step(genericptr_t arg, coordxy x, coordxy y)
     }
     if ((mtmp = m_at(x, y)) != 0 && mtmp != mon) {
         if (canseemon(mon) || canseemon(mtmp))
-            pline("%s удар€етс€ о %s.", Monnam(mon), a_monnam(mtmp));
+            pline("%s удар€етс€ о %s.", Monnam(mon),
+                  mon_gen(mtmp, BP_ACC));
         wakeup(mtmp, !svc.context.mon_moving);
         /* check whether 'mon' is turned to stone by touching 'mtmp' */
         if (touch_petrifies(mtmp->data)

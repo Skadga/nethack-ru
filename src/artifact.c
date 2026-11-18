@@ -948,7 +948,7 @@ touch_artifact(struct obj *obj, struct monst *mon)
 
         if (!yours)
             return 0;
-        You("%s обрушивает на вас всю свою силу!", xname(obj));
+        pline("%s обрушивает на вас всю свою силу!", The(xname(obj)));
         touch_blasted = TRUE;
         dmg = d((Antimagic ? 2 : 4), (self_willed ? 10 : 4));
         /* add half (maybe quarter) of the usual silver damage bonus */

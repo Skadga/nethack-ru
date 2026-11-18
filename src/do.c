@@ -501,7 +501,7 @@ dosinkring(struct obj *obj)
     boolean ideed = TRUE;
     boolean nosink = FALSE;
 
-    You("бросаете %s в слив.", doname(obj));
+    You("бросаете %s в слив.", ru_noun_case(doname(obj), BP_ACC));
     obj->in_use = TRUE;  /* block free identification via interrupt */
     switch (obj->otyp) { /* effects that can be noticed without eyes */
     case RIN_SEARCHING:

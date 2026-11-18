@@ -407,7 +407,8 @@ pick_lock(
     }
 
     if (nohands(gy.youmonst.data)) {
-        You_cant("держать %s Ч у вас нет рук!", doname(pick));
+        You_cant("держать %s Ч у вас нет рук!",
+                 ru_noun_case(doname(pick), BP_ACC));
         return PICKLOCK_DID_NOTHING;
     } else if (u.uswallow) {
         You_cant("%sотпереть %s.", (picktyp == CREDIT_CARD) ? "" : "запереть или ",
@@ -487,7 +488,8 @@ pick_lock(
                           && (flags.autounlock & AUTOUNLOCK_APPLY_KEY) != 0) {
                     c = 'q';
                     if (pick != &dummypick) {
-                        Sprintf(qbuf, "ќтпереть его с помощью %s?", yname(pick));
+                        Sprintf(qbuf, "ќтпереть его с помощью %s?",
+                                ru_noun_case(yname(pick), BP_GEN));
                         c = ynq(qbuf);
                     }
                     if (c != 'y')
@@ -738,9 +740,11 @@ doforce(void)
                 continue;
 
             if (picktyp)
-                You("всовываете %s в щель и поддеваете.", yname(uwep));
+                You("всовываете %s в щель и поддеваете.",
+                    ru_noun_case(yname(uwep), BP_ACC));
             else
-                You("начинаете бить по нему с помощью %s.", yname(uwep));
+                You("начинаете бить по нему с помощью %s.",
+                    ru_noun_case(yname(uwep), BP_GEN));
             gx.xlock.box = otmp;
             gx.xlock.chance = objects[uwep->otyp].oc_wldam * 2;
             gx.xlock.picktyp = picktyp;

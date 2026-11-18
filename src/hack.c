@@ -863,7 +863,7 @@ dosinkfall(void)
         selftouch("Падая, вы");
         for (obj = svl.level.objects[u.ux][u.uy]; obj; obj = obj->nexthere)
             if (obj->oclass == WEAPON_CLASS || is_weptool(obj)) {
-                You("падаете на %s.", doname(obj));
+                You("падаете на %s.", ru_noun_case(doname(obj), BP_ACC));
                 losehp(Maybe_Half_Phys(rnd(3)), fell_on_sink,
                        NO_KILLER_PREFIX);
                 exercise(A_CON, FALSE);

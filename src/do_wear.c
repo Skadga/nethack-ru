@@ -68,7 +68,7 @@ void
 off_msg(struct obj *otmp)
 {
     if (flags.verbose)
-        You("были одеты в %s.", doname(otmp));
+        You("были одеты в %s.", ru_noun_case(doname(otmp), BP_ACC));
 }
 
 /* for items that involve no delay */

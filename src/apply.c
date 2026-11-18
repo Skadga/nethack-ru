@@ -476,7 +476,8 @@ use_whistle(struct obj *obj)
     if (!can_blow(&gy.youmonst)) {
         You("не можете использовать свисток.");
     } else if (Underwater) {
-        You("пускаете пузыри сквозь %s.", yname(obj));
+        You("пускаете пузыри сквозь %s.",
+            ru_noun_case(yname(obj), BP_ACC));
     } else {
         if (Deaf)
             You_feel("щекотание воздуха на %s.",
@@ -2723,7 +2724,8 @@ use_stone(struct obj *tstone)
         return ECMD_CANCEL;
 
     if (obj == tstone && obj->quan == 1L) {
-        You_cant("тереть %s на нЄм самом.", the(xname(obj)));
+        You_cant("тереть %s на нЄм самом.",
+                 ru_noun_case(xname(obj), BP_ACC));
         return ECMD_OK;
     }
 
@@ -3279,7 +3281,8 @@ use_whip(struct obj *obj)
                 stumble_onto_mimic(mtmp);
                 do_snap = FALSE;
             } else {
-                You("щелкаете хлыстом в сторону %s.", mon_nam(mtmp));
+                You("щелкаете хлыстом в сторону %s.",
+                    mon_gen(mtmp, BP_GEN));
             }
             if (proficient && force_attack(mtmp, FALSE))
                 return ECMD_TIME;
@@ -3674,7 +3677,8 @@ use_royal_jelly(struct obj **optr)
         return ECMD_CANCEL;
     }
 
-    You("размазываете королевское желе по всему %s.", yname(eobj));
+    You("размазываете королевское желе по всему %s.",
+        ru_noun_case(yname(eobj), BP_DAT));
     if (eobj->otyp != EGG) {
         pline1(nothing_happens);
         goto useup_jelly;
@@ -3957,7 +3961,8 @@ do_break_wand(struct obj *obj)
                           || objdescr_is(obj, "glass"));
 
     if (nohands(gy.youmonst.data)) {
-        You_cant("сломать %s без рук!", yname(obj));
+        You_cant("сломать %s без рук!",
+                 ru_noun_case(yname(obj), BP_ACC));
         return ECMD_OK;
     } else if (!freehand()) {
         Your("%s зан€ты!", body_part_case(HAND, BP_NOM | BP_PLURAL));
@@ -3971,7 +3976,8 @@ do_break_wand(struct obj *obj)
                                   "¬ы действительно хотите сломать ",
                                   "?", obj, yname, ysimple_name, "жезл")))
         return ECMD_OK;
-    pline("ѕодн€в %s высоко над вашей %s, вы %s его пополам!", yname(obj),
+    pline("ѕодн€в %s высоко над вашей %s, вы %s его пополам!",
+          ru_noun_case(yname(obj), BP_ACC),
           body_part_case(HEAD, BP_INS), is_fragile ? "ломаете" : "ломаете");
 
     /* [ALI] Do this first so that wand is removed from bill. Otherwise,

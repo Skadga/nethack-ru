@@ -1081,7 +1081,8 @@ mu_maybe_destroy_web(
         }
         if (domsg) {
             if (isyou) {
-                You("проливаетесь сквозь паутину.", a_your[trap->madeby_u]);
+                You("проливаетесь сквозь %sпаутину.",
+                    trap->madeby_u ? "вашу " : "");
             } else {
                 pline_mon(mtmp,
                       "%s протекает сквозь %s паутину.", Monnam(mtmp),
@@ -1778,7 +1779,8 @@ trapeffect_rust_trap(
             goto mglovecheck;
         default:
             if (in_sight)
-                pline("%s по %s!", A_gush_of_water_hits, mon_nam(mtmp));
+                pline("%s по %s!", A_gush_of_water_hits,
+                      mon_gen(mtmp, BP_DAT));
             for (otmp = mtmp->minvent; otmp; otmp = otmp->nobj)
                 if (otmp->lamplit
                     /* exclude weapon(s) because cases 1 and 2 do them */
@@ -5865,7 +5867,7 @@ help_monster_out(
             return 1;
     }
 
-    You("вытаскиваете %s из ямы.", mon_nam(mtmp));
+    You("вытаскиваете %s из ямы.", mon_gen(mtmp, BP_ACC));
     mtmp->mtrapped = 0;
     reward_untrap(ttmp, mtmp);
     fill_pit(mtmp->mx, mtmp->my);

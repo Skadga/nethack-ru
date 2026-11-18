@@ -2908,7 +2908,7 @@ doeat(void)
             else
                 otmp = splitobj(otmp, 1L);
         }
-        pline("”гу - этот %s был защищЄн от ржавчины!", xname(otmp));
+        pline("”гу - %s не поддаЄтс€ ржавчине!", The(xname(otmp)));
         /* The regurgitated object's rustproofing is gone now */
         otmp->oerodeproof = 0;
         make_stunned((HStun & TIMEOUT) + (long) rn2(10), TRUE);

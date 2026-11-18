@@ -2700,7 +2700,8 @@ in_container(struct obj *obj)
 
     if (gc.current_container) {
         Strcpy(buf, the(xname(gc.current_container)));
-        You("кладёте %s в %s.", doname(obj), buf);
+        You("кладёте %s в %s.", ru_noun_case(doname(obj), BP_ACC),
+            ru_noun_case(buf, BP_ACC));
 
         /* gold in container always needs to be added to credit */
         if (floor_container && obj->oclass == COIN_CLASS)

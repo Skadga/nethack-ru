@@ -731,7 +731,8 @@ dipsink(struct obj *obj)
         (void) wash_hands();
         return;
     } else if (obj->oclass != POTION_CLASS) {
-        You("держите %s под краном.", the(xname(obj)));
+        You("держите %s под краном.",
+            ru_noun_case(xname(obj), BP_ACC));
         if (water_damage(obj, (const char *) 0, TRUE) == ER_NOTHING)
             pline1(nothing_seems_to_happen);
         return;

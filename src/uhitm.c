@@ -961,7 +961,7 @@ hmon_hitmon_weapon_melee(
     } else if (Role_if(PM_ROGUE) && backstabbable(mon) && !Upolyd
                /* multi-shot throwing is too powerful here */
                && hmd->hand_to_hand) {
-        You("наносите удар %s со спины!", mon_nam(mon));
+        You("наносите удар %s со спины!", mon_gen(mon, BP_DAT));
         hmd->dmg += rnd(u.ulevel);
         hmd->hittxt = TRUE;
     } else if (hmd->dieroll == 2 && obj == uwep
@@ -1543,7 +1543,8 @@ hmon_hitmon_jousting(
     struct obj *obj) /* lance; obj is not NULL */
 {
     hmd->dmg += d(2, (obj == uwep) ? 10 : 2); /* [was in dmgval()] */
-    You("играете в джоуст %s%s", mon_nam(mon), canseemon(mon) ? exclam(hmd->dmg) : ".");
+    You("играете в джоуст с %s%s", mon_gen(mon, BP_INS),
+        canseemon(mon) ? exclam(hmd->dmg) : ".");
     /* if this hit just broke the never-hit-with-wielded-weapon conduct
        (handled by caller...), give a livelog message for that now */
     if (u.uconduct.weaphit <= 1)
@@ -1624,7 +1625,8 @@ hmon_hitmon_splitmon(
         if ((mclone = clone_mon(mon, 0, 0)) != 0) {
             withwhat[0] = '\0';
             if (u.twoweap && flags.verbose)
-                Sprintf(withwhat, " с помощью %s", yname(obj));
+                Sprintf(withwhat, " с помощью %s",
+                        ru_noun_case(yname(obj), BP_GEN));
             pline("%s делится надвое от вашего удара%s!", Monnam(mon), withwhat);
             hmd->hittxt = TRUE;
             (void) mintrap(mclone, NO_TRAP_FLAGS);
@@ -3559,7 +3561,7 @@ mhitm_ad_slim(
             if (!munslime(mdef, TRUE) && !DEADMONSTER(mdef)) {
                 /* this assumes newcham() won't fail; since hero has
                    a slime attack, green slimes haven't been geno'd */
-                You("превращаете %s в слизь.", mon_nam(mdef));
+                You("превращаете %s в слизь.", mon_gen(mdef, BP_ACC));
                 if (newcham(mdef, &mons[PM_GREEN_SLIME], NO_NC_FLAGS))
                     pd = mdef->data;
             }
