@@ -589,10 +589,20 @@ background_enlightenment(int unused_mode UNUSED, int final)
         difalgn &= ~1; /* suppress helm from "started out <foo>" message */
     }
     if (difgend || difalgn) { /* sex change or perm align change or both */
+        char abuf[BUFSZ];
+
+        abuf[0] = '\0';
+        if (difalgn) {
+            Strcpy(abuf, align_str(u.ualignbase[A_ORIGINAL]));
+            if (difgend && flags.initgend == FEMALE && strlen(abuf) > 2
+                && !strcmp(eos(abuf) - 2, "ый"))
+                Strcpy(eos(abuf) - 2, "ая");
+        }
         Sprintf(buf, " Вы начинали как %s%s%s.",
-                difgend ? genders[flags.initgend].adj : "",
-                (difgend && difalgn) ? " и " : "",
-                difalgn ? align_str(u.ualignbase[A_ORIGINAL]) : "");
+                difgend
+                    ? (flags.initgend == FEMALE ? "женщина" : "мужчина")
+                    : "",
+                (difgend && difalgn) ? " и " : "", abuf);
         enlght_out(buf);
     }
 

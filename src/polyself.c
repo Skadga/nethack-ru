@@ -322,7 +322,7 @@ livelog_newform(boolean viapoly, int oldgend, int newgend)
                                                   : gu.urole.name.m;
             oldrank = rank_of(u.ulevel, Role_switch, oldgend);
             newrank = rank_of(u.ulevel, Role_switch, newgend);
-            Sprintf(buf, "%.10s %.30s", genders[flags.female].adj, newrank);
+            Sprintf(buf, "%s", newgend ? "женщину" : "мужчину");
             livelog_printf(LL_MINORAC, "%s в %s",
                            viapoly ? "превратился" : "перевоплотился",
                            ru_noun_case(strcmp(newrole, oldrole) ? newrole

@@ -1878,6 +1878,9 @@ ru_gen_one(const char *w, char *out)
     } else if (!strcmp(w, "Пелий")) {
         Strcpy(out, "Пелия");
         return;
+    } else if (!strcmp(w, "сурок")) {
+        Strcpy(out, "сурка");
+        return;
     } else if (!strcmp(w, "титанотерий")) {
         Strcpy(out, "титанотерия");
         return;

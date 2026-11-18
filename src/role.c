@@ -2854,20 +2854,31 @@ plsel_startmenu(int ttyrows, int aspect)
                : (GEND == 1 && roles[ROLE].name.f) ? roles[ROLE].name.f
                  : roles[ROLE].name.m;
     if (!svp.plname[0] || ROLE < 0 || RACE < 0 || GEND < 0 || ALGN < 0) {
-        /* "<role> <race.noun> <gender> <alignment>" */
-        Sprintf(qbuf, "%.20s %.20s %.20s %.20s",
+        /* "<role>, <race.noun>, <gender>, alignment: <align.noun>" */
+        Sprintf(qbuf, "%.20s, %.20s, %.20s, мировоззрение: %.20s",
                 rolename,
-                (RACE < 0) ? "<race>" : races[RACE].noun,
-                (GEND < 0) ? "<gender>" : genders[GEND].adj,
-                (ALGN < 0) ? "<alignment>" : aligns[ALGN].adj);
+                (RACE < 0) ? "<раса>" : races[RACE].noun,
+                (GEND < 0) ? "<пол>"
+                           : (GEND == 1 ? "женщина" : "мужчина"),
+                (ALGN < 0) ? "<мировоззрение>" : aligns[ALGN].noun);
     } else {
-        /* "<name> the <alignment> <gender> <race.adjective> <role>" */
-        Sprintf(qbuf, "%.20s Ч %.20s %.20s %.20s %.20s",
-                svp.plname,
-                aligns[ALGN].adj,
-                genders[GEND].adj,
-                races[RACE].adj,
-                rolename);
+        /* "<name> Ч <alignment> <race-individual>-<role>" */
+        char subj[BUFSZ], adjbuf[BUFSZ], rolebuf[BUFSZ];
+        const char *raceind
+            = (GEND == 1 && races[RACE].individual.f)
+                  ? races[RACE].individual.f
+                  : races[RACE].individual.m;
+
+        Strcpy(rolebuf, rolename);
+        rolebuf[0] = lowc(rolebuf[0]);
+        Strcpy(subj, raceind ? raceind : races[RACE].noun);
+        Strcat(subj, "-");
+        Strcat(subj, rolebuf);
+        Strcpy(adjbuf, aligns[ALGN].adj);
+        if (GEND == 1 && strlen(adjbuf) > 2
+            && !strcmp(eos(adjbuf) - 2, "ый"))
+            Strcpy(eos(adjbuf) - 2, "а€");
+        Sprintf(qbuf, "%.20s Ч %.20s %.20s", svp.plname, adjbuf, subj);
     }
 
     win = create_nhwindow(NHW_MENU);
