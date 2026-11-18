@@ -3173,7 +3173,7 @@ mbodypart(struct monst *mon, int part)
 
     if (part <= NO_PART) {
         impossible("mbodypart: bad part %d", part);
-        return "mystery part";
+        return "загадочна€ часть";
     }
 
     /* some special cases */
@@ -3181,14 +3181,14 @@ mbodypart(struct monst *mon, int part)
         || mptr->mlet == S_RODENT || mptr == &mons[PM_OWLBEAR]) {
         switch (part) {
         case HAND:
-            return "paw";
+            return "лапа";
         case HANDED:
-            return "pawed";
+            return "лапый";
         case FOOT:
-            return "rear paw";
+            return "задн€€ лапа";
         case ARM:
         case LEG:
-            return horse_parts[part]; /* "foreleg", "rear leg" */
+            return animal_parts[part]; /* "передн€€ лапа", "задн€€ лапа" */
         default:
             break; /* for other parts, use animal_parts[] below */
         }
@@ -3200,18 +3200,18 @@ mbodypart(struct monst *mon, int part)
         && (humanoid(mptr) && attacktype(mptr, AT_CLAW)
             && !strchr(not_claws, mptr->mlet) && mptr != &mons[PM_STONE_GOLEM]
             && mptr != &mons[PM_AMOROUS_DEMON]))
-        return (part == HAND) ? "claw" : "clawed";
+        return (part == HAND) ? "коготь" : "когтистый";
     if ((mptr == &mons[PM_MUMAK] || mptr == &mons[PM_MASTODON])
         && part == NOSE)
-        return "trunk";
+        return "хобот";
     if (mptr == &mons[PM_SHARK] && part == HAIR)
-        return "skin"; /* sharks don't have scales */
+        return "кожа"; /* sharks don't have scales */
     if ((mptr == &mons[PM_JELLYFISH] || mptr == &mons[PM_KRAKEN])
         && (part == ARM || part == FINGER || part == HAND || part == FOOT
             || part == TOE))
-        return "tentacle";
+        return "щупальце";
     if (mptr == &mons[PM_FLOATING_EYE] && part == EYE)
-        return "cornea";
+        return "роговица";
     if (humanoid(mptr) && (part == ARM || part == FINGER || part == FINGERTIP
                            || part == HAND || part == HANDED))
         return humanoid_parts[part];
@@ -3225,15 +3225,15 @@ mbodypart(struct monst *mon, int part)
         return horse_parts[part];
     if (mptr->mlet == S_LIGHT) {
         if (part == HANDED)
-            return "rayed";
+            return "лучистый";
         else if (part == ARM || part == FINGER || part == FINGERTIP
                  || part == HAND)
-            return "ray";
+            return "луч";
         else
-            return "beam";
+            return "луч";
     }
     if (mptr == &mons[PM_STALKER] && part == HEAD)
-        return "head";
+        return "голова";
     if (mptr->mlet == S_EEL && mptr != &mons[PM_JELLYFISH])
         return fish_parts[part];
     if (mptr->mlet == S_WORM)

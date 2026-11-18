@@ -592,7 +592,7 @@ background_enlightenment(int unused_mode UNUSED, int final)
        without hands; use "You are normally left-handed." in that situation */
     Sprintf(buf, "%s%sша",
             /* the literal must match HANDED in humanoid_parts[] (polyself.c) */
-            !strcmp(body_part(HANDED), "ладонный") ? "обычно " : "",
+            strcmp(body_part(HANDED), "ладонный") ? "обычно " : "",
             URIGHTY ? "прав" : "лев");
     you_are(buf, "");
 
