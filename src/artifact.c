@@ -2544,14 +2544,14 @@ retouch_object(
         /* hero can't handle this object, but didn't get touch_artifact()'s
            "<obj> evades your grasp|control" message; give an alternate one */
         if (obj->owornmask)
-            You_cant("больше обращаться с %s!", yname(obj));
+            You_cant("больше обращаться с этим!");
         else
-            You_cant("обращаться с %s!", yname(obj));
+            You_cant("обращаться с этим!");
         /* also inflict damage unless touch_artifact() already did so */
         if (!touch_blasted) {
             const char *what = (obj->otyp == CORPSE)
-                                   ? corpse_case(obj, BP_INS)
-                                   : killer_xname(obj);
+                                   ? corpse_case(obj, BP_GEN)
+                                   : mon_gen_nom(killer_xname(obj), BP_GEN);
 
             if (ag && !obj->oartifact && !bane) {
                 /* 'obj' is silver; for rings and wands it ended up that
@@ -2559,9 +2559,9 @@ retouch_object(
                    game's silver item without stating that it is silver
                    potentially leads to confusion about cause of death */
                 if (obj->oclass == RING_CLASS)
-                    what = "серебряным кольцом";
+                    what = "серебряного кольца";
                 else if (obj->oclass == WAND_CLASS)
-                    what = "серебряной палочкой";
+                    what = "серебряной палочки";
                 /* for anything else, stick with killer_xname() */
             }
             /* damage is somewhat arbitrary; half the usual 1d20 physical
@@ -2570,7 +2570,7 @@ retouch_object(
                 tmp = rnd(10), dmg += Maybe_Half_Phys(tmp);
             if (bane)
                 dmg += rnd(10);
-            Sprintf(buf, "обращения с %s", what);
+            Sprintf(buf, "%s", what);
             losehp(dmg, buf, KILLED_BY);
             exercise(A_CON, FALSE);
         }

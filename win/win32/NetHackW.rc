@@ -50,15 +50,15 @@ BEGIN
     POPUP "&Карта"
     BEGIN
         MENUITEM "&0 - Плитки",              IDM_MAP_TILES
-        MENUITEM "&1 - ASCII (4x6)",            IDM_MAP_ASCII4X6
-        MENUITEM "&2 - ASCII (6x8)",            IDM_MAP_ASCII6X8
-        MENUITEM "&3 - ASCII (8x8)",            IDM_MAP_ASCII8X8
-        MENUITEM "&4 - ASCII (16x8)",           IDM_MAP_ASCII16X8
-        MENUITEM "&5 - ASCII (7x12)",           IDM_MAP_ASCII7X12
-        MENUITEM "&6 - ASCII  (8x12)",          IDM_MAP_ASCII8X12
-        MENUITEM "&7 - ASCII (16x12)",          IDM_MAP_ASCII16X12
-        MENUITEM "&8 - ASCII (12x16)",          IDM_MAP_ASCII12X16
-        MENUITEM "&9 - ASCII  (10x18)",         IDM_MAP_ASCII10X18
+        MENUITEM "&1 - Текст (4x6)",            IDM_MAP_ASCII4X6
+        MENUITEM "&2 - Текст (6x8)",            IDM_MAP_ASCII6X8
+        MENUITEM "&3 - Текст (8x8)",            IDM_MAP_ASCII8X8
+        MENUITEM "&4 - Текст (16x8)",           IDM_MAP_ASCII16X8
+        MENUITEM "&5 - Текст (7x12)",           IDM_MAP_ASCII7X12
+        MENUITEM "&6 - Текст  (8x12)",          IDM_MAP_ASCII8X12
+        MENUITEM "&7 - Текст (16x12)",          IDM_MAP_ASCII16X12
+        MENUITEM "&8 - Текст (12x16)",          IDM_MAP_ASCII12X16
+        MENUITEM "&9 - Текст  (10x18)",         IDM_MAP_ASCII10X18
         MENUITEM SEPARATOR
         MENUITEM "&По размеру окна",             IDM_MAP_FIT_TO_SCREEN
         MENUITEM SEPARATOR
@@ -350,10 +350,10 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "FileDescription", "NetHack for Windows - Graphical Interface"
+            VALUE "FileDescription", "NetHack для Windows — графический интерфейс"
             VALUE "FileVersion", "5.0.0"
             VALUE "InternalName", "NetHackW"
-            VALUE "LegalCopyright", "Copyright (C) 1985 - 2026.  By Stichting Mathematisch Centrum and M. Stephenson.  See license for details."
+            VALUE "LegalCopyright", "Copyright (C) 1985 - 2026. Stichting Mathematisch Centrum, M. Stephenson. Подробности в лицензии."
             VALUE "OriginalFilename", "NetHackW.exe"
             VALUE "PrivateBuild", "140606"
             VALUE "ProductName", "NetHack"

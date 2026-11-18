@@ -5571,7 +5571,9 @@ fracture_rock(struct obj *obj) /* no texts here! */
         if (billable(&shkp, obj, objroom, FALSE)) {
             /* shop message says "you owe <shk> <$> for it!" so we need
                to precede that with a message explaining what "it" is */
-            You("разбиваете %s %s.", s_suffix(shkname(shkp)), xname(obj));
+            You("разбиваете %s %s.",
+                (obj->otyp == STATUE) ? "статую" : "валун",
+                mon_gen_nom(shkname(shkp), BP_GEN));
             /* breakobj won't destroy fracturing statue or boulder but
                will charge for shop goods */
             (void) breakobj(obj, x, y, TRUE, FALSE);

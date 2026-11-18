@@ -1670,6 +1670,7 @@ hmon_hitmon_msg_silver(
     char fleshbuf[BUFSZ];
     const char *whom2 = whom;
     boolean flesh = !noncorporeal(hmd->mdat) && !amorphous(hmd->mdat);
+    boolean accobj = FALSE;
 
     if (canspotmon(mon)) {
         if (hmd->barehand_silver_rings == 1)
@@ -1680,7 +1681,10 @@ hmon_hitmon_msg_silver(
             /* guard constructed format string against '%' in
                saved_oname[] from xname(via cxname()) */
             Snprintf(silverobjbuf, sizeof(silverobjbuf), "Ваше %s%s %s",
-                     strstri(hmd->saved_oname, "silver") ? "" : "серебряное ",
+                     (strstri(hmd->saved_oname, "silver")
+                      || strstri(hmd->saved_oname, "серебрян"))
+                         ? ""
+                         : "серебряное ",
                      hmd->saved_oname, vtense(hmd->saved_oname, "обжигает"));
             (void) strNsubst(silverobjbuf, "%", "%%", 0);
             strncat(silverobjbuf, " %s!",
@@ -1688,6 +1692,7 @@ hmon_hitmon_msg_silver(
             fmt = silverobjbuf;
         } else
             fmt = "Серебро обжигает %s!";
+        accobj = TRUE;
     } else {
         *whom = highc(*whom); /* "it" -> "It" */
         fmt = flesh ? "%s обожжена!" : "%s обожжено!";
@@ -1697,6 +1702,8 @@ hmon_hitmon_msg_silver(
         if (!canspotmon(mon))
             fleshbuf[0] = highc(fleshbuf[0]);
         whom2 = fleshbuf;
+    } else if (accobj) {
+        whom2 = mon_gen(mon, BP_ACC);
     }
     DISABLE_WARNING_FORMAT_NONLITERAL
     pline(fmt, whom2);
@@ -1715,16 +1722,17 @@ hmon_hitmon_msg_lightobj(
     char fleshbuf[BUFSZ];
     const char *whom2 = whom;
     boolean flesh = !noncorporeal(hmd->mdat) && !amorphous(hmd->mdat);
+    boolean accobj = FALSE;
 
     if (canspotmon(mon)) {
         if (hmd->saved_oname[0]) {
-            Sprintf(emitlightobjbuf,
-                    "%s сияние проникает глубоко в",
-                    s_suffix(hmd->saved_oname));
+            Sprintf(emitlightobjbuf, "Сияние %s проникает глубоко в",
+                    mon_gen_nom(hmd->saved_oname, BP_GEN));
             Strcat(emitlightobjbuf, " %s!");
             fmt = emitlightobjbuf;
         } else
             fmt = "Свет обжигает %s!";
+        accobj = TRUE;
     } else {
         *whom = highc(*whom); /* "it" -> "It" */
         fmt = flesh ? "%s обожжена!" : "%s обожжено!";
@@ -1734,6 +1742,8 @@ hmon_hitmon_msg_lightobj(
         if (!canspotmon(mon))
             fleshbuf[0] = highc(fleshbuf[0]);
         whom2 = fleshbuf;
+    } else if (accobj) {
+        whom2 = mon_gen(mon, BP_ACC);
     }
     DISABLE_WARNING_FORMAT_NONLITERAL
     pline(fmt, whom2);
@@ -1928,7 +1938,8 @@ hmon_hitmon(
         }
     }
     if (hmd.unpoisonmsg)
-        Your("%s больше не отравлено.", hmd.saved_oname);
+        Your("Яд исчезает с %s.",
+             mon_gen_nom(hmd.saved_oname, BP_GEN));
 
     if (!hmd.destroyed && !hmd.offmap) {
         int hitflags = M_ATTK_HIT;

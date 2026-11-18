@@ -76,10 +76,10 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "FileDescription", "NetHack for Windows - TTY Interface"
+            VALUE "FileDescription", "NetHack для Windows — консольный интерфейс"
             VALUE "FileVersion", "5.0.0"
             VALUE "InternalName", "NetHack"
-            VALUE "LegalCopyright", "Copyright (C) 1985 - 2026.  By Stichting Mathematisch Centrum and M. Stephenson.  See license for details."
+            VALUE "LegalCopyright", "Copyright (C) 1985 - 2026. Stichting Mathematisch Centrum, M. Stephenson. Подробности в лицензии."
             VALUE "OriginalFilename", "NetHack.exe"
             VALUE "ProductName", "NetHack"
             VALUE "ProductVersion", "5.0.0"

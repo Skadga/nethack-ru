@@ -497,8 +497,9 @@ kick_object(coordxy x, coordxy y, char *kickobjnam)
     if (gk.kickedobj) {
         /* formatted object name matters iff res==0 */
         Strcpy(kickobjnam, (gk.kickedobj->otyp == CORPSE)
-                               ? corpse_case(gk.kickedobj, BP_ACC)
-                               : killer_xname(gk.kickedobj));
+                               ? corpse_case(gk.kickedobj, BP_GEN)
+                               : mon_gen_nom(killer_xname(gk.kickedobj),
+                                             BP_GEN));
         /* kick object; if fatal, done() will clean up kickedobj */
         res = really_kick_object(x, y);
         gk.kickedobj = (struct obj *) 0;
@@ -796,9 +797,9 @@ kickstr(char *buf, const char *kickobjnam)
     const char *what;
 
     if (*kickobjnam)
-        what = kickobjnam;
-    else if (gm.maploc == &gn.nowhere)
-        what = "ничего";
+        return strcat(strcpy(buf, "пинка "), kickobjnam);
+    if (gm.maploc == &gn.nowhere)
+        what = "пустоту";
     else if (IS_DOOR(gm.maploc->typ))
         what = "дверь";
     else if (IS_TREE(gm.maploc->typ))

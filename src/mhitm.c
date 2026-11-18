@@ -1312,10 +1312,9 @@ passivemm(
     switch (mddat->mattk[i].adtyp) {
     case AD_ACID:
         if (mhitb && !rn2(2)) {
-            Strcpy(buf, Monnam(magr));
             if (canseemon(magr))
-                pline("%s забрызган %s %s!", buf,
-                      mon_gen(mdef, BP_GEN), hliquid("кислота"));
+                pline("Кислота %s обрызгала %s!", mon_gen(mdef, BP_GEN),
+                      mon_gen(magr, BP_ACC));
             if (resists_acid(magr)) {
                 if (canseemon(magr))
                     pline("%s не затронут.", Monnam(magr));
@@ -1351,25 +1350,26 @@ passivemm(
                     tmp = 127;
                 if (magr->mcansee && haseyes(madat) && mdef->mcansee
                     && (perceives(madat) || !mdef->minvis)) {
-                    /* construct format string; guard against '%' in Monnam */
-                    Strcpy(buf, mon_gen(mdef, BP_GEN));
+                    /* construct format string; guard against '%' in name */
+                    Strcpy(buf, "Взгляд ");
+                    Strcat(buf, mon_gen(mdef, BP_GEN));
                     (void) strNsubst(buf, "%", "%%", 0);
-                    Strcat(buf, " взгляд отражается %s %s.");
+                    Strcat(buf, " отражается от %s %s.");
                     if (mon_reflects(magr,
                                      canseemon(magr) ? buf : (char *) 0,
-                                     BP_INS))
+                                     BP_GEN))
                         return (mdead | mhit);
-                    Strcpy(buf, Monnam(magr));
                     if (canseemon(magr))
-                        pline("%s заморожен взглядом %s!", buf,
-                              mon_gen(mdef, BP_GEN));
+                        pline("Взгляд %s парализует %s!",
+                              mon_gen(mdef, BP_GEN),
+                              mon_gen(magr, BP_ACC));
                     paralyze_monst(magr, tmp);
                     return (mdead | mhit);
                 }
             } else { /* gelatinous cube */
-                Strcpy(buf, Monnam(magr));
                 if (canseemon(magr))
-                    pline("%s заморожен %s.", buf, mon_nam(mdef));
+                    pline("Прикосновение %s парализует %s!",
+                          mon_gen(mdef, BP_GEN), mon_gen(magr, BP_ACC));
                 paralyze_monst(magr, tmp);
                 return (mdead | mhit);
             }
