@@ -300,6 +300,15 @@
   «недоступно/некопаемо». report.c — «Собираю дополнительные сведения
   для отчёта:» в обеих ветках. options.c — закомментированный текст.
   Сборка 0 ошибок, 19 прежних warning'ов; Android синхронизирован.
+- Батч №42 (d3074ca): dat/data.base — переведены 13 статей
+  (aclys/aklys/thonged club, agate, alchemy, алеакс, altar/offer/
+  sacrific, amaterasu omikami, amber, amnesia, amulet of yendor ×2,
+  angel, angry god, anhur). botl.c — hilite_status снова принимает
+  английские ключи: имена состояний (condition_cfg_names[] в том же
+  порядке, что conditions[]), satiated/hungry/weak/fainting/fainted/
+  starved (hutxt_en[]) и chaotic/neutral/lawful (aligntxt_en[]);
+  русские названия остались. Сборка 0 ошибок, 19 прежних warning'ов;
+  Android синхронизирован.
 
 ## Что осталось
 
@@ -355,10 +364,12 @@
    signed char, из-за чего кириллические ключи считались текстом;
    исправлено на `(uchar) *line > ' '`.
    Батч №37: 204 ключа монстров переведены (доступ к статьям
-   восстановлен). Осталось: английские ТЕКСТЫ статей (в т.ч. 204
-   монстров), wildcard-ключи (orc*, demon*, ~orc ??m* и т.п.) и
-   объединение совпавших ключей (обитатель пещер, эльфийский монарх,
-   любвеобильный демон, медуза).
+   восстановлен). Батч №42: переведены 13 тел статей (aclys, agate,
+   alchemy, алеакс, altar, amaterasu omikami, amber, amnesia, amulet
+   of yendor ×2, angel, angry god, anhur). Осталось: английские ТЕКСТЫ
+   остальных статей (в т.ч. 204 монстров), wildcard-ключи (orc*,
+   demon*, ~orc ??m* и т.п.) и объединение совпавших ключей
+   (обитатель пещер, эльфийский монарх, любвеобильный демон, медуза).
 
 ### Низкий приоритет
 
