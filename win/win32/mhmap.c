@@ -132,7 +132,7 @@ mswin_init_map_window(void)
     }
 
     /* Set window caption */
-    SetWindowText(hWnd, "Map");
+    SetWindowText(hWnd, "Карта");
 
     mswin_apply_window_style(hWnd);
 

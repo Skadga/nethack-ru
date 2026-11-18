@@ -46,13 +46,13 @@ des.object("ботинки хождения по воде",place[7])
 des.object("хрустальный латный доспех",place[8])
 
 local spbooks = {
-   "spellbook of invisibility",
-   "spellbook of cone of cold",
-   "spellbook of create familiar",
-   "spellbook of clairvoyance",
-   "spellbook of charm monster",
-   "spellbook of stone to flesh",
-   "spellbook of polymorph"
+   "книга заклинаний: невидимость",
+   "книга заклинаний: конус холода",
+   "книга заклинаний: создание фамильяра",
+   "книга заклинаний: ясновидение",
+   "книга заклинаний: очарование монстра",
+   "книга заклинаний: камень в плоть",
+   "книга заклинаний: превращение"
 }
 shuffle(spbooks);
 des.object(spbooks[1],place[9])
