@@ -38,7 +38,7 @@ staticfn void releaseobuf(char *) NONNULLARG1;
 staticfn void xcalled(char *, int, const char *, const char *);
 staticfn char *xname_flags(struct obj *, unsigned);
 staticfn char *minimal_xname(struct obj *);
-staticfn void add_erosion_words(struct obj *, char *);
+staticfn void add_erosion_words(struct obj *, char *, int);
 staticfn char *doname_base(struct obj *obj, unsigned);
 staticfn boolean singplur_lookup(char *, char *, boolean,
                                const char *const *);
@@ -583,6 +583,107 @@ xname(struct obj *obj)
     return xname_flags(obj, CXN_NORMAL);
 }
 
+/* Grammatical gender of a Russian item name, used so that the adjective
+   prefixes built by xname() and doname_base() agree with the noun they
+   modify.  Only the first word matters: it is either an adjective (whose
+   ending reveals the gender) or the head noun itself.  Hyphenated
+   compounds agree with their last component. */
+#define RU_G_MASC 0
+#define RU_G_FEM  1
+#define RU_G_NEUT 2
+#define RU_G_PLUR 3
+
+static int
+ru_item_gender(const char *name, long quan)
+{
+    static const char *fem_soft[] = {
+        "болезнь", "невидимость", "скорость", "скрытность", "смерть",
+        "морковь", "лопасть", "печень", "желчь", "фасоль", "медь",
+        "сталь", "пыль", "грязь", "кость", "кисть", "власть", "часть",
+        "сеть", "цепь", "тень", "печь", "вещь", "помощь", "кровь",
+        "обувь", "кровать", "соль", "мышь", "дверь", "ночь", "лошадь",
+        "нить", "ртуть", "плоть", "бровь", "ветвь", "пасть", "масть",
+        "дробь", "прорубь", "гроздь"
+    };
+    static const char *masc_invar[] = {
+        "цуруги", "юми", "я" /* indeclinable Japanese item names */
+    };
+    char w[64];
+    const char *p, *q;
+    size_t n, i;
+
+    if (quan != 1L)
+        return RU_G_PLUR;
+    if (!name)
+        return RU_G_MASC;
+    p = name;
+    while (*p == ' ')
+        ++p;
+    for (q = p; *q && *q != ' ' && *q != '(' && *q != ','; ++q)
+        ;
+    n = (size_t) (q - p);
+    if (n >= sizeof w)
+        n = sizeof w - 1;
+    (void) memcpy(w, p, n);
+    w[n] = '\0';
+    if ((p = strrchr(w, '-')) != 0 && *(p + 1))
+        (void) memmove(w, p + 1, strlen(p + 1) + 1);
+    n = strlen(w);
+    for (i = 0; i < SIZE(masc_invar); ++i)
+        if (!strcmp(w, masc_invar[i]))
+            return RU_G_MASC;
+    if (n < 2 || !(*w & 0x80))
+        return RU_G_MASC;
+    p = w + n - 2;
+    if (!strcmp(p, "ый") || !strcmp(p, "ий") || !strcmp(p, "ой"))
+        return RU_G_MASC;
+    if (!strcmp(p, "ая") || !strcmp(p, "яя"))
+        return RU_G_FEM;
+    if (!strcmp(p, "ое") || !strcmp(p, "ее"))
+        return RU_G_NEUT;
+    if (!strcmp(p, "ые") || !strcmp(p, "ие"))
+        return RU_G_PLUR;
+    switch (w[n - 1]) {
+    case 'а':
+    case 'я':
+        return RU_G_FEM;
+    case 'о':
+    case 'е':
+    case 'ё':
+        return RU_G_NEUT;
+    case 'ы':
+    case 'и':
+        return RU_G_PLUR;
+    case 'ь':
+        for (i = 0; i < SIZE(fem_soft); ++i)
+            if (!strcmp(w, fem_soft[i]))
+                return RU_G_FEM;
+        if (n > 4 && (!strcmp(w + n - 4, "ость")
+                      || !strcmp(w + n - 4, "есть")
+                      || !strcmp(w + n - 4, "асть")))
+            return RU_G_FEM;
+        return RU_G_MASC;
+    default:
+        return RU_G_MASC;
+    }
+}
+
+static const char *
+ru_gender_form(int g, const char *masc, const char *fem, const char *neut,
+               const char *plur)
+{
+    switch (g) {
+    case RU_G_FEM:
+        return fem;
+    case RU_G_NEUT:
+        return neut;
+    case RU_G_PLUR:
+        return plur;
+    default:
+        return masc;
+    }
+}
+
 staticfn char *
 xname_flags(
     struct obj *obj,
@@ -690,7 +791,10 @@ xname_flags(
         break;
     case WEAPON_CLASS:
         if (is_poisonable(obj) && obj->opoisoned)
-            Strcpy(buf, "отравленный ");
+            Strcpy(buf, ru_gender_form(ru_item_gender(nn ? actualn : dn,
+                                                      pluralize ? 2L : 1L),
+                                       "отравленный ", "отравленная ",
+                                       "отравленное ", "отравленные "));
         FALLTHROUGH;
         /*FALLTHRU*/
     case VENOM_CLASS:
@@ -789,13 +893,31 @@ xname_flags(
                appropriate and omitted by xname(); shrink_glob() wants
                it but uses Yname2() -> yname() -> xname() rather than
                doname() so we've added an external flag to request it */
-            Concat(buf, 0, "частично съеденное ");
+            Concat(buf, 0,
+                   ru_gender_form(ru_item_gender(actualn,
+                                                 pluralize ? 2L : 1L),
+                                  "частично съеденный ",
+                                  "частично съеденная ",
+                                  "частично съеденное ",
+                                  "частично съеденные "));
         }
         if (obj->globby) { /* 5.0 added "medium" to replace no-prefix */
-            ConcatF2(buf, 0, "%s %s", (obj->owt <= 100) ? "маленький"
-                                      : (obj->owt <= 300) ? "средний"
-                                        : (obj->owt <= 500) ? "большой"
-                                          : "очень большой",
+            int gg = ru_item_gender(actualn, pluralize ? 2L : 1L);
+
+            ConcatF2(buf, 0, "%s %s",
+                     (obj->owt <= 100)
+                         ? ru_gender_form(gg, "маленький", "маленькая",
+                                          "маленькое", "маленькие")
+                         : (obj->owt <= 300)
+                             ? ru_gender_form(gg, "средний", "средняя",
+                                              "среднее", "средние")
+                             : (obj->owt <= 500)
+                                 ? ru_gender_form(gg, "большой", "большая",
+                                                  "большое", "большие")
+                                 : ru_gender_form(gg, "очень большой",
+                                                  "очень большая",
+                                                  "очень большое",
+                                                  "очень большие"),
                      actualn);
             break;
         }
@@ -1081,7 +1203,10 @@ minimal_xname(struct obj *obj)
     bufp = distant_name(&bareobj, xname);
     /* undo forced setting of bareobj.blessed for cleric (priest[ess]);
        bufp is an obuf[] so a pointer into the middle of that is viable */
-    if (!strncmp(bufp, "непроклятый ", 12))
+    if (!strncmp(bufp, "непроклятый ", 12)
+        || !strncmp(bufp, "непроклятая ", 12)
+        || !strncmp(bufp, "непроклятое ", 12)
+        || !strncmp(bufp, "непроклятые ", 12))
         bufp += 12;
 
     objects[otyp].oc_uname = saveobcls.oc_uname;
@@ -1144,7 +1269,7 @@ the_unique_pm(struct permonst *ptr)
 }
 
 staticfn void
-add_erosion_words(struct obj *obj, char *prefix)
+add_erosion_words(struct obj *obj, char *prefix, int gname)
 {
     boolean iscrys = (obj->otyp == CRYSKNIFE);
     boolean rknown;
@@ -1166,9 +1291,15 @@ add_erosion_words(struct obj *obj, char *prefix)
             Strcat(prefix, "основательно ");
             break;
         }
-        Strcat(prefix, is_rustprone(obj) ? "ржавое "
-                       : is_crackable(obj) ? "треснутое "
-                         : "обгоревшее ");
+        Strcat(prefix,
+               is_rustprone(obj)
+                   ? ru_gender_form(gname, "ржавый ", "ржавая ", "ржавое ",
+                                    "ржавые ")
+                   : is_crackable(obj)
+                       ? ru_gender_form(gname, "треснутый ", "треснутая ",
+                                        "треснутое ", "треснутые ")
+                       : ru_gender_form(gname, "обгоревший ", "обгоревшая ",
+                                        "обгоревшее ", "обгоревшие "));
     }
     if (obj->oeroded2 && !iscrys) {
         switch (obj->oeroded2) {
@@ -1179,19 +1310,47 @@ add_erosion_words(struct obj *obj, char *prefix)
             Strcat(prefix, "основательно ");
             break;
         }
-        Strcat(prefix, is_corrodeable(obj) ? "проржавевшее " : "гнилое ");
+        Strcat(prefix,
+               is_corrodeable(obj)
+                   ? ru_gender_form(gname, "проржавевший ", "проржавевшая ",
+                                    "проржавевшее ", "проржавевшие ")
+                   : ru_gender_form(gname, "гнилой ", "гнилая ", "гнилое ",
+                                    "гнилые "));
     }
     /* note: it is possible for an item to be both eroded and erodeproof
        (cursed scroll of destroy armor read while confused erodeproofs an
        item of armor without repairing existing erosion) */
     if (rknown && obj->oerodeproof)
-        Strcat(prefix, iscrys ? "укреплённое "
-                       : is_rustprone(obj) ? "нержавеющее "
-                         : is_corrodeable(obj) ? "некоррозируемое "
-                           : is_flammable(obj) ? "огнеупорное "
-                             : is_crackable(obj) ? "закалённое " /* hardened */
-                               : is_rottable(obj) ? "гнилоустойчивое "
-                                 : "");
+        Strcat(prefix,
+               iscrys
+                   ? ru_gender_form(gname, "укреплённый ", "укреплённая ",
+                                    "укреплённое ", "укреплённые ")
+                   : is_rustprone(obj)
+                       ? ru_gender_form(gname, "нержавеющий ",
+                                        "нержавеющая ", "нержавеющее ",
+                                        "нержавеющие ")
+                       : is_corrodeable(obj)
+                           ? ru_gender_form(gname, "некоррозируемый ",
+                                            "некоррозируемая ",
+                                            "некоррозируемое ",
+                                            "некоррозируемые ")
+                           : is_flammable(obj)
+                               ? ru_gender_form(gname, "огнеупорный ",
+                                                "огнеупорная ",
+                                                "огнеупорное ",
+                                                "огнеупорные ")
+                               : is_crackable(obj)
+                                   ? ru_gender_form(gname, "закалённый ",
+                                                    "закалённая ",
+                                                    "закалённое ",
+                                                    "закалённые ")
+                                   : is_rottable(obj)
+                                       ? ru_gender_form(gname,
+                                                        "гнилоустойчивый ",
+                                                        "гнилоустойчивая ",
+                                                        "гнилоустойчивое ",
+                                                        "гнилоустойчивые ")
+                                       : "");
 }
 
 /* used to prevent rust on items where rust makes no difference */
@@ -1240,6 +1399,7 @@ doname_base(
                               * end (Strcat is used on the end) */
     const char *aname = 0;
     int omndx = obj->corpsenm;
+    int gname;
     char *bp;
     char *bp_eos, *bp_end;
     size_t bpspaceleft;
@@ -1271,10 +1431,15 @@ doname_base(
      * combining both into one function taking a parameter.
      */
     /* must check opoisoned--someone can have a weirdly-named fruit */
-    if (!strncmp(bp, "отравленный ", 12) && obj->opoisoned) {
+    if (obj->opoisoned
+        && (!strncmp(bp, "отравленный ", 12)
+            || !strncmp(bp, "отравленная ", 12)
+            || !strncmp(bp, "отравленное ", 12)
+            || !strncmp(bp, "отравленные ", 12))) {
         bp += 12; /* doesn't affect bp_eos or bpspaceleft */
         ispoisoned = TRUE;
     }
+    gname = ru_item_gender(bp, obj->quan);
 
     /* fruits are allowed to be given artifact names; when that happens,
        format the name like the corresponding artifact, which may or may not
@@ -1317,7 +1482,8 @@ doname_base(
                 it is a container that has no contents */
              : ((Is_container(obj) || obj->otyp == STATUE)
                 && !Has_contents(obj))))
-        Strcat(prefix, "пустой ");
+        Strcat(prefix, ru_gender_form(gname, "пустой ", "пустая ",
+                                      "пустое ", "пустые "));
 
     if (bknown && obj->oclass != COIN_CLASS
         && (obj->otyp != POT_WATER || !objects[POT_WATER].oc_name_known
@@ -1326,9 +1492,13 @@ doname_base(
          * always allow "uncursed potion of water"
          */
         if (obj->cursed)
-            Strcat(prefix, "проклятый ");
+            Strcat(prefix, ru_gender_form(gname, "проклятый ", "проклятая ",
+                                      "проклятое ", "проклятые "));
         else if (obj->blessed)
-            Strcat(prefix, "благословенный ");
+            Strcat(prefix, ru_gender_form(gname, "благословенный ",
+                                      "благословенная ",
+                                      "благословенное ",
+                                      "благословенные "));
         else if (!flags.implicit_uncursed
             /* For most items with charges or +/-, if you know how many
              * charges are left or what the +/- is, then you must have
@@ -1349,7 +1519,9 @@ doname_base(
                      && obj->otyp != FAKE_AMULET_OF_YENDOR
                      && obj->otyp != AMULET_OF_YENDOR
                      && !Role_if(PM_CLERIC)))
-            Strcat(prefix, "непроклятый ");
+            Strcat(prefix, ru_gender_form(gname, "непроклятый ",
+                                      "непроклятая ", "непроклятое ",
+                                      "непроклятые "));
     }
 
     /* Russian puts "с ловушкой" after the noun, so it is appended to
@@ -1360,17 +1532,24 @@ doname_base(
             /* 3.6.0 used "unlockable" here but that could be misunderstood
                to mean "capable of being unlocked" rather than the intended
                "not capable of being locked" */
-            Strcat(prefix, "сломанный ");
+            Strcat(prefix, ru_gender_form(gname, "сломанный ",
+                                          "сломанная ", "сломанное ",
+                                          "сломанные "));
         else if (obj->olocked)
-            Strcat(prefix, "запертый ");
+            Strcat(prefix, ru_gender_form(gname, "запертый ",
+                                          "запертая ", "запертое ",
+                                          "запертые "));
         else
-            Strcat(prefix, "незапертый ");
+            Strcat(prefix, ru_gender_form(gname, "незапертый ",
+                                          "незапертая ", "незапертое ",
+                                          "незапертые "));
     }
     if (Is_box(obj) && obj->otrapped && obj->tknown && obj->dknown)
         Concat(bp, 0, " с ловушкой");
 
     if (obj->greased)
-        Strcat(prefix, "смазанное ");
+        Strcat(prefix, ru_gender_form(gname, "смазанный ", "смазанная ",
+                                      "смазанное ", "смазанные "));
 
     if (cknown && Has_contents(obj) && bpspaceleft > 0) {
         /* we count the number of separate stacks, which corresponds
@@ -1419,8 +1598,11 @@ doname_base(
         /*FALLTHRU*/
     case WEAPON_CLASS:
         if (ispoisoned)
-            Strcat(prefix, "отравленное ");
-        add_erosion_words(obj, prefix);
+            Strcat(prefix, ru_gender_form(gname, "отравленный ",
+                                          "отравленная ",
+                                          "отравленное ",
+                                          "отравленные "));
+        add_erosion_words(obj, prefix, gname);
         if (known) {
             Sprintf(eos(prefix), "%+d ", obj->spe); /* sitoa(obj->spe)+" " */
         }
@@ -1473,7 +1655,11 @@ doname_base(
                     turns_left += peek_timer(BURN_OBJECT, &timer) - svm.moves;
                 }
                 if (turns_left < full_burn_time)
-                    Strcat(prefix, "частично использованное ");
+                    Strcat(prefix,
+                           ru_gender_form(gname, "частично использованный ",
+                                          "частично использованная ",
+                                          "частично использованное ",
+                                          "частично использованные "));
             }
             if (obj->lamplit)
                 Concat(bp, 0, " (горит)");
@@ -1503,7 +1689,11 @@ doname_base(
         break;
     case FOOD_CLASS:
         if (obj->oeaten)
-            Strcat(prefix, "частично съеденное ");
+            Strcat(prefix,
+                   ru_gender_form(gname, "частично съеденный ",
+                                  "частично съеденная ",
+                                  "частично съеденное ",
+                                  "частично съеденные "));
         if (obj->otyp == CORPSE) {
             /* Russian puts the monster name in the genitive after "труп":
                bp[] already holds "труп"/"трупы" and any adjective prefix
@@ -1530,7 +1720,7 @@ doname_base(
         break;
     case BALL_CLASS:
     case CHAIN_CLASS:
-        add_erosion_words(obj, prefix);
+        add_erosion_words(obj, prefix, gname);
         if (obj->owornmask & (W_BALL | W_CHAIN))
             ConcatF1(bp, 0, " (%s к вам)",
                      (obj->owornmask & W_BALL) ? "железный шар" : "железная цепь");
@@ -4254,6 +4444,32 @@ ru_wish_normalize(char *dst, const char *src, size_t dstsz)
         { "закалённый ", "erodeproof " },
         { "укреплённое ", "erodeproof " },
         { "укреплённый ", "erodeproof " },
+        { "укреплённая ", "erodeproof " },
+        { "укреплённые ", "erodeproof " },
+        { "непроклятое ", "uncursed " },
+        { "непроклятый ", "uncursed " },
+        { "непроклятая ", "uncursed " },
+        { "непроклятые ", "uncursed " },
+        { "смазанные ", "greased " },
+        { "проржавевшие ", "rusty " },
+        { "ржавые ", "rusty " },
+        { "треснутые ", "cracked " },
+        { "обгоревшие ", "burnt " },
+        { "гнилые ", "rotted " },
+        { "нержавеющее ", "erodeproof " },
+        { "нержавеющий ", "erodeproof " },
+        { "нержавеющая ", "erodeproof " },
+        { "нержавеющие ", "erodeproof " },
+        { "некоррозируемое ", "erodeproof " },
+        { "некоррозируемый ", "erodeproof " },
+        { "некоррозируемая ", "erodeproof " },
+        { "некоррозируемые ", "erodeproof " },
+        { "гнилоустойчивое ", "erodeproof " },
+        { "гнилоустойчивый ", "erodeproof " },
+        { "гнилоустойчивая ", "erodeproof " },
+        { "гнилоустойчивые ", "erodeproof " },
+        { "закалённые ", "erodeproof " },
+        { "огнеупорные ", "fireproof " },
         { "оживляющее ", "zombifying " },
         { "оживляющий ", "zombifying " },
         { "зомбирующее ", "zombifying " },
