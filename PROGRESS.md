@@ -466,6 +466,9 @@
   version.c, symbols.c (наборы символов), o_init.c, options.c,
   mdlib.c (экран версии, возможности сборки). Сборка 0 ошибок;
   Android синхронизирован.
+- Батч №69 (0503bd1): экран смерти (end.c), почтовый демон (mail.c),
+  отражение (mcastu.c/zap.c/pray.c), apply.c, ball.c, options.c.
+  Сборка 0 ошибок; Android синхронизирован.
 
 ## Что осталось
 
