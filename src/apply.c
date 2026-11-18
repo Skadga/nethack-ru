@@ -1220,7 +1220,7 @@ use_bell(struct obj **optr)
                         && !On_stairs(u.ux, u.uy));
 
     Hero_playnotes(obj_to_instr(obj), "C", 100);
-    You("звоните в %s.", the(xname(obj)));
+    You("звоните в %s.", ru_noun_case(xname(obj), BP_ACC));
 
     if (Underwater || (u.uswallow && ordinary)) {
         pline("Ќо звук приглушЄн.");
@@ -3206,7 +3206,8 @@ use_whip(struct obj *obj)
                 switch (rn2(proficient + 1)) {
                 case 2:
                     /* to floor near you */
-                    You("вытаскиваете %s на %s!", yname(otmp),
+                    You("вытаскиваете %s на %s!",
+                        ru_noun_case(yname(otmp), BP_ACC),
                         surface_case(u.ux, u.uy, BP_ACC));
                     place_object(otmp, u.ux, u.uy);
                     stackobj(otmp);
@@ -3233,7 +3234,8 @@ use_whip(struct obj *obj)
                     }
 #endif /* 0 */
                     /* right into your inventory */
-                    You("выхватываете %s!", yname(otmp));
+                    You("выхватываете %s!",
+                        ru_noun_case(yname(otmp), BP_ACC));
                     if (otmp->otyp == CORPSE
                         && touch_petrifies(&mons[otmp->corpsenm]) && !uarmg
                         && !Stone_resistance

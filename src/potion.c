@@ -2537,9 +2537,14 @@ potion_dip(struct obj *obj, struct obj *potion)
             }
         }
         /* [N of] the {obj(s)} mix(es) with [one of] {the potion}... */
-        pline("%s %s %s с %s%s...", qbuf, simpleonames(obj),
-              otense(obj, "смешивается"), (potion->quan > 1L) ? "одна из " : "",
-              thesimpleoname(potion));
+        if (potion->quan > 1L)
+            pline("%s %s %s с частью %s...", qbuf, simpleonames(obj),
+                  otense(obj, "смешивается"),
+                  ru_noun_case(thesimpleoname(potion), BP_GEN));
+        else
+            pline("%s %s %s с %s...", qbuf, simpleonames(obj),
+                  otense(obj, "смешивается"),
+                  ru_noun_case(thesimpleoname(potion), BP_INS));
         /* get rid of 'dippee' before potential perm_invent updates */
         useup(potion); /* now gone */
         /* Mixing potions is dangerous...
@@ -2628,10 +2633,12 @@ potion_dip(struct obj *obj, struct obj *potion)
             char buf[BUFSZ];
 
             if (potion->quan > 1L)
-                Sprintf(buf, "Одна из %s", the(xname(potion)));
+                Sprintf(buf, "Часть %s",
+                        ru_noun_case(xname(potion), BP_GEN));
             else
                 Strcpy(buf, The(xname(potion)));
-            pline("%s образует покрытие на %s.", buf, the(xname(obj)));
+            pline("%s образует покрытие на %s.", buf,
+                  ru_noun_case(xname(obj), BP_PREP));
             obj->opoisoned = TRUE;
             poof(potion);
             return ECMD_TIME;

@@ -2919,9 +2919,11 @@ doeat(void)
          */
         if (welded(otmp) || (otmp->cursed && (otmp->owornmask & W_RING))) {
             set_bknown(otmp, 1); /* for ring; welded() does this for weapon */
-            You("выплёвываете %s.", the(xname(otmp)));
+            You("выплёвываете %s.",
+                ru_noun_case(xname(otmp), BP_ACC));
         } else {
-            You("выплёвываете %s на %s.", the(xname(otmp)),
+            You("выплёвываете %s на %s.",
+                ru_noun_case(xname(otmp), BP_ACC),
                 surface_case(u.ux, u.uy, BP_ACC));
             if (carried(otmp)) {
                 /* no need to check for leash in use; it's not metallic */

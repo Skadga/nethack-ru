@@ -2327,7 +2327,8 @@ doloot_core(void)
             if (!underfoot && container_at(cc.x, cc.y, FALSE)) {
                 if (mtmp) {
                     You_cant("ограбить что-либо %sтам, с %s на пути.",
-                             prev_inquiry ? "иначе " : "", mon_nam(mtmp));
+                             prev_inquiry ? "иначе " : "",
+                             mon_gen(mtmp, BP_INS));
                     return (timepassed ? ECMD_TIME : ECMD_OK);
                 } else {
                     You("нужно быть у контейнера, чтобы его ограбить.");

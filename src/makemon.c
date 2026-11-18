@@ -2124,8 +2124,8 @@ grow_up(struct monst *mtmp, struct monst *victim)
         if (svm.mvitals[newtype].mvflags & G_GENOD) { /* allow G_EXTINCT */
             if (canspotmon(mtmp))
                 pline("Когда %s вырастает в %s, %s %s!", mon_nam(mtmp),
-                      an(pmname(ptr, Mgender(mtmp))), mhe(mtmp),
-                      nonliving(ptr) ? "expires" : "dies");
+                      mon_gen_nom(pmname(ptr, Mgender(mtmp)), BP_ACC),
+                      mhe(mtmp), nonliving(ptr) ? "expires" : "dies");
             set_mon_data(mtmp, ptr); /* keep svm.mvitals[] accurate */
             mondied(mtmp);
             return (struct permonst *) 0;

@@ -279,7 +279,8 @@ cannot_push(struct obj *otmp, coordxy sx, coordxy sy)
         if (u.usteed && P_SKILL(P_RIDING) < P_BASIC) {
             You("недостаточно опытны, чтобы %s %s из %s.",
                 willpickup ? "поднять" : "отодвинуть",
-                the(xname(otmp)), y_monnam(u.usteed));
+                ru_noun_case(xname(otmp), BP_ACC),
+                mon_gen(u.usteed, BP_GEN));
         } else {
             /*
              * will pick up:  you easily pick it up

@@ -1463,7 +1463,7 @@ trapeffect_rocktrap(
             if (in_sight && see_it)
                 pline_mon(mtmp,
                       "Над %s открывается люк, но ничего не выпадает!",
-                      mon_nam(mtmp));
+                      mon_gen(mtmp, BP_INS));
             deltrap(trap);
             newsym(mtmp->mx, mtmp->my);
             return Trap_Is_Gone;
@@ -1530,7 +1530,7 @@ trapeffect_sqky_board(
                 }
                 pline_mon(mtmp,
                       "Доска под %s громко скрипит%s.",
-                      mon_nam(mtmp), trapnote(trap, TRUE));
+                      mon_gen(mtmp, BP_INS), trapnote(trap, TRUE));
                 seetrap(trap);
             } else if (!mindless(mtmp->data)) {
                 pline_mon(mtmp,
@@ -1831,7 +1831,8 @@ trapeffect_fire_trap(
         if (in_sight)
             pline_mon(mtmp,
                  "%s вырывается из-%uпод %s у %s!", tower_of_flame,
-                  surface_case(mtmp->mx, mtmp->my, BP_GEN), mon_nam(mtmp));
+                  surface_case(mtmp->mx, mtmp->my, BP_GEN),
+                  mon_gen(mtmp, BP_GEN));
         else if (see_it) { /* evidently `mtmp' is invisible */
             set_msg_xy(mtmp->mx, mtmp->my);
             You_see("%s вырывается из %s!", tower_of_flame,
@@ -2696,7 +2697,7 @@ trapeffect_landmine(
             if (in_sight && !already_seen) {
                 pline_mon(mtmp,
                      "Под %s в куче земли появляется взводитель.",
-                      mon_nam(mtmp));
+                      mon_gen(mtmp, BP_INS));
                 seetrap(trap);
             }
             if (rn2(3))
@@ -3850,7 +3851,8 @@ mintrap(struct monst *mtmp, unsigned mintrapflags)
                               m_easy_escape_pit(mtmp) ? "легко " : "");
                     else if (trap->ttyp == BEAR_TRAP || trap->ttyp == WEB)
                         pline("%s вырывается из %s.", Monnam(mtmp),
-                              trapname(trap->ttyp, FALSE));
+                              ru_noun_case(trapname(trap->ttyp, FALSE),
+                                           BP_GEN));
                 }
                 mtmp->mtrapped = 0;
             }

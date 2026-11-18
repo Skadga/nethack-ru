@@ -2344,10 +2344,12 @@ mloot_container(
         if (can_carry(mon, xobj)) {
             if (vismon) {
                 if (howfar > 2) /* not adjacent */
-                    Norep("%s роется в %s.", Monnam(mon), contnr_nam);
+                    Norep("%s роется в %s.", Monnam(mon),
+                          ru_noun_case(contnr_nam, BP_PREP));
                 else if (takeout_indx == 0) /* adjacent, first item */
                     pline_mon(mon, "%s убирает %s из %s.", Monnam(mon),
-                          doname(xobj), contnr_nam);
+                          ru_noun_case(doname(xobj), BP_ACC),
+                          ru_noun_case(contnr_nam, BP_GEN));
                 else /* adjacent, additional items */
                     pline("%s убирает %s.", upstart(mpronounbuf),
                           doname(xobj));
@@ -2562,7 +2564,7 @@ use_misc(struct monst *mtmp)
             if (!obj)
                 break; /* shouldn't happen after find_misc() */
 
-            Strcpy(the_weapon, the(xname(obj)));
+            Strcpy(the_weapon, ru_noun_case(xname(obj), BP_ACC));
 
             if (vismon)
                 pline_mon(mtmp, "%s щёлкает плетью в сторону вашего %s!",
