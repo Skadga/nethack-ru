@@ -1714,9 +1714,8 @@ seffect_taming(struct obj **sobjp)
         pline("Ничего интересного %s.",
               !candidates ? "не происходит" : "кажется, не происходит");
     } else {
-        pline("Округа %s становится %sдружелюбнее.",
-                  vis_results ? "is" : "seems",
-                  (results < 0) ? "un" : "");
+        pline("Округа становится %sдружелюбнее.",
+                  (results < 0) ? "не" : "");
         if (vis_results > 0)
             gk.known = TRUE;
     }
