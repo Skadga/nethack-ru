@@ -882,7 +882,8 @@ nh_timeout(void)
                     svc.context.warntype.speciesidx = NON_PM;
                     if (wptr)
                         You("больше не предупреждаетесь о %s.",
-                            makeplural(wptr->pmnames[NEUTRAL]));
+                            mon_gen_nom(pmname(wptr, NEUTRAL),
+                                        BP_PREP | BP_PLURAL));
                 }
                 break;
             case PASSES_WALLS:

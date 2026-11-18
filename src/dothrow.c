@@ -870,7 +870,7 @@ hurtle_step(genericptr_t arg, coordxy x, coordxy y)
         if (touch_petrifies(mon->data)
             /* this is a bodily collision, so check for body armor */
             && !uarmu && !uarm && !uarmc) {
-            Sprintf(svk.killer.name, "удар о %s",
+            Sprintf(svk.killer.name, "удара о %s",
                     ru_noun_case(pmname(mon->data, NEUTRAL), BP_ACC));
             instapetrify(svk.killer.name);
         }
@@ -1285,7 +1285,7 @@ toss_up(struct obj *obj, boolean hitsroof)
     } else {
         action = "почти попадает в";
     }
-    pline("%s %s %s, затем падает обратно на ваш %s.", Doname2(obj),
+    pline("%s %s %s, затем падает обратно на вашу %s.", Doname2(obj),
           action, ceiling_case(u.ux, u.uy, BP_ACC),
           body_part_case(HEAD, BP_ACC));
 
@@ -2698,7 +2698,7 @@ throw_gold(struct obj *obj)
     if (u.dz) {
         if (u.dz < 0 && !Is_airlevel(&u.uz) && !Underwater
             && !Is_waterlevel(&u.uz)) {
-            pline("Золото ударяется о %s, затем падает обратно на ваш %s.",
+            pline("Золото ударяется о %s, затем падает обратно на вашу %s.",
                       ceiling_case(u.ux, u.uy, BP_ACC),
                       body_part_case(HEAD, BP_ACC));
             /* some self damage? */

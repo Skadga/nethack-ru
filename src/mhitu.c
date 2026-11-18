@@ -638,12 +638,12 @@ mattacku(struct monst *mtmp)
                     if (gy.youmonst.data->mlet == S_EEL
                         || u.umonnum == PM_TRAPPER)
                         pline(
-                             "Подожди, %s!  Здесь прячется скрытый %s по имени %s!",
+                             "Подожди, %s!  Здесь прячется %s по имени %s!",
                               m_monnam(mtmp),
                               pmname(gy.youmonst.data, Ugender), svp.plname);
                     else
                         pline(
-                          "Подожди, %s!  Здесь прячется скрытый %s по имени %s под %s!",
+                          "Подожди, %s!  Здесь прячется %s по имени %s под %s!",
                               m_monnam(mtmp),
                               pmname(gy.youmonst.data, Ugender),
                               svp.plname,
