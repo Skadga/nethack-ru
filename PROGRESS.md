@@ -198,6 +198,11 @@
   английским из-за проверок v/g), заголовки меню, msgtype_names,
   show_menu_controls, dotogglepickup («ВКЛ/ВЫКЛ»). Сборка 0 ошибок,
   19 прежних warning'ов; Android синхронизирован.
+- Батч №27 (e6370f5): shk.c — суммы через currency() («зоркмид»),
+  убраны «gold piece%s»/«zorkmid%s»; worn.c — «другой <броня>» через
+  Snprintf вместо пустого strsubst; dungeon.c — «(ресурс)!», «из»,
+  «(файл)!». Сборка 0 ошибок, 19 прежних warning'ов; Android
+  синхронизирован.
 
 ## Что осталось
 
