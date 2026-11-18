@@ -857,7 +857,7 @@ struct condtests_t condtests[CONDITION_COUNT] = {
 /* condition indexing */
 int cond_idx[CONDITION_COUNT] = { 0 };
 
-static const char c_Wall[] = "Wall";
+static const char c_Wall[] = "Стена";
 /*
  *  Terrain descriptions for flags.terrainstatus; simplified from
  *  def_syms[].name and indexed by iflags.terrain_typ; should be
@@ -867,7 +867,7 @@ static const char c_Wall[] = "Wall";
  *  others can only occur when hero has the Passes_walls ability.
  */
 const char *terrain_descr[] = {
-/* 0*/ "Stone",         /* stone */
+/* 0*/ "Камень",        /* stone */
        c_Wall,          /* vwall */
        c_Wall,          /* hwall */
        c_Wall,          /* tlcorner */
@@ -879,31 +879,31 @@ const char *terrain_descr[] = {
        c_Wall,          /* tdwall */
 /*10*/ c_Wall,          /* tlwall */
        c_Wall,          /* trwall */
-       "Portcullis",    /* dbwall, closed drawbridge 'door' */
-       "Tree",
+       "Решётка",       /* dbwall, closed drawbridge 'door' */
+       "Дерево",
        c_Wall,          /* sdoor: secret door */
        "Stone",         /* scorr: secret corridor */
-       "Pool",          /* pool or non-moat water; can be boiled away */
-       "Moat",          /* water that can't be boiled away */
-       "Water",         /* water on Water level; can't be boiled or frozen */
-       "(gap)",         /* drawbridge_up; replaced by whatever is under */
-/*20*/ "Lava",          /* lavapool */
-       "LavaWall",      /* lava that extends to ceiling */
-       "Bars",          /* ironbars */
-       "Doorway",       /* doorless or broken door; diagonal movement is ok */
-       "Corridor",      /* replaced by "Floor" */
-       "Room",          /* also replaced by "Floor" */
-       "Stairs",
-       "Ladder",
-       "Fountain",
-       "Throne",
-/*30*/ "Sink",
-       "Grave",
-       "Altar",
-       "Ice",
-       "Bridge",        /* drawbridge_down, span across moat/ice/lava/floor */
-       "Air",           /* open air on Air level or bubble on Water level */
-       "Cloud",         /* [part of] a cloud or Air level */
+       "Вода",          /* pool or non-moat water; can be boiled away */
+       "Ров",           /* water that can't be boiled away */
+       "Вода",          /* water on Water level; can't be boiled or frozen */
+       "(проём)",       /* drawbridge_up; replaced by whatever is under */
+/*20*/ "Лава",          /* lavapool */
+       "Лава-стена",    /* lava that extends to ceiling */
+       "Прутья",        /* ironbars */
+       "Проём",         /* doorless or broken door; diagonal movement is ok */
+       "Коридор",       /* replaced by "Floor" */
+       "Комната",       /* also replaced by "Floor" */
+       "Лестница",
+       "Стремянка",
+       "Фонтан",
+       "Трон",
+/*30*/ "Раковина",
+       "Могила",
+       "Алтарь",
+       "Лёд",
+       "Мост",          /* drawbridge_down, span across moat/ice/lava/floor */
+       "Воздух",        /* open air on Air level or bubble on Water level */
+       "Облако",        /* [part of] a cloud or Air level */
        /*
         */
 /*37*/ "",              /* MAX_TYPE; skipped ratther than overloaded */
@@ -911,14 +911,14 @@ const char *terrain_descr[] = {
        /*
         * additional terrain names that aren't simple levl[][].typ values
         */
-/*39*/ "Floor",         /* substituted for room or corridor */
-/*40*/ "Ground",        /* 'room' on Earth level */
-       "Open-door",     /* open (not broken or doorless) */
-       "Shut-door",     /* closed or locked (or trapped) */
-       "Swamp",         /* Juiblex level */
-       "Submerged",     /* under water */
-       "Sea",           /* moat terrain on Medusa's level: "shallow sea" */
-       "WaterWall",     /* water that extends to the ceiling */
+/*39*/ "Пол",           /* substituted for room or corridor */
+/*40*/ "Земля",         /* 'room' on Earth level */
+       "Откр. дверь",   /* open (not broken or doorless) */
+       "Закр. дверь",   /* closed or locked (or trapped) */
+       "Болото",        /* Juiblex level */
+       "Под водой",     /* under water */
+       "Море",          /* moat terrain on Medusa's level: "shallow sea" */
+       "Вода-стена",    /* water that extends to the ceiling */
 };
 
 /* cache-related */
