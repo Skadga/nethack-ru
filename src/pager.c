@@ -119,7 +119,7 @@ self_lookat(char *outbuf)
                    : ru_hero_subject(Ugender == FEMALE),
             svp.plname);
     if (u.usteed)
-        Sprintf(eos(outbuf), ", едет верхом на %s", y_monnam(u.usteed));
+        Sprintf(eos(outbuf), ", едет верхом на %s", ru_noun_case(y_monnam(u.usteed), BP_PREP));
     if (u.uundetected || (Upolyd && U_AP_TYPE)
         || visible_region_at(u.ux, u.uy))
         mhidden_description(&gy.youmonst,

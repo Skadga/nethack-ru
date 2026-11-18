@@ -1113,7 +1113,7 @@ test_move(
                             || Fumbling) {
                             if (u.usteed) {
                                 You_cant("провести %s через ту закрытую дверь.",
-                                         y_monnam(u.usteed));
+                                         ru_noun_case(y_monnam(u.usteed), BP_ACC));
                             } else {
                                 pline("ќй! ¬ы удар€етесь о дверь.");
                                 exercise(A_DEX, FALSE);
@@ -1618,7 +1618,7 @@ trapmove(
             if ((u.utrap & 0xff) == 0) {
                 u.utrap = 0;
                 if (u.usteed)
-                    You("выводите %s на край %s.", steedname,
+                    You("выводите %s на край %s.", ru_noun_case(steedname, BP_ACC),
                         hliquid("лавы"));
                 else
                     You("подт€гиваетесь к краю %s.",
@@ -2704,7 +2704,7 @@ escape_from_sticky_mon(coordxy x, coordxy y)
              */
             mtmp = u.ustuck;
             set_ustuck((struct monst *) 0);
-            You("отпускаете %s.", y_monnam(mtmp));
+            You("отпускаете %s.", ru_noun_case(y_monnam(mtmp), BP_ACC));
         } else {
             /* If holder is asleep or paralyzed:
              *      37.5% chance of getting away,
@@ -3126,7 +3126,7 @@ invocation_message(void)
 
         nomul(0); /* stop running or travelling */
         if (u.usteed)
-            Sprintf(buf, "под %s", y_monnam(u.usteed));
+            Sprintf(buf, "под %s", ru_noun_case(y_monnam(u.usteed), BP_PREP));
         else if (Levitation || Flying)
             Strcpy(buf, "под вами");
         else

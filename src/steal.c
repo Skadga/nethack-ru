@@ -859,7 +859,7 @@ relobj(
     /* vault guard's gold goes away rather than be dropped... */
     if (mtmp->isgd && (otmp = findgold(mtmp->minvent)) != 0) {
         if (canspotmon(mtmp))
-            pline("Золото %s %s.", Monnam(mtmp),
+            pline("Золото %s %s.", mon_gen(mtmp, BP_GEN),
                   canseemon(mtmp) ? "исчезает" : ", кажется, исчезает");
         obj_extract_self(otmp);
         obfree(otmp, (struct obj *) 0);

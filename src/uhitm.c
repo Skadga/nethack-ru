@@ -5393,10 +5393,10 @@ mhitm_knockback(
     /* give the message */
     if (u_def || canseemon(mdef)) {
         Strcpy(magrbuf, u_agr ? "Вы" : Monnam(magr));
-        Strcpy(mdefbuf, (u_def || was_u) ? "вы" : y_monnam(mdef));
+        Strcpy(mdefbuf, (u_def || was_u) ? "вас" : ru_noun_case(y_monnam(mdef), BP_ACC));
         if (was_u)
             Snprintf(eos(mdefbuf), sizeof mdefbuf - strlen(mdefbuf),
-                     " и %s", y_monnam(u.usteed));
+                     " и %s", ru_noun_case(y_monnam(u.usteed), BP_ACC));
         /*
          * uhitm: You knock the gnome back with a powerful blow!
          * mhitu: The red dragon knocks you back with a forceful blow!

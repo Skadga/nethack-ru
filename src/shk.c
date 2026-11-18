@@ -929,12 +929,12 @@ u_entered_shop(char *enterstring)
                 SetVoice(shkp, 0, 80, 0);
                 verbalize(not_upset ? "Не оставите ли вы %s снаружи?"
                                     : "Оставьте %s снаружи.",
-                          y_monnam(u.usteed));
+                          ru_noun_case(y_monnam(u.usteed), BP_ACC));
             } else {
                 pline("%s %s впускать вас, пока вы едете на %s.",
                       Shknam(shkp),
                       not_upset ? "не хочет" : "отказывается",
-                      y_monnam(u.usteed));
+                      ru_noun_case(y_monnam(u.usteed), BP_PREP));
             }
             should_block = TRUE;
         } else {
