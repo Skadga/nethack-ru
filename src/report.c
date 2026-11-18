@@ -494,7 +494,7 @@ NH_panictrace_libc(void)
     int count, x;
     char **info, buf[BUFSZ];
 
-    raw_print("  Generating more information you may report:\n");
+    raw_print("  Собираю дополнительные сведения для отчёта:\n");
     count = backtrace(bt, SIZE(bt));
     info = backtrace_symbols(bt, count);
     for (x = 0; x < count; x++) {
@@ -545,7 +545,7 @@ NH_panictrace_gdb(void)
              gdbpath, ARGV0, getpid(), greppath);
     gdb = popen(buf, "w");
     if (gdb) {
-        raw_print("  Generating more information you may report:\n");
+        raw_print("  Собираю дополнительные сведения для отчёта:\n");
         (void) fprintf(gdb, "bt\nquit\ny");
         (void) fflush(gdb);
         sleep(4); /* ugly */

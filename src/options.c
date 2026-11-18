@@ -8475,7 +8475,7 @@ optfn_o_status_hilites(
     }
     if (req == do_handler) {
         if (!status_hilite_menu()) {
-            return optn_err; /*pline("Bad status hilite(s) specified.");*/
+            return optn_err; /*pline("Неверно задана подсветка состояния.");*/
         } else {
             if (wc2_supported("hilite_status"))
                 preference_update("hilite_status");

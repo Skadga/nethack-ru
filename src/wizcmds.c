@@ -246,7 +246,7 @@ wiz_kill(void)
     coord cc;
     int ans;
     char c, qbuf[QBUFSZ];
-    const char *prompt = "Pick first monster to slay";
+    const char *prompt = "Кого первого убить";
     boolean save_verbose = flags.verbose,
             save_autodescribe = iflags.autodescribe;
     d_level uarehere = u.uz;
@@ -254,7 +254,7 @@ wiz_kill(void)
     cc.x = u.ux, cc.y = u.uy;
     for (;;) {
         pline("%s:", prompt);
-        prompt = "Next monster";
+        prompt = "Следующий монстр";
 
         flags.verbose = FALSE;
         iflags.autodescribe = TRUE;
@@ -267,15 +267,15 @@ wiz_kill(void)
         mtmp = 0;
         if (u_at(cc.x, cc.y)) {
             if (u.usteed) {
-                Sprintf(qbuf, "Kill %.110s?", mon_nam(u.usteed));
+                Sprintf(qbuf, "Убить %.110s?", mon_nam(u.usteed));
                 if ((c = ynq(qbuf)) == 'q')
                     break;
                 if (c == 'y')
                     mtmp = u.usteed;
             }
             if (!mtmp) {
-                Sprintf(qbuf, "%s?", Role_if(PM_SAMURAI) ? "Perform seppuku"
-                                                         : "Commit suicide");
+                Sprintf(qbuf, "%s?", Role_if(PM_SAMURAI) ? "Сделать сэппуку"
+                                                         : "Покончить с собой");
                 if (paranoid_query(TRUE, qbuf)) {
                     Sprintf(svk.killer.name, "%s рук", uhis());
                     svk.killer.format = KILLED_BY;
@@ -305,8 +305,9 @@ wiz_kill(void)
                         | ((tame && has_mgivenname(mtmp)) ? SUPPRESS_SADDLE
                            : 0)),
                 articl = tame ? ARTICLE_YOUR : seen ? ARTICLE_THE : ARTICLE_A;
-            const char *adjs = tame ? (!seen ? "poor, unseen" : "poor")
-                                    : (!seen ? "unseen" : (const char *) 0);
+            /* Russian adjectives would need gender agreement with the
+               monster's name, so don't try to prepend any */
+            const char *adjs = (const char *) 0;
             char *Mn = x_monnam(mtmp, articl, adjs, flgs, FALSE);
 
             if (!iflags.menu_requested) {
@@ -360,7 +361,7 @@ wiz_load_lua(void)
                 16*1024*1024, 0, 16*1024*1024};
 
         buf[0] = '\0';
-        getlin("Load which lua file?", buf);
+        getlin("Загрузить какой lua-файл?", buf);
         if (buf[0] == '\033' || buf[0] == '\0')
             return ECMD_CANCEL;
         if (!strchr(buf, '.'))
@@ -379,7 +380,7 @@ wiz_load_splua(void)
         char buf[BUFSZ];
 
         buf[0] = '\0';
-        getlin("Load which des lua file?", buf);
+        getlin("Загрузить какой des-lua-файл?", buf);
         if (buf[0] == '\033' || buf[0] == '\0')
             return ECMD_CANCEL;
         if (!strchr(buf, '.'))
@@ -412,7 +413,7 @@ int
 wiz_flip_level(void)
 {
     static const char choices[] = "0123",
-        prmpt[] = "Flip 0=randomly, 1=vertically, 2=horizontally, 3=both:";
+        prmpt[] = "Перевернуть: 0=случайно, 1=по вертикали, 2=по горизонтали, 3=как 1, так и 2:";
 
     /*
      * Does not handle
@@ -450,7 +451,7 @@ wiz_level_change(void)
     int ret;
 
     buf[0] = '\0'; /* in case EDIT_GETLIN is enabled */
-    getlin("To what experience level do you want to be set?", buf);
+    getlin("На какой уровень опыта вас поставить?", buf);
     (void) mungspaces(buf);
     if (buf[0] == '\033' || buf[0] == '\0')
         ret = 0;
@@ -508,7 +509,7 @@ wiz_telekinesis(void)
 
         if ((((mtmp = m_at(cc.x, cc.y)) != 0) && canspotmon(mtmp))
             || u_at(cc.x, cc.y)) {
-            if (!getdir("which direction?"))
+            if (!getdir("какое направление?"))
                 return ECMD_CANCEL;
 
             if (mtmp) {
@@ -539,8 +540,8 @@ wiz_panic(void)
         return ECMD_OK;
     }
     if (paranoid_query(TRUE,
-                       "Do you want to call panic() and end your game?"))
-        panic("Crash test (#panic).");
+                       "Вызвать panic() и завершить игру?"))
+        panic("Проверка аварийного завершения (#panic).");
     return ECMD_OK;
 }
 
@@ -552,9 +553,9 @@ wiz_fuzzer(void)
         pline("Тестер fuzz заставит NetHack выполнять случайные нажатия клавиш.");
         There("нет обычного способа выйти из этого режима.");
     }
-    if (paranoid_query(TRUE, "Do you want to start fuzz testing?")) {
+    if (paranoid_query(TRUE, "Начать фаззинг-тестирование?")) {
         /* Thoth, take the reins */
-        if (y_n("Do you want to call panic() after impossible()?") == 'n') {
+        if (y_n("Вызывать panic() после impossible()?") == 'n') {
             iflags.debug_fuzzer = fuzzer_impossible_continue;
         } else {
             iflags.debug_fuzzer = fuzzer_impossible_panic;
@@ -626,7 +627,7 @@ wiz_show_vision(void)
     char row[COLNO + 1];
 
     win = create_nhwindow(NHW_TEXT);
-    Sprintf(row, "Flags: 0x%x could see, 0x%x in sight, 0x%x temp lit",
+    Sprintf(row, "Флаги: 0x%x видно, 0x%x в поле зрения, 0x%x подсвечено",
             COULD_SEE, IN_SIGHT, TEMP_LIT);
     putstr(win, 0, row);
     putstr(win, 0, "");
@@ -735,13 +736,13 @@ wiz_map_levltyp(void)
             /* special level flags (note: dungeon.def doesn't set `maze'
                or `hell' for any specific levels so those never show up) */
             if (slev->flags.maze_like)
-                Strcat(dsc, " mazelike");
+                Strcat(dsc, " лабиринт");
             if (slev->flags.hellish)
-                Strcat(dsc, " hellish");
+                Strcat(dsc, " ад");
             if (slev->flags.town)
-                Strcat(dsc, " town");
+                Strcat(dsc, " город");
             if (slev->flags.rogue_like)
-                Strcat(dsc, " roguelike");
+                Strcat(dsc, " рогалик");
             /* alignment currently omitted to save space */
         }
         /* level features */
@@ -752,73 +753,73 @@ wiz_map_levltyp(void)
             Sprintf(eos(dsc), " %c:%d", defsyms[S_sink].sym,
                     (int) svl.level.flags.nsinks);
         if (svl.level.flags.has_vault)
-            Strcat(dsc, " vault");
+            Strcat(dsc, " хранилище");
         if (svl.level.flags.has_shop)
-            Strcat(dsc, " shop");
+            Strcat(dsc, " магазин");
         if (svl.level.flags.has_temple)
-            Strcat(dsc, " temple");
+            Strcat(dsc, " храм");
         if (svl.level.flags.has_court)
-            Strcat(dsc, " throne");
+            Strcat(dsc, " трон");
         if (svl.level.flags.has_zoo)
-            Strcat(dsc, " zoo");
+            Strcat(dsc, " зверинец");
         if (svl.level.flags.has_morgue)
-            Strcat(dsc, " morgue");
+            Strcat(dsc, " морг");
         if (svl.level.flags.has_barracks)
-            Strcat(dsc, " barracks");
+            Strcat(dsc, " казармы");
         if (svl.level.flags.has_beehive)
-            Strcat(dsc, " hive");
+            Strcat(dsc, " улей");
         if (svl.level.flags.has_swamp)
-            Strcat(dsc, " swamp");
+            Strcat(dsc, " болото");
         /* level flags */
         if (svl.level.flags.noteleport)
-            Strcat(dsc, " noTport");
+            Strcat(dsc, " безТелеп");
         if (svl.level.flags.hardfloor)
-            Strcat(dsc, " noDig");
+            Strcat(dsc, " безКопки");
         if (svl.level.flags.nommap)
-            Strcat(dsc, " noMMap");
+            Strcat(dsc, " безКарты");
         if (!svl.level.flags.hero_memory)
-            Strcat(dsc, " noMem");
+            Strcat(dsc, " безПамяти");
         if (svl.level.flags.shortsighted)
-            Strcat(dsc, " shortsight");
+            Strcat(dsc, " близорукость");
         if (svl.level.flags.graveyard)
-            Strcat(dsc, " graveyard");
+            Strcat(dsc, " кладбище");
         if (svl.level.flags.is_maze_lev)
-            Strcat(dsc, " maze");
+            Strcat(dsc, " лабиринт-уровень");
         if (svl.level.flags.is_cavernous_lev)
-            Strcat(dsc, " cave");
+            Strcat(dsc, " пещера");
         if (svl.level.flags.arboreal)
-            Strcat(dsc, " tree");
+            Strcat(dsc, " дерево");
         if (Sokoban)
-            Strcat(dsc, " sokoban-rules");
+            Strcat(dsc, " правилаСокобан");
         /* non-flag info; probably should include dungeon branching
            checks (extra stairs and magic portals) here */
         if (Invocation_lev(&u.uz))
-            Strcat(dsc, " invoke");
+            Strcat(dsc, " вызов");
         if (On_W_tower_level(&u.uz))
-            Strcat(dsc, " tower");
+            Strcat(dsc, " башня");
         /* append a branch identifier for completeness' sake */
         if (u.uz.dnum == 0)
-            Strcat(dsc, " dungeon");
+            Strcat(dsc, " подземелье");
         else if (u.uz.dnum == mines_dnum)
-            Strcat(dsc, " mines");
+            Strcat(dsc, " шахты");
         else if (In_sokoban(&u.uz))
-            Strcat(dsc, " sokoban");
+            Strcat(dsc, " сокобан");
         else if (u.uz.dnum == quest_dnum)
-            Strcat(dsc, " quest");
+            Strcat(dsc, " квест");
         else if (Is_knox(&u.uz))
-            Strcat(dsc, " ludios");
+            Strcat(dsc, " лудиос");
         else if (u.uz.dnum == 1)
-            Strcat(dsc, " gehennom");
+            Strcat(dsc, " геенна");
         else if (u.uz.dnum == tower_dnum)
-            Strcat(dsc, " vlad");
+            Strcat(dsc, " влад");
         else if (In_endgame(&u.uz))
-            Strcat(dsc, " endgame");
+            Strcat(dsc, " финал");
         else {
             /* somebody's added a dungeon branch we're not expecting */
             const char *brname = svd.dungeons[u.uz.dnum].dname;
 
             if (!brname || !*brname)
-                brname = "unknown";
+                brname = "неизвестно";
             if (!strncmpi(brname, "the ", 4))
                 brname += 4;
             Sprintf(eos(dsc), " %s", brname);
@@ -846,7 +847,7 @@ wiz_levltyp_legend(void)
     char buf[BUFSZ];
 
     win = create_nhwindow(NHW_TEXT);
-    putstr(win, 0, "#terrain encodings:");
+    putstr(win, 0, "#кодировка местности:");
     putstr(win, 0, "");
     fmt = " %c - %-28s"; /* TODO: include tab-separated variant for win32 */
     *buf = '\0';
@@ -860,7 +861,7 @@ wiz_levltyp_legend(void)
         for (j = i; j < last; j += last / 2) {
             dsc = levltyp[j];
             c = !*dsc ? ' '
-                   : !strncmp(dsc, "unreachable", 11) ? '*'
+                   : !strcmp(dsc, "недоступно/некопаемо") ? '*'
                       /* same int-to-char conversion as wiz_map_levltyp() */
                       : (j < 10) ? '0' + j
                          : (j < 36) ? 'a' + j - 10
@@ -969,7 +970,7 @@ wiz_intrinsic(void)
         if (iflags.cmdassist) {
             /* start menu with a subtitle */
             Sprintf(buf,
-        "[Precede any selection with a count to increment by other than %d.]",
+        "[Перед выбором можно указать число, чтобы прибавить не %d.]",
                     DEFAULT_TIMEOUT_INCR);
             add_menu_str(win, buf);
         }
@@ -996,7 +997,7 @@ wiz_intrinsic(void)
             add_menu(win, &nul_glyphinfo, &any, 0, 0, ATR_NONE, clr, buf,
                      MENU_ITEMFLAGS_NONE);
         }
-        end_menu(win, "Which intrinsics?");
+        end_menu(win, "Какие внутренние свойства?");
         n = select_menu(win, PICK_ANY, &pick_list);
         destroy_nhwindow(win);
 
@@ -1113,7 +1114,7 @@ wiz_rumor_check(void)
  */
 
 static const char template[] = "%-27s  %4ld  %6ld";
-static const char stats_hdr[] = "                             count  bytes";
+static const char stats_hdr[] = "                             кол-во    байт";
 static const char stats_sep[] = "---------------------------  ----- -------";
 
 staticfn int
@@ -1306,19 +1307,19 @@ misc_stats(
     }
     *total_count += count;
     *total_size += size;
-    Sprintf(hdrbuf, "traps, size %ld", (long) sizeof (struct trap));
+    Sprintf(hdrbuf, "ловушки, размер %ld", (long) sizeof (struct trap));
     Sprintf(buf, template, hdrbuf, count, size);
     putstr(win, 0, buf);
 
     count = size = 0L;
-    engr_stats("engravings, size %ld+text", hdrbuf, &count, &size);
+    engr_stats("надписи, размер %ld+текст", hdrbuf, &count, &size);
     *total_count += count;
     *total_size += size;
     Sprintf(buf, template, hdrbuf, count, size);
     putstr(win, 0, buf);
 
     count = size = 0L;
-    light_stats("light sources, size %ld", hdrbuf, &count, &size);
+    light_stats("источники света, размер %ld", hdrbuf, &count, &size);
     if (count || size) {
         *total_count += count;
         *total_size += size;
@@ -1327,7 +1328,7 @@ misc_stats(
     }
 
     count = size = 0L;
-    timer_stats("timers, size %ld", hdrbuf, &count, &size);
+    timer_stats("таймеры, размер %ld", hdrbuf, &count, &size);
     if (count || size) {
         *total_count += count;
         *total_size += size;
@@ -1343,14 +1344,14 @@ misc_stats(
     if (count || size) {
         *total_count += count;
         *total_size += size;
-        Sprintf(hdrbuf, "shop damage, size %ld",
+        Sprintf(hdrbuf, "ущерб магазину, размер %ld",
                 (long) sizeof (struct damage));
         Sprintf(buf, template, hdrbuf, count, size);
         putstr(win, 0, buf);
     }
 
     count = size = 0L;
-    region_stats("regions, size %ld+%ld*rect+N", hdrbuf, &count, &size);
+    region_stats("области, размер %ld+%ld*прямоуг+N", hdrbuf, &count, &size);
     if (count || size) {
         *total_count += count;
         *total_size += size;
@@ -1366,8 +1367,8 @@ misc_stats(
     if (count || size) {
         *total_count += count;
         *total_size += size;
-        Sprintf(hdrbuf, "delayed killer%s, size %ld",
-                plur(count), (long) sizeof (struct kinfo));
+        Sprintf(hdrbuf, "отложенные убийцы, размер %ld",
+                (long) sizeof (struct kinfo));
         Sprintf(buf, template, hdrbuf, count, size);
         putstr(win, 0, buf);
     }
@@ -1380,7 +1381,7 @@ misc_stats(
     if (count || size) {
         *total_count += count;
         *total_size += size;
-        Sprintf(hdrbuf, "bones history, size %ld",
+        Sprintf(hdrbuf, "история останков, размер %ld",
                 (long) sizeof (struct cemetery));
         Sprintf(buf, template, hdrbuf, count, size);
         putstr(win, 0, buf);
@@ -1395,7 +1396,7 @@ misc_stats(
     if (count || size) {
         *total_count += count;
         *total_size += size;
-        Strcpy(hdrbuf, "object type names, text");
+        Strcpy(hdrbuf, "названия типов объектов, текст");
         Sprintf(buf, template, hdrbuf, count, size);
         putstr(win, 0, buf);
     }
@@ -1539,7 +1540,7 @@ list_migrating_mons(
         Strcat(prmpt, "a q");
         if (*xtra)
             Sprintf(eos(prmpt), "%c%s", '\033', xtra);
-        c = yn_function("List which?", prmpt, 'q', TRUE);
+        c = yn_function("Что показать?", prmpt, 'q', TRUE);
         n = (c == 'c') ? here
             : (c == 'n') ? nxtlv
               : (c == 'o') ? other
@@ -1551,13 +1552,13 @@ list_migrating_mons(
             case 'c':
             case 'n':
             case 'o':
-                Sprintf(buf, "Monster%s migrating to %s:", plur(n),
-                        (c == 'c') ? "current level"
-                        : (c == 'n') ? "next level"
-                          : "'other' levels");
+                Sprintf(buf, "Мигрируют монстры (%d) на %s:", n,
+                        (c == 'c') ? "текущий уровень"
+                        : (c == 'n') ? "следующий уровень"
+                          : "прочие уровни");
                 break;
             default:
-                Strcpy(buf, "All migrating monsters:");
+                Strcpy(buf, "Все мигрирующие монстры:");
                 break;
             }
             putstr(win, 0, buf);
@@ -1591,14 +1592,14 @@ list_migrating_mons(
                 /* minimal_monnam() appends map coordinates; strip that */
                 (void) strsubst(buf, " <0,0>", "");
                 if (has_mgivenname(mtmp)) /* if mtmp is named, include that */
-                    Sprintf(eos(buf), " named %s", MGIVENNAME(mtmp));
+                    Sprintf(eos(buf), " с именем %s", MGIVENNAME(mtmp));
                 if (c == 'o' || c == 'a')
-                    Sprintf(eos(buf), " to %d:%d", mtmp->mux, mtmp->muy);
+                    Sprintf(eos(buf), " в %d:%d", mtmp->mux, mtmp->muy);
                 xyloc = mtmp->mtrack[0].x; /* (for legibility) */
                 if (xyloc == MIGR_EXACT_XY) {
                     x = mtmp->mtrack[1].x;
                     y = mtmp->mtrack[1].y;
-                    Sprintf(eos(buf), " at <%d,%d>", (int) x, (int) y);
+                    Sprintf(eos(buf), " в <%d,%d>", (int) x, (int) y);
                 }
                 putstr(win, 0, buf);
             }
@@ -1626,64 +1627,64 @@ wiz_show_stats(void)
          total_misc_size, total_misc_count;
 
     win = create_nhwindow(NHW_TEXT);
-    putstr(win, 0, "Current memory statistics:");
+    putstr(win, 0, "Текущая статистика памяти:");
 
     total_obj_count = total_obj_size = 0L;
     putstr(win, 0, stats_hdr);
-    Sprintf(buf, "  Objects, base size %ld", (long) sizeof (struct obj));
+    Sprintf(buf, "  Объекты, базовый размер %ld", (long) sizeof (struct obj));
     putstr(win, 0, buf);
-    obj_chain(win, "invent", gi.invent, TRUE,
+    obj_chain(win, "инвентарь", gi.invent, TRUE,
               &total_obj_count, &total_obj_size);
     obj_chain(win, "fobj", fobj, TRUE, &total_obj_count, &total_obj_size);
-    obj_chain(win, "buried", svl.level.buriedobjlist, FALSE,
+    obj_chain(win, "закопанное", svl.level.buriedobjlist, FALSE,
               &total_obj_count, &total_obj_size);
-    obj_chain(win, "migrating obj", gm.migrating_objs, FALSE,
+    obj_chain(win, "мигрирующие объекты", gm.migrating_objs, FALSE,
               &total_obj_count, &total_obj_size);
-    obj_chain(win, "billobjs", gb.billobjs, FALSE,
+    obj_chain(win, "счета", gb.billobjs, FALSE,
               &total_obj_count, &total_obj_size);
-    mon_invent_chain(win, "minvent", fmon, &total_obj_count, &total_obj_size);
-    mon_invent_chain(win, "migrating minvent", gm.migrating_mons,
+    mon_invent_chain(win, "инв. монстров", fmon, &total_obj_count, &total_obj_size);
+    mon_invent_chain(win, "мигрирующие монстры", gm.migrating_mons,
                      &total_obj_count, &total_obj_size);
-    contained_stats(win, "contained", &total_obj_count, &total_obj_size);
+    contained_stats(win, "в контейнерах", &total_obj_count, &total_obj_size);
     putstr(win, 0, stats_sep);
-    Sprintf(buf, template, "  Obj total", total_obj_count, total_obj_size);
+    Sprintf(buf, template, "  Итого объектов", total_obj_count, total_obj_size);
     putstr(win, 0, buf);
 
     total_mon_count = total_mon_size = 0L;
     putstr(win, 0, "");
-    Sprintf(buf, "  Monsters, base size %ld", (long) sizeof (struct monst));
+    Sprintf(buf, "  Монстры, базовый размер %ld", (long) sizeof (struct monst));
     putstr(win, 0, buf);
     mon_chain(win, "fmon", fmon, TRUE, &total_mon_count, &total_mon_size);
-    mon_chain(win, "migrating", gm.migrating_mons, FALSE,
+    mon_chain(win, "мигрирующие", gm.migrating_mons, FALSE,
               &total_mon_count, &total_mon_size);
     /* 'gm.mydogs' is only valid during level change or end of game disclosure,
        but conceivably we've been called from within debugger at such time */
     if (gm.mydogs) /* monsters accompanying hero */
-        mon_chain(win, "mydogs", gm.mydogs, FALSE,
+        mon_chain(win, "спутники", gm.mydogs, FALSE,
                   &total_mon_count, &total_mon_size);
     putstr(win, 0, stats_sep);
-    Sprintf(buf, template, "  Mon total", total_mon_count, total_mon_size);
+    Sprintf(buf, template, "  Итого монстров", total_mon_count, total_mon_size);
     putstr(win, 0, buf);
 
     total_ovr_count = total_ovr_size = 0L;
     putstr(win, 0, "");
-    putstr(win, 0, "  Overview");
+    putstr(win, 0, "  Обзор");
     overview_stats(win, template, &total_ovr_count, &total_ovr_size);
     putstr(win, 0, stats_sep);
-    Sprintf(buf, template, "  Over total", total_ovr_count, total_ovr_size);
+    Sprintf(buf, template, "  Итого обзора", total_ovr_count, total_ovr_size);
     putstr(win, 0, buf);
 
     total_misc_count = total_misc_size = 0L;
     putstr(win, 0, "");
-    putstr(win, 0, "  Miscellaneous");
+    putstr(win, 0, "  Разное");
     misc_stats(win, &total_misc_count, &total_misc_size);
     putstr(win, 0, stats_sep);
-    Sprintf(buf, template, "  Misc total", total_misc_count, total_misc_size);
+    Sprintf(buf, template, "  Итого разного", total_misc_count, total_misc_size);
     putstr(win, 0, buf);
 
     putstr(win, 0, "");
     putstr(win, 0, stats_sep);
-    Sprintf(buf, template, "  Grand total",
+    Sprintf(buf, template, "  Всего",
             (total_obj_count + total_mon_count
              + total_ovr_count + total_misc_count),
             (total_obj_size + total_mon_size
@@ -1707,7 +1708,7 @@ RESTORE_WARNING_FORMAT_NONLITERAL
 int
 wiz_display_macros(void)
 {
-    static const char display_issues[] = "Display macro issues:";
+    static const char display_issues[] = "Проблемы макросов отображения:";
     char buf[BUFSZ];
     winid win;
     int glyph, test, trouble = 0, no_glyph = NO_GLYPH, max_glyph = MAX_GLYPH;
@@ -1723,7 +1724,7 @@ wiz_display_macros(void)
                 if (!trouble++)
                     putstr(win, 0, display_issues);
                 Sprintf(buf, "glyph_is_cmap() / glyph_to_cmap(glyph=%d)"
-                             " sync failure, returned NO_GLYPH (%d)",
+                             " рассинхронизация, вернулось NO_GLYPH (%d)",
                         glyph, test);
                  putstr(win, 0, buf);
             }
@@ -1732,7 +1733,7 @@ wiz_display_macros(void)
                 if (!trouble++)
                     putstr(win, 0, display_issues);
                 Sprintf(buf,
-                        "glyph_is_cmap_zap(glyph=%d) returned non-zap cmap %d",
+                        "glyph_is_cmap_zap(glyph=%d) вернул не-zap cmap %d",
                         glyph, test);
                  putstr(win, 0, buf);
             }
@@ -1740,8 +1741,8 @@ wiz_display_macros(void)
             if (!IndexOk(test, defsyms)) {
                 if (!trouble++)
                     putstr(win, 0, display_issues);
-                Sprintf(buf, "glyph_to_cmap(glyph=%d) returns %d"
-                             " exceeds defsyms[%d] bounds (MAX_GLYPH = %d)",
+                Sprintf(buf, "glyph_to_cmap(glyph=%d) вернул %d"
+                             " за границы defsyms[%d] (MAX_GLYPH = %d)",
                         glyph, test, SIZE(defsyms), max_glyph);
                 putstr(win, 0, buf);
             }
@@ -1753,8 +1754,8 @@ wiz_display_macros(void)
             if (test < 0 || test >= NUMMONS) {
                 if (!trouble++)
                     putstr(win, 0, display_issues);
-                Sprintf(buf, "glyph_to_mon(glyph=%d) returns %d"
-                             " exceeds mons[%d] bounds",
+                Sprintf(buf, "glyph_to_mon(glyph=%d) вернул %d"
+                             " за границы mons[%d]",
                         glyph, test, NUMMONS);
                 putstr(win, 0, buf);
             }
@@ -1766,15 +1767,15 @@ wiz_display_macros(void)
             if (test < 0 || test > NUM_OBJECTS) {
                 if (!trouble++)
                     putstr(win, 0, display_issues);
-                Sprintf(buf, "glyph_to_obj(glyph=%d) returns %d"
-                             " exceeds objects[%d] bounds",
+                Sprintf(buf, "glyph_to_obj(glyph=%d) вернул %d"
+                             " за границы objects[%d]",
                         glyph, test, NUM_OBJECTS);
                 putstr(win, 0, buf);
             }
         }
     }
     if (!trouble)
-        putstr(win, 0, "No display macro issues detected.");
+        putstr(win, 0, "Проблем с макросами отображения не найдено.");
     display_nhwindow(win, FALSE);
     destroy_nhwindow(win);
     return ECMD_OK;
@@ -1792,8 +1793,8 @@ wiz_show_nhuuid(void)
 int
 wiz_mon_diff(void)
 {
-    static const char window_title[] = "Review of monster difficulty ratings"
-                                       " [index:level]:";
+    static const char window_title[] = "Сводка оценок сложности монстров"
+                                       " [индекс:уровень]:";
     char buf[BUFSZ];
     winid win;
     int mhardcoded = 0, mcalculated = 0, trouble = 0, cnt = 0, mdiff = 0;
@@ -1817,14 +1818,14 @@ wiz_mon_diff(void)
             if (mlev > 50) /* hack for named demons */
                 mlev = 50;
             Snprintf(buf, sizeof buf,
-                     "%-18s [%3d:%2d]: calculated: %2d, hardcoded: %2d (%+d)",
+                     "%-18s [%3d:%2d]: расчёт: %2d, в таблице: %2d (%+d)",
                      ptr->pmnames[NEUTRAL], cnt, mlev,
                      mcalculated, mhardcoded, mdiff);
             putstr(win, 0, buf);
         }
     }
     if (!trouble)
-        putstr(win, 0, "No monster difficulty discrepancies were detected.");
+        putstr(win, 0, "Расхождений в сложности монстров не найдено.");
     display_nhwindow(win, FALSE);
     destroy_nhwindow(win);
     return ECMD_OK;
@@ -1897,7 +1898,7 @@ wiz_migrate_mons(void)
 #ifdef DEBUG_MIGRATING_MONS
     inbuf[0] = inbuf[1] = '\0';
     if (tolevel.dnum || tolevel.dlevel)
-        getlin("How many random monsters to migrate to next level? [0]",
+        getlin("Сколько случайных монстров переселить на следующий уровень? [0]",
                inbuf);
     else
         pline("Отсюда туда не добраться.");
@@ -1954,14 +1955,14 @@ wiz_custom(void)
         win = create_nhwindow(NHW_MENU);
         start_menu(win, MENU_BEHAVE_STANDARD);
         add_menu_heading(win,
-                         "    glyph  glyph identifier                        "
-                         "     sym   clr customcolor unicode utf8");
+                         "   глиф   идентификатор глифа                 "
+                         "  симв  цв  свой цвет  юникод utf8");
         Sprintf(bufa, "%s: colorcount=%ld %s", wizcustom,
                 (long) iflags.colorcount,
                 gs.symset[PRIMARYSET].name ? gs.symset[PRIMARYSET].name
-                                          : "default");
+                                          : "по умолчанию");
         if (gc.currentgraphics == PRIMARYSET && gs.symset[PRIMARYSET].name)
-            Strcat(bufa, ", active");
+            Strcat(bufa, ", активен");
         if (gs.symset[PRIMARYSET].handling) {
             Sprintf(eos(bufa), ", handler=%s",
                     known_handling[gs.symset[PRIMARYSET].handling]);
