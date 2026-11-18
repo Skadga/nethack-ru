@@ -517,22 +517,18 @@ background_enlightenment(int unused_mode UNUSED, int final)
         you_are(buf, "");
     }
 
-    /* report role; omit gender if it's redundant (eg, "female priestess") */
-    tmpbuf[0] = '\0';
-    if (!gu.urole.name.f
-        && ((gu.urole.allow & ROLE_GENDMASK) == (ROLE_MALE | ROLE_FEMALE)
-            || innategend != flags.initgend))
-        Sprintf(tmpbuf, "%s ", genders[innategend].adj);
+    /* report role; the role name already carries the gender when it has
+       a distinct feminine form (eg, "жрица") */
     buf[0] = '\0';
     if (Upolyd)
         Strcpy(buf, "на самом деле "); /* "Вы на самом деле ..." */
     if (!strcmpi(rank_titl, role_titl)) {
         /* omit role when rank title matches it */
-        Sprintf(eos(buf), "%s, уровень %d %s%s", rank_titl, u.ulevel,
-                tmpbuf, gu.urace.noun);
+        Sprintf(eos(buf), "%s, уровень %d %s", rank_titl, u.ulevel,
+                gu.urace.noun);
     } else {
-        Sprintf(eos(buf), "%s, уровень %d %s%s %s", rank_titl, u.ulevel,
-                tmpbuf, gu.urace.adj, role_titl);
+        Sprintf(eos(buf), "%s, уровень %d %s", rank_titl, u.ulevel,
+                ru_hero_subject(innategend));
     }
     you_are(buf, "");
 

@@ -605,7 +605,7 @@ const struct Race races[NUM_RACES + 1] = {
         "эльфийский",
         "эльфийский народ",
         "Elf",
-        { 0, 0 },
+        { "эльф", "эльфийка" },
         PM_ELF,
         PM_ELF_MUMMY,
         PM_ELF_ZOMBIE,
@@ -625,7 +625,7 @@ const struct Race races[NUM_RACES + 1] = {
         "дварфийский",
         "дварфийский народ",
         "Dwa",
-        { 0, 0 },
+        { "дварф", "дварфийка" },
         PM_DWARF,
         PM_DWARF_MUMMY,
         PM_DWARF_ZOMBIE,
@@ -645,7 +645,7 @@ const struct Race races[NUM_RACES + 1] = {
         "гномий",
         "гномий народ",
         "Gno",
-        { 0, 0 },
+        { "гном", "гномка" },
         PM_GNOME,
         PM_GNOME_MUMMY,
         PM_GNOME_ZOMBIE,
@@ -665,7 +665,7 @@ const struct Race races[NUM_RACES + 1] = {
         "оркский",
         "орочье племя",
         "Orc",
-        { 0, 0 },
+        { "орк", "орчиха" },
         PM_ORC,
         PM_ORC_MUMMY,
         PM_ORC_ZOMBIE,
@@ -2164,6 +2164,47 @@ character_race(short pmindex)
         if (r->mnum == pmindex)
             return r;
     return (const struct Race *) NULL;
+}
+
+/* Russian name of the hero's innate form, "<sex-or-race>-<role>",
+   for example "мужчина-турист".  'female' is the innate sex. */
+const char *
+ru_hero_subject(boolean female)
+{
+    static char buf[BUFSZ];
+    const char *subj, *role;
+    char *dash;
+
+    subj = female ? gu.urace.individual.f : gu.urace.individual.m;
+    if (!subj)
+        subj = gu.urace.noun;
+    role = (female && gu.urole.name.f) ? gu.urole.name.f : gu.urole.name.m;
+    Sprintf(buf, "%s-%s", subj, role);
+    /* the role is part of a compound noun, so write it in lower case */
+    dash = strrchr(buf, '-');
+    if (dash && dash[1])
+        dash[1] = lowc(dash[1]);
+    return buf;
+}
+
+/* Russian description of the hero's innate form used by the startup
+   message and the end-of-game header: "<alignment> <subject>",
+   for example "нейтральный мужчина-турист".  'alignment' is the
+   alignment to show. */
+const char *
+ru_hero_descr(boolean female, int alignment)
+{
+    static char buf[BUFSZ];
+    char adj[40];
+    size_t len;
+
+    Strcpy(adj, align_str(alignment));
+    len = strlen(adj);
+    if (female && len >= 2 && !strcmp(adj + len - 2, "ый")) {
+        Strcpy(adj + len - 2, "ая");
+    }
+    Sprintf(buf, "%s %s", adj, ru_hero_subject(female));
+    return buf;
 }
 
 /*--------------------------------------------------------------------------*/

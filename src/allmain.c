@@ -878,53 +878,22 @@ welcome(boolean new_game) /* false => restoring an old game */
     /*
      * The "welcome back" message always describes your innate form
      * even when polymorphed or wearing a helm of opposite alignment.
-     * Alignment is shown unconditionally for new games; for restores
-     * it's only shown if it has changed from its original value.
-     * Sex is shown for new games except when it is redundant; for
-     * restores it's only shown if different from its original value.
+     * Alignment is always shown; when it no longer matches the original
+     * one, a note is added.
      */
-    *buf = '\0';
-#if 0
-    if (new_game || u.ualignbase[A_ORIGINAL] != u.ualignbase[A_CURRENT])
-        Sprintf(eos(buf), " %s", align_str(u.ualignbase[A_ORIGINAL]));
-#else
-    /*
-     * 2026-04-24
-     * GitHub issue https://github.com/NetHack/NetHack/issues/537
-     * "Judging by the comment above, it should display your new alignment
-     *  if it was changed, so align_str(u.ualignbase[A_CURRENT]) would
-     *  probably be more appropriate. This won't affect the new game message."
-     *
-     * That is followed by a suggestion to revisit the matter (paraphrased):
-     * "That's actually intentional; the comment oversimplifies.
-     *  When it was implemented, it may have been the only way to tell that
-     *  you had converted alignment. Now ^X mentions your starting alignment
-     *  if base alignment has been changed, so revisiting this welcome back
-     *  message."
-     */
-    if (new_game || u.ualignbase[A_ORIGINAL] != u.ualignbase[A_CURRENT] || adrift)
-        Sprintf(eos(buf), " %s%s",
-                adrift ? "adrift " : "",
-                adrift ? align_str(u.ualign.type)
-                       : align_str(u.ualignbase[A_CURRENT]));
-#endif
-    if (!gu.urole.name.f
-        && (new_game
-            ? (gu.urole.allow & ROLE_GENDMASK) == (ROLE_MALE | ROLE_FEMALE)
-            : currentgend != flags.initgend))
-        Sprintf(eos(buf), " %s", genders[currentgend].adj);
-    Sprintf(eos(buf), " %s %s", gu.urace.adj,
-            (currentgend && gu.urole.name.f) ? gu.urole.name.f
-                                             : gu.urole.name.m);
+    Strcpy(buf, ru_hero_descr(currentgend, u.ualign.type));
+    if (adrift)
+        Strcat(buf, " (убеждения изменились)");
 
-    pline(new_game ? "%s, %s, добро пожаловать в NetHack! Вы —%s."
+    pline(new_game ? "%s, %s, добро пожаловать в NetHack! Вы — %s."
                    : "%s, %s, %s, с возвращением в NetHack!",
           Hello((struct monst *) 0), svp.plname, buf);
 
     if (new_game) {
         /* guarantee that 'major' event category is never empty */
-        livelog_printf(LL_ACHIEVE, "%s %s вошёл в подземелье",
-                       svp.plname, buf);
+        livelog_printf(LL_ACHIEVE, "%s (%s) %s в подземелье",
+                       svp.plname, buf,
+                       currentgend ? "вошла" : "вошёл");
     } else {
         /* if restoring in Gehennom, give same hot/smoky message as when
            first entering it */
