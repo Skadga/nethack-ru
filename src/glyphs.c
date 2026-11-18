@@ -84,8 +84,8 @@ to_custom_symset_entry_callback(
             static int glyphnag = 0;
 
             if (!glyphnag++)
-                config_error_add("Unimplemented customization feature,"
-                                 " ignoring for now");
+                config_error_add("Неосуществлённая настройка,"
+                                 " пока игнорируется");
         }
     }
 #endif
@@ -97,8 +97,8 @@ to_custom_symset_entry_callback(
             static int colornag = 0;
 
             if (!colornag++)
-                config_error_add("Unimplemented customization feature,"
-                                 " ignoring for now");
+                config_error_add("Неосуществлённая настройка,"
+                                 " пока игнорируется");
         }
     }
 }

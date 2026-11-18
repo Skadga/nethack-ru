@@ -2575,7 +2575,7 @@ proc_wizkit_line(char *buf)
         }
     } else {
         /* .60 limits output line width to 79 chars */
-        config_error_add("Bad wizkit item: \"%.60s\"", buf);
+        config_error_add("Недопустимый предмет wizkit: \"%.60s\"", buf);
         return FALSE;
     }
     return TRUE;
@@ -2667,9 +2667,9 @@ read_sym_file(int which_set)
         return 1;
     }
     if (!gc.chosen_symset_end)
-        config_error_add("Missing finish for symset \"%s\"",
+        config_error_add("Нет завершения для набора символов \"%s\"",
                          gs.symset[which_set].name ? gs.symset[which_set].name
-                                                : "unknown");
+                                                : "неизвестно");
     config_error_done();
     return 1;
 }

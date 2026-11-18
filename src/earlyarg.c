@@ -86,15 +86,15 @@ lopt(char *arg,  /* command line token; beginning matches 'optname' */
     if (arg[1] != optname[1]) {
     loptbail:
         if (complain)
-            config_error_add("Unknown option: %.60s", origarg);
+            config_error_add("Неизвестный параметр: %.60s", origarg);
         return (char *) 0;
     loptnotallowed:
         if (complain)
-            config_error_add("Value not allowed: %.60s", origarg);
+            config_error_add("Значение не допускается: %.60s", origarg);
         return (char *) 0;
     loptrequired:
         if (complain)
-            config_error_add("Missing required value: %.60s", origarg);
+            config_error_add("Отсутствует обязательное значение: %.60s", origarg);
         return (char *) 0;
     }
 

@@ -558,7 +558,7 @@ handle_config_section(char *buf)
             free(gc.config_section_current), gc.config_section_current = 0;
         /* is_config_section() removed brackets from 'sect' */
         if (!gc.config_section_chosen) {
-            config_error_add("Section \"[%s]\" without CHOOSE", sect);
+            config_error_add("Секция \"[%s]\" без CHOOSE", sect);
             return TRUE;
         }
         if (*sect) { /* got a section name */
@@ -934,7 +934,7 @@ cnf_line_SEDUCE(char *bufp)
     /* allow anyone to disable it but can only enable it in sysconf
        or as a no-op for the user when sysconf hasn't disabled it */
     if (!in_sysconf && !sysopt.seduce && n != 0) {
-        config_error_add("Illegal value in SEDUCE");
+        config_error_add("Недопустимое значение в SEDUCE");
         n = 0;
     }
     sysopt.seduce = n;
@@ -958,7 +958,7 @@ cnf_line_MAXPLAYERS(char *bufp)
 
     /* XXX to get more than 25, need to rewrite all lock code */
     if (n < 0 || n > 25) {
-        config_error_add("Illegal value in MAXPLAYERS (maximum is 25)");
+        config_error_add("Недопустимое значение в MAXPLAYERS (максимум 25)");
         n = 5;
     }
     sysopt.maxplayers = n;
@@ -971,7 +971,7 @@ cnf_line_PERSMAX(char *bufp)
     int n = atoi(bufp);
 
     if (n < 1) {
-        config_error_add("Illegal value in PERSMAX (minimum is 1)");
+        config_error_add("Недопустимое значение в PERSMAX (минимум 1)");
         n = 0;
     }
     sysopt.persmax = n;
@@ -984,7 +984,8 @@ cnf_line_PERS_IS_UID(char *bufp)
     int n = atoi(bufp);
 
     if (n != 0 && n != 1) {
-        config_error_add("Illegal value in PERS_IS_UID (must be 0 or 1)");
+        config_error_add("Недопустимое значение в PERS_IS_UID "
+                     "(должно быть 0 или 1)");
         n = 0;
     }
     sysopt.pers_is_uid = n;
@@ -997,7 +998,7 @@ cnf_line_ENTRYMAX(char *bufp)
     int n = atoi(bufp);
 
     if (n < 10) {
-        config_error_add("Illegal value in ENTRYMAX (minimum is 10)");
+        config_error_add("Недопустимое значение в ENTRYMAX (минимум 10)");
         n = 10;
     }
     sysopt.entrymax = n;
@@ -1010,7 +1011,7 @@ cnf_line_POINTSMIN(char *bufp)
     int n = atoi(bufp);
 
     if (n < 1) {
-        config_error_add("Illegal value in POINTSMIN (minimum is 1)");
+        config_error_add("Недопустимое значение в POINTSMIN (минимум 1)");
         n = 100;
     }
     sysopt.pointsmin = n;
@@ -1023,8 +1024,8 @@ cnf_line_MAX_STATUENAME_RANK(char *bufp)
     int n = atoi(bufp);
 
     if (n < 1) {
-        config_error_add("Illegal value in MAX_STATUENAME_RANK"
-                         " (minimum is 1)");
+        config_error_add("Недопустимое значение в MAX_STATUENAME_RANK"
+                         " (минимум 1)");
         n = 10;
     }
     sysopt.tt_oname_maxrank = n;
@@ -1040,8 +1041,8 @@ cnf_line_LIVELOG(char *bufp)
     long L = strtol(bufp, NULL, 0);
 
     if (L < 0L || L > 0xffffL) {
-        config_error_add("Illegal value for LIVELOG"
-                         " (must be between 0 and 0xFFFF).");
+        config_error_add("Недопустимое значение для LIVELOG"
+                         " (должно быть от 0 до 0xFFFF).");
         return 0;
     }
     sysopt.livelog = L;
@@ -1055,7 +1056,7 @@ cnf_line_PANICTRACE_LIBC(char *bufp)
 
 #if defined(PANICTRACE) && defined(PANICTRACE_LIBC)
     if (n < 0 || n > 2) {
-        config_error_add("Illegal value in PANICTRACE_LIBC (not 0,1,2)");
+        config_error_add("Недопустимое значение в PANICTRACE_LIBC (не 0,1,2)");
         n = 0;
     }
 #endif
@@ -1070,7 +1071,7 @@ cnf_line_PANICTRACE_GDB(char *bufp)
 
 #if defined(PANICTRACE)
     if (n < 0 || n > 2) {
-        config_error_add("Illegal value in PANICTRACE_GDB (not 0,1,2)");
+        config_error_add("Недопустимое значение в PANICTRACE_GDB (не 0,1,2)");
         n = 0;
     }
 #endif
@@ -1083,7 +1084,7 @@ cnf_line_GDBPATH(char *bufp)
 {
 #if defined(PANICTRACE) && !defined(VMS)
     if (!file_exists(bufp)) {
-        config_error_add("File specified in GDBPATH does not exist");
+        config_error_add("Файл, указанный в GDBPATH, не существует");
         return FALSE;
     }
 #endif
@@ -1098,7 +1099,7 @@ cnf_line_GREPPATH(char *bufp)
 {
 #if defined(PANICTRACE) && !defined(VMS)
     if (!file_exists(bufp)) {
-        config_error_add("File specified in GREPPATH does not exist");
+        config_error_add("Файл, указанный в GREPPATH, не существует");
         return FALSE;
     }
 #endif
@@ -1123,7 +1124,7 @@ cnf_line_ACCESSIBILITY(char *bufp)
     int n = atoi(bufp);
 
     if (n < 0 || n > 1) {
-        config_error_add("Illegal value in ACCESSIBILITY (not 0,1)");
+        config_error_add("Недопустимое значение в ACCESSIBILITY (не 0,1)");
         n = 0;
     }
     sysopt.accessibility = n;
@@ -1137,14 +1138,14 @@ cnf_line_PORTABLE_DEVICE_PATHS(char *bufp)
     int n = atoi(bufp);
 
     if (n < 0 || n > 1) {
-        config_error_add("Illegal value in PORTABLE_DEVICE_PATHS"
-                         " (not 0 or 1)");
+        config_error_add("Недопустимое значение в PORTABLE_DEVICE_PATHS"
+                         " (не 0 или 1)");
         n = 0;
     }
     sysopt.portable_device_paths = n;
 #else   /* Windows-only directive encountered by non-Windows config */
     nhUse(bufp);
-    config_error_add("PORTABLE_DEVICE_PATHS is not supported");
+    config_error_add("PORTABLE_DEVICE_PATHS не поддерживается");
 #endif
     return TRUE;
 }
@@ -1194,7 +1195,7 @@ cnf_line_ROGUESYMBOLS(char *bufp)
         switch_symbols(TRUE);
         return TRUE;
     }
-    config_error_add("Error in ROGUESYMBOLS definition '%s'", bufp);
+    config_error_add("Ошибка в определении ROGUESYMBOLS '%s'", bufp);
     return FALSE;
 }
 
@@ -1206,7 +1207,7 @@ cnf_line_SYMBOLS(char *bufp)
         return TRUE;
     }
     if (!config_unmatched_ignored())
-        config_error_add("Error in SYMBOLS definition '%s'", bufp);
+        config_error_add("Ошибка в определении SYMBOLS '%s'", bufp);
     return FALSE;
 }
 
@@ -1411,7 +1412,7 @@ parse_config_line(char *origbuf)
     bufp = find_optparam(buf);
     if (!bufp) {
         if (!ignore_statement_errors)
-            config_error_add("Not a config statement, missing '='");
+            config_error_add("Не оператор конфигурации: нет '='");
         return FALSE;
     }
     /* skip past '=', then space between it and value, if any */
@@ -1434,7 +1435,7 @@ parse_config_line(char *origbuf)
     }
 
     if (!ignore_errors_on_unmatched)
-        config_error_add("Unknown config statement");
+        config_error_add("Неизвестный оператор конфигурации");
     return FALSE;
 }
 
@@ -1703,7 +1704,7 @@ parse_conf_buf(struct _cnf_parser_state *p, boolean (*proc)(char *arg))
                    missing a newline; process it anyway  */
                 p->ep = eos(p->inbuf);
             } else {
-                config_error_add("Line too long, skipping");
+                config_error_add("Строка слишком длинна, пропускаем");
                 p->skip = TRUE; /* discard next fgets */
             }
         } else {
@@ -1775,8 +1776,8 @@ parse_conf_buf(struct _cnf_parser_state *p, boolean (*proc)(char *arg))
                 char *bufp = find_optparam(p->buf);
 
                 if (!bufp) {
-                    config_error_add("Format is CHOOSE=section1"
-                                     ",section2,...");
+                    config_error_add("Формат: CHOOSE=секция1"
+                                     ",секция2,...");
                     p->rv = FALSE;
                     free(p->buf), p->buf = (char *) 0;
                     return;
@@ -1789,7 +1790,7 @@ parse_conf_buf(struct _cnf_parser_state *p, boolean (*proc)(char *arg))
                 if (section) {
                     gc.config_section_chosen = dupstr(section);
                 } else {
-                    config_error_add("No config section to choose");
+                    config_error_add("Нет секции конфигурации для выбора");
                     p->rv = FALSE;
                 }
                 free(p->buf), p->buf = (char *) 0;
@@ -1932,7 +1933,8 @@ rcfile(void)
     if (nameval && (int) strlen(nameval) >= BUFSZ / 2) {
         config_error_init(TRUE, namesrc, FALSE);
         config_error_add(
-            "nethackrc file name \"%.40s\"... too long; using default",
+            "имя файла nethackrc \"%.40s\"… слишком длинное; "
+            "используется стандартное",
             nameval);
         config_error_done();
         nameval = namesrc = 0; /* revert to default nethackrc */

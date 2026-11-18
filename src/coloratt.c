@@ -364,7 +364,7 @@ match_str2clr(char *str, boolean suppress_msg)
 
     if (c < 0 || c >= CLR_MAX) {
         if (!suppress_msg)
-            config_error_add("Unknown color '%.60s'", str);
+            config_error_add("Неизвестный цвет '%.60s'", str);
         c = CLR_MAX; /* "none of the above" */
     }
     return c;
@@ -383,7 +383,7 @@ match_str2attr(const char *str, boolean complain)
         }
 
     if (a == -1 && complain)
-        config_error_add("Unknown text attribute '%.50s'", str);
+        config_error_add("Неизвестный атрибут текста '%.50s'", str);
 
     return a;
 }
@@ -624,7 +624,7 @@ add_menu_coloring(char *tmpstr) /* never Null but could be empty */
     str[sizeof str - 1] = '\0';
 
     if ((cs = strchr(str, '=')) == 0) {
-        config_error_add("Malformed MENUCOLOR");
+        config_error_add("Некорректный MENUCOLOR");
         return FALSE;
     }
 
