@@ -1725,7 +1725,7 @@ choose_classes_menu(const char *prompt,
                  ATR_NONE, clr, buf, MENU_ITEMFLAGS_SKIPINVERT);
         if (!strcmp(prompt, "Что подбирать?")) {
             add_menu_str(win,
-                   "Примечание: если ничего не выбрано, подразумевается \"\u0432сё\".");
+                   "Примечание: если ничего не выбрано, подразумевается \"всё\".");
             /* for 'O', "toggle" should be intuitive; for 'm O', it would
                probably be better to say "Set 'autopickup' to true|false" */
             add_menu_str(win, flags.pickup

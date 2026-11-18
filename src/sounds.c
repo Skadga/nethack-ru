@@ -76,7 +76,7 @@ beehive_mon_sound(struct monst *mtmp)
             break;
         case 2:
             Soundeffect(se_bees, 100);
-            You_hear("пчЄлы в вашей %sшл€пе!",
+            You_hear("пчЄл в вашей %sшл€пе!",
                      uarmh ? "" : "несуществующей ");
             break;
         }

@@ -6143,10 +6143,10 @@ globby_bill_fixup(struct obj *obj_absorber, struct obj *obj_absorbed)
         amount = bp->price;
         bill_dummy_object(obj_absorbed);
         SetVoice(shkp, 0, 80, 0);
-        verbalize("Вы должны мне %ld %s за мой %s, что вы %s с вашим%s",
+        verbalize("Вы должны мне %ld %s за мой %s, который вы %s%s",
                   amount, currency(amount), obj_typename(obj_absorbed->otyp),
                   ANGRY(shkp) ? "имели наглость смешать" : "просто смешали",
-                  ANGRY(shkp) ? " мерзким месивом!" : ".");
+                  ANGRY(shkp) ? " со своей вонючей массой!" : ".");
         return;
     }
     /**************************************************************

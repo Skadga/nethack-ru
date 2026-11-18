@@ -103,6 +103,8 @@ trapname_ru(int utraptype, const char *nom)
 static const char *const a_your[2] = { "", "вашу" };
 static const char *const A_Your[2] = { "", "Ваш" };
 static const char tower_of_flame[] = "столб пламени";
+static const char Tower_of_flame[] = "Столб пламени";
+static const char tower_of_flame_gen[] = "столба пламени";
 static const char *const A_gush_of_water_hits = "Поток воды бьет";
 static const char *const blindgas[6] = { "гнилостного", "удушливого",
                                          "едкого",   "леденящего",
@@ -1834,12 +1836,12 @@ trapeffect_fire_trap(
 
         if (in_sight)
             pline_mon(mtmp,
-                 "%s вырывается из-%uпод %s у %s!", tower_of_flame,
+                 "%s вырывается из %s под %s!", Tower_of_flame,
                   surface_case(mtmp->mx, mtmp->my, BP_GEN),
-                  mon_gen(mtmp, BP_GEN));
+                  mon_gen(mtmp, BP_INS));
         else if (see_it) { /* evidently `mtmp' is invisible */
             set_msg_xy(mtmp->mx, mtmp->my);
-            You_see("%s вырывается из %s!", tower_of_flame,
+            You_see("как %s вырывается из %s!", tower_of_flame,
                     surface_case(mtmp->mx, mtmp->my, BP_GEN));
         }
         if (resists_fire(mtmp)) {
@@ -4335,7 +4337,8 @@ dofiretrap(
             losehp(rnd(3), "кипящей воды", KILLED_BY);
         return;
     }
-    pline("%s %s из %s!", tower_of_flame, box ? "вспыхивает" : "вырывается",
+    pline("%s %s из %s!", Tower_of_flame,
+          box ? "вспыхивает" : "вырывается",
           the(box ? ru_noun_case(xname(box), BP_GEN)
                   : surface_case(u.ux, u.uy, BP_GEN)));
     if (Fire_resistance) {
@@ -4386,7 +4389,7 @@ dofiretrap(
     if (!num)
         You("невредимы.");
     else
-        losehp(num, tower_of_flame, KILLED_BY_AN); /* fire damage */
+        losehp(num, tower_of_flame_gen, KILLED_BY_AN); /* fire damage */
     burn_away_slime();
 
     if (burnarmor(&gy.youmonst) || rn2(3)) {

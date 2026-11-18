@@ -464,7 +464,7 @@ silver_sears(struct monst *magr UNUSED, struct monst *mdef,
              : both ? ""
                : ((silverhit & W_RINGL) != 0L) ? "левое "
                  : "правое ",
-             rings, mon_nam(mdef));
+             rings, mon_gen(mdef, BP_ACC));
     }
 }
 

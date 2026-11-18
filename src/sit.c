@@ -74,8 +74,8 @@ throne_sit_effect(void)
             (void) adjattrib(rn2(A_MAX), 1, FALSE);
             break;
         case 3:
-            pline("Вас бьёт электрическим разрядом%s!",
-                  (Shock_resistance) ? "" : " сильно");
+            pline("Вас бьёт %sэлектрическим разрядом!",
+                  (Shock_resistance) ? "" : "мощным ");
             losehp(Shock_resistance ? rnd(6) : rnd(30), "электрического кресла",
                    KILLED_BY_AN);
             exercise(A_CON, FALSE);
