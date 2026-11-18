@@ -212,9 +212,9 @@ throne_sit_effect(void)
         }
     } else {
         if (is_prince(gy.youmonst.data) || u.uevent.uhand_of_elbereth)
-            You_feel("очень уютно здесь.");
+            You_feel("себя очень уютно здесь.");
         else
-            You_feel("как-то не на месте...");
+            You_feel("себя как-то не на месте...");
     }
 
     /* 5.0: when the random chance for removal is hit, ask for confirmation
@@ -656,7 +656,7 @@ attrcurse(void)
     case 1:
         if (HFire_resistance & INTRINSIC) {
             HFire_resistance &= ~INTRINSIC;
-            You_feel("теплее.");
+            You_feel("себя теплее.");
             ret = FIRE_RES;
             break;
         }
@@ -665,7 +665,7 @@ attrcurse(void)
     case 2:
         if (HTeleportation & INTRINSIC) {
             HTeleportation &= ~INTRINSIC;
-            You_feel("менее нервозно.");
+            You_feel("себя менее нервозно.");
             ret = TELEPORT;
             break;
         }
@@ -674,7 +674,7 @@ attrcurse(void)
     case 3:
         if (HPoison_resistance & INTRINSIC) {
             HPoison_resistance &= ~INTRINSIC;
-            You_feel("немного дурно!");
+            You_feel("себя немного дурно!");
             ret = POISON_RES;
             break;
         }
@@ -694,7 +694,7 @@ attrcurse(void)
     case 5:
         if (HCold_resistance & INTRINSIC) {
             HCold_resistance &= ~INTRINSIC;
-            You_feel("прохладнее.");
+            You_feel("себя прохладнее.");
             ret = COLD_RES;
             break;
         }
@@ -728,7 +728,7 @@ attrcurse(void)
     case 8:
         if (HFast & INTRINSIC) {
             HFast &= ~INTRINSIC;
-            You_feel("медленнее.");
+            You_feel("себя медленнее.");
             ret = FAST;
             break;
         }
@@ -737,7 +737,7 @@ attrcurse(void)
     case 9:
         if (HStealth & INTRINSIC) {
             HStealth &= ~INTRINSIC;
-            You_feel("неуклюже.");
+            You_feel("себя неуклюже.");
             ret = STEALTH;
             break;
         }
@@ -747,7 +747,7 @@ attrcurse(void)
         /* intrinsic protection is just disabled, not set back to 0 */
         if (HProtection & INTRINSIC) {
             HProtection &= ~INTRINSIC;
-            You_feel("уязвимо.");
+            You_feel("себя уязвимо.");
             ret = PROTECTION;
             break;
         }
@@ -756,7 +756,7 @@ attrcurse(void)
     case 11:
         if (HAggravate_monster & INTRINSIC) {
             HAggravate_monster &= ~INTRINSIC;
-            You_feel("менее привлекательно.");
+            You_feel("себя менее привлекательно.");
             ret = AGGRAVATE_MONSTER;
             break;
         }

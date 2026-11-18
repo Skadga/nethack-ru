@@ -95,7 +95,8 @@ make_confused(long xtime, boolean talk)
 
     if (!xtime && old) {
         if (talk)
-            You_feel("меньше %s сейчас.", Hallucination ? "в отрыве" : "в замешательстве");
+            You_feel("себя менее %s сейчас.", Hallucination
+                     ? "отрешённым" : "сбитым с толку");
     }
     if ((xtime && !old) || (!xtime && old))
         disp.botl = TRUE;
@@ -113,8 +114,8 @@ make_stunned(long xtime, boolean talk)
 
     if (!xtime && old) {
         if (talk)
-            You_feel("%s сейчас.",
-                     Hallucination ? "менее шатко" : "чуть устойчивее");
+            You_feel("себя %s сейчас.",
+                     Hallucination ? "менее шатким" : "более устойчивым");
     }
     if (xtime && !old) {
         if (talk) {
@@ -251,7 +252,7 @@ make_vomiting(long xtime, boolean talk)
     disp.botl = TRUE;
     if (!xtime && old)
         if (talk)
-            You_feel("теперь не так тошно.");
+            pline("Вам теперь не так тошно.");
 }
 
 static const char vismsg[] = "на миг кажется, что зрение %s, но оно вновь %s.";
@@ -1151,7 +1152,7 @@ peffect_extra_healing(struct obj *otmp)
 staticfn void
 peffect_full_healing(struct obj *otmp)
 {
-    You_feel("полностью исцелены.");
+    You_feel("себя полностью исцелённым.");
     healup(400, 4 + 4 * bcsign(otmp), !otmp->cursed, TRUE);
     /* Restore one lost level if blessed */
     if (otmp->blessed && u.ulevel < u.ulevelmax) {
@@ -1326,7 +1327,7 @@ peffect_acid(struct obj *otmp)
 staticfn void
 peffect_polymorph(struct obj *otmp)
 {
-    You_feel("немного %s.", Hallucination ? "нормально" : "странно");
+    You_feel("себя немного %s.", Hallucination ? "нормально" : "странно");
     if (!Unchanging) {
         if (!otmp->blessed || (u.umonnum != u.umonster))
             polyself(POLY_NOFLAGS);
@@ -1693,7 +1694,7 @@ potionhit(struct monst *mon, struct obj *obj, int how)
                 explode_oil(obj, u.ux, u.uy);
             break;
         case POT_POLYMORPH:
-            You_feel("немного %s.", Hallucination ? "нормально" : "странно");
+            You_feel("себя немного %s.", Hallucination ? "нормально" : "странно");
             if (!Unchanging && !Antimagic)
                 polyself(POLY_NOFLAGS);
             break;

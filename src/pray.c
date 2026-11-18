@@ -543,7 +543,7 @@ fix_worst_trouble(int trouble)
         if (Hallucination)
             pline("У вас в баке тигр.");
         else
-            You_feel("снова в добром здравии.");
+            You_feel("себя снова в добром здравии.");
         for (i = 0; i < A_MAX; i++) {
             if (ABASE(i) < AMAX(i)) {
                 ABASE(i) = AMAX(i);
@@ -2312,7 +2312,7 @@ prayer_done(void) /* M. Stephenson (1.0.3b) */
                  (alignment == A_LAWFUL)
                     ? "Мерзкая тварь, ты смеешь призывать меня?"
                     : "Не ходи больше, извращение природы!");
-        You_feel("будто разваливаетесь на части.");
+        You_feel("как будто разваливаетесь на части.");
         /* KMH -- Gods have mastery over unchanging */
         rehumanize();
         /* no Half_physical_damage adjustment here */

@@ -2476,7 +2476,7 @@ fig_transform(anything *arg, long timeout)
         switch (figurine->where) {
         case OBJ_INVENT:
             if (Blind || suppress_see)
-                You_feel("%s %s из вашей сумки!", something,
+                You_feel("что %s %s из вашей сумки!", something,
                          locomotion(mtmp->data, "drop"));
             else
                 You_see("%s %s из вашей сумки%s!", monnambuf,

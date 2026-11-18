@@ -1124,7 +1124,7 @@ hatch_egg(anything *arg, long timeout)
         case OBJ_INVENT:
             knows_egg = TRUE; /* true even if you are blind */
             if (!cansee_hatchspot)
-                You_feel("%s %s из вашей сумки!", something,
+                You_feel("что %s %s из вашей сумки!", something,
                          locomotion(mon->data, "выпадает"));
             else
                 You_see("%s %s из вашей сумки!", monnambuf,

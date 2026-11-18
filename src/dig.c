@@ -1524,7 +1524,7 @@ draft_message(boolean unexpected)
             /* U.S. classification system uses 1-A for eligible to serve
                and 4-F for ineligible due to physical or mental defect;
                some intermediate values exist but are rarely seen */
-            You_feel("словно вы %s.",
+            You_feel("как будто вы %s.",
                      (ACURR(A_STR) < 6 || ACURR(A_DEX) < 6
                       || ACURR(A_CON) < 6 || ACURR(A_CHA) < 6
                       || ACURR(A_INT) < 6 || ACURR(A_WIS) < 6) ? "4-F"
@@ -1545,7 +1545,7 @@ draft_message(boolean unexpected)
             if (u.ualign.record < STRIDENT)
                 /* L: +(0..2), N: +(-1..1), C: +(-2..0); all: 0..3 */
                 dridx += rn1(3, sgn(u.ualign.type) - 1);
-            You_feel("словно %s.", draft_reaction[dridx]);
+            You_feel("как будто %s.", draft_reaction[dridx]);
         }
     }
 }

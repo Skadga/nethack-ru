@@ -744,7 +744,7 @@ polymon(int mntmp)
     int mlvl, newMaxStr;
 
     if (svm.mvitals[mntmp].mvflags & G_GENOD) { /* allow G_EXTINCT */
-        You_feel("чувствуете себя довольно %s-образно.",
+        You_feel("себя довольно %s-образно.",
                  pmname(&mons[mntmp], flags.female ? FEMALE : MALE));
         exercise(A_WIS, TRUE);
         return 0;
