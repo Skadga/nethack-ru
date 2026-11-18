@@ -516,7 +516,7 @@ moverock_core(coordxy sx, coordxy sy)
                                  "kablooey", rather cartoonish descriptions
                                  of the sound of an explosion, but give it
                                  even when deaf if hero sees the explosion */
-                              (!Deaf || !Blind) ? "KAABLAMM!!"
+                              (!Deaf || !Blind) ? "¡¿¡¿’!!"
                               /* use an alternate exclamation when feeling
                                  the floor/ground/whatever shake (or maybe
                                  a weak shockwave if levitating or flying) */

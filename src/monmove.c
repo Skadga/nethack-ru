@@ -110,12 +110,12 @@ mon_yells(struct monst *mon, const char *shout)
             /* Sidenote on "A watchman angrily waves her arms!"
              * Female being called watchman is correct (career name).
              */
-            pline_mon(mon, "%s angrily %s %s %s!",
+            pline_mon(mon, "%s сердито %s %s!",
                 Amonnam(mon),
-                nolimbs(mon->data) ? "shakes" : "waves",
-                mhis(mon),
-                nolimbs(mon->data) ? mbodypart(mon, HEAD)
-                                   : makeplural(mbodypart(mon, ARM)));
+                nolimbs(mon->data) ? "трясёт" : "машет",
+                nolimbs(mon->data)
+                    ? mbodypart_case(mon, HEAD, BP_INS)
+                    : mbodypart_case(mon, ARM, BP_INS | BP_PLURAL));
     } else {
         if (canspotmon(mon)) {
             pline_mon(mon, "%s кричит:", Amonnam(mon));

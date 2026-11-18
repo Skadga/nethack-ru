@@ -2130,24 +2130,19 @@ grow_up(struct monst *mtmp, struct monst *victim)
             mondied(mtmp);
             return (struct permonst *) 0;
         } else if (canspotmon(mtmp)) {
+            const char *newname = pmname(ptr, fem);
             char buf[BUFSZ];
 
-            /* 3.6.1:
-             * Temporary (?) hack to fix growing into opposite gender.
-             */
-            Sprintf(buf, "%s%s",
-                    /* deal with female gnome becoming a gnome lord */
-                    (mtmp->female && !fem) ? "male "
-                        /* or a male gnome becoming a gnome lady
-                           (can't happen with 3.6.0 mons[], but perhaps
-                           slightly less sexist if prepared for it...) */
-                      : (fem && !mtmp->female) ? "female " : "",
-                    pmname(ptr, fem));
-            pline_mon(mtmp, "%s %s %s.", YMonnam(mtmp),
-                      (fem != mtmp->female) ? "changes into"
-                                            : humanoid(ptr) ? "becomes"
-                                                            : "grows up into",
-                      an(buf));
+            if (fem != mtmp->female)
+                Sprintf(buf, "превращается в %s",
+                        mon_gen_nom(newname, BP_ACC));
+            else if (humanoid(ptr))
+                Sprintf(buf, "становится %s",
+                        mon_gen_nom(newname, BP_INS));
+            else
+                Sprintf(buf, "вырастает в %s",
+                        mon_gen_nom(newname, BP_ACC));
+            pline_mon(mtmp, "%s %s.", YMonnam(mtmp), buf);
         }
         set_mon_data(mtmp, ptr);
         if (mtmp->cham == oldtype && is_shapeshifter(ptr))

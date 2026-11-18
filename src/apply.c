@@ -2742,8 +2742,8 @@ use_stone(struct obj *tstone)
         else if (Hallucination)
             pline("Ого, посмотрите на красивые осколки.");
         else
-            pline("Резкий треск разбивает %s%s.",
-                  (obj->quan > 1L) ? "one of " : "", the(xname(obj)));
+            pline("Резкий треск разбивает %s.",
+                  (obj->quan > 1L) ? "один из них" : the(xname(obj)));
         useup(obj);
         return ECMD_TIME;
     }

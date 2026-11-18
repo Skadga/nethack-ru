@@ -347,8 +347,9 @@ pluslvl(
             u.uexp = newuexp(u.ulevel);
         }
         ++u.ulevel;
-        pline("Добро пожаловать %sна уровень опыта %d.",
-              (u.ulevelmax < u.ulevel) ? "" : "back ",
+        pline((u.ulevelmax < u.ulevel)
+                  ? "Добро пожаловать на уровень опыта %d."
+                  : "Добро пожаловать обратно на уровень опыта %d.",
               u.ulevel);
         if (u.ulevelmax < u.ulevel)
             u.ulevelmax = u.ulevel;

@@ -6703,8 +6703,12 @@ string_for_env_opt(const char *optname, char *opts, boolean val_optional)
 staticfn void
 bad_negation(const char *optname, boolean with_parameter)
 {
-    config_error_add("Параметр %s не может быть %sотрицаемым.", optname,
-                     with_parameter ? "both have a value and " : "");
+    if (with_parameter)
+        config_error_add(
+            "Параметр %s не может одновременно иметь значение и быть отрицаемым.",
+            optname);
+    else
+        config_error_add("Параметр %s не может быть отрицаемым.", optname);
 }
 
 /* go through all of the options and set the minmatch value

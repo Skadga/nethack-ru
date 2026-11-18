@@ -1558,7 +1558,8 @@ config_erradd(const char *buf)
     if (!program_state.config_error_ready) {
         /* either very early, where pline() will use raw_print(), or
            player gave bad value when prompted by interactive 'O' command */
-        pline("%s%s%s", !iflags.window_inited ? "config_error_add: " : "",
+        pline("%s%s%s",
+              !iflags.window_inited ? "ошибка конфигурации: " : "",
               buf, punct);
         wait_synch();
         return;

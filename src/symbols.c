@@ -472,7 +472,7 @@ parse_sym_line(char *buf, int which_set)
             gc.chosen_symset_start = FALSE;
             return 1;
         }
-        config_error_add("No \"finish\"");
+        config_error_add("Отсутствует \"finish\"");
         return 0;
     }
     /* skip '=' and space which follows, if any */
