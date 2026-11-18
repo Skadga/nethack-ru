@@ -258,10 +258,10 @@ choke(struct obj *food)
     if (Breathless || Hunger || (!Strangled && !rn2(20))) {
         /* choking by eating AoS doesn't involve stuffing yourself */
         if (food && food->otyp == AMULET_OF_STRANGULATION) {
-            You("задыхаешьс€, но приходишь в себ€.");
+            You("задыхаетесь, но приходите в себ€.");
             return;
         }
-        You("набиваешь желудок, а потом вас обильно рвЄт.");
+        You("набиваете желудок, а потом вас обильно рвЄт.");
         morehungry(Hunger ? (u.uhunger - 60) : 1000); /* just got very sick! */
         vomit();
     } else {
@@ -283,7 +283,7 @@ choke(struct obj *food)
             You("давишьс€ этим.");
             Strcpy(svk.killer.name, "быстрый перекус");
         }
-        You("умираешь...");
+        You("умираете...");
         done(CHOKING);
     }
 }
@@ -623,7 +623,7 @@ eat_brains(
                   (mdef == &gy.youmonst) ? "¬аш" : mhis(mdef));
         return M_ATTK_MISS; /* side-effects can't occur */
     } else if (magr == &gy.youmonst) {
-        You("съесть мозг %s!", mhis(mdef));
+        You("съедаете мозг %s!", mhis(mdef));
     } else if (mdef == &gy.youmonst) {
         Your("мозг съеден!");
     } else { /* monster against monster */
@@ -851,7 +851,7 @@ cprefx(int pm)
     }
     case PM_GREEN_SLIME:
         if (!Slimed && !Unchanging && !slimeproof(gy.youmonst.data)) {
-            You("чувствуешь себ€ нехорошо.");
+            You("чувствуете себ€ нехорошо.");
             make_slimed(10L, (char *) 0);
             delayed_killer(SLIMED, KILLED_BY_AN, "");
         }
@@ -1586,7 +1586,7 @@ consume_tin(const char *mesg)
             pline("«апах: %s.", what);
             if (y_n("—ъесть?") == 'n') {
                 if (flags.verbose)
-                    You("выбросить открытую банку.");
+                    You("выбрасываете открытую банку.");
                 if (!Hallucination) {
                     observe_object(tin);
                     tin->known = 1;
@@ -1664,7 +1664,7 @@ consume_tin(const char *mesg)
 
         if (!always_eat && y_n("—ъесть?") == 'n') {
             if (flags.verbose)
-                You("выбросить открытую банку.");
+                You("выбрасываете открытую банку.");
             tin = costly_tin(COST_OPEN);
             use_up_tin(tin);
             return;
@@ -1716,7 +1716,7 @@ opentin(void)
             || !can_reach_floor(TRUE)))
         return 0; /* %% probably we should use tinoid */
     if (svc.context.tin.usedtime++ >= 50) {
-        You("оставить попытку открыть банку.");
+        You("прекращаете попытки открыть банку.");
         return 0;
     }
     if (svc.context.tin.usedtime < svc.context.tin.reqtime)
@@ -1737,7 +1737,7 @@ start_tin(struct obj *otmp)
         mesg = "¬ы вгрызаетесь пр€мо в металлическую банку...";
         tmp = 0;
     } else if (cantwield(gy.youmonst.data)) { /* nohands || verysmall */
-        You("не можешь правильно обращатьс€ с банкой, чтобы открыть еЄ.");
+        You("не можете правильно обращатьс€ с банкой, чтобы открыть еЄ.");
         return;
     } else if (otmp->blessed) {
         /* 50/50 chance for immediate access vs 1 turn delay (unless
@@ -1949,7 +1949,7 @@ eatcorpse(struct obj *otmp)
                           !glob ? "€довитого трупа" : "€довитой глобы",
                           KILLED_BY_AN);
         } else
-            You("не чувствуешь действи€ €да.");
+            You("не чувствуете действи€ €да.");
 
     /* now any corpse left too long will make you mildly ill */
     } else if ((rotted > 5L || (rotted > 3L && rn2(5))) && !Sick_resistance) {
@@ -1988,7 +1988,7 @@ eatcorpse(struct obj *otmp)
                && (Stone_resistance || Hallucination)) {
         pline("Ёто вкусно как курица!");
     } else if (mnum == PM_FLOATING_EYE && u.umonnum == PM_RAVEN) {
-        You("клюЄшь глаз с удовольствием.");
+        You("клюЄте глаз с удовольствием.");
     } else if (tp) {
         ; /* we've already delivered a message; don't add "на вкус нормально" */
     } else {
@@ -2609,7 +2609,7 @@ fpostfx(struct obj *otmp)
             if (Race_if(PM_DWARF) && Hallucination) {
                 verbalize("ќй-и, ну-у, кажетс€, сегодн€ € пропущу работу.");
             } else if (Deaf || !flags.acoustics) {
-                You("засыпаешь.");
+                You("засыпаете.");
             } else {
                 Soundeffect(se_sinister_laughter, 100);
                 You_hear("зловещий смех, пока вы засыпаете...");
@@ -2820,7 +2820,7 @@ doeat_nonfood(struct obj *otmp)
             poison_strdmg(rnd(4), rnd(15),
                           mon_gen_nom(xname(otmp), BP_GEN), KILLED_BY_AN);
         } else
-            You("не чувствуешь действи€ €да.");
+            You("не чувствуете действи€ €да.");
     } else if (!nodelicious) {
         pline("%s%s изумительно!",
               (obj_is_pname(otmp)
@@ -2875,7 +2875,7 @@ doeat(void)
         if (still_chewing(u.ux, u.uy) && levl[u.ux][u.uy].typ == IRONBARS) {
             /* this is verbose, but player will see the hero rather than the
                bars so wouldn't know that more turns of eating are required */
-            You("делаешь глоток.");
+            You("делаете глоток.");
         }
         return ECMD_TIME;
     }
@@ -2916,9 +2916,9 @@ doeat(void)
          */
         if (welded(otmp) || (otmp->cursed && (otmp->owornmask & W_RING))) {
             set_bknown(otmp, 1); /* for ring; welded() does this for weapon */
-            You("выплюнуть %s.", the(xname(otmp)));
+            You("выплЄвываете %s.", the(xname(otmp)));
         } else {
-            You("выплюнуть %s на %s.", the(xname(otmp)),
+            You("выплЄвываете %s на %s.", the(xname(otmp)),
                 surface(u.ux, u.uy));
             if (carried(otmp)) {
                 /* no need to check for leash in use; it's not metallic */
@@ -3124,7 +3124,7 @@ use_tin_opener(struct obj *obj)
     int res = ECMD_OK;
 
     if (!carrying(TIN)) {
-        You("не имеешь банки, которую можно открыть.");
+        You("не имеете банки, которую можно открыть.");
         return ECMD_OK;
     }
 
@@ -3442,7 +3442,7 @@ newuhs(boolean incr)
 
                 /* stop what you're doing, then faint */
                 stop_occupation();
-                You("падаешь в обморок от нехватки еды.");
+                You("падаете в обморок от нехватки еды.");
                 incr_itimeout(&HDeaf, duration);
                 disp.botl = TRUE;
                 nomul(-duration);
@@ -3461,7 +3461,7 @@ newuhs(boolean incr)
             u.uhs = STARVED;
             disp.botl = TRUE;
             bot();
-            You("умираешь от голода.");
+            You("умираете от голода.");
             svk.killer.format = KILLED_BY;
             Strcpy(svk.killer.name, "истощение");
             done(STARVING);
@@ -3526,7 +3526,7 @@ newuhs(boolean incr)
         disp.botl = TRUE;
         bot();
         if ((Upolyd ? u.mh : u.uhp) < 1) {
-            You("умираешь от голода и истощени€.");
+            You("умираете от голода и истощени€.");
             svk.killer.format = KILLED_BY;
             Strcpy(svk.killer.name, "истощение");
             done(STARVING);
@@ -3792,7 +3792,7 @@ vomit(void) /* A good idea from David Neves */
 
         /* currently, only yellow dragons can breathe acid */
         if (mattk) {
-            You("дышишь на себ€ кислотой..."); /* [why?] */
+            You("дышите на себ€ кислотой..."); /* [why?] */
             ubreatheu(mattk);
         }
         /* vomiting on an altar is, all things considered, rather impolite */

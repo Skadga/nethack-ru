@@ -240,7 +240,7 @@ query_classes(
                     if (*where)
                         There("нет %c %s.", sym, where);
                     else
-                        You("нет %c.", sym);
+                        pline("У вас нет %c.", sym);
                     not_everything = TRUE;
                 }
             }
@@ -1986,7 +1986,7 @@ encumber_msg(void)
             Your("движения слегка замедлены из-за ноши.");
             break;
         case 2:
-            You("перераспределите ношу.  Движение затруднено.");
+            You("перераспределяете ношу.  Движение затруднено.");
             break;
         case 3:
             You("%s под тяжёлой ношей.  Движение очень трудно.",
@@ -2007,7 +2007,7 @@ encumber_msg(void)
             Your("движения лишь слегка замедлены ношей.");
             break;
         case 2:
-            You("перераспределите ношу.  Движение всё ещё затруднено.");
+            You("перераспределяете ношу.  Движение всё ещё затруднено.");
             break;
         case 3:
             You("%s под вашей ношей.  Движение всё ещё очень трудно.",
@@ -2197,7 +2197,7 @@ doloot_core(void)
         return ECMD_OK;
     }
     if (nohands(gy.youmonst.data)) {
-        You("нет рук!"); /* not `body_part(HAND)' */
+        pline("У вас нет рук!"); /* not `body_part(HAND)' */
         return ECMD_OK;
     }
     if (Confusion) {
@@ -2287,7 +2287,7 @@ doloot_core(void)
                 c = 'y';
         }
     } else if (IS_GRAVE(levl[cc.x][cc.y].typ)) {
-        You("нужно раскопать могилу, чтобы эффективно её ограбить...");
+        You("должны раскопать могилу, чтобы эффективно её ограбить...");
     }
 
     /*
@@ -2419,7 +2419,7 @@ reverse_loot(void)
             if (!rn2(10))
                 levl[x][y].looted = T_LOOTED;
         } else {
-            You("бросьте %s.", doname(goldob));
+            You("бросаете %s.", doname(goldob));
             dropx(goldob);
         }
     }
@@ -2460,7 +2460,7 @@ loot_mon(struct monst *mtmp, int *passed_info, boolean *prev_loot)
             }
             extract_from_minvent(mtmp, otmp, TRUE, FALSE);
             if (flags.verbose)
-                You("снимите %s с %s.",
+                You("снимаете %s с %s.",
                     thesimpleoname(otmp), mon_nam(mtmp));
             otmp = hold_another_object(otmp, "Вы бросаете %s!", doname(otmp),
                                        (const char *) 0);
@@ -2697,7 +2697,7 @@ in_container(struct obj *obj)
 
     if (gc.current_container) {
         Strcpy(buf, the(xname(gc.current_container)));
-        You("положите %s в %s.", doname(obj), buf);
+        You("кладёте %s в %s.", doname(obj), buf);
 
         /* gold in container always needs to be added to credit */
         if (floor_container && obj->oclass == COIN_CLASS)
@@ -2945,7 +2945,7 @@ boolean
 u_handsy(void)
 {
     if (nohands(gy.youmonst.data)) {
-        You("нет рук!"); /* not `body_part(HAND)' */
+        pline("У вас нет рук!"); /* not `body_part(HAND)' */
         return FALSE;
     } else if (!freehand()) {
         You("не имеете свободной %s.", body_part_case(HAND, BP_GEN));
@@ -2998,11 +2998,11 @@ use_container(
     if (obj->olocked) {
         pline("%s заперт.", The(xname(obj)));
         if (held)
-            You("нужно положить его, чтобы открыть.");
+            You("должны положить его, чтобы открыть.");
         return ECMD_OK;
     } else if (obj->otrapped) {
         if (held)
-            You("откройте %s...", the(xname(obj)));
+            You("открываете %s...", the(xname(obj)));
         (void) chest_trap(obj, HAND, FALSE);
         /* even if the trap fails, you've used up this turn */
         if (gm.multi >= 0) { /* in case we didn't become paralyzed */

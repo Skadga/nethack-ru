@@ -2066,12 +2066,12 @@ getobj(
            that's been moved above so that otmp can be checked earlier] */
         /* verify the chosen object */
         if (!otmp) {
-            You("нет этого предмета.");
+            pline("У вас нет этого предмета.");
             if (gi.in_doagain)
                 return (struct obj *) 0;
             continue;
         } else if (cnt < 0L || otmp->quan < cnt) {
-            You("нет столько!  У вас только %ld.", otmp->quan);
+            pline("У вас нет столько!  У вас только %ld.", otmp->quan);
             if (gi.in_doagain)
                 return (struct obj *) 0;
             continue;
@@ -2349,7 +2349,7 @@ ggetobj(const char *word, int (*fn)(OBJ_P), int mx,
         } else if (sym == 'm') {
             m_seen = TRUE;
         } else if (oc_of_sym == MAXOCLASSES) {
-            You("нет ни одного «%c».", sym);
+            pline("У вас нет ни одного «%c».", sym);
         } else {
             if (!strchr(olets, oc_of_sym)) {
                 add_valid_menu_class(oc_of_sym);
@@ -4559,7 +4559,7 @@ doprgold(void)
         if (total)
             You("несёте всего %ld %s.", total, currency(total));
         else
-            You("нет денег.");
+            pline("У вас нет денег.");
     }
     shopper_financial_report();
 

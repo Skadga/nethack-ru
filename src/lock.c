@@ -94,7 +94,7 @@ picklock(void)
     }
 
     if (gx.xlock.usedtime++ >= 50 || nohands(gy.youmonst.data)) {
-        You("прекращаешь попытку %s.", lock_action());
+        You("прекращаете попытку %s.", lock_action());
         exercise(A_DEX, TRUE); /* even if you don't succeed */
         return ((gx.xlock.usedtime = 0));
     }
@@ -129,17 +129,17 @@ picklock(void)
                 what = (gx.xlock.box->otyp == CHEST) ? "сундук" : "ящик";
                 alreadyunlocked = !gx.xlock.box->olocked;
             }
-            You("успешно обезвреживаешь ловушку. %s всё ещё %s.",
+            You("успешно обезвреживаете ловушку. %s всё ещё %s.",
                 what, alreadyunlocked ? "не на замке" : "на замке");
             exercise(A_WIS, TRUE);
         } else {
-            You("прекращаешь %s.", lock_action());
+            You("прекращаете %s.", lock_action());
             exercise(A_WIS, FALSE);
         }
         return ((gx.xlock.usedtime = 0));
     }
 
-    You("успешно завершаешь %s.", lock_action());
+    You("успешно завершаете %s.", lock_action());
     if (gx.xlock.door) {
         if (gx.xlock.door->doormask & D_TRAPPED) {
             b_trapped("door", FINGER);
@@ -399,7 +399,7 @@ pick_lock(
         } else {
             const char *action = lock_action();
 
-            You("возобновляешь попытку %s.", action);
+            You("возобновляете попытку %s.", action);
             gx.xlock.magic_key = is_magic_key(&gy.youmonst, pick);
             set_occupation(picklock, action, 0);
             return PICKLOCK_DID_SOMETHING;
@@ -737,9 +737,9 @@ doforce(void)
                 continue;
 
             if (picktyp)
-                You("всовываешь %s в щель и поддеваешь.", yname(uwep));
+                You("всовываете %s в щель и поддеваете.", yname(uwep));
             else
-                You("начинаешь бить по нему с помощью %s.", yname(uwep));
+                You("начинаете бить по нему с помощью %s.", yname(uwep));
             gx.xlock.box = otmp;
             gx.xlock.chance = objects[uwep->otyp].oc_wldam * 2;
             gx.xlock.picktyp = picktyp;

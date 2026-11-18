@@ -268,7 +268,7 @@ expels(
     disp.botl = TRUE;
     if (message) {
         if (digests(mdat)) {
-            You("извергает обратно!");
+            pline("Вас извергают обратно!");
         } else if (enfolds(mdat)) {
             pline_mon(mtmp, "%s разворачивается, и вы освобождаетесь!", Monnam(mtmp));
         } else {
@@ -291,7 +291,7 @@ expels(
                 } else {
                     Strcpy(blast, " с чавканьем");
                 }
-                You("изгоняет из себя %s%s!", mon_nam(mtmp), blast);
+                pline("Вас изгоняет из себя %s%s!", mon_nam(mtmp), blast);
             }
         }
     }

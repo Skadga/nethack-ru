@@ -2105,7 +2105,7 @@ canwearobj(struct obj *otmp, long *mask, boolean noisy)
             err++;
         } else if (Upolyd && slithy(gy.youmonst.data)) {
             if (noisy)
-                You("нет ног..."); /* not body_part(FOOT) */
+                pline("У вас нет ног..."); /* not body_part(FOOT) */
             err++;
         } else if (Upolyd && gy.youmonst.data->mlet == S_CENTAUR) {
             /* break_armor() pushes boots off for centaurs, so don't let
@@ -2325,7 +2325,7 @@ accessory_or_armor_on(struct obj *obj)
             }
         } else if (eyewear) {
             if (!has_head(gy.youmonst.data)) {
-                You("нет головы, чтобы надеть %s.", ansimpleoname(obj));
+                pline("У вас нет головы, чтобы надеть %s.", ansimpleoname(obj));
                 return ECMD_OK;
             }
 

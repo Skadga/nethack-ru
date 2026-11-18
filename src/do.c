@@ -1252,7 +1252,7 @@ dodown(void)
     }
 
     if (!next_to_u()) {
-        You("сдерживает ваш питомец!");
+        pline("Вас сдерживает ваш питомец!");
         return ECMD_OK;
     }
 
@@ -1337,7 +1337,7 @@ doup(void)
             return ECMD_OK;
     }
     if (!next_to_u()) {
-        You("сдерживает ваш питомец!");
+        pline("Вас сдерживает ваш питомец!");
         return ECMD_OK;
     }
     ga.at_ladder = (boolean) (levl[u.ux][u.uy].typ == LADDER);

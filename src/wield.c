@@ -491,7 +491,7 @@ doswapweapon(void)
         if (uswapwep)
             prinv((char *) 0, uswapwep, 0L);
         else
-            You("нет вторичного оружия наготове.");
+            pline("У вас нет вторичного оружия наготове.");
     }
 
     if (u.twoweap && !can_twoweapon())

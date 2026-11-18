@@ -929,7 +929,7 @@ domonability(void)
         use_unicorn_horn((struct obj **) 0);
         return ECMD_TIME;
     } else if (uptr->msound == MS_SHRIEK) {
-        You("вопит.");
+        You("вопите.");
         if (u.uburied)
             pline("К сожалению, звук плохо проходит сквозь камень.");
         else

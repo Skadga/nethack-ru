@@ -138,7 +138,7 @@ throw_obj(struct obj *obj, int shotlimit)
     u_wipe_engr(2);
     if (!uarmg && obj->otyp == CORPSE && touch_petrifies(&mons[obj->corpsenm])
         && !Stone_resistance) {
-        You("бросьте %s голыми %s.", corpse_case(obj, BP_ACC),
+        You("бросаете %s голыми %s.", corpse_case(obj, BP_ACC),
             /* throwing with one hand, but pluralize since the
                expression "with your bare hands" sounds better */
             body_part_case(HAND, BP_NOM | BP_PLURAL));
@@ -523,7 +523,7 @@ dofire(void)
                 cmdq_add_ec(CQ_CANNED, dofire);
                 return ECMD_OK; /* haven't taken any time yet */
             } else {
-                You("нет приготовленных снар€дов.");
+                pline("” вас нет приготовленных снар€дов.");
             }
         } else {
             autoquiver();
@@ -534,7 +534,7 @@ dofire(void)
                 prinv("¬ы приготовили:", obj, 0L);
                 uquiver->owornmask |= W_QUIVER;
             } else {
-                You("нет ничего подход€щего дл€ колчана.");
+                pline("” вас нет ничего подход€щего дл€ колчана.");
             }
         }
     }
@@ -590,10 +590,10 @@ endmultishot(boolean verbose)
 {
     if (gm.m_shot.i < gm.m_shot.n) {
         if (verbose && !svc.context.mon_moving) {
-            You("остановите %s после %d%s %s.",
-                gm.m_shot.s ? "стрел€€" : "броса€",
+            You("прекращаете %s: %d%s %s.",
+                gm.m_shot.s ? "стрельбу" : "метание",
                 gm.m_shot.i, ordin(gm.m_shot.i),
-                gm.m_shot.s ? "выстрел" : "швыр€ет");
+                gm.m_shot.s ? "выстрел" : "бросок");
         }
         gm.m_shot.n = gm.m_shot.i; /* make current shot be the last */
     }
@@ -1404,7 +1404,7 @@ toss_up(struct obj *obj, boolean hitsroof)
             svk.killer.format = KILLED_BY;
             /* what goes up... */
             Strcpy(svk.killer.name, "элементарна€ физика");
-            You("превращаетс€ в камень.");
+            You("превращаетесь в камень.");
             if (obj)
                 dropy(obj); /* bypass most of hitfloor() */
             gt.thrownobj = 0;  /* now either gone or on floor */

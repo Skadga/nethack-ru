@@ -4242,7 +4242,7 @@ unmul(const char *msg_override)
            if life-saved while poly'd and Unchanging (explore or wizard mode
            declining to die since can't be both Unchanging and Lifesaved) */
         if (Upolyd && !strncmpi(gn.nomovemsg, "Вы пережили это ", 16))
-            You("есть %s.",
+            You("теперь %s.",
                 an(pmname(&mons[u.umonnum], Ugender))); /* (ignore Hallu) */
     }
     gn.nomovemsg = 0;

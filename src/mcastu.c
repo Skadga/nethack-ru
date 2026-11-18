@@ -280,7 +280,7 @@ castmu(
         mon_spell_hits_spot(mtmp, AD_COLD, u.ux, u.uy);
         break;
     case AD_MAGM:
-        You("поражает ливень снарядов!");
+        pline("Вас поражает ливень снарядов!");
         if (Antimagic) {
             shieldeff(u.ux, u.uy);
             pline("Снаряды отскакивают!");

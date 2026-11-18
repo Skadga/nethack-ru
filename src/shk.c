@@ -3920,8 +3920,8 @@ donate_gold(
             Your("долг погашен.");
         }
         if (eshkp->credit == delta)
-            You("кредит в %ld %s установлен%s.",
-                !selling ? " заново" : "", delta, currency(delta));
+            pline("Кредит установлен в размере %ld %s%s.",
+                  delta, currency(delta), !selling ? " заново" : "");
         else
             pline("К кредиту добавлено %ld %s%s; теперь итого %ld %s.",
                   delta, currency(delta), !selling ? " обратно" : "",
