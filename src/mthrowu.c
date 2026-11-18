@@ -751,8 +751,7 @@ m_throw(
                 char onmbuf[BUFSZ], knmbuf[BUFSZ];
 
                 Strcpy(onmbuf, xname(singleobj));
-                Strcpy(knmbuf,
-                       mon_gen_nom(killer_xname(singleobj), BP_GEN));
+                Strcpy(knmbuf, killer_xname(singleobj));
                 poisoned(onmbuf, A_STR, knmbuf,
                          /* if damage triggered life-saving,
                             poison is limited to attrib loss */

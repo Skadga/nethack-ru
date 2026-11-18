@@ -135,7 +135,15 @@ dowrite(struct obj *pen)
         nm += 7;
     else if (!strncmpi(nm, "spellbook ", 10))
         nm += 10;
+    else if (!strncmpi(nm, "свиток ", 7))
+        nm += 7;
+    else if (!strncmpi(nm, "сборник заклинаний ", 19))
+        nm += 19;
+    else if (!strncmpi(nm, "книга заклинаний ", 17))
+        nm += 17;
     if (!strncmpi(nm, "of ", 3))
+        nm += 3;
+    else if (!strncmpi(nm, "из ", 3))
         nm += 3;
 
     if ((bp = strstri(nm, " armour")) != 0) {

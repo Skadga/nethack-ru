@@ -390,7 +390,7 @@ can_blnd(
         o = (mdef == &gy.youmonst) ? gi.invent : mdef->minvent;
         for (; o; o = o->nobj)
             if ((o->owornmask & W_ARMH)
-                && objdescr_is(o, "visored helmet"))
+                && objdescr_is(o, "шлем с забралом"))
                 return FALSE;
     }
 
@@ -469,20 +469,20 @@ mstrength(struct permonst *ptr)
         if ((tmp2 == AD_DRLI) || (tmp2 == AD_STON) || (tmp2 == AD_DRST)
             || (tmp2 == AD_DRDX) || (tmp2 == AD_DRCO) || (tmp2 == AD_WERE))
             n += 2;
-        else if (strcmp(ptr->pmnames[NEUTRAL], "grid bug"))
+        else if (strcmp(ptr->pmnames[NEUTRAL], "ситовый жучок"))
             n += (tmp2 != AD_PHYS);
         n += ((int) (ptr->mattk[i].damd * ptr->mattk[i].damn) > 23);
     }
 
     /* Leprechauns are a special case.  They have many hit dice so they can
        hit and are hard to kill, but they don't really do much damage. */
-    if (!strcmp(ptr->pmnames[NEUTRAL], "leprechaun"))
+    if (!strcmp(ptr->pmnames[NEUTRAL], "лепрекон"))
         n -= 2;
 
     /* despite group and poison increments, soldier ants and killer bees are
        underestimated by the formula, so have an artificial +1 difficulty */
-    if (!strcmp(ptr->pmnames[NEUTRAL], "killer bee") ||
-        !strcmp(ptr->pmnames[NEUTRAL], "soldier ant"))
+    if (!strcmp(ptr->pmnames[NEUTRAL], "пчела-убийца") ||
+        !strcmp(ptr->pmnames[NEUTRAL], "муравей-солдат"))
         n += 2; /* +1 after 'tmp += n/2' below */
 
     /* finally, adjust the monster level  0 <= n <= 24 (approx.) */

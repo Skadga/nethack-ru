@@ -1750,7 +1750,7 @@ optfn_fruit(
         /* OBJ_NAME(objects[SLIME_MOLD]) won't work for this after
            initialization; it gets changed to generic "fruit" */
         if (!*svp.pl_fruit)
-            nmcpy(svp.pl_fruit, "slime mold", PL_FSIZ);
+            nmcpy(svp.pl_fruit, "слизевой гриб", PL_FSIZ);
         if (!go.opt_initial) {
             /* if 'forig' is nonNull, we replace it rather than add
                a new fruit; it can only be nonNull if no fruits have
@@ -8187,8 +8187,8 @@ fruitadd(char *str, struct fruit *replace_fruit)
 {
     int i;
     struct fruit *f;
-    int highest_fruit_id = 0, globpfx;
-    char buf[PL_FSIZ], altname[PL_FSIZ];
+    int highest_fruit_id = 0, globpfx, ruglobpfx;
+    char buf[PL_FSIZ], altname[PL_FSIZ], fruitnorm[PL_FSIZ];
     boolean user_specified = (str == svp.pl_fruit);
     /* if not user-specified, then it's a fruit name for a fruit on
      * a bones level or from orctown raider's loot...
@@ -8216,11 +8216,21 @@ fruitadd(char *str, struct fruit *replace_fruit)
                   : (!strncmp(svp.pl_fruit, "medium ", 7)) ? 7
                     : (!strncmp(svp.pl_fruit, "very large ", 11)) ? 11
                       : 0;
+        /* Russian modifiers are translated to the English tokens used by
+           the checks below; object names themselves are left unchanged */
+        ru_wish_normalize(fruitnorm, svp.pl_fruit, sizeof fruitnorm);
+        ruglobpfx = !strncmp(svp.pl_fruit, "маленький ", 10) ? 10
+                    : (!strncmp(svp.pl_fruit, "средний ", 8)
+                       || !strncmp(svp.pl_fruit, "большой ", 8)) ? 8
+                      : !strncmp(svp.pl_fruit, "очень большой ", 14) ? 14
+                        : 0;
         for (i = svb.bases[FOOD_CLASS]; objects[i].oc_class == FOOD_CLASS;
              i++) {
             if (!strcmp(OBJ_NAME(objects[i]), svp.pl_fruit)
                 || (globpfx > 0 && !strcmp(OBJ_NAME(objects[i]),
-                                           &svp.pl_fruit[globpfx]))) {
+                                           &svp.pl_fruit[globpfx]))
+                || (ruglobpfx > 0 && !strcmp(OBJ_NAME(objects[i]),
+                                             &svp.pl_fruit[ruglobpfx]))) {
                 found = TRUE;
                 break;
             }
@@ -8237,22 +8247,48 @@ fruitadd(char *str, struct fruit *replace_fruit)
             /* these checks for applying food attributes to actual items
                are case sensitive; "glob of foo" is caught by 'found'
                if 'foo' is a valid glob; when not valid, allow it as-is */
-            || !strncmp(svp.pl_fruit, "cursed ", 7)
-            || !strncmp(svp.pl_fruit, "uncursed ", 9)
-            || !strncmp(svp.pl_fruit, "blessed ", 8)
-            || !strncmp(svp.pl_fruit, "partly eaten ", 13)
-            || (!strncmp(svp.pl_fruit, "tin of ", 7)
-                && (!strcmp(svp.pl_fruit + 7, "spinach")
-                    || ismnum(name_to_mon(svp.pl_fruit + 7, (int *) 0))))
-            || !strcmp(svp.pl_fruit, "empty tin")
-            || (!strcmp(svp.pl_fruit, "glob")
-                || (globpfx > 0 && !strcmp("glob", &svp.pl_fruit[globpfx])))
-            || ((str_end_is(svp.pl_fruit, " corpse")
-                 || str_end_is(svp.pl_fruit, " egg"))
-                && ismnum(name_to_mon(svp.pl_fruit, (int *) 0)))) {
+            || !strncmp(fruitnorm, "cursed ", 7)
+            || !strncmp(fruitnorm, "uncursed ", 9)
+            || !strncmp(fruitnorm, "blessed ", 8)
+            || !strncmp(fruitnorm, "partly eaten ", 13)
+            || (!strncmp(fruitnorm, "tin of ", 7)
+                && (!strcmp(fruitnorm + 7, "spinach")
+                    || ismnum(name_to_mon(fruitnorm + 7, (int *) 0))))
+            || !strcmp(fruitnorm, "empty tin")
+            || (!strcmp(fruitnorm, "glob")
+                || (globpfx > 0 && !strcmp("glob", &fruitnorm[globpfx])))
+            || ((str_end_is(fruitnorm, " corpse")
+                 || str_end_is(fruitnorm, " egg"))
+                && ismnum(name_to_mon(fruitnorm, (int *) 0)))
+            /* Russian forms of the same food descriptions */
+            || !strcmp(svp.pl_fruit, "пустая банка")
+            || !strcmp(svp.pl_fruit, "банка шпината")
+            || (!strncmp(svp.pl_fruit, "банка из ", 9)
+                && (ismnum(ru_name_to_mon(svp.pl_fruit + 9, (int *) 0))
+                    || (!strncmp(svp.pl_fruit + 9, "мяса ", 5)
+                        && ismnum(ru_name_to_mon(svp.pl_fruit + 14,
+                                                 (int *) 0)))))
+            || (!strncmp(svp.pl_fruit, "труп ", 5)
+                && ismnum(ru_name_to_mon(svp.pl_fruit + 5, (int *) 0)))
+            || (!strncmp(svp.pl_fruit, "яйцо ", 5)
+                && ismnum(ru_name_to_mon(svp.pl_fruit + 5, (int *) 0)))
+            || !strcmp(svp.pl_fruit, "комок")
+            || (ruglobpfx > 0
+                && !strcmp("комок", &svp.pl_fruit[ruglobpfx]))) {
+            const char *cand;
+            int wl;
+            unsigned char lc;
+
             Strcpy(buf, svp.pl_fruit);
-            Strcpy(svp.pl_fruit, "candied ");
-            nmcpy(svp.pl_fruit + 8, buf, PL_FSIZ - 8);
+            wl = (int) strcspn(buf, " ");
+            lc = (unsigned char) buf[wl ? wl - 1 : 0];
+            cand = (lc == 'о' || lc == 'е') ? "засахаренное "
+                   : (lc == 'а' || lc == 'я') ? "засахаренная "
+                     : (lc == 'и' || lc == 'ы') ? "засахаренные "
+                       : "засахаренный ";
+            Strcpy(svp.pl_fruit, cand);
+            nmcpy(svp.pl_fruit + strlen(cand), buf,
+                  PL_FSIZ - (int) strlen(cand));
         }
         *altname = '\0';
         /* This flag indicates that a fruit has been made since the

@@ -114,10 +114,10 @@ use_saddle(struct obj *otmp)
     }
     if (Confusion || Fumbling || Glib)
         chance -= 20;
-    else if (uarmg && objdescr_is(uarmg, "riding gloves"))
+    else if (uarmg && objdescr_is(uarmg, "перчатки для верховой езды"))
         /* Bonus for wearing "riding" (but not fumbling) gloves */
         chance += 10;
-    else if (uarmf && objdescr_is(uarmf, "riding boots"))
+    else if (uarmf && objdescr_is(uarmf, "ботинки для верховой езды"))
         /* ... or for "riding boots" */
         chance += 10;
     if (otmp->cursed)

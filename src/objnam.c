@@ -58,8 +58,8 @@ staticfn int readobjnam_postparse1(struct _readobjnam_data *);
 staticfn int readobjnam_postparse2(struct _readobjnam_data *);
 staticfn int readobjnam_postparse3(struct _readobjnam_data *);
 staticfn boolean ru_inflect_match(const char *, const char *);
-staticfn void ru_wish_normalize(char *, const char *, size_t);
-staticfn int ru_name_to_mon(const char *, int *);
+void ru_wish_normalize(char *, const char *, size_t);
+int ru_name_to_mon(const char *, int *);
 
 struct Jitem {
     int item;
@@ -3979,7 +3979,7 @@ ru_inflect_match(const char *want, const char *have)
 
 /* name_to_mon() wrapper that also accepts inflected final words
    ("орка" for "орк", "хобгоблина" for "хобгоблин") */
-staticfn int
+int
 ru_name_to_mon(const char *str, int *gend)
 {
     char buf[BUFSZ];
@@ -4006,7 +4006,7 @@ ru_name_to_mon(const char *str, int *gend)
 /* Translate a Russian wish phrase into the English tokens that
    readobjnam()'s parser already understands.  Object names are copied
    through unchanged; they're matched separately against objects[]. */
-staticfn void
+void
 ru_wish_normalize(char *dst, const char *src, size_t dstsz)
 {
     static NEARDATA const char *const ru_exact[][2] = {

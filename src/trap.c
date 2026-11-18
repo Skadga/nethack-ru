@@ -2028,10 +2028,7 @@ trapeffect_pit(
                            : "упал в яму с железными шипами",
                        NO_KILLER_PREFIX);
                 if (!rn2(6))
-                    poisoned("шипы", A_STR,
-                             (conj_pit || adj_pit || deliberate)
-                             ? "наступив на ядовитые шипы"
-                             : "упав на ядовитые шипы",
+                    poisoned("шипы", A_STR, "ядовитые шипы",
                              /* if damage triggered life-saving,
                                 poison is limited to attrib loss */
                              (u.umortality > oldumort) ? 0 : 8, FALSE);

@@ -327,12 +327,13 @@ poisoned(
     boolean thrown_weapon) /* thrown weapons are less deadly */
 {
     int i, loss, kprefix = KILLED_BY_AN;
-    boolean blast = !strcmp(reason, "blast");
+    const char *pkiller_gen;
+    boolean blast = !strcmp(reason, "взрыв");
 
     /* inform player about being poisoned unless that's already been done;
        "blast" has given a "blast of poison gas" message; "poison arrow",
        "poison dart", etc have implicitly given poison messages too... */
-    if (!blast && !strstri(reason, "poison")) {
+    if (!blast && !strstri(reason, "яд")) {
         const char *gend = "";
         int wlen = (int) strcspn(reason, " \t");
         unsigned char lc = (unsigned char) reason[wlen ? wlen - 1 : 0];
@@ -364,6 +365,9 @@ poisoned(
         /*[ does this need a plural check too? ]*/
         kprefix = KILLED_BY;
     }
+    /* formatkiller() prefixes the reason with "погиб от", which wants
+       the genitive; "отравлен" (POISONING) is handled below */
+    pkiller_gen = mon_gen_nom(pkiller, BP_GEN);
 
     /*
      * FIXME:
@@ -386,20 +390,20 @@ poisoned(
             setuhpmax(max(newuhpmax, minuhpmax(3)), TRUE); /*True: see FIXME*/
             loss = adjuhploss(loss, olduhp);
 
-            losehp(loss, pkiller, kprefix); /* poison damage */
+            losehp(loss, pkiller_gen, kprefix); /* poison damage */
             if (adjattrib(A_CON, (typ != A_CON) ? -1 : -3, TRUE))
                 poisontell(A_CON, TRUE);
             if (typ != A_CON && adjattrib(typ, -3, 1))
                 poisontell(typ, TRUE);
         }
     } else if (i > 5) {
-        boolean cloud = !strcmp(reason, "gas cloud");
+        boolean cloud = !strcmp(reason, "облако ядовитого газа");
 
         /* HP damage; more likely--but less severe--with missiles */
         loss = thrown_weapon ? rnd(6) : rn1(10, 6);
         if ((blast || cloud) && Half_gas_damage) /* worn towel */
             loss = (loss + 1) / 2;
-        losehp(loss, pkiller, kprefix); /* poison damage */
+        losehp(loss, pkiller_gen, kprefix); /* poison damage */
     } else {
         /* attribute loss; if typ is A_STR, reduction in current and
            maximum HP will occur once strength has dropped down to 3 */
@@ -410,10 +414,15 @@ poisoned(
     }
 
     if (u.uhp < 1) {
+        boolean by_poison = (strstri(pkiller, "яд")
+                             || strstri(pkiller, "отрав"));
+
         svk.killer.format = kprefix;
-        Strcpy(svk.killer.name, pkiller);
+        /* "отравлен" takes the instrumental, "погиб от" the genitive */
+        Strcpy(svk.killer.name,
+               by_poison ? pkiller_gen : mon_gen_nom(pkiller, BP_INS));
         /* "Poisoned by a poisoned ___" is redundant */
-        done(strstri(pkiller, "poison") ? DIED : POISONING);
+        done(by_poison ? DIED : POISONING);
     }
     encumber_msg();
 }

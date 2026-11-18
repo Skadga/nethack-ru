@@ -289,8 +289,12 @@ stinky_nemesis(struct monst *mon)
 
         if (((p = strstri(mesg, "noxious")) != 0
              || (p = strstri(mesg, "poisonous")) != 0
-             || (p = strstri(mesg, "toxic")) != 0)
-            && (strstri(p, " gas") || strstri(p, " fumes")))
+             || (p = strstri(mesg, "toxic")) != 0
+             || (p = strstri(mesg, "ядовит")) != 0
+             || (p = strstri(mesg, "токсичн")) != 0)
+            && (strstri(p, " gas") || strstri(p, " fumes")
+                || strstri(p, " газ") || strstri(p, " пар")
+                || strstri(p, " испарен")))
             res = 1;
 
         free((genericptr_t) mesg);

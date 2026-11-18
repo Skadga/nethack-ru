@@ -605,13 +605,13 @@ dodrink(void)
     }
     otmp->in_use = TRUE; /* you've opened the stopper */
 
-    if (objdescr_is(otmp, "milky")
+    if (objdescr_is(otmp, "молочный")
         && !(svm.mvitals[PM_GHOST].mvflags & G_GONE)
         && !rn2(POTION_OCCUPANT_CHANCE(svm.mvitals[PM_GHOST].born))) {
         ghost_from_bottle();
         useup(otmp);
         return ECMD_TIME;
-    } else if (objdescr_is(otmp, "smoky")
+    } else if (objdescr_is(otmp, "дымчатый")
                && !(svm.mvitals[PM_DJINNI].mvflags & G_GONE)
                && !rn2(POTION_OCCUPANT_CHANCE(svm.mvitals[PM_DJINNI].born))) {
         djinni_from_bottle(otmp);
