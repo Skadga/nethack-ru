@@ -1910,10 +1910,12 @@ eatcorpse(struct obj *otmp)
         boolean cannibal = maybe_cannibal(mnum, FALSE);
 
         /* tp++; -- early return makes this unnecessary */
-        pline("Угу - этот %s был испорчен%s!",
-              (mons[mnum].mlet == S_FUNGUS) ? "грибная растительность"
-              : vegetarian(&mons[mnum]) ? "протоплазма"
-                : "мясо",
+        pline("Угу - %s%s!",
+              (mons[mnum].mlet == S_FUNGUS)
+                  ? "грибная растительность была испорчена"
+                  : vegetarian(&mons[mnum])
+                      ? "протоплазма была испорчена"
+                      : "мясо было испорчено",
               cannibal ? ", вы каннибал" : "");
         if (Sick_resistance) {
             pline("Впрочем, это совсем не вызывает тошноты...");
@@ -2193,9 +2195,9 @@ fprefx(struct obj *otmp)
     default:
         if (otmp->otyp == SLIME_MOLD && !otmp->cursed
             && otmp->spe == svc.context.current_fruit) {
-            pline("Вот это %s %s!",
-                  Hallucination ? "превосходная" : "вкусная",
-                  singular(otmp, xname));
+            pline("Вот это да: %s на вкус %s!",
+                  singular(otmp, xname),
+                  Hallucination ? "превосходно" : "вкусно");
         } else if (otmp->otyp == APPLE && otmp->cursed && !Sleep_resistance) {
             ; /* skip core joke; feedback deferred til fpostfx() */
 

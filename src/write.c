@@ -330,7 +330,9 @@ dowrite(struct obj *pen)
                 Strcpy(namebuf, OBJ_DESCR(objects[new_obj->otyp]));
                 wipeout_text(namebuf, (6 + MAXULEV - u.ulevel) / 6, 0);
             } else
-                Sprintf(namebuf, "%s был здесь!", svp.plname);
+                Sprintf(namebuf, "Здесь был%s %s!",
+                        (Upolyd ? u.mfemale : flags.female) ? "а" : "",
+                        svp.plname);
             You("пишете \"%s\", и свиток исчезает.", namebuf);
             useup(paper);
         }

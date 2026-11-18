@@ -1187,7 +1187,7 @@ hitmu(struct monst *mtmp, struct attack *mattk)
                 /* mtmp might be invisible with hero unable to see same */
                 if (!strcmp(Amonbuf, "It")) /* note: not strcmpi() */
                     Strcpy(Amonbuf, Something);
-                pline("%s был спрятан под %s!", Amonbuf, what);
+                pline("%s скрывается под %s!", Amonbuf, what);
             }
             newsym(mtmp->mx, mtmp->my);
         }

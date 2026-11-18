@@ -2255,7 +2255,7 @@ bhito(struct obj *obj, struct obj *otmp)
                 }
 
                 if (!obj->cobj) {
-                    pline("%s пусто.", Tobjnam(obj, "оказывается"));
+                    pline("%s пустым.", Tobjnam(obj, "оказывается"));
                 } else if (SchroedingersBox(obj)) {
                     /* we don't want to force alive vs dead
                        determination for Schroedinger's Cat here,

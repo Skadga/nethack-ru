@@ -2105,7 +2105,7 @@ do_loot_cont(
         else
 #endif
         if (cobj->lknown)
-            pline("%s заперто.", The(xname(cobj)));
+            pline("%s заперт.", The(xname(cobj)));
         else
             pline("Хмм, %s оказывается запертым.", the(xname(cobj)));
         cobj->lknown = 1;
@@ -3988,7 +3988,7 @@ tipcontainer_checks(
     }
 
     if (box->olocked) {
-        pline("%s заперто.", upstart(thesimpleoname(box)));
+        pline("%s заперт.", upstart(thesimpleoname(box)));
         return TIPCHECK_LOCKED;
 
     } else if (box->otrapped) {
@@ -4058,7 +4058,8 @@ tipcontainer_checks(
 
     } else if (!allowempty && !Has_contents(box)) {
         box->cknown = 1;
-        pline("%s пуст.", upstart(thesimpleoname(box)));
+        pline("В %s пусто.",
+              ru_noun_case(thesimpleoname(box), BP_PREP));
         return TIPCHECK_EMPTY;
 
     }

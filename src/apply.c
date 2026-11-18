@@ -142,7 +142,8 @@ use_towel(struct obj *obj)
                 make_blinded(BlindedTimeout + (long) u.ucreamed - old, TRUE);
             } else {
                 if (ublindf->cursed) {
-                    You("поправл€ете это %s.",
+                    You("поправл€ете %s %s.",
+                        ru_noun_case(xname(ublindf), BP_ACC),
                         rn2(2) ? "набок" : "криво");
                 } else {
                     struct obj *saved_ublindf = ublindf;
@@ -366,7 +367,7 @@ use_stethoscope(struct obj *obj)
             Soundeffect(se_crackling_of_hellfire, 35);
             You_hear("треск адского пламени.");
         } else {
-            pline("%s выгл€дит достаточно здоровым.", surface(u.ux, u.uy));
+            pline("ѕохоже, %s в полном пор€дке.", surface(u.ux, u.uy));
         }
         return res;
     } else if (obj->cursed && !rn2(2)) {
@@ -2671,9 +2672,9 @@ use_grease(struct obj *obj)
         }
     } else {
         if (obj->known)
-            pline("%s пуст.", The(xname(obj)));
+            pline("—мазка в банке закончилась.");
         else
-            pline("%s кажетс€ пустым.", The(xname(obj)));
+            pline("ѕохоже, смазка в банке закончилась.");
     }
     update_inventory();
     return ECMD_TIME;

@@ -1650,7 +1650,8 @@ container_contents(
                     container_contents(box->cobj, identified, TRUE,
                                        reportempty);
             } else if (reportempty) {
-                pline("%s пуст.", upstart(thesimpleoname(box)));
+                pline("В %s пусто.",
+                      ru_noun_case(thesimpleoname(box), BP_PREP));
                 display_nhwindow(WIN_MESSAGE, FALSE);
             }
         }
