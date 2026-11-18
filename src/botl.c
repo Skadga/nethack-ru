@@ -178,38 +178,38 @@ do_statusline2(void)
      * unusual for more than one of them to apply at a time.]
      */
     if (Stoned)
-        Strcpy(nb = eos(nb), " Stone");
+        Strcpy(nb = eos(nb), " Кам");
     if (Slimed)
-        Strcpy(nb = eos(nb), " Slime");
+        Strcpy(nb = eos(nb), " Слиз");
     if (Strangled)
-        Strcpy(nb = eos(nb), " Strngl");
+        Strcpy(nb = eos(nb), " Удуш");
     if (Sick) {
         if (u.usick_type & SICK_VOMITABLE)
-            Strcpy(nb = eos(nb), " FoodPois");
+            Strcpy(nb = eos(nb), " ПищОт");
         if (u.usick_type & SICK_NONVOMITABLE)
-            Strcpy(nb = eos(nb), " TermIll");
+            Strcpy(nb = eos(nb), " Болез");
     }
     if (u.uhs != NOT_HUNGRY)
         Sprintf(nb = eos(nb), " %s", hu_stat[u.uhs]);
     if ((cap = near_capacity()) > UNENCUMBERED)
         Sprintf(nb = eos(nb), " %s", enc_stat_ru[cap]);
     if (Blind)
-        Strcpy(nb = eos(nb), " Blind");
+        Strcpy(nb = eos(nb), " Слеп");
     if (Deaf)
-        Strcpy(nb = eos(nb), " Deaf");
+        Strcpy(nb = eos(nb), " Глух");
     if (Stunned)
-        Strcpy(nb = eos(nb), " Stun");
+        Strcpy(nb = eos(nb), " Оглуш");
     if (Confusion)
-        Strcpy(nb = eos(nb), " Conf");
+        Strcpy(nb = eos(nb), " Смущ");
     if (Hallucination)
-        Strcpy(nb = eos(nb), " Hallu");
+        Strcpy(nb = eos(nb), " Галлюц");
     /* levitation and flying are mutually exclusive; riding is not */
     if (Levitation)
-        Strcpy(nb = eos(nb), " Lev");
+        Strcpy(nb = eos(nb), " Левит");
     if (Flying)
-        Strcpy(nb = eos(nb), " Fly");
+        Strcpy(nb = eos(nb), " Полёт");
     if (u.usteed)
-        Strcpy(nb = eos(nb), " Ride");
+        Strcpy(nb = eos(nb), " Езда");
     cln = strlen(cond);
 
     /* version on status line, with leading space */
@@ -786,36 +786,36 @@ static const struct condmap condition_aliases[] = {
 /* condition names and their abbreviations are used by windowport code */
 const struct conditions_t conditions[] = {
     /* ranking, mask, identifier, txt1, txt2, txt3 */
-    { 20, BL_MASK_BAREH,     bl_bareh,     { "Bare",     "Bar",   "Bh"  } },
-    { 10, BL_MASK_BLIND,     bl_blind,     { "Blind",    "Blnd",  "Bl"  } },
-    { 20, BL_MASK_BUSY,      bl_busy,      { "Busy",     "Bsy",   "By"  } },
-    { 10, BL_MASK_CONF,      bl_conf,      { "Conf",     "Cnf",   "Cf"  } },
-    { 10, BL_MASK_DEAF,      bl_deaf,      { "Deaf",     "Def",   "Df"  } },
-    { 15, BL_MASK_ELF_IRON,  bl_elf_iron,  { "Iron",     "Irn",   "Fe"  } },
-    { 10, BL_MASK_FLY,       bl_fly,       { "Fly",      "Fly",   "Fl"  } },
-    {  6, BL_MASK_FOODPOIS,  bl_foodpois,  { "FoodPois", "Fpois", "Poi" } },
-    { 20, BL_MASK_GLOWHANDS, bl_glowhands, { "Glow",     "Glo",   "Gl"  } },
-    {  2, BL_MASK_GRAB,      bl_grab,      { "Grab",     "Grb",   "Gr"  } },
-    { 10, BL_MASK_HALLU,     bl_hallu,     { "Hallu",    "Hal",   "Hl"  } },
-    { 20, BL_MASK_HELD,      bl_held,      { "Held",     "Hld",   "Hd"  } },
-    { 20, BL_MASK_ICY,       bl_icy,       { "Icy",      "Icy",   "Ic"  } },
-    {  8, BL_MASK_INLAVA,    bl_inlava,    { "InLava",   "Lav",   "La"  } },
-    { 10, BL_MASK_LEV,       bl_lev,       { "Lev",      "Lev",   "Lv"  } },
-    { 20, BL_MASK_PARLYZ,    bl_parlyz,    { "Parlyz",   "Para",  "Par" } },
-    { 10, BL_MASK_RIDE,      bl_ride,      { "Ride",     "Rid",   "Rd"  } },
-    { 20, BL_MASK_SLEEPING,  bl_sleeping,  { "Zzz",      "Zzz",   "Zz"  } },
-    {  6, BL_MASK_SLIME,     bl_slime,     { "Slime",    "Slim",  "Slm" } },
-    { 20, BL_MASK_SLIPPERY,  bl_slippery,  { "Slip",     "Slp",   "Sl"  } },
-    {  6, BL_MASK_STONE,     bl_stone,     { "Stone",    "Ston",  "Sto" } },
-    {  4, BL_MASK_STRNGL,    bl_strngl,    { "Strngl",   "Stngl", "Str" } },
-    { 10, BL_MASK_STUN,      bl_stun,      { "Stun",     "Stun",  "St"  } },
-    { 15, BL_MASK_SUBMERGED, bl_submerged, { "Submrg",   "Subm",  "Sm"  } },
-    {  6, BL_MASK_TERMILL,   bl_termill,   { "TermIll",  "Ill",   "Ill" } },
-    { 20, BL_MASK_TETHERED,  bl_tethered,  { "Teth",     "Tth",   "Te"  } },
-    { 20, BL_MASK_TRAPPED,   bl_trapped,   { "Trap",     "Trp",   "Tr"  } },
-    { 20, BL_MASK_UNCONSC,   bl_unconsc,   { "Out",      "Out",   "KO"  } },
-    { 20, BL_MASK_WOUNDEDL,  bl_woundedl,  { "WLegs",    "Leg",   "Lg"  } },
-    { 20, BL_MASK_HOLDING,   bl_holding,   { "UHold",    "UHld",  "UHd" } },
+    { 20, BL_MASK_BAREH,     bl_bareh,     { "Без рук",  "Безрук", "БР"  } },
+    { 10, BL_MASK_BLIND,     bl_blind,     { "Слеп",     "Слеп",   "Сл"  } },
+    { 20, BL_MASK_BUSY,      bl_busy,      { "Занят",    "Занят",  "Зн"  } },
+    { 10, BL_MASK_CONF,      bl_conf,      { "Смущ",     "Смущ",   "См"  } },
+    { 10, BL_MASK_DEAF,      bl_deaf,      { "Глух",     "Глух",   "Гл"  } },
+    { 15, BL_MASK_ELF_IRON,  bl_elf_iron,  { "Железо",   "Жел",    "Жл"  } },
+    { 10, BL_MASK_FLY,       bl_fly,       { "Полёт",    "Полёт",  "Пл"  } },
+    {  6, BL_MASK_FOODPOIS,  bl_foodpois,  { "Пищ.отр",  "ПищОт",  "ПО" } },
+    { 20, BL_MASK_GLOWHANDS, bl_glowhands, { "Свет",     "Свет",   "Св"  } },
+    {  2, BL_MASK_GRAB,      bl_grab,      { "Захват",   "Захв",   "Зх"  } },
+    { 10, BL_MASK_HALLU,     bl_hallu,     { "Галлюц",   "Галл",   "Гц"  } },
+    { 20, BL_MASK_HELD,      bl_held,      { "Держат",   "Держ",   "Др"  } },
+    { 20, BL_MASK_ICY,       bl_icy,       { "Лёд",      "Лёд",    "Лд"  } },
+    {  8, BL_MASK_INLAVA,    bl_inlava,    { "В лаве",   "Лава",   "Лв"  } },
+    { 10, BL_MASK_LEV,       bl_lev,       { "Левит",    "Лев",    "Лт"  } },
+    { 20, BL_MASK_PARLYZ,    bl_parlyz,    { "Паралич",  "Парал",  "Пр" } },
+    { 10, BL_MASK_RIDE,      bl_ride,      { "Езда",     "Езда",   "Ез"  } },
+    { 20, BL_MASK_SLEEPING,  bl_sleeping,  { "Спит",     "Спит",   "Сп"  } },
+    {  6, BL_MASK_SLIME,     bl_slime,     { "Слизь",    "Слизь",  "Слз" } },
+    { 20, BL_MASK_SLIPPERY,  bl_slippery,  { "Скольз",   "Скольз", "Ск"  } },
+    {  6, BL_MASK_STONE,     bl_stone,     { "Камень",   "Кам",    "Км" } },
+    {  4, BL_MASK_STRNGL,    bl_strngl,    { "Удушье",   "Удуш",   "Уд" } },
+    { 10, BL_MASK_STUN,      bl_stun,      { "Оглуш",    "Оглуш",  "Ог"  } },
+    { 15, BL_MASK_SUBMERGED, bl_submerged, { "Подвод",   "Подв",   "Пд"  } },
+    {  6, BL_MASK_TERMILL,   bl_termill,   { "Болезнь",  "Болез",  "Бл" } },
+    { 20, BL_MASK_TETHERED,  bl_tethered,  { "Привяз",   "Привяз", "Пв"  } },
+    { 20, BL_MASK_TRAPPED,   bl_trapped,   { "В ловушке", "Ловуш", "Лш"  } },
+    { 20, BL_MASK_UNCONSC,   bl_unconsc,   { "Без созн", "БезСоз", "БС"  } },
+    { 20, BL_MASK_WOUNDEDL,  bl_woundedl,  { "Без ног",  "БезНог", "БН"  } },
+    { 20, BL_MASK_HOLDING,   bl_holding,   { "Схвачен",  "Схвач",  "Сх" } },
 };
 
 /* [perhaps these should all be opt_out with default of 'in';
@@ -2221,8 +2221,8 @@ static const struct fieldid_t {
 };
 
 /* format arguments */
-static const char threshold_value[] = "hilite_status threshold ",
-                  is_out_of_range[] = " is out of range";
+static const char threshold_value[] = "порог hilite_status ",
+                  is_out_of_range[] = " вне диапазона";
 
 
 /* field name to bottom line index */
@@ -2344,9 +2344,9 @@ reset_status_hilites(void)
 staticfn boolean
 noneoftheabove(const char *hl_text)
 {
-    if (fuzzymatch(hl_text, "none of the above", "\" -_", TRUE)
-        || fuzzymatch(hl_text, "(polymorphed)", "\"()", TRUE)
-        || fuzzymatch(hl_text, "none of the above (polymorphed)",
+    if (fuzzymatch(hl_text, "ничего из перечисленного", "\" -_", TRUE)
+        || fuzzymatch(hl_text, "(оборотень)", "\"()", TRUE)
+        || fuzzymatch(hl_text, "ничего из перечисленного (оборотень)",
                       "\" -_()", TRUE))
         return TRUE;
     return FALSE;
@@ -2822,11 +2822,12 @@ status_hilite_add_threshold(int fld, struct hilite_s *hilite)
 staticfn boolean
 parse_status_hl2(char (*s)[QBUFSZ], boolean from_configfile)
 {
-    static const char *const aligntxt[] = { "chaotic", "neutral", "lawful" };
+    static const char *const aligntxt[] = { "хаотичный", "нейтральный",
+                                            "законный" };
     /* hu_stat[] from eat.c has trailing spaces which foul up comparisons;
        for the "not hungry" case, there's no text hence no way to highlight */
     static const char *const hutxt[] = {
-        "Satiated", "", "Hungry", "Weak", "Fainting", "Fainted", "Starved"
+        "Сыт", "", "Голоден", "Слаб", "Падает", "Лежит", "Умер"
     };
     char *tmp, *how;
     int sidx = 0, i = -1, dt = ANY_INVALID;
@@ -3961,7 +3962,7 @@ status_hilite_menu_add(int origfld)
         lt_gt_eq = NO_LTEQGT; /* not set up yet */
         inbuf[0] = '\0';
         Sprintf(buf, "Введите %sзначение для поля %s:",
-                percent ? "percentage " : "",
+                percent ? "процентное " : "",
                 initblstats[fld].fldname);
         getlin(buf, inbuf);
         if (inbuf[0] == '\0' || inbuf[0] == '\033')
@@ -4155,7 +4156,7 @@ status_hilite_menu_add(int origfld)
             Strcpy(hilite.textmatch, enc_stat_ru[rv]);
         } else if (fld == BL_ALIGN) {
             static const char *const aligntxt[] = {
-                "chaotic", "neutral", "lawful"
+                "хаотичный", "нейтральный", "законный"
             };
             int rv = query_arrayvalue(qry_buf,
                                       aligntxt, 0, 2 + 1);
@@ -4167,8 +4168,8 @@ status_hilite_menu_add(int origfld)
             Strcpy(hilite.textmatch, aligntxt[rv]);
         } else if (fld == BL_HUNGER) {
             static const char *const hutxt[] = {
-                "Satiated", (char *) 0, "Hungry", "Weak",
-                "Fainting", "Fainted", "Starved"
+                "Сыт", (char *) 0, "Голоден", "Слаб",
+                "Падает", "Лежит", "Умер"
             };
             int rv = query_arrayvalue(qry_buf, hutxt, SATIATED, STARVED + 1);
 
@@ -4206,7 +4207,7 @@ status_hilite_menu_add(int origfld)
                         rolelist[j++] = dupstr(obuf);
                 }
             }
-            rolelist[j++] = dupstr("\"none of the above (polymorphed)\"");
+            rolelist[j++] = dupstr("\"ничего из перечисленного (оборотень)\"");
 
             rv = query_arrayvalue(qry_buf, rolelist, 0, j);
             if (rv >= 0) {
