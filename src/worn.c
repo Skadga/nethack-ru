@@ -940,11 +940,11 @@ m_dowear_type(
                "another <newarm>" for "a|an <newarm>" */
             if (!strcmpi(newarm, oldarm)) {
                 /* size of newarm[] has been overallocated to guarantee
-                   enough room to insert "another " */
-                if (!strncmpi(newarm, "", 2))
-                    (void) strsubst(newarm, "", "другой ");
-                else if (!strncmpi(newarm, "", 3))
-                    (void) strsubst(newarm, "", "другой ");
+                   enough room to insert "другой " */
+                char another[BUFSZ];
+
+                Snprintf(another, sizeof another, "другой %s", newarm);
+                Strcpy(newarm, another);
                 newarm[BUFSZ - 1] = '\0';
             }
             pline_mon(mon, "%s%s надевает %s.", Monnam(mon), buf, newarm);

@@ -1222,10 +1222,10 @@ init_dungeons(void)
         char tbuf[BUFSZ];
         Sprintf(tbuf, "Не удалось открыть описание подземелья - \"%s", DUNGEON_FILE);
 #ifdef DLBRSRC /* using a resource from the executable */
-        Strcat(tbuf, "\" resource!");
+        Strcat(tbuf, "\" (ресурс)!");
 #else /* using a file or DLB file */
 #if defined(DLB)
-        Strcat(tbuf, "\" from ");
+        Strcat(tbuf, "\" из ");
 #ifdef PREFIXES_IN_USE
         Strcat(tbuf, "\n\"");
         if (gf.fqn_prefix[DATAPREFIX])
@@ -1235,7 +1235,7 @@ init_dungeons(void)
 #endif
         Strcat(tbuf, DLBFILE);
 #endif
-        Strcat(tbuf, "\" file!");
+        Strcat(tbuf, "\" (файл)!");
 #endif
 #ifdef WIN32
         interject_assistance(1, INTERJECT_PANIC, (genericptr_t) tbuf,

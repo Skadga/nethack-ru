@@ -1885,8 +1885,8 @@ dopay(void)
                 pline("Но у вас припрятано немного золота.");
         } else {
             if (umoney > ltmp) {
-                You("отдаёте %s %ld gold piece%s, как %s просил.",
-                    shkname(shkp), ltmp, plur(ltmp), noit_mhe(shkp));
+                You("отдаёте %s %ld %s, как %s просил.",
+                    shkname(shkp), ltmp, currency(ltmp), noit_mhe(shkp));
                 pay(ltmp, shkp);
             } else {
                 You("отдаёте %s всё ваше золото%s.", shkname(shkp),
@@ -2298,8 +2298,8 @@ dopayobj(
         if (!unseen)
             shk_names_obj(shkp, obj,
                           consumed
-                              ? "заплатили за %s стоимостью %ld gold piece%s.%s"
-                              : "купили %s за %ld gold piece%s.%s",
+                              ? "заплатили за %s стоимостью %ld %s.%s"
+                              : "купили %s за %ld %s.%s",
                           ltmp, "");
     }
 
@@ -2411,7 +2411,7 @@ buy_container(
         if (unpaidcontainer)
             container->unpaid = container->no_charge = 1;
         shk_names_obj(shkp, container,
-                      "купили %s за %ld gold piece%s.%s",
+                      "купили %s за %ld %s.%s",
                       totalcost, "");
         container->unpaid = container->no_charge = 0;
     }
@@ -3421,7 +3421,7 @@ staticfn void
 shk_names_obj(
     struct monst *shkp,
     struct obj *obj,
-    const char *fmt, /* "%s %ld %s %s", doname(obj), amt, plur(amt), arg */
+    const char *fmt, /* "%s %ld %s %s", doname(obj), amt, currency(amt), arg */
     long amt,
     const char *arg)
 {
@@ -3446,9 +3446,9 @@ shk_names_obj(
         Sprintf(fmtbuf, "%%s; вы %s", fmt);
         obj_name[0] = highc(obj_name[0]);
         pline(fmtbuf, obj_name, (obj->quan > 1L) ? "их" : "его", amt,
-              plur(amt), arg);
+              currency(amt), arg);
     } else {
-        You(fmt, obj_name, amt, plur(amt), arg);
+        You(fmt, obj_name, amt, currency(amt), arg);
     }
 }
 
@@ -4075,8 +4075,8 @@ sellobj(
         if (c == 'y') {
             shk_names_obj(shkp, obj,
                           ((gs.sell_how != SELL_NORMAL)
-                           ? "обменяли %s на %ld zorkmid%s в %sкредит."
-                    : "отдаёте %s и получаете %ld zorkmid%s в %sкредит."),
+                           ? "обменяли %s на %ld %s в %sкредит."
+                    : "отдаёте %s и получаете %ld %s в %sкредит."),
                           tmpcr, (eshkp->credit > 0L) ? "дополнительный " : "");
             eshkp->credit += tmpcr;
             if (container)
@@ -4142,9 +4142,9 @@ sellobj(
                when container's contents are unknown, plural "items"
                should be used to not give away information.
              */
-            Sprintf(qbuf, "%s предлагает%s %ld gold piece%s за %s%s ",
+            Sprintf(qbuf, "%s предлагает%s %ld %s за %s%s ",
                     Shknam(shkp), short_funds ? " только" : "", offer,
-                    plur(offer),
+                    currency(offer),
                     (cltmp && !ltmp)
                         ? ((yourc == 1L) ? "ваш предмет в " : "ваши предметы в ")
                         : "",
@@ -4190,9 +4190,9 @@ sellobj(
             shk_names_obj(shkp, obj,
                           (gs.sell_how != SELL_NORMAL)
                            ? ((!ltmp && cltmp && only_partially_your_contents)
-                         ? "продали предметы, что в %s, за %ld gold piece%s.%s"
-                         : "продали %s за %ld gold piece%s.%s")
-            : "отдаёте %s и получаете %ld gold piece%s в качестве компенсации.%s",
+                         ? "продали предметы, что в %s, за %ld %s.%s"
+                         : "продали %s за %ld %s.%s")
+            : "отдаёте %s и получаете %ld %s в качестве компенсации.%s",
                           offer, "");
             break;
         default:
