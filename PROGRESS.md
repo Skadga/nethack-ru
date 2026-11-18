@@ -455,6 +455,11 @@
   ball, do, dungeon, files, insight, mhitu, mklev, mkmap, mkmaze, muse,
   polyself, pray, rect, rnd, selvar, shk, shknam, sp_lev, spell, steal,
   u_init, vault, mon). Сборка 0 ошибок; Android синхронизирован.
+- Батч №67 (5a7e481): статус и запросы — botl.c (armor_status),
+  do_name.c (hliquid acid), sounds.c (getdir), objnam.c (предел веса
+  сгустка), o_init.c (раздел открытий), teleport.c (добраться туда),
+  windows.c (сокращения состояний). Сборка 0 ошибок;
+  Android синхронизирован.
 
 ## Что осталось
 
