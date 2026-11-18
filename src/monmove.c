@@ -636,7 +636,7 @@ mind_blast(struct monst *mtmp)
             /* wake it up first, to bring hidden monster out of hiding */
             wakeup(m2, FALSE);
             if (cansee(m2->mx, m2->my))
-                pline("Оно фиксируется на %s.", mon_nam(m2));
+                pline("Оно фиксируется на %s.", mon_gen(m2, BP_PREP));
             m2->mhp -= rnd(15);
             if (DEADMONSTER(m2))
                 monkilled(m2, "", AD_DRIN);

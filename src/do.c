@@ -2413,7 +2413,7 @@ legs_in_no_shape(const char *for_what, /* jumping, kicking, riding */
                  boolean by_steed)
 {
     if (by_steed && u.usteed) {
-        pline("%s не в состоянии для %s.", Monnam(u.usteed), for_what);
+        pline("%s не в силах %s.", Monnam(u.usteed), for_what);
     } else {
         long wl = (EWounded_legs & BOTH_SIDES);
         const char *bp = body_part_case(LEG, wl == BOTH_SIDES

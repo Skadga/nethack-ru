@@ -1323,12 +1323,9 @@ gulpmu(struct monst *mtmp, struct attack *mattk)
         newsym(mtmp->mx, mtmp->my);
         /* 5.0: dismount for all engulfers, not just for purple worms */
         if (u.usteed) {
-            char buf[BUFSZ];
-
-            Strcpy(buf, mon_nam(u.usteed));
             urgent_pline("%s бросается вперёд и стаскивает вас с %s!",
                          Some_Monnam(mtmp),
-                         buf);
+                         mon_gen(u.usteed, BP_GEN));
             dismount_steed(DISMOUNT_ENGULFED);
         } else {
             urgent_pline("%s %s!", Monnam(mtmp),
@@ -1992,7 +1989,8 @@ doseduce(struct monst *mon)
 
     if (mon->mcan || mon->mspec_used) {
         pline_mon(mon, "%s ведёт себя так, будто у %s %sголовная боль.",
-                  Monnam(mon), mhe(mon), mon->mcan ? "сильная " : "");
+                  Monnam(mon), mon_gen(mon, BP_GEN),
+                  mon->mcan ? "сильная " : "");
         return 0;
     }
     if (unresponsive()) {
@@ -2004,7 +2002,7 @@ doseduce(struct monst *mon)
     if (!seewho)
         pline("Кто-то ласкает вас...");
     else
-        You_feel("сильное влечение к %s.", mon_nam(mon));
+        You_feel("сильное влечение к %s.", mon_gen(mon, BP_DAT));
     /* cache the seducer's name in a local buffer */
     Strcpy(Who, (!seewho ? (fem ? "Она" : "Он") : Monnam(mon)));
 
@@ -2168,7 +2166,7 @@ doseduce(struct monst *mon)
     /* by this point you have discovered mon's identity, blind or not... */
     urgent_pline(
              "Время замирает, пока вы с %s лежите в объятиях друг друга...",
-                 noit_mon_nam(mon));
+                 mon_gen(mon, BP_INS));
     /* 3.6.1: a combined total for charisma plus intelligence of 35-1
        used to guarantee successful outcome; now total maxes out at 32
        as far as deciding what will happen; chance for bad outcome when

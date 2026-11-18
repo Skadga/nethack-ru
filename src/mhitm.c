@@ -229,8 +229,8 @@ mdisplacem(
             }
             if (!quietly && canspotmon(magr)) {
                 if (gv.vis) {
-                    pline("%s пытается убрать %s со %s пути.", Monnam(magr),
-                          mon_nam(mdef), is_rider(pa) ? "" : mhis(magr));
+                    pline("%s пытается убрать %s с пути.", Monnam(magr),
+                          mon_gen(mdef, BP_ACC));
                 }
                 pline_mon(magr, "%s превращается в камень!", Monnam(magr));
             }
@@ -257,8 +257,8 @@ mdisplacem(
     update_monster_region(mdef);
 
     if (gv.vis && !quietly)
-        pline("%s убирает %s со %s пути!", Monnam(magr), mon_nam(mdef),
-              is_rider(pa) ? "" : mhis(magr));
+        pline("%s убирает %s с пути!", Monnam(magr),
+              mon_gen(mdef, BP_ACC));
     newsym(fx, fy);  /* see it       */
     newsym(tx, ty);  /*   all happen */
     flush_screen(0); /* make sure it shows up */
@@ -1273,7 +1273,7 @@ mswingsm(
 
         pline("%s %s %s%s %s в %s.", Monnam(magr), mswings_verb(otemp, bash),
               (otemp->quan > 1L) ? "один из " : "", mhis(magr), xname(otemp),
-              mon_nam(mdef));
+              mon_gen(mdef, BP_ACC));
     }
 }
 

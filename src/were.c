@@ -112,9 +112,9 @@ new_were(struct monst *mon)
 
     if (canseemon(mon) && !Hallucination)
         pline("%s превращается в %s.", Monnam(mon),
-              is_human(&mons[pm]) ? "человека"
-                                  /* pmname()+4: skip past "were" prefix */
-                                  : pmname(&mons[pm], Mgender(mon)) + 4);
+              is_human(&mons[pm])
+                  ? "человека"
+                  : mon_gen_nom(pmname(&mons[pm], Mgender(mon)), BP_ACC));
 
     set_mon_data(mon, &mons[pm]);
     if (helpless(mon)) {

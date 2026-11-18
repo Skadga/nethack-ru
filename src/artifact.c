@@ -1676,10 +1676,10 @@ artifact_hit(
                 if (is_art(otmp, ART_STORMBRINGER))
                     pline_The("%s клинок выт€гивает %s из %s!",
                               hcolor_case(NH_BLACK, RU_ADJ_NOM_M), life,
-                              mon_nam(mdef));
+                              mon_gen(mdef, BP_GEN));
                 else
                     pline("%s выт€гивает %s из %s!",
-                          The(otmpname), life, mon_nam(mdef));
+                          The(otmpname), life, mon_gen(mdef, BP_GEN));
             }
             if (mdef->m_lev == 0) {
                 /* losing a level when at 0 is fatal */

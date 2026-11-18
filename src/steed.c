@@ -127,7 +127,7 @@ use_saddle(struct obj *otmp)
 
     /* Make the attempt */
     if (rn2(100) < chance) {
-        You("надеваете седло на %s.", mon_nam(mtmp));
+        You("надеваете седло на %s.", mon_gen(mtmp, BP_ACC));
         if (otmp->owornmask)
             remove_worn_item(otmp, FALSE);
         freeinv(otmp);
@@ -204,7 +204,7 @@ mount_steed(
 
     /* Sanity checks */
     if (u.usteed) {
-        You("уже едете верхом на %s.", mon_nam(u.usteed));
+        You("уже едете верхом на %s.", mon_gen(u.usteed, BP_PREP));
         return (FALSE);
     }
 
@@ -229,7 +229,7 @@ mount_steed(
     if (Wounded_legs) {
         char qbuf[QBUFSZ];
 
-        legs_in_no_shape("езды", FALSE);
+        legs_in_no_shape("ехать", FALSE);
         Sprintf(qbuf, "Вылечить ног%s?",
                 ((HWounded_legs & BOTH_SIDES) == BOTH_SIDES) ? "и" : "у");
         if (force && wizard && y_n(qbuf) == 'y')
@@ -288,9 +288,9 @@ mount_steed(
     if (touch_petrifies(ptr) && !Stone_resistance) {
         char kbuf[BUFSZ];
 
-        You("касаетесь %s.", mon_nam(mtmp));
+        You("касаетесь %s.", mon_gen(mtmp, BP_GEN));
         Sprintf(kbuf, "пытаясь сесть верхом на %s",
-                an(pmname(mtmp->data, Mgender(mtmp))));
+                mon_gen(mtmp, BP_ACC));
         instapetrify(kbuf);
     }
     if (!mtmp->mtame || mtmp->isminion) {
@@ -300,7 +300,7 @@ mount_steed(
     if (mtmp->mtrapped) {
         struct trap *t = t_at(mtmp->mx, mtmp->my);
 
-        You_cant("сесть на %s, если %s в ловушке.", mon_nam(mtmp),
+        You_cant("сесть на %s, если %s в ловушке.", mon_gen(mtmp, BP_ACC),
                  mhe(mtmp));
         return (FALSE);
     }
@@ -326,13 +326,13 @@ mount_steed(
     /* Is the player impaired? */
     if (!force && !is_floater(ptr) && !is_flyer(ptr) && Levitation
         && !Lev_at_will) {
-        You("не можете дотянуться до %s.", mon_nam(mtmp));
+        You("не можете дотянуться до %s.", mon_gen(mtmp, BP_GEN));
         return (FALSE);
     }
     if (!force && uarm && is_metallic(uarm) && greatest_erosion(uarm)) {
         Your("%s доспехи слишком жёсткие, чтобы сесть на %s.",
              uarm->oeroded ? "ржавые" : "коррозированные",
-             mon_nam(mtmp));
+             mon_gen(mtmp, BP_ACC));
         return (FALSE);
     }
     if (!force
@@ -343,7 +343,7 @@ mount_steed(
             pline("%s ускользает от вас.", Monnam(mtmp));
             return FALSE;
         }
-        You("соскальзываете, пытаясь взобраться на %s.", mon_nam(mtmp));
+        You("соскальзываете, пытаясь взобраться на %s.", mon_gen(mtmp, BP_ACC));
 
         Sprintf(buf, "упав, пытаясь взобраться на %s",
                 mon_gen(mtmp, BP_ACC));
@@ -357,9 +357,9 @@ mount_steed(
         if (Levitation && !is_floater(ptr) && !is_flyer(ptr))
             /* Must have Lev_at_will at this point */
             pline("%s магически всплывает!", Monnam(mtmp));
-        You("взбираетесь на %s.", mon_nam(mtmp));
+        You("взбираетесь на %s.", mon_gen(mtmp, BP_ACC));
         if (Flying)
-            You("и %s вместе взмываете в небо.", mon_nam(mtmp));
+            You("и с %s вместе взмываете в небо.", mon_gen(mtmp, BP_INS));
     }
     /* setuwep handles polearms differently when you're mounted */
     if (uwep && is_pole(uwep))
@@ -601,7 +601,7 @@ dismount_steed(
         /*FALLTHRU*/
     case DISMOUNT_KNOCKED:
     case DISMOUNT_FELL:
-        You("%s с %s!", verb, mon_nam(mtmp));
+        You("%s с %s!", verb, mon_gen(mtmp, BP_GEN));
         if (!have_spot)
             have_spot = landing_spot(&cc, reason, 1);
         if (!ulev && !ufly) {
@@ -612,7 +612,7 @@ dismount_steed(
         }
         break;
     case DISMOUNT_POLY:
-        You("больше не можете ехать на %s.", mon_nam(u.usteed));
+        You("больше не можете ехать на %s.", mon_gen(u.usteed, BP_PREP));
         if (!have_spot)
             have_spot = landing_spot(&cc, reason, 1);
         break;
@@ -639,11 +639,11 @@ dismount_steed(
         }
         if (!has_mgivenname(mtmp)) {
             pline("Вы прошли подземелье верхом на %s без имени.",
-                  an(pmname(mtmp->data, Mgender(mtmp))));
+                  mon_gen(mtmp, BP_PREP));
             if (Hallucination)
                 pline("Было приятно укрыться от дождя.");
         } else
-            You("спешиваетесь с %s.", mon_nam(mtmp));
+            You("спешиваетесь с %s.", mon_gen(mtmp, BP_GEN));
     }
     /* While riding, Wounded_legs refers to the steed's legs;
        after dismounting, it reverts to the hero's legs. */

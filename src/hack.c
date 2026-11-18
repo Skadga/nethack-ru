@@ -1992,7 +1992,7 @@ domove_bump_mon(struct monst *mtmp, int glyph)
             /* m_monnam(): "dog" или "Fido", no "invisible dog" или "it" */
             pline("Извините, %s.", m_monnam(mtmp));
         else
-            You("двигаетесь прямо на %s.", mon_nam(mtmp));
+            You("двигаетесь прямо на %s.", mon_gen(mtmp, BP_ACC));
         return TRUE;
     }
     return FALSE;
@@ -2192,14 +2192,9 @@ domove_swap_with_pet(
     } else if (mtmp->mpeaceful && mtmp->mtrapped) {
         /* all mtame are also mpeaceful, so this affects pets too */
         assert(trap != NULL); /* implied by mtrapped */
-        const char *what = trapname(trap->ttyp, FALSE), *which = "that ";
-        char anbuf[10];
-
-        if (!trap->tseen) {
+        if (!trap->tseen)
             feeltrap(trap); /* show on map once mtmp is out of the way */
-            which = just_an(anbuf, what); /* "a " или "an " */
-        }
-        You("стоп. %s не может выбраться из %s%s.", YMonnam(mtmp), which, what);
+        You("стоп. %s не может выбраться из ловушки.", YMonnam(mtmp));
         (void) handle_tip(TIP_UNTRAP_MON);
         didnt_move = TRUE;
     } else if (mtmp->mpeaceful

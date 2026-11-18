@@ -4594,19 +4594,19 @@ there_cmd_menu_next2u(
     }
     if (mtmp && can_saddle(mtmp) && !which_armor(mtmp, W_SADDLE)
         && carrying(SADDLE)) {
-        Sprintf(buf, "Надеть седло на %s", mon_nam(mtmp));
+        Sprintf(buf, "Надеть седло на %s", mon_gen(mtmp, BP_ACC));
         mcmd_addmenu(win, MCMD_APPLY_SADDLE, buf), ++K;
     }
     if (mtmp && (mtmp->mpeaceful || mtmp->mtame)) {
-        Sprintf(buf, "Поговорить с %s", mon_nam(mtmp));
+        Sprintf(buf, "Поговорить с %s", mon_gen(mtmp, BP_INS));
         mcmd_addmenu(win, MCMD_TALK, buf), ++K;
 
-        Sprintf(buf, "Поменяться местами с %s", mon_nam(mtmp));
+        Sprintf(buf, "Поменяться местами с %s", mon_gen(mtmp, BP_INS));
         mcmd_addmenu(win, MCMD_MOVE_DIR, buf), ++K;
 
         Sprintf(buf, "%s %s",
                 !has_mgivenname(mtmp) ? "Назвать" : "Переименовать",
-                mon_nam(mtmp));
+                mon_gen(mtmp, BP_ACC));
         mcmd_addmenu(win, MCMD_NAME, buf), ++K;
     }
 

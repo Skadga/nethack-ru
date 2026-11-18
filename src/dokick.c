@@ -1281,7 +1281,7 @@ dokick(void)
             return ECMD_OK;
         }
     } else if (Wounded_legs) {
-        legs_in_no_shape("пинка", FALSE);
+        legs_in_no_shape("пнуть", FALSE);
         no_kick = TRUE;
     } else if (near_capacity() > SLT_ENCUMBER) {
         Your("Ваш груз слишком тяжёл, чтобы удержать равновесие для пинка.");

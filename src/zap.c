@@ -595,7 +595,7 @@ release_hold(void)
            set_ustuck() will set flag for botl update, You() pline will
            trigger a status update with "UHold" removed */
         set_ustuck((struct monst *) 0);
-        You("освобождаетесь от %s.", mon_nam(mtmp));
+        You("освобождаетесь от %s.", mon_gen(mtmp, BP_GEN));
     } else { /* held but not swallowed */
         char relbuf[BUFSZ];
 

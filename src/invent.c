@@ -4161,7 +4161,7 @@ look_here(
          *  something along the lines of "because it's worn on the outside
          *  so is unreachable from in here...").
          */
-        You("пытаетесь рассмотреть, что лежит у %s (%s).", mon_nam(mtmp),
+        You("пытаетесь рассмотреть, что лежит у %s (%s).", mon_gen(mtmp, BP_GEN),
             mbodypart_case(mtmp, STOMACH, BP_GEN));
         otmp = mtmp->minvent;
         if (otmp) {
@@ -5382,7 +5382,7 @@ display_minventory(
         pickings = (dflags & MINV_PICKMASK);
 
     Sprintf(tmp, "%s у %s:", do_all ? "»мущество" : "—нар€жение",
-            noit_Monnam(mon));
+            mon_gen(mon, BP_GEN));
 
     if (do_all ? have_any : (mon->misc_worn_check || MON_WEP(mon))) {
         /* Fool the 'weapon in hand' routine into

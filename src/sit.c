@@ -407,7 +407,7 @@ dosit(void)
     int typ = levl[u.ux][u.uy].typ;
 
     if (u.usteed) {
-        You("уже сидите на %s.", mon_nam(u.usteed));
+        You("уже сидите на %s.", mon_gen(u.usteed, BP_PREP));
         return ECMD_OK;
     }
     if (u.uundetected && is_hider(gy.youmonst.data)

@@ -4076,7 +4076,7 @@ float_up(void)
         if (Lev_at_will) {
             pline("%s магически взлетает вверх!", Monnam(u.usteed));
         } else {
-            You("не можете удержаться на %s.", mon_nam(u.usteed));
+            You("не можете удержаться на %s.", mon_gen(u.usteed, BP_PREP));
             dismount_steed(DISMOUNT_GENERIC);
         }
     }
@@ -5639,7 +5639,7 @@ disarm_holdingtrap(struct trap *ttmp)
        There's no need for a cockatrice test, only the trap is touched */
     if ((mtmp = m_at(ttmp->tx, ttmp->ty)) != 0) {
         mtmp->mtrapped = 0;
-        You("вытаскиваете %s из %s.", mon_nam(mtmp),
+        You("вытаскиваете %s из %s.", mon_gen(mtmp, BP_GEN),
                 (ttmp->ttyp == BEAR_TRAP) ? "капкана" : "паутины");
         reward_untrap(ttmp, mtmp);
     } else if (ttmp->ttyp == BEAR_TRAP) {

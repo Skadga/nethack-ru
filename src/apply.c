@@ -1137,7 +1137,7 @@ use_mirror(struct obj *obj)
         /* some monsters do special things */
     } else if (mlet == S_VAMPIRE || mlet == S_GHOST || is_vampshifter(mtmp)) {
         if (vis)
-            pline("У %s нет отражения.", Monnam(mtmp));
+            pline("У %s нет отражения.", mon_gen(mtmp, BP_GEN));
     } else if (monable && mtmp->data == &mons[PM_MEDUSA]) {
         if (mon_reflects(mtmp, "Взгляд отражён %s %s!", BP_INS))
             return ECMD_TIME;
@@ -1180,7 +1180,7 @@ use_mirror(struct obj *obj)
 
         if (mtmp->mfrozen) {
             if (vis)
-                You("не замечаете очевидной реакции от %s.", mon_nam(mtmp));
+                You("не замечаете очевидной реакции от %s.", mon_gen(mtmp, BP_GEN));
             else
                 You_feel(
                        "немного глупо указывать зеркалом в ту сторону.");
@@ -2043,14 +2043,14 @@ jump(int magic) /* 0=Physical, otherwise skill level */
             struct monst *mtmp = u.ustuck;
 
             set_ustuck((struct monst *) 0);
-            You("вырываетесь от %s.", mon_nam(mtmp));
+            You("вырываетесь от %s.", mon_gen(mtmp, BP_GEN));
             return ECMD_TIME;
         }
         if (magic) {
-            You("немного извиваетесь в хватке %s!", mon_nam(u.ustuck));
+            You("немного извиваетесь в хватке %s!", mon_gen(u.ustuck, BP_GEN));
             return ECMD_TIME;
         }
-        You("не можете вырваться от %s!", mon_nam(u.ustuck));
+        You("не можете вырваться от %s!", mon_gen(u.ustuck, BP_GEN));
         return ECMD_OK;
     } else if (Levitation || Is_airlevel(&u.uz) || Is_waterlevel(&u.uz)) {
         if (magic) {
@@ -2066,7 +2066,7 @@ jump(int magic) /* 0=Physical, otherwise skill level */
         You("не хватает сил, чтобы прыгнуть!");
         return ECMD_OK;
     } else if (!magic && Wounded_legs) {
-        legs_in_no_shape("прыжка", u.usteed != 0);
+        legs_in_no_shape("прыгнуть", u.usteed != 0);
         return ECMD_OK;
     } else if (u.usteed && u.utrap) {
         pline("%s застрял в ловушке.", Monnam(u.usteed));
@@ -2905,7 +2905,7 @@ use_trap(struct obj *otmp)
             chance = (rnl(10) > 3);
         else
             chance = (rnl(10) > 5);
-        You("не очень умелы в доставании с %s.", mon_nam(u.usteed));
+        You("не очень умелы в доставании с %s.", mon_gen(u.usteed, BP_GEN));
         Sprintf(buf, "Продолжить попытку установить %s?",
                 the(trapname(ttyp, FALSE)));
         if (y_n(buf) == 'y') {

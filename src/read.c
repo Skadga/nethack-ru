@@ -2365,7 +2365,7 @@ drop_boulder_on_monster(coordxy x, coordxy y, boolean confused, boolean byu)
         long mdmg;
 
         if (cansee(mtmp->mx, mtmp->my)) {
-            pline("В %s попадает %s!", Monnam(mtmp), doname(otmp2));
+            pline("В %s попадает %s!", mon_gen(mtmp, BP_ACC), doname(otmp2));
             if (mtmp->minvis && !canspotmon(mtmp))
                 map_invisible(mtmp->mx, mtmp->my);
         } else if (engulfing_u(mtmp))

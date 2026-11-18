@@ -651,7 +651,7 @@ god_zaps_you(aligntyp resp_god)
     pline("%s не остановить...", align_gname(resp_god));
     if (u.uswallow) {
         pline("Луч дезинтеграции, нацеленный в вас, попадает в %s!",
-              mon_nam(u.ustuck));
+              mon_gen(u.ustuck, BP_ACC));
         if (!resists_disint(u.ustuck)) {
             pline("%s рассыпается в кучу пыли!", Monnam(u.ustuck));
             xkilled(u.ustuck, XKILL_NOMSG | XKILL_NOCORPSE | XKILL_NOCONDUCT);

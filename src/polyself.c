@@ -1542,7 +1542,7 @@ dospinweb(void)
             }
             return ECMD_OK;
         } /* default: a nasty jelly-like creature */
-        pline("Паутина растворяется в %s.", mon_nam(u.ustuck));
+        pline("Паутина растворяется в %s.", mon_gen(u.ustuck, BP_PREP));
         return ECMD_OK;
     }
     if (u.utrap) {
@@ -1680,7 +1680,7 @@ dogaze(void)
             if (Invis && !perceives(mtmp->data)) {
                 pline("%s, кажется, не замечает вашего взгляда.", Monnam(mtmp));
             } else if (mtmp->minvis && !See_invisible) {
-                You_cant("увидеть, куда смотреть на %s.", Monnam(mtmp));
+                You_cant("увидеть, куда смотреть на %s.", mon_gen(mtmp, BP_ACC));
             } else if (M_AP_TYPE(mtmp) == M_AP_FURNITURE
                        || M_AP_TYPE(mtmp) == M_AP_OBJECT) {
                 looked--;

@@ -1317,10 +1317,10 @@ hmon_hitmon_misc_obj(
         break;
     case ACID_VENOM: /* thrown (or spit) */
         if (resists_acid(mon)) {
-            Your("кислота безвредно попадает в %s.", mon_nam(mon));
+            Your("кислота безвредно попадает в %s.", mon_gen(mon, BP_ACC));
             hmd->dmg = 0;
         } else {
-            Your("кислота обжигает %s!", mon_nam(mon));
+            Your("кислота обжигает %s!", mon_gen(mon, BP_ACC));
             hmd->dmg = dmgval(obj, mon);
         }
         {
@@ -1915,7 +1915,7 @@ hmon_hitmon(
     /* already_killed and poiskilled won't apply for Trollsbane */
 
     if (hmd.needpoismsg)
-        pline("Яд, кажется, не действует на %s.", mon_nam(mon));
+        pline("Яд, кажется, не действует на %s.", mon_gen(mon, BP_ACC));
     if (hmd.poiskilled) {
         pline("Яд оказался смертельным...");
         if (!hmd.already_killed)
@@ -2862,7 +2862,7 @@ mhitm_ad_sgld(
         mdef->mstrategy &= ~STRAT_WAITFORU;
         Strcpy(buf, Monnam(magr));
         if (gv.vis && canseemon(mdef)) {
-            pline("%s крадёт немного золота у %s.", buf, mon_nam(mdef));
+            pline("%s крадёт немного золота у %s.", buf, mon_gen(mdef, BP_GEN));
         }
         if (!tele_restrict(magr)) {
             boolean couldspot = canspotmon(magr);
@@ -3132,7 +3132,7 @@ mhitm_really_poison(struct monst *magr, struct attack *mattk,
     if (resists_poison(mdef)) {
         if (gv.vis && canspotmon(mdef) && canspotmon(magr))
             pline("Яд, кажется, не действует на %s.",
-                        mon_nam(mdef));
+                        mon_gen(mdef, BP_ACC));
     } else {
         mhm->damage += rn1(10, 6);
         if (mhm->damage >= mdef->mhp && gv.vis && canspotmon(mdef))
@@ -3153,7 +3153,7 @@ mhitm_ad_drst(
         if (!negated && !rn2(8)) {
             Your("Ваш %s был отравлен!", mpoisons_subj(magr, mattk));
             if (resists_poison(mdef)) {
-                pline("Яд, кажется, не действует на %s.", mon_nam(mdef));
+                pline("Яд, кажется, не действует на %s.", mon_gen(mdef, BP_ACC));
             } else {
                 if (!rn2(10)) {
                     Your("Ваш яд оказался смертельным...");
@@ -5146,7 +5146,7 @@ gulpum(struct monst *mdef, struct attack *mattk)
             case AD_ACID:
                 pline("%s покрыт вашей слизью!", Monnam(mdef));
                 if (resists_acid(mdef)) {
-                    pline("Это кажется безвредным для %s.", mon_nam(mdef));
+                    pline("Это кажется безвредным для %s.", mon_gen(mdef, BP_GEN));
                     dam = 0;
                 }
                 break;
@@ -5230,9 +5230,9 @@ missum(
         Your("Ваша броня довольно громоздкая...");
 
     if (could_seduce(&gy.youmonst, mdef, mattk))
-        You("притворяетесь дружелюбным с %s.", mon_nam(mdef));
+        You("притворяетесь дружелюбным с %s.", mon_gen(mdef, BP_INS));
     else if (canspotmon(mdef) && flags.verbose)
-        You("промахиваетесь по %s.", mon_nam(mdef));
+        You("промахиваетесь по %s.", mon_gen(mdef, BP_DAT));
     else
         You("промахиваетесь.");
     if (!helpless(mdef))
