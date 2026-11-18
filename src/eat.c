@@ -2419,7 +2419,7 @@ eatspecial(void)
     struct obj *otmp = svc.context.victual.piece;
 
     /* lesshungry wants an occupation to handle choke messages correctly */
-    set_occupation(eatfood, "eating non-food", 0);
+    set_occupation(eatfood, "поедание несъедобного", 0);
     lesshungry(svc.context.victual.nmod);
     go.occupation = 0;
     svc.context.victual = zero_victual; /* victual.piece = 0, .o_id = 0 */
