@@ -3050,7 +3050,7 @@ logdeadmon(struct monst *mtmp, int mndx)
                 llevent_type |= LL_ACHIEVE;
             xtra[0] = '\0';
             if (howmany > 1) /* "(2nd time)" or "(50th time)" */
-                Sprintf(xtra, " (%d%s time)", howmany, ordin(howmany));
+                Sprintf(xtra, " (%d-й раз)", howmany);
 
             mkilled = nonliving(mtmp->data) ? "уничтожен" : "убит";
             /* hero is responsible: "killed <monst>" */
@@ -3405,9 +3405,12 @@ monkilled(
     /* extra message if pet golem is completely destroyed;
        if not visible, this will follow "you have a sad feeling" */
     if (mdef->mtame) {
-        const char *rxt = (how == AD_FIRE && completelyburns(mptr)) ? "roast"
-                          : (how == AD_RUST && completelyrusts(mptr)) ? "rust"
-                            : (how == AD_DCAY && completelyrots(mptr)) ? "rot"
+        const char *rxt = (how == AD_FIRE && completelyburns(mptr))
+                              ? "изжарится"
+                          : (how == AD_RUST && completelyrusts(mptr))
+                              ? "заржавеет"
+                            : (how == AD_DCAY && completelyrots(mptr))
+                              ? "сгниёт"
                               :  0;
         if (rxt)
             pline("Пусть %s %s с миром.", noit_mon_nam(mdef), rxt);
@@ -3773,14 +3776,14 @@ vamp_stone(struct monst *mtmp)
             char buf[BUFSZ];
 
             /* construct a format string before transformation */
-            Sprintf(buf, "The lapidifying %s %s %s",
+            Sprintf(buf, "Окаменевающий %s %s %s",
                     x_monnam(mtmp, ARTICLE_NONE, (char *) 0,
                              (SUPPRESS_SADDLE | SUPPRESS_HALLUCINATION
                               | SUPPRESS_INVISIBLE | SUPPRESS_IT), FALSE),
-                    amorphous(mtmp->data) ? "coalesces on the"
-                       : is_flyer(mtmp->data) ? "drops to the"
-                          : "writhes on the",
-                    surface(x, y));
+                    amorphous(mtmp->data) ? "растекается по"
+                       : is_flyer(mtmp->data) ? "оседает на"
+                          : "корчится на",
+                    surface_ru(x, y));
             mtmp->mcanmove = 1;
             mtmp->mfrozen = 0;
             set_mon_min_mhpmax(mtmp, 10); /* mtmp->mhpmax=max(m_lev+1,10) */
@@ -4744,8 +4747,8 @@ hideunder(struct monst *mtmp)
         undetected = (is_pool(x, y) && !Is_waterlevel(&u.uz)
                       && (!Underwater || !couldsee(x, y)));
         if (seeit) {
-            seenobj = "the water";
-            locomo = "dive";
+            seenobj = "воду";
+            locomo = "ныряет";
         }
     } else if (hides_under(mtmp->data)
                /* hider-underers only hide under objects */
@@ -4787,7 +4790,7 @@ hideunder(struct monst *mtmp)
            will be Null */
         if (undetected && seenmon && seenobj) {
             if (!locomo)
-                locomo = locomotion(mtmp->data, "hide");
+                locomo = locomotion(mtmp->data, "прячется");
             set_msg_xy(mtmp->mx, mtmp->my); /* pline() will reset this */
             You_see("%s %s под %s.", seenmon, locomo, seenobj);
             iflags.last_msg = PLNMSG_HIDE_UNDER;
@@ -5100,8 +5103,8 @@ wiz_force_cham_form(struct monst *mon)
     do {
         if (tryct == TRYLIMIT - 1) { /* first retry */
             /* change "into what?" to "into what kind of monster?" */
-            if (strlen(pprompt) + sizeof " kind of monster" - 1 < QBUFSZ)
-                Strcpy(eos(pprompt) - 1, " kind of monster?");
+            if (strlen(pprompt) + sizeof " (вид монстра)?" - 1 < QBUFSZ)
+                Strcpy(eos(pprompt) - 1, " (вид монстра)?");
         }
 #undef TRYLIMIT
         monclass = 0;
@@ -5284,7 +5287,7 @@ newcham(
             seenorsensed = canspotmon(mtmp);
     int hpn, hpd, mndx, tryct;
     struct permonst *olddata = mtmp->data;
-    char *p, oldname[BUFSZ], l_oldname[BUFSZ];
+    char *p, oldname[BUFSZ];
 
     /* Riders are immune to polymorph and green slime
        (but apparent Rider might actually be a doppelganger) */
@@ -5311,11 +5314,6 @@ newcham(
                         (char *) 0, SUPPRESS_SADDLE, FALSE));
         oldname[0] = highc(oldname[0]);
     }
-    /* we need this one whether msg is true or not */
-    Strcpy(l_oldname, x_monnam(mtmp, ARTICLE_THE, (char *) 0,
-                               has_mgivenname(mtmp) ? SUPPRESS_SADDLE : 0,
-                               FALSE));
-
     /* mdat = 0 -> caller wants a random monster shape */
     if (mdat == 0) {
         /* select_newcham_form() loops when resorting to random but
@@ -5418,15 +5416,15 @@ newcham(
                         Sprintf(msgtrail, ", превратившись в %s",
                                 noname_monnam(mtmp, ARTICLE_NONE));
                     } else if (digests(mdat)) {
-                        Strcpy(msgtrail, "'s stomach");
+                        Strcpy(msgtrail, " из брюха чудовища");
                     } else {
                         msgtrail[0] = '\0';
                     }
                     /* Do this even if msg is FALSE */
-                    You("%s %s%s!",
+                    You("%s%s!",
                         (amorphous(olddata) || is_whirly(olddata))
-                            ? "выходит из" : "вырывается из",
-                        l_oldname, msgtrail);
+                            ? "выбираешься наружу" : "вырываешься наружу",
+                        msgtrail);
                     msg = FALSE; /* message has been given */
                     mtmp->mhp = 1; /* almost dead */
                 }
@@ -5482,7 +5480,7 @@ newcham(
     possibly_unwield(mtmp, polyspot); /* might lose use of weapon */
     mon_break_armor(mtmp, polyspot);
     if (!(mtmp->misc_worn_check & W_ARMG))
-        mselftouch(mtmp, "No longer petrify-resistant, ",
+        mselftouch(mtmp, "Больше не защищён от окаменения, ",
                    !svc.context.mon_moving);
     check_gear_next_turn(mtmp);
 

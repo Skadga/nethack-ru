@@ -868,8 +868,8 @@ fix_petrification(void)
     char buf[BUFSZ];
 
     if (Hallucination)
-        Sprintf(buf, "Как жаль — ты только что испортил будущий %sарт!",
-                ACURR(A_CHA) > 15 ? "fine " : "");
+        Sprintf(buf, "Как жаль — ты только что испортил будущий %s!",
+                ACURR(A_CHA) > 15 ? "изящный шедевр" : "арт");
     else
         Strcpy(buf, "Ты чувствуешь себя гибким!");
     make_stoned(0L, buf, 0, (char *) 0);
