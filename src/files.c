@@ -3194,7 +3194,7 @@ reveal_paths(int code)
     raw_print("–асположени€ каталогов игры:");
     for (i = 0; i < PREFIX_COUNT; i++)
         raw_printf("    [%-10s]=\"%s\"", fqn_prefix_names[i],
-                   gf.fqn_prefix[i] ? gf.fqn_prefix[i] : "not set");
+                   gf.fqn_prefix[i] ? gf.fqn_prefix[i] : "не задано");
 #endif
 
     /* sysconf file */

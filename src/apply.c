@@ -272,9 +272,11 @@ its_dead(coordxy rx, coordxy ry, int *resp)
                     corpse = nxtobj(corpse, CORPSE, TRUE);
             } while (corpse && !reviver);
         }
-        You("определяете, что %s несчастное существо%s %s%s мертво.",
-            one ? (here ? "this" : "that") : (here ? "these" : "those"),
-            one ? "" : "s", one ? "" : "", reviver ? " в основном" : "");
+        You("определяете, что %s несчастн%s существ%s %s%s.",
+            one ? (here ? "это" : "то") : (here ? "эти" : "те"),
+            one ? "ое" : "ые", one ? "о" : "а",
+            reviver ? "в основном " : "",
+            one ? "мертво" : "мертвы");
         return TRUE;
 
     } else { /* statue */

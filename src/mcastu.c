@@ -215,7 +215,7 @@ castmu(
     }
     if (canspotmon(mtmp) || !is_undirected_spell(spellnum)) {
         pline_mon(mtmp, "%s колдует%s!",
-                 canspotmon(mtmp) ? Monnam(mtmp) : "Something",
+                 canspotmon(mtmp) ? Monnam(mtmp) : "Что-то",
                  is_undirected_spell(spellnum) ? ""
                  : (Invis && !perceives(mtmp->data)
                     && !u_at(mtmp->mux, mtmp->muy))

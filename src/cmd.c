@@ -816,8 +816,8 @@ extcmd_via_menu(void)
                 wastoolong = FALSE;
             if (accelerator != prevaccelerator || one_per_line
                 || (acount >= 2
-                    /* +4: + sizeof " or " - sizeof "" */
-                    && (strlen(prompt) + 4 + strlen(choices[i]->ef_txt)
+                    /* +5: + sizeof " или " - sizeof "" */
+                    && (strlen(prompt) + 5 + strlen(choices[i]->ef_txt)
                         /* -6: enough room for 1 space left margin
                          *   + "%c - " menu selector + 1 space right margin */
                         >= min(sizeof prompt, COLNO - 6)))) {
@@ -837,7 +837,7 @@ extcmd_via_menu(void)
                 Sprintf(prompt, "%s%s [%s]", wastoolong ? "или " : "",
                         choices[i]->ef_txt, choices[i]->ef_desc);
             } else if (acount == 1) {
-                Sprintf(prompt, "%s%s or %s", wastoolong ? "или " : "",
+                Sprintf(prompt, "%s%s или %s", wastoolong ? "или " : "",
                         choices[i - 1]->ef_txt, choices[i]->ef_txt);
             } else {
                 Strcat(prompt, " или ");

@@ -3506,7 +3506,8 @@ xkilled(
 
         You("%s %s!",
             nonliving(mtmp->data) ? "уничтожаете" : "убиваете",
-            !(wasinside || canspotmon(mtmp)) ? "it"
+            !(wasinside || canspotmon(mtmp))
+                ? (nonliving(mtmp->data) ? "что-то" : "кого-то")
               : !mtmp->mtame ? mon_nam(mtmp)
                 : x_monnam(mtmp, namedpet ? ARTICLE_NONE : ARTICLE_THE,
                            "poor", namedpet ? SUPPRESS_SADDLE : 0, FALSE));
