@@ -2,50 +2,50 @@
 # Copyright (c) 2006 by Michael Allison
 # NetHack may be freely redistributed.  See license for details.
 
-# Sample config file for win32 NetHack
-# A '#' at the beginning of a line means the rest of the line is a comment.
+# Образец файла настроек для NetHack под win32
+# Символ '#' в начале строки означает, что остаток строки — комментарий.
 #
-# Some options MUST be set in this file, other options can be toggled while
-# playing.  For a list of options available see the <opthelp.> file.
+# Некоторые параметры ОБЯЗАТЕЛЬНО задаются в этом файле, другие можно
+# переключать во время игры.  Список доступных параметров см. в файле
 #
-# To change the configuration, comment out the unwanted lines, and
-# uncomment the configuration you want.
+# Чтобы изменить настройки, закомментируйте ненужные строки и
+# раскомментируйте нужные.
 #
 # $NHDT-Date: 1524689357 2018/04/25 20:49:17 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.32 $
 
-# *** OPTIONS ***
+# *** ПАРАМЕТРЫ ***
 #
-# Use the IBM character set rather than just plain ascii characters
-# for tty window-port.
+# Использовать набор символов IBM вместо простого ASCII
+# для tty-интерфейса.
 OPTIONS=symset:IBMGraphics_2,roguesymset:RogueEpyx
 
-# Here is a suggested symbol set from Michael Feir, 
-# for use by blind NetHack players
+# Предлагаемый набор символов от Майкла Фейра
+# для незрячих игроков NetHack
 #OPTIONS=symset:NHAccess,roguesymset:NHAccess
 
-# Optional curses port interface
+# Необязательный интерфейс curses
 #OPTIONS=windowtype:curses
 #
-# Keyboard handling
-# Ray Chason's keyboard handling
+# Обработка клавиатуры
+# Обработка клавиатуры по Рэю Чейсону
 # OPTIONS=altkeyhandling:ray
 #
-# NetHack 3.4.0 keyboard handling
+# Обработка клавиатуры как в NetHack 3.4.0
 # OPTIONS=altkeyhandling:340
 
-# *** Personal Preferences ***
-# Some options to set personal preferences.  Uncomment and change these to
-# suit your personal preference.  If several people are to use the same
-# configuration, options like these should not be set.
+# *** ЛИЧНЫЕ ПРЕДПОЧТЕНИЯ ***
+# Параметры личных предпочтений.  Раскомментируйте и измените их
+# по своему вкусу.  Если одним файлом настроек пользуются несколько
+# человек, такие параметры задавать не следует.
 #
 #OPTIONS=name:Janet,role:Valkyrie,race:Human,gender:female,align:lawful
 #OPTIONS=dogname:Fido,catname:Morris,fruit:guava
 #OPTIONS=horsename:Silver
 
-# Disable autopickup
+# Отключить автоподбор
 OPTIONS=!autopickup
 
-# When autopickup is on, automatically pick up these types of objects
+# Когда автоподбор включён, автоматически подбирать предметы этих типов
 #OPTIONS=pickup_types:$"=/!?+
 
 #OPTIONS=packorder:")[%?+/=!(*0_`
@@ -54,84 +54,84 @@ OPTIONS=!autopickup
 #OPTIONS=menustyle:traditional
 #OPTIONS=perm_invent
 
-# Set the default boulder symbol to '0'
+# Символ валуна по умолчанию — '0'
 OPTIONS=boulder:0
 
-# Disable the prompt for a tutorial
+# Отключить предложение обучения
 #OPTIONS=!tutorial
 
-# Disable game tips
+# Отключить игровые подсказки
 #OPTIONS=!tips
 
-# Highlight menu lines with different colors. You need to define the colors
-# with MENUCOLOR lines.
-#  Toggle menucolor use on or off
+# Подсвечивать строки меню разными цветами. Цвета задаются строками
+# MENUCOLOR.
+#  Включить или выключить использование цветов меню
 OPTIONS=menucolors
-# Define color used for a certain menu line. Format is
-#    MENUCOLOR="regular expression"=color
-# or
-#    MENUCOLOR="regular expression"=color&attribute
-#  Show all blessed items in green
-MENUCOLOR=" blessed " = green
-#  Show all holy water in green
-MENUCOLOR=" holy " = green
-#  Show all cursed items in red
-MENUCOLOR=" cursed " = red
-#  Show all unholy water in red
-MENUCOLOR=" unholy " = red
-#  Show all cursed worn items in orange and underlined
-MENUCOLOR=" cursed .* \(being worn\)" = orange&underline
+# Задать цвет для определённой строки меню. Формат:
+#    MENUCOLOR="регулярное выражение"=цвет
+# или
+#    MENUCOLOR="регулярное выражение"=цвет&атрибут
+#  Все благословлённые предметы — зелёным
+MENUCOLOR=" благословен" = green
+#  Вся святая вода — зелёным
+MENUCOLOR=" святая вода" = green
+#  Все проклятые предметы — красным
+MENUCOLOR=" проклят" = red
+#  Вся нечестивая вода — красным
+MENUCOLOR=" нечестив" = red
+#  Все проклятые надетые предметы — оранжевым и подчёркнутым
+MENUCOLOR=" проклят.* \(надето\)" = orange&underline
 
 
 
-# General options.  You might also set "silent" so as not to attract
-# the boss's attention.
+# Общие параметры.  Можно также включить "silent", чтобы не привлекать
+# внимание начальства.
 #
-# number_pad option can have an optional value of 0 (off), 1 (on), 
-# or 2(on,legacy-mode) which causes 5='g', alt-5='G', alt-0='I'
+# Параметр number_pad принимает значение 0 (выкл.), 1 (вкл.) или
+# 2 (вкл., старый режим), при котором 5='g', alt-5='G', alt-0='I'
 OPTIONS=time,noshowexp,number_pad:2,lit_corridor,mouse_support:1
 
-# Make commands that ask for an inventory item pop up a menu
+# Команды, запрашивающие предмет из инвентаря, открывают меню
 OPTIONS=force_invmenu
 
 #
-# If you want to get rid of "use #quit to quit..." use:
+# Чтобы убрать сообщение «use #quit to quit...», задайте:
 OPTIONS=suppress_alert:3.3.1
 #
-# Note: the rest_on_space in the next line may not be
-#       appropriate for a beginning NetHack player, since
-#       it could result in use of a turn unintentionally.
-#       If you're new to NetHack, leave it commented it out.
+# Примечание: rest_on_space из следующей строки может не
+#       подойти новичку: ход может быть потрачен случайно.
+#       Если вы новичок, оставьте строку
+#       закомментированной.
 #OPTIONS=rest_on_space
 #
-# Set some options to control graphical window-port (these will
-# be safely and silently ignored by the tty port)
+# Параметры графического интерфейса (tty-интерфейс
+# молча и безопасно их игнорирует)
 #
-# Map window settings
-# possible map_mode options include: tiles|ascii4x6|ascii6x8|ascii8x8|ascii16x8|
+# Настройки окна карты
+# возможные значения map_mode: tiles|ascii4x6|ascii6x8|ascii8x8|ascii16x8|
 #                                    ascii7x12|ascii8x12|ascii16x12|ascii12x16|
 #                                    ascii10x18|fit_to_screen|ascii_fit_to_screen|
 #                                    tiles_fit_to_screen
 OPTIONS=map_mode:tiles,scroll_margin:10
 
-# Message window settings
+# Настройки окна сообщений
 OPTIONS=font_message:Arial,font_size_message:14,align_message:top
 
-# Menu settings
+# Настройки меню
 OPTIONS=font_menu:Arial,font_size_menu:14
 
-# Text settings
+# Настройки текста
 OPTIONS=font_text:Courier New,font_size_text:14
 
-# Status window settings
+# Настройки окна состояния
 OPTIONS=font_status:Courier New,font_size_status:14
 
-# Other
+# Прочее
 OPTIONS=hilite_pet,!toptenwin
 #OPTIONS=!splash_screen,player_selection:prompts
 
-# Status/message window colors
-# Possible color options include:
+# Цвета окна состояния и окна сообщений
+# Возможные значения цветов:
 # six digit hexadecimal RGB color value ("#8F8F8F"), black, red, green, brown,
 # blue, magenta, cyan, gray (or grey), orange, brightgreen, yellow, brightblue,
 # brightmagenta, brightcyan, white, trueblack, purple, silver, maroon, fuchsia,
@@ -141,31 +141,31 @@ OPTIONS=hilite_pet,!toptenwin
 # window, windowframe, windowtext.
 #OPTIONS=windowcolors:status windowtext/window message windowtext/window
 
-# *** LOCATIONS ***
-# IMPORTANT: If you change any of these locations, the directories they
-# point at must exist.  NetHack will not create them for you.
+# *** РАСПОЛОЖЕНИЕ ФАЙЛОВ ***
+# ВАЖНО: при изменении этих путей каталоги должны уже
+# существовать.  NetHack не создаёт их.
 #
-# The location that documentation and helps files are placed
+# Каталог документации и файлов помощи
 #HACKDIR=c:\User\USERNAME\NetHack\5.0
 #
-# The location that level files in progress are stored (writeable)
+# Каталог текущих уровней (нужна запись)
 #LEVELDIR=c:\User\USERNAME\AppData\Local\NetHack\5.0
 #
-# The location where saved games are kept (writeable)
+# Каталог сохранённых игр (нужна запись)
 #SAVEDIR=c:\User\USERNAME\AppData\Local\NetHack\5.0
 #
-# The location that bones files are kept (writeable)
+# Каталог файлов bones (нужна запись)
 #BONESDIR=c:\ProgramData\NetHack\5.0
 #
-# The location that score files are kept (writeable)
+# Каталог файлов рекордов (нужна запись)
 #SCOREDIR=c:\ProgramData\NetHack\5.0
 #
-# The location that file synchronization locks are stored (writeable)
+# Каталог блокировок синхронизации файлов (нужна запись)
 #LOCKDIR=c:\ProgramData\NetHack\5.0
 #
 
-# Finnish keyboards might need these modifications uncommented. 
-# For  \, @, $, [, |
+# Для финской раскладки может понадобиться раскомментировать эти строки.
+# Для  \, @, $, [, |
 #OPTIONS=subkeyvalue:171/92
 #OPTIONS=subkeyvalue:178/64
 #OPTIONS=subkeyvalue:180/36
@@ -173,8 +173,8 @@ OPTIONS=hilite_pet,!toptenwin
 #OPTIONS=subkeyvalue:188/124
 
 #
-# Some versions of Windows allow you to adjust the win32 console port 
-# colors using R-G-B settings.
+# В некоторых версиях Windows цвета консоли win32 можно
+# задать в формате R-G-B.
 #
 #OPTIONS=palette:black-0-0-0
 #OPTIONS=palette:red-210-0-0
@@ -195,9 +195,9 @@ OPTIONS=hilite_pet,!toptenwin
 
 
 
-# Status hilites
+# Подсветка состояния
 OPTIONS=statushilites
-# HP
+# Здоровье
 OPTIONS=hitpointbar
 OPTIONS=hilite_status:hitpoints/100%/gray&normal
 OPTIONS=hilite_status:hitpoints/<100%/green&normal
@@ -206,36 +206,36 @@ OPTIONS=hilite_status:hitpoints/<50%/orange&normal
 OPTIONS=hilite_status:hitpoints/<33%/red&bold
 OPTIONS=hilite_status:hitpoints/<15%/red&inverse
 
-## Pw
+## Энергия
 OPTIONS=hilite_status:power/100%/gray&normal
 OPTIONS=hilite_status:power/<100%/green&normal
 OPTIONS=hilite_status:power/<66%/yellow&normal
 OPTIONS=hilite_status:power/<50%/orange&normal
 OPTIONS=hilite_status:power/<33%/red&bold
 
-## Carry
+## Груз
 OPTIONS=hilite_status:cap/burdened/yellow/stressed/orange/strained/red&bold/overtaxed/red&inverse/overloaded/red&inverse&blink
 
-## Hunger
+## Голод
 OPTIONS=hilite_status:hunger/satiated/yellow/hungry/orange/weak/red&bold/fainting/red&inverse/fainted/red&inverse&blink
 
-## Mental
+## Рассудок
 OPTIONS=hilite_status:condition/hallu/yellow
 OPTIONS=hilite_status:condition/conf/orange
 OPTIONS=hilite_status:condition/stun/red&bold
 
-## Health
+## Самочувствие
 OPTIONS=hilite_status:condition/termill/red&inverse
 OPTIONS=hilite_status:condition/foodpois/red&inverse
 OPTIONS=hilite_status:condition/slime/red&inverse
 
-# gold
+# Золото
 OPTIONS=hilite_status:gold/up/yellow/down/brown
 
 # St, Dx, Co, In, Wi, Ch
 OPTIONS=hilite_status:characteristics/up/green/down/red
 
-# CRASHREPORTURL must be set in syscf to enable these options.
-# These identify you in crash reports
+# Чтобы включить эти параметры, в sysconf должен быть задан CRASHREPORTURL.
+# Эти данные идентифицируют вас в отчётах о сбоях
 #OPTIONS=crash_name:Your Name
 #OPTIONS=crash_email:user@example.com

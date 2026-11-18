@@ -3,128 +3,128 @@
 # Copyright (c) 2015 by Michael Allison
 # NetHack may be freely redistributed.  See license for details.
 #
-# Sample sysconf file.
-# The sysconf file is only used if NetHack is compiled with SYSCF defined.
-# This file uses the same syntax as nethack.cf.
+# Образец файла sysconf.
+# Файл sysconf используется, только если NetHack собран с SYSCF.
+# Синтаксис такой же, как в nethack.cf.
 
-# Which users can use WIZARD (debugging) mode (the -D flag).
-# A value of * allows anyone to enter debugging mode.
+# Кому разрешён режим WIZARD (отладка, флаг -D).
+# Значение * разрешает отладочный режим всем.
 WIZARDS=*
 
-# Users allowed to use the ! (shell escape) command or to suspend the game.
-# Uses the same syntax as the WIZARDS option above.
+# Кому разрешена команда ! (выход в оболочку) и приостановка игры.
+# Синтаксис тот же, что у параметра WIZARDS выше.
 #SHELLERS=
 
-# Execute this program whenever a new message-window message is shown.
-# The program will get the message text as the only parameter.
+# Запускать эту программу при каждом новом сообщении в окне сообщений.
+# Программа получит текст сообщения единственным параметром.
 #MSGHANDLER=\path\program
 
-# Show debugging information originating from these source files.
-# Use '*' for all, or list source files separated by spaces.
-# Only available if game has been compiled with DEBUG.
+# Показывать отладочную информацию из этих исходных файлов.
+# '*' — все файлы; иначе перечислите файлы через пробел.
+# Доступно, только если игра собрана с DEBUG.
 #DEBUGFILES=*
 
-# Save end of game dump log to this file.
-# Only available if NetHack was compiled with DUMPLOG
-# Allows following placeholders:
-#   %% literal '%'
-#   %v version (eg. "5.0.0-0")
-#   %u game UID
-#   %t game start time, UNIX timestamp format
-#   %T current time, UNIX timestamp format
-#   %d game start time, YYYYMMDDhhmmss format
-#   %D current time, YYYYMMDDhhmmss format
-#   %n player name
-#   %N first character of player name
+# Сохранять итоговый дамп игры в этот файл.
+# Доступно, только если NetHack собран с DUMPLOG
+# Допустимые подстановки:
+#   %% сам символ '%'
+#   %v версия (напр. "5.0.0-0")
+#   %u UID игры
+#   %t время начала игры, формат UNIX timestamp
+#   %T текущее время, формат UNIX timestamp
+#   %d время начала игры, формат YYYYMMDDhhmmss
+#   %D текущее время, формат YYYYMMDDhhmmss
+#   %n имя игрока
+#   %N первый символ имени игрока
 #DUMPLOGFILE=nethack-%n-%d.log
 
-# Number of bones file pools.
-# The pool you belong to is determined at game start. You will
-# load and save bones only from that pool. Generally useful
-# for public servers only.
-# Changing this might make existing bones inaccessible.
-# Disabled by setting to 0, or commenting out.
+# Число пулов файлов bones.
+# Пул определяется при старте игры. Читать и сохранять bones
+# вы будете только в нём. Обычно нужно
+# только для публичных серверов.
+# Изменение может сделать существующие bones недоступными.
+# Отключается значением 0 или комментарием.
 #BONES_POOLS=10
 
-# Limit the number of simultaneous games (see also nethack.sh).
+# Ограничить число одновременных игр (см. также nethack.sh).
 #MAXPLAYERS=10
 
-# If not null, added to string "To get local support, " in the support
-# information help.
+# Если задано, добавляется к строке «To get local support, » в разделе
+# помощи о поддержке.
 #SUPPORT=call Izchak at extension 42.
 
-# Uncomment the next line to disable the SEDUCE option.
+# Раскомментируйте следующую строку, чтобы отключить SEDUCE.
 #SEDUCE=0
 
-# Uncomment the next line to enable some accessibility features such
-# as S_hero_override and S_pet_override symbols for screen readers
-# in the user config file.
+# Раскомментируйте следующую строку, чтобы включить средства
+# доступности: символы S_hero_override и S_pet_override для
+# экранных дикторов в файле настроек игрока.
 #ACCESSIBILITY=1
 
-# Record (high score) file options.
-# CAUTION: changing these after people have started playing games can
-#  lead to lost high scores!
-# Maximum entries for one person.
+# Параметры файла рекордов.
+# ВНИМАНИЕ: изменение после начала игры может
+#  привести к потере рекордов!
+# Максимум записей на одного человека.
 #PERSMAX=10
-# Maximum entries in the record file.
+# Максимум записей в файле рекордов.
 #ENTRYMAX=100
-# Minimum points to get an entry.
+# Минимум очков для попадания в список.
 #POINTSMIN=1
-# Determine identity of "person" in the score file with name (0) or
-# numeric (1) user id.
+# Определять "человека" в файле рекордов по имени (0) или
+# числовому (1) идентификатору.
 #PERS_IS_UID=1
 
-# Help menu control; 0 - include "command line usage" entry in help menu;
-# 1 - suppress it from the menu.  Does not affect 'nethack --usage' when
-# player has access to the command line.  The usage feedback describes
-# command line handling for UNIX so enabling it won't be much use here.
+# Меню помощи: 0 — показывать пункт "command line usage";
+# 1 — скрыть его.  Не влияет на 'nethack --usage', если
+# доступна командная строка.  Текст справки описывает
+# обработку аргументов в UNIX, так что здесь он малополезен.
 HIDEUSAGE=1
 
-# Maximum number of score file entries to use for random statue names
+# Сколько записей из файла рекордов брать для имён случайных статуй
 #MAX_STATUENAME_RANK=10
 
-# 'portable_device_paths' is only supported for Windows.  Starting with
-# 3.6.3, nethack on Windows treats the folder containing nethack.exe and
-# nethackW.exe as read-only and puts data files which are generated or
-# modified during play or by the user in assorted folders derived from
-# user name.  3.6.4 added PORTABLE_DEVICE_PATHS to allow reverting to
-# the old behavior of having the run-time configuration file and other
-# data in the same directory as the executable so that the whole thing
-# can be moved from one machine to another (flash drive or perhaps cloud)
-# without updating folder paths.  Uncomment it and set to 1 to activate.
+# 'portable_device_paths' поддерживается только в Windows.  Начиная с
+# 3.6.3 NetHack в Windows считает папку с nethack.exe и nethackW.exe
+# доступной только для чтения, а создаваемые или изменяемые
+# во время игры и пользователем файлы данных размещает в папках,
+# производных от имени пользователя.  3.6.4 добавила
+# PORTABLE_DEVICE_PATHS, возвращающий прежнее поведение: файл настроек
+# и данные лежат рядом с исполняемым файлом, и всю сборку можно
+# переносить между машинами (флешка или облако) без правки путей.
+# Раскомментируйте и задайте 1, чтобы включить.
 #PORTABLE_DEVICE_PATHS=0
 
-# *** LOCATIONS ***
-# IMPORTANT: If you change any of these locations, the directories they
-# point at must exist.  NetHack will not create them for you.
+# *** РАСПОЛОЖЕНИЕ ФАЙЛОВ ***
+# ВАЖНО: при изменении этих путей каталоги должны уже
+# существовать.  NetHack не создаёт их.
 #
-# Before adjusting, you can verify the default locations for files with:
+# Перед правкой можно узнать пути по умолчанию командой:
 #       nethack --showpaths
 #
-# The location that users can adjust their config file startup options
+# Где игроки могут задать параметры запуска из своего файла настроек
 #CONFIGDIR=%USERPROFILE%\NetHack
 #
-# The location that a record of game aborts and self-diagnosed game problems
-# is kept (default=HACKDIR, writeable)
+# Где хранится журнал аварийных завершений и самостоятельно
+# найденных проблем (по умолчанию HACKDIR, нужна запись)
 #TROUBLEDIR=%USERPROFILE%\NetHack\5.0
 #
-# The location that documentation and helps files are placed
+# Каталог документации и файлов помощи
 #HACKDIR=%USERPROFILE%\NetHack\5.0
 #
-# The location that level files in progress are stored (writeable)
+# Каталог текущих уровней (нужна запись)
 #LEVELDIR=%USERPROFILE%\AppData\Local\NetHack\5.0
 #
-# The location where saved games are kept (writeable)
+# Каталог сохранённых игр (нужна запись)
 #SAVEDIR=%USERPROFILE%\AppData\Local\NetHack\5.0
 #
-# The location that bones files are kept (writeable)
+# Каталог файлов bones (нужна запись)
 #BONESDIR=c:\ProgramData\NetHack\5.0
 #
-# The location that score files are kept (writeable)
+# Каталог файлов рекордов (нужна запись)
 #SCOREDIR=c:\ProgramData\NetHack\5.0
 #
-# The location that file synchronization locks are stored (writeable)
+# Каталог блокировок синхронизации файлов (нужна запись)
 #LOCKDIR=c:\ProgramData\NetHack\5.0
 
-# URL loaded for creating reports to the NetHack DevTeam
+# Адрес, открываемый для отправки отчёта команде NetHack
 #CRASHREPORTURL=https://nethack.org/links/cr-5.0.0.html
