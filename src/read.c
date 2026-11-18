@@ -384,9 +384,16 @@ doread(void)
         /* can't read shirt worn under suit (under cloak is ok though) */
         if ((otyp == T_SHIRT || otyp == HAWAIIAN_SHIRT) && uarm
             && scroll == uarmu) {
+            int g = ru_item_gender(suit_simple_name(uarm), 1L);
+
             pline("%s рубашка скрыта %s%s.",
-                  scroll->unpaid ? "Та" : "Ваша", shk_your(buf, uarm),
-                  suit_simple_name(uarm));
+                  scroll->unpaid ? "Та" : "Ваша",
+                  uarm->unpaid
+                      ? ru_gender_form(g, "неоплаченным ", "неоплаченной ",
+                                       "неоплаченным ", "неоплаченными ")
+                      : ru_gender_form(g, "вашим ", "вашей ", "вашим ",
+                                       "вашими "),
+                  ru_noun_case(suit_simple_name(uarm), BP_INS));
             return ECMD_OK;
         }
         if (otyp == HAWAIIAN_SHIRT) {

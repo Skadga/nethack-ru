@@ -1652,7 +1652,6 @@ catch_lit(struct obj *obj)
 staticfn void
 use_lamp(struct obj *obj)
 {
-    char buf[BUFSZ];
     const char *lamp = (obj->otyp == OIL_LAMP
                         || obj->otyp == MAGIC_LAMP) ? "lamp"
                        : (obj->otyp == BRASS_LANTERN) ? "lantern"
@@ -1666,7 +1665,7 @@ use_lamp(struct obj *obj)
 
     if (obj->lamplit) {
         if (lamp) /* lamp or lantern */
-            pline("%s%s теперь погашен.", Shk_Your(buf, obj), lamp);
+            pline("%s гаснет.", Yname2(obj));
         else
             You("гасите %s.", ru_noun_case(yname(obj), BP_ACC));
         end_burn(obj, TRUE);
@@ -1705,7 +1704,7 @@ use_lamp(struct obj *obj)
     } else {
         if (lamp) { /* lamp or lantern */
             check_unpaid(obj);
-            pline("%s%s теперь зажжЄн.", Shk_Your(buf, obj), lamp);
+            pline("%s загораетс€.", Yname2(obj));
         } else { /* candle(s) */
             pline("ѕлам€ %s%s", obj_case(obj, BP_GEN),
                   Blind ? "." : " €рко!");

@@ -407,10 +407,12 @@ dowield(void)
     } else if (wep == uswapwep) {
         return doswapweapon();
     } else if (wep == uquiver) {
+        int g = ru_obj_gender(uquiver);
+
         /* offer to split stack if multiple are quivered */
         if (uquiver->quan > 1L && inv_cnt(FALSE) < invlet_basic
                                     && splittable(uquiver)) {
-            Sprintf(qbuf, "У вас %ld %s готово. Владеть одним?",
+            Sprintf(qbuf, "У вас %ld %s готовы. Владеть одним?",
                     uquiver->quan, simpleonames(uquiver));
             switch (ynq(qbuf)) {
             case 'q':
@@ -425,17 +427,17 @@ dowield(void)
             }
             Strcpy(qbuf, "Владеть всеми ими вместо этого?");
         } else {
-            boolean use_plural = (is_plural(uquiver) || pair_of(uquiver));
-
-            Sprintf(qbuf, "У вас %s готово. Владеть %s вместо этого?",
-                    !use_plural ? "тот" : "те",
-                    !use_plural ? "его" : "их");
+            Sprintf(qbuf, "У вас %s %s. Владеть %s вместо этого?",
+                    ru_gender_form(g, "тот", "та", "то", "те"),
+                    ru_gender_form(g, "готов", "готова", "готово", "готовы"),
+                    ru_gender_form(g, "его", "её", "его", "их"));
         }
         /* require confirmation to wield the quivered weapon */
         if (ynq(qbuf) != 'y') {
             (void) Shk_Your(qbuf, uquiver); /* replace qbuf[] contents */
-            pline("%s%s %s готово.", qbuf,
-                  simpleonames(uquiver), otense(uquiver, "остаётся"));
+            pline("%s%s %s %s.", qbuf, simpleonames(uquiver),
+                  (g == RU_G_PLUR) ? "остаются" : "остаётся",
+                  ru_gender_form(g, "готов", "готова", "готово", "готовы"));
             return ECMD_OK;
         }
         /* wielding whole readied stack, so no longer quivered */
@@ -567,6 +569,7 @@ doquiver_core(const char *verb) /* "ready" or "fire" */
         return ECMD_OK;
     } else if (newquiver == uwep) {
         int weld_res = !uwep->bknown;
+        int g = ru_obj_gender(uwep);
 
         if (welded(uwep)) {
             weldmsg(uwep);
@@ -591,17 +594,15 @@ doquiver_core(const char *verb) /* "ready" or "fire" */
             }
             Strcpy(qbuf, "Приготовить все их вместо этого?");
         } else {
-            boolean use_plural = (is_plural(uwep) || pair_of(uwep));
-
             Sprintf(qbuf, "Вы владеете %s. Приготовить %s вместо этого?",
-                    !use_plural ? "тот" : "те",
-                    !use_plural ? "его" : "их");
+                    ru_gender_form(g, "этим", "этой", "этим", "этими"),
+                    ru_gender_form(g, "его", "её", "его", "их"));
         }
         /* require confirmation to ready the main weapon */
         if (ynq(qbuf) != 'y') {
             (void) Shk_Your(qbuf, uwep); /* replace qbuf[] contents */
-            pline("%s%s %s взято в руки.", qbuf,
-                  simpleonames(uwep), otense(uwep, "остаётся"));
+            pline("%s%s %s в руках.", qbuf, simpleonames(uwep),
+                  (g == RU_G_PLUR) ? "остаются" : "остаётся");
             return ECMD_OK;
         }
         /* quivering main weapon, so no longer wielding it */
@@ -609,6 +610,8 @@ doquiver_core(const char *verb) /* "ready" or "fire" */
         untwoweapon();
         was_uwep = TRUE;
     } else if (newquiver == uswapwep) {
+        int g = ru_obj_gender(uswapwep);
+
         if (uswapwep->quan > 1L && inv_cnt(FALSE) < invlet_basic
             && splittable(uswapwep)) {
             Sprintf(qbuf, "%s %ld %s. Приготовить %ld из них?",
@@ -629,19 +632,16 @@ doquiver_core(const char *verb) /* "ready" or "fire" */
             }
             Strcpy(qbuf, "Приготовить все их вместо этого?");
         } else {
-            boolean use_plural = (is_plural(uswapwep) || pair_of(uswapwep));
-
-            Sprintf(qbuf, "%s ваше %s оружие. Приготовить %s вместо этого?",
-                    !use_plural ? "Это" : "Те",
+            Sprintf(qbuf, "Это ваше %s оружие. Приготовить %s вместо этого?",
                     u.twoweap ? "вторичное" : "запасное",
-                    !use_plural ? "его" : "их");
+                    ru_gender_form(g, "его", "её", "его", "их"));
         }
         /* require confirmation to ready the alternate weapon */
         if (ynq(qbuf) != 'y') {
             (void) Shk_Your(qbuf, uswapwep); /* replace qbuf[] contents */
-            pline("%s%s %s %s.", qbuf,
-                  simpleonames(uswapwep), otense(uswapwep, "остаётся"),
-                  u.twoweap ? "взято" : "как запасное оружие");
+            pline("%s%s %s %s.", qbuf, simpleonames(uswapwep),
+                  (g == RU_G_PLUR) ? "остаются" : "остаётся",
+                  u.twoweap ? "в руках" : "как запасное оружие");
             return ECMD_OK;
         }
         /* quivering alternate weapon, so no more uswapwep */

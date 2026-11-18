@@ -181,6 +181,13 @@ enum bp_case {
 #define RU_ADJ_INS_F  6 /* творительный, женский род */
 #define RU_ADJ_PREP   7 /* предложный */
 
+/* Russian grammatical gender of item names, returned by
+   ru_item_gender() and consumed by ru_gender_form(). */
+#define RU_G_MASC 0 /* мужской */
+#define RU_G_FEM  1 /* женский */
+#define RU_G_NEUT 2 /* средний */
+#define RU_G_PLUR 3 /* множественное число */
+
 /* Russian case forms for object names used by obj_case().
    obj_paradigms[] is keyed by otyp, arti_paradigms[] by an
    enum artifacts_nums value, since several artifacts share one otyp.

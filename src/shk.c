@@ -5906,21 +5906,25 @@ block_entry(coordxy x, coordxy y)
     return FALSE;
 }
 
-/* "ваш " or "неоплаченный " (note the trailing space) */
+/* "ваш " or "неоплаченный " (note the trailing space), agreeing in
+   gender with the item name that will follow */
 char *
 shk_your(char *buf, struct obj *obj)
 {
     boolean chk_pm = obj->otyp == CORPSE && ismnum(obj->corpsenm);
+    int g;
 
     buf[0] = '\0';
     if (chk_pm && type_is_pname(&mons[obj->corpsenm]))
         return buf; /* skip ownership prefix and space: "Medusa's corpse" */
-    else if (chk_pm && the_unique_pm(&mons[obj->corpsenm]))
-        Strcpy(buf, "этот"); /* override ownership: "the Oracle's corpse" */
+    g = ru_obj_gender(obj);
+    if (chk_pm && the_unique_pm(&mons[obj->corpsenm]))
+        Strcpy(buf, ru_gender_form(g, "этот", "эта", "это",
+                                   "эти")); /* "the Oracle's corpse" */
     else if (!shk_owns(buf, obj) && !mon_owns(buf, obj)) {
         if (!carried(obj))
             return buf; /* no owner and not carried: no prefix at all */
-        Strcpy(buf, "ваш");
+        Strcpy(buf, ru_gender_form(g, "ваш", "ваша", "ваше", "ваши"));
     }
     return strcat(buf, " ");
 }
@@ -5945,7 +5949,9 @@ shk_owns(char *buf, struct obj *obj)
         shkp = shop_keeper(inside_shop(x, y));
         if (!shkp)
             return (char *) 0;
-        return strcpy(buf, "неоплаченный");
+        return strcpy(buf, ru_gender_form(ru_obj_gender(obj),
+                                          "неоплаченный", "неоплаченная",
+                                          "неоплаченное", "неоплаченные"));
     }
     return (char *) 0;
 }

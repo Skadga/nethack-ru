@@ -588,12 +588,7 @@ xname(struct obj *obj)
    modify.  Only the first word matters: it is either an adjective (whose
    ending reveals the gender) or the head noun itself.  Hyphenated
    compounds agree with their last component. */
-#define RU_G_MASC 0
-#define RU_G_FEM  1
-#define RU_G_NEUT 2
-#define RU_G_PLUR 3
-
-static int
+int
 ru_item_gender(const char *name, long quan)
 {
     static const char *fem_soft[] = {
@@ -668,7 +663,7 @@ ru_item_gender(const char *name, long quan)
     }
 }
 
-static const char *
+const char *
 ru_gender_form(int g, const char *masc, const char *fem, const char *neut,
                const char *plur)
 {
@@ -682,6 +677,14 @@ ru_gender_form(int g, const char *masc, const char *fem, const char *neut,
     default:
         return masc;
     }
+}
+
+/* Grammatical gender of an object as it is about to be named; used by
+   callers outside this file, primarily shop ownership prefixes. */
+int
+ru_obj_gender(struct obj *obj)
+{
+    return obj ? ru_item_gender(xname(obj), obj->quan) : RU_G_MASC;
 }
 
 staticfn char *
@@ -2451,7 +2454,17 @@ paydoname(struct obj *obj)
                 p += 2;
             else if (!strncmp(p, "an ", 3))
                 p += 3;
-            p = strprepend(p, obj->unpaid ? "неоплаченный " : "ваш ");
+            {
+                int g = ru_item_gender(p, obj->quan);
+
+                p = strprepend(p, obj->unpaid
+                                      ? ru_gender_form(g, "неоплаченный ",
+                                                       "неоплаченная ",
+                                                       "неоплаченное ",
+                                                       "неоплаченные ")
+                                      : ru_gender_form(g, "ваш ", "ваша ",
+                                                       "ваше ", "ваши "));
+            }
         }
 
         if (!obj->cknown) {

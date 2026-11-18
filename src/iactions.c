@@ -488,8 +488,9 @@ itemactions(struct obj *otmp)
            flagged 'unpaid') holding shop owned items */
         && (mtmp = shop_keeper(*in_rooms(u.ux, u.uy, SHOPBASE))) != 0
         && inhishop(mtmp)) {
-        Sprintf(buf, "Купить неоплаченный %s",
-                (otmp->quan > 1L) ? "стопку" : "предмет");
+        Sprintf(buf, "Купить %s",
+                (otmp->quan > 1L) ? "неоплаченную стопку"
+                                  : "неоплаченный предмет");
         ia_addmenu(win, IA_BUY_OBJ, 'p', buf);
     }
 

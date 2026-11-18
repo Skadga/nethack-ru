@@ -2743,7 +2743,7 @@ select_off(struct obj *otmp)
             return 0;
         } else if (Glib) {
             pline("%s %s слишком скользкие, чтобы снять их.",
-                  uarmg->unpaid ? "Труп" : "Ваш", /* simplified Shk_Your() */
+                  uarmg->unpaid ? "Неоплаченные" : "Ваши", /* Shk_Your() */
                   gloves_simple_name(uarmg));
             return 0;
         }

@@ -1043,7 +1043,7 @@ revive(struct obj *corpse, boolean by_hero)
                 (void) shk_your(own, corpse);
                 if (!strncmp(own, "ваш", 3))
                     Strcpy(buf, "Один из ваших трупов ");
-                else if (!strncmp(own, "неоплаченный", 12))
+                else if (!strncmp(own, "неоплаченн", 10))
                     Strcpy(buf, "Один из неоплаченных трупов ");
                 else
                     Strcpy(buf, "Один из трупов ");
@@ -1190,7 +1190,7 @@ unturn_dead(struct monst *mon)
                 (void) shk_your(own, otmp);
                 if (!strncmp(own, "ваш", 3))
                     Strcpy(owner, "Один из ваших трупов ");
-                else if (!strncmp(own, "неоплаченный", 12))
+                else if (!strncmp(own, "неоплаченн", 10))
                     Strcpy(owner, "Один из неоплаченных трупов ");
                 else
                     Strcpy(owner, "Один из трупов ");

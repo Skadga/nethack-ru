@@ -741,6 +741,10 @@ extern const char *mon_gen_nom(const char *, int);
 extern int ru_name_to_mon(const char *, int *);
 extern void ru_wish_normalize(char *, const char *, size_t);
 extern const char *ru_noun_case(const char *, int);
+extern int ru_item_gender(const char *, long);
+extern const char *ru_gender_form(int, const char *, const char *,
+                                  const char *, const char *);
+extern int ru_obj_gender(struct obj *);
 extern const char *mon_gen(struct monst *, int) NONNULLARG1;
 extern const char *shoptype_case(const char *, int);
 extern const char *shoptype_name(int);
