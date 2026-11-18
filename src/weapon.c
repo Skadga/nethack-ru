@@ -459,12 +459,12 @@ silver_sears(struct monst *magr UNUSED, struct monst *mdef,
            silver [see hmonas(uhitm.c) for explanation of 'multi_claw'] */
         both = ((ltyp == rtyp && l_dknown == r_dknown) || (l_ag && r_ag));
         Sprintf(rings, "кольц%s", both ? "а" : "о");
-        Your("Ваше %s%s %s %s!",
-             (l_ag || r_ag) ? "серебряное "
+        Your(both ? "Ваши %s%s обжигают %s!" : "Ваше %s%s обжигает %s!",
+             (l_ag || r_ag) ? (both ? "серебряные " : "серебряное ")
              : both ? ""
                : ((silverhit & W_RINGL) != 0L) ? "левое "
                  : "правое ",
-             rings, vtense(rings, "обжигает"), mon_nam(mdef));
+             rings, mon_nam(mdef));
     }
 }
 

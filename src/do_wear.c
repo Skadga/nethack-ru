@@ -620,7 +620,7 @@ wielding_corpse(
     if (touch_petrifies(&mons[obj->corpsenm]) && !Stone_resistance) {
         char kbuf[BUFSZ], hbuf[BUFSZ];
 
-        You("%s %s голым %s.",
+        You("%s %s голыми %s.",
             (how && is_gloves(how)) ? "теперь держите" : "держите",
             corpse_case(obj, BP_ACC),
             body_part_case(HAND, BP_INS | BP_PLURAL));
@@ -1782,14 +1782,13 @@ armor_or_accessory_off(struct obj *obj)
         why[0] = what[0] = '\0';
         if (obj != uskin) {
             if (uarmc)
-                Strcat(what, cloak_simple_name(uarmc));
+                Strcat(what, cloak_case(uarmc, BP_ACC));
             if ((obj == uarmu) && uarm) {
                 if (uarmc)
                     Strcat(what, " и ");
-                Strcat(what, suit_simple_name(uarm));
+                Strcat(what, suit_case(uarm, BP_ACC));
             }
-            Snprintf(why, sizeof why, " не сняв сначала ваш %s",
-                     what);
+            Snprintf(why, sizeof why, " не сняв сначала %s", what);
         } else {
             Strcpy(why, "; она вросла");
         }
@@ -1932,7 +1931,7 @@ armoroff(struct obj *otmp)
         gm.multi_reason = "раздевание";
         switch (objects[otmp->otyp].oc_armcat) {
         case ARM_SUIT:
-            what = suit_simple_name(otmp);
+            what = suit_case(otmp, BP_ACC);
             ga.afternmv = Armor_off;
             break;
         case ARM_SHIELD:
@@ -1952,11 +1951,11 @@ armoroff(struct obj *otmp)
             ga.afternmv = Boots_off;
             break;
         case ARM_CLOAK:
-            what = cloak_simple_name(otmp);
+            what = cloak_case(otmp, BP_ACC);
             ga.afternmv = Cloak_off;
             break;
         case ARM_SHIRT:
-            what = shirt_simple_name(otmp);
+            what = shirt_case(otmp, BP_ACC);
             ga.afternmv = Shirt_off;
             break;
         default:
@@ -2062,7 +2061,7 @@ canwearobj(struct obj *otmp, long *mask, boolean noisy)
 
     if (welded(uwep) && bimanual(uwep) && (is_suit(otmp) || is_shirt(otmp))) {
         if (noisy)
-            You("не можете сделать это, держа ваш %s.",
+            You("не можете сделать это, держа в руках %s.",
                 is_sword(uwep) ? c_sword : c_weapon);
         return 0;
     }
@@ -2087,10 +2086,7 @@ canwearobj(struct obj *otmp, long *mask, boolean noisy)
             err++;
         } else if (uwep && bimanual(uwep)) {
             if (noisy)
-                You("не можете носить щит, держа двуручное %s.",
-                    is_sword(uwep) ? c_sword : (uwep->otyp == BATTLE_AXE)
-                                                   ? c_axe
-                                                   : c_weapon);
+                You("не можете носить щит, держа двуручное оружие в руках.");
             err++;
         } else if (u.twoweap) {
             if (noisy)
@@ -2163,9 +2159,10 @@ canwearobj(struct obj *otmp, long *mask, boolean noisy)
                     already_wearing(an(c_shirt));
             } else {
                 if (noisy)
-                    You_cant("надеть это поверх вашего %s.",
-                             (uarm && !uarmc) ? c_armor
-                                              : cloak_simple_name(uarmc));
+                    You_cant("надеть это поверх %s.",
+                             (uarm && !uarmc)
+                                 ? noun_case(c_armor, BP_GEN)
+                                 : cloak_case(uarmc, BP_GEN));
             }
             err++;
         } else
@@ -2180,7 +2177,8 @@ canwearobj(struct obj *otmp, long *mask, boolean noisy)
     } else if (is_suit(otmp)) {
         if (uarmc) {
             if (noisy)
-                You("не можете надеть броню поверх %s.", cloak_simple_name(uarmc));
+                You("не можете надеть броню поверх %s.",
+                    cloak_case(uarmc, BP_GEN));
             err++;
         } else if (uarm) {
             if (noisy)
@@ -2738,7 +2736,7 @@ select_off(struct obj *otmp)
     /* special glove checks */
     if (otmp == uarmg) {
         if (welded(uwep)) {
-            You("не можете снять ваши %s, держа это %s.",
+            You("не можете снять ваши %s, держа %s в руках.",
                 c_gloves, is_sword(uwep) ? c_sword : c_weapon);
             set_bknown(uwep, 1);
             return 0;
@@ -2768,13 +2766,13 @@ select_off(struct obj *otmp)
     if (otmp == uarm || otmp == uarmu) {
         why = 0; /* the item which prevents disrobing */
         if (uarmc && uarmc->cursed) {
-            Sprintf(buf, "снять ваш %s", cloak_simple_name(uarmc));
+            Sprintf(buf, "снять %s", cloak_case(uarmc, BP_ACC));
             why = uarmc;
         } else if (otmp == uarmu && uarm && uarm->cursed) {
-            Sprintf(buf, "снять ваш %s", c_suit);
+            Sprintf(buf, "снять %s", suit_case(uarm, BP_ACC));
             why = uarm;
         } else if (welded(uwep) && bimanual(uwep)) {
-            Sprintf(buf, "освободить ваш %s",
+            Sprintf(buf, "освободить %s",
                     is_sword(uwep) ? c_sword : (uwep->otyp == BATTLE_AXE)
                                                    ? c_axe
                                                    : c_weapon);

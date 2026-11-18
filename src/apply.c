@@ -135,23 +135,17 @@ use_towel(struct obj *obj)
             if (!ublindf) {
                 old = u.ucreamed;
                 u.ucreamed += rn1(10, 3);
-                pline("Фу!  На вашей %s %s грязи!",
+                pline("Фу!  На %s %s!",
                       body_part_case(FACE, BP_PREP),
-                      (old ? "стало больше" : "теперь появилось"));
+                      (old ? "стало больше грязи" : "появилась грязь"));
                 make_blinded(BlindedTimeout + (long) u.ucreamed - old, TRUE);
             } else {
-                const char *what;
-
-                what = (ublindf->otyp == LENSES)
-                           ? "lenses"
-                           : (obj->otyp == ublindf->otyp) ? "other towel"
-                                                          : "blindfold";
                 if (ublindf->cursed) {
-                    You("поправляете свою %s %s.", what,
+                    You("поправляете это %s.",
                         rn2(2) ? "набок" : "криво");
                 } else {
                     struct obj *saved_ublindf = ublindf;
-                    You("сдвигаете свою %s.", what);
+                    You("сдвигаете это.");
                     Blindf_off(ublindf);
                     dropx(saved_ublindf);
                 }
@@ -166,9 +160,10 @@ use_towel(struct obj *obj)
 
     if (Glib) {
         make_glib(0);
-        You("вытираете свою %s.",
-            !uarmg ? body_part_case(HAND, BP_ACC)
-                   : gloves_simple_name(uarmg));
+        if (!uarmg)
+            You("вытираете свою %s.", body_part_case(HAND, BP_ACC));
+        else
+            You("вытираете свои %s.", gloves_simple_name(uarmg));
         if (is_wet_towel(obj))
             dry_a_towel(obj, -1, drying_feedback);
         return ECMD_TIME;
@@ -1692,7 +1687,7 @@ use_lamp(struct obj *obj)
     }
     if (obj->cursed && !rn2(2)) {
         if ((obj->otyp == OIL_LAMP || obj->otyp == MAGIC_LAMP) && !rn2(3)) {
-            pline("Лампа опрокидывается и заливает вашу %s маслом.",
+            pline("Лампа опрокидывается и заливает ваши %s маслом.",
                       fingers_or_gloves(TRUE, BP_ACC));
             make_glib((int) (Glib & TIMEOUT) + d(2, 10));
         } else if (!Blind) {

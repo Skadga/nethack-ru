@@ -6103,6 +6103,27 @@ helm_case(struct obj *helmet, int cse)
     return noun_case(helm_simple_name(helmet), cse);
 }
 
+/* suit_case declines the suit_simple_name() result for messages */
+const char *
+suit_case(struct obj *suit, int cse)
+{
+    return noun_case(suit_simple_name(suit), cse);
+}
+
+/* cloak_case declines the cloak_simple_name() result for messages */
+const char *
+cloak_case(struct obj *cloak, int cse)
+{
+    return noun_case(cloak_simple_name(cloak), cse);
+}
+
+/* shirt_case declines the shirt_simple_name() result for messages */
+const char *
+shirt_case(struct obj *shirt, int cse)
+{
+    return noun_case(shirt_simple_name(shirt), cse);
+}
+
 /* gloves vs gauntlets; depends upon discovery state */
 const char *
 gloves_simple_name(struct obj *gloves)

@@ -1279,7 +1279,7 @@ peffect_oil(struct obj *otmp)
              * extra damage, but drinking potions in that form isn't
              * possible so there's no need to try to handle that.
              */
-            You("обжигаете своё %s.", body_part_case(FACE, BP_PREP));
+            You("обжигаете своё %s.", body_part_case(FACE, BP_ACC));
             /* fire damage */
             vulnerable = !Fire_resistance || Cold_resistance;
             losehp(d(vulnerable ? 4 : 2, 4),
@@ -2657,7 +2657,7 @@ potion_dip(struct obj *obj, struct obj *potion)
         if (potion->lamplit) { /* burning */
             fire_damage(obj, TRUE, u.ux, u.uy);
         } else if (potion->cursed) {
-            pline("Проливается и покрывает ваше %s маслом",
+            pline("Проливается и покрывает ваши %s маслом",
                       fingers_or_gloves(TRUE, BP_ACC));
             make_glib((int) (Glib & TIMEOUT) + d(2, 10));
         } else if (obj->oclass != WEAPON_CLASS && !is_weptool(obj)) {

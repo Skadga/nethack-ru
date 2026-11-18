@@ -2285,6 +2285,12 @@ extern const char *cloak_simple_name(struct obj *) NONNULL NO_NNARGS;
 extern const char *helm_simple_name(struct obj *) NONNULL NO_NNARGS;
 /* helm_case declines the helm_simple_name() result for messages */
 extern const char *helm_case(struct obj *, int) NONNULL NO_NNARGS;
+/* suit_case declines the suit_simple_name() result for messages */
+extern const char *suit_case(struct obj *, int) NONNULL NO_NNARGS;
+/* cloak_case declines the cloak_simple_name() result for messages */
+extern const char *cloak_case(struct obj *, int) NONNULL NO_NNARGS;
+/* shirt_case declines the shirt_simple_name() result for messages */
+extern const char *shirt_case(struct obj *, int) NONNULL NO_NNARGS;
 /* gloves_simple_name has its code in a NULL arg test
    conditional block, preventing NONNULLARG1 */
 extern const char *gloves_simple_name(struct obj *) NONNULL NO_NNARGS;

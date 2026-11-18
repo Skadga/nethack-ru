@@ -454,7 +454,7 @@ itemactions(struct obj *otmp)
                 (otmp->quan > 1L) ? "одно из этих" : "это");
         if (shoot) {
             assert(uwep != NULL);
-            Sprintf(eos(buf), ", использу€ своЄ %s", simpleonames(uwep));
+            Sprintf(eos(buf), " (%s)", simpleonames(uwep));
         }
         ia_addmenu(win, IA_FIRE_OBJ, 'f', buf);
     }
