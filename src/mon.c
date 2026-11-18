@@ -4190,13 +4190,8 @@ peacefuls_respond(struct monst *mtmp)
                         const char *gasp = maybe_gasp(mon);
 
                         if (gasp) {
-                            if (!strncmpi(gasp, "gasp", 4)) {
-                                Sprintf(buf, "%s хватает воздух", Monnam(mon));
-                                needpunct = TRUE;
-                            } else {
-                                Sprintf(buf, "%s громко восклицает!",
-                                        Monnam(mon));
-                            }
+                            Sprintf(buf, "%s хватает воздух", Monnam(mon));
+                            needpunct = TRUE;
                             exclaimed = TRUE;
                         }
                     }

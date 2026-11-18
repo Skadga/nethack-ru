@@ -341,12 +341,13 @@ dosounds(void)
 }
 
 static const char *const h_sounds[] = {
-    "beep",   "boing",   "sing",   "belche", "creak",   "cough",
-    "rattle", "ululate", "pop",    "jingle", "sniffle", "tinkle",
-    "eep",    "clatter", "hum",    "sizzle", "twitter", "wheeze",
-    "rustle", "honk",    "lisp",   "yodel",  "coo",     "burp",
-    "moo",    "boom",    "murmur", "oink",   "quack",   "rumble",
-    "twang",  "toot",    "gargle", "hoot",    "warble"
+    "пищит",     "дзынькает", "поёт",      "рыгает",    "скрипит",
+    "кашляет",   "гремит",    "завывает",  "щёлкает",   "звенит",
+    "шмыгает",   "дзинькает", "верещит",   "стучит",    "гудит",
+    "шипит",     "чирикает",  "хрипит",    "шуршит",    "гогочет",
+    "шепелявит", "йодлит",    "воркует",   "отрыгивает", "мычит",
+    "бухает",    "бормочет",  "хрюкает",   "крякает",   "рокочет",
+    "тренькает", "трубит",    "булькает",  "ухает",     "трелит"
 };
 
 const char *
@@ -357,44 +358,44 @@ growl_sound(struct monst *mtmp)
     switch (mtmp->data->msound) {
     case MS_MEW:
     case MS_HISS:
-        ret = "hiss";
+        ret = "шипит";
         break;
     case MS_BARK:
     case MS_GROWL:
-        ret = "growl";
+        ret = "рычит";
         break;
     case MS_ROAR:
-        ret = "roar";
+        ret = "ревёт";
         break;
     case MS_BELLOW:
-        ret = "bellow";
+        ret = "ревёт";
         break;
     case MS_BUZZ:
-        ret = "buzz";
+        ret = "жужжит";
         break;
     case MS_SQEEK:
-        ret = "squeal";
+        ret = "визжит";
         break;
     case MS_SQAWK:
-        ret = "screech";
+        ret = "кричит";
         break;
     case MS_NEIGH:
-        ret = "neigh";
+        ret = "ржёт";
         break;
     case MS_WAIL:
-        ret = "wail";
+        ret = "вопит";
         break;
     case MS_GROAN:
-        ret = "groan";
+        ret = "стонет";
         break;
     case MS_MOO:
-        ret = "low";
+        ret = "мычит";
         break;
     case MS_SILENT:
-        ret = "commotion";
+        ret = "шумит";
         break;
     default:
-        ret = "scream";
+        ret = "кричит";
     }
     return ret;
 }
@@ -441,27 +442,27 @@ yelp(struct monst *mtmp)
         switch (mtmp->data->msound) {
         case MS_MEW:
             se = se_feline_yelp;
-            yelp_verb = (!Deaf) ? "yowl" : "arch";
+            yelp_verb = (!Deaf) ? "воет" : "выгибается";
             break;
         case MS_BARK:
         case MS_GROWL:
             se = se_canine_yelp;
-            yelp_verb = (!Deaf) ? "yelp" : "recoil";
+            yelp_verb = (!Deaf) ? "визжит" : "отшатывается";
             break;
         case MS_ROAR:
-            yelp_verb = (!Deaf) ? "snarl" : "bluff";
+            yelp_verb = (!Deaf) ? "рычит" : "блефует";
             break;
         case MS_SQEEK:
             se = se_squeal;
-            yelp_verb = (!Deaf) ? "squeal" : "quiver";
+            yelp_verb = (!Deaf) ? "визжит" : "дрожит";
             break;
         case MS_SQAWK:
             se = se_avian_screak;
-            yelp_verb = (!Deaf) ? "screak" : "thrash";
+            yelp_verb = (!Deaf) ? "скрипит" : "бьётся";
             break;
         case MS_WAIL:
             se = se_wail;
-            yelp_verb = (!Deaf) ? "wail" : "cringe";
+            yelp_verb = (!Deaf) ? "вопит" : "сжимается";
             break;
         }
     if (yelp_verb) {
@@ -492,14 +493,14 @@ whimper(struct monst *mtmp)
         switch (mtmp->data->msound) {
         case MS_MEW:
         case MS_GROWL:
-            whimper_verb = "whimper";
+            whimper_verb = "хнычет";
             break;
         case MS_BARK:
-            whimper_verb = "whine";
+            whimper_verb = "скулит";
             break;
         case MS_SQEEK:
             se = se_squeal;
-            whimper_verb = "squeal";
+            whimper_verb = "визжит";
             break;
         }
     if (whimper_verb) {
