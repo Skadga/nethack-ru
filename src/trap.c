@@ -7194,7 +7194,7 @@ maybe_finish_sokoban(void)
             /* log the completion event regardless of whether or not
                any normal in-game feedback has just been given */
             livelog_printf(LL_MINORAC | LL_DUMP,
-                           "прошёл %d уровень Сокобана",
+                           "прошёл %d-й уровень Сокобана",
                            sokonum);
         }
     }

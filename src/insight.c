@@ -530,12 +530,12 @@ background_enlightenment(int unused_mode UNUSED, int final)
         Strcpy(buf, "на самом деле "); /* "Вы на самом деле ..." */
     if (!strcmpi(rank_titl, role_titl)) {
         /* omit role when rank title matches it */
-        Sprintf(eos(buf), "%s, уровень %d %s", rank_titl, u.ulevel,
+        Sprintf(eos(buf), "%s, уровень %d, %s", rank_titl, u.ulevel,
                 (innategend == FEMALE && gu.urace.individual.f)
                     ? gu.urace.individual.f
                     : gu.urace.noun);
     } else {
-        Sprintf(eos(buf), "%s, уровень %d %s", rank_titl, u.ulevel,
+        Sprintf(eos(buf), "%s, уровень %d, %s", rank_titl, u.ulevel,
                 ru_hero_subject(innategend));
     }
     you_are(buf, "");
@@ -835,7 +835,7 @@ basics_enlightenment(int mode UNUSED, int final)
         /* put contained gold on its own line to avoid excessive width; it's
            phrased as a continuation of the wallet line so not capitalized */
         if (hmoney) {
-            Sprintf(buf, "%ld %s спрятано в рюкзаке",
+            Sprintf(buf, "%ld %s в рюкзаке",
                     hmoney, umoney ? "дополнительно" : currency(hmoney));
             enl_msg("у вас ", "есть ", "было ", buf, "");
         }

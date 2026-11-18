@@ -501,8 +501,8 @@ explode(
                 } else if (cansee(xx, yy)) {
                     if (mtmp->m_ap_type)
                         seemimic(mtmp);
-                    pline(str_gen ? "%s попал под удар взрыва!"
-                                  : "%s попал под удар (%s)!",
+                    pline(str_gen ? "%s попадает под удар взрыва!"
+                                  : "%s попадает под удар (%s)!",
                           Monnam(mtmp), str);
                 }
 

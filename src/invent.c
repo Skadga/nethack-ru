@@ -4567,7 +4567,7 @@ doprgold(void)
                 Sprintf(eos(buf), ", а ещё %ld спрятано в рюкзаке",
                         hmoney);
             else
-                Sprintf(eos(buf), ", но %ld %s спрятано в рюкзаке",
+                Sprintf(eos(buf), ", но в рюкзаке ещё %ld %s",
                         hmoney, currency(hmoney));
         }
         pline("%s.", buf);

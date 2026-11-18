@@ -447,7 +447,7 @@ newman(void)
     /* note: newman() bypasses achievements for new ranks attained and
        doesn't log "new <form>" when that isn't accompanied by level change */
     if (newlvl != oldlvl)
-        livelog_printf(LL_MINORAC, "стал %d уровнем опыта в новом облике: %s",
+        livelog_printf(LL_MINORAC, "стал %d-м уровнем опыта в новом облике: %s",
                        newlvl, newform);
     else
         livelog_newform(TRUE, oldgend, newgend);

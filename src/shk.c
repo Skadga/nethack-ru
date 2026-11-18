@@ -2687,8 +2687,9 @@ inherits(
             money2mon(shkp, loss);
             disp.botl = TRUE;
             if (!silently)
-                pline("%s %s %ld %s, которые %sзадолжали %s.", Shknam(shkp),
+                pline("%s %s %ld %s, %s %sзадолжали %s.", Shknam(shkp),
                       takes, loss, currency(loss),
+                      (loss == 1L) ? "который" : "которые",
                       strncmp(eshkp->customer, svp.plname, PL_NSIZ) ? ""
                         : "вы ",
                       noit_mhim(shkp));
