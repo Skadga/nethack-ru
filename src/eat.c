@@ -250,7 +250,7 @@ choke(struct obj *food)
             return;
     } else if (Role_if(PM_KNIGHT) && u.ualign.type == A_LAWFUL) {
         adjalign(-1); /* gluttony is unchivalrous */
-        You_feel("как обжора!");
+        You_feel("себя обжорой!");
     }
 
     exercise(A_CON, FALSE);
@@ -718,7 +718,7 @@ eat_brains(
             /* can only get here when in wizard or explore mode and user has
                explicitly chosen not to die; arbitrarily boost intelligence */
             ABASE(A_INT) = ATTRMIN(A_INT) + 2;
-            You_feel("как пугало.");
+            You_feel("себя пугалом.");
         }
         give_nutrit = TRUE; /* in case a conflicted pet is doing this */
         exercise(A_WIS, FALSE);

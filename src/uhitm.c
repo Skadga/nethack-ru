@@ -5407,7 +5407,7 @@ mhitm_knockback(
               rn2(2) ? "сильным" : "мощным", rn2(2) ? "ударом" : "толчком");
     } else if (u_agr) {
         /* hero knocks unseen foe back; noticed by touch */
-        You_feel("как %s отброшен %s!", some_mon_nam(mdef), knockedhow);
+        You_feel("как %s отлетает %s!", some_mon_nam(mdef), knockedhow);
     }
 
     if (u.ustuck && (u_def || u_agr))

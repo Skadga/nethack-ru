@@ -1050,7 +1050,7 @@ dig_up_grave(coord *cc)
     exercise(A_WIS, FALSE);
     if (Role_if(PM_ARCHEOLOGIST)) {
         adjalign(-sgn(u.ualign.type) * 3);
-        You_feel("как подлый грабитель могил!");
+        You_feel("себя подлым грабителем могил!");
     } else if (Role_if(PM_SAMURAI)) {
         adjalign(-sgn(u.ualign.type));
         You("тревожите почтенных покойников!");

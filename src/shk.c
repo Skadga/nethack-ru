@@ -5070,7 +5070,7 @@ shopdig(int fall)
         return;
     if (!inhishop(shkp)) {
         if (Role_if(PM_KNIGHT)) {
-            You_feel("как обычный вор.");
+            You_feel("себя обычным вором.");
             adjalign(-sgn(u.ualign.type));
         }
         return;
@@ -5099,7 +5099,7 @@ shopdig(int fall)
             }
         }
         if (Role_if(PM_KNIGHT)) {
-            You_feel("как обычный вор.");
+            You_feel("себя обычным вором.");
             adjalign(-sgn(u.ualign.type));
         }
     } else if (!um_dist(shkp->mx, shkp->my, 5)
