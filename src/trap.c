@@ -1068,12 +1068,14 @@ mu_maybe_destroy_web(
         if (flaming(mptr) || acidic(mptr)) {
             if (domsg) {
                 if (isyou)
-                    You("%s с помощью пламени паутину!", a_your[trap->madeby_u]);
+                    You("%s %sпаутину!",
+                        flaming(mptr) ? "сжигаете" : "растворяете",
+                        trap->madeby_u ? "вашу " : "");
                 else
                     pline_mon(mtmp,
-                      "%s %s %s паутину!", Monnam(mtmp),
-                      (flaming(mptr)) ? "сжигает" : "растворяет",
-                      a_your[trap->madeby_u]);
+                      "%s %s %sпаутину!", Monnam(mtmp),
+                      flaming(mptr) ? "сжигает" : "растворяет",
+                      trap->madeby_u ? "вашу " : "");
             }
             deltrap(trap);
             newsym(x, y);
@@ -1616,8 +1618,8 @@ trapeffect_bear_trap(
             mtmp->mtrapped = 1;
             if (in_sight) {
                 pline_mon(mtmp,
-                      "%s попадает в капкан %s!", Monnam(mtmp),
-                      a_your[trap->madeby_u]);
+                      "%s попадает в %sкапкан!", Monnam(mtmp),
+                      trap->madeby_u ? "ваш " : "");
                 seetrap(trap);
             } else {
                 if (mptr == &mons[PM_OWLBEAR]
@@ -1629,8 +1631,8 @@ trapeffect_bear_trap(
         } else if (forcetrap) {
             if (in_sight) {
                 pline_mon(mtmp,
-                      "%s избегает капкана %s!", Monnam(mtmp),
-                      a_your[trap->madeby_u]);
+                      "%s избегает %sкапкана!", Monnam(mtmp),
+                      trap->madeby_u ? "вашего " : "");
                 seetrap(trap);
             }
         }
@@ -2215,22 +2217,20 @@ trapeffect_web(
         if (webmaker(gy.youmonst.data)) {
             if (webmsgok)
                 pline(trap->madeby_u ? "Вы проходитесь по своей паутине."
-                      : "Эдесь паутина.");
+                      : "Здесь паутина.");
             return Trap_Effect_Finished;
         }
         if (webmsgok) {
-            char verbbuf[BUFSZ];
+            const char *web = trap->madeby_u ? "вашей " : "";
 
-            if (forcetrap || viasitting) {
-                Strcpy(verbbuf, "вы схвачены");
-            } else if (u.usteed) {
-                Sprintf(verbbuf, "тянете %s в",
-                        x_monnam(u.usteed, steed_article, "бедную",
-                                 SUPPRESS_SADDLE, FALSE));
-            } else {
-                Sprintf(verbbuf, "%s в", u_locomotion("stumble"));
-            }
-            You("%s %s паутине!", verbbuf, a_your[trap->madeby_u]);
+            if (forcetrap || viasitting)
+                You("запутываетесь в %sпаутине!", web);
+            else if (u.usteed)
+                You("тянете %s в %sпаутину!",
+                    x_monnam(u.usteed, steed_article, "бедную",
+                             SUPPRESS_SADDLE, FALSE), web);
+            else
+                You("%s в %sпаутину!", u_locomotion("stumble"), web);
         }
 
         /* time will be adjusted below */
@@ -2354,8 +2354,8 @@ trapeffect_web(
         } else if (forcetrap && !mtmp->mtrapped) {
             if (in_sight) {
                 pline_mon(mtmp,
-                      "%s избегает %s паутины!", Monnam(mtmp),
-                      a_your[trap->madeby_u]);
+                      "%s избегает %sпаутины!", Monnam(mtmp),
+                      trap->madeby_u ? "вашей " : "");
                 seetrap(trap);
             }
         }

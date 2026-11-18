@@ -287,10 +287,12 @@ dog_eat(struct monst *mtmp,
                 pline_mon(mtmp, "%s роет.", noit_Monnam(mtmp));
             else
                 pline_mon(mtmp, "%s %s %s.", noit_Monnam(mtmp),
-                      devour ? "пожирает" : "ест", obj_name);
+                      devour ? "пожирает" : "ест",
+                      ru_noun_case(obj_name, BP_ACC));
         } else if (seeobj) {
             obj_name = distant_name(obj, doname);
-            pline("Оно %s %s.", devour ? "пожирает" : "ест", obj_name);
+            pline("Оно %s %s.", devour ? "пожирает" : "ест",
+                  ru_noun_case(obj_name, BP_ACC));
         }
     }
     if (obj->unpaid) {

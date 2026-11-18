@@ -3715,10 +3715,14 @@ xkilled(
         if (!unique_corpstat(mdat)) {
             boolean mname = has_mgivenname(mtmp);
 
-            livelog_printf(LL_KILLEDPET, "убил %s%s%s верного %s",
-                           mname ? MGIVENNAME(mtmp) : "",
+            livelog_printf(LL_KILLEDPET, "убил %s%s%s %s %s",
+                           mname ? ru_noun_case(MGIVENNAME(mtmp), BP_ACC)
+                                 : "",
                            mname ? ", " : "",
-                           uhis(), pmname(mdat, Mgender(mtmp)));
+                           uhis(),
+                           Mgender(mtmp) ? "верную" : "верного",
+                           ru_noun_case(pmname(mdat, Mgender(mtmp)),
+                                        BP_ACC));
         }
     } else if (mtmp->mpeaceful)
         adjalign(-5);

@@ -1436,7 +1436,8 @@ doname_base(
             struct monst *mlsh = find_mid(obj->leashmon, FM_FMON);
 
             if (mlsh && !DEADMONSTER(mlsh)) {
-                ConcatF1(bp, 0, " (привязан к %s)", noit_mon_nam(mlsh));
+                ConcatF1(bp, 0, " (привязан к %s)",
+                         ru_noun_case(noit_mon_nam(mlsh), BP_DAT));
             } else {
                 if (mlsh) /*&& DEADMONSTER(mlsh)*/
                     impossible("leashed %s #%u is dead",

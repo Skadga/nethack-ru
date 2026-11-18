@@ -3011,8 +3011,9 @@ better_not_take_that_off(struct obj *otmp)
     if (corpse
         && !u_safe_from_fatal_corpse(corpse, st_corpse | st_petrifies)) {
         Snprintf(buf, sizeof buf,
-            "Снять ваши %s, несмотря на то что несёте мёртвого %s?",
-                 gloves_simple_name(otmp), obj_pmname(corpse));
+            "Снять ваши %s, несмотря на то что несёте труп %s?",
+                 gloves_simple_name(otmp),
+                 ru_noun_case(obj_pmname(corpse), BP_GEN));
         return (paranoid_ynq(TRUE, buf, FALSE) != 'y');
     }
     return FALSE;

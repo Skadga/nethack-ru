@@ -874,8 +874,8 @@ mon_wield_item(struct monst *mon)
                 if (obj->otyp == PICK_AXE) {
                     pline("Поскольку оружие %s %s,", mhis(mon),
                           welded_buf);
-                    pline("%s не может применять это %s.", mon_nam(mon),
-                          xname(obj));
+                    pline("%s не может применять %s.", mon_nam(mon),
+                          ru_noun_case(xname(obj), BP_ACC));
                 } else {
                     pline_mon(mon, "%s пытается применить %s.",
                               Monnam(mon), doname(obj));

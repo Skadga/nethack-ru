@@ -371,7 +371,7 @@ doaltarobj(struct obj *obj)
         if (!svc.context.mon_moving && !u.uconduct.gnostic++)
             livelog_printf(LL_CONDUCT,
                            "отрёкся от атеизма, положив %s на алтарь",
-                           doname(obj));
+                           ru_noun_case(doname(obj), BP_ACC));
     } else {
         /* coins don't have bless/curse status */
         obj->blessed = obj->cursed = 0;

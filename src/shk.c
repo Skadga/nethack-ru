@@ -59,8 +59,22 @@ staticfn void kops_gone(boolean);
 
 extern const struct shclass shtypes[]; /* defined in shknam.c */
 
-static const char and_its_contents[] = " и его содержимое";
+static const char and_its_contents[] = " и содержимое";
 static const char the_contents_of[] = "содержимое ";
+
+/* Russian: safe_qbuf() fills in an object name; some callers need it in
+   an oblique case, so hand it a wrapper around ru_noun_case(). */
+staticfn char *
+shk_xname_gen(struct obj *obj)
+{
+    return (char *) ru_noun_case(xname(obj), BP_GEN);
+}
+
+staticfn char *
+shk_xname_acc(struct obj *obj)
+{
+    return (char *) ru_noun_case(xname(obj), BP_ACC);
+}
 
 staticfn void append_honorific(char *);
 staticfn long addupbill(struct monst *);
@@ -3570,7 +3584,7 @@ addtobill(
     }
 
     if (!Deaf && !muteshk(shkp) && !silent) {
-        char buf[BUFSZ];
+        char buf[BUFSZ], obuf[BUFSZ];
 
         /* no need to update price quotes here; it was done by
            add_one_tobill above */
@@ -3596,23 +3610,30 @@ addtobill(
             }
             obj->quan = 1L; /* fool xname() into giving singular */
             set_voice(shkp, 0, 80, 0);
-            pline("%s %ld %s %s %s%s.\"", buf, ltmp, currency(ltmp),
-                  (save_quan > 1L) ? "за штуку"
-                                   : (contentscount && !obj->unpaid)
-                                       ? "за содержимое этого"
-                                       : "за это",
-                  xname(obj),
+            if (save_quan > 1L)
+                Sprintf(obuf, "за штуку");
+            else if (contentscount && !obj->unpaid)
+                Sprintf(obuf, "за содержимое %s",
+                        ru_noun_case(xname(obj), BP_GEN));
+            else
+                Sprintf(obuf, "за %s", ru_noun_case(xname(obj), BP_ACC));
+            pline("%s %ld %s %s%s.\"", buf, ltmp, currency(ltmp), obuf,
                   (contentscount && obj->unpaid) ? and_its_contents : "");
             obj->quan = save_quan;
         }
     } else if (!silent) {
+        char obuf[BUFSZ];
+
         if (ltmp) {
             set_voice(shkp, 0, 80, 0);
-            pline("Прейскурантная цена %s%s%s — %ld %s%s.",
-                      (contentscount && !obj->unpaid) ? the_contents_of : "",
-                      the(xname(obj)),
-                      (contentscount && obj->unpaid) ? and_its_contents : "",
-                      ltmp, currency(ltmp), (obj->quan > 1L) ? " За штуку" : "");
+            if (contentscount && !obj->unpaid)
+                Sprintf(obuf, "содержимого %s",
+                        ru_noun_case(xname(obj), BP_GEN));
+            else
+                Sprintf(obuf, "%s", ru_noun_case(xname(obj), BP_GEN));
+            pline("Прейскурантная цена %s%s — %ld %s%s.", obuf,
+                  (contentscount && obj->unpaid) ? and_its_contents : "",
+                  ltmp, currency(ltmp), (obj->quan > 1L) ? " За штуку" : "");
         } else {
             pline("%s не замечает.", Shknam(shkp));
         }
@@ -4155,13 +4176,13 @@ sellobj(
                when container's contents are unknown, plural "items"
                should be used to not give away information.
              */
-            Sprintf(qbuf, "%s предлагает%s %ld %s за %s%s ",
+            Sprintf(qbuf, "%s предлагает%s %ld %s за %s",
                     Shknam(shkp), short_funds ? " только" : "", offer,
                     currency(offer),
                     (cltmp && !ltmp)
-                        ? ((yourc == 1L) ? "ваш предмет в " : "ваши предметы в ")
-                        : "",
-                    obj->unpaid ? "этот" : "ваш");
+                        ? ((yourc == 1L) ? "предмет внутри "
+                                         : "предметы внутри ")
+                        : "");
             one = !ltmp ? (yourc == 1L) : (obj->quan == 1L && !cltmp);
             Sprintf(qsfx, "%s.  Продать %s?",
                     (cltmp && ltmp)
@@ -4172,8 +4193,10 @@ sellobj(
                         : "",
                     one ? "его" : "их");
             record_price_quote(obj->otyp, offer / obj->quan, FALSE);
-            (void) safe_qbuf(qbuf, qbuf, qsfx, obj, xname, simpleonames,
-                             one ? "то" : "те");
+            (void) safe_qbuf(qbuf, qbuf, qsfx, obj,
+                             (cltmp && !ltmp) ? shk_xname_gen
+                                              : shk_xname_acc,
+                             simpleonames, one ? "то" : "те");
         } else
             qbuf[0] = '\0'; /* just to pacify lint */
 
@@ -5462,7 +5485,9 @@ price_quote(struct obj *first_obj)
                     (otmp->quan) > 1L ? " за штуку" : "");
         }
         Sprintf(buf, "%s%s, %s", contentsonly ? the_contents_of : "",
-                doname(otmp), price);
+                contentsonly ? ru_noun_case(doname(otmp), BP_GEN)
+                             : doname(otmp),
+                price);
         putstr(tmpwin, 0, buf), cnt++;
     }
     if (cnt > 1) {
@@ -5476,7 +5501,8 @@ price_quote(struct obj *first_obj)
             /* print cost in slightly different format, so can't reuse buf;
                cost and contentsonly are already set up */
             Sprintf(buf, "%s%s", contentsonly ? the_contents_of : "",
-                    doname(first_obj));
+                    contentsonly ? ru_noun_case(doname(first_obj), BP_GEN)
+                                 : doname(first_obj));
             SetVoice(shkp, 0, 80, 0);
             verbalize("%s, цена %ld %s%s%s", upstart(buf), cost,
                       currency(cost), (first_obj->quan > 1L) ? " за штуку" : "",

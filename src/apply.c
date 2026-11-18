@@ -2969,7 +2969,8 @@ set_trap(void)
             add_damage(u.ux, u.uy, 0L); /* schedule removal */
         }
         if (!gt.trapinfo.force_bungle)
-            You("заканчиваете установку %s.", the(trapname(ttyp, FALSE)));
+            You("заканчиваете установку %s.",
+                ru_noun_case(trapname(ttyp, FALSE), BP_GEN));
         if (((otmp->cursed || Fumbling) && (rnl(10) > 5))
             || gt.trapinfo.force_bungle)
             dotrap(ttmp,

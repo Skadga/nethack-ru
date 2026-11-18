@@ -325,9 +325,10 @@ livelog_newform(boolean viapoly, int oldgend, int newgend)
             Sprintf(buf, "%.10s %.30s", genders[flags.female].adj, newrank);
             livelog_printf(LL_MINORAC, "%s в %s",
                            viapoly ? "превратился" : "перевоплотился",
-                           an(strcmp(newrole, oldrole) ? newrole
-                              : strcmp(newrank, oldrank) ? newrank
-                                : buf));
+                           ru_noun_case(strcmp(newrole, oldrole) ? newrole
+                                        : strcmp(newrank, oldrank) ? newrank
+                                          : buf,
+                                        BP_ACC));
         }
     }
 }
@@ -1695,7 +1696,7 @@ dogaze(void)
                 if (flags.confirm && mtmp->mpeaceful && !Confusion) {
                     Sprintf(qbuf, "Действительно %s %s?",
                             (adtyp == AD_CONF) ? "сбить с толку" : "атаковать",
-                            mon_nam(mtmp));
+                            mon_gen(mtmp, BP_ACC));
                     if (y_n(qbuf) != 'y')
                         continue;
                 }
