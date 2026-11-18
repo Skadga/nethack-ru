@@ -1087,8 +1087,8 @@ mu_maybe_destroy_web(
                     trap->madeby_u ? "вашу " : "");
             } else {
                 pline_mon(mtmp,
-                      "%s протекает сквозь %s паутину.", Monnam(mtmp),
-                      a_your[trap->madeby_u]);
+                      "%s протекает сквозь %sпаутину.", Monnam(mtmp),
+                      trap->madeby_u ? "вашу " : "");
                 seetrap(trap);
             }
         }
@@ -1438,7 +1438,7 @@ trapeffect_rocktrap(
                           an(helm_simple_name(uarmh))); /* helm or hat */
                     dmg = 2;
                 } else if (hard_helmet(uarmh)) {
-                    pline("К счастью, на вас твердый шлем.");
+                    pline("К счастью, на вас твёрдый шлем.");
                     dmg = 2;
                 } else if (flags.verbose) {
                     pline("%s не защищает вас.", Yname2(uarmh));
@@ -1942,7 +1942,7 @@ trapeffect_pit(
         feeltrap(trap);
         if (!Sokoban && is_clinger(gy.youmonst.data) && !plunged) {
             if (already_known) {
-                You_see("%s%s под вами.", a_your[trap->madeby_u] ? "вашу " : "",
+                You_see("%s%s под вами.", trap->madeby_u ? "вашу " : "",
                         ttype == SPIKED_PIT ? "шипованную яму" : "яму");
             } else {
                 pline("%s%s открывается под вами!",
@@ -1979,7 +1979,8 @@ trapeffect_pit(
                        !plunged ? "прыгаете" : (Flying ? "ныряете" : "падаете"));
             }
             if (*verbbuf)
-                You("%s в %s яму!", verbbuf, a_your[trap->madeby_u]);
+                You("%s в %sяму!", verbbuf,
+                    trap->madeby_u ? "вашу " : "");
         }
         /* wumpus reference */
         if (Role_if(PM_RANGER) && !trap->madeby_u && !trap->once
@@ -2081,8 +2082,8 @@ trapeffect_pit(
             mtmp->mtrapped = 1;
         if (in_sight) {
             pline_mon(mtmp,
-                     "%s %s в %s яму!", Monnam(mtmp), fallverb,
-                     a_your[trap->madeby_u]);
+                     "%s %s в %sяму!", Monnam(mtmp), fallverb,
+                     trap->madeby_u ? "вашу " : "");
             if (mptr == &mons[PM_PIT_VIPER]
                 || mptr == &mons[PM_PIT_FIEND])
                 pline("Как жалко. Разве это не ямы?");
@@ -2284,7 +2285,8 @@ trapeffect_web(
             else {
                 tim = 0;
                 if (webmsgok)
-                    You("разрываете %s паутину!", a_your[trap->madeby_u] ? "вашу " : "");
+                    You("разрываете %sпаутину!",
+                        trap->madeby_u ? "вашу " : "");
                 deltrap(trap);
                 newsym(u.ux, u.uy); /* get rid of trap symbol */
             }
@@ -2321,8 +2323,8 @@ trapeffect_web(
                 tear_web = TRUE;
             } else if (in_sight) {
                 pline_mon(mtmp,
-                      "%s попадает в %s паутину.", Monnam(mtmp),
-                      a_your[trap->madeby_u]);
+                      "%s попадает в %sпаутину.", Monnam(mtmp),
+                      trap->madeby_u ? "вашу " : "");
                 seetrap(trap);
             }
             mtmp->mtrapped = tear_web ? 0 : 1;
@@ -2347,8 +2349,8 @@ trapeffect_web(
         if (tear_web) {
             if (in_sight)
                 pline_mon(mtmp,
-                     "%s рвется через %s паутину!", Monnam(mtmp),
-                      a_your[trap->madeby_u]);
+                     "%s рвётся через %sпаутину!", Monnam(mtmp),
+                      trap->madeby_u ? "вашу " : "");
             deltrap(trap);
             newsym(mtmp->mx, mtmp->my);
         } else if (forcetrap && !mtmp->mtrapped) {
@@ -2647,8 +2649,8 @@ trapeffect_landmine(
             pline("БАБАХ!!!  %s %s%s!",
                   forcebungle ? "Ваша неуклюжая попытка взрывает"
                   : "Воздушные потоки взрывают",
-                  already_seen ? a_your[trap->madeby_u] : "",
-                  already_seen ? " мину" : "её");
+                  (already_seen && trap->madeby_u) ? "вашу " : "",
+                  already_seen ? "мину" : "её");
         } else {
             /* prevent landmine from killing steed, throwing you to
              * the ground, and then that same landmine affecting you
@@ -2659,7 +2661,7 @@ trapeffect_landmine(
             if (recursive_mine)
                 return Trap_Effect_Finished;
             feeltrap(trap);
-            pline("КААБЛАММ!!!  Вы подорвались на противопехотной мине!", a_your[trap->madeby_u]);
+            pline("КААБЛАММ!!!  Вы подорвались на противопехотной мине!");
             if (u.usteed)
                 steed_mid = u.usteed->m_id;
             recursive_mine = TRUE;
@@ -2714,7 +2716,7 @@ trapeffect_landmine(
             pline_mon(mtmp,
                   "%s%s подрывается на %s мине!",
                   !Deaf ? "КААБЛАММ!!!  " : "", Monnam(mtmp),
-                  a_your[trap->madeby_u] ? "вашей" : "противопехотной");
+                  trap->madeby_u ? "вашей" : "противопехотной");
         }
         if (!in_sight && !Deaf)
             pline("Каабламм!  %s взрыв вдали!",
@@ -3110,9 +3112,8 @@ dotrap(struct trap *trap, unsigned trflags)
     } else if (!forcetrap) {
         if (floor_trigger(ttype) && check_in_air(&gy.youmonst, trflags)) {
             if (already_seen) {
-                You("%s через %s %s.", u_locomotion("step"),
-                    (ttype == ARROW_TRAP && !trap->madeby_u)
-                    ? "эту" : a_your[trap->madeby_u],
+                You("%s через %s%s.", u_locomotion("step"),
+                    trap->madeby_u ? "вашу " : "",
                     ru_noun_case(trapname(ttype, FALSE), BP_ACC));
             }
             return;
@@ -3121,11 +3122,9 @@ dotrap(struct trap *trap, unsigned trflags)
             && ttype != ANTI_MAGIC && !forcebungle && !plunged
             && !conj_pit && !adj_pit
             && (!rn2(5) || (is_pit(ttype) && is_clinger(gy.youmonst.data)))) {
-                You("обходите %s %s.",
-                          (ttype == ARROW_TRAP && !trap->madeby_u)
-                          ? "эту"
-                          : a_your[trap->madeby_u],
-                ru_noun_case(trapname(ttype, FALSE), BP_ACC));
+                You("обходите %s%s.",
+                    trap->madeby_u ? "вашу " : "",
+                    ru_noun_case(trapname(ttype, FALSE), BP_ACC));
             return;
         }
     }

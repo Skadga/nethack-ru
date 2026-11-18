@@ -1534,11 +1534,12 @@ quickmimic(struct monst *mtmp)
         }
         if (glyph_at(mtmp->mx, mtmp->my) != prev_glyph) {
             if (seeloc)
-                You("видите %s там, где был %s!",
-                    (what != something) ? an(what) : what, buf);
+                You("видите %s на месте %s!",
+                    (what != something) ? an(what) : what,
+                    ru_noun_case(buf, BP_GEN));
             else
-                You("чувствуете, что %s появилось там, где был %s!",
-                    (what != something) ? an(what) : what, buf);
+                You("чувствуете, что %s теперь выглядит как %s!",
+                    buf, (what != something) ? an(what) : what);
         }
         else
             You("чувствуете, что %s выглядит довольно %s.", buf, what);

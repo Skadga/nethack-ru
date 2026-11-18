@@ -198,7 +198,7 @@ castmu(
     if (!foundyou && thinks_it_foundyou
         && !is_undirected_spell(spellnum)) {
         pline_mon(mtmp, "%s колдует на %s!",
-                 canseemon(mtmp) ? Monnam(mtmp) : "Something",
+                 canseemon(mtmp) ? Monnam(mtmp) : "Что-то",
                  is_waterwall(mtmp->mux, mtmp->muy) ? "пустую воду"
                                                     : "воздух");
         return M_ATTK_MISS;

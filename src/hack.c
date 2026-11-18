@@ -429,7 +429,8 @@ moverock_core(coordxy sx, coordxy sy)
         if (verysmall(gy.youmonst.data) && !u.usteed) {
             if (Blind)
                 feel_location(sx, sy);
-            pline("Вы слишком малы, чтобы сдвинуть этот %s.", xname(otmp));
+            pline("Вы слишком малы, чтобы сдвинуть %s.",
+                  ru_noun_case(xname(otmp), BP_ACC));
             return cannot_push(otmp, sx, sy);
         }
         if (isok(rx, ry) && !IS_OBSTRUCTED(levl[rx][ry].typ)

@@ -687,7 +687,7 @@ doengrave_sfx_item_WAN(struct _doengrave_ctx *de)
         de->type = ENGRAVE;
         if (!objects[de->otmp->otyp].oc_name_known) {
             if (flags.verbose)
-                pline("Это %s — палочка раскапывания!", xname(de->otmp));
+                pline("Это %s!", xname(de->otmp));
             de->doknown = TRUE;
         }
         Strcpy(de->post_engr_text,
@@ -710,7 +710,7 @@ doengrave_sfx_item_WAN(struct _doengrave_ctx *de)
         de->type = BURN;
         if (!objects[de->otmp->otyp].oc_name_known) {
             if (flags.verbose)
-                pline("Это %s — палочка огня!", xname(de->otmp));
+                pline("Это %s!", xname(de->otmp));
             de->doknown = TRUE;
         }
         Strcpy(de->post_engr_text, Blind ? "Вы чувствуете, как палочка нагревается."
@@ -721,7 +721,7 @@ doengrave_sfx_item_WAN(struct _doengrave_ctx *de)
         de->type = BURN;
         if (!objects[de->otmp->otyp].oc_name_known) {
             if (flags.verbose)
-                pline("Это %s — палочка молний!", xname(de->otmp));
+                pline("Это %s!", xname(de->otmp));
             de->doknown = TRUE;
         }
         if (!Blind) {
