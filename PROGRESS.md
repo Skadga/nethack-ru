@@ -1578,3 +1578,28 @@ timeout.c:2045-2050; report.c:314.
 - Сборка Release x64: 0 ошибок, 15 warning'ов (те же).
 - Android-копия синхронизирована (4 файла, identical True).
 
+## 2026-11-18 — батч 116: оставшиеся английские сообщения
+
+- Расширенный скан (scan128.py): многострочные литералы в вызовах
+  pline/pline_The/pline_mon/You/Your/You_feel/You_cant/You_hear/
+  You_see/There/Norep/urgent_pline/custompline/raw_print/raw_printf/
+  config_error_add/verbalize/message.
+- src/apply.c: «Резкий треск разбивает один из них.» вместо «one of».
+- src/cfgfiles.c: префикс «ошибка конфигурации: ».
+- src/exper.c: «Добро пожаловать (обратно) на уровень опыта N.»
+  вместо английского «back ».
+- src/hack.c: взрыв мины «БАБАХ!!» вместо «KAABLAMM!!».
+- src/makemon.c: рост монстра — «превращается в <вин.>»,
+  «становится <тв.>», «вырастает в <вин.>» через mon_gen_nom;
+  английские префиксы «male »/«female » убраны.
+- src/monmove.c: глухой герой видит, как монстр сердито машет
+  руками или трясёт головой (mbodypart_case).
+- src/options.c: сообщение об отрицании параметра, у которого есть
+  значение.
+- src/symbols.c: ошибка конфигурации «Отсутствует finish».
+- Проверено: dig.c 2204-2284 и shk.c 5117 — мёртвый код (#if 0);
+  earlyarg.c — отладочный дамп enum'ов (NODUMPENUMS); trap.c
+  u_locomotion(«lower yourself») уже переводится в hack.c.
+- Сборка Release x64: 0 ошибок, 15 warning'ов (те же).
+- Android-копия синхронизирована (8 файлов, identical True).
+
