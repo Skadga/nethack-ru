@@ -3013,7 +3013,7 @@ do_genocide(
             /* accumulated 'cnt' doesn't take groups into account;
                assume bringing in new mon(s) didn't remove any old ones */
             cnt = monster_census(FALSE) - census;
-            pline("Отправлено %s%s.", (cnt > 1) ? "some " : "",
+            pline("Отправлено: %s.",
                   (cnt > 1) ? makeplural(buf) : an(buf));
         } else
             pline1(nothing_happens);
