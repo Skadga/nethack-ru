@@ -187,7 +187,7 @@ early_options(int *argc_p, char ***argv_p, char **hackdir_p)
         opt_terminate();
 #endif
 
-    config_error_init(FALSE, "command line", FALSE);
+    config_error_init(FALSE, "командная строка", FALSE);
 
     /* treat "nethack ?" as a request for usage info; due to shell
        processing, player likely has to use "nethack \?" or "nethack '?'"

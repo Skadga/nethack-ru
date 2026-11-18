@@ -3421,7 +3421,8 @@ get_table_int_or_random(lua_State *L, const char *name, int rndval)
             lua_pop(L, 1);
             return rndval;
         }
-        Sprintf(buf, "Expected integer or \"random\" for \"%s\", got ", name);
+        Sprintf(buf, "Ожидалось целое число или \"random\" для \"%s\", получено ",
+                name);
         if (tmp)
             Sprintf(eos(buf), "\"%s\"", tmp);
         else
@@ -3827,7 +3828,7 @@ lspo_level_flags(lua_State *L)
         else {
             char buf[BUFSZ];
 
-            Sprintf(buf, "Unknown level flag %s", s);
+            Sprintf(buf, "Неизвестный флаг уровня %s", s);
             nhl_error(L, buf);
         }
     }
@@ -5275,7 +5276,7 @@ get_table_intarray_entry(lua_State *L, int tableidx, int entrynum)
     } else {
         char buf[BUFSZ];
 
-        Sprintf(buf, "Array entry #%i is %s, expected number",
+        Sprintf(buf, "Элемент массива #%i: %s, ожидалось число",
                 1, luaL_typename(L, -1));
         nhl_error(L, buf);
     }

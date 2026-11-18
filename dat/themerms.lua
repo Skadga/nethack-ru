@@ -773,7 +773,7 @@ xx|.....|xx
 }}}}}}]], contents = function(m)
             des.region({ region={3,3,3,3}, type="themed", irregular=true,
                          filled=0, joined=false });
-            local nasty_undead = { "giant zombie", "ettin zombie", "vampire lord" };
+            local nasty_undead = { "зомби великана", "зомби эттина", "вампир-лорд" };
             local chest_spots = { { 2, 2 }, { 3, 2 }, { 2, 3 }, { 3, 3 } };
 
             shuffle(chest_spots)
@@ -1056,16 +1056,16 @@ function make_dig_engraving(data)
    local ty = data.y - pos.y;
    local dig = "";
    if (tx == 0 and ty == 0) then
-      dig = " here";
+      dig = " здесь";
    else
       if (tx < 0 or tx > 0) then
-         dig = string.format(" %i %s", math.abs(tx), (tx > 0) and "east" or "west");
+         dig = string.format(" %i %s", math.abs(tx), (tx > 0) and "на восток" or "на запад");
       end
       if (ty < 0 or ty > 0) then
-         dig = dig .. string.format(" %i %s", math.abs(ty), (ty > 0) and "south" or "north");
+         dig = dig .. string.format(" %i %s", math.abs(ty), (ty > 0) and "на юг" or "на север");
       end
    end
-   des.engraving({ coord = pos, type = "burn", text = "Dig" .. dig });
+   des.engraving({ coord = pos, type = "burn", text = "Копай" .. dig });
 end
 
 -- postprocess callback: turn room walls into trees

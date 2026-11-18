@@ -634,7 +634,7 @@ early_options(int argc, char *argv[])
             }
             break;
         case 'w': /* windowtype */
-            config_error_init(FALSE, "command line", FALSE);
+            config_error_init(FALSE, "командная строка", FALSE);
             if (strlen(&argv[0][2]) < (WINTYPELEN - 1))
                 Strcpy(gc.chosen_windowtype, &argv[0][2]);
             config_error_done();

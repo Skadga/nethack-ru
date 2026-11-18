@@ -1875,3 +1875,19 @@ timeout.c:2045-2050; report.c:314.
   английского « the » перед рангом.
 - Сборка Release x64: 0 ошибок, 15 warning'ов (те же).
 - Android-копия синхронизирована (7 файлов, identical=True).
+## 2026-11-18 — батч 131: уровни, ошибки конфигурации, гравировка-подсказка
+
+- dat/themerms.lua: в тематической комнате с сундуками монстры задавались
+  английскими id («giant zombie», «ettin zombie», «vampire lord»);
+  name_to_mon() ищет по русским именам monsters.h — заменено на
+  «зомби великана», «зомби эттина», «вампир-лорд».
+- dat/themerms.lua: гравировка-подсказка «Dig 3 east 2 south» →
+  «Копай 3 на восток 2 на юг» («Копай здесь»).
+- cfgfiles.c/earlyarg.c/options.c/windmain.c: источник ошибок
+  «command line» → «командная строка» (печатается в «Ошибок: N — ...»).
+- sp_lev.c: три сообщения nhl_error переведены (ожидалось число/флаг
+  уровня/элемент массива).
+- sys/windows/console.rc: FileDescription «NetHack для Windows -
+  интерфейс TTY».
+- Сборка Release x64: 0 ошибок, 15 warning'ов (те же).
+- Android-копия синхронизирована (7 файлов, identical=True).

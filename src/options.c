@@ -7147,7 +7147,7 @@ initoptions_init(void)
        early so windowtype-specific options use it as their base */
     if (gc.cmdline_windowsys) {
         nmcpy(gc.chosen_windowtype, gc.cmdline_windowsys, WINTYPELEN);
-        config_error_init(FALSE, "command line", FALSE);
+        config_error_init(FALSE, "командная строка", FALSE);
         choose_windows(gc.cmdline_windowsys);
         config_error_done();
         /*

@@ -1908,7 +1908,7 @@ rcfile(void)
     }
 
     if (gc.cmdline_rcfile) {
-        namesrc = "command line";
+        namesrc = "командная строка";
         nameval = gc.cmdline_rcfile;
         xtraopts = opts;
         if (opts && (*opts == '/' || *opts == '\\' || *opts == '@'))
