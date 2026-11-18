@@ -1024,7 +1024,7 @@ function themeroom_fill(rm)
    local total_frequency = 0;
    for i = 1, #themeroom_fills do
       if (type(themeroom_fills[i]) ~= "table") then
-         nh.impossible('themeroom fill '..i..' must be a table')
+         nh.impossible('тематическое наполнение '..i..' — не таблица')
       elseif is_eligible(themeroom_fills[i], rm) then
          -- Reservoir sampling: select one room from the set of eligible rooms,
          -- which may change on different levels because of level difficulty.
@@ -1042,7 +1042,7 @@ function themeroom_fill(rm)
       end
    end
    if pick == nil then
-      nh.impossible('no eligible themed room fills?')
+      nh.impossible('нет подходящих тематических наполнений?')
       return
    end
    themeroom_fills[pick].contents(rm);
