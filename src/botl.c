@@ -2824,10 +2824,17 @@ parse_status_hl2(char (*s)[QBUFSZ], boolean from_configfile)
 {
     static const char *const aligntxt[] = { "хаотичный", "нейтральный",
                                             "законный" };
+    /* English keywords are what config files use; aligntxt[] is for display */
+    static const char *const aligntxt_en[] = { "chaotic", "neutral",
+                                               "lawful" };
     /* hu_stat[] from eat.c has trailing spaces which foul up comparisons;
        for the "not hungry" case, there's no text hence no way to highlight */
     static const char *const hutxt[] = {
         "Сыт", "", "Голоден", "Слаб", "Падает", "Лежит", "Умер"
+    };
+    /* English keywords are what config files use; hutxt[] is for display */
+    static const char *const hutxt_en[] = {
+        "Satiated", "", "Hungry", "Weak", "Fainting", "Fainted", "Starved"
     };
     char *tmp, *how;
     int sidx = 0, i = -1, dt = ANY_INVALID;
@@ -2919,12 +2926,17 @@ parse_status_hl2(char (*s)[QBUFSZ], boolean from_configfile)
             txt = enc_stat_ru[kidx];
             txtval = TRUE;
         } else if (fld == BL_ALIGN
-                   && is_fld_arrayvalues(s[sidx], aligntxt, 0, 3, &kidx)) {
+                   && (is_fld_arrayvalues(s[sidx], aligntxt, 0, 3, &kidx)
+                       || is_fld_arrayvalues(s[sidx], aligntxt_en, 0, 3,
+                                             &kidx))) {
             txt = aligntxt[kidx];
             txtval = TRUE;
         } else if (fld == BL_HUNGER
-                   && is_fld_arrayvalues(s[sidx], hutxt,
-                                         SATIATED, STARVED + 1, &kidx)) {
+                   && (is_fld_arrayvalues(s[sidx], hutxt,
+                                          SATIATED, STARVED + 1, &kidx)
+                       || is_fld_arrayvalues(s[sidx], hutxt_en,
+                                             SATIATED, STARVED + 1,
+                                             &kidx))) {
             txt = hu_stat[kidx];   /* store hu_stat[] val, not hutxt[] */
             txtval = TRUE;
         } else if (!strcmpi(s[sidx], "changed")) {
@@ -3180,6 +3192,16 @@ conditionbitmask2str(unsigned long ul)
     return buf;
 }
 
+/* English config keywords for the conditions[] entries above, in the same
+   order; conditions[].text[] holds Russian display strings, but
+   hilite_status settings in config files use the English names */
+static const char *const condition_cfg_names[] = {
+    "Bare", "Blind", "Busy", "Conf", "Deaf", "Iron", "Fly", "FoodPois",
+    "Glow", "Grab", "Hallu", "Held", "Icy", "InLava", "Lev", "Parlyz",
+    "Ride", "Zzz", "Slime", "Slip", "Stone", "Strngl", "Stun", "Submrg",
+    "TermIll", "Teth", "Trap", "Out", "WLegs", "UHold"
+};
+
 staticfn unsigned long
 match_str2conditionbitmask(const char *str)
 {
@@ -3189,7 +3211,8 @@ match_str2conditionbitmask(const char *str)
     if (str && *str) {
         /* check matches to canonical names */
         for (i = 0; i < SIZE(conditions); i++)
-            if (fuzzymatch(conditions[i].text[0], str, " -_", TRUE)) {
+            if (fuzzymatch(conditions[i].text[0], str, " -_", TRUE)
+                || fuzzymatch(condition_cfg_names[i], str, " -_", TRUE)) {
                 mask |= conditions[i].mask;
                 nmatches++;
             }
