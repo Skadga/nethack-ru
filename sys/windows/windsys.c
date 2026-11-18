@@ -294,7 +294,7 @@ win32_abort(void)
         iflags.window_inited = FALSE;
     }
     if (wizard) {
-        raw_print("Execute debug breakpoint wizard?");
+        raw_print("Вызвать отладчик?");
         if ((c = nhgetch()) == 'y' || c == 'Y')
             DebugBreak();
     }
@@ -331,17 +331,14 @@ interject_assistance(int num, int interjection_type, genericptr_t ptr1, genericp
                 || (tempdir && strstri(datadir, tempdir))) {
                 (void) strncpy(
                     interjection_buf[INTERJECT_PANIC],
-                    "\nOne common cause of this error is attempting to "
-                    "execute\n"
-                    "the game by double-clicking on it while it is "
-                    "displayed\n"
-                    "inside an unzip utility.\n\n"
-                    "You have to unzip the contents of the zip file into a\n"
-                    "folder on your system, and then run \"NetHack.exe\" or "
-                    "\n"
-                    "\"NetHackW.exe\" from there.\n\n"
-                    "If that is not the situation, you are encouraged to\n"
-                    "report the error as shown above.\n\n",
+                    "\nЧастая причина этой ошибки — попытка запустить\n"
+                    "игру двойным щелчком по файлу внутри программы\n"
+                    "распаковки архивов.\n\n"
+                    "Распакуйте содержимое zip-файла в папку на диске,\n"
+                    "а затем запустите оттуда \"NetHack.exe\" или\n"
+                    "\"NetHackW.exe\".\n\n"
+                    "Если дело не в этом, сообщите об ошибке, как\n"
+                    "показано выше.\n\n",
                     1023);
             }
         }
@@ -420,7 +417,7 @@ void port_insert_pastebuf(char *buf)
         /* put it on the clipboard */
         hresult = SetClipboardData(CF_UNICODETEXT, hglbCopy);
         if (!hresult) {
-            raw_printf("Error copying to clipboard.\n");
+            raw_printf("Ошибка копирования в буфер обмена.\n");
             GlobalFree(
                 hglbCopy); /* only needed if clipboard didn't accept data */
         }
@@ -582,7 +579,7 @@ getreturn(const char *str)
     if (in_getreturn || !getreturn_enabled)
         return;
     in_getreturn = TRUE;
-    Sprintf(buf,"Hit <Enter> %s.", str);
+    Sprintf(buf,"Нажмите <Enter> %s.", str);
     raw_print(buf);
     if (WINDOWPORT(tty))
         windows_console_custom_nhgetch();
@@ -726,7 +723,7 @@ windows_early_options(const char *window_opt)
         return 1;
     } else {
         raw_printf(
-            "-%s windows:cursorblink is the only supported option.\n",
+            "-%s: windows:cursorblink — единственный поддерживаемый параметр.\n",
             window_opt);
     }
     return 0;
@@ -837,7 +834,7 @@ get_executable_path(void)
 #else
     DWORD length = GetModuleFileName((HANDLE) 0, path_buffer, MAX_PATH);
     if (length == ERROR_INSUFFICIENT_BUFFER)
-        error("Unable to get module name");
+        error("Не удалось получить имя модуля");
     path_buffer[length] = '\0';
 #endif
 
@@ -920,7 +917,7 @@ get_known_folder_path(const KNOWNFOLDERID *folder_id, char *path,
 {
     PWSTR wide_path;
     if (FAILED(SHGetKnownFolderPath(folder_id, 0, NULL, &wide_path))) {
-        error("Unable to get known folder path");
+        error("Не удалось получить путь к известной папке");
         return FALSE;
     }
 
@@ -936,7 +933,7 @@ get_known_folder_path(const KNOWNFOLDERID *folder_id, char *path,
         return FALSE;
     } else if (err != 0) {
         error(
-            "Failed folder (%lu) path string conversion, unexpected err = %d",
+            "Ошибка преобразования пути папки (%lu), err = %d",
             folder_id->Data1, err);
         return FALSE;
     }
@@ -953,7 +950,7 @@ create_directory(const char *path)
         DWORD dw = GetLastError();
 
         if (dw != ERROR_ALREADY_EXISTS)
-            error("Unable to create directory '%s'", path);
+            error("Не удалось создать каталог '%s'", path);
     }
 }
 

@@ -27,7 +27,7 @@ tty_doprev_message(void)
         && !ttyDisplay->inread) {           /* not single */
         if (iflags.prevmsg_window == 'f') { /* full */
             prevmsg_win = create_nhwindow(NHW_MENU);
-            putstr(prevmsg_win, 0, "Message History");
+            putstr(prevmsg_win, 0, "История сообщений");
             putstr(prevmsg_win, 0, "");
             cw->maxcol = cw->maxrow;
             i = cw->maxcol;
@@ -60,7 +60,7 @@ tty_doprev_message(void)
                         cw->maxcol = cw->maxrow;
                 } else {
                     prevmsg_win = create_nhwindow(NHW_MENU);
-                    putstr(prevmsg_win, 0, "Message History");
+                    putstr(prevmsg_win, 0, "История сообщений");
                     putstr(prevmsg_win, 0, "");
                     cw->maxcol = cw->maxrow;
                     i = cw->maxcol;
@@ -79,7 +79,7 @@ tty_doprev_message(void)
         } else { /* reversed */
             morc = 0;
             prevmsg_win = create_nhwindow(NHW_MENU);
-            putstr(prevmsg_win, 0, "Message History");
+            putstr(prevmsg_win, 0, "История сообщений");
             putstr(prevmsg_win, 0, "");
             putstr(prevmsg_win, 0, gt.toplines);
             cw->maxcol = cw->maxrow - 1;

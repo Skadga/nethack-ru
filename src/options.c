@@ -2426,16 +2426,16 @@ optfn_mouse_support(
     }
     if (req == get_val) {
 #ifdef WIN32
-#define MOUSEFIX1 ", QuickEdit off"
-#define MOUSEFIX2 ", QuickEdit unchanged"
+#define MOUSEFIX1 ", QuickEdit выкл"
+#define MOUSEFIX2 ", QuickEdit без изменений"
 #else
-#define MOUSEFIX1 ", O/S adjusted"
-#define MOUSEFIX2 ", O/S unchanged"
+#define MOUSEFIX1 ", ОС настроена"
+#define MOUSEFIX2 ", ОС без изменений"
 #endif
         static const char *const mousemodes[][2] = {
-            { "0=off", "" },
-            { "1=on",  MOUSEFIX1 },
-            { "2=on",  MOUSEFIX2 },
+            { "0=выкл", "" },
+            { "1=вкл",  MOUSEFIX1 },
+            { "2=вкл",  MOUSEFIX2 },
         };
 #undef MOUSEFIX1
 #undef MOUSEFIX2

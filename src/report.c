@@ -381,7 +381,7 @@ submit_web_report(int cos, const char *msg, const char *why)
         // config.h turns this on, but make it easy to turn off if needed
     if (cos == 1) {
         int k;
-        SWR_ADD_URIcoded("Latest messages:\n");
+        SWR_ADD_URIcoded("Последние сообщения:\n");
         mark=uend;
         countpp++;
         for (k = 0; k < 5; k++) {
@@ -461,7 +461,7 @@ int
 dobugreport(void)
 {
     if (!submit_web_report(2, NULL, "#bugreport command")) {
-        pline("Не удаось отправить отчёт об ошибке. Пожалуйста, посетите %s.",
+        pline("Не удалось отправить отчёт об ошибке. Пожалуйста, посетите %s.",
               (sysopt.crashreporturl && *sysopt.crashreporturl)
               ? sysopt.crashreporturl
               : DEVTEAM_URL
@@ -599,7 +599,7 @@ get_saved_pline(int lineno USED_if_dumplog)
 void
 panictrace_handler(int sig_unused UNUSED)
 {
-#define SIG_MSG "\nSignal received.\n"
+#define SIG_MSG "\nПолучен сигнал.\n"
     int f2;
 
 #  ifdef CURSES_GRAPHICS

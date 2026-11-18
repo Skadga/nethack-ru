@@ -781,7 +781,7 @@ mswin_create_nhwindow(int type)
             && !GetNHApp()->windowlist[i].dead)
             break;
     if (i == MAXWINDOWS)
-        panic("ERROR:  No windows available...\n");
+        panic("ОШИБКА: нет свободных окон...\n");
 
     switch (type) {
     case NHW_MAP: {

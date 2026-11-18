@@ -465,7 +465,7 @@ resize_tty(void)
                 /* cop-out */
                 oldtoplin = TOPLINE_EMPTY; /* don't restore it below */
                 ttyDisplay->toplin = TOPLINE_NON_EMPTY;
-                addtopl("Press a key to continue: ");
+                addtopl("Нажмите клавишу для продолжения: ");
                 resize_mesg++;
                 break;
             }
@@ -681,7 +681,7 @@ tty_askname(void)
     if (iflags.wc2_selectsaved && !iflags.renameinprogress)
         switch (restore_menu(BASE_WINDOW)) {
         case -1:
-            bail("Until next time then..."); /* quit */
+            bail("До встречи..."); /* quit */
             /*NOTREACHED*/
             break;
         case 0:
@@ -695,7 +695,7 @@ tty_askname(void)
     do {
         if (++tryct > 1) {
             if (tryct > 10)
-                bail("Giving up after 10 tries.\n");
+                bail("Сдаюсь после 10 попыток.\n");
             tty_curs(BASE_WINDOW, 1, wins[BASE_WINDOW]->cury - 1);
             tty_putstr(BASE_WINDOW, 0, "\xC2\xE2\xE5\xE4\xE8 \xE8\xEC\xFF \xF1\xE2\xEE\xE5\xE3\xEE \xEF\xE5\xF0\xF1\xEE\xED\xE0\xE6\xE0...");
             /* erase previous prompt (in case of ESC after partial response) */
@@ -716,7 +716,7 @@ tty_askname(void)
             } /* continue outer loop */
 #if defined(WIN32CON)
             if (c == '\003')
-                bail("^C abort.\n");
+                bail("^C — прервать.\n");
 #endif
             /* some people get confused when their erase char is not ^H */
             if (c == '\b' || c == '\177') {
@@ -788,15 +788,15 @@ static void
 getret(void)
 {
 #if defined(MICRO) || defined(WIN32CON)
-    getreturn("to continue");
+    getreturn("чтобы продолжить");
 #else
     HUPSKIP();
     xputs("\n");
     if (flags.standout)
         standoutbeg();
-    xputs("Hit ");
-    xputs(iflags.cbreak ? "space" : "return");
-    xputs(" to continue: ");
+    xputs("Нажмите ");
+    xputs(iflags.cbreak ? "пробел" : "Enter");
+    xputs(" для продолжения: ");
     if (flags.standout)
         standoutend();
     xwaitforspace(" ");
@@ -2457,7 +2457,7 @@ tty_display_file(
 
         if (fd < 0) {
             if (complain)
-                pline("Cannot open %s.", fname);
+                pline("Не удалось открыть %s.", fname);
             else /* [is this refresh actually necessary?] */
                 docrt();
             return;
@@ -2469,11 +2469,11 @@ tty_display_file(
             (void) close(0);
             if (dup(fd)) {
                 if (complain)
-                    raw_printf("Cannot open %s as stdin.", fname);
+                    raw_printf("Не удалось открыть %s как stdin.", fname);
             } else {
                 (void) execlp(gc.catmore, "page", (char *) 0);
                 if (complain)
-                    raw_printf("Cannot exec %s.", gc.catmore);
+                    raw_printf("Не удалось запустить %s.", gc.catmore);
             }
             if (complain)
                 sleep(10); /* want to wait_synch() but stdin is gone */
@@ -2495,10 +2495,10 @@ tty_display_file(
                 tty_mark_synch();
                 tty_raw_print("");
                 perror(fname);
-                tty_wait_synch(); /* "Hit <space> to continue: " */
+                tty_wait_synch(); /* "Нажмите <пробел> для продолжения: " */
                 if (u.ux) /* if hero is on map, refresh the screen */
                     docrt();
-                pline("Cannot open \"%s\".", fname);
+                pline("Не удалось открыть \"%s\".", fname);
             }
         } else {
             winid datawin = tty_create_nhwindow(NHW_TEXT);
@@ -2619,7 +2619,7 @@ tty_add_menu(
 
         if (len >= BUFSZ) {
             /* We *think* everything's coming in off at most BUFSZ bufs... */
-            impossible("Menu item too long (%d).", len);
+            impossible("Пункт меню слишком длинный (%d).", len);
             len = BUFSZ - 1;
         }
         Sprintf(buf, "%c - ", ch ? ch : '?');
@@ -2978,9 +2978,9 @@ ttyinv_create_window(int newid, struct WinDesc *newwin)
                    &newwin->maxrow)) {
         tty_destroy_nhwindow(newid);
         WIN_INVEN = WIN_ERR;
-        pline("%s.", "tty perm_invent could not be enabled");
-        pline("tty perm_invent needs a terminal that is at least %dx%d, "
-              "yours is %dx%d.",
+        pline("%s.", "постоянное окно сумки не удалось включить");
+        pline("постоянному окну сумки нужен терминал не меньше %dx%d, "
+              "а у вас %dx%d.",
               (int) (minrow + 1 + ROWNO + StatusRows()), tty_perminv_mincol,
               ttyDisplay->rows, ttyDisplay->cols);
         tty_wait_synch();
@@ -4290,9 +4290,10 @@ static int hpbar_percent, hpbar_crit_hp;
 extern const struct conditions_t conditions[CONDITION_COUNT];
 
 static const char *const encvals[3][6] = {
-    { "", "Burdened", "Stressed", "Strained", "Overtaxed", "Overloaded" },
-    { "", "Burden",   "Stress",   "Strain",   "Overtax",   "Overload"   },
-    { "", "Brd",      "Strs",     "Strn",     "Ovtx",      "Ovld"       }
+    { "", "Навьючен", "Перегружен", "Перенапряжён", "Сверхгружен",
+      "Перегрузка" },
+    { "", "Навьюч.", "Перегр.", "Перенапр.", "Сверхгр.", "Перегр." },
+    { "", "Нав", "Пер", "Пна", "Свг", "Пгр" }
 };
 #define blPAD BL_FLUSH
 #define MAX_PER_ROW 19
