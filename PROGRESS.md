@@ -192,6 +192,12 @@
   «ответвление: …», «ветка: … (…)». Удалены мёртвые английские
   strsubst в dungeon.c, role.c, mkobj.c, botl.c. Сборка 0 ошибок,
   19 прежних warning'ов; Android синхронизирован.
+- Батч №26 (82bdbc6): options.c — paranoia[].explain (13), menutype и
+  msgwind, objsymvals, default_menu_cmd_info, меню disclosure
+  (disclosure_labels[] для показа, disclosure_names[] оставлен
+  английским из-за проверок v/g), заголовки меню, msgtype_names,
+  show_menu_controls, dotogglepickup («ВКЛ/ВЫКЛ»). Сборка 0 ошибок,
+  19 прежних warning'ов; Android синхронизирован.
 
 ## Что осталось
 
