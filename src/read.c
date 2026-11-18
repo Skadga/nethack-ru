@@ -2952,15 +2952,11 @@ do_genocide(
     which = "все ";
     Strcpy(realbuf, ptr->pmnames[NEUTRAL]); /* standard singular */
     if (Hallucination) {
-        /* hallucinate hero's type */
-        if (Upolyd) {
-            Strcpy(buf, pmname(gy.youmonst.data,
-                               flags.female ? FEMALE : MALE));
-        } else {
-            Strcpy(buf, (flags.female && gu.urole.name.f) ? gu.urole.name.f
-                                                          : gu.urole.name.m);
-            buf[0] = lowc(buf[0]);
-        }
+        /* hallucinate hero's type; for a non-polymorphed hero the base
+           monster is the role monster, so this also covers the role */
+        Strcpy(buf, pmname(gy.youmonst.data,
+                           flags.female ? FEMALE : MALE));
+        buf[0] = lowc(buf[0]);
     } else {
         /* use actual type */
         Strcpy(buf, realbuf);

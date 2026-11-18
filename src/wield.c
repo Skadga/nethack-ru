@@ -769,9 +769,7 @@ can_twoweapon(void)
         if (Upolyd)
             You_cant("использовать два оружия в вашей нынешней форме.");
         else
-            pline("%s не способны использовать два оружия сразу.",
-                  makeplural((flags.female && gu.urole.name.f)
-                             ? gu.urole.name.f : gu.urole.name.m));
+            You_cant("использовать два оружия сразу.");
     } else if (!uwep || !uswapwep) {
         const char *hand_s =
             (!uwep && !uswapwep) ? body_part_case(HAND, BP_NOM | BP_PLURAL)
