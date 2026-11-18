@@ -775,3 +775,23 @@
   перепакован. Проверка: dat/rumors декодируется в русский текст,
   строка «Повязка на глазах...» найдена в nhdat500.
 - data.base остаётся английским (hi=0) — отдельная задача локализации.
+
+## 2026-11-18 — батч 76: падежи богов/лидеров/противников
+
+- pray.c: god_gen_tab[][6] — 6 падежей для 37 богов + 3 эльфийских
+  (Солонор Теландира, Аэрдри Фэния, Лолт); god_gen() = god_case(nom, 2),
+  добавлен god_case(const char *, int) (cse 1..6), extern в extern.h.
+- role.c: godgend через strcmp(align_gtitle(), "богиня").
+- questpgr.c: convert_line понимает %d1..%d6/%D1..%D6, %l1..%l6,
+  %n1..%n6 (после convert_arg, рядом с %H/%i).
+- do_name.c: mon_paradigms[] — 13 лидеров квестов (6 падежей, s[]).
+- dat/quest.lua: 130 маркеров (84 %d + 46 %l), правки 146/168/1131/
+  1762/1337/1549/1378/1590/238/1984. CRLF 3047, bare LF 0, FFFD 0.
+- Сборка Release x64: 0 ошибок, 19 warning'ов (как прежде).
+- Android-копия синхронизирована (6 файлов, identical True).
+
+Осталось: падежи %n в позиции дополнения (нужна таблица имён
+противников в mon_gen, как у лидеров); hcolors[]; s_suffix на
+convert_arg; %G/%V; strcmpi/кириллица; wish-парсер; tower2.lua
+spellbook; win/win32 ASCII-метки меню; glyphs.c zap_texts;
+timeout.c:2045-2050; report.c:314.
