@@ -570,7 +570,7 @@ mcast_lightning(struct monst *mtmp, int dmg)
 
     Soundeffect(se_bolt_of_lightning, 80);
     pline("Молния ударяет в вас сверху!");
-    reflects = ureflects("It bounces off your %s%s.", "");
+    reflects = ureflects("Отражается вашим %s%s.", "");
     orig_dmg = dmg = d(8, 6);
     if (reflects || Shock_resistance) {
         shieldeff(u.ux, u.uy);

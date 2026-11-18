@@ -634,7 +634,7 @@ god_zaps_you(aligntyp resp_god)
             if (Blind)
                 pline("По какой-то причине вы невредимы.");
             else
-                (void) ureflects("%s отражается от вашего %s.", "Оно");
+                (void) ureflects("%s отражается вашим %s.", "Оно");
             monstseesu(M_SEEN_REFL);
         } else if (Shock_resistance) {
             shieldeff(u.ux, u.uy);

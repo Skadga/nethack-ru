@@ -490,39 +490,39 @@ readmail(struct obj *otmp UNUSED)
     enum delivery_types delivery = normal_delivery;
     const char *recipient = 0;
     static const char *const junk_templates[] = {
-        "%sReport bugs to <%s>.%s", /*** must be first entry ***/
-        "Please disregard previous letter.",
-        "Welcome to NetHack.",
+        "%sСообщайте об ошибках на <%s>.%s", /*** must be first entry ***/
+        "Проигнорируйте предыдущее письмо.",
+        "Добро пожаловать в NetHack.",
 #ifdef AMIGA
         "Only Amiga makes it possible.",
         "CATS have all the answers.",
 #endif
-        "This mail complies with the Yendorian Anti-Spam Act (YASA)",
-        "Please find enclosed a small token to represent your Owlbear",
-        "**FR33 P0T10N 0F FULL H34L1NG**",
-        "Please return to sender (Asmodeus)",
+        "Это письмо соответствует Закону Йендора о спаме (YASA)",
+        "Прилагаем небольшой жетон в виде вашего совомедведя",
+        "**БЕСПЛАТНОЕ ЗЕЛЬЕ ПОЛНОГО ЛЕЧЕНИЯ**",
+        "Верните отправителю (Асмодею)",
         /* when enclosed by "It reads:  \"...\"", this is too long
            for an ordinary 80-column display so wraps to a second line
            (suboptimal but works correctly);
            dollar sign and fractional zorkmids are inappropriate within
            nethack but are suitable for typical dysfunctional spam mail */
-        ("Buy a potion of gain level for only $19.99! "
-         " Guaranteed to be blessed!"),
+        ("Купите зелье повышения уровня всего за $19.99! "
+         " Гарантированно благословенно!"),
         /* DEVTEAM_URL will be substituted for 2nd "%s";
            terminating punctuation (formerly "!") has deliberately been
            omitted so that it can't be mistaken for part of the URL
            (unfortunately that is still followed by a closing quote--in
            the pline below, not the data here) */
-        "%sInvitation: Visit the NetHack web site at %s%s"
+        "%sПриглашение: посетите сайт NetHack по адресу %s%s"
     };
-    const char *const it_reads = "It reads:  \"";
+    const char *const it_reads = "В нём написано:  \"";
 
     i = rn2(SIZE(junk_templates));
     if (strchr(junk_templates[i], '%')) {
         if (i == 0) {
             recipient = DEVTEAM_EMAIL;
             delivery = subst_delivery;
-        } else if (strstri(junk_templates[i], "web site")) {
+        } else if (strstr(junk_templates[i], "сайт")) {
             recipient = DEVTEAM_URL;
             delivery = subst_delivery;
         } else {

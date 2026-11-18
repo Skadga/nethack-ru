@@ -776,7 +776,7 @@ drag_ball(coordxy x, coordxy y, int *bc_control,
 
     if (near_capacity() > SLT_ENCUMBER && dist2(x, y, u.ux, u.uy) <= 2) {
         You("не можете %sтащить тяжёлый железный шар.",
-            gi.invent ? "carry all that and also " : "");
+            gi.invent ? "нести всё это, а также " : "");
         nomul(0);
         return FALSE;
     }

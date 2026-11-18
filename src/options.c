@@ -4046,9 +4046,9 @@ optfn_statushilites(
     if (req == get_val) {
 #ifdef STATUS_HILITES
         if (!iflags.hilite_delta)
-            Strcpy(opts, "0 (off: don't highlight status fields)");
+            Strcpy(opts, "0 (выкл: не подсвечивать поля статуса)");
         else
-            Sprintf(opts, "%ld (on: highlight status for %ld turns)",
+            Sprintf(opts, "%ld (вкл: подсветка статуса %ld ходов)",
                     iflags.hilite_delta, iflags.hilite_delta);
 #else
         Strcpy(opts, "unsupported");

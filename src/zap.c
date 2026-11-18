@@ -4970,7 +4970,7 @@ dobuzz(
                           The(flash_str(fltyp, FALSE)));
                 if (Reflecting) {
                     if (!Blind) {
-                        (void) ureflects("Но %s отражается от вашего %s!",
+                        (void) ureflects("Но %s отражается вашим %s!",
                                          "он");
                     } else
                         pline("По какой-то причине вы не затронуты.");

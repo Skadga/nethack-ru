@@ -2873,8 +2873,8 @@ use_trap(struct obj *otmp)
         what = (levtyp == AIR)
                    ? "в воздухе"
                    : (levtyp == CLOUD)
-                         ? "in a cloud"
-                         : "in this place"; /* Air/Water Plane catch-all */
+                         ? "в облаке"
+                         : "в этом месте"; /* Air/Water Plane catch-all */
     if (what) {
         You_cant("устанавливать ловушку %s!", what);
         reset_trapset();
@@ -3109,7 +3109,7 @@ use_whip(struct obj *obj)
          * if you're confused (and thus off the mark)
          *    - you only end up hitting.
          */
-        const char *wrapped_what = sobj_at(BOULDER, rx, ry) ? "a boulder"
+        const char *wrapped_what = sobj_at(BOULDER, rx, ry) ? "валуна"
                                    : IS_FURNITURE(levl[rx][ry].typ)
                                      ? something : (char *) 0;
 
@@ -3813,7 +3813,7 @@ use_grapple(struct obj *obj)
                  clr, buf, MENU_ITEMFLAGS_NONE);
         any.a_int++;
         add_menu(tmpwin, &nul_glyphinfo, &any, 0, 0, ATR_NONE,
-                 clr, "a monster", MENU_ITEMFLAGS_NONE);
+                 clr, "монстр", MENU_ITEMFLAGS_NONE);
         any.a_int++;
         Sprintf(buf, "%s", surface(cc.x, cc.y));
         add_menu(tmpwin, &nul_glyphinfo, &any, 0, 0, ATR_NONE, clr,
@@ -3957,7 +3957,7 @@ do_break_wand(struct obj *obj)
     if (!paranoid_query(ParanoidBreakwand,
                         safe_qbuf(confirm,
                                   "Ты действительно хочешь сломать ",
-                                  "?", obj, yname, ysimple_name, "the wand")))
+                                  "?", obj, yname, ysimple_name, "жезл")))
         return ECMD_OK;
     pline("Подняв %s высоко над твоей %s, ты %s его пополам!", yname(obj),
           body_part_case(HEAD, BP_INS), is_fragile ? "ломаешь" : "ломаешь");
