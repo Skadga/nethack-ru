@@ -2999,17 +2999,17 @@ overview_stats(
         }
     }
 
-    Sprintf(hdrbuf, "general, size %ld", (long) sizeof (mapseen));
+    Sprintf(hdrbuf, "общие, размер %ld", (long) sizeof (mapseen));
     Sprintf(buf, statsfmt, hdrbuf, ocount, osize);
     putstr(win, 0, buf);
     if (bcount) {
-        Sprintf(hdrbuf, "cemetery, size %ld",
+        Sprintf(hdrbuf, "надгробия, размер %ld",
                 (long) sizeof (struct cemetery));
         Sprintf(buf, statsfmt, hdrbuf, bcount, bsize);
         putstr(win, 0, buf);
     }
     if (acount) {
-        Sprintf(hdrbuf, "annotations, text");
+        Sprintf(hdrbuf, "аннотации, текст");
         Sprintf(buf, statsfmt, hdrbuf, acount, asize);
         putstr(win, 0, buf);
     }

@@ -882,7 +882,7 @@ const char *terrain_descr[] = {
        "Решётка",       /* dbwall, closed drawbridge 'door' */
        "Дерево",
        c_Wall,          /* sdoor: secret door */
-       "Stone",         /* scorr: secret corridor */
+       "Камень",        /* scorr: secret corridor */
        "Вода",          /* pool or non-moat water; can be boiled away */
        "Ров",           /* water that can't be boiled away */
        "Вода",          /* water on Water level; can't be boiled or frozen */

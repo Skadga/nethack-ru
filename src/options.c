@@ -3578,7 +3578,7 @@ optfn_roguesymset(
                 gs.symset[ROGUESET].name ? gs.symset[ROGUESET].name
                                          : "default");
         if (gc.currentgraphics == ROGUESET && gs.symset[ROGUESET].name)
-            Strcat(opts, ", active");
+            Strcat(opts, ", активен");
         return optn_ok;
     }
     if (req == do_handler) {
@@ -4209,7 +4209,7 @@ optfn_symset(
                 gs.symset[PRIMARYSET].name ? gs.symset[PRIMARYSET].name
                                           : "default");
         if (gc.currentgraphics == PRIMARYSET && gs.symset[PRIMARYSET].name)
-            Strcat(opts, ", active");
+            Strcat(opts, ", активен");
         if (gs.symset[PRIMARYSET].handling) {
             Sprintf(eos(opts), ", handler=%s",
                     known_handling[gs.symset[PRIMARYSET].handling]);

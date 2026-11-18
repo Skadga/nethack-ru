@@ -3318,9 +3318,9 @@ ttyinv_render(winid window, struct WinDesc *cw)
            continue;
         if (slot == 0 && !filled_count) {
             Sprintf(invbuf, "%-4s[%s]", "",
-                    inuse_only ? "no items are in use"
-                    : (!show_gold && money_cnt(gi.invent)) ? "only gold"
-                      : "empty");
+                    inuse_only ? "ничего не используется"
+                    : (!show_gold && money_cnt(gi.invent)) ? "только золото"
+                      : "пусто");
         } else if (sparse && filled_count) {
             Sprintf(invbuf, "%c", slot_to_invlet(slot, show_gold));
         } else {

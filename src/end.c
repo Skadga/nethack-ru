@@ -1099,7 +1099,7 @@ done(int how)
            accept it more than once if there's no user supplying it */
         && !(program_state.done_hup && gd.done_seq++ == gh.hero_seq)
 #endif
-        && !paranoid_query(ParanoidDie, "Die?")) {
+        && !paranoid_query(ParanoidDie, "Умереть?")) {
         pline("Ладно, значит, вы не %s.", (how == CHOKING) ? "задохнетесь" : "умрёте");
         iflags.last_msg = PLNMSG_OK_DONT_DIE;
         savelife(how);
