@@ -2151,7 +2151,7 @@ pay_billed_items(
                 if (boxbag_result == 2)    /* ... but didn't explain why */
                     verbalize("Вам нужно убрать неоплаченные предметы из "
                               " того %s и купить их отдельно.",
-                              simpleonames(otmp));
+                              ru_noun_case(simpleonames(otmp), BP_GEN));
                 buy = PAY_CANT;
             }
         } else {
@@ -2491,7 +2491,7 @@ insufficient_funds(
     if (cost && umoney + ecredit < cost) {
         stashed_gold = hidden_gold(TRUE);
         You("не можете заплатить за %s: %sзолота%s не хватает.",
-            paydoname(item),
+            ru_noun_case(paydoname(item), BP_ACC),
             (stashed_gold > 0L) ? "по-видимому, " : "",
             (ecredit > 0L) ? " и кредита" : "");
         return TRUE;

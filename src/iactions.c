@@ -113,10 +113,10 @@ item_reading_classification(struct obj *obj, char *outbuf)
                 tome = (otyp == SPE_BOOK_OF_THE_DEAD
                         && objects[otyp].oc_name_known);
 
-        Sprintf(outbuf, "%s этот %s",
+        Sprintf(outbuf, "%s %s",
                 (novel || blank) ? "Прочитать" : tome ? "Изучить" : "Штудировать",
-                novel ? simpleonames(obj) /* "novel" or "paperback book" */
-                      : tome ? "том" : "книга заклинаний");
+                novel ? ru_noun_case(simpleonames(obj), BP_ACC)
+                      : tome ? "том" : "книгу заклинаний");
     } else {
         res = IA_NONE;
     }

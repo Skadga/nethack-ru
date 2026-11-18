@@ -1871,12 +1871,14 @@ attributes_enlightenment(
         /* foreign shape (except were-form which is handled below) */
         if (!vampshifted(&gy.youmonst))
             Sprintf(buf, "превращены в %s",
-                    pmname(gy.youmonst.data,
-                              flags.female ? FEMALE : MALE));
+                    ru_noun_case(pmname(gy.youmonst.data,
+                                        flags.female ? FEMALE : MALE),
+                                 BP_ACC));
         else
             Sprintf(buf, "превращены в %s, форма %s",
-                    pmname(&mons[gy.youmonst.cham],
-                              flags.female ? FEMALE : MALE),
+                    ru_noun_case(pmname(&mons[gy.youmonst.cham],
+                                        flags.female ? FEMALE : MALE),
+                                 BP_ACC),
                     pmname(gy.youmonst.data, flags.female ? FEMALE : MALE));
         if (wizard)
             Sprintf(eos(buf), " (%d)", u.mtimedone);

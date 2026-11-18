@@ -2463,7 +2463,8 @@ fig_transform(anything *arg, long timeout)
         if (mtmp->mundetected) {
             if (hides_under(mtmp->data) && mshelter) {
                 Sprintf(and_vanish, " и %s под %s",
-                        locomotion(mtmp->data, "crawl"), doname(mshelter));
+                        locomotion(mtmp->data, "crawl"),
+                        ru_noun_case(doname(mshelter), BP_PREP));
             } else if (mtmp->data->mlet == S_MIMIC
                        || mtmp->data->mlet == S_EEL) {
                 suppress_see = TRUE;

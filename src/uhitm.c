@@ -292,7 +292,7 @@ attack_checks(
             else if ((obj = svl.level.objects[mtmp->mx][mtmp->my]) != 0)
                 pline("Подождите! Там %s прячется под %s!",
                       notseen ? something : (const char *) an(lmonbuf),
-                      doname(obj));
+                      ru_noun_case(doname(obj), BP_INS));
             return TRUE;
         }
     }
@@ -4714,7 +4714,8 @@ mhitm_ad_sedu(
                 if (canseemon(magr))
                     pline_mon(magr, "%s пытается %s с %s.",
                               Monnam(magr),
-                              locomotion(magr->data, "убежать"), buf);
+                              locomotion(magr->data, "убежать"),
+                              ru_noun_case(buf, BP_INS));
             }
             monflee(magr, 0, FALSE, FALSE);
             mhm->hitflags = M_ATTK_AGR_DONE; /* return 3??? */

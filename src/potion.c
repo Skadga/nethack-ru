@@ -2399,8 +2399,8 @@ dip_into(void)
         return ECMD_CANCEL;
 
     /* "What do you want to dip into <the potion>? [abc or ?*] " */
-    Snprintf(qbuf, sizeof qbuf, "окунуть в %s%s",
-             is_plural(potion) ? "одна из " : "", thesimpleoname(potion));
+    Snprintf(qbuf, sizeof qbuf, "окунуть в %s",
+             ru_noun_case(thesimpleoname(potion), BP_ACC));
     obj = getobj(qbuf, dip_ok, GETOBJ_PROMPT);
     if (!obj)
         return ECMD_CANCEL;

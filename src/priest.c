@@ -573,7 +573,7 @@ priest_talk(struct monst *priest)
     if (!u.uconduct.gnostic++)
         livelog_printf(LL_CONDUCT,
                        "отвергли атеизм, посоветовавшись с %s",
-                       mon_nam(priest));
+                       mon_gen(priest, BP_INS));
 
     if (priest->mflee || (!priest->ispriest && coaligned && strayed)) {
         pline("%s не хочет иметь с вами дела!", Monnam(priest));
