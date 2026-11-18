@@ -472,6 +472,8 @@ staticfn void
 background_enlightenment(int unused_mode UNUSED, int final)
 {
     const char *role_titl, *rank_titl;
+    static const char *const expforms[3]
+        = { "очко опыта", "очка опыта", "очков опыта" };
     int innategend, difgend, difalgn;
     char buf[BUFSZ], tmpbuf[BUFSZ];
 
@@ -624,8 +626,14 @@ background_enlightenment(int unused_mode UNUSED, int final)
         int egdepth = observable_depth(&u.uz);
 
         (void) endgamelevelname(tmpbuf, egdepth);
-        Snprintf(buf, sizeof buf, "в эндшпиле, на %s%s",
-                 "", tmpbuf);
+        if (!strncmp(tmpbuf, "План ", 5))
+            Snprintf(buf, sizeof buf, "в эндшпиле, на Плане %s",
+                     tmpbuf + 5);
+        else if (!strcmp(tmpbuf, "Астральный План"))
+            Snprintf(buf, sizeof buf,
+                     "в эндшпиле, на Астральном Плане");
+        else
+            Snprintf(buf, sizeof buf, "в эндшпиле, на %s", tmpbuf);
     } else if (Is_knox(&u.uz)) {
         /* this gives away the fact that the knox branch is only 1 level */
         Sprintf(buf, "на %s уровне", svd.dungeons[u.uz.dnum].dname);
@@ -707,7 +715,7 @@ background_enlightenment(int unused_mode UNUSED, int final)
         /* [flags.showexp currently does not matter; should it?] */
 
         /* experience level is already shown above */
-        Sprintf(buf, "%-1ld очков опыта", u.uexp);
+        Sprintf(buf, "%ld %s", u.uexp, expforms[ru_num_form(u.uexp)]);
         /* TODO?
          *  Remove wizard-mode restriction since patient players can
          *  determine the numbers needed without resorting to spoilers
@@ -719,8 +727,8 @@ background_enlightenment(int unused_mode UNUSED, int final)
         if (ulvl < 30 && (final || wizard)) {
             long nxtlvl = newuexp(ulvl), delta = nxtlvl - u.uexp;
 
-            Sprintf(eos(buf), ", ещё %ld очков до %s уровня %d",
-                    delta,
+            Sprintf(eos(buf), ", ещё %ld %s до %s уровня %d",
+                    delta, expforms[ru_num_form(delta)],
                     /* present tense=="needed", past tense=="were needed" */
                     (ulvl < 18) ? "следующего" : "след.",
                     (ulvl + 1));
@@ -744,7 +752,14 @@ background_enlightenment(int unused_mode UNUSED, int final)
 staticfn void
 basics_enlightenment(int mode UNUSED, int final)
 {
-    static char Power[] = "очков энергии (сила заклинаний)";
+    static const char *const hpforms[3]
+        = { "очко здоровья", "очка здоровья", "очков здоровья" };
+    static const char *const pwforms[3]
+        = { "очко энергии (сила заклинаний)",
+            "очка энергии (сила заклинаний)",
+            "очков энергии (сила заклинаний)" };
+    static const char *const hitforms[3]
+        = { "хит", "хита", "хитов" };
     char buf[BUFSZ];
     int pw = u.uen, hp = (Upolyd ? u.mh : u.uhp),
         pwmax = u.uenmax, hpmax = (Upolyd ? u.mhmax : u.uhpmax);
@@ -756,18 +771,21 @@ basics_enlightenment(int mode UNUSED, int final)
         hp = 0;
     /* "1 out of 1" rather than "all" if max is only 1; should never happen */
     if (hp == hpmax && hpmax > 1)
-        Sprintf(buf, "имеете все %d очков здоровья", hpmax);
+        Sprintf(buf, "имеете все %d %s", hpmax,
+                hpforms[ru_num_form(hpmax)]);
     else
         Sprintf(buf, "имеете %d из %d очков здоровья", hp, hpmax);
     you_have(buf, "");
 
     /* low max energy is feasible, so handle couple of extra special cases */
     if (pwmax == 0 || (pw == pwmax && pwmax == 2)) /* both: not "all 2" */
-        Sprintf(buf, "%s %s", !pwmax ? "не имеете" : "имеете оба", Power);
+        Sprintf(buf, "%s %s", !pwmax ? "не имеете" : "имеете оба",
+                !pwmax ? pwforms[2] : pwforms[1]);
     else if (pw == pwmax && pwmax > 2)
-        Sprintf(buf, "имеете все %d %s", pwmax, Power);
+        Sprintf(buf, "имеете все %d %s", pwmax,
+                pwforms[ru_num_form(pwmax)]);
     else
-        Sprintf(buf, "имеете %d из %d %s", pw, pwmax, Power);
+        Sprintf(buf, "имеете %d из %d %s", pw, pwmax, pwforms[2]);
     you_have(buf, "");
 
     if (Upolyd) {
@@ -780,7 +798,8 @@ basics_enlightenment(int mode UNUSED, int final)
             Strcpy(buf, "1 хит");
             break;
         default:
-            Sprintf(buf, "%d хитов", mons[u.umonnum].mlevel);
+            Sprintf(buf, "%d %s", mons[u.umonnum].mlevel,
+                    hitforms[ru_num_form(mons[u.umonnum].mlevel)]);
             break;
         }
         you_have(buf, "");
