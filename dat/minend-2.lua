@@ -84,8 +84,8 @@ des.non_diggable(selection.area(53,14,61,14))
 -- The Gnome King's wine cellar.
 -- the Trespassers sign is a long-running joke
 des.engraving({12,03}, "engrave",
-	      "You are now entering the Gnome King's wine cellar.")
-des.engraving({12,04}, "engrave", "Trespassers will be persecuted!")
+	      "Вы входите в винный погреб Гномьего Короля.")
+des.engraving({12,04}, "engrave", "Нарушители будут гонимы!")
 des.object("алкоголь", 10, 07)
 des.object("алкоголь", 10, 07)
 des.object("!", 10, 07)

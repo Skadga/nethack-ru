@@ -238,7 +238,7 @@ static NEARDATA struct artifact artilist[] = {
          * Elf role; in 3.3.0 elf became a race available to several roles
          * and the Elf role along with its quest was eliminated; it's a bit
          * overpowered to be an ordinary artifact so leave it excluded */
-    A("The Palantir of Westernesse", CRYSTAL_BALL,
+    A("Палантир Западного Края", CRYSTAL_BALL,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL),
                                      (SPFX_ESP | SPFX_REGEN | SPFX_HSPDAM), 0,
       NO_ATTK, NO_DFNS, NO_CARY, TAMING, A_CHAOTIC, NON_PM, PM_ELF,

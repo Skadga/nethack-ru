@@ -90,7 +90,7 @@ questtext = {
          "\"ѕусть %D будет свидетелем: € теб€ сражу!\"",
       },
       banished = {
-         synopsis = "[You are banished from %H for betraying your allegiance to %d.]",
+         synopsis = "[¬ас изгон€ют из %H за измену прис€ге.]",
          output = "text",
          text = [["“ы предал всех, дл€ кого %d Ч бог, как когда-то и дл€ теб€.
 %d остаЄтс€ моим богом, и € не могу ни оправдать, ни прин€ть

@@ -31,7 +31,7 @@ des.stair("up", 39,10)
 -- Non diggable walls
 des.non_diggable(selection.area(00,00,40,11))
 -- Objects
-des.object({ id = "цеп", x=20, y=06, buc="blessed", spe=0, name="The Staff of Aesculapius" })
+des.object({ id = "посох", x=20, y=06, buc="blessed", spe=0, name="Посох Эскулапа" })
 des.object("молния", 20, 06)
 des.object()
 des.object()

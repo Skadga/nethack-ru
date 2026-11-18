@@ -36,7 +36,7 @@ des.stair("up", 19,10)
 -- Non diggable walls
 des.non_diggable(selection.area(00,00,75,19))
 -- Objects
-des.object({ id = "лук", x=37, y=10, buc="blessed", spe=0, name="The Longbow of Diana" })
+des.object({ id = "лук", x=37, y=10, buc="blessed", spe=0, name="Длинный Лук Дианы" })
 des.object("сундук", 37, 10)
 des.object({ coord = { 36, 09 } })
 des.object({ coord = { 36, 10 } })

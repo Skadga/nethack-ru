@@ -44,7 +44,7 @@ local postprocess = { };
 themeroom_fills = {
 
    {
-      name = "Ice room",
+      name = "Ледяная комната",
       contents = function(rm)
          local ice = selection.room();
          des.terrain(ice, "I");
@@ -59,7 +59,7 @@ themeroom_fills = {
    },
 
    {
-      name = "Cloud room",
+      name = "Облачная комната",
       contents = function(rm)
          local fog = selection.room();
          for i = 1, (fog:numpoints() / 4) do
@@ -70,7 +70,7 @@ themeroom_fills = {
    },
 
    {
-      name = "Boulder room",
+      name = "Комната с валуном",
       mindiff = 4,
       contents = function(rm)
          local locs = selection.room():percentage(30);
@@ -86,7 +86,7 @@ themeroom_fills = {
    },
 
    {
-      name = "Spider nest",
+      name = "Паучье гнездо",
       contents = function(rm)
          local spooders = nh.level_difficulty() > 8;
          local locs = selection.room():percentage(30);
@@ -99,7 +99,7 @@ themeroom_fills = {
    },
 
    {
-      name = "Trap room",
+      name = "Комната с ловушками",
       contents = function(rm)
          local traps = { "arrow", "dart", "falling rock", "bear",
                         "land mine", "sleep gas", "rust",
@@ -114,7 +114,7 @@ themeroom_fills = {
    },
 
    {
-      name = "Garden",
+      name = "Сад",
       eligible = function(rm) return rm.lit == true; end,
       contents = function(rm)
          local s = selection.room();
@@ -131,7 +131,7 @@ themeroom_fills = {
    },
 
    {
-      name = "Buried treasure",
+      name = "Зарытый клад",
       contents = function(rm)
          des.object({ id = "сундук", buried = true, contents = function(otmp)
             local xobj = otmp:totable();
@@ -148,7 +148,7 @@ themeroom_fills = {
    },
 
    {
-      name = "Buried zombies",
+      name = "Зарытые зомби",
       contents = function(rm)
          local diff = nh.level_difficulty()
          -- start with [1..4] for low difficulty
@@ -170,7 +170,7 @@ themeroom_fills = {
    },
 
    {
-      name = "Massacre",
+      name = "Резня",
       contents = function(rm)
          local mon = { "подмастерье", "воин", "ниндзя", "головорез",
                      "охотник", "послушник", "аббат", "паж",
@@ -189,7 +189,7 @@ themeroom_fills = {
    },
 
    {
-      name = "Statuary",
+      name = "Статуи",
       contents = function(rm)
          for i = 1, d(5,5) do
             des.object({ id = "статуя" });
@@ -202,7 +202,7 @@ themeroom_fills = {
 
 
    {
-      name = "Light source",
+      name = "Источник света",
       eligible = function(rm) return rm.lit == false; end,
       contents = function(rm)
          des.object({ id = "масляная лампа", lit = true });
@@ -210,7 +210,7 @@ themeroom_fills = {
    },
 
    {
-      name = "Temple of the gods",
+      name = "Храм богов",
       contents = function(rm)
          des.altar({ align = align[1] });
          des.altar({ align = align[2] });
@@ -219,7 +219,7 @@ themeroom_fills = {
    },
 
    {
-      name = "Ghost of an Adventurer",
+      name = "Призрак искателя приключений",
       contents = function(rm)
          local loc = selection.room():rndcoord(0);
          des.monster({ id = "призрак", asleep = true, waiting = true,
@@ -247,7 +247,7 @@ themeroom_fills = {
    },
 
    {
-      name = "Storeroom",
+      name = "Кладовая",
       contents = function(rm)
          local locs = selection.room():percentage(30);
          local func = function(x,y)
@@ -262,7 +262,7 @@ themeroom_fills = {
    },
 
    {
-      name = "Teleportation hub",
+      name = "Телепортационный узел",
       contents = function(rm)
          local locs = selection.room():filter_mapchar(".");
          for i = 1, 2 + nh.rn2(3) do
@@ -281,7 +281,7 @@ themeroom_fills = {
 
 themerooms = {
    {
-      name = "default",
+      name = "обычная",
       frequency = 1000,
       contents = function()
          des.room({ type = "ordinary", filled = 1 });
@@ -289,7 +289,7 @@ themerooms = {
    },
 
    {
-      name = "Fake Delphi",
+      name = "Фальшивые Дельфы",
       contents = function()
          des.room({ type = "ordinary", w = 11,h = 9, filled = 1,
                   contents = function()
@@ -305,7 +305,7 @@ themerooms = {
    },
 
    {
-      name = "Room in a room",
+      name = "Комната в комнате",
       contents = function()
          des.room({ type = "ordinary", filled = 1,
                   contents = function()
@@ -320,7 +320,7 @@ themerooms = {
    },
 
    {
-      name = "Huge room with another room inside",
+      name = "Огромная комната с комнатой внутри",
       contents = function()
          des.room({ type = "ordinary", w = nh.rn2(10)+11,h = nh.rn2(5)+8,
                     filled = 1,
@@ -341,7 +341,7 @@ themerooms = {
    },
 
    {
-      name = "Nesting rooms",
+      name = "Вложенные комнаты",
       contents = function()
          des.room({ type = "ordinary", w = 9 + nh.rn2(4), h = 9 + nh.rn2(4),
                     filled = 1,
@@ -373,7 +373,7 @@ themerooms = {
    },
 
    {
-      name = "Default room with themed fill",
+      name = "Обычная комната с тематическим наполнением",
       frequency = 6,
       contents = function()
          des.room({ type = "themed", contents = themeroom_fill });
@@ -381,7 +381,7 @@ themerooms = {
    },
 
    {
-      name = "Unlit room with themed fill",
+      name = "Тёмная комната с тематическим наполнением",
       frequency = 2,
       contents = function()
          des.room({ type = "themed", lit = 0, contents = themeroom_fill });
@@ -389,7 +389,7 @@ themerooms = {
    },
 
    {
-      name = "Room with both normal contents and themed fill",
+      name = "Комната с обычным содержимым и тематическим наполнением",
       frequency = 2,
       contents = function()
          des.room({ type = "themed", filled = 1, contents = themeroom_fill });
@@ -930,13 +930,13 @@ function themerooms_generate()
       -- (if the user specified BOTH a room and a fill, presumably they are
       -- interested in what happens when that room gets that fill, so don't
       -- bother generating default-with-fill rooms as happens below)
-      local actualrm = lookup_by_name("default", false);
+      local actualrm = lookup_by_name("обычная", false);
       if percent(50) then
          if is_eligible(themerooms[debug_rm_idx]) then
             actualrm = debug_rm_idx
          else
-            pline("Warning: themeroom '"..themerooms[debug_rm_idx].name
-                  .."' is ineligible")
+            pline("Внимание: тематическая комната '"..themerooms[debug_rm_idx].name
+                  .."' непригодна")
          end
       end
       themerooms[actualrm].contents();
@@ -945,8 +945,8 @@ function themerooms_generate()
       -- when a fill is requested but not a room, still create the "default"
       -- room half of the time, and "default with themed fill" half of the time
       -- (themeroom_fill will take care of guaranteeing the fill in it)
-      local actualrm = lookup_by_name(percent(50) and "Default room with themed fill"
-                                                  or "default")
+      local actualrm = lookup_by_name(percent(50) and "Обычная комната с тематическим наполнением"
+                                                  or "обычная")
       themerooms[actualrm].contents();
       return
    end
@@ -954,7 +954,7 @@ function themerooms_generate()
    local total_frequency = 0;
    for i = 1, #themerooms do
       if (type(themerooms[i]) ~= "table") then
-         nh.impossible('themed room '..i..' is not a table')
+         nh.impossible('тематическая комната '..i..' — не таблица')
       elseif is_eligible(themerooms[i], nil) then
          -- Reservoir sampling: select one room from the set of eligible rooms,
          -- which may change on different levels because of level difficulty.
@@ -972,7 +972,7 @@ function themerooms_generate()
       end
    end
    if pick == nil then
-      nh.impossible('no eligible themed rooms?')
+      nh.impossible('нет подходящих тематических комнат?')
       return
    end
    themerooms[pick].contents();
@@ -987,17 +987,17 @@ function pre_themerooms_generate()
    debug_fill_idx = lookup_by_name(debug_fill, true)
    if debug_themerm ~= nil and debug_rm_idx == nil then
       if lookup_by_name(debug_themerm, true) ~= nil then
-         xtrainfo = "; it is a fill type"
+         xtrainfo = "; это тип наполнения"
       end
-      pline("Warning: themeroom '"..debug_themerm
-            .."' not found in themerooms"..xtrainfo, true)
+      pline("Внимание: тематическая комната '"..debug_themerm
+            .."' не найдена в themerooms"..xtrainfo, true)
    end
    if debug_fill ~= nil and debug_fill_idx == nil then
       if lookup_by_name(debug_fill, false) ~= nil then
-         xtrainfo = "; it is a room type"
+         xtrainfo = "; это тип комнаты"
       end
-      pline("Warning: themeroom fill '"..debug_fill
-            .."' not found in themeroom_fills"..xtrainfo, true)
+      pline("Внимание: наполнение '"..debug_fill
+            .."' не найдено в themeroom_fills"..xtrainfo, true)
    end
 end
 
@@ -1015,8 +1015,8 @@ function themeroom_fill(rm)
          -- some more context on whether it failed because of difficulty or
          -- because of eligible function returning false; the warning doesn't
          -- necessarily mean anything.
-         pline("Warning: fill '"..themeroom_fills[debug_fill_idx].name
-               .."' is not eligible in room that generated it")
+         pline("Внимание: наполнение '"..themeroom_fills[debug_fill_idx].name
+               .."' непригодно для комнаты, где оно создано")
       end
       return
    end

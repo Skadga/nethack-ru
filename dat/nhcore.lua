@@ -98,7 +98,7 @@ function mk_dgl_extrainfo()
             extrai:close();
         else
             -- failed to open the file.
-            nh.pline("Failed to open dgl extrainfo file: " .. err);
+            nh.pline("Не удалось открыть файл dgl extrainfo: " .. err);
         end
         prev_dgl_extrainfo = u.moves;
     end

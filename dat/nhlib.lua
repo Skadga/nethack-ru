@@ -10,7 +10,7 @@ math.random = function(...)
       return nh.random(arg[1], arg[2] + 1 - arg[1]);
    else
       -- we don't support reals
-      error("NetHack math.random requires at least one parameter");
+      error("NetHack math.random требует хотя бы один параметр");
    end
 end
 
@@ -221,8 +221,8 @@ local tutorial_events = {
          if (u.uhunger < 148) then
             local o = obj.new("blessed food ration");
             o:placeobj(u.ux, u.uy);
-            nh.pline("Looks like you're getting hungry.  You'll starve to death, unless you eat something.", true);
-            nh.pline("Comestibles are eaten with '" .. nh.eckey("eat") .. "'", true);
+            nh.pline("Похоже, вы проголодались.  Вы умрёте от голода, если ничего не съедите.", true);
+            nh.pline("Еду едят с помощью '" .. nh.eckey("eat") .. "'", true);
             return true;
          end
       end
