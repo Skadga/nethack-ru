@@ -3625,7 +3625,8 @@ xkilled(
             gz.zombify = FALSE; /* reset */
             if (burycorpse && cadaver && cansee(x, y) && !mtmp->minvis
                 && cadaver->where == OBJ_BURIED && !nomsg) {
-                pline("%s труп оказывается похоронен.", mhis_up(mtmp));
+                pline("%s труп оказывается похороненным.",
+                      mhis_up(mtmp));
             }
         }
     }

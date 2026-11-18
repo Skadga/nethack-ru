@@ -4370,15 +4370,17 @@ feel_cockatrice(struct obj *otmp, boolean force_touch)
 
     if (will_feel_cockatrice(otmp, force_touch)) {
         /* "the <cockatrice> corpse" */
-        Strcpy(kbuf, corpse_xname(otmp, (const char *) 0, CXN_PFX_THE));
+        Strcpy(kbuf, corpse_case(otmp, BP_GEN));
 
         if (poly_when_stoned(gy.youmonst.data))
             You("коснулись %s голыми %s.", kbuf,
                 body_part_case(HAND, BP_INS | BP_PLURAL));
         else
-            pline("Прикосновение к %s — фатальная ошибка...", kbuf);
+            pline("Прикосновение к %s — фатальная ошибка...",
+                  corpse_case(otmp, BP_DAT));
         /* normalize body shape here; hand, not body_part(HAND) */
-        Sprintf(kbuf, "прикосновение голой рукой к %s", killer_xname(otmp));
+        Sprintf(kbuf, "прикосновение голой рукой к %s",
+                corpse_case(otmp, BP_DAT));
         /* will call polymon() for the poly_when_stoned() case */
         instapetrify(kbuf);
     }

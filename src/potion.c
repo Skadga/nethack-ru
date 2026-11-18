@@ -983,8 +983,8 @@ peffect_sickness(struct obj *otmp)
 
             Sprintf(contaminant, "%s%s",
                     (Poison_resistance) ? "слегка " : "",
-                    (otmp->fromsink) ? "загрязнённая водопроводная вода"
-                    : "загрязнённое зелье");
+                    (otmp->fromsink) ? "загрязнённой водопроводной воды"
+                    : "загрязнённого зелья");
             if (!Fixed_abil) {
                 poisontell(typ, FALSE);
                 (void) adjattrib(typ, Poison_resistance ? -1 : -rn1(4, 3),

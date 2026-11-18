@@ -1032,19 +1032,27 @@ revive(struct obj *corpse, boolean by_hero)
             shkp = shop_keeper(*in_rooms(x, y, SHOPBASE));
 
         if (cansee(x, y)) {
-            char buf[BUFSZ];
+            char buf[BUFSZ], own[BUFSZ];
 
-            Strcpy(buf, one_of ? "одна из " : "");
             /* shk_your: "the " or "your " or "<mon>'s " or "<Shk>'s ".
                If the result is "Shk's " then it will be ambiguous:
                is Shk the mon carrying it, or does Shk's shop own it?
                Let's not worry about that... */
-            (void) shk_your(eos(buf), corpse);
-            if (one_of)
-                corpse->quan++; /* force plural */
-            Strcat(buf, corpse_xname(corpse, (const char *) 0, CXN_NO_PFX));
-            if (one_of) /* could be simplified to ''corpse->quan = 1L;'' */
-                corpse->quan--;
+            if (one_of) {
+                own[0] = '\0';
+                (void) shk_your(own, corpse);
+                if (!strncmp(own, "ваш", 3))
+                    Strcpy(buf, "Один из ваших трупов ");
+                else if (!strncmp(own, "неоплаченный", 12))
+                    Strcpy(buf, "Один из неоплаченных трупов ");
+                else
+                    Strcpy(buf, "Один из трупов ");
+                Strcat(buf, mon_gen_nom(obj_pmname(corpse), BP_GEN));
+            } else {
+                (void) shk_your(buf, corpse);
+                Strcat(buf,
+                       corpse_xname(corpse, (const char *) 0, CXN_NO_PFX));
+            }
             pline("%s переливается радужными цветами.", upstart(buf));
             iflags.last_msg = PLNMSG_OBJ_GLOWS; /* usually for BUC change */
         } else if (shkp) {
@@ -1174,13 +1182,24 @@ unturn_dead(struct monst *mon)
             continue;
         /* save the name; the object is liable to go away */
         if (youseeit) {
-            Strcpy(corpse, corpse_xname(otmp, (const char *) 0, CXN_NORMAL));
+            char own[BUFSZ];
+
+            own[0] = '\0';
             /* shk_your/Shk_Your produces a value with a trailing space */
             if (otmp->quan > 1L) {
-                Strcpy(owner, "Одна из ");
-                (void) shk_your(eos(owner), otmp);
-            } else
+                (void) shk_your(own, otmp);
+                if (!strncmp(own, "ваш", 3))
+                    Strcpy(owner, "Один из ваших трупов ");
+                else if (!strncmp(own, "неоплаченный", 12))
+                    Strcpy(owner, "Один из неоплаченных трупов ");
+                else
+                    Strcpy(owner, "Один из трупов ");
+                Strcpy(corpse, mon_gen_nom(obj_pmname(otmp), BP_GEN));
+            } else {
                 (void) Shk_Your(owner, otmp);
+                Strcpy(corpse,
+                       corpse_xname(otmp, (const char *) 0, CXN_NORMAL));
+            }
         }
         /* for a stack, only one is revived; if is_u, revive() calls
            useup() which calls update_inventory() but not encumber_msg() */
@@ -2658,8 +2677,8 @@ dozap(void)
         if ((damage = zapyourself(obj, TRUE)) != 0) {
             char buf[BUFSZ];
 
-            Sprintf(buf, "выстрелил %sв себя из %s",
-                    uhim(), killer_xname(obj));
+            Sprintf(buf, "выстрелив в себя из %s",
+                    mon_gen_nom(killer_xname(obj), BP_GEN));
             losehp(Maybe_Half_Phys(damage), buf, NO_KILLER_PREFIX);
         }
     } else {
@@ -2891,7 +2910,7 @@ zapyourself(struct obj *obj, boolean ordinary)
             break;
         }
         learn_it = TRUE;
-        Sprintf(svk.killer.name, "выстрелил %sв себя из луча смерти", uhim());
+        Sprintf(svk.killer.name, "выстрелив в себя из луча смерти");
         svk.killer.format = NO_KILLER_PREFIX;
         /* probably don't need these to be urgent; player just gave input
            without subsequent opportunity to dismiss --More-- with ESC */
@@ -3047,8 +3066,9 @@ lightdamage(
         how = (obj->oclass == SPBOOK_CLASS) ? "заклинание света"
               : (!obj->oartifact) ? ansimpleoname(obj)
                 : bare_artifactname(obj);
-        Sprintf(buf, "%s %s выстрелил в себя из %s", ordinary ? "поразили" : "взрывом",
-                uhim(), how);
+        Sprintf(buf, "%s в себя из %s",
+                ordinary ? "выстрелив" : "подорвавшись от",
+                mon_gen_nom(how, BP_GEN));
         /* might rehumanize(); could be fatal, but only for Unchanging */
         losehp(Maybe_Half_Phys(dmg), buf, NO_KILLER_PREFIX);
     }
@@ -4580,7 +4600,7 @@ zhitu(
             /* FIXME: "zapped by herself" is suitable for a rebound;
                "zapped at herself" would be better if player explicitly
                targeted hero */
-            Sprintf(kbuf, "%s %s сам себя (%s)", fltxt, verb, uhim());
+            Sprintf(kbuf, "рикошета %s", mon_gen_nom(fltxt, BP_GEN));
         }
         /* Half_spell_damage protection yields half-damage for wands & spells,
            including hero's own ricochets; breath attacks do full damage */
@@ -5782,13 +5802,18 @@ item_what(int dmgtyp)
  */
 const char *const destroy_strings[][3] = {
     /* also used in trap.c */
-    { "замерзает и разбивается", "замерзают и разбиваются", "разбитое зелье" },
-    { "закипает и взрывается", "закипают и взрываются", "кипящее зелье" },
-    { "воспламеняется и взрывается", "воспламеняются и взрываются", "взрывающееся зелье" },
-    { "загорается и сгорает", "загораются и сгорают", "горящий свиток" },
-    { "загорается и сгорает", "", "горящая книга" },
+    { "замерзает и разбивается", "замерзают и разбиваются",
+      "разбитого зелья" },
+    { "закипает и взрывается", "закипают и взрываются",
+      "кипящего зелья" },
+    { "воспламеняется и взрывается", "воспламеняются и взрываются",
+      "взрывающегося зелья" },
+    { "загорается и сгорает", "загораются и сгорают",
+      "горящего свитка" },
+    { "загорается и сгорает", "", "горящей книги" },
     { "превращается в пыль и исчезает", "", "" },
-    { "разваливается и взрывается", "", "взрывающаяся палочка" },
+    { "разваливается и взрывается", "",
+      "взрывающейся палочки" },
 };
 
 /* guts of destroy_items();
@@ -5948,7 +5973,7 @@ maybe_destroy_item(
                 boolean one = (cnt == 1L);
 
                 if (dmgtyp == AD_FIRE && osym == FOOD_CLASS)
-                    how = "взрывающийся сгусток слизи";
+                    how = "взрывающегося сгустка слизи";
                 losehp(dmg, one ? how : (const char *) makeplural(how),
                        one ? KILLED_BY_AN : KILLED_BY);
                 exercise(A_STR, FALSE);

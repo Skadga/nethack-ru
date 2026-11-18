@@ -1813,6 +1813,269 @@ static const struct mon_paradigm mon_paradigms[] = {
       { NULL, NULL, NULL, NULL, NULL, NULL } },
 };
 
+/* RU localization: genitive fallback for monster names without an entry
+   in mon_paradigms[].  Only the singular genitive is generated; other
+   cases keep falling back to the nominative.  Handles multi-word names
+   ("огненный муравей" -> "огненного муравь€", "муми€ кобольда" ->
+   "мумии кобольда"), hyphenated compounds ("орк-шаман" ->
+   "орка-шамана") and a handful of irregular nouns. */
+
+staticfn boolean
+ru_gen_is_adj(const char *w)
+{
+    static const char *suf[] = { "ыйс€", "ийс€", "а€с€", "€€с€", "еес€",
+                                 "оес€", "ый", "ий", "ой", "а€", "€€",
+                                 "ое", "ее" };
+    size_t n = strlen(w), i, sl;
+
+    for (i = 0; i < SIZE(suf); i++) {
+        sl = strlen(suf[i]);
+        if (n > sl && !strcmp(w + n - sl, suf[i])) {
+            /* "титанотерий", "балухитерий" are nouns, not adjectives */
+            if (sl == 2 && suf[i][0] == 'и' && n > 3
+                && !strcmp(w + n - 3, "рий"))
+                return FALSE;
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
+staticfn void
+ru_gen_one(const char *w, char *out)
+{
+    static const char *already[] = { "ого", "его" };
+    const char *end;
+    size_t n = strlen(w), i;
+
+    for (i = 0; i < SIZE(already); i++) {
+        size_t sl = strlen(already[i]);
+
+        if (n > sl && !strcmp(w + n - sl, already[i])) {
+            Strcpy(out, w);
+            return;
+        }
+    }
+    /* irregular nouns */
+    if (!strcmp(w, "угорь")) {
+        Strcpy(out, "угр€");
+        return;
+    } else if (!strcmp(w, "студень")) {
+        Strcpy(out, "студн€");
+        return;
+    } else if (!strcmp(w, "плесень")) {
+        Strcpy(out, "плесени");
+        return;
+    } else if (!strcmp(w, "лошадь")) {
+        Strcpy(out, "лошади");
+        return;
+    } else if (!strcmp(w, "ниндз€") || !strcmp(w, "роте")) {
+        Strcpy(out, w);
+        return;
+    } else if (!strcmp(w, "јсмодей")) {
+        Strcpy(out, "јсмоде€");
+        return;
+    } else if (!strcmp(w, "ѕелий")) {
+        Strcpy(out, "ѕели€");
+        return;
+    } else if (!strcmp(w, "титанотерий")) {
+        Strcpy(out, "титанотери€");
+        return;
+    } else if (!strcmp(w, "балухитерий")) {
+        Strcpy(out, "балухитери€");
+        return;
+    }
+
+    end = 0;
+    if (n > 4 && !strcmp(w + n - 4, "ийс€")) {
+        char p = w[n - 5];
+
+        end = (p == 'к' || p == 'г' || p == 'х') ? "огос€" : "егос€";
+        n -= 4;
+    } else if (n > 4 && !strcmp(w + n - 4, "ыйс€")) {
+        end = "огос€", n -= 4;
+    } else if (n > 4 && !strcmp(w + n - 4, "а€с€")) {
+        char p = w[n - 5];
+
+        end = (p == 'ж' || p == 'ч' || p == 'ш' || p == 'щ') ? "ейс€"
+                                                           : "ойс€";
+        n -= 4;
+    } else if (n > 4 && !strcmp(w + n - 4, "€€с€")) {
+        end = "ейс€", n -= 4;
+    } else if (n > 4 && !strcmp(w + n - 4, "еес€")) {
+        end = "егос€", n -= 4;
+    } else if (n > 4 && !strcmp(w + n - 4, "оес€")) {
+        end = "огос€", n -= 4;
+    } else if (n > 2 && !strcmp(w + n - 2, "ый")) {
+        end = "ого", n -= 2;
+    } else if (n > 2 && !strcmp(w + n - 2, "ой")) {
+        end = "ого", n -= 2;
+    } else if (n > 2 && !strcmp(w + n - 2, "ий")) {
+        char p = w[n - 3];
+
+        end = (p == 'к' || p == 'г' || p == 'х') ? "ого" : "его";
+        n -= 2;
+    } else if (n > 2 && !strcmp(w + n - 2, "а€")) {
+        char p = w[n - 3];
+
+        if (!strcmp(w, "больша€"))
+            end = "ой";
+        else if (p == 'ж' || p == 'ч' || p == 'ш' || p == 'щ')
+            end = "ей";
+        else
+            end = "ой";
+        n -= 2;
+    } else if (n > 2 && !strcmp(w + n - 2, "€€")) {
+        end = "ей", n -= 2;
+    } else if (n > 2 && !strcmp(w + n - 2, "ое")) {
+        end = "ого", n -= 2;
+    } else if (n > 2 && !strcmp(w + n - 2, "ее")) {
+        end = "его", n -= 2;
+    }
+    if (end) {
+        memcpy(out, w, n);
+        Strcpy(out + n, end);
+        return;
+    }
+
+    if (n > 1 && w[n - 1] == 'а') {
+        char p = w[n - 2];
+
+        end = (p == 'г' || p == 'к' || p == 'х' || p == 'ж' || p == 'ч'
+               || p == 'ш' || p == 'щ' || p == 'ц') ? "и" : "ы";
+        n -= 1;
+    } else if (n > 1 && w[n - 1] == '€') {
+        end = "и", n -= 1;
+    } else if (n > 1 && w[n - 1] == 'ь') {
+        char p = w[n - 2];
+
+        if (p == 'з' || p == 'с' || p == 'ш' || p == 'ч' || p == 'щ'
+            || p == 'т')
+            end = "и";
+        else
+            end = "€";
+        n -= 1;
+    } else if (n > 1 && w[n - 1] == 'й') {
+        if (n > 2 && w[n - 2] == 'е') {
+            end = "ь€", n -= 2;
+        } else {
+            end = "€", n -= 1;
+        }
+    } else if (n > 1 && w[n - 1] == 'о') {
+        end = "а", n -= 1;
+    } else if (n > 1 && w[n - 1] == 'е') {
+        char p = w[n - 2];
+
+        end = (p == 'ж' || p == 'ч' || p == 'ш' || p == 'щ' || p == 'ц')
+                  ? "а" : "€";
+        n -= 1;
+    } else if (n > 1
+               && (w[n - 1] == 'у' || w[n - 1] == 'ю' || w[n - 1] == 'и'
+                   || w[n - 1] == 'ы' || w[n - 1] == 'э')) {
+        Strcpy(out, w); /* indeclinable */
+        return;
+    } else if (n > 3 && !strcmp(w + n - 3, "нок")) {
+        end = "нка", n -= 3;
+    } else if (n > 2 && !strcmp(w + n - 2, "ок")) {
+        char p = w[n - 3];
+
+        if (p == 'ч' || p == 'ж' || p == 'ш' || p == 'щ') {
+            end = "ка", n -= 2;
+        } else {
+            end = "а";
+        }
+    } else {
+        end = "а";
+    }
+    memcpy(out, w, n);
+    Strcpy(out + n, end);
+}
+
+staticfn void
+ru_gen_word(const char *w, char *out)
+{
+    const char *dash = strchr(w, '-');
+    char part[BUFSZ], gen[BUFSZ];
+
+    if (dash) {
+        size_t len = (size_t) (dash - w);
+
+        if (len >= BUFSZ)
+            len = BUFSZ - 1;
+        memcpy(part, w, len);
+        part[len] = '\0';
+        ru_gen_one(part, gen);
+        Strcpy(out, gen);
+        Strcat(out, "-");
+        ru_gen_one(dash + 1, gen);
+        Strcat(out, gen);
+    } else {
+        ru_gen_one(w, out);
+    }
+}
+
+staticfn const char *
+ru_gen_fallback(const char *nom)
+{
+    static char bufs[4][BUFSZ];
+    static int bufi = 0;
+    char *out, word[BUFSZ], gen[BUFSZ];
+    const char *p;
+    size_t olen = 0;
+
+    bufi = (bufi + 1) % SIZE(bufs);
+    out = bufs[bufi];
+    out[0] = '\0';
+
+    if (!strcmp(nom, "¬лад ÷епеш")) {
+        Strcpy(out, "¬лада ÷епеша");
+        return out;
+    }
+
+    p = strchr(nom, ' ');
+    if (!p) {
+        ru_gen_word(nom, out);
+        return out;
+    }
+
+    /* first token decides whether this is "adjective + noun" */
+    {
+        size_t len = (size_t) (p - nom);
+
+        if (len >= BUFSZ)
+            len = BUFSZ - 1;
+        memcpy(word, nom, len);
+        word[len] = '\0';
+    }
+    if (!ru_gen_is_adj(word)) {
+        /* noun first: inflect it, leave the rest (often genitive) alone */
+        ru_gen_word(word, out);
+        Strcat(out, p);
+        return out;
+    }
+
+    /* adjective first: inflect every word */
+    for (p = nom; *p; ) {
+        size_t len = strcspn(p, " ");
+
+        if (len >= BUFSZ)
+            len = BUFSZ - 1;
+        memcpy(word, p, len);
+        word[len] = '\0';
+        ru_gen_word(word, gen);
+        if (olen && olen < BUFSZ - 1)
+            out[olen++] = ' ';
+        if (olen < BUFSZ - 1) {
+            Strcpy(out + olen, gen);
+            olen += strlen(gen);
+        }
+        p += len;
+        while (*p == ' ')
+            ++p;
+    }
+    return out;
+}
+
 /* Case-inflected monster name from a nominative string; cse is an
    enum bp_case value optionally OR'ed with BP_PLURAL. No article,
    no possessive. Unlisted names and missing forms fall back to
@@ -1831,9 +2094,16 @@ mon_gen_nom(const char *nom, int cse)
         if (pg[i].key && !strcmp(pg[i].key, nom))
             break;
     if (i == SIZE(mon_paradigms))
-        return nom;
-    if (plural)
-        return pg[i].p[mon_pl_slot[cs]] ? pg[i].p[mon_pl_slot[cs]] : nom;
+        return (cs == BP_GEN) ? ru_gen_fallback(nom) : nom;
+    if (plural) {
+        const char *f = pg[i].p[mon_pl_slot[cs]];
+
+        /* no plural genitive: singular genitive reads acceptably
+           ("трупы орка") and beats falling back to the nominative */
+        if (!f && cs == BP_GEN)
+            f = pg[i].s[BP_GEN];
+        return f ? f : nom;
+    }
     return pg[i].s[cs] ? pg[i].s[cs] : nom;
 }
 

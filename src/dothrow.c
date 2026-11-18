@@ -138,13 +138,12 @@ throw_obj(struct obj *obj, int shotlimit)
     u_wipe_engr(2);
     if (!uarmg && obj->otyp == CORPSE && touch_petrifies(&mons[obj->corpsenm])
         && !Stone_resistance) {
-        You("бросьте %s голыми %s.",
-            corpse_xname(obj, (const char *) 0, CXN_PFX_THE),
+        You("бросьте %s голыми %s.", corpse_case(obj, BP_ACC),
             /* throwing with one hand, but pluralize since the
                expression "with your bare hands" sounds better */
             body_part_case(HAND, BP_NOM | BP_PLURAL));
         Sprintf(svk.killer.name, "бросая %s голыми руками",
-                killer_xname(obj));
+                corpse_case(obj, BP_INS));
         instapetrify(svk.killer.name);
     }
     if (welded(obj)) {
@@ -1743,7 +1742,8 @@ throwit(
                         if (obj->oartifact)
                             (void) artifact_hit((struct monst *) 0,
                                                 &gy.youmonst, obj, &dmg, 0);
-                        losehp(Maybe_Half_Phys(dmg), killer_xname(obj),
+                        losehp(Maybe_Half_Phys(dmg),
+                               mon_gen_nom(killer_xname(obj), BP_GEN),
                                KILLED_BY);
                     }
 

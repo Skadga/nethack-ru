@@ -496,7 +496,9 @@ kick_object(coordxy x, coordxy y, char *kickobjnam)
     gk.kickedobj = svl.level.objects[x][y];
     if (gk.kickedobj) {
         /* formatted object name matters iff res==0 */
-        Strcpy(kickobjnam, killer_xname(gk.kickedobj));
+        Strcpy(kickobjnam, (gk.kickedobj->otyp == CORPSE)
+                               ? corpse_case(gk.kickedobj, BP_ACC)
+                               : killer_xname(gk.kickedobj));
         /* kick object; if fatal, done() will clean up kickedobj */
         res = really_kick_object(x, y);
         gk.kickedobj = (struct obj *) 0;
@@ -543,15 +545,14 @@ really_kick_object(coordxy x, coordxy y)
     if (!uarmf && gk.kickedobj->otyp == CORPSE
         && touch_petrifies(&mons[gk.kickedobj->corpsenm])
         && !Stone_resistance) {
-        You("пинаете %s голыми %s.",
-            corpse_xname(gk.kickedobj, (const char *) 0, CXN_PFX_THE),
+        You("пинаете %s голыми %s.", corpse_case(gk.kickedobj, BP_ACC),
             body_part_case(FOOT, BP_INS | BP_PLURAL));
         if (poly_when_stoned(gy.youmonst.data) && polymon(PM_STONE_GOLEM)) {
             ; /* hero has been transformed but kick continues */
         } else {
             /* normalize body shape here; foot, not body_part(FOOT) */
             Sprintf(svk.killer.name, "пиная %s босиком",
-                    killer_xname(gk.kickedobj));
+                    corpse_case(gk.kickedobj, BP_INS));
             instapetrify(svk.killer.name);
         }
     }
@@ -826,7 +827,7 @@ kickstr(char *buf, const char *kickobjnam)
         what = "железный прут";
     else
         what = "что-то странное";
-    return strcat(strcpy(buf, "пинок в "), what);
+    return strcat(strcpy(buf, "пинка в "), what);
 }
 
 staticfn boolean

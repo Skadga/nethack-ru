@@ -3971,9 +3971,9 @@ selftouch(const char *arg)
 
     if (uwep && uwep->otyp == CORPSE && touch_petrifies(&mons[uwep->corpsenm])
         && !Stone_resistance) {
-        corpse_pmname = obj_pmname(uwep);
+        corpse_pmname = mon_gen_nom(obj_pmname(uwep), BP_GEN);
         pline("%s касаетесь трупа %s.", arg, corpse_pmname);
-        Sprintf(kbuf, "труп %s", an(corpse_pmname));
+        Sprintf(kbuf, "трупа %s", corpse_pmname);
         instapetrify(kbuf);
         /* life-saved; unwield the corpse if we can't handle it */
         if (!uarmg && !Stone_resistance)
@@ -3983,9 +3983,9 @@ selftouch(const char *arg)
        allow two-weapon combat when either weapon is a corpse] */
     if (u.twoweap && uswapwep && uswapwep->otyp == CORPSE
         && touch_petrifies(&mons[uswapwep->corpsenm]) && !Stone_resistance) {
-        corpse_pmname = obj_pmname(uswapwep);
+        corpse_pmname = mon_gen_nom(obj_pmname(uswapwep), BP_GEN);
         pline("%s касаетесь трупа %s.", arg, corpse_pmname);
-        Sprintf(kbuf, "труп %s", an(corpse_pmname));
+        Sprintf(kbuf, "трупа %s", corpse_pmname);
         instapetrify(kbuf);
         /* life-saved; unwield the corpse */
         if (!uarmg && !Stone_resistance)
@@ -4006,7 +4006,7 @@ mselftouch(
         if (cansee(mon->mx, mon->my)) {
             pline_mon(mon, "%s%s касается %s.", arg ? arg : "",
                   arg ? mon_nam(mon) : Monnam(mon),
-                  corpse_xname(mwep, (const char *) 0, CXN_PFX_THE));
+                  corpse_case(mwep, BP_GEN));
         }
         minstapetrify(mon, byplayer);
         /* if life-saved, might not be able to continue wielding */
@@ -6445,7 +6445,8 @@ chest_trap(
                        && *in_rooms(ox, oy, SHOPBASE) == *u.ushops);
 
             pline("%s!", Tobjnam(obj, "взрывается"));
-            Sprintf(buf, "взрывом %s", xname(obj));
+            Sprintf(buf, "взрыва %s",
+                    (obj->otyp == LARGE_BOX) ? "большого ящика" : "сундука");
 
             if (costly)
                 loss += stolen_value(obj, ox, oy, (boolean) shkp->mpeaceful,

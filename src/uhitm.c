@@ -1153,9 +1153,7 @@ hmon_hitmon_misc_obj(
             hmd->dmg = 1;
             hmd->hittxt = TRUE;
             You("бьёте %s %s.", mon_nam(mon),
-                corpse_xname(obj, (const char *) 0,
-                             obj->dknown ? CXN_PFX_THE
-                             : CXN_ARTICLE));
+                corpse_case(obj, BP_INS));
             observe_object(obj);
             if (!munstone(mon, TRUE))
                 minstapetrify(mon, TRUE);
@@ -2173,7 +2171,7 @@ theft_petrifies(struct obj *otmp)
 #endif
 
     /* stealing this corpse is fatal... */
-    instapetrify(corpse_xname(otmp, "украденного", CXN_ARTICLE));
+    instapetrify(corpse_xname(otmp, "украденный", CXN_NORMAL));
     /* apparently wasn't fatal after all... */
     return TRUE;
 }
@@ -3940,7 +3938,8 @@ do_stone_u(struct monst *mtmp)
         && !(poly_when_stoned(gy.youmonst.data)
              && polymon(PM_STONE_GOLEM))) {
         int kformat = KILLED_BY_AN;
-        const char *kname = pmname(mtmp->data, Mgender(mtmp));
+        const char *kname = mon_gen_nom(pmname(mtmp->data, Mgender(mtmp)),
+                                        BP_GEN);
 
         if (mtmp->data->geno & G_UNIQ) {
             if (!type_is_pname(mtmp->data))
@@ -4060,9 +4059,9 @@ mhitm_ad_phys(
                 if (otmp->otyp == CORPSE
                     && touch_petrifies(&mons[otmp->corpsenm])) {
                     mhm->damage = 1;
-                    pline_mon(magr, "%s бьёт вас %s трупом.",
+                    pline_mon(magr, "%s бьёт вас трупом %s.",
                               Monnam(magr),
-                              mons[otmp->corpsenm].pmnames[NEUTRAL]);
+                              mon_gen_nom(obj_pmname(otmp), BP_GEN));
                     if (!Stoned) {
                         if (do_stone_u(magr)) {
                             mhm->hitflags = M_ATTK_HIT;

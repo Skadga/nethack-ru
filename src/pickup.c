@@ -292,8 +292,7 @@ fatal_corpse_mistake(struct obj *obj, boolean remotely)
         return FALSE;
     }
 
-    pline("ѕрикосновение к %s смертельно.",
-          corpse_xname(obj, (const char *) 0, CXN_SINGULAR | CXN_ARTICLE));
+    pline("ѕрикосновение к %s смертельно.", corpse_case(obj, BP_DAT));
     instapetrify(killer_xname(obj));
     return TRUE;
 }
@@ -305,8 +304,9 @@ rider_corpse_revival(struct obj *obj, boolean remotely)
     if (!obj || obj->otyp != CORPSE || !is_rider(&mons[obj->corpsenm]))
         return FALSE;
 
-    pline("” вашего %s труп внезапно шевелитс€...",
-          remotely ? "попытка вз€ть" : "коснутьс€");
+    pline(remotely
+              ? "“руп внезапно шевелитс€ от вашей попытки вз€ть его..."
+              : "“руп внезапно шевелитс€ от вашего прикосновени€...");
     (void) revive_corpse(obj);
     exercise(A_WIS, FALSE);
     return TRUE;

@@ -622,7 +622,7 @@ wielding_corpse(
 
         You("%s %s голым %s.",
             (how && is_gloves(how)) ? "теперь держите" : "держите",
-            corpse_xname(obj, (const char *) 0, CXN_ARTICLE),
+            corpse_case(obj, BP_ACC),
             body_part_case(HAND, BP_INS | BP_PLURAL));
         /* "снимая" ought to be "снимая" but that makes the
            tombstone text more likely to be truncated */
@@ -2584,7 +2584,9 @@ glibr(void)
         hand = body_part_case(HAND, BP_GEN);
         which = URIGHTY ? "левой " : "правой ";  /* text for the off hand */
         Your("%s %s%s с %s%s.", otherwep, xfl ? "также " : "",
-             otense(otmp, "соскальзывают"), which, hand);
+             otense(otmp, (otmp->quan > 1L) ? "соскальзывают"
+                                            : "соскальзывает"),
+             which, hand);
         xfl++;
         wastwoweap = TRUE;
         setuswapwep((struct obj *) 0); /* clears u.twoweap */
@@ -2621,8 +2623,9 @@ glibr(void)
         pline("%s %s%s %s%s %s%s%s.",
               !strncmp(thiswep, "труп", 6) ? "Труп" : "Ваш",
               otherwep ? "другое " : "", thiswep, xfl ? "также " : "",
-              otense(otmp, "соскальзывают"), *which ? "с вашей " : "с ваших ",
-              which, hand);
+              otense(otmp, (otmp->quan > 1L) ? "соскальзывают"
+                                             : "соскальзывает"),
+              *which ? "с вашей " : "с ваших ", which, hand);
         /* xfl++; */
         otmp->quan = savequan;
         setuwep((struct obj *) 0);

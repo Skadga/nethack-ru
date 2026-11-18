@@ -955,7 +955,8 @@ better_not_try_to_drop_that(struct obj *otmp)
     if (otmp->otyp == CORPSE && !u_safe_from_fatal_corpse(otmp, st_all)) {
         Snprintf(
             buf, sizeof buf,
-            "Бросить труп %s без %s защиты?", obj_pmname(otmp),
+            "Бросить труп %s без %s защиты?",
+            mon_gen_nom(obj_pmname(otmp), BP_GEN),
             body_part_case(HAND, BP_GEN));
         return (paranoid_ynq(TRUE, buf, FALSE) != 'y');
     }

@@ -276,7 +276,8 @@ choke(struct obj *food)
                 Strcpy(svk.killer.name, "очень богатая трапеза");
             } else {
                 svk.killer.format = KILLED_BY;
-                Strcpy(svk.killer.name, killer_xname(food));
+                Strcpy(svk.killer.name,
+                       mon_gen_nom(killer_xname(food), BP_GEN));
             }
         } else {
             You("давишься этим.");
@@ -637,7 +638,8 @@ eat_brains(
         if (magr == &gy.youmonst) {
             if (!Stone_resistance && !Stoned)
                 make_stoned(5L, (char *) 0, KILLED_BY_AN,
-                            pmname(pd, Mgender(mdef)));
+                            mon_gen_nom(pmname(pd, Mgender(mdef)),
+                                        BP_GEN));
         } else {
             /* no need to check for poly_when_stoned or Stone_resistance;
                mind flayers don't have those capabilities */
@@ -668,7 +670,7 @@ eat_brains(
         } else if (is_rider(pd)) {
             pline("Проглатывание этого смертельно.");
             Sprintf(svk.killer.name, "неразумно съел мозг %s",
-                    pmname(pd, Mgender(mdef)));
+                    mon_gen_nom(pmname(pd, Mgender(mdef)), BP_GEN));
             svk.killer.format = NO_KILLER_PREFIX;
             done(DIED);
             /* life-saving needed to reach here */
@@ -818,8 +820,8 @@ cprefx(int pm)
     case PM_LARGE_CAT:
         /* cannibals are allowed to eat domestic animals without penalty */
         if (!CANNIBAL_ALLOWED()) {
-            You_feel("что есть %s было плохой идеей.",
-                     mons[pm].pmnames[NEUTRAL]);
+            You_feel("что поедание %s было плохой идеей.",
+                     mon_gen_nom(mons[pm].pmnames[NEUTRAL], BP_GEN));
             HAggravate_monster |= FROMOUTSIDE;
         }
         break;
@@ -832,7 +834,7 @@ cprefx(int pm)
     case PM_FAMINE: {
         pline("Это мгновенно смертельно.");
         Sprintf(svk.killer.name, "неразумно съел тело %s",
-                mons[pm].pmnames[NEUTRAL]);
+                mon_gen_nom(mons[pm].pmnames[NEUTRAL], BP_GEN));
         svk.killer.format = NO_KILLER_PREFIX;
         done(DIED);
         /* life-saving needed to reach here */
@@ -1452,7 +1454,8 @@ tin_details(struct obj *obj, int mnum, char *buf)
         if (vegetarian(&mons[mnum]))
             Sprintf(eos(buf), "%s", mons[mnum].pmnames[NEUTRAL]);
         else
-            Sprintf(eos(buf), "мясо %s", mons[mnum].pmnames[NEUTRAL]);
+            Sprintf(eos(buf), "мясо %s",
+                    mon_gen_nom(mons[mnum].pmnames[NEUTRAL], BP_GEN));
     }
 }
 
@@ -1580,7 +1583,7 @@ consume_tin(const char *mesg)
             what = the(what);
 
         if (!always_eat) {
-            pline("От неё пахнет %s.", what);
+            pline("Запах: %s.", what);
             if (y_n("Съесть?") == 'n') {
                 if (flags.verbose)
                     You("выбросить открытую банку.");
@@ -1597,7 +1600,12 @@ consume_tin(const char *mesg)
         /* in case stop_occupation() was called on previous meal */
         svc.context.victual = zero_victual; /* victual.piece = 0, .o_id = 0 */
 
-        You("съесть %s %s.", tintxts[r].txt, mons[mnum].pmnames[NEUTRAL]);
+        if (vegetarian(&mons[mnum]))
+            You("съедаете содержимое банки: %s.",
+                mons[mnum].pmnames[NEUTRAL]);
+        else
+            You("съедаете содержимое банки: мясо %s.",
+                mon_gen_nom(mons[mnum].pmnames[NEUTRAL], BP_GEN));
 
         eating_conducts(&mons[mnum]);
 
@@ -1913,8 +1921,13 @@ eatcorpse(struct obj *otmp)
             /* make sure new ill doesn't result in improvement */
             if (Sick && (sick_time > Sick))
                 sick_time = (Sick > 1L) ? Sick - 1L : 1L;
-            make_sick(sick_time, corpse_xname(otmp, "гнилая", CXN_NORMAL),
-                      TRUE, SICK_VOMITABLE);
+            {
+                char kbuf[BUFSZ];
+
+                Sprintf(kbuf, "гнилого трупа %s",
+                        mon_gen_nom(obj_pmname(otmp), BP_GEN));
+                make_sick(sick_time, kbuf, TRUE, SICK_VOMITABLE);
+            }
 
             pline("(Похоже, он умер слишком давно, чтобы быть безопасным в пищу.)");
         }
@@ -1926,14 +1939,14 @@ eatcorpse(struct obj *otmp)
     } else if (acidic(&mons[mnum]) && !Acid_resistance) {
         tp++;
         You("у тебя сильный приступ желудочной кислоты.");   /* not body_part() */
-        losehp(rnd(15), !glob ? "кислого трупа" : "кислая глоба",
+        losehp(rnd(15), !glob ? "кислого трупа" : "кислой глобы",
                KILLED_BY_AN); /* acid damage */
     } else if (poisonous(&mons[mnum]) && rn2(5)) {
         tp++;
         pline("Фух - это, наверное, было ядовито!");
         if (!Poison_resistance) {
             poison_strdmg(rnd(4), rnd(15),
-                          !glob ? "ядовитый труп" : "ядовитая глоба",
+                          !glob ? "ядовитого трупа" : "ядовитой глобы",
                           KILLED_BY_AN);
         } else
             You("не чувствуешь действия яда.");
@@ -2072,7 +2085,10 @@ start_eating(struct obj *otmp, boolean already_partly_eaten)
         return;
     }
 
-    Sprintf(msgbuf, "eating %s", food_xname(otmp, TRUE));
+    if (otmp->otyp == CORPSE)
+        Sprintf(msgbuf, "поедание %s", corpse_case(otmp, BP_GEN));
+    else
+        Strcpy(msgbuf, "приём пищи");
     set_occupation(eatfood, msgbuf, 0);
 }
 
@@ -2568,8 +2584,10 @@ fpostfx(struct obj *otmp)
                 && !(poly_when_stoned(gy.youmonst.data)
                      && polymon(PM_STONE_GOLEM))) {
                 if (!Stoned) {
-                    Sprintf(svk.killer.name, "яйцо %s",
-                            mons[otmp->corpsenm].pmnames[NEUTRAL]);
+                    Sprintf(svk.killer.name, "яйца %s",
+                            mon_gen_nom(
+                                mons[otmp->corpsenm].pmnames[NEUTRAL],
+                                BP_GEN));
                     make_stoned(5L, (char *) 0, KILLED_BY_AN,
                                 svk.killer.name);
                 }
@@ -2799,7 +2817,8 @@ doeat_nonfood(struct obj *otmp)
     if (otmp->oclass == WEAPON_CLASS && otmp->opoisoned) {
         pline("Фух - это, наверное, было ядовито!");
         if (!Poison_resistance) {
-            poison_strdmg(rnd(4), rnd(15), xname(otmp), KILLED_BY_AN);
+            poison_strdmg(rnd(4), rnd(15),
+                          mon_gen_nom(xname(otmp), BP_GEN), KILLED_BY_AN);
         } else
             You("не чувствуешь действия яда.");
     } else if (!nodelicious) {

@@ -163,7 +163,7 @@ cursed_book(struct obj *bp)
         bp->in_use = FALSE;
         poison_strdmg(Poison_resistance ? rn1(2, 1) : rn1(4, 3),
                       rnd(Poison_resistance ? 6 : 10),
-                      "книга заклинаний с контактным ядом", KILLED_BY_AN);
+                      "книги заклинаний с контактным ядом", KILLED_BY_AN);
         bp->in_use = was_in_use;
         break;
     case 6:
@@ -1433,8 +1433,7 @@ spelleffects(int spell_otyp, boolean atme, boolean force)
                     if (!u.dx && !u.dy && !u.dz) {
                         if ((damage = zapyourself(pseudo, TRUE)) != 0) {
                             char buf[BUFSZ];
-                            Sprintf(buf, "%s поразили себя заклинанием",
-                                    uhim());
+                            Sprintf(buf, "поразив себя заклинанием");
                             losehp(damage, buf, NO_KILLER_PREFIX);
                         }
                     } else {
@@ -1507,7 +1506,7 @@ spelleffects(int spell_otyp, boolean atme, boolean force)
                 if ((damage = zapyourself(pseudo, TRUE)) != 0) {
                     char buf[BUFSZ];
 
-                    Sprintf(buf, "%s поразили себя заклинанием", uhim());
+                    Sprintf(buf, "поразив себя заклинанием");
                     if (physical_damage)
                         damage = Maybe_Half_Phys(damage);
                     losehp(damage, buf, NO_KILLER_PREFIX);

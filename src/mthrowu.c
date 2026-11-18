@@ -89,7 +89,7 @@ thitu(
             panic("thitu: name & obj both null?");
         name = strcpy(onmbuf,
                       (obj->quan > 1L) ? doname(obj) : mshot_xname(obj));
-        knm = strcpy(knmbuf, killer_xname(obj));
+        knm = strcpy(knmbuf, mon_gen_nom(killer_xname(obj), BP_GEN));
         kprefix = KILLED_BY; /* killer_name supplies "an" if warranted */
     } else {
         knm = name;
@@ -750,7 +750,8 @@ m_throw(
                 char onmbuf[BUFSZ], knmbuf[BUFSZ];
 
                 Strcpy(onmbuf, xname(singleobj));
-                Strcpy(knmbuf, killer_xname(singleobj));
+                Strcpy(knmbuf,
+                       mon_gen_nom(killer_xname(singleobj), BP_GEN));
                 poisoned(onmbuf, A_STR, knmbuf,
                          /* if damage triggered life-saving,
                             poison is limited to attrib loss */
@@ -785,7 +786,8 @@ m_throw(
                 if (!Stoned && !Stone_resistance
                     && !(poly_when_stoned(gy.youmonst.data)
                          && polymon(PM_STONE_GOLEM))) {
-                    make_stoned(5L, (char *) 0, KILLED_BY, "");
+                    make_stoned(5L, (char *) 0, KILLED_BY_AN,
+                                "брошенного €йца");
                 }
             }
             stop_occupation();

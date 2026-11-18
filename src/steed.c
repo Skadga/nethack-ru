@@ -345,12 +345,8 @@ mount_steed(
         }
         You("соскальзываете, пытаясь взобраться на %s.", mon_nam(mtmp));
 
-        Sprintf(buf, "соскользнув с %s при попытке взобраться",
-                /* "a saddled mumak" or "a saddled pony called Dobbin" */
-                x_monnam(mtmp, ARTICLE_A, (char *) 0,
-                         SUPPRESS_IT | SUPPRESS_INVISIBLE
-                             | SUPPRESS_HALLUCINATION,
-                         TRUE));
+        Sprintf(buf, "упав, пытаясь взобраться на %s",
+                mon_gen(mtmp, BP_ACC));
         losehp(Maybe_Half_Phys(rn1(5, 10)), buf, NO_KILLER_PREFIX);
         return (FALSE);
     }

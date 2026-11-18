@@ -2293,7 +2293,8 @@ use_unicorn_horn(struct obj **optr)
         case 0:
             make_sick((Sick & TIMEOUT) ? (Sick & TIMEOUT) / 3L + 1L
                                        : (long) rn1(ACURR(A_CON), 20),
-                      xname(obj), TRUE, SICK_NONVOMITABLE);
+                      "проклятого рога единорога", TRUE,
+                      SICK_NONVOMITABLE);
             break;
         case 1:
             make_blinded(BlindedTimeout + lcount, TRUE);
@@ -3084,7 +3085,7 @@ use_whip(struct obj *obj)
         if (dam <= 0)
             dam = 1;
         You("ударяешь себя по %s хлыстом.", body_part_case(FOOT, BP_PREP));
-        Sprintf(buf, "убил себя с помощью %s хлыста", uhim(), uhis());
+        Sprintf(buf, "убил себя с помощью хлыста");
         losehp(Maybe_Half_Phys(dam), buf, NO_KILLER_PREFIX);
         return ECMD_TIME;
 
@@ -4147,7 +4148,7 @@ do_break_wand(struct obj *obj)
             }
             damage = zapyourself(obj, FALSE);
             if (damage) {
-                Sprintf(buf, "убил себя, сломав жезл", uhim());
+                Sprintf(buf, "убил себя, сломав жезл");
                 losehp(Maybe_Half_Phys(damage), buf, NO_KILLER_PREFIX);
             }
             if (disp.botl)

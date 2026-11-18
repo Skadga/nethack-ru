@@ -2549,7 +2549,9 @@ retouch_object(
             You_cant("обращаться с %s!", yname(obj));
         /* also inflict damage unless touch_artifact() already did so */
         if (!touch_blasted) {
-            const char *what = killer_xname(obj);
+            const char *what = (obj->otyp == CORPSE)
+                                   ? corpse_case(obj, BP_INS)
+                                   : killer_xname(obj);
 
             if (ag && !obj->oartifact && !bane) {
                 /* 'obj' is silver; for rings and wands it ended up that

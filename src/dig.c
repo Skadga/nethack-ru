@@ -398,7 +398,7 @@ dig(void)
                 else if (uarmf)
                     dmg = (dmg + 1) / 2;
                 You("ударяете себя по ноге.");
-                Sprintf(kbuf, "отрубая собственную ногу");
+                Sprintf(kbuf, "отрубания собственной ноги");
                 losehp(Maybe_Half_Phys(dmg), kbuf, KILLED_BY);
             } else {
                 You("разрушаете медвежий капкан %s.",
@@ -1180,7 +1180,7 @@ use_pick_axe2(struct obj *obj)
         if (dam <= 0)
             dam = 1;
         You("бьёте себя %s.", yname(uwep));
-        Sprintf(buf, "собственной %s", OBJ_NAME(objects[obj->otyp]));
+        Sprintf(buf, "собственного удара");
         losehp(Maybe_Half_Phys(dam), buf, KILLED_BY);
         disp.botl = TRUE;
         return ECMD_TIME;

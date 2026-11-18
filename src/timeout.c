@@ -1272,7 +1272,8 @@ slip_or_trip(void)
         if (!uarmf && otmp->otyp == CORPSE
             && touch_petrifies(&mons[otmp->corpsenm]) && !Stone_resistance) {
             Sprintf(svk.killer.name, "споткнувшись о труп %s",
-                    an(mons[otmp->corpsenm].pmnames[NEUTRAL]));
+                    mon_gen_nom(mons[otmp->corpsenm].pmnames[NEUTRAL],
+                                BP_GEN));
             instapetrify(svk.killer.name);
         }
     } else if ((HFumbling & FROMOUTSIDE) || (is_ice(u.ux, u.uy) && !rn2(3))) {

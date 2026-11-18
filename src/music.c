@@ -619,7 +619,7 @@ do_improvisation(struct obj *instr)
             if ((damage = zapyourself(instr, TRUE)) != 0) {
                 char buf[BUFSZ];
 
-                Sprintf(buf, "использовав магический рог на себя");
+                Sprintf(buf, "использования магического рога на себя");
                 Hero_playnotes(obj_to_instr(&itmp), improvisation, 50);
                 losehp(damage, buf, KILLED_BY); /* fire or frost damage */
             }

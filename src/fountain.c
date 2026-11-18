@@ -303,7 +303,7 @@ drinkfountain(void)
                 losehp(rnd(4), "неохлаждённого глотка сока", KILLED_BY_AN);
                 break;
             }
-            poison_strdmg(rn1(4, 3), rnd(10), "загрязнённая вода",
+            poison_strdmg(rn1(4, 3), rnd(10), "загрязнённой воды",
                           KILLED_BY);
             exercise(A_CON, FALSE);
             break;

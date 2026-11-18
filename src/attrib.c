@@ -243,7 +243,7 @@ losestr(int num, const char *knam, schar k_format)
     if (dmg) {
         /* in case damage is fatal and caller didn't supply killer reason */
         if (!knam || !*knam) {
-            knam = "terminal frailty";
+            knam = "старческой немощи";
             k_format = KILLED_BY;
         }
         losehp(dmg, knam, k_format);

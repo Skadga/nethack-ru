@@ -1036,7 +1036,8 @@ diseasemu(struct permonst *mdat)
         return FALSE;
     } else {
         make_sick(Sick ? Sick / 3L + 1L : (long) rn1(ACURR(A_CON), 20),
-                  mdat->pmnames[NEUTRAL], TRUE, SICK_NONVOMITABLE);
+                  mon_gen_nom(mdat->pmnames[NEUTRAL], BP_GEN), TRUE,
+                  SICK_NONVOMITABLE);
         return TRUE;
     }
 }

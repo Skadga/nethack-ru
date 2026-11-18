@@ -144,10 +144,9 @@ cant_wield_corpse(struct obj *obj)
         return FALSE;
 
     /* Prevent wielding cockatrice when not wearing gloves --KAA */
-    You("владеете %s голыми %s.",
-        corpse_xname(obj, (const char *) 0, CXN_PFX_THE),
+    You("владеете %s голыми %s.", corpse_case(obj, BP_INS),
         body_part_case(HAND, BP_INS | BP_PLURAL));
-    Sprintf(kbuf, "владеете %s голыми руками", killer_xname(obj));
+    Sprintf(kbuf, "владеете %s голыми руками", corpse_case(obj, BP_INS));
     instapetrify(kbuf);
     return TRUE;
 }
