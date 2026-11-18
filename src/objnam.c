@@ -1352,13 +1352,9 @@ doname_base(
             Strcat(prefix, "непроклятый ");
     }
 
-    /* "a large trapped box" would perhaps be more correct; [no!]
-       what about ``(obj->tknown && !obj->otrapped)''? shouldn't that
-       yield "a non-trapped large box"? (not "an untrapped large box");
-       TODO: this should be ``(Is_box(obj) || obj->otyp == TIN) && ...''
-       but at present there's no way to set obj->tknown for tins */
-    if (Is_box(obj) && obj->otrapped && obj->tknown && obj->dknown)
-        Strcat(prefix,"с ловушкой ");
+    /* Russian puts "с ловушкой" after the noun, so it is appended to
+       bp[] below instead of being prefixed here; tins still have no
+       tknown flag */
     if (lknown && Is_box(obj)) {
         if (obj->obroken)
             /* 3.6.0 used "unlockable" here but that could be misunderstood
@@ -1370,6 +1366,8 @@ doname_base(
         else
             Strcat(prefix, "незапертый ");
     }
+    if (Is_box(obj) && obj->otrapped && obj->tknown && obj->dknown)
+        Concat(bp, 0, " с ловушкой");
 
     if (obj->greased)
         Strcat(prefix, "смазанное ");

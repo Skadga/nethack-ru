@@ -917,66 +917,64 @@ checkfile(
      * that wishing already understands and most of this duplicates
      * stuff already done for wish handling or monster generation.
      */
-    if (!strncmp(dbase_str, "внутренность ", 13))
-        dbase_str += 13;
-    if (!strncmp(dbase_str, "a ", 2))
-        dbase_str += 2;
-    else if (!strncmp(dbase_str, "an ", 3))
-        dbase_str += 3;
-    else if (!strncmp(dbase_str, "the ", 4))
-        dbase_str += 4;
-    else if (!strncmp(dbase_str, "some ", 5))
-        dbase_str += 5;
-    else if (digit(*dbase_str)) {
-        /* remove count prefix ("2 ya") which can come from looking at map */
-        while (digit(*dbase_str))
-            ++dbase_str;
-        if (*dbase_str == ' ')
-            ++dbase_str;
+    /* strip Russian prefixes produced by doname()/xname() when an item
+       is examined on the map; keep going because prefixes can be stacked
+       (for example "пустой проклятый сундук") */
+    for (;;) {
+        static const char *ru_item_pfx[] = {
+            "внутренность ", "несколько ", "пара ", "с ловушкой ",
+            "ручной ", "ручная ", "мирный ", "мирная ",
+            "невидимый ", "невидимая ", "осёдланный ", "осёдланная ",
+            "благословенный ", "непроклятый ", "проклятый ",
+            "пустой ", "сломанный ", "запертый ", "незапертый ",
+            "смазанное ", "отравленный ", "отравленное ",
+            "частично использованное ", "частично съеденное ",
+            "протухший ", "сильно ", "основательно ",
+            "ржавое ", "треснутое ", "обгоревшее ",
+            "проржавевшее ", "гнилое ", "укреплённое ",
+            "маленький ", "средний ", "большой ", "очень большой ",
+            "следующий ", "историческая ", "влажное ", "мокрое ",
+            (char *) 0
+        };
+        int k, stripped = 0;
+
+        if (*dbase_str && strchr("+-", dbase_str[0])
+            && digit(dbase_str[1])) {
+            /* remove enchantment ("+0 меч") from looking at map */
+            ++dbase_str; /* skip sign */
+            while (digit(*dbase_str))
+                ++dbase_str;
+            if (*dbase_str == ' ')
+                ++dbase_str;
+            stripped = 1;
+        } else if (digit(*dbase_str)) {
+            /* remove count prefix ("2 яблока") from looking at map */
+            while (digit(*dbase_str))
+                ++dbase_str;
+            if (*dbase_str == ' ')
+                ++dbase_str;
+            stripped = 1;
+        } else {
+            for (k = 0; ru_item_pfx[k]; ++k) {
+                size_t plen = strlen(ru_item_pfx[k]);
+
+                if (!strncmp(dbase_str, ru_item_pfx[k], plen)) {
+                    dbase_str += plen;
+                    stripped = 1;
+                    break;
+                }
+            }
+        }
+        if (!stripped)
+            break;
     }
-    if (!strncmp(dbase_str, "pair of ", 8))
-        dbase_str += 8;
-    if (!strncmp(dbase_str, "tame ", 5))
-        dbase_str += 5;
-    else if (!strncmp(dbase_str, "peaceful ", 9))
-        dbase_str += 9;
-    if (!strncmp(dbase_str, "invisible ", 10))
-        dbase_str += 10;
-    if (!strncmp(dbase_str, "saddled ", 8))
-        dbase_str += 8;
-    if (!strncmp(dbase_str, "blessed ", 8))
-        dbase_str += 8;
-    else if (!strncmp(dbase_str, "uncursed ", 9))
-        dbase_str += 9;
-    else if (!strncmp(dbase_str, "cursed ", 7))
-        dbase_str += 7;
-    if (!strncmp(dbase_str, "empty ", 6))
-        dbase_str += 6;
-    if (!strncmp(dbase_str, "partly used ", 12))
-        dbase_str += 12;
-    else if (!strncmp(dbase_str, "partly eaten ", 13))
-        dbase_str += 13;
-    if (!strncmp(dbase_str, "statue of ", 10))
+    if (!strncmp(dbase_str, "статуя ", 7))
         dbase_str[6] = '\0';
-    else if (!strncmp(dbase_str, "figurine of ", 12))
-        dbase_str[8] = '\0';
-    /* remove enchantment ("+0 aklys"); [for 3.6.0 and earlier, this wasn't
-       needed because looking at items on the map used xname() rather than
-       doname() hence known enchantment was implicitly suppressed] */
-    if (*dbase_str && strchr("+-", dbase_str[0]) && digit(dbase_str[1])) {
-        ++dbase_str; /* skip sign */
-        while (digit(*dbase_str))
-            ++dbase_str;
-        if (*dbase_str == ' ')
-            ++dbase_str;
-    }
-    /* "towel", "wet towel", and "moist towel" share one data.base entry;
-       for "wet towel", we keep prefix so that the prompt will ask about
-       "wet towel"; for "moist towel", we also want to ask about "wet towel".
-       (note: strncpy() only terminates output string if the specified
-       count is bigger than the length of the substring being copied) */
-    if (!strncmp(dbase_str, "moist towel", 11))
-        memcpy(dbase_str += 2, "wet", 3); /* skip "mo" replace "ist" */
+    else if (!strncmp(dbase_str, "статуэтка ", 10))
+        dbase_str[9] = '\0';
+
+    if ((ep = strstri(dbase_str, " с ловушкой")) != 0 && ep > dbase_str)
+        *ep = '\0';
 
     /* Make sure the name is non-empty. */
     if (*dbase_str) {
@@ -986,16 +984,17 @@ checkfile(
                 skipping_entry;
         char *sp, *ap, *alt = 0; /* alternate description */
 
-        /* adjust the input to remove "named " and "called " */
-        if ((ep = strstri(dbase_str, " named ")) != 0) {
-            alt = ep + 7;
-            if ((ap = strstri(dbase_str, " called ")) != 0 && ap < ep)
-                ep = ap; /* "named" is alt but truncate at "called" */
-        } else if ((ep = strstri(dbase_str, " called ")) != 0) {
-            copynchars(givenname, ep + 8, BUFSZ - 1);
+        /* adjust the input to remove "по имени " and "под названием " */
+        if ((ep = strstri(dbase_str, " по имени ")) != 0) {
+            alt = ep + 10;
+            if ((ap = strstri(dbase_str, " под названием ")) != 0 && ap < ep)
+                ep = ap; /* "по имени" is alt but truncate at "под названием" */
+        } else if ((ep = strstri(dbase_str, " под названием ")) != 0) {
+            copynchars(givenname, ep + 15, BUFSZ - 1);
             alt = givenname;
-            if (supplemental_name && (sp = strstri(inp, " called ")) != 0)
-                copynchars(supplemental_name, sp + 8, BUFSZ - 1);
+            if (supplemental_name
+                && (sp = strstri(inp, " под названием ")) != 0)
+                copynchars(supplemental_name, sp + 15, BUFSZ - 1);
         } else
             ep = strstri(dbase_str, ", ");
         if (ep && ep > dbase_str)

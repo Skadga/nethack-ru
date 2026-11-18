@@ -5427,24 +5427,18 @@ cinv_doname(struct obj *obj)
     char *result = doname(obj);
 
     /*
-     * If obj->tknown ever gets implemented, doname() will handle this.
-     * Assumes that probing reveals the trap prior to calling us.  Since
-     * we lack that flag, hero forgets about it as soon as we're done....
+     * doname() appends " с ловушкой" itself when obj->tknown is set;
+     * keep a fallback for a trapped container whose trap is known
+     * while tknown has not been propagated yet.
      */
 
     /* 'result' is an obuf[] but might point into the middle (&buf[PREFIX])
        rather than the beginning and we don't have access to that;
        assume that there is at least QBUFSZ available when reusing it */
-    if (obj->otrapped && strlen(result) + sizeof "с ловушкой " <= QBUFSZ) {
+    if (!obj->tknown && obj->otrapped && strlen(result) + sizeof " с ловушкой" <= QBUFSZ) {
         /* obj->lknown has been set before calling us so either "locked" or
            "unlocked" should always be present (for a trapped container) */
-        char *q = strstri(result, "незапертый "),
-             *p = strstri(result, "запертый ");
-
-        if (p && (!q || p < q))
-            (void) strsubst(p, "запертый ", "запертый с ловушкой ");
-        else if (q)
-            (void) strsubst(q, "незапертый ", "незапертый с ловушкой ");
+        Strcat(result, " с ловушкой");
     }
     return result;
 }
@@ -5457,7 +5451,7 @@ cinv_ansimpleoname(struct obj *obj)
 
     /* result is an obuf[] so we know this will always fit */
     if (obj->otrapped)
-        (void) strsubst(result, "", "с ловушкой "); /* insert at beginning */
+        Strcat(result, " с ловушкой");
     return result;
 }
 
