@@ -82,9 +82,13 @@ missmm(
 
     if (gv.vis) {
         pline("%s %s %s.", Monnam(magr),
-              (magr->mcan || !could_seduce(magr, mdef, mattk)) ? "промахивается"
+              (magr->mcan || !could_seduce(magr, mdef, mattk))
+                  ? "промахивается по"
                   : "притворяется дружелюбным с",
-              mon_nam_too(mdef, magr));
+              ru_noun_case(mon_nam_too(mdef, magr),
+                           (magr->mcan
+                            || !could_seduce(magr, mdef, mattk))
+                               ? BP_DAT : BP_INS));
     } else {
         noises(magr, mattk);
     }
@@ -694,11 +698,15 @@ hitmm(
                 break;
             }
             if (*buf)
-                pline("%s %s.", buf, mon_nam_too(mdef, magr));
+                pline("%s %s.", buf,
+                      ru_noun_case(mon_nam_too(mdef, magr),
+                                   (mattk->aatyp == AT_TUCH) ? BP_GEN
+                                                             : BP_ACC));
 
             if (mon_hates_silver(mdef) && silverhit)
                 pline("%s опаляет %s своим %s!", magr_name,
-                      mon_nam_too(mdef, magr), simpleonames(mwep));
+                      ru_noun_case(mon_nam_too(mdef, magr), BP_ACC),
+                      simpleonames(mwep));
         }
     } else
         noises(magr, mattk);

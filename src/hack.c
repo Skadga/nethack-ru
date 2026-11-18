@@ -1718,13 +1718,14 @@ notice_mon(struct monst *mtmp)
             mtmp->mspotted = TRUE;
             set_msg_xy(mtmp->mx, mtmp->my);
             You("%s %s.", canseemon(mtmp) ? "видите" : "замечаете",
-                x_monnam(mtmp,
+                ru_noun_case(x_monnam(mtmp,
                      mtmp->mtame ? ARTICLE_YOUR
                      : (!has_mgivenname(mtmp)
                         && !type_is_pname(mtmp->data)) ? ARTICLE_A
                      : ARTICLE_NONE,
                      (mtmp->mpeaceful && !mtmp->mtame) ? "peaceful" : 0,
-                     has_mgivenname(mtmp) ? SUPPRESS_SADDLE : 0, FALSE));
+                     has_mgivenname(mtmp) ? SUPPRESS_SADDLE : 0, FALSE),
+                             BP_ACC));
         } else if (!spot) {
             mtmp->mspotted = FALSE;
         }
@@ -2220,13 +2221,14 @@ domove_swap_with_pet(
         newsym(u.ux0, u.uy0);
 
         You("%s %s.", mtmp->mpeaceful ? "меняетесь местами с" : "пугаете",
-            x_monnam(mtmp,
+            ru_noun_case(x_monnam(mtmp,
                      mtmp->mtame ? ARTICLE_YOUR
                      : (!has_mgivenname(mtmp)
                         && !type_is_pname(mtmp->data)) ? ARTICLE_THE
                      : ARTICLE_NONE,
                      (mtmp->mpeaceful && !mtmp->mtame) ? "peaceful" : 0,
-                     has_mgivenname(mtmp) ? SUPPRESS_SADDLE : 0, FALSE));
+                     has_mgivenname(mtmp) ? SUPPRESS_SADDLE : 0, FALSE),
+                         mtmp->mpeaceful ? BP_INS : BP_ACC));
 
         /* check for displacing it into pools and traps */
         switch (minliquid(mtmp) ? Trap_Killed_Mon

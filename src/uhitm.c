@@ -3446,8 +3446,8 @@ mhitm_ad_wrap(
             mhm->damage = 0;
 
         if (!mhm->damage && (canseemon(magr) || canseemon(mdef))) {
-            pline("%s חאהוגאוע %s.",
-                  Some_Monnam(magr), some_mon_nam(mdef));
+            pline("%s חאהוגאוע %s.", Some_Monnam(magr),
+                  ru_noun_case(some_mon_nam(mdef), BP_ACC));
         }
     }
 }
@@ -4191,7 +4191,8 @@ mhitm_ad_phys(
                                   mhm->dieroll)) {
                     if (gv.vis)
                         pline_mon(magr, "%s בü¸ע %s.", Monnam(magr),
-                              mon_nam_too(mdef, magr));
+                                  ru_noun_case(mon_nam_too(mdef, magr),
+                                               BP_ACC));
                     mhm->hitflags |= M_ATTK_HIT;
                 }
                 /* artifact_hit updates 'tmp' but doesn't inflict any
