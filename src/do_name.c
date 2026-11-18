@@ -2140,7 +2140,8 @@ ru_case_is_invariant(const char *w)
         "драже", "желе", "меню", "шоссе", "ателье", "резюме",
         "интервью", "алоэ", "табло", "депо", "эскимо", "киви",
         "кофе", "такси", "жюри", "пони", "кенгуру", "шимпанзе",
-        "какаду", "эму", "салями", "спагетти"
+        "какаду", "эму", "салями", "спагетти",
+        "роси", "роте", "ниндзя", "зомби", "йети", "динго", "ки"
     };
     size_t i;
 
@@ -2158,7 +2159,8 @@ ru_case_is_fem_soft(const char *w)
         "кровать", "цепь", "сеть", "тень", "печь", "вещь", "помощь",
         "кровь", "обувь", "морковь", "сталь", "медь", "пыль", "нить",
         "ртуть", "плоть", "бровь", "ветвь", "пасть", "масть", "дробь",
-        "прорубь", "грязь", "гроздь", "кость", "кисть", "власть"
+        "прорубь", "грязь", "гроздь", "кость", "кисть", "власть",
+        "плесень", "слизь"
     };
     size_t n = strlen(w), i;
 
@@ -2271,7 +2273,8 @@ ru_case_noun(const char *w, int cs, char *out)
         "пёс", "лев", "орёл", "посол", "ковёр", "лёд", "лён",
         "пень", "путь", "мать", "дочь", "дитя",
         "мешок", "замок", "горшок", "свиток", "свисток", "поводок",
-        "паёк", "прыжок", "трезубец", "рубец", "морковь"
+        "паёк", "прыжок", "трезубец", "рубец", "морковь",
+        "угорь", "студень", "сурок", "неандерталец"
     };
     static const char *const irr_form[][6] = {
         { "время", "времени", "времени", "время", "временем", "времени" },
@@ -2329,6 +2332,11 @@ ru_case_noun(const char *w, int cs, char *out)
         { "рубец", "рубца", "рубцу", "рубец", "рубцом", "рубце" },
         { "морковь", "моркови", "моркови", "морковь", "морковью",
           "моркови" },
+        { "угорь", "угря", "угрю", "угря", "угрём", "угре" },
+        { "студень", "студня", "студню", "студня", "студнем", "студне" },
+        { "сурок", "сурка", "сурку", "сурка", "сурком", "сурке" },
+        { "неандерталец", "неандертальца", "неандертальцу",
+          "неандертальца", "неандертальцем", "неандертальце" },
     };
     const char *end = 0;
     size_t n, i, cut = 0;
@@ -2411,10 +2419,24 @@ ru_case_noun(const char *w, int cs, char *out)
     } else if (w[n - 1] == 'у' || w[n - 1] == 'ю' || w[n - 1] == 'э') {
         Strcpy(out, w);
         return;
+    } else if (n > 3 && !strcmp(w + n - 3, "нок")) {
+        cut = n - 3;
+        end = (cs == BP_GEN || cs == BP_ACC) ? "нка"
+              : (cs == BP_DAT) ? "нку" : (cs == BP_INS) ? "нком" : "нке";
+    } else if (n > 3 && !strcmp(w + n - 2, "ок")
+               && (w[n - 3] == 'ж' || w[n - 3] == 'ч' || w[n - 3] == 'ш'
+                   || w[n - 3] == 'щ')) {
+        cut = n - 2;
+        end = (cs == BP_GEN || cs == BP_ACC) ? "ка"
+              : (cs == BP_DAT) ? "ку" : (cs == BP_INS) ? "ком" : "ке";
     } else {
         cut = n;
         end = (cs == BP_GEN) ? "а" : (cs == BP_DAT) ? "у"
-              : (cs == BP_ACC) ? "" : (cs == BP_INS) ? "ом" : "е";
+              : (cs == BP_ACC) ? ""
+                : (cs == BP_INS) ? ((w[n - 1] == 'ж' || w[n - 1] == 'ч'
+                                     || w[n - 1] == 'ш' || w[n - 1] == 'щ'
+                                     || w[n - 1] == 'ц') ? "ем" : "ом")
+                  : "е";
     }
     Sprintf(out, "%.*s%s", (int) cut, w, end);
 }
@@ -2536,6 +2558,208 @@ ru_noun_case(const char *nom, int cse)
     return out;
 }
 
+/* RU localization: падежные формы имён монстров, не попавших в
+   mon_paradigms[].  Монстры одушевлённые: винительный падеж
+   существительных мужского рода и прилагательных совпадает с
+   родительным ("бьёт муравья", "бьёт большого муравья"), у
+   существительных на -а/-я он даёт -у/-ю, а средний род и женский
+   род на -ь сохраняют именительный.  Деепричастные окончания -ся
+   отделяются и приклеиваются обратно. */
+
+staticfn boolean
+ru_mon_is_adj(const char *w)
+{
+    size_t n = strlen(w);
+
+    if (n > 4 && !strcmp(w + n - 2, "ся"))
+        return TRUE;            /* "смещающийся", "затаившийся" */
+    if (!strcmp(w, "Пелий"))
+        return FALSE;
+    if (n > 3 && !strcmp(w + n - 3, "рий"))
+        return FALSE;           /* "титанотерий", "балухитерий" */
+    return ru_case_is_adj(w);
+}
+
+staticfn void
+ru_mon_adj(const char *w, int cs, char *out)
+{
+    size_t n = strlen(w);
+    char stem[BUFSZ];
+
+    if (n > 4 && !strcmp(w + n - 2, "ся")) {
+        memcpy(stem, w, n - 2);
+        stem[n - 2] = '\0';
+        ru_mon_adj(stem, cs, out);
+        Strcat(out, "ся");
+        return;
+    }
+    if (cs == BP_ACC) {
+        if (n > 2 && (!strcmp(w + n - 2, "ый") || !strcmp(w + n - 2, "ий")
+                      || !strcmp(w + n - 2, "ой")))
+            cs = BP_GEN;
+    }
+    ru_case_adj(w, cs, out);
+}
+
+staticfn void
+ru_mon_noun(const char *w, int cs, char *out)
+{
+    size_t n = strlen(w);
+
+    if (cs == BP_ACC) {
+        if (!strcmp(w, "подмастерье")) {
+            ru_case_noun(w, BP_GEN, out);
+            return;
+        }
+        if (n > 1 && (w[n - 1] == 'о' || w[n - 1] == 'е')) {
+            Strcpy(out, w);
+            return;
+        }
+        if (n > 1 && w[n - 1] == 'ь' && ru_case_is_fem_soft(w)) {
+            Strcpy(out, w);
+            return;
+        }
+        if (n > 1 && (w[n - 1] == 'а' || w[n - 1] == 'я')) {
+            ru_case_noun(w, BP_ACC, out);
+            return;
+        }
+        ru_case_noun(w, BP_GEN, out);
+        return;
+    }
+    ru_case_noun(w, cs, out);
+}
+
+staticfn void
+ru_mon_word(const char *w, int cs, char *out)
+{
+    const char *dash = strchr(w, '-');
+    char part[BUFSZ], form[BUFSZ];
+
+    if (dash) {
+        size_t len = (size_t) (dash - w);
+
+        if (len >= BUFSZ)
+            len = BUFSZ - 1;
+        memcpy(part, w, len);
+        part[len] = '\0';
+        ru_mon_word(part, cs, out);
+        Strcat(out, "-");
+        ru_mon_word(dash + 1, cs, form);
+        Strcat(out, form);
+        return;
+    }
+    if (ru_mon_is_adj(w)) {
+        ru_mon_adj(w, cs, out);
+        return;
+    }
+    if (ru_case_is_pron(w)) {
+        ru_case_pron(w, cs, out);
+        return;
+    }
+    ru_mon_noun(w, cs, out);
+}
+
+staticfn const char *
+ru_mon_case_fallback(const char *nom, int cs)
+{
+    static const char *const vlad[6] = {
+        "Влад Цепеш", "Влада Цепеша", "Владу Цепешу",
+        "Влада Цепеша", "Владом Цепешем", "Владе Цепеше"
+    };
+    static char bufs[4][BUFSZ];
+    static int bufi = 0;
+    char *out, word[BUFSZ], form[BUFSZ], next[BUFSZ];
+    const char *p, *rest;
+    size_t olen = 0, len, l2;
+    boolean all = FALSE, skipfirst = FALSE;
+
+    if (!nom || !*nom)
+        return "";
+    if (cs <= BP_NOM || cs > BP_PREP)
+        return nom;
+    if (!strcmp(nom, "Влад Цепеш"))
+        return vlad[cs];
+
+    bufi = (bufi + 1) % SIZE(bufs);
+    out = bufs[bufi];
+    out[0] = '\0';
+
+    p = strchr(nom, ' ');
+    if (!p) {
+        ru_mon_word(nom, cs, out);
+        return out;
+    }
+    len = (size_t) (p - nom);
+    if (len >= BUFSZ)
+        len = BUFSZ - 1;
+    memcpy(word, nom, len);
+    word[len] = '\0';
+
+    if (ru_mon_is_adj(word) || ru_case_is_pron(word)) {
+        all = TRUE;
+    } else if (!ru_case_is_invariant(word)
+               && (word[len - 1] == 'о' || word[len - 1] == 'е')) {
+        rest = p + 1;
+        l2 = strcspn(rest, " ");
+        if (l2 >= BUFSZ)
+            l2 = BUFSZ - 1;
+        memcpy(next, rest, l2);
+        next[l2] = '\0';
+        if (ru_mon_is_adj(next) || ru_case_is_pron(next))
+            skipfirst = TRUE;
+    }
+
+    if (all) {
+        for (p = nom; *p; ) {
+            len = strcspn(p, " ");
+            if (len >= BUFSZ)
+                len = BUFSZ - 1;
+            memcpy(word, p, len);
+            word[len] = '\0';
+            ru_mon_word(word, cs, form);
+            if (olen && olen < BUFSZ - 1)
+                out[olen++] = ' ';
+            if (olen + strlen(form) < BUFSZ) {
+                Strcpy(out + olen, form);
+                olen += strlen(form);
+            }
+            p += len;
+            while (*p == ' ')
+                ++p;
+        }
+        return out;
+    }
+
+    if (skipfirst) {
+        Strcpy(out, word);
+        olen = strlen(out);
+        for (p = nom + len; *p; ) {
+            while (*p == ' ')
+                ++p;
+            if (!*p)
+                break;
+            len = strcspn(p, " ");
+            if (len >= BUFSZ)
+                len = BUFSZ - 1;
+            memcpy(word, p, len);
+            word[len] = '\0';
+            ru_mon_word(word, cs, form);
+            if (olen + 1 + strlen(form) < BUFSZ) {
+                out[olen++] = ' ';
+                Strcpy(out + olen, form);
+                olen += strlen(form);
+            }
+            p += len;
+        }
+        return out;
+    }
+
+    ru_mon_word(word, cs, out);
+    if (strlen(out) + strlen(p) < BUFSZ)
+        Strcat(out, p);
+    return out;
+}
+
 /* Падежные формы квестовых артефактов; cse: 1 — им., 2 — род.,
    3 — дат., 4 — вин., 5 — тв., 6 — предл.  Незнакомое имя
    возвращается без изменений. */
@@ -2614,8 +2838,12 @@ mon_gen_nom(const char *nom, int cse)
     for (i = 0; i < SIZE(mon_paradigms); i++)
         if (pg[i].key && !strcmp(pg[i].key, nom))
             break;
-    if (i == SIZE(mon_paradigms))
-        return (cs == BP_GEN) ? ru_gen_fallback(nom) : nom;
+    if (i == SIZE(mon_paradigms)) {
+        if (plural || cs == BP_NOM)
+            return nom;
+        return (cs == BP_GEN) ? ru_gen_fallback(nom)
+                              : ru_mon_case_fallback(nom, cs);
+    }
     if (plural) {
         const char *f = pg[i].p[mon_pl_slot[cs]];
 
