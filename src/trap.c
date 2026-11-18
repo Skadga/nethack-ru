@@ -930,7 +930,8 @@ animate_statue(
     } else { /* cause == ANIMATE_NORMAL */
         set_msg_xy(x, y);
         You("обнаруживаете %s, прикинывающегося статуэй.",
-            canspotmon(mon) ? a_monnam(mon) : something);
+            canspotmon(mon) ? ru_noun_case(a_monnam(mon), BP_ACC)
+                            : something);
         if (!canspotmon(mon) && Blind)
             map_invisible(x, y);
         stop_occupation();
@@ -1965,8 +1966,10 @@ trapeffect_pit(
                                      SUPPRESS_SADDLE, FALSE));
                 else
                     Sprintf(verbbuf, "тянете %s за собой",
-                            x_monnam(u.usteed, steed_article, "бедную",
-                                     SUPPRESS_SADDLE, FALSE));
+                            ru_noun_case(x_monnam(u.usteed, steed_article,
+                                                  "бедную",
+                                                  SUPPRESS_SADDLE, FALSE),
+                                         BP_ACC));
             } else if (iflags.menu_requested && already_known) {
                 You("осторожно %s в яму.",
                     u_locomotion("lower yourself"));
@@ -2563,8 +2566,9 @@ trapeffect_poly_trap(
             Strcpy(verbbuf, "задеваете"); /* follows "You sit down." */
         else if (u.usteed)
             Sprintf(verbbuf, "тянете %s на",
-                    x_monnam(u.usteed, steed_article, (char *) 0,
-                             SUPPRESS_SADDLE, FALSE));
+                    ru_noun_case(x_monnam(u.usteed, steed_article,
+                                          (char *) 0, SUPPRESS_SADDLE,
+                                          FALSE), BP_ACC));
         else
             Sprintf(verbbuf, "%s на", u_locomotion("step"));
         You("%s ловушку превращения!", verbbuf);

@@ -341,7 +341,8 @@ mattackm(
                 else if (mdef->m_id == gl.last_hider)
                     You("замечаете %s.", mon_gen(mdef, BP_ACC));
                 else
-                    pline("Внезапно вы замечаете %s.", a_monnam(mdef));
+                    pline("Внезапно вы замечаете %s.",
+                          ru_noun_case(a_monnam(mdef), BP_ACC));
             }
         }
     }

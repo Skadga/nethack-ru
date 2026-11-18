@@ -1242,7 +1242,8 @@ use_bell(struct obj **optr)
             && !(svm.mvitals[PM_MOUNTAIN_NYMPH].mvflags & G_GONE)
             && (mtmp = makemon(mkclass(S_NYMPH, 0), u.ux, u.uy,
                                NO_MINVENT | MM_NOMSG)) != 0) {
-            You("призываете %s!", a_monnam(mtmp));
+            You("призываете %s!",
+                ru_noun_case(a_monnam(mtmp), BP_ACC));
             if (!obj_resists(obj, 93, 100)) {
                 pline("%s разбивается вдребезги!", The(xname(obj)));
                 useup(obj);

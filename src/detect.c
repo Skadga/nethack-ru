@@ -2025,7 +2025,9 @@ mfind0(struct monst *mtmp, boolean via_warning)
             You_feel("невидимого монстра!");
         } else if (!sensemon(mtmp)) {
             set_msg_xy(x, y);
-            You("находите %s.", mtmp->mtame ? y_monnam(mtmp) : a_monnam(mtmp));
+            You("находите %s.",
+                ru_noun_case(mtmp->mtame ? y_monnam(mtmp)
+                                       : a_monnam(mtmp), BP_ACC));
         }
         return 1;
     }

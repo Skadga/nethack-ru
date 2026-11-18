@@ -5083,7 +5083,8 @@ wiz_force_cham_form(struct monst *mon)
     int monclass, len, tryct, mndx = NON_PM;
 
     /* construct prompt in pieces */
-    Sprintf(pprompt, "Превратить %s", noit_mon_nam(mon));
+    Sprintf(pprompt, "Превратить %s",
+            ru_noun_case(noit_mon_nam(mon), BP_ACC));
     Sprintf(parttwo, " @ %s в кого?",
             coord_desc((int) mon->mx, (int) mon->my, buf,
                        (iflags.getpos_coords != GPCOORDS_NONE)

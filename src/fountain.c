@@ -71,7 +71,8 @@ dowaterdemon(void)
         if ((mtmp = makemon(&mons[PM_WATER_DEMON], u.ux, u.uy,
                             MM_NOMSG)) != 0) {
             if (!Blind)
-                You("высвобождаете %s!", a_monnam(mtmp));
+                You("высвобождаете %s!",
+                    ru_noun_case(a_monnam(mtmp), BP_ACC));
             else
                 You_feel("присутствие зла.");
 
@@ -101,7 +102,8 @@ dowaternymph(void)
         && (mtmp = makemon(&mons[PM_WATER_NYMPH], u.ux, u.uy,
                            MM_NOMSG)) != 0) {
         if (!Blind)
-            You("привлекаете %s!", a_monnam(mtmp));
+            You("привлекаете %s!",
+                ru_noun_case(a_monnam(mtmp), BP_ACC));
         else
             You_hear("чарующий голос.");
         mtmp->msleeping = 0;
@@ -629,8 +631,9 @@ drinksink(void)
             mtmp = makemon(&mons[PM_SEWER_RAT], u.ux, u.uy, MM_NOMSG);
             if (mtmp)
                 pline("Ой!  В раковине %s!",
-                      (Blind || !canspotmon(mtmp)) ? "что-то извивающееся"
-                                                   : a_monnam(mtmp));
+                      (Blind || !canspotmon(mtmp))
+                          ? "что-то извивающееся"
+                          : ru_noun_case(a_monnam(mtmp), BP_PREP));
         }
         break;
     case 4:

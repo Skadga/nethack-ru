@@ -2239,7 +2239,8 @@ doseduce(struct monst *mon)
             disp.botl = TRUE;
             break;
         case 2:
-            You("всегда будете помнить %s...", noit_mon_nam(mon));
+            You("всегда будете помнить %s...",
+                ru_noun_case(noit_mon_nam(mon), BP_ACC));
             (void) adjattrib(A_WIS, 1, TRUE);
             exercise(A_WIS, TRUE);
             disp.botl = TRUE;

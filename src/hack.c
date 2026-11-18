@@ -463,7 +463,8 @@ moverock_core(coordxy sx, coordxy sy)
                 if (Blind)
                     feel_location(sx, sy);
                 if (canspotmon(mtmp)) {
-                    pline("С той стороны %s.", a_monnam(mtmp));
+                    pline("С той стороны %s.",
+                          ru_noun_case(a_monnam(mtmp), BP_GEN));
                     deliver_part1 = TRUE;
                 } else {
                     Soundeffect(se_monster_behind_boulder, 50);
@@ -3482,13 +3483,12 @@ spoteffects(boolean pick)
                 pline("Его удар скользит по вашему %s.",
                       helm_case(uarmh, BP_DAT));
             } else if (u.uac + 3 <= rnd(20)) {
-                You("чуть не задеты %s!",
-                    x_monnam(mtmp, ARTICLE_A, "падающего", 0, TRUE));
+                pline("Сверху вас чуть не задевает %s!",
+                      a_monnam(mtmp));
             } else {
                 int dmg;
 
-                You("задеты %s!",
-                    x_monnam(mtmp, ARTICLE_A, "падающего", 0, TRUE));
+                pline("Сверху вас задевает %s!", a_monnam(mtmp));
                 dmg = d(4, 6);
                 if (Half_physical_damage)
                     dmg = (dmg + 1) / 2;
@@ -3500,7 +3500,9 @@ spoteffects(boolean pick)
                 pline("%s спрыгивает к вам с потолка.", Amonnam(mtmp));
             else if (mtmp->mpeaceful) {
                 You("застаёте врасплох %s!",
-                    Blind && !sensemon(mtmp) ? something : a_monnam(mtmp));
+                    Blind && !sensemon(mtmp)
+                        ? something
+                        : ru_noun_case(a_monnam(mtmp), BP_ACC));
                 mtmp->mpeaceful = 0;
             } else
                 pline("%s атакует вас врасплох!", Amonnam(mtmp));

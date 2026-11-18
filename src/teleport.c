@@ -1914,9 +1914,10 @@ control_mon_tele(
         return FALSE;
 
     pline("Куда телепортировать %s на (<%d,%d>)?",
-          noit_mon_nam(mon), mon->mx, mon->my);
+          ru_noun_case(noit_mon_nam(mon), BP_ACC), mon->mx, mon->my);
     /* getpos '?' will show "Move the cursor to <where to teleport Foo>:" */
-    Sprintf(tcbuf, "куда телепортировать %s", noit_mon_nam(mon));
+    Sprintf(tcbuf, "куда телепортировать %s",
+            ru_noun_case(noit_mon_nam(mon), BP_ACC));
     if (getpos(cc_p, FALSE, tcbuf) >= 0 && !u_at(cc_p->x, cc_p->y)) {
         if (via_rloc
               ? rloc_pos_ok(cc_p->x, cc_p->y, mon)

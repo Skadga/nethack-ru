@@ -1963,9 +1963,12 @@ dopay(void)
                 return ECMD_TIME;
             }
             You("пытаетесь задобрить %s, отдавая %s 1000 золотых.",
-                canspotmon(shkp)
-                    ? x_monnam(shkp, ARTICLE_THE, "разгневанный", 0, FALSE)
-                    : shkname(shkp),
+                ru_noun_case(canspotmon(shkp)
+                                 ? x_monnam(shkp, ARTICLE_THE,
+                                            "разгневанный",
+                                            0, FALSE)
+                                 : shkname(shkp),
+                             BP_ACC),
                 noit_mhim(shkp));
             pay(1000L, shkp);
             if (strncmp(eshkp->customer, svp.plname, PL_NSIZ) || rn2(3))

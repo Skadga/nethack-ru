@@ -121,7 +121,8 @@ charm_snakes(int distance)
             newsym(mtmp->mx, mtmp->my);
             if (canseemon(mtmp)) {
                 if (!could_see_mon)
-                    You("замечаете %s, покачивающегося в такт музыке.", a_monnam(mtmp));
+                    You("замечаете %s, покачивающегося в такт музыке.",
+                        ru_noun_case(a_monnam(mtmp), BP_ACC));
                 else
                     pline("%s замирает, а затем покачивается в такт музыке%s.",
                           Monnam(mtmp),
