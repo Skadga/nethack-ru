@@ -1755,7 +1755,7 @@ openone(coordxy zx, coordxy zy, genericptr_t num)
             cvt_sdoor_to_door(&levl[zx][zy]); /* .typ = DOOR */
         if (levl[zx][zy].doormask & D_TRAPPED) {
             if (distu(zx, zy) < 3)
-                b_trapped("door", NO_PART);
+                b_trapped("дверь", NO_PART);
             else
                 Norep("Вы %s взрыв!",
                       cansee(zx, zy) ? "видите" : (!Deaf ? "слышите"

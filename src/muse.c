@@ -823,7 +823,7 @@ use_defensive(struct monst *mtmp)
             if (otmp)
                 pline_mon(mtmp, "%s использует единорогов рог!", Monnam(mtmp));
             else
-                pline("Конец рога %s светится!", mon_nam(mtmp));
+                pline("Конец рога %s светится!", mon_gen(mtmp, BP_GEN));
         }
         if (!mtmp->mcansee) {
             mcureblindness(mtmp, vismon);

@@ -1215,7 +1215,7 @@ break_armor(void)
             /* mummy wrapping adapts to small and very big sizes */
             && (otmp->otyp != MUMMY_WRAPPING || !WrappingAllowed(uptr))) {
             if (is_whirly(uptr))
-                Your("%s падает, ничем не удерживаемый!", cloak_simple_name(otmp));
+                Your("%s соскальзывает с вас!", cloak_case(otmp, BP_NOM));
             else
                 You("уменьшаетесь, и %s падает с вас!",
                     cloak_case(otmp, BP_NOM));

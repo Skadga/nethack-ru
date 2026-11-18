@@ -735,8 +735,7 @@ peffect_water(struct obj *otmp)
             pline("∆жЄтс€, как %s!", hliquid("acid"));
             exercise(A_CON, FALSE);
             if (ismnum(u.ulycn)) {
-                Your("¬аше родство с %s исчезает!",
-                     makeplural(mons[u.ulycn].pmnames[NEUTRAL]));
+                You("больше не %s!", mons[u.ulycn].pmnames[NEUTRAL]);
                 if (gy.youmonst.data == &mons[u.ulycn])
                     you_unwere(FALSE);
                 set_ulycn(NON_PM); /* cure lycanthropy */

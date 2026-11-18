@@ -142,7 +142,7 @@ picklock(void)
     You("успешно завершаете %s.", lock_action());
     if (gx.xlock.door) {
         if (gx.xlock.door->doormask & D_TRAPPED) {
-            b_trapped("door", FINGER);
+            b_trapped("дверь", FINGER);
             gx.xlock.door->doormask = D_NODOOR;
             unblock_point(u.ux + u.dx, u.uy + u.dy);
             if (*in_rooms(u.ux + u.dx, u.uy + u.dy, SHOPBASE))
@@ -908,7 +908,7 @@ doopen_indir(coordxy x, coordxy y)
         set_msg_xy(cc.x, cc.y);
         pline("ƒверь открываетс€.");
         if (door->doormask & D_TRAPPED) {
-            b_trapped("door", FINGER);
+            b_trapped("дверь", FINGER);
             door->doormask = D_NODOOR;
             if (*in_rooms(cc.x, cc.y, SHOPBASE))
                 add_damage(cc.x, cc.y, SHOP_DOOR_COST);

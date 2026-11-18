@@ -3011,7 +3011,7 @@ better_not_take_that_off(struct obj *otmp)
     if (corpse
         && !u_safe_from_fatal_corpse(corpse, st_corpse | st_petrifies)) {
         Snprintf(buf, sizeof buf,
-            "—н€ть ваш %s, несмотр€ на то что несЄте мЄртвого %s?",
+            "—н€ть ваши %s, несмотр€ на то что несЄте мЄртвого %s?",
                  gloves_simple_name(otmp), obj_pmname(corpse));
         return (paranoid_ynq(TRUE, buf, FALSE) != 'y');
     }
@@ -3221,9 +3221,9 @@ disintegrate_arm(struct obj *atmp)
      */
 
     if ((otmp = maybe_destroy_armor(uarmc, atmp, &resistedc)) != 0) {
-        urgent_pline("¬аш %s рассыпаетс€ и превращаетс€ в пыль!",
+        urgent_pline("%s рассыпаетс€ и превращаетс€ в пыль!",
                      /* cloak/robe/apron/smock (ID'd apron)/wrapping */
-                     cloak_simple_name(otmp));
+                     An(cloak_simple_name(otmp)));
     } else if (!resistedc
              && (otmp = maybe_destroy_armor(uarm, atmp, &resistedsuit)) != 0) {
         const char *suit = suit_simple_name(otmp);
@@ -3232,13 +3232,14 @@ disintegrate_arm(struct obj *atmp)
            stops shining _after_ we've been told that it is destroyed */
         if (otmp->lamplit)
             end_burn(otmp, FALSE);
-        urgent_pline("¬аш %s %s в пыль и %s на %s!",
+        urgent_pline("%s %s в пыль и %s на %s!",
                      /* suit might be "чешу€ дракона" so vtense() is needed */
-                     suit, vtense(suit, "превращаетс€"), vtense(suit, "падает"),
+                     An(suit), vtense(suit, "превращаетс€"),
+                     vtense(suit, "падает"),
                      surface_case(u.ux, u.uy, BP_ACC));
     } else if (!resistedc && !resistedsuit
              && (otmp = maybe_destroy_armor(uarmu, atmp, &resisted)) != 0) {
-        urgent_pline("¬аш %s рассыпаетс€ на мелкие нити и разваливаетс€!",
+        urgent_pline("¬аша %s рассыпаетс€ на мелкие нити и разваливаетс€!",
                      shirt_simple_name(otmp)); /* always "рубашка" */
     } else if ((otmp = maybe_destroy_armor(uarmh, atmp, &resisted)) != 0) {
         urgent_pline(hard_helmet(otmp)

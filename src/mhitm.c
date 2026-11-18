@@ -1156,9 +1156,11 @@ mon_poly(struct monst *magr, struct monst *mdef, int dmg)
                 if (canspotmon(mdef))
                     pline("%s%s%s превращается в %s.", Before,
                           verbosely ? freaky : "", verbosely ? " и" : "",
-                          x_monnam(mdef, ARTICLE_A, (char *) 0,
-                                   (SUPPRESS_NAME | SUPPRESS_IT
-                                    | SUPPRESS_INVISIBLE), FALSE));
+                          ru_noun_case(x_monnam(mdef, ARTICLE_A, (char *) 0,
+                                                (SUPPRESS_NAME | SUPPRESS_IT
+                                                 | SUPPRESS_INVISIBLE),
+                                                FALSE),
+                                       BP_ACC));
                 else if (was_seen || magr == &gy.youmonst)
                     pline("%s%s%s.", Before, freaky,
                           !was_seen ? "" : " и исчезает");

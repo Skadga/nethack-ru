@@ -531,7 +531,7 @@ dig(void)
         }
         if (IS_DOOR(lev->typ) && (lev->doormask & D_TRAPPED)) {
             lev->doormask = D_NODOOR;
-            b_trapped("door", NO_PART);
+            b_trapped("дверь", NO_PART);
             recalc_block_point(dpx, dpy);
             newsym(dpx, dpy);
         }
@@ -639,7 +639,8 @@ digactualhole(coordxy x, coordxy y, struct monst *madeby, int ttyp)
 {
     struct obj *oldobjs, *newobjs;
     struct trap *ttmp;
-    const char *surface_type, *tname, *in_thru;
+    const char *surface_type, *surface_where, *surface_acc, *tname,
+        *in_thru;
     char furniture[BUFSZ];
     struct rm *lev = &levl[x][y];
     struct monst *mtmp = m_at(x, y); /* may be madeby */
@@ -673,6 +674,10 @@ digactualhole(coordxy x, coordxy y, struct monst *madeby, int ttyp)
         /* should mirror the word used by surface() for normal floor */
         surface_type = (IS_ROOM(lev->typ) && !Is_earthlevel(&u.uz)
                          ? "пол" : "земля");
+        surface_where = (IS_ROOM(lev->typ) && !Is_earthlevel(&u.uz)
+                          ? "полу" : "земле");
+        surface_acc = (IS_ROOM(lev->typ) && !Is_earthlevel(&u.uz)
+                        ? "пол" : "землю");
         if (IS_ALTAR(lev->typ)) {
             old_aligntyp = Amask2align(levl[x][y].altarmask & AM_MASK);
             Strcpy(furniture, align_str(old_aligntyp));
@@ -681,6 +686,8 @@ digactualhole(coordxy x, coordxy y, struct monst *madeby, int ttyp)
         Strcat(furniture, surface(x, y));
     } else {
         surface_type = surface(x, y);
+        surface_where = surface_case(x, y, BP_PREP);
+        surface_acc = surface_case(x, y, BP_ACC);
     }
     shopdoor = IS_DOOR(lev->typ) && *in_rooms(x, y, SHOPBASE);
     oldobjs = svl.level.objects[x][y];
@@ -700,20 +707,24 @@ digactualhole(coordxy x, coordxy y, struct monst *madeby, int ttyp)
     in_thru = (ttyp == HOLE ? "сквозь" : "в");
     if (madeby_u) {
         if (x != u.ux || y != u.uy)
-            You("выкапываете рядом %s.", tname);
+            You("выкапываете рядом %s.", ru_noun_case(tname, BP_ACC));
         else
-            You("выкапываете %s %s %s.", an(tname), in_thru, surface_type);
+            You("выкапываете %s %s %s.", ru_noun_case(tname, BP_ACC),
+                in_thru, (ttyp == HOLE) ? surface_acc : surface_where);
     } else if (!madeby_obj && canseemon(madeby)) {
-        pline("%s выкапывает %s %s %s.", Monnam(madeby), an(tname), in_thru,
-              surface_type);
+        pline("%s выкапывает %s %s %s.", Monnam(madeby),
+              ru_noun_case(tname, BP_ACC), in_thru,
+              (ttyp == HOLE) ? surface_acc : surface_where);
     } else if (cansee(x, y) && flags.verbose) {
         if (IS_STWALL(old_typ))
-            pline_The("%s рассыпается в %s.", surface_type, an(tname));
+            pline_The("%s рассыпается в %s.", surface_type,
+                      ru_noun_case(tname, BP_ACC));
         else
-            pline("%s появляется в %s.", An(tname), surface_type);
+            pline("%s появляется в %s.", An(tname), surface_where);
     }
     if (IS_FURNITURE(old_typ) && cansee(x, y))
-        pline_The("%s проваливается в %s!", furniture, tname);
+        pline_The("%s проваливается в %s!", furniture,
+                  ru_noun_case(tname, BP_ACC));
     /* wrath should immediately follow altar destruction message */
     if (heros_fault && old_typ == ALTAR)
         desecrate_altar(FALSE, old_aligntyp);

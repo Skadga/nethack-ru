@@ -1539,7 +1539,7 @@ consume_tin(const char *mesg)
 
     r = tin_variety(tin, FALSE);
     if (tin->otrapped || (tin->cursed && r != HOMEMADE_TIN && !rn2(8))) {
-        b_trapped("tin", NO_PART);
+        b_trapped("банка", NO_PART);
         tin = costly_tin(COST_DSTROY);
         use_up_tin(tin);
         return;
