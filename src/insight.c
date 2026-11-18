@@ -982,7 +982,7 @@ status_enlightenment(int mode, int final)
                       /* if hero dies while dismounting, u.usteed will still
                          be set; we want to ignore steed in that situation */
                       && !(final == ENL_GAMEOVERDEAD
-                           && !strcmp(svk.killer.name, "riding accident")));
+                           && !strcmp(svk.killer.name, "падени€ с лошади")));
     const char *steedname = (!Riding ? (char *) 0
                       : x_monnam(u.usteed,
                                  u.usteed->mtame ? ARTICLE_YOUR : ARTICLE_THE,
@@ -1010,7 +1010,8 @@ status_enlightenment(int mode, int final)
     /* not a trouble, but we want to display riding status before maybe
        reporting steed as trapped or hero stuck to cursed saddle */
     if (Riding) {
-        Sprintf(buf, "верхом на %s", steedname);
+        Sprintf(buf, "верхом на %s",
+                ru_noun_case(steedname, BP_PREP));
         you_are(buf, "");
         Sprintf(eos(youtoo), "и %s ", steedname);
     }
@@ -1058,10 +1059,10 @@ status_enlightenment(int mode, int final)
             if (final && (Strangled & I_SPECIAL)) {
                 enlght_out(" ¬ы погибли от удушени€.");
             } else {
-                Strcpy(buf, "вас душат");
+                Strcpy(buf, "душат");
                 if (wizard)
                     Sprintf(eos(buf), " (%ld)", (Strangled & TIMEOUT));
-                you_are(buf, from_what(STRANGLED));
+                enl_msg("¬ас ", buf, buf, "", from_what(STRANGLED));
             }
         }
     }
@@ -1135,24 +1136,23 @@ status_enlightenment(int mode, int final)
     heldmon[0] = '\0'; /* lint suppression */
     if (u.ustuck) { /* includes u.uswallow */
         Strcpy(heldmon, a_monnam(u.ustuck));
-        if (!strcmp(heldmon, "it")
-            && (!has_mgivenname(u.ustuck)
-                || strcmp(MGIVENNAME(u.ustuck), "it") != 0))
+        if (!strcmp(heldmon, "оно") || !strcmp(heldmon, "кто-то")
+            || !strcmp(heldmon, "что-то"))
             Strcpy(heldmon, "невидимое существо");
     }
     if (u.uswallow) {
         assert(u.ustuck != NULL); /* implied by u.uswallow */
         Snprintf(buf, sizeof buf, "%s %s",
-                digests(u.ustuck->data) ? "вас проглотил" : "вас поглотил",
-                heldmon);
+                digests(u.ustuck->data) ? "проглочены" : "поглощены",
+                ru_noun_case(heldmon, BP_INS));
         if (dmgtype(u.ustuck->data, AD_DGST)) {
             /* if final, death via digestion can be deduced by u.uswallow
                still being True and u.uswldtim having been decremented to 0 */
             if (final && !u.uswldtim)
-                Strcat(buf, " и полностью переварен");
+                Strcat(buf, " и полностью переварены");
             else
-                Sprintf(eos(buf), " и %s переварен",
-                        final ? "был" : "будет");
+                Sprintf(eos(buf), " и %s переварены",
+                        final ? "были" : "будете");
         }
         if (wizard)
             Sprintf(eos(buf), " (%u)", u.uswldtim);
@@ -1163,7 +1163,9 @@ status_enlightenment(int mode, int final)
 
         Snprintf(buf, sizeof buf, "%s %s (%s)",
                  ustick ? "держите" : "скованы с",
-                 heldmon, dxdy_to_dist_descr(dx, dy, TRUE));
+                 ustick ? ru_noun_case(heldmon, BP_ACC)
+                        : ru_noun_case(heldmon, BP_INS),
+                 dxdy_to_dist_descr(dx, dy, TRUE));
         you_are(buf, "");
     }
     if (Riding) {
@@ -1362,8 +1364,12 @@ weapon_insight(int final)
             (void) lcase(skill_level_name(wtype, sklvlbuf));
         /* "you have no/basic/expert/master/grand-master skill with <skill>"
            or "you are unskilled/skilled in <skill>" */
-        Sprintf(buf, "%s %s %s", skill_name(wtype),
-                hav ? " Ч навык " : " Ч уровень ", sklvlbuf);
+        if (hav)
+            Sprintf(buf, "навык %s Ч %s",
+                    ru_noun_case(skill_name(wtype), BP_GEN), sklvlbuf);
+        else
+            Sprintf(buf, "владеете %s на уровне Ђ%sї",
+                    ru_noun_case(skill_name(wtype), BP_INS), sklvlbuf);
 
         if (!u.twoweap) {
             if (can_advance(wtype, FALSE))
@@ -1404,18 +1410,22 @@ weapon_insight(int final)
             pfx[0] = sfx[0] = '\0';
             if (twoskl < sklvl) {
                 /* twoskil won't be restricted so sklvl is at least basic */
-                Sprintf(pfx, "¬аш навык в %s ", skill_name(wtype));
-                Sprintf(sfx, " ограничено уровнем %s при двух оружи€х", twobuf);
+                Sprintf(pfx, "¬аш навык %s ",
+                        ru_noun_case(skill_name(wtype), BP_GEN));
+                Sprintf(sfx,
+                        " ограничен уровнем %s при использовании двух оружий",
+                        twobuf);
                 also = also_;
             } else if (twoskl > sklvl) {
                 /* sklvl might be restricted */
                 Strcpy(pfx, "¬аш навык двух оружий ");
-                Strcpy(sfx, " ограничено ");
+                Strcpy(sfx, " ограничен ");
                 if (sklvl > P_ISRESTRICTED)
                     Sprintf(eos(sfx), "уровнем %s", sklvlbuf);
                 else
                     Sprintf(eos(sfx), "отсутствием навыка");
-                Sprintf(eos(sfx), " с %s", skill_name(wtype));
+                Sprintf(eos(sfx), " с %s",
+                        ru_noun_case(skill_name(wtype), BP_INS));
                 also2 = also_;
             } else {
                 Strcat(buf, " и два оружи€");
@@ -1433,32 +1443,39 @@ weapon_insight(int final)
             if (wtype2 != wtype) {
                 Strcpy(sknambuf2, skill_name(wtype2));
                 (void) lcase(skill_level_name(wtype2, sklvlbuf2));
-                verb_present = "is", verb_past = "was";
+                verb_present = "", verb_past = "";
                 pfx[0] = sfx[0] = buf[0] = '\0';
                 if (twoskl < sklvl2) {
                     /* twoskil is at least unskilled, sklvl2 at least basic */
-                    Sprintf(pfx, "¬аш навык в %s ", sknambuf2);
-                    Sprintf(sfx, " %sограничено уровнем %s при двух оружи€х",
+                    Sprintf(pfx, "¬аш навык %s ",
+                            ru_noun_case(sknambuf2, BP_GEN));
+                    Sprintf(sfx,
+                            " %sограничен уровнем %s при использовании двух оружий",
                             also, twobuf);
                 } else if (twoskl > sklvl2) {
                     /* sklvl2 might be restricted */
                     Strcpy(pfx, "¬аш навык двух оружий ");
-                    Sprintf(sfx, " %sограничено ", also2);
+                    Sprintf(sfx, " %sограничен ", also2);
                     if (sklvl2 > P_ISRESTRICTED)
                         Sprintf(eos(sfx), "уровнем %s", sklvlbuf2);
                     else
                         Strcat(eos(sfx), "отсутствием навыка");
-                    Sprintf(eos(sfx), " с %s", sknambuf2);
+                    Sprintf(eos(sfx), " с %s",
+                            ru_noun_case(sknambuf2, BP_INS));
                 } else {
                     /* equal; two-weapon is at least unskilled, so sklvl2 is
                        too; "you [also] have basic/expert/master/grand-master
                        skill with <skill>" or "you [also] are unskilled/
                        skilled in <skill> */
-                    Sprintf(buf, "%s %s %s", sknambuf2,
-                            hav2 ? " Ч навык " : " Ч уровень ", sklvlbuf2);
+                    if (hav2)
+                        Sprintf(buf, "навык %s Ч %s",
+                                ru_noun_case(sknambuf2, BP_GEN), sklvlbuf2);
+                    else
+                        Sprintf(buf, "владеете %s на уровне Ђ%sї",
+                                ru_noun_case(sknambuf2, BP_INS), sklvlbuf2);
                     Strcat(buf, " и два оружи€");
                     if (also3) {
-                        Strcpy(pfx, "¬ы также ");
+                        Strcpy(pfx, hav2 ? "¬ы также имеете " : "¬ы также ");
                         Snprintf(sfx, sizeof(sfx), " %s", buf), buf[0] = '\0';
                         verb_present = "";
                         verb_past = "";
@@ -1498,7 +1515,7 @@ weapon_insight(int final)
                         ((a1 && a2 && ab) ? ", "
                          : (a1 && (a2 || ab)) ? also_wik_ : ""),
                         a2 ? skill_name(wtype2) : "",
-                        ((a1 && a2 && ab) ? ", and "
+                        ((a1 && a2 && ab) ? ", и "
                          : (a2 && ab) ? also_wik_ : ""),
                         ab ? "двум€ оружи€ми" : "");
                 enl_msg(You_, "можете улучшить", "могли бы улучшить", sfx, "");
@@ -1682,7 +1699,7 @@ attributes_enlightenment(
             else /* u.umconf > 1 */
                 Sprintf(eos(buf), " (следующие %u ударов)", u.umconf);
         }
-        enl_msg(You_, "собьЄте с толку", "собили бы с толку", buf, "");
+        enl_msg(You_, "собьЄте с толку", "сбили бы с толку", buf, "");
     }
 
     /*** Appearance and behavior ***/
@@ -2040,12 +2057,16 @@ attributes_enlightenment(
             case 1:
                 break; /* just "are dead" */
             default:
-                Sprintf(buf, " (%d раз!)", u.umortality);
+                Sprintf(buf, " (%ld %s!)", u.umortality,
+                        (u.umortality % 10 >= 2 && u.umortality % 10 <= 4
+                         && !(u.umortality % 100 >= 12
+                              && u.umortality % 100 <= 14)) ? "раза"
+                                                          : "раз");
                 break;
             }
         }
         if (p)
-            enl_msg(You_, "были убиты ", p, buf, "");
+            enl_msg(You_, p, p, buf, "");
     }
 }
 
