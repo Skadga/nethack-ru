@@ -477,6 +477,17 @@
 - Батч №72 (02c29ce): artifact.c, end.c, light.c, region.c, restore.c,
   save.c, eat.c — заголовки списков, сохранение/восстановление.
   Сборка 0 ошибок; Android синхронизирован.
+- Батч №73 (2adc69c): квестовые артефакты и сообщения уровней.
+  include/artilist.h: «Палантир Западного Края». dat/*-goal.lua,
+  dat/Kni-strt.lua — имена совпадают с artilist.h (oname() сравнивает
+  побайтово); Hea-goal: id «посох» (Посох Эскулапа = QUARTERSTAFF).
+  dat/air|astral|earth|water.lua — сообщения при входе на уровни;
+  dat/minend-2.lua — надписи погреба, dat/Arc-loca.lua — «Здесь зарыт
+  клад.»; dat/quest.lua — synopsis изгнания; dat/nhcore.lua и
+  dat/nhlib.lua — ошибки Lua и туториальные реплики; dat/themerms.lua —
+  названия тематических комнат (lookup_by_name «обычная») и
+  предупреждения. Сборка 0 ошибок, 19 прежних warning'ов; Android
+  синхронизирован.
 
 ## Что осталось
 
