@@ -446,6 +446,15 @@
 - Батч №64 (eb0abd7): dat/data.base — 3 записи до 33 строк: циклоп,
   монах, романы Пратчетта. Переведены все 515 статей.
   Сборка 0 ошибок; Android синхронизирован.
+- Батч №65 (1c851da): внутренние сообщения — coloratt.c, pager.c,
+  mklev.c, selvar.c, sp_lev.c, weapon.c, mkobj.c, options.c, insight.c.
+  Сборка 0 ошибок; Android синхронизирован.
+- Батч №66 (2038287): вопросы, паники, служебные сообщения — 40 файлов
+  (save, end, bones, coloratt, engrave, mail, mdlib, o_init, restore,
+  options, symbols, report, teleport, trap, topten, apply, artifact,
+  ball, do, dungeon, files, insight, mhitu, mklev, mkmap, mkmaze, muse,
+  polyself, pray, rect, rnd, selvar, shk, shknam, sp_lev, spell, steal,
+  u_init, vault, mon). Сборка 0 ошибок; Android синхронизирован.
 
 ## Что осталось
 
