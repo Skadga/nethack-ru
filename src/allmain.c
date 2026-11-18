@@ -868,7 +868,8 @@ welcome(boolean new_game) /* false => restoring an old game */
     /* skip "welcome back" if restoring a doomed character */
     if (!new_game && Upolyd && ugenocided()) {
         /* death via self-genocide is pending */
-        pline("Вы вернулись, но внутри вы всё ещё чувствуете %s.", udeadinside());
+        pline("Вы вернулись, но внутри вы всё ещё чувствуете себя %s.",
+              udeadinside());
         return;
     }
 

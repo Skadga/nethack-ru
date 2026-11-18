@@ -1003,7 +1003,7 @@ status_enlightenment(int mode, int final)
     if (Upolyd) {
         Strcpy(buf, "превращены");
         if (ugenocided())
-            Sprintf(eos(buf), " и %s %s внутри",
+            Sprintf(eos(buf), " и %s себя %s внутри",
                     final ? "чувствовали" : "чувствуете", udeadinside());
         you_are(buf, "");
     }
@@ -1697,7 +1697,9 @@ attributes_enlightenment(
             if (u.umconf == 1)
                 Strcat(buf, " (только следующая атака)");
             else /* u.umconf > 1 */
-                Sprintf(eos(buf), " (следующие %u ударов)", u.umconf);
+                Sprintf(eos(buf), " (следующие %u %s)", u.umconf,
+                        (ru_num_form((long) u.umconf) == 1) ? "удара"
+                                                          : "ударов");
         }
         enl_msg(You_, "собьёте с толку", "сбили бы с толку", buf, "");
     }
@@ -1833,7 +1835,7 @@ attributes_enlightenment(
     if (u.uhitinc) {
         (void) enlght_combatinc("to hit", u.uhitinc, final, buf);
         if (iflags.tux_penalty && !Upolyd)
-            Sprintf(eos(buf), " %s штраф вашей брони",
+            Sprintf(eos(buf), ", %s штраф за вашу броню",
                     (u.uhitinc < 0) ? "увеличивая"
                     : (u.uhitinc < 4 * gu.urole.spelarmr / 5)
                       ? "частично компенсируя"
@@ -2202,10 +2204,11 @@ show_conduct(int final)
         you_have_been("атеистом");
 
     if (!u.uconduct.weaphit) {
-        you_have_never("билы с оружием в руках");
+        you_have_never("били оружием в руках");
     } else if (wizard) {
-        Sprintf(buf, "били оружием %ld раз",
-                u.uconduct.weaphit);
+        Sprintf(buf, "били оружием %ld %s", u.uconduct.weaphit,
+                (ru_num_form(u.uconduct.weaphit) == 1) ? "раза"
+                                                       : "раз");
         you_have_X(buf);
     }
     if (!u.uconduct.killer)
@@ -2214,7 +2217,10 @@ show_conduct(int final)
     if (!u.uconduct.literate) {
         you_have_been("неграмотным");
     } else if (wizard) {
-        Sprintf(buf, "читали предметы и надписи %ld раз", u.uconduct.literate);
+        Sprintf(buf, "читали предметы и надписи %ld %s",
+                u.uconduct.literate,
+                (ru_num_form(u.uconduct.literate) == 1) ? "раза"
+                                                       : "раз");
         you_have_X(buf);
     }
 
@@ -2225,28 +2231,36 @@ show_conduct(int final)
     if (ngenocided == 0) {
         you_have_never("истребляли монстров");
     } else {
-        Sprintf(buf, "истребили %d видов монстров", ngenocided);
+        Sprintf(buf, "истребили %d %s монстров", ngenocided,
+                (ru_num_form(ngenocided) == 1) ? "вида" : "видов");
         you_have_X(buf);
     }
 
     if (!u.uconduct.polypiles) {
         you_have_never("превращали предмет");
     } else if (wizard) {
-        Sprintf(buf, "превратили %ld предметов", u.uconduct.polypiles);
+        Sprintf(buf, "превратили %ld %s", u.uconduct.polypiles,
+                (ru_num_form(u.uconduct.polypiles) == 1) ? "предмета"
+                                                        : "предметов");
         you_have_X(buf);
     }
 
     if (!u.uconduct.polyselfs) {
         you_have_never("меняли форму");
     } else if (wizard) {
-        Sprintf(buf, "меняли форму %ld раз", u.uconduct.polyselfs);
+        Sprintf(buf, "меняли форму %ld %s", u.uconduct.polyselfs,
+                (ru_num_form(u.uconduct.polyselfs) == 1) ? "раза"
+                                                        : "раз");
         you_have_X(buf);
     }
 
     if (!u.uconduct.wishes) {
         you_have_X("не использовали желаний");
     } else {
-        Sprintf(buf, "использовали %ld желание", u.uconduct.wishes);
+        Sprintf(buf, "использовали %ld %s", u.uconduct.wishes,
+                (ru_num_form(u.uconduct.wishes) == 0) ? "желание"
+                 : (ru_num_form(u.uconduct.wishes) == 1) ? "желания"
+                                                        : "желаний");
         if (u.uconduct.wisharti) {
             /* if wisharti == wishes
              *  1 wish (for an artifact)
@@ -2445,7 +2459,7 @@ show_achievements(
         /* rank 0 is the starting condition, not an achievement; 8 is Xp 30 */
         case ACH_RNK1: case ACH_RNK2: case ACH_RNK3: case ACH_RNK4:
         case ACH_RNK5: case ACH_RNK6: case ACH_RNK7: case ACH_RNK8:
-            Sprintf(buf, "достигли ранга %s",
+            Sprintf(buf, "получили ранг «%s»",
                     rank_of(rank_to_xlev(absidx - (ACH_RNK1 - 1)),
                             Role_switch, (achidx < 0) ? TRUE : FALSE));
             you_have_X(buf);
@@ -3098,7 +3112,7 @@ list_genocided(char defquery, boolean ask)
 
     /* genocided or extinct species list */
     if (ngone > 0) {
-        Sprintf(buf, "Нужен ли список %sвидов%s%s?",
+        Sprintf(buf, "Нужен ли список %s%s%s видов?",
                 (nextinct && !ngenocided) ? "вымерших " : "",
                 (ngenocided) ? "истреблённых" : "",
                 (nextinct && ngenocided) ? " и вымерших" : "");
@@ -3173,11 +3187,15 @@ list_genocided(char defquery, boolean ask)
             if (!dumping)
                 putstr(klwin, 0, "");
             if (ngenocided > 0) {
-                Sprintf(buf, "Истреблено видов: %d.", ngenocided);
+                Sprintf(buf, "Истреблено %d %s.", ngenocided,
+                        (ru_num_form(ngenocided) == 1) ? "вида"
+                                                       : "видов");
                 putstr(klwin, 0, buf);
             }
             if (nextinct > 0) {
-                Sprintf(buf, "Вымерло видов: %d.", nextinct);
+                Sprintf(buf, "Вымерло %d %s.", nextinct,
+                        (ru_num_form(nextinct) == 1) ? "вида"
+                                                     : "видов");
                 putstr(klwin, 0, buf);
             }
 
@@ -3189,7 +3207,8 @@ list_genocided(char defquery, boolean ask)
     } else if (!program_state.gameover) {
         /* #genocided rather than final disclosure, so pline() is ok and
            extinction has been ignored */
-        pline("Ни один вид не истреблён%s.", genoing ? " пока" : "");
+        pline("%s", genoing ? "Пока ни один вид не истреблён."
+                            : "Ни один вид не истреблён.");
 #ifdef DUMPLOG
     } else if (dumping) { /* 'gameover' is True if we make it here */
         putstr(0, 0, "Виды не истреблялись и не вымирали.");
@@ -3529,18 +3548,28 @@ ustatusline(void)
     if (Invis)
         Strcat(info, ", невидим");
     if (u.ustuck) {
-        if (u.uswallow)
+        const char *stuckname = a_monnam(u.ustuck);
+        int stuckcse;
+
+        if (!strcmp(stuckname, "оно") || !strcmp(stuckname, "кто-то")
+            || !strcmp(stuckname, "что-то"))
+            stuckname = "невидимое существо";
+        if (u.uswallow) {
             Strcat(info, digests(u.ustuck->data) ? ", переваривается "
                                                  : ", поглощён ");
-        else if (!sticks(gy.youmonst.data))
+            stuckcse = BP_INS;
+        } else if (!sticks(gy.youmonst.data)) {
             Strcat(info, ", удерживается ");
-        else
+            stuckcse = BP_INS;
+        } else {
             Strcat(info, ", держит ");
+            stuckcse = BP_ACC;
+        }
         /* FIXME? a_monnam() uses x_monnam() which has a special case that
            forces "the" instead of "a" when formatting u.ustuck while hero
            is swallowed; we don't really want that here but it isn't worth
            fiddling with just for self-probing while engulfed */
-        Strcat(info, a_monnam(u.ustuck));
+        Strcat(info, ru_noun_case(stuckname, stuckcse));
     }
     if (!u.uswallow
         && (reg = visible_region_at(u.ux, u.uy)) != 0

@@ -2788,7 +2788,8 @@ do_class_genocide(void)
                         u.uhp = -1;
                         if (Upolyd) {
                             if (!feel_dead++)
-                                You_feel("%s внутри.", udeadinside());
+                                You_feel("себя %s внутри.",
+                                         udeadinside());
                         } else {
                             if (!feel_dead++)
                                 urgent_pline("Вы погибли.");
