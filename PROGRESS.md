@@ -1529,3 +1529,15 @@ timeout.c:2045-2050; report.c:314.
 - Сборка Release x64: 0 ошибок, 15 warning'ов (те же).
 - Android-копия синхронизирована (4 файла, identical True).
 
+## 2026-11-18 — батч 113: меню параметров
+
+- include/optlist.h: переведены 108 описаний параметров, которые видны
+  в меню #options / #optionsfull.
+- Имена параметров оставлены английскими: идентификаторы NHOPTC/NHOPTB
+  и строковые имена NHOPTO (autopickup exceptions, bind keys,
+  menu colors, message types, status condition fields,
+  status highlight rules) — по ним парсится конфигурация.
+- "(not available)" → "(недоступно)".
+- Сборка Release x64: 0 ошибок, 15 warning'ов (те же).
+- Android-копия синхронизирована (1 файл, identical True).
+
