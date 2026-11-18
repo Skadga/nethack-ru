@@ -990,31 +990,31 @@ genl_status_update(
             nb = status_vals[idx];
             *nb = '\0';
             if (cond & BL_MASK_STONE)
-                Strcpy(nb = eos(nb), " Stone");
+                Strcpy(nb = eos(nb), " Кам");
             if (cond & BL_MASK_SLIME)
-                Strcpy(nb = eos(nb), " Slime");
+                Strcpy(nb = eos(nb), " Слизь");
             if (cond & BL_MASK_STRNGL)
-                Strcpy(nb = eos(nb), " Strngl");
+                Strcpy(nb = eos(nb), " Удуш");
             if (cond & BL_MASK_FOODPOIS)
-                Strcpy(nb = eos(nb), " FoodPois");
+                Strcpy(nb = eos(nb), " ПищОт");
             if (cond & BL_MASK_TERMILL)
-                Strcpy(nb = eos(nb), " TermIll");
+                Strcpy(nb = eos(nb), " Болез");
             if (cond & BL_MASK_BLIND)
-                Strcpy(nb = eos(nb), " Blind");
+                Strcpy(nb = eos(nb), " Слеп");
             if (cond & BL_MASK_DEAF)
-                Strcpy(nb = eos(nb), " Deaf");
+                Strcpy(nb = eos(nb), " Глух");
             if (cond & BL_MASK_STUN)
-                Strcpy(nb = eos(nb), " Stun");
+                Strcpy(nb = eos(nb), " Оглуш");
             if (cond & BL_MASK_CONF)
-                Strcpy(nb = eos(nb), " Conf");
+                Strcpy(nb = eos(nb), " Смущ");
             if (cond & BL_MASK_HALLU)
-                Strcpy(nb = eos(nb), " Hallu");
+                Strcpy(nb = eos(nb), " Галл");
             if (cond & BL_MASK_LEV)
-                Strcpy(nb = eos(nb), " Lev");
+                Strcpy(nb = eos(nb), " Лев");
             if (cond & BL_MASK_FLY)
-                Strcpy(nb = eos(nb), " Fly");
+                Strcpy(nb = eos(nb), " Полёт");
             if (cond & BL_MASK_RIDE)
-                Strcpy(nb = eos(nb), " Ride");
+                Strcpy(nb = eos(nb), " Езда");
             break;
         default:
             Sprintf(status_vals[idx],

@@ -571,15 +571,15 @@ armor_status(char *armbuf)
      * At present it just reports the "no armor" case.
      */
     if (n == 0) { /* no armor */
-        Strcpy(armbuf, "naked");
+        Strcpy(armbuf, "без доспехов");
     } else if (n == 1) { /* just one piece; spell it out */
-        Strcpy(armbuf, uarmg ? "gloves"
-                       : uarmc ? "cloak"
-                         : uarm  ? "suit"
-                           : uarmu ? "shirt"
+        Strcpy(armbuf, uarmg ? "перчатки"
+                       : uarmc ? "плащ"
+                         : uarm  ? "доспех"
+                           : uarmu ? "рубашка"
                              : uarmh ? helm_simple_name(uarmh) /* hat|helm */
-                               : uarmf ? "boots"
-                                 : uarms ? "shield"
+                               : uarmf ? "сапоги"
+                                 : uarms ? "щит"
                                    : ""); /* not possible */
     } else { /* more than one piece */
         char *p = armbuf;
@@ -588,19 +588,19 @@ armor_status(char *armbuf)
            cloak next since it tends to provide the most protection
            aside from raw AC */
         if (uarmg)
-            *p++ = 'G'; /* gloves */
+            *p++ = 'П'; /* перчатки */
         if (uarmc)
-            *p++ = 'C'; /* cloak */
+            *p++ = 'П'; /* плащ */
         if (uarm)
-            *p++ = 'A'; /* suit but 's' is for shield */
+            *p++ = 'Д'; /* доспех */
         if (uarmu)
-            *p++ = 'U'; /* underwear? => shirt */
+            *p++ = 'Р'; /* рубашка */
         if (uarmh)
-            *p++ = 'H'; /* hat/helm */
+            *p++ = 'Ш'; /* шляпа/шлем */
         if (uarmf)
-            *p++ = 'B'; /* footwear => boots */
+            *p++ = 'С'; /* сапоги */
         if (uarms)
-            *p++ = 'S'; /* shield */
+            *p++ = 'Щ'; /* щит */
         *p = '\0';
     }
     /*

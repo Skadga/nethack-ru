@@ -2023,8 +2023,10 @@ hliquid(
 
     /* RU localization: map English liquid selectors to Russian words */
     if (liquidpref && *liquidpref
-        && (!strcmp(liquidpref, "water") || !strcmp(liquidpref, "lava")))
-        return !strcmp(liquidpref, "water") ? "вода" : "лава";
+        && (!strcmp(liquidpref, "water") || !strcmp(liquidpref, "lava")
+            || !strcmp(liquidpref, "acid")))
+        return !strcmp(liquidpref, "water") ? "вода"
+               : !strcmp(liquidpref, "lava") ? "лава" : "кислота";
 
     if (hallucinate || !liquidpref || !*liquidpref) {
         int indx, count = SIZE(hliquids);

@@ -1164,7 +1164,7 @@ dotele(
 void
 level_tele(void)
 {
-    static const char get_there_from[] = "добраться туда отсюда из %s.";
+    static const char get_there_from[] = "добраться туда %s.";
     int newlev;
     d_level newlevel;
     const char *escape_by_flying = 0; /* when surviving dest of -N */
@@ -1309,7 +1309,7 @@ level_tele(void)
         int llimit = dunlevs_in_dungeon(&u.uz);
 
         if (newlev >= 0 || newlev <= -llimit) {
-            You_cant(get_there_from, "here");
+            You_cant(get_there_from, "отсюда");
             return;
         }
         newlevel.dnum = u.uz.dnum;
@@ -1418,7 +1418,7 @@ level_tele(void)
 
         if (on_level(&newlevel, &u.uz) && newlev != depth(&u.uz)) {
             You_cant(get_there_from,
-                     (newlev > deepest) ? "anywhere" : "here");
+                     (newlev > deepest) ? "ниоткуда" : "отсюда");
             return;
         }
     }

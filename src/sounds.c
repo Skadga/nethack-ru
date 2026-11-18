@@ -1441,7 +1441,7 @@ tiphat(void)
         return res; /* if learned of curse, use a move */
 
     /* might choose a position, but dealing with direct lines is simpler */
-    if (!getdir("At whom? (in what direction)")) /* bail on ESC */
+    if (!getdir("В кого? (укажите направление)")) /* bail on ESC */
         return res; /* iffy; now know it's not cursed for sure (since we got
                      * past prior test) but might have already known that */
     res = 1; /* physical action is going to take place */
