@@ -1687,7 +1687,8 @@ use_lamp(struct obj *obj)
             else
                 pline("%s", nothing_seems_to_happen);
         } else {
-            pline("В этом %s нет масла.", xname(obj));
+            pline("В %s нет масла.",
+                  ru_noun_case(xname(obj), BP_PREP));
         }
         return;
     }

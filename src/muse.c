@@ -2580,8 +2580,9 @@ use_misc(struct monst *mtmp)
             urgent_pline("%s обвивается вокруг %s!", The_whip,
                          ru_noun_case(xname(obj), BP_GEN));
             if (welded(obj)) {
-                pline("%s приварен к вашему %s%c",
+                pline("%s приварен к %s%s%c",
                       !is_plural(obj) ? "Он" : "Они",
+                      bimanual(obj) ? "вашим " : "вашей ",
                       body_part_case(HAND, bimanual(obj)
                                              ? BP_DAT | BP_PLURAL
                                              : BP_DAT),

@@ -489,7 +489,8 @@ doread(void)
 
         return ECMD_TIME;
     } else if (otyp == CAN_OF_GREASE) {
-        pline("На этом %s нет этикетки.", singular(scroll, xname));
+        pline("На %s нет этикетки.",
+              ru_noun_case(singular(scroll, xname), BP_PREP));
         return ECMD_OK;
     } else if (otyp == MAGIC_MARKER) {
         static const int red_mons[] = {

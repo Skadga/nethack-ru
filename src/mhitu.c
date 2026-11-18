@@ -690,8 +690,8 @@ mattacku(struct monst *mtmp)
                   ? "пытается вас поднять"
                   : "тревожит вас");
         else /* see note about m_monnam() above */
-            pline("Подожди, %s!  Этот %s на самом деле %s по имени %s!", m_monnam(mtmp),
-                  mimic_obj_name(&gy.youmonst),
+            pline("Подожди, %s!  На самом деле это не %s, а %s по имени %s!",
+                  m_monnam(mtmp), mimic_obj_name(&gy.youmonst),
                   an(pmname(&mons[u.umonnum], Ugender)), svp.plname);
         if (gm.multi < 0) { /* this should always be the case */
             char buf[BUFSZ];

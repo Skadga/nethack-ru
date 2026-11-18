@@ -2227,14 +2227,15 @@ fprefx(struct obj *otmp)
 #endif
         } else {
  give_feedback:
-            pline("Эта %s %s", singular(otmp, xname),
+            pline("Вкус у %s %s",
+                  ru_noun_case(singular(otmp, xname), BP_GEN),
                   otmp->cursed
-                     ? (Hallucination ? "паршивая!" : "ужасная!")
+                     ? (Hallucination ? "паршивый!" : "ужасный!")
                      : (otmp->otyp == CRAM_RATION
                         || otmp->otyp == K_RATION
                         || otmp->otyp == C_RATION)
-                        ? "пресная."
-                        : Hallucination ? "крутая!" : "изумительная!");
+                        ? "пресный."
+                        : Hallucination ? "крутой!" : "изумительный!");
         }
         break; /* default */
     } /* switch */

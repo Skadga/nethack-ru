@@ -2140,7 +2140,8 @@ canwearobj(struct obj *otmp, long *mask, boolean noisy)
         } else if (welded(uwep)) {
             if (noisy)
                 You("не можете надеть перчатки поверх вашего %s.",
-                    is_sword(uwep) ? c_sword : c_weapon);
+                    ru_noun_case(is_sword(uwep) ? c_sword : c_weapon,
+                                 BP_GEN));
             err++;
         } else if (Glib) {
             /* prevent slippery bare fingers from transferring to

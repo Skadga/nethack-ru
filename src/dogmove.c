@@ -335,8 +335,8 @@ dog_eat(struct monst *mtmp,
             /* edible item owned by shop has been thrown or kicked
                by hero and caught by tame or food-tameable monst */
             oprice = unpaid_cost(obj, COST_CONTENTS);
-            pline("Этот %s будет стоить вам %ld %s.", objnambuf, oprice,
-                  currency(oprice));
+            pline("Вам придётся заплатить %ld %s за %s.", oprice,
+                  currency(oprice), ru_noun_case(objnambuf, BP_ACC));
             /* m_consume_obj() -> delobj() -> obfree() will handle the shop
                billing update */
         }

@@ -1735,15 +1735,17 @@ throwit(
                     int dmg = rn2(2);
 
                     if (!dmg) {
-                        pline(Blind ? "%s приземляется %s ваш %s."
-                                    : "%s обратно к вам, приземляясь %s ваш %s.",
+                        pline(Blind ? "%s приземляется %s%s."
+                                    : "%s обратно к вам, приземляясь %s%s.",
                               Blind ? Something : Tobjnam(obj, "возвращается"),
-                              Levitation ? "под" : "у",
-                              body_part_case(FOOT, BP_ACC | BP_PLURAL));
+                              Levitation ? "под ваши " : "у ваших ",
+                              body_part_case(FOOT, Levitation
+                                                      ? (BP_ACC | BP_PLURAL)
+                                                      : (BP_GEN | BP_PLURAL)));
                     } else {
                         dmg += rnd(3);
-                        pline(Blind ? "%s ваш %s!"
-                                    : "%s обратно к вам, ударяя ваш %s!",
+                        pline(Blind ? "%s вашу %s!"
+                                    : "%s обратно к вам, ударяя вашу %s!",
                               Tobjnam(obj, Blind ? "попадает" : "летит"),
                               body_part_case(ARM, BP_ACC));
                         if (obj->oartifact)

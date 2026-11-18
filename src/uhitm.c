@@ -6236,6 +6236,7 @@ that_is_a_mimic(
     unsigned mimic_flags) /* 0, MIM_REVEAL, MIM_OMIT_WAIT, REVEAL+OMIT */
 {
     static char generic[] = "монстр";
+    static const char wait_prefix[] = "Подождите! ";
     char fmtbuf[BUFSZ];
     const char *what = NULL;
     boolean reveal_it = (mimic_flags & MIM_REVEAL) != 0,
@@ -6256,7 +6257,8 @@ that_is_a_mimic(
 
             if (M_AP_TYPE(mtmp) == M_AP_FURNITURE
                 || (M_AP_TYPE(mtmp) == M_AP_OBJECT && sym == S_trapped_chest))
-                Snprintf(fmtbuf, sizeof fmtbuf, "Этот %s на самом деле %%s!",
+                Snprintf(fmtbuf, sizeof fmtbuf,
+                         "Подождите! На самом деле это не %s, а %%s!",
                          defsyms[sym].explanation);
         } else if (glyph_is_object(glyph)) {
             boolean fakeobj;
@@ -6266,9 +6268,9 @@ that_is_a_mimic(
             fakeobj = object_from_map(glyph, x, y, &otmp);
             otmp_name = (otmp && otmp->otyp != STRANGE_OBJECT)
                         ? simpleonames(otmp) : "странный предмет";
-            Snprintf(fmtbuf, sizeof fmtbuf, "%s %s %s %%s!",
-                     (otmp && is_plural(otmp)) ? "Те" : "Этот",
-                     otmp_name, otmp ? otense(otmp, "—") : "—");
+            Snprintf(fmtbuf, sizeof fmtbuf,
+                     "Подождите! На самом деле это не %s, а %%s!",
+                     otmp_name);
             if (fakeobj && otmp) {
                 otmp->where = OBJ_FREE; /* object_from_map set to OBJ_FLOOR */
                 dealloc_obj(otmp);
@@ -6280,7 +6282,8 @@ that_is_a_mimic(
             assert(mndx >= LOW_PM && mndx <= HIGH_PM);
             mtmp_name = pmname(&mons[mndx], Mgender(mtmp));
             Snprintf(fmtbuf, sizeof fmtbuf,
-                     "Подождите! Этот %s на самом деле %%s!", mtmp_name);
+                     "Подождите! На самом деле это не %s, а %%s!",
+                     mtmp_name);
         }
 
         /* cloned Wiz starts out mimicking some other monster and
@@ -6300,7 +6303,10 @@ that_is_a_mimic(
     }
 
     if (what) {
-        int i = (omit_wait && !strncmp(fmtbuf, "Wait!  ", 7)) ? 7 : 0;
+        int i = (omit_wait
+                 && !strncmp(fmtbuf, wait_prefix, sizeof wait_prefix - 1))
+                    ? (int) (sizeof wait_prefix - 1)
+                    : 0;
 
         pline(&fmtbuf[i], what);
     }
@@ -6401,7 +6407,7 @@ flash_hits_mon(
 
         /* if glyph has changed then hero saw something happen */
         if (glyph_at(mx, my) != oldglyph) {
-            pline("Этот %s на самом деле %s%c", whatbuf,
+            pline("На самом деле это не %s, а %s%c", whatbuf,
                   /* y_monnam()+a_monnam() */
                   x_monnam(mtmp, mtmp->mtame ? ARTICLE_YOUR : ARTICLE_A,
                            (char *) 0, 0, FALSE),
