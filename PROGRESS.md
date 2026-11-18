@@ -291,6 +291,15 @@
   Откр./Закр. дверь, Болото, Под водой, Море, Вода-стена). Видно при
   опции terrainstatus. Сборка 0 ошибок, 19 прежних warning'ов; Android
   синхронизирован.
+- Батч №41 (a2915f6): wizcmds.c — промпты и заголовки wizard-команд
+  (#wizkill, #wizloadlua/#wizloaddes, #wizfliplevel, #wizlevelchange,
+  #wizhurtle, #wizpanic, #wizfuzzer, #wizmap + флаги уровня, #wizintrinsic,
+  #wizshowmigrating, статистика памяти, #wizdispmacros, #wizmondiff,
+  #wizcustom); убраны английские adjs в #wizkill (нужно согласование по
+  роду); мёртвое сравнение "unreachable" заменено на strcmp с
+  «недоступно/некопаемо». report.c — «Собираю дополнительные сведения
+  для отчёта:» в обеих ветках. options.c — закомментированный текст.
+  Сборка 0 ошибок, 19 прежних warning'ов; Android синхронизирован.
 
 ## Что осталось
 
