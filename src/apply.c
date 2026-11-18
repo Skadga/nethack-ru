@@ -1454,7 +1454,9 @@ use_candle(struct obj **optr)
             end_burn(obj, TRUE);
 
         You("ïğèêğåïëÿåòå %s%ld %s ê %s.",
-            otmp->spe ? "åù¸ " : "", obj->quan, s,
+            otmp->spe ? "åù¸ " : "", obj->quan,
+            (obj->quan == 1L) ? "ñâå÷ó"
+              : (ru_num_form(obj->quan) == 1) ? "ñâå÷è" : "ñâå÷åé",
             ru_noun_case(xname(otmp), BP_DAT));
         if (!otmp->spe || otmp->age > obj->age)
             otmp->age = obj->age;

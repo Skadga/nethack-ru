@@ -2137,10 +2137,14 @@ wiz_timeout_queue(void)
     }
     if (svl.level.flags.stasis_until >= svm.moves) {
         putstr(win, 0, "");
-        Sprintf(buf, "”ровень блокирует телепортацию на %ld %s.",
-                svl.level.flags.stasis_until - svm.moves + 1L,
-                (svl.level.flags.stasis_until - svm.moves > 0L)
-                  ? "ходов" : "ход");
+        {
+            long turns = svl.level.flags.stasis_until - svm.moves + 1L;
+            int nf = ru_num_form(turns);
+
+            Sprintf(buf, "”ровень блокирует телепортацию на %ld %s.",
+                    turns,
+                    (nf == 1) ? "хода" : (nf == 2) ? "ходов" : "ход");
+        }
         putstr(win, 0, buf);
     }
     display_nhwindow(win, FALSE);
