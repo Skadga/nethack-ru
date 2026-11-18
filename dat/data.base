@@ -638,16 +638,16 @@ boomerang
 ~*jack*boot*
 *boot*
 *shoes
-	In Fantasyland these are remarkable in that they seldom or
-	never wear out and are suitable for riding or walking in
-	without the need of Socks.  Boots never pinch, rub, or get
-	stones in them; nor do nails stick upwards into the feet from
-	the soles.  They are customarily mid-calf length or knee-high,
-	slip on and off easily and never smell of feet.  Unfortunately,
-	the formula for making this splendid footwear is a closely
-	guarded secret, possibly derived from nonhumans (see Dwarfs,
-	Elves, and Gnomes).
-	  [ The Tough Guide to Fantasyland, by Diana Wynne Jones ]
+	В Фантазии они примечательны тем, что редко или
+	вовсе не изнашиваются и годятся для езды верхом или ходьбы
+	без нужды в носках.  Сапоги никогда не жмут, не натирают и не
+	набивают камней; и гвозди не торчат снизу
+	подошвы в ноги.  Обычно они до середины икры или до колена,
+	легко надеваются и снимаются и никогда не пахнут ногами.  К сожалению,
+	рецепт изготовления этой превосходной обуви — тщательно
+	охраняемый секрет, возможно, заимствованный у нелюдей (см. Дварфов,
+	Эльфов и Гномов).
+		[ The Tough Guide to Fantasyland, by Diana Wynne Jones ]
 *booze
 potion of sleeping
 	On waking, he found himself on the green knoll whence he had
@@ -1241,15 +1241,15 @@ cwn*n
 		[ The Odyssey, (chapter Epsilon), by Homer ]
 ~sting
 *dagger
-	Is this a dagger which I see before me,
-	The handle toward my hand? Come, let me clutch thee.
-	I have thee not, and yet I see thee still.
-	Art thou not, fatal vision, sensible
-	To feeling as to sight? or art thou but
-	A dagger of the mind, a false creation,
-	Proceeding from the heat-oppressed brain?
-	I see thee yet, in form as palpable
-	As this which now I draw.
+	Это кинжал, который я вижу перед собой,
+	Рукоятью ко мне?  Иди, дай мне схватить тебя.
+	Я не держу тебя, а всё же вижу тебя.
+	Неужели ты, роковое видение, доступен
+	Осязанию, как и зрению?  Или ты лишь
+	Кинжал ума, ложное создание,
+	Порождённое жаром удручённого мозга?
+	Я вижу тебя ещё, в облике столь же ощутимом,
+	Как этот, который я теперь вынимаю.
 		[ Macbeth, by William Shakespeare ]
 тёмный
 	... Но он правил скорее силой и страхом, если они
@@ -1276,17 +1276,16 @@ dart*
 	Turn to a golden staff.
 		[ Gifts, by Mary Coleridge ]
 демогоргон
-	A terrible deity, whose very name was capable of producing the
-	most horrible effects.  He is first mentioned by the 4th-century
-	Christian writer, Lactantius, who in doing so broke with the
-	superstition that the very reference to Demogorgon by name
-	brought death and disaster.
+	Ужасное божество, одно имя которого было способно производить
+	самые чудовищные последствия.  Впервые он упомянут христианским
+	писателем IV века Лактанцием, который тем самым порвал с
+	суеверием, будто само упоминание Демогоргона по имени
+	приносит смерть и бедствие.
 		[ Brewer's Concise Dictionary of Phrase and Fable ]
-
-	Demogorgon, the prince of demons, wallows in filth and can
-	spread a quickly fatal illness to his victims while rending
-	them.  He is a mighty spellcaster, and he can drain the life
-	of mortals with a touch of his tail.
+	Демогоргон, князь демонов, валяется в грязи и может
+	наделить жертв быстро смертельной болезнью, раздирая
+	их.  Он могучий заклинатель и может высасывать жизнь
+	из смертных прикосновением хвоста.
 # takes "major demon" when specifying '&'
 demon
 major demon
@@ -1665,15 +1664,15 @@ elbereth
 	the singing that went to my heart, if you know what I mean."
 	   [ The Fellowship of the Ring, by J.R.R. Tolkien ]
 elven cloak
-	The Elves next unwrapped and gave to each of the Company the
-	clothes they had brought.  For each they had provided a hood
-	and cloak, made according to his size, of the light but warm
-	silken stuff that the Galadrim wove.  It was hard to say of
-	what colour they were: grey with the hue of twilight under
-	the trees they seemed to be; and yet if they were moved, or
-	set in another light, they were green as shadowed leaves, or
-	brown as fallow fields by night, dusk-silver as water under
-	the stars.
+	Эльфы затем развернули и раздали каждому из Отряда
+	одежду, которую принесли.  Для каждого они приготовили капюшон
+	и плащ, сшитые по его размеру, из лёгкой, но тёплой
+	шёлковой ткани, которую ткали Галадрим.  Трудно было сказать,
+	какого они цвета: серые, с оттенком сумерек под
+	деревьями они казались; и всё же, если их двигали или
+	выставляли на другой свет, они были зелены, как затенённые листья, или
+	буры, как пашни ночью, сумеречно-серебристы, как вода под
+	звёздами.
 		[ The Fellowship of the Ring, by J.R.R. Tolkien ]
 emerald
 	'Put off that mask of burning gold
@@ -1834,15 +1833,15 @@ fire trap
 	_anywhere_?'
 		[ The Last Hero, by Terry Pratchett ]
 f* brand
-	Some say the world will end in fire,
-	Some say in ice.
-	From what I've tasted of desire
-	I hold with those who favor fire.
-	But if it had to perish twice,
-	I think I know enough of hate
-	To say that for destruction ice
-	Is also great
-	And would suffice.
+	Одни говорят, мир погибнет в огне,
+	Другие — во льду.
+	Из того, что я отведал желания,
+	Я держусь тех, кто за огонь.
+	Но если бы ему пришлось погибнуть дважды,
+	Я думаю, я знаю достаточно ненависти,
+	Чтобы сказать: для разрушения лёд
+	Тоже велик
+	И вполне достаточен.
 		[ Fire and Ice, by Robert Frost ]
 плотяной голем
 	With an anxiety that almost amounted to agony, I collected
@@ -2029,15 +2028,15 @@ hell
 	Так в Новом Завете Геенна стала синонимом ада.
 		[ Encyclopedia Mythica, ed. M.F. Lindemans ]
 студенистый куб
-	Despite its popularity (or perhaps because of it), the
-	gelatinous cube is also widely known as one of the sillier
-	role-playing monsters.  It is something of a commentary on the
-	ubiquity of treasure-laden dungeons in the Dungeons & Dragons
-	universe, as the cube is a creature specifically adapted to a
-	dungeon ecosystem.  10 feet to the side, it travels through
-	standard 10-foot by 10-foot dungeon corridors, cleaning up
-	debris and redistributing treasure by excreting indigestible
-	metal items.
+	Несмотря на свою популярность (или, возможно, из-за неё),
+	студенистый куб также широко известен как один из самых глупых
+	монстров ролевых игр.  Это своего рода комментарий к
+	повсеместности подземелий, полных сокровищ, во вселенной
+	Dungeons & Dragons, ибо куб — существо, специально приспособленное к
+	экосистеме подземелья.  10 футов в поперечнике, он движется по
+	стандартным коридорам подземелья 10 на 10 футов, убирая
+	мусор и перераспределяя сокровища, выделяя неперевариваемые
+	металлические предметы.
 		[ Wikipedia, the free encyclopedia ]
 *gem
 gem or rock
@@ -2090,16 +2089,16 @@ gem or rock
 	      translated by H.F. Cary ]
 *ghost
 valley of *dea*
-	And now the souls of the dead who had gone below came swarming
-	up from Erebus -- fresh brides, unmarried youths, old men
-	with life's long suffering behind them, tender young girls
-	still nursing this first anguish in their hearts, and a great
-	throng of warriors killed in battle, their spear-wounds gaping
-	yet and all their armour stained with blood.  From this
-	multitude of souls, as they fluttered to and fro by the
-	trench, there came a moaning that was horrible to hear.
-	Panic drained the blood from my cheeks.
-	     [ The Odyssey, (chapter Lambda), by Homer ]
+	И вот души мёртвых, сошедших вниз, прихлынули
+	вверх из Эреба — свежие невесты, неженатые юноши, старики,
+	с долгим страданием жизни позади, нежные юные девушки,
+	ещё лелеющие в сердцах первую муку, и великая
+	толпа воинов, убитых в бою, с ещё зияющими ранами
+	от копий и доспехами, запачканными кровью.  От этого
+	множества душ, порхавших туда и сюда у
+	рва, шёл стон, ужасный для слуха.
+	Ужас отхлынул кровь от моих щёк.
+		[ The Odyssey, (chapter Lambda), by Homer ]
 гуль
 	The forces of the gloom know each other, and are strangely
 	balanced by each other.  Teeth and claws fear what they cannot
@@ -2164,16 +2163,16 @@ gnome*
 	and turned it upside down.
 	  [ Harry Potter and the Chamber of Secrets, by J.K. Rowling ]
 гоблин
-	Now goblins are cruel, wicked, and bad-hearted.  They make
-	no beautiful things, but they make many clever ones.  They
-	can tunnel and mine as well as any but the most skilled
-	dwarves, when they take the trouble, though they are usually
-	untidy and dirty.  Hammers, axes, swords, daggers, pickaxes,
-	tongs, and also instruments of torture, they make very well,
-	or get other people to make to their design, prisoners and
-	slaves that have to work till they die for want of air and
-	light.
-	     [ The Hobbit, by J.R.R. Tolkien ]
+	Гоблины жестоки, злы и злонравны.  Они не делают
+	красивых вещей, но делают много хитрых.  Они
+	умеют прокладывать туннели и добывать руду не хуже всех, кроме самых искусных
+	дварфов, когда дают себе труд, хотя обычно они
+	неопрятны и грязны.  Молоты, топоры, мечи, кинжалы, кирки,
+	клещи, а также орудия пыток они делают очень хорошо,
+	или заставляют других людей делать по своему замыслу — пленников и
+	рабов, которым приходится работать до смерти от недостатка воздуха и
+	света.
+		[ The Hobbit, by J.R.R. Tolkien ]
 god
 goddess
 	Goddesses and Gods operate in ones, threesomes, or whole
@@ -2201,15 +2200,15 @@ gold piece
 		[ Webster's New International Dictionary
 		of the English Language, Second Edition ]
 золотой голем
-	The bellows he set away from the fire, and gathered all the tools
-	wherewith he wrought into a silver chest; and with a sponge wiped
-	he his face and his two hands withal, and his mighty neck and
-	shaggy breast, and put upon him a tunic, and grasped a stout staff,
-	and went forth halting; but there moved swiftly to support their
-	lord handmaidens wrought of gold in the semblance of living maids.
-	In them is understanding in their hearts, and in them speech and
-	strength, and they know cunning handiwork by gift of the immortal
-	gods.
+	Мехи он отставил от огня и собрал все инструменты,
+	которыми работал, в серебряный ларец; и губкой отёр
+	он лицо и обе руки, и могучую шею,
+	и косматую грудь, и надел на себя тунику, и взял крепкий посох,
+	и вышел хромая; но быстро двинулись поддержать своего
+	господина прислужницы, изваянные из золота в образе живых девиц.
+	В них есть разумение в сердцах, и в них речь и
+	сила, и они знают хитрое ремесло по дару бессмертных
+	богов.
 		[ The Iliad, by Homer ]
 ~flesh golem
 ~gold golem
@@ -2459,15 +2458,15 @@ hermes
 	deductive reasoning.
 		[ The Columbia Encyclopedia, Sixth Edition ]
 хоббит
-	Hobbits are an unobtrusive but very ancient people, more
-	numerous formerly than they are today; for they love peace
-	and quiet and good tilled earth:  a well-ordered and well-
-	farmed countryside was their favourite haunt.  They do not
-	and did not understand or like machines more complicated
-	than a forge-bellows, a water-mill, or a handloom, although
-	they were skillful with tools.  Even in ancient days they
-	were, as a rule, shy of "the Big Folk", as they call us, and
-	now they avoid us with dismay and are becoming hard to find.
+	Хоббиты — незаметный, но очень древний народ, более
+	многочисленный прежде, чем теперь; ибо они любят мир
+	и покой и хорошо возделанную землю:  благоустроенная и хорошо
+	обработанная сельская местность была их любимым местом.  Они не
+	понимали и не любили машины сложнее
+	кузнечных мехов, водяной мельницы или ручного ткацкого станка, хотя
+	искусно владели инструментами.  Даже в древние дни они
+	были, как правило, застенчивы с «большим народом», как они нас называют, и
+	теперь избегают нас с тревогой и становятся труднодоступны.
 		[ The Fellowship of the Ring, by J.R.R. Tolkien ]
 хобгоблин
 	Hobgoblin.  Used by the Puritans and in later times for
@@ -2554,16 +2553,15 @@ hom*nculus
 		[ The Song of Roland ]
 horn of plenty
 cornucopia
-	The infant Zeus was fed with goat's milk by Amalthea,
-	daughter of Melisseus, King of Crete.  Zeus, in gratitude,
-	broke off one of the goat's horns, and gave it to Amalthea,
-	promising that the possessor should always have in abundance
-	everything desired.
+	Младенца Зевса вскармливала козьим молоком Амалфея,
+	дочь Мелиссея, царя Крита.  Зевс в благодарность
+	отломил один из козьих рогов и отдал его Амалфее,
+	обещав, что у владельца всегда будет в изобилии
+	всё желаемое.
 		[ Brewer's Concise Dictionary of Phrase and Fable ]
-
-	When Amalthea's horn
-	O'er hill and dale the rose-crowned flora pours,
-	And scatters corn and wine, and fruits and flowers.
+	Когда рог Амалфеи
+	над холмом и долом льёт увенчанную розами флору,
+	И рассыпает хлеб и вино, и плоды, и цветы.
 		[ Os Lusiadas, by Luis Vaz de Camoes ]
 рогатый дьявол
 колючий дьявол
@@ -2882,15 +2880,15 @@ jacinth*
 	джекботом_ — значит быть под властью жестокого военного режима.
 		[ Brewer's Concise Dictionary of Phrase and Fable ]
 jade*
-	Nothing grew among the ruins of the city.  The streets were
-	broken and the walls of the houses had fallen, but there were
-	no weeds flowering in the cracks and it seemed that the city
-	had but recently been brought down by an earthquake.  Only
-	one thing still stood intact, towering over the ruins.  It
-	was a gigantic statue of white, gray and green jade - the
-	statue of a naked youth with a face of almost feminine beauty
-	that turned sightless eyes toward the north.
-	"The eyes!" Duke Avan Astran said.  "They're gone!"
+	Среди развалин города ничего не росло.  Улицы были
+	разбиты, стены домов обрушились, но в трещинах не
+	цвело сорняков, и казалось, что город
+	был разрушен совсем недавно землетрясением.  Только
+	одно всё ещё стояло невредимым, возвышаясь над развалинами.  Это
+	была гигантская статуя из белого, серого и зелёного нефрита —
+	статуя нагого юноши с лицом почти женской красоты,
+	обращённым незрячими глазами на север.
+	«Глаза!» — сказал герцог Аван Астран.  «Они пропали!»
 		[ The Jade Man's Eyes, by Michael Moorcock ]
 ягуар
 	Крупное плотоядное животное семейства кошачьих из Центральной и
@@ -3213,15 +3211,15 @@ lembas*
 		[ The Fellowship of the Ring, by J.R.R. Tolkien ]
 лемур
 larvae
-	The Larvae (Lemures) are Roman spirits of deceased family
-	members.  These malignant spirits dwell throughout the house
-	and frighten the inhabitants.  People tried to reconcile or
-	avert the Larvae with strange ceremonies which took place on
-	May 9, 11, and 13; this was called the "Feast of the Lemures".
-	The master of the house usually performed these ceremonies,
-	either by offering black beans to the spirits or chasing them
-	away by making a lot of noise.  Their counterparts are the
-	Lares, friendly and beneficent house spirits.
+	Лярвы (лемуры) — римские духи умерших членов
+	семьи.  Эти злобные духи обитают по всему дому
+	и пугают обитателей.  Люди пытались умилостивить или
+	отвратить лярв странными обрядами, которые совершались
+	9, 11 и 13 мая; это называлось «праздником лемуров».
+	Хозяин дома обычно совершал эти обряды,
+	либо предлагая духам чёрные бобы, либо прогоняя их
+	шумом.  Их двойники —
+	лары, дружелюбные и благодетельные домашние духи.
 		[ Encyclopedia Mythica, ed. M.F. Lindemans ]
 леокрот
 leu*otta
@@ -3318,18 +3316,15 @@ loki
 # long worm -- see "worm"
 looking glass
 mirror
-	But as Snow White grew, she became more and more beautiful,
-	and by the time she was seven years old she was as beautiful
-	as the day and more beautiful than the queen herself.  One
-	day when the queen said to her mirror:
-
-		"Mirror, Mirror, here I stand.
-		Who is the fairest in the land?" -
-
-	the mirror replied:
-
-		"You, O Queen, are the fairest here,
-		But Snow White is a thousand times more fair."
+	Но по мере того как Белоснежка росла, она становилась всё прекраснее,
+	и к семи годам она была прекрасна, как день,
+	и прекраснее самой королевы.  Однажды,
+	когда королева сказала своему зеркалу:
+	«Зеркало, зеркало, вот я стою.
+	Кто всех прекраснее в стране?» —
+	зеркало ответило:
+	«Вы, о королева, прекраснее всех здесь,
+	Но Белоснежка в тысячу раз прекраснее».
 		[ Snow White, by Jakob and Wilhelm Grimm ]
 лорд карнарвон
 	Лорд Карнарвон был личностью, которая могла появиться
@@ -3462,27 +3457,26 @@ ma*annan*
 	богом моря, под которым жил в Тир на Ног,
 	подземном мире.
 мана
-	Manes or Di Manes ("good ones") is the euphemistic description
-	of the souls of the deceased, worshipped as divinities.  The
-	formula D.M. (= Dis Manibus; "dedicated to the Manes-gods")
-	can often be found on tombstones.  Manes also means
-	metaphorically 'underworld' or 'realm of death'.  Festivals
-	in honor of the dead were the Parentalia and the Feralia,
-	celebrated in February.
+	Маны, или Di Manes («добрые»), — эвфемистическое обозначение
+	душ умерших, почитаемых как божества.  Формулу D.M.
+	(= Dis Manibus; «посвящено богам-манам») часто можно найти
+	на надгробиях.  Маны также означают
+	метафорически «подземный мир» или «царство смерти».  Праздники
+	в честь мёртвых — паренталии и фералии,
+	отмечавшиеся в феврале.
 		[ Encyclopedia Mythica, ed. M.F. Lindemans ]
-
-	The gnats of the dungeon, these swarming monsters are rarely
-	seen alone.
+	Мошки подземелья, эти роящиеся монстры редко
+	встречаются в одиночку.
 marduk
-	First insisting on recognition as supreme commander, Marduk
-	defeated the Dragon, cut her body in two, and from it created
-	heaven and earth, peopling the world with human beings who not
-	unnaturally showed intense gratitude for their lives.  The
-	gods were also properly grateful, invested him with many
-	titles, and eventually permitted themselves to be embodied in
-	him, so that he became supreme god, plotting the whole course
-	of known life from the paths of the planets to the daily
-	events in the lives of men.
+	Сначала настояв на признании себя верховным полководцем, Мардук
+	победил Дракона, рассек её тело надвое и из него создал
+	небо и землю, заселив мир людьми, которые не
+	неестественно выказывали глубокую благодарность за свою жизнь.  Боги
+	также должным образом были благодарны, наделили его многими
+	титулами и в конце концов позволили воплотиться в
+	нём, так что он стал верховным богом, направляющим весь ход
+	известной жизни — от путей планет до повседневных
+	событий в жизни людей.
 		[ The Immortals, by Derek and Julia Parker ]
 марилит
 	У марилит торс, как у человеческой женщины,
@@ -3601,15 +3595,15 @@ shield of reflection
 	середину своей эгиды.
 			[ Bulfinch's Mythology, by Thomas Bulfinch ]
 melon
-	"What is it, Umbopa, son of a fool?" I shouted in Zulu.
-	"It is food and water, Macumazahn," and again he waved the
-	green thing.
-	Then I saw what he had got.  It was a melon.  We had hit upon
-	a patch of wild melons, thousands of them, and dead ripe.
-	"Melons!" I yelled to Good, who was next me; and in another
-	second he had his false teeth fixed in one.
-	I think we ate about six each before we had done, and, poor
-	fruit as they were, I doubt if I ever thought anything nicer.
+	«Что это, Умбопа, сын глупца?» — крикнул я на зулусском.
+	«Это еда и вода, Макумазан», — и он снова взмахнул
+	зелёной штукой.
+	Тогда я увидел, что он достал.  Это была дыня.  Мы наткнулись на
+	участок диких дынь, тысячи их, и совсем спелых.
+	«Дыни!» — заорал я Гуду, который был рядом; и в следующую
+	секунду он вонзил в одну свои вставные зубы.
+	Думаю, мы съели примерно по шесть каждый, прежде чем закончили, и,
+	хоть плод был плох, вряд ли я когда-либо считал что-то вкуснее.
 		[ King Solomon's Mines, by H. Rider Haggard ]
 mercury
 	Римский бог торговли, коммерции и путников.  Его обычно
@@ -3960,15 +3954,15 @@ naiad
 	that the road to nymphs is beset by monsters.
 		[ The Minotaur, by Bernard Evslin ]
 obsidian*
-	A volcanic glass, homogeneous in texture and having a low water
-	content, with a vitreous luster and a conchoidal fracture.  The
-	color is commonly black, but may be some shade of red or brown,
-	and cut sections sometimes appear to be green.  Like other
-	volcanic glasses, obsidian is a lava that has cooled too quickly
-	for the contained minerals to crystallize.  In chemical
-	composition it is rich in silica and similar to granite.  It is
-	favored by primitive peoples for knives, arrowheads, spearheads,
-	and other weapons and tools.
+	Вулканическое стекло, однородное по текстуре и с низким
+	содержанием воды, со стеклянным блеском и раковистым изломом.
+	Цвет обычно чёрный, но может быть оттенком красного или бурого,
+	а срезанные участки иногда кажутся зелёными.  Как и другие
+	вулканические стёкла, обсидиан — лава, остывшая слишком быстро
+	для кристаллизации содержащихся в ней минералов.  По химическому
+	составу он богат кремнезёмом и близок к граниту.  Его
+	предпочитали первобытные народы для ножей, наконечников стрел и копий,
+	а также других орудий и инструментов.
 		[ The Columbia Encyclopedia, Sixth Edition ]
 odin
 	Also called Sigtyr (god of Victory), Val-father (father of
@@ -4232,15 +4226,15 @@ broad pick
 		[ http://www.animalsoftherainforest.com ]
 pit
 spiked pit
-	Amid the thought of the fiery destruction that impended, the
-	idea of the coolness of the well came over my soul like balm.
-	I rushed to its deadly brink.  I threw my straining vision
-	below.  The glare from the enkindled roof illumined its inmost
-	recesses.  Yet, for a wild moment, did my spirit refuse to
-	comprehend the meaning of what I saw.  At length it forced --
-	it wrestled its way into my soul -- it burned itself in upon my
-	shuddering reason.  Oh! for a voice to speak! -- oh! horror! --
-	oh! any horror but this!
+	Среди мыслей об огненной гибели, что надвигалась,
+	мысль о прохладе колодца разлилась по моей душе, как бальзам.
+	Я бросился к его смертельному краю.  Я устремил напряжённый взор
+	вниз.  Сияние от зажжённого потолка освещало его сокровенные
+	глубины.  Но на миг дикий мой дух отказывался
+	постичь значение увиденного.  Наконец он принудил —
+	он ворвался в мою душу — он выжег себя в моём
+	содрогающемся разуме.  О! за голос, чтобы заговорить! — о! ужас! —
+	о! любой ужас, только не этот!
 		[ The Pit and the Pendulum, by Edgar Allan Poe ]
 адский гад
 	Ямные дьяволы — одни из сильнейших дьяволов; они способны
@@ -4306,16 +4300,16 @@ bec de corbin
 	клевец, копьё и молот или топор в одном оружии.
 		[ Heraldry and Armor of the Middle Ages, by Marvin H. Pakula ]
 polymorph trap
-	One morning, as Gregor Samsa was waking up from anxious dreams,
-	he discovered that in bed he had been changed into a monstrous
-	verminous bug.  He lay on his armour-hard back and saw, as he
-	lifted his head up a little, his brown, arched abdomen divided
-	up into rigid bow-like sections.  From this height the blanket,
-	just about ready to slide off completely, could hardly stay in
-	place.  His numerous legs, pitifully thin in comparison to the
-	rest of his circumference, flickered helplessly before his eyes.
+	Однажды утром, когда Грегор Замза пробудился от тревожных снов,
+	он обнаружил, что в постели превратился в чудовищное
+	насекомое.  Он лежал на твёрдой, как панцирь, спине и увидел,
+	приподняв немного голову, свой бурый, выпуклый живот, разделённый
+	на жёсткие дугообразные части.  С этой высоты одеяло,
+	уже почти готовое совсем сползти, едва держалось на
+	месте.  Его многочисленные ноги, жалко тонкие по сравнению с
+	остальным его объёмом, беспомощно мелькали перед глазами.
 		[ The Metamorphosis, by Franz Kafka,
-			translated by Ian Johnston ]
+		translated by Ian Johnston ]
 пони
 		Hey! now! Come hoy now! Whither do you wander?
 		Up, down, near or far, here, there or yonder?
@@ -5186,16 +5180,15 @@ javelin
 	they blistered."
 		[ The Book of Three, by Lloyd Alexander ]
 *spider
-	Eight legged creature capable of spinning webs to trap prey.
-		[]
-
-	"You mean you eat flies?" gasped Wilbur.
-	"Certainly.  Flies, bugs, grasshoppers, choice beetles,
-	moths, butterflies, tasty cockroaches, gnats, midges, daddy
-	longlegs, centipedes, mosquitoes, crickets - anything that is
-	careless enough to get caught in my web.  I have to live,
-	don't I?"
-	"Why, yes, of course," said Wilbur.
+	Восьминогое существо, способное прясть сети для ловли добычи.
+	[]
+	«То есть ты ешь мух?» — ахнул Уилбур.
+	«Конечно.  Мух, жуков, кузнечиков, отборных жуков,
+	мотыльков, бабочек, вкусных тараканов, мошек, комаров,
+	долгоножек, сороконожек, сверчков — всё, что
+	достаточно неосторожно, чтобы попасться в мою сеть.  Мне надо жить,
+	разве нет?»
+	«Ну да, конечно», — сказал Уилбур.
 		[ Charlotte's Web, by E.B. White ]
 *spore
 *sphere
@@ -5505,15 +5498,15 @@ tin opener
 	Mount Olympus.
 		[ Greek Mythology, by Richard Patrick ]
 topaz
-	Aluminum silicate mineral with either hydroxyl radicals or
-	fluorine, Al2SiO4(F,OH)2, used as a gem.  It is commonly
-	colorless or some shade of pale yellow to wine-yellow;
-	... The stone is transparent with a vitreous luster.  It has
-	perfect cleavage on the basal pinacoid, but it is nevertheless
-	hard and durable.  The brilliant cut is commonly used.  Topaz
-	crystals, which are of the orthorhombic system, occur in highly
-	acid igneous rocks, e.g., granites and rhyolites, and in
-	metamorphic rocks, e.g., gneisses and schists.
+	Минерал из алюмосиликатов с гидроксильными радикалами или
+	фтором, Al2SiO4(F,OH)2, используемый как самоцвет.  Обычно он
+	бесцветен или бывает оттенка от бледно-жёлтого до винного;
+	... Камень прозрачен со стеклянным блеском.  У него
+	совершенная спайность по базопинакоиду, но он тем не менее
+	твёрд и долговечен.  Обычно применяется бриллиантовая огранка.  Кристаллы
+	топаза, относящиеся к ромбической системе, встречаются в высококислых
+	изверженных породах, например гранитах и риолитах, и в
+	метаморфических породах, например гнейсах и сланцах.
 		[ The Columbia Encyclopedia, Sixth Edition ]
 touch*stone
 	«Золото проверяют пробным камнем, людей — золотом.»
@@ -5602,15 +5595,15 @@ tree
 		[ Trees, by Joyce Kilmer ]
 tripe
 tripe ration
-	If you start from scratch, cooking tripe is a long-drawn-out
-	affair.  Fresh whole tripe calls for a minimum of 12 hours of
-	cooking, some time-honored recipes demanding as much as 24.
-	To prepare fresh tripe, trim if necessary.  Wash it thoroughly,
-	soaking overnight, and blanch, for 1/2 hour in salted water.
-	Wash well again, drain and cut for cooking.  When cooked, the
-	texture of tripe should be like that of soft gristle.  More
-	often, alas, because the heat has not been kept low enough,
-	it has the consistency of wet shoe leather.
+	Если начинать с нуля, приготовление рубца — долгое
+	дело.  Свежий целый рубец требует минимум 12 часов
+	варки, а некоторые старинные рецепты — целых 24.
+	Чтобы подготовить свежий рубец, при необходимости обрежьте.  Тщательно вымойте,
+	замочив на ночь, и бланшируйте полчаса в подсоленной воде.
+	Снова хорошо вымойте, обсушите и нарежьте для готовки.  Когда рубец
+	сварен, его текстура должна быть как у мягкого хряща.  Чаще
+	же, увы, из-за того, что огонь не держали достаточно слабым,
+	он имеет консистенцию мокрой обувной кожи.
 		[ Joy of Cooking, by I Rombauer and M Becker ]
 ~water troll
 *troll
@@ -5645,15 +5638,15 @@ tsurugi
 	противника пополам!
 ~*spellbook
 turquoise*
-	TUBAL:  There came divers of Antonio's creditors in my company
-	to Venice that swear he cannot choose but break.
-	SHYLOCK:  I am very glad of it; I'll plague him, I'll torture
-	him; I am glad of it.
-	TUBAL:  One of them showed me a ring that he had of your
-	daughter for a monkey.
-	SHYLOCK:  Out upon her!  Thou torturest me, Tubal.  It was my
-	turquoise; I had it of Leah when I was a bachelor; I would
-	not have given it for a wilderness of monkeys.
+	ТУБАЛ:  Со мной пришли несколько кредиторов Антонио
+	в Венецию, что клянутся: ему не миновать разорения.
+	ШЕЙЛОК:  Очень рад; я его изведу, я его замучаю;
+	я рад этому.
+	ТУБАЛ:  Один из них показал мне кольцо, которое он получил от вашей
+	дочери за обезьяну.
+	ШЕЙЛОК:  Будь она проклята!  Ты меня терзаешь, Тубал.  Это была моя
+	бирюза; я получил её от Лии, когда был холостяком; я бы
+	не отдал её за целую пустыню обезьян.
 		[ The Merchant of Venice, by William Shakespeare ]
 двацветок
 проводник
@@ -5812,29 +5805,29 @@ vortices
 	урон укусом и когтями на руках и
 	ногах.  Он также может выпустить облако ядовитого газа, чтобы в нём спрятаться.
 wakizashi
-	A wakizashi was used as a samurai's weapon when the katana
-	was unavailable.  When entering a building, a samurai would
-	leave his katana on a rack near the entrance.  However, the
-	wakizashi would be worn at all times, and therefore, it made
-	a sidearm for the samurai (similar to a soldier's use of a
-	pistol).  The samurai would have worn it from the time they
-	awoke to the time they went to sleep.  In earlier periods,
-	and especially during times of civil wars, a tanto was worn
-	in place of a wakizashi.
+	Вакидзаси использовался как оружие самурая, когда катана
+	была недоступна.  Входя в здание, самурай
+	оставлял свою катану на стойке у входа.  Однако
+	вакидзаси носили постоянно, и потому он служил
+	самураю вспомогательным оружием (подобно тому, как солдат использует
+	пистолет).  Самурай носил его с того времени, как
+	просыпался, до того, как ложился спать.  В более ранние периоды,
+	и особенно во времена гражданских войн, вместо вакидзаси носили
+	танто.
 		[ Wikipedia, the free encyclopedia ]
 # takes "wand or a wall" when specifying '/'
 ~*sleep
 wand *
 *wand
-	'Saruman!' he cried, and his voice grew in power and authority.
-	'Behold, I am not Gandalf the Grey, whom you betrayed.  I am
-	Gandalf the White, who has returned from death.  You have no
-	colour now, and I cast you from the order and from the Council.'
-	He raised his hand, and spoke slowly in a clear cold voice.
-	'Saruman, your staff is broken.'  There was a crack, and the
-	staff split asunder in Saruman's hand, and the head of it
-	fell down at Gandalf's feet.  'Go!' said Gandalf.  With a cry
-	Saruman fell back and crawled away.
+	«Саруман!» — воскликнул он, и голос его набрал силы и власти.
+	«Узри, я не Гэндальф Серый, которого ты предал.  Я
+	Гэндальф Белый, вернувшийся из смерти.  У тебя нет больше
+	цвета, и я изгоняю тебя из ордена и из Совета».
+	Он поднял руку и заговорил медленно, ясным холодным голосом.
+	«Саруман, твой посох сломан».  Раздался треск, и
+	посох раскололся надвое в руке Сарумана, а головка его
+	упала к ногам Гэндальфа.  «Уходи!» — сказал Гэндальф.  С криком
+	Саруман отпрянул и уполз прочь.
 		[ The Two Towers, by J.R.R. Tolkien ]
 варг
 	Suddenly Aragorn leapt to his feet.  "How the wind howls!"
@@ -5983,16 +5976,16 @@ winning
 	а ум — свободным для мыслей мага.
 		[ A Dealing with Demons, by Craig Shaw Gardner ]
 волшебник йендора
-	No one knows how old this mighty wizard is, or from whence he
-	came.  It is known that, having lived a span far greater than
-	any normal man's, he grew weary of lesser mortals; and so,
-	spurning all human company, he forsook the dwellings of men
-	and went to live in the depths of the Earth.  He took with
-	him a dreadful artifact, the Book of the Dead, which is said
-	to hold great power indeed.  Many have sought to find the
-	wizard and his treasure, but none have found him and lived to
-	tell the tale.  Woe be to the incautious adventurer who
-	disturbs this mighty sorcerer!
+	Никто не знает, сколько лет этому могучему волшебнику и откуда он
+	пришёл.  Известно, что, прожив срок гораздо больший, чем
+	у любого обычного человека, он устал от низших смертных; и потому,
+	отвергнув всякое человеческое общество, он покинул жилища людей
+	и поселился в глубинах Земли.  Он взял с
+	собой ужасный артефакт, Книгу Мёртвых, которая, как говорят,
+	таит воистину великую силу.  Многие пытались найти
+	волшебника и его сокровище, но никто не нашёл его и не остался жив,
+	чтобы рассказать об этом.  Горе неосторожному искателю приключений, который
+	потревожит этого могучего чародея!
 волк
 *wolf
 *wolf cub
@@ -6075,16 +6068,15 @@ crysknife
 	on Frodo.
 		[ The Fellowship of the Ring, by J.R.R. Tolkien ]
 *wumpus
-	The Wumpus, by the way, is not bothered by the hazards since
-	he has sucker feet and is too big for a bat to lift.  If you
-	try to shoot him and miss, there's also a chance that he'll
-	up and move himself into another cave, though by nature the
-	Wumpus is a sedentary creature.
+	Вумпус, кстати, не тревожится об опасностях, ибо
+	у него ноги-присоски, и он слишком велик, чтобы летучая мышь могла его поднять.  Если
+	вы попытаетесь в него выстрелить и промахнётесь, есть также шанс, что он
+	встанет и переберётся в другую пещеру, хотя по природе
+	вумпус — существо оседлое.
 		[ wump (6) -- "Hunt the Wumpus" ]
-
-	_Wumpus yobgregorii_, in the flesh...
-	Later, all you will be able to remember are its eyes.  They
-	are rich mud-brown, and they hold your own without effort.
+	_Wumpus yobgregorii_, во плоти...
+	Позже вы сможете вспомнить только его глаза.  Они
+	густого грязно-бурого цвета, и без усилий удерживают ваш взгляд.
 		[ Hunter, In Darkness, by Andrew Plotkin ]
 ксан
 	They sent their friend the mosquito [xan] ahead of them to
