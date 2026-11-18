@@ -474,6 +474,9 @@
 - Батч №71 (3104cd9): drawing.c (предупреждающие символы), monmove.c,
   options.c (number_pad, координаты), sounds.c, sfstruct.c, restore.c,
   save.c, earlyarg.c, mdlib.c. Сборка 0 ошибок; Android синхронизирован.
+- Батч №72 (02c29ce): artifact.c, end.c, light.c, region.c, restore.c,
+  save.c, eat.c — заголовки списков, сохранение/восстановление.
+  Сборка 0 ошибок; Android синхронизирован.
 
 ## Что осталось
 
