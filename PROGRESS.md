@@ -242,6 +242,15 @@
   значения, symset, hilite_status, palette, привязки клавиш, MSGTYPE,
   windowcolors); ключевые слова конфигурации оставлены латиницей.
   Сборка 0 ошибок, 19 прежних warning'ов; Android синхронизирован.
+- Батч №34 (d303d28): 16 файлов, 40 мест — из Tobjnam/Yobjnam2/otense
+  убраны английские глаголы (are/have/glow/shine/slip/quiver/drop/
+  land/hit/vanish/crumble/trigger/slam/resist/fail/go/burn/flicker/
+  die/seem/look/radiate/issue/confuse/damage/assault/zap/explode/
+  implode/tumble/heat/get/suddenly roll). Где фраза уже содержала
+  русский глагол — The(xname())/Yname2(), где нет — фраза
+  перестроена. hcolor() получает русские формы, NH_AMBER/NH_BLACK
+  заменены. read.c p_glow3() разделён для слепого и зрячего. Сборка
+  0 ошибок, 19 прежних warning'ов; Android синхронизирован.
 
 ## Что осталось
 
