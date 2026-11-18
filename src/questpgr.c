@@ -470,6 +470,12 @@ convert_line(char *in_line, char *out_line)
                     if (p != gc.cvt_buf)
                         Strcpy(gc.cvt_buf, p);
                     ++c;
+                } else if ((*c == 's' || *c == 'S') && c[1] >= '1'
+                           && c[1] <= '6') {
+                    p = ru_noun_case(gc.cvt_buf, (int) (c[1] - '1'));
+                    if (p != gc.cvt_buf)
+                        Strcpy(gc.cvt_buf, p);
+                    ++c;
                 }
                 switch (*(++c)) {
                 /* insert "a"/"an" prefix */
