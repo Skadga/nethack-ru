@@ -1303,12 +1303,14 @@ dog_move(
                              && glyph_is_object(levl[nix][niy].glyph))
                                ? vobj_at(nix, niy) : 0;
             const char *what = o ? distant_name(o, doname) : something;
+            boolean over = (is_flyer(mtmp->data) || is_floater(mtmp->data));
 
-            pline_mon(mtmp, "%s неохотно %s %s.", noit_Monnam(mtmp),
+            pline_mon(mtmp, "%s неохотно %s %s %s.", noit_Monnam(mtmp),
                   locomotion(mtmp->data, "шагает"),
-                  (is_flyer(mtmp->data) || is_floater(mtmp->data)) ? "над"
-                                                                   : "на",
-                  what);
+                  over ? "над" : "на",
+                  (what == something) ? what
+                                      : ru_noun_case(what, over ? BP_INS
+                                                                : BP_PREP));
         }
         mon_track_add(mtmp, omx, omy);
         /* We have to know if the pet's going to do a combined eat and

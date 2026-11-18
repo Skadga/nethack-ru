@@ -1576,7 +1576,7 @@ zap_dig(void)
 
         if (!is_whirly(mtmp->data)) {
             if (digests(mtmp->data))
-                You("пробиваете брюхо %s!", mon_nam(mtmp));
+                You("пробиваете брюхо %s!", mon_gen(mtmp, BP_GEN));
             if (unique_corpstat(mtmp->data))
                 mtmp->mhp = (mtmp->mhp + 1) / 2;
             else

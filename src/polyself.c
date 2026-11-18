@@ -753,7 +753,9 @@ polymon(int mntmp)
     if (!u.uconduct.polyselfs++)
         livelog_printf(LL_CONDUCT,
                        "впервые изменил форму, став %s",
-                       an(pmname(&mons[mntmp], flags.female ? FEMALE : MALE)));
+                       ru_noun_case(pmname(&mons[mntmp],
+                                           flags.female ? FEMALE : MALE),
+                                    BP_INS));
 
     /* exercise used to be at the very end but only Wis was affected
        there since the polymorph was always in effect by then */
@@ -1885,7 +1887,7 @@ dopoly(void)
         polyself(POLY_MONSTER);
         if (savedat != gy.youmonst.data) {
             You("превращаетесь в %s.",
-                an(pmname(gy.youmonst.data, Ugender)));
+                ru_noun_case(pmname(gy.youmonst.data, Ugender), BP_ACC));
             newsym(u.ux, u.uy);
         }
     }

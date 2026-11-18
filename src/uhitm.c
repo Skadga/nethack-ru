@@ -2830,7 +2830,7 @@ mhitm_ad_sgld(
                 Your("Ваш кошелёк становится тяжелее.");
             } else {
                 You("хватаете золото %s, но не находите места в рюкзаке.",
-                    mon_nam(mdef));
+                    mon_gen(mdef, BP_GEN));
                 dropy(mongold);
             }
         }
@@ -3374,7 +3374,8 @@ mhitm_ad_wrap(
                     mhm->damage = 0;
                 } else {
                     You("%s вокруг %s!",
-                        coil ? "обвиваетесь" : "замахиваетесь", mon_nam(mdef));
+                        coil ? "обвиваетесь" : "замахиваетесь",
+                        mon_gen(mdef, BP_GEN));
                     set_ustuck(mdef);
                 }
             } else if (u.ustuck == mdef && !tailmiss) {
@@ -5171,7 +5172,7 @@ gulpum(struct monst *mdef, struct attack *mattk)
             case AD_ELEC:
                 if (rn2(2)) {
                     pline("Воздух вокруг %s потрескивает от электричества.",
-                              mon_nam(mdef));
+                          mon_gen(mdef, BP_GEN));
                     if (resists_elec(mdef)) {
                         pline("%s, кажется, невредим.", Monnam(mdef));
                         dam = 0;

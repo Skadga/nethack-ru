@@ -1614,7 +1614,8 @@ artifact_hit(
             if (!youdefend) {
                 if (!has_head(mdef->data) || gn.notonhead || u.uswallow) {
                     if (youattack)
-                        pline("Каким-то образом вы дико промахиваетесь мимо %s.", mon_nam(mdef));
+                        pline("Каким-то образом вы дико промахиваетесь мимо %s.",
+                              mon_gen(mdef, BP_GEN));
                     else if (vis)
                         pline("Каким-то образом %s промахивается.", mon_nam(magr));
                     *dmgptr = 0;
@@ -1622,7 +1623,7 @@ artifact_hit(
                 }
                 if (noncorporeal(mdef->data) || amorphous(mdef->data)) {
                     pline("%s рассекает насквозь горло %s.", wepdesc,
-                          mon_nam(mdef));
+                          mon_gen(mdef, BP_GEN));
                     return TRUE;
                 }
                 *dmgptr = 2 * mdef->mhp + FATAL_DAMAGE_MODIFIER;
