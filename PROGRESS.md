@@ -471,6 +471,9 @@
   Сборка 0 ошибок; Android синхронизирован.
 - Батч №70 (61d5b9a): win/win32 — аварийные сообщения окон, заголовок
   приложения в NetHackW.rc. Сборка 0 ошибок. Только Windows-копия.
+- Батч №71 (3104cd9): drawing.c (предупреждающие символы), monmove.c,
+  options.c (number_pad, координаты), sounds.c, sfstruct.c, restore.c,
+  save.c, earlyarg.c, mdlib.c. Сборка 0 ошибок; Android синхронизирован.
 
 ## Что осталось
 
