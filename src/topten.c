@@ -792,8 +792,11 @@ topten(int how, time_t when)
                     char pbuf[BUFSZ];
 
                     Sprintf(pbuf,
-                         "Вы не побили свой предыдущий результат в %ld очков.",
-                            t1->points);
+                         "Вы не побили свой предыдущий результат в %ld %s.",
+                            t1->points,
+                            (ru_num_form(t1->points) == 0) ? "очко"
+                              : (ru_num_form(t1->points) == 1) ? "очка"
+                                                               : "очков");
                     topten_print(pbuf);
                     topten_print("");
                 }

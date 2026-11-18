@@ -583,8 +583,12 @@ parseoptions(
         if (got_match) {
             if (!allopt[i].pfx && optlen < allopt[i].minmatch) {
                 config_error_add(
-             "Ќеоднозначный параметр %s: нужно %d символов дл€ различени€",
-                                 opts, allopt[i].minmatch);
+             "Ќеоднозначный параметр %s: нужно %d %s дл€ различени€",
+                                 opts, allopt[i].minmatch,
+                                 (ru_num_form(allopt[i].minmatch) == 0)
+                                     ? "символ"
+                                     : (ru_num_form(allopt[i].minmatch) == 1)
+                                         ? "символа" : "символов");
                 break;
             }
             matchidx = i;
@@ -4048,8 +4052,11 @@ optfn_statushilites(
         if (!iflags.hilite_delta)
             Strcpy(opts, "0 (выкл: не подсвечивать пол€ статуса)");
         else
-            Sprintf(opts, "%ld (вкл: подсветка статуса %ld ходов)",
-                    iflags.hilite_delta, iflags.hilite_delta);
+            Sprintf(opts, "%ld (вкл: подсветка статуса %ld %s)",
+                    iflags.hilite_delta, iflags.hilite_delta,
+                    (ru_num_form(iflags.hilite_delta) == 0) ? "ход"
+                      : (ru_num_form(iflags.hilite_delta) == 1) ? "хода"
+                                                               : "ходов");
 #else
         Strcpy(opts, "unsupported");
 #endif

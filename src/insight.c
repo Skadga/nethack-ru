@@ -666,7 +666,9 @@ background_enlightenment(int unused_mode UNUSED, int final)
         you_have("только что начали приключение", "");
     } else {
         /* 'turns' grates on the nerves in this context... */
-        Sprintf(buf, "%ld ходов назад", svm.moves);
+        Sprintf(buf, "%ld %s назад", svm.moves,
+                (ru_num_form(svm.moves) == 0) ? "ход"
+                  : (ru_num_form(svm.moves) == 1) ? "хода" : "ходов");
         /* same phrasing for current and final: "entered" is unconditional */
         enlght_line(You_, "вошли в подземелье ", buf, "");
     }
@@ -778,7 +780,8 @@ basics_enlightenment(int mode UNUSED, int final)
         Sprintf(buf, "имеете все %d %s", hpmax,
                 hpforms[ru_num_form(hpmax)]);
     else
-        Sprintf(buf, "имеете %d из %d очков здоровья", hp, hpmax);
+        Sprintf(buf, "имеете %d из %d %s здоровья", hp, hpmax,
+                (ru_num_form(hpmax) == 0) ? "очка" : "очков");
     you_have(buf, "");
 
     /* low max energy is feasible, so handle couple of extra special cases */

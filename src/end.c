@@ -914,10 +914,13 @@ artifact_score(
                 /* not observe_object; dead characters don't observe */
                 otmp->known = otmp->dknown = otmp->bknown = otmp->rknown = 1;
                 /* assumes artifacts don't have quan > 1 */
-                Sprintf(pbuf, "%s (стоимость %ld %s и %ld очков)",
+                Sprintf(pbuf, "%s (стоимость %ld %s и %ld %s)",
                         otmp->oartifact ? artiname(otmp->oartifact)
                                         : OBJ_NAME(objects[otmp->otyp]),
-                        value, currency(value), points);
+                        value, currency(value), points,
+                        (ru_num_form(points) == 0) ? "очко"
+                          : (ru_num_form(points) == 1) ? "очка"
+                                                       : "очков");
                 putstr(endwin, 0, pbuf);
             }
         }
@@ -1460,10 +1463,11 @@ really_done(int how)
         } else {
             Strcat(pbuf, " ");
         }
-        Sprintf(eos(pbuf), "%s с %ld очками,",
+        Sprintf(eos(pbuf), "%s с %ld %s,",
                 (how == ASCENDED) ? "отправились к награде"
                                   : "сбежали из подземель€",
-                u.urexp);
+                u.urexp,
+                (ru_num_form(u.urexp) == 0) ? "очком" : "очками");
         dump_forward_putstr(endwin, 0, pbuf, done_stopprint);
 
         if (!done_stopprint)
@@ -1533,8 +1537,11 @@ really_done(int how)
     Sprintf(pbuf, "золота: %ld, ходов: %ld.", umoney, svm.moves);
     dump_forward_putstr(endwin, 0, pbuf, done_stopprint);
     Sprintf(pbuf,
-            "¬ы были на уровне %d с максимумом %d очков здоровь€, когда вы %s.",
-            u.ulevel, u.uhpmax, ends[how]);
+            "¬ы были на уровне %d с максимумом %d %s здоровь€, когда вы %s.",
+            u.ulevel, u.uhpmax,
+            (ru_num_form(u.uhpmax) == 0) ? "очко"
+              : (ru_num_form(u.uhpmax) == 1) ? "очка" : "очков",
+            ends[how]);
     dump_forward_putstr(endwin, 0, pbuf, done_stopprint);
     dump_forward_putstr(endwin, 0, "", done_stopprint);
     if (!done_stopprint)
