@@ -179,7 +179,7 @@ tshirt_text(struct obj *tshirt, char *buf)
         /* "All men must die -- all men must serve" challenge and response
            from book series _A_Song_of_Ice_and_Fire_ by George R.R. Martin,
            TV show "Game of Thrones" (probably an actual T-shirt too...) */
-        "/Valar morghulis/ -- /Valar dohaeris/",
+        "/Валар моргулис/ -- /Валар дохаэрис/",
     };
 
     Strcpy(buf, shirt_msgs[tshirt->o_id % SIZE(shirt_msgs)]);

@@ -541,8 +541,8 @@ weapon_status(char *outbuf)
             default:
                 res = weapon_descr(uwep);
                 /* [should this be moved into weapon_descr()?] */
-                if (!strcmpi(res, "food") && uwep->otyp == CREAM_PIE)
-                    res = "pie";
+                if (!strcmpi(res, "еда") && uwep->otyp == CREAM_PIE)
+                    res = "пирог";
                 break;
             }
         }

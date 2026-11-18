@@ -1300,13 +1300,14 @@ weapon_insight(int final)
         else if (is_wet_towel(uwep))
             what = /* (uwep->spe < 3) ? "moist towel" : */ "мокрое полотенце";
 
-        if (!strcmpi(what, "armor") || !strcmpi(what, "food")
-            || !strcmpi(what, "venom"))
-            Sprintf(buf, "держите %s", what);
+        if (!strcmpi(what, "доспехи") || !strcmpi(what, "еда")
+            || !strcmpi(what, "яды"))
+            Sprintf(buf, "держите %s", ru_noun_case(what, BP_ACC));
         else
             /* [maybe include known blessed?] */
             Sprintf(buf, "держите %s",
-                    (uwep->quan == 1L) ? what : makeplural(what));
+                    (uwep->quan == 1L) ? ru_noun_case(what, BP_ACC)
+                                       : makeplural(what));
         you_are(buf, "");
     }
 

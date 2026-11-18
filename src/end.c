@@ -344,11 +344,11 @@ static const struct {
     /* "petrified by <foo>, while getting stoned" -- "while getting stoned"
        prevented any last-second recovery, but it was not the cause of
        "petrified by <foo>" */
-    { STONING, 1, "getting stoned", (char *) 0 },
+    { STONING, 1, "окаменеваете", (char *) 0 },
     /* "died of starvation, while fainted from lack of food" is accurate
        but sounds a fairly silly (and doesn't actually appear unless you
        splice together death and while-helpless from xlogfile) */
-    { STARVING, 0, "fainted from lack of food", "fainted" },
+    { STARVING, 0, "упал в обморок от нехватки еды", "в обмороке" },
 };
 
 /* clear away while-helpless when the cause of death caused that
@@ -723,8 +723,8 @@ savelife(int how)
        again (perhaps due to zap rebound); this text will be appended to
           "killed by <something>, while "
        in high scores entry, if any, and in logfile (but not on tombstone) */
-    gm.multi_reason = Role_if(PM_TOURIST) ? "being toyed with by Fate"
-                                          : "attempting to cheat Death";
+    gm.multi_reason = Role_if(PM_TOURIST) ? "пока судьба играла с вами"
+                                          : "пытаясь обмануть смерть";
 
     if (u.utrap && u.utraptype == TT_LAVA)
         reset_utrap(FALSE);

@@ -184,7 +184,7 @@ do_write_config_file(void)
               " из файла!");
         wait_synch();
     }
-#define overwrite_prompt "Overwrite config file %.*s?"
+#define overwrite_prompt "Перезаписать файл конфигурации %.*s?"
     Sprintf(tmp, overwrite_prompt,
             (int) (BUFSZ - sizeof overwrite_prompt - 2), configfile);
 #undef overwrite_prompt

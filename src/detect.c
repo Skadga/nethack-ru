@@ -634,7 +634,8 @@ object_detect(struct obj *detector, /* object doing the detecting */
     if (Hallucination || (Confusion && class == SCROLL_CLASS))
         Strcpy(stuff, something);
     else
-        Strcpy(stuff, class ? def_oc_syms[class].name : "предметы");
+        Strcpy(stuff, class ? ru_noun_case(def_oc_syms[class].name, BP_ACC)
+                            : "предметы");
     if (boulder && class != ROCK_CLASS)
         Strcat(stuff, " и/или большие камни");
 
@@ -1199,10 +1200,10 @@ static const struct crystalballlevels {
     const char *what;
     d_level *where;
 } level_detects[] = {
-    { "Delphi", &oracle_level },
-    { "Medusa's lair", &medusa_level },
-    { "a castle", &stronghold_level },
-    { "the Wizard of Yendor's tower", &wiz1_level },
+    { "Дельфы", &oracle_level },
+    { "логово Медузы", &medusa_level },
+    { "замок", &stronghold_level },
+    { "башня Волшебника Йендора", &wiz1_level },
 };
 
 void

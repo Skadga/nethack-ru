@@ -1543,7 +1543,7 @@ genl_display_file(const char *fname, boolean complain)
 
     if (!f) {
         if (complain) /* send complaint to stdout rather than to stderr */
-            fprintf(stdout, "\nCannot open \"%s\".\n", fname);
+            fprintf(stdout, "\nНе удалось открыть \"%s\".\n", fname);
     } else {
         /* straight copy to stdout, no pagination or other interaction */
         while (dlb_fgets(buf, BUFSZ, f)) {

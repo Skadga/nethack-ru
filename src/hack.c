@@ -2103,8 +2103,8 @@ domove_fight_web(coordxy x, coordxy y)
             Strcpy(uwepbuf, weapon_descr(uwep));
             Strcpy(scndbuf, u.twoweap ? weapon_descr(uswapwep) : "");
             onewep = !*scndbuf || !strcmp(uwepbuf, scndbuf);
-            if (!strcmpi(uwepbuf, "armor") || !strcmpi(uwepbuf, "food")
-                || !strcmpi(uwepbuf, "venom")) { /* as-is */
+            if (!strcmpi(uwepbuf, "доспехи") || !strcmpi(uwepbuf, "еда")
+                || !strcmpi(uwepbuf, "яды")) { /* as-is */
                 /* non-weapon item wielded, of a type where an() would
                    result in weird phrasing; dual wield not possible */
                 uwepstr = uwepbuf;
@@ -2120,8 +2120,11 @@ domove_fight_web(coordxy x, coordxy y)
                 scndstr = (uswapwep->quan == 1L) ? an(scndbuf)
                                                  : makeplural(scndbuf);
             }
-            You_cant("разрезать паутину %s%s%s!", uwepstr,
-                     !onewep ? " или " : "", !onewep ? scndstr : "");
+            Strcpy(uwepbuf, ru_noun_case(uwepstr, BP_INS));
+            if (!onewep)
+                Strcpy(scndbuf, ru_noun_case(scndstr, BP_INS));
+            You_cant("разрезать паутину %s%s%s!", uwepbuf,
+                     !onewep ? " или " : "", !onewep ? scndbuf : "");
             return TRUE;
 
         /* weapon is ok; check whether hit is successful */
