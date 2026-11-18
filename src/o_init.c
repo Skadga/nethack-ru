@@ -598,10 +598,10 @@ sortloot_descr(int otyp, char *outbuf)
 /* also used in options.c (optfn_sortdiscoveries) */
 static const char disco_order_let[] = "osca";
 static const char *const disco_orders_descr[] = {
-    "by order of discovery within each class",
-    "sortloot order (by class with some sub-class groupings)",
-    "alphabetical within each class",
-    "alphabetical across all classes",
+    "по порядку открытия внутри класса",
+    "порядок сортировки лута (по классам с группами подклассов)",
+    "по алфавиту внутри класса",
+    "по алфавиту во всех классах",
     (char *) 0
 };
 
@@ -724,16 +724,18 @@ disco_append_typename(char *buf, int dis)
 staticfn void
 disco_fmt_uniq(int uidx, char *outbuf)
 {
-    Sprintf(outbuf, "  %s", objects[uidx].oc_name_known
-                              ? OBJ_NAME(objects[uidx])
-                              : OBJ_DESCR(objects[uidx]));
     /* in the spellbooks section of main discoveries list, encountered
        but not fully discovered Book of the Dead is shown as
        "spellbook (papyrus)" like other encountered but not discovered books;
-       in the unique/relics section we want "papyrus spellbook" instead */
+       Russian keeps that same order: "книга заклинаний (папирус)" */
     if (!objects[uidx].oc_name_known
         && objects[uidx].oc_class == SPBOOK_CLASS)
-        Strcat(outbuf, " spellbook");
+        Sprintf(outbuf, "  книга заклинаний (%s)",
+                OBJ_DESCR(objects[uidx]));
+    else
+        Sprintf(outbuf, "  %s", objects[uidx].oc_name_known
+                                  ? OBJ_NAME(objects[uidx])
+                                  : OBJ_DESCR(objects[uidx]));
 }
 
 /* sort and output sorted_lines to window and free the lines */
@@ -785,7 +787,7 @@ dodiscovered(void) /* free after Robert Viduya */
     sortindx = strchr(disco_order_let, flags.discosort) - disco_order_let;
 
     tmpwin = create_nhwindow(NHW_TEXT);
-    Sprintf(buf, "Discoveries, %s", disco_orders_descr[sortindx]);
+    Sprintf(buf, "Открытия: %s", disco_orders_descr[sortindx]);
     putstr(tmpwin, 0, buf);
     putstr(tmpwin, 0, "");
 

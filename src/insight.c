@@ -489,7 +489,6 @@ background_enlightenment(int unused_mode UNUSED, int final)
        (with countdown timer appended for wizard mode); we really want
        the player to know he's not a samurai at the moment... */
     if (Upolyd) {
-        char anbuf[20]; /* includes trailing space; [4] suffices */
         struct permonst *uasmon = gy.youmonst.data;
         boolean altphrasing = vampshifted(&gy.youmonst);
 
@@ -497,14 +496,21 @@ background_enlightenment(int unused_mode UNUSED, int final)
         /* here we always use current gender, not saved role gender */
         if (!is_male(uasmon) && !is_female(uasmon) && !is_neuter(uasmon))
             Sprintf(tmpbuf, "%s ", genders[flags.female ? 1 : 0].adj);
-        if (altphrasing)
-            Sprintf(eos(tmpbuf), "%s in ",
+        if (altphrasing) {
+            /* shifted vampire: "вампир в облике <род.>" */
+            Sprintf(eos(tmpbuf), "%s в облике ",
                     pmname(&mons[gy.youmonst.cham],
                            flags.female ? FEMALE : MALE));
-        Snprintf(buf, sizeof(buf), "%s%s%s%s",
-                 !final ? "сейчас " : "",
-                 altphrasing ? just_an(anbuf, tmpbuf) : "в форме ",
-                 tmpbuf, pmname(uasmon, flags.female ? FEMALE : MALE));
+            Snprintf(buf, sizeof(buf), "%s%s%s",
+                     !final ? "сейчас " : "", tmpbuf,
+                     ru_noun_case(pmname(uasmon, flags.female ? FEMALE
+                                                              : MALE),
+                                  BP_GEN));
+        } else {
+            Snprintf(buf, sizeof(buf), "%s%s%s",
+                     !final ? "сейчас " : "", tmpbuf,
+                     pmname(uasmon, flags.female ? FEMALE : MALE));
+        }
         you_are(buf, "");
     }
 
