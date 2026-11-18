@@ -132,10 +132,13 @@ mswings(
     boolean bash)       /* True: polearm used at too close range */
 {
     if (flags.verbose && !Blind && mon_visible(mtmp)) {
-        pline_mon(mtmp, "%s %s %s%s %s.", Monnam(mtmp),
+        char wepbuf[BUFSZ];
+
+        Strcpy(wepbuf, (otemp->quan > 1L) ? singular(otemp, xname)
+                            : xname(otemp));
+        pline_mon(mtmp, "%s %s %s.", Monnam(mtmp),
                   mswings_verb(otemp, bash),
-                  (otemp->quan > 1L) ? "один из " : "",
-                  mhis(mtmp), xname(otemp));
+                  ru_noun_case(wepbuf, BP_INS));
     }
 }
 

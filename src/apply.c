@@ -3629,7 +3629,7 @@ use_cream_pie(struct obj *obj)
         You("окунаете своё %s в один из них.", body_part_case(FACE, BP_ACC));
     else
         You("окунаете своё %s в %s.", body_part_case(FACE, BP_ACC),
-              the(xname(obj)));
+              ru_noun_case(xname(obj), BP_ACC));
     if (can_blnd((struct monst *) 0, &gy.youmonst, AT_WEAP, obj)) {
         int blindinc = rnd(25);
 

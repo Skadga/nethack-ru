@@ -1279,10 +1279,12 @@ mswingsm(
         boolean bash = (is_pole(otemp) && !is_art(otemp, ART_SNICKERSNEE)
                         && (dist2(magr->mx, magr->my, mdef->mx, mdef->my)
                             <= 2));
+        char wepbuf[BUFSZ];
 
-        pline("%s %s %s%s %s в %s.", Monnam(magr), mswings_verb(otemp, bash),
-              (otemp->quan > 1L) ? "один из " : "", mhis(magr), xname(otemp),
-              mon_gen(mdef, BP_ACC));
+        Strcpy(wepbuf, (otemp->quan > 1L) ? singular(otemp, xname)
+                            : xname(otemp));
+        pline("%s %s %s в %s.", Monnam(magr), mswings_verb(otemp, bash),
+              ru_noun_case(wepbuf, BP_INS), mon_gen(mdef, BP_ACC));
     }
 }
 
