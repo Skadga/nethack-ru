@@ -1584,7 +1584,7 @@ add_sound_mapping(const char *mapping)
         if (!sounddir)
             sounddir = dupstr(".");
         if (strlen(sounddir) + 1 + strlen(filename) >= sizeof filespec) {
-            raw_print("sound file name too long");
+            raw_print("слишком длинное имя звукового файла");
             return 0;
         }
         Snprintf(filespec, sizeof filespec, "%s/%s", sounddir, filename);
@@ -1617,12 +1617,12 @@ add_sound_mapping(const char *mapping)
                 soundmap = new_map;
             }
         } else {
-            Sprintf(text, "cannot read %.243s", filespec);
+            Sprintf(text, "не удаётся прочитать %.243s", filespec);
             raw_print(text);
             return 0;
         }
     } else {
-        raw_print("syntax error in SOUND");
+        raw_print("синтаксическая ошибка в SOUND");
         return 0;
     }
 

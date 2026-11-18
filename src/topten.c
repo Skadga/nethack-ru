@@ -1312,15 +1312,15 @@ prscore(int argc, char **argv)
                 (void) outentry(rank, t1, FALSE);
         }
     } else {
-        Sprintf(pbuf, "Cannot find any %sentries for ",
-                current_ver ? "current " : "");
+        Sprintf(pbuf, "Не найдено %sзаписей для ",
+                current_ver ? "текущих " : "");
         if (playerct < 1) {
-            Strcat(pbuf, "you");
+            Strcat(pbuf, "вас");
         } else {
             /* minor bug: 'nethack -s -u ziggy' will say "any of"
                even though the '-u' doesn't indicate multiple names */
             if (playerct > 1)
-                Strcat(pbuf, "any of ");
+                Strcat(pbuf, "кого-либо из ");
             for (i = 0; i < playerct; i++) {
                 /* accept '-u name' and '-uname' as well as just 'name'
                    so skip '-u' for the none-found feedback */
@@ -1343,7 +1343,7 @@ prscore(int argc, char **argv)
                         && players[i][2] == 0)
                         Strcat(pbuf, " ");
                     else
-                        Strcat(pbuf, ":");
+                        Strcat(pbuf, ", ");
                 }
             }
         }
@@ -1351,9 +1351,9 @@ prscore(int argc, char **argv)
         if (strlen(pbuf) < BUFSZ - 1)
             Strcat(pbuf, ".");
         raw_print(pbuf);
-        raw_printf("Usage: %s -s [-v] <playertypes> [maxrank] [playernames]",
+        raw_printf("Использование: %s -s [-v] <типы> [ранг] [имена]",
                    gh.hname);
-        raw_printf("Player types are: [-p role] [-r race]");
+        raw_printf("Типы игроков: [-p роль] [-r раса]");
     }
     free_ttlist(tt_head);
 #ifdef AMIGA

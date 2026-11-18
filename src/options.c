@@ -7575,11 +7575,12 @@ feature_alert_opts(char *op, const char *optn)
         return 0;
     if (fnv > get_current_feature_ver()) {
         if (!go.opt_initial) {
-            You_cant("disable new feature alerts for future versions.");
+            You_cant("отключить предупреждения о новых возможностях "
+                     "для будущих версий.");
         } else {
             config_error_add(
-                        "%s=%s Invalid reference to a future version ignored",
-                             optn, op);
+                    "%s=%s: ссылка на будущую версию недопустима, "
+                    "проигнорировано", optn, op);
         }
         return 0;
     }

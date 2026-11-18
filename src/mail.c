@@ -643,8 +643,7 @@ read_simplemail(const char *mbox, boolean adminmsg)
             endpunct = ".";
 
         if (adminmsg) {
-            urgent_pline("The voice of %s booms through the caverns:",
-                         curline);
+            urgent_pline("Голос гремит по пещерам (%s):", curline);
         } else {
             pline("Это сообщение от '%s'.", curline);
             pline("Текст:");
@@ -778,7 +777,7 @@ readmail(struct obj *otmp)
     if (!cmd || !*cmd)
         cmd = "SPAWN";
 
-    Sprintf(qbuf, "System command (%s)", cmd);
+    Sprintf(qbuf, "Системная команда (%s)", cmd);
     getlin(qbuf, buf);
     if (*buf != '\033') {
         for (p = eos(buf); p > buf; *p = '\0')

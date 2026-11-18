@@ -2717,7 +2717,7 @@ use_stone(struct obj *tstone)
         observe_object(tstone);
     known = (tstone->otyp == TOUCHSTONE && tstone->dknown
               && objects[TOUCHSTONE].oc_name_known);
-    Sprintf(stonebuf, "rub on the stone%s", plur(tstone->quan));
+    Strcpy(stonebuf, "тереть о камень");
     /* when the touchstone is fully known, don't bother listing extra
        junk as likely candidates for rubbing */
     if ((obj = getobj(stonebuf, known ? touchstone_ok : any_obj_ok,

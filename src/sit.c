@@ -495,7 +495,7 @@ dosit(void)
                        KILLED_BY); /* lava damage */
             } else if (u.utraptype == TT_INFLOOR
                        || u.utraptype == TT_BURIEDBALL) {
-                You_cant("maneuver to sit!");
+                You_cant("пошевелиться, чтобы сесть!");
                 u.utrap++;
             }
         } else {

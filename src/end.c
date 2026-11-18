@@ -1622,7 +1622,7 @@ container_contents(
                    reports the box as containing "1 item" */
                 cat = SchroedingersBox(box);
 
-                Sprintf(buf, "Contents of %s:", the(xname(box)));
+                Sprintf(buf, "Содержимое %s:", the(xname(box)));
                 putstr(tmpwin, 0, buf);
                 if (!dumping)
                     putstr(tmpwin, 0, "");
