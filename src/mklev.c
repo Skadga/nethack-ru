@@ -2252,7 +2252,7 @@ generate_stairs(void)
     /* generate_stairs_find_room() returns Null if nroom == 0, but that
        should never happen for a rooms+corridors style level */
     static const char
-        gen_stairs_panic[] = "generate_stairs: failed to find a room! (%d)";
+        gen_stairs_panic[] = "generate_stairs: не удалось найти комнату! (%d)";
     struct mkroom *croom;
     coord pos;
 

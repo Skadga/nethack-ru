@@ -9558,8 +9558,8 @@ int
 add_autopickup_exception(const char *mapping)
 {
     static const char
-        APE_regex_error[] = "regex error in AUTOPICKUP_EXCEPTION",
-        APE_syntax_error[] = "syntax error in AUTOPICKUP_EXCEPTION";
+        APE_regex_error[] = "ошибка регул€рного выражени€ в AUTOPICKUP_EXCEPTION",
+        APE_syntax_error[] = "синтаксическа€ ошибка в AUTOPICKUP_EXCEPTION";
 
     struct autopickup_exception *ape;
     char text[256], end;

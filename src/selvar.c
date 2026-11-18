@@ -416,7 +416,7 @@ selection_floodfill(
             && !sel_flood_havepoint((mx), (my), dx, dy, idx))   \
             SEL_FLOOD((mx), (my));                              \
     } while (0)
-    static const char floodfill_stack_overrun[] = "floodfill stack overrun";
+    static const char floodfill_stack_overrun[] = "переполнение стека заливки";
     int idx = 0;
     coordxy dx[SEL_FLOOD_STACK];
     coordxy dy[SEL_FLOOD_STACK];

@@ -1204,9 +1204,9 @@ status_enlightenment(int mode, int final)
         Strcpy(buf, "не голодны");
     if (*buf) { /* (since "not hungry" was added, this will always be True) */
         *buf = lowc(*buf); /* override capitalization */
-        if (!strcmp(buf, "weak"))
+        if (!strcmp(buf, "слаб"))
             Strcat(buf, " из-за сильного голода");
-        else if (!strncmp(buf, "faint", 5)) /* fainting, fainted */
+        else if (!strncmp(buf, "пада", 4) || !strncmp(buf, "леж", 3))
             Strcat(buf, " из-за голодания");
         if (wizard)
             Sprintf(eos(buf), " <%d>", u.uhunger);
@@ -1619,7 +1619,7 @@ attributes_enlightenment(
         you_are("ясновидящий", from_what(CLAIRVOYANT));
     } else if ((HClairvoyant || EClairvoyant) && BClairvoyant) {
         Strcpy(buf, from_what(-CLAIRVOYANT));
-        (void) strsubst(buf, " because of ", " if not for ");
+        (void) strsubst(buf, " (источник: ", " (если бы не ");
         enl_msg(You_, "были бы", "были бы", " ясновидящим", buf);
     }
     if (Infravision)

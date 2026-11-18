@@ -2953,7 +2953,7 @@ hornoplenty(
 
 static const char NEARDATA /* pline formats for insane_object() */
     ofmt0[] = "%s obj %s %s: %s",
-    ofmt3[] = "%s [not null] %s %s: %s",
+    ofmt3[] = "%s [не null] %s %s: %s",
     /* " held by mon %p (%s)" will be appended, filled by M,mon_nam(M) */
     mfmt1[] = "%s obj %s %s (%s)",
     mfmt2[] = "%s obj %s %s (%s) *not*";

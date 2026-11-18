@@ -2389,7 +2389,7 @@ create_object(object *o, struct mkroom *croom)
     }
 
     if (o->achievement) {
-        static const char prize_warning[] = "multiple prizes on %s level";
+        static const char prize_warning[] = "несколько призов на уровне %s";
 
         if (Is_mineend_level(&u.uz)) {
             if (!svc.context.achieveo.mines_prize_oid) {

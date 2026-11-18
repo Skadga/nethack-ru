@@ -584,7 +584,7 @@ RESTORE_WARNING_FORMAT_NONLITERAL
 boolean
 add_menu_coloring_parsed(const char *str, int c, int a)
 {
-    static const char re_error[] = "Menucolor regex error";
+    static const char re_error[] = "ќшибка регул€рного выражени€ в Menucolor";
     struct menucoloring *tmp;
 
     if (!str)

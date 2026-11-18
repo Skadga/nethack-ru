@@ -2464,7 +2464,7 @@ staticfn boolean whatdoes_cond(char *, struct wd_stack_frame *, int *, int);
 staticfn boolean
 whatdoes_cond(char *buf, struct wd_stack_frame *stack, int *depth, int lnum)
 {
-    const char badstackfmt[] = "cmdhlp: too many &%c directives at line %d.";
+    const char badstackfmt[] = "cmdhlp: слишком много директив &%c в строке %d.";
     boolean newcond, neg, gotopt;
     char *p, *q, act = buf[1];
     int np = 0;

@@ -1546,7 +1546,7 @@ int
 weapon_hit_bonus(struct obj *weapon)
 {
     int type, wep_type, skill, bonus = 0;
-    static const char bad_skill[] = "weapon_hit_bonus: bad skill %d";
+    static const char bad_skill[] = "weapon_hit_bonus: неверный навык %d";
 
     wep_type = weapon_type(weapon);
     /* use two weapon skill only if attacking with one of the wielded weapons
