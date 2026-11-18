@@ -40,7 +40,7 @@ mswin_init_text_window(void)
     ret = CreateDialog(GetNHApp()->hApp, MAKEINTRESOURCE(IDD_NHTEXT),
                        GetNHApp()->hMainWnd, NHTextWndProc);
     if (!ret)
-        panic("Cannot create text window");
+        panic("Не удаётся создать текстовое окно");
 
     /* move it in the predefined position */
     if (!GetNHApp()->bAutoLayout) {
@@ -82,7 +82,7 @@ NHTextWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_INITDIALOG: {
         data = (PNHTextWindow)malloc(sizeof(NHTextWindow));
         if (!data)
-            panic("out of memory");
+            panic("не хватает памяти");
 
         ZeroMemory(data, sizeof(NHTextWindow));
         SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG_PTR)data);
@@ -94,7 +94,7 @@ NHTextWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         /* set text control font */
         
         if (!control) {
-            panic("cannot get text view window");
+            panic("не удаётся получить окно текстового просмотра");
         }
 
         SendMessage(control, WM_SETFONT, (WPARAM) font->hFont, 0);

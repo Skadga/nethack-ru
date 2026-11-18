@@ -125,7 +125,7 @@ mswin_display_splash_window(BOOL show_ver)
     HWND hWnd = CreateDialog(GetNHApp()->hApp, MAKEINTRESOURCE(IDD_SPLASH),
                         GetNHApp()->hMainWnd, NHSplashWndProc);
     if (!hWnd)
-        panic("Cannot create Splash window");
+        panic("Не удаётся создать окно заставки");
 
     MonitorInfo monitorInfo;
     win10_monitor_info(hWnd, &monitorInfo);

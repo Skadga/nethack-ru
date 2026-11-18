@@ -48,11 +48,11 @@ mswin_init_RIP_window(void)
     ret = CreateDialog(GetNHApp()->hApp, MAKEINTRESOURCE(IDD_NHRIP),
                        GetNHApp()->hMainWnd, NHRIPWndProc);
     if (!ret)
-        panic("Cannot create rip window");
+        panic("Не удаётся создать окно надгробия");
 
     data = (PNHRIPWindow) malloc(sizeof(NHRIPWindow));
     if (!data)
-        panic("out of memory");
+        panic("не хватает памяти");
 
     ZeroMemory(data, sizeof(NHRIPWindow));
     SetWindowLongPtr(ret, GWLP_USERDATA, (LONG_PTR) data);

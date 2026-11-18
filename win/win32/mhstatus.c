@@ -121,7 +121,7 @@ mswin_init_status_window(void)
                        height,  /* window height */
                        GetNHApp()->hMainWnd, NULL, GetNHApp()->hApp, NULL);
     if (!ret)
-        panic("Cannot create status window");
+        panic("Не удаётся создать окно статуса");
 
     /* Set window caption */
     SetWindowText(ret, "Status");
@@ -129,7 +129,7 @@ mswin_init_status_window(void)
     /* create window data */
     data = (PNHStatusWindow) malloc(sizeof(NHStatusWindow));
     if (!data)
-        panic("out of memory");
+        panic("не хватает памяти");
 
     windowdata[NHW_STATUS].address = (genericptr_t) data;
     ZeroMemory(data, sizeof(NHStatusWindow));

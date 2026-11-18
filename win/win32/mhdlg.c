@@ -51,7 +51,7 @@ mswin_getlin_window(const char *question, char *result, size_t result_size)
     ret = DialogBoxParam(GetNHApp()->hApp, MAKEINTRESOURCE(IDD_GETLIN),
                          GetNHApp()->hMainWnd, GetlinDlgProc, (LPARAM) &data);
     if (ret == -1)
-        panic("Cannot create getlin window");
+        panic("Не удаётся создать окно ввода строки");
 
     return (int) ret;
 }
@@ -195,7 +195,7 @@ mswin_ext_cmd_window(int *selection)
     ret = DialogBoxParam(GetNHApp()->hApp, MAKEINTRESOURCE(IDD_EXTCMD),
                          GetNHApp()->hMainWnd, ExtCmdDlgProc, (LPARAM) &data);
     if (ret == -1)
-        panic("Cannot create extcmd window");
+        panic("Не удаётся создать окно расширенных команд");
     return (int) ret;
 }
 
@@ -374,7 +374,7 @@ mswin_player_selection_window(void)
             GetNHApp()->hApp, MAKEINTRESOURCE(IDD_PLAYER_SELECTOR),
             GetNHApp()->hMainWnd, PlayerSelectorDlgProc, (LPARAM) &data);
         if (ret == -1)
-            panic("Cannot create getlin window");
+            panic("Не удаётся создать окно ввода строки");
         ok = (ret == IDOK);
     }
 
@@ -617,7 +617,7 @@ plselInitDialog(struct plsel_data * data)
         else
             lvitem.pszText = NH_A2W(roles[i].name.m, wbuf, BUFSZ);
         if (ListView_InsertItem(role_list->hWnd, &lvitem) == -1) {
-            panic("cannot insert menu item");
+            panic("не удаётся вставить пункт меню");
         }
         data->role_count++;
     }
@@ -637,7 +637,7 @@ plselInitDialog(struct plsel_data * data)
         lvitem.stateMask = LVIS_FOCUSED;
         lvitem.pszText = NH_A2W(races[i].noun, wbuf, BUFSZ);
         if (ListView_InsertItem(race_list->hWnd, &lvitem) == -1) {
-            panic("cannot insert menu item");
+            panic("не удаётся вставить пункт меню");
         }
         data->race_count++;
     }

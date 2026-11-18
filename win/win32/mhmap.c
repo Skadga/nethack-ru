@@ -128,7 +128,7 @@ mswin_init_map_window(void)
         GetNHApp()->hApp,     /* handle to application instance */
         NULL);                /* window-creation data */
     if (!hWnd) {
-        panic("Cannot create map window");
+        panic("Не удаётся создать окно карты");
     }
 
     /* Set window caption */
@@ -541,7 +541,7 @@ register_map_window_class(void)
     wcex.lpszClassName = szNHMapWindowClass;
 
     if (!RegisterClass(&wcex)) {
-        panic("cannot register Map window class");
+        panic("не удаётся зарегистрировать класс окна карты");
     }
 }
 
@@ -816,7 +816,7 @@ onCreate(HWND hWnd, WPARAM wParam, LPARAM lParam)
     /* set window data */
     data = (PNHMapWindow) malloc(sizeof(NHMapWindow));
     if (!data)
-        panic("out of memory");
+        panic("не хватает памяти");
 
     ZeroMemory(data, sizeof(NHMapWindow));
 

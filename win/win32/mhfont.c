@@ -195,7 +195,7 @@ mswin_get_font(int win_type, int attr, HDC hdc, BOOL replace)
     /* add font to the table */
     if (font_index == font_table_size) {
         if (font_table_size >= MAXFONTS)
-            panic("font table overflow!");
+            panic("переполнение таблицы шрифтов!");
         font_table_size++;
     } else {
         DeleteObject(font_table[font_index].hFont);

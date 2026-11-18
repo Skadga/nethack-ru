@@ -116,7 +116,7 @@ mswin_init_menu_window(int type)
     ret = CreateDialog(GetNHApp()->hApp, MAKEINTRESOURCE(IDD_MENU),
                        GetNHApp()->hMainWnd, MenuWndProc);
     if (!ret) {
-        panic("Cannot create menu window");
+        panic("Не удаётся создать окно меню");
     }
 
     /* move it in the predefined position */
@@ -234,7 +234,7 @@ mswin_menu_window_select_menu(HWND hWnd, int how, MENU_ITEM_P **_selected,
                 selected =
                     (MENU_ITEM_P *) malloc(ret_val * sizeof(MENU_ITEM_P));
                 if (!selected)
-                    panic("out of memory");
+                    panic("не хватает памяти");
 
                 sel_ind = 0;
                 for (i = 0; i < data->menui.menu.size; i++) {
@@ -573,7 +573,7 @@ onMSNHCommand(HWND hWnd, WPARAM wParam, LPARAM lParam)
 
         text_view = GetDlgItem(hWnd, IDC_MENU_TEXT);
         if (!text_view)
-            panic("cannot get text view window");
+            panic("не удаётся получить окно текстового просмотра");
         SetWindowText(text_view, data->menui.text.text);
 
         /* calculate dimensions of the added line of text */
@@ -876,7 +876,7 @@ SetMenuListType(HWND hWnd, int how)
                    | LVS_SINGLESEL;
         break;
     default:
-        panic("how should be one of PICK_NONE, PICK_ONE or PICK_ANY");
+        panic("how должно быть PICK_NONE, PICK_ONE или PICK_ANY");
     };
 
     if (strlen(data->menui.menu.prompt) == 0) {
@@ -889,7 +889,7 @@ SetMenuListType(HWND hWnd, int how)
                            rt.right - rt.left, rt.bottom - rt.top, hWnd,
                            (HMENU) IDC_MENU_LIST, GetNHApp()->hApp, NULL);
     if (!control)
-        panic("cannot create menu control");
+        panic("не удаётся создать элемент меню");
 
     /* install the hook for the control window procedure */
     wndProcListViewOrig = (WNDPROC) GetWindowLongPtr(control, GWLP_WNDPROC);
@@ -935,7 +935,7 @@ SetMenuListType(HWND hWnd, int how)
         nItem = (int) SendMessage(control, LB_ADDSTRING, (WPARAM) 0,
                                   (LPARAM) buf);
         if (ListView_InsertItem(control, &lvitem) == -1) {
-            panic("cannot insert menu item");
+            panic("не удаётся вставить пункт меню");
         }
     }
     if (data->is_active)

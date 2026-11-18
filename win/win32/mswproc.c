@@ -172,7 +172,7 @@ mswin_init_nhwindows(int *argc, char **argv)
     /* Create the main window */
     GetNHApp()->hMainWnd = mswin_init_main_window();
     if (!GetNHApp()->hMainWnd) {
-        panic("Cannot create main window");
+        panic("Не удаётся создать главное окно");
     }
 
     /* Set menu check mark for interface mode */
@@ -2761,7 +2761,7 @@ mswin_color_from_string(char *colorstring, HBRUSH *brushptr,
         }
     }
     if (max_brush > TOTAL_BRUSHES)
-        panic("Too many colors!");
+        panic("Слишком много цветов!");
     *brushptr = CreateSolidBrush(*colorptr);
     if (IndexOk(max_brush, brush_table)) {
         brush_table[max_brush] = *brushptr;

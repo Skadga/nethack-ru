@@ -106,24 +106,24 @@ WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine,
     _nethack_app.hPopupWnd = NULL;
     _nethack_app.bmpTiles = LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_TILES));
     if (_nethack_app.bmpTiles == NULL)
-        panic("cannot load tiles bitmap");
+        panic("не удаётся загрузить тайловый растр");
     _nethack_app.bmpPetMark =
         LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_PETMARK));
     if (_nethack_app.bmpPetMark == NULL)
-        panic("cannot load pet mark bitmap");
+        panic("не удаётся загрузить метку питомца");
 #ifdef USE_PILEMARK
     _nethack_app.bmpPileMark =
         LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_PILEMARK));
     if (_nethack_app.bmpPileMark == NULL)
-        panic("cannot load pile mark bitmap");
+        panic("не удаётся загрузить метку кучи");
 #endif
     _nethack_app.bmpRip = LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_RIP));
     if (_nethack_app.bmpRip == NULL)
-        panic("cannot load rip bitmap");
+        panic("не удаётся загрузить надгробие");
     _nethack_app.bmpSplash =
         LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_SPLASH));
     if (_nethack_app.bmpSplash == NULL)
-        panic("cannot load splash bitmap");
+        panic("не удаётся загрузить заставку");
     _nethack_app.bmpMapTiles = _nethack_app.bmpTiles;
     _nethack_app.mapTile_X = TILE_X;
     _nethack_app.mapTile_Y = TILE_Y;
@@ -154,18 +154,18 @@ WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine,
     // init controls
     if (FAILED(GetComCtlVersion(&major, &minor))) {
         char buf2[TBUFSZ];
-        Sprintf(buf2, "Cannot load common control library.\n%s\n%s",
-                "For further information, refer to the installation notes at",
+        Sprintf(buf2, "Не удаётся загрузить библиотеку общих элементов управления.\n%s\n%s",
+                "Дополнительные сведения см. в заметках по установке:",
                 INSTALL_NOTES);
         panic("%s", buf2);
     }
     if (major < MIN_COMCTLMAJOR
         || (major == MIN_COMCTLMAJOR && minor < MIN_COMCTLMINOR)) {
         char buf2[TBUFSZ];
-        Sprintf(buf2, "Common control library is outdated.\n%s %d.%d\n%s\n%s",
-                "NetHack requires at least version ", MIN_COMCTLMAJOR,
+        Sprintf(buf2, "Библиотека общих элементов управления устарела.\n%s %d.%d\n%s\n%s",
+                "NetHack требует версию не ниже ", MIN_COMCTLMAJOR,
                 MIN_COMCTLMINOR,
-                "For further information, refer to the installation notes at",
+                "Дополнительные сведения см. в заметках по установке:",
                 INSTALL_NOTES);
         panic("%s", buf2);
     }

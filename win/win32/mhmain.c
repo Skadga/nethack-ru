@@ -73,7 +73,7 @@ mswin_init_main_window(void)
                      );
 
     if (!ret)
-        panic("Cannot create main window");
+        panic("Не удаётся создать главное окно");
 
     if (GetNHApp()->regMainMinX != CW_USEDEFAULT) {
         wp.length = sizeof(wp);
@@ -208,7 +208,7 @@ MainWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         /* set window data */
         data = (PNHMainWindow) malloc(sizeof(NHMainWindow));
         if (!data)
-            panic("out of memory");
+            panic("не хватает памяти");
 
         ZeroMemory(data, sizeof(NHMainWindow));
         data->mapAcsiiModeSave = MAP_MODE_ASCII12x16;

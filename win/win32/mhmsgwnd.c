@@ -104,7 +104,7 @@ mswin_init_message_window(void)
         NULL);                /* window-creation data */
 
     if (!ret)
-        panic("Cannot create message window");
+        panic("Не удаётся создать окно сообщений");
 
     /* Set window caption */
     SetWindowText(ret, "Сообщения");
@@ -726,7 +726,7 @@ onCreate(HWND hWnd, WPARAM wParam, LPARAM lParam)
     /* set window data */
     data = (PNHMessageWindow) malloc(sizeof(NHMessageWindow));
     if (!data)
-        panic("out of memory");
+        panic("не хватает памяти");
     ZeroMemory(data, sizeof(NHMessageWindow));
     data->max_text = MAXWINDOWTEXT;
     SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG_PTR) data);
