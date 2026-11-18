@@ -93,13 +93,13 @@ main(int argc, char *argv[])
 #endif
 
     if (argc < 2 || (argc == 2 && !strcmp(argv[1], "-"))) {
-        Fprintf(stderr, "Usage: %s [ -d directory ] base1 [ base2 ... ]\n",
+        Fprintf(stderr, "Использование: %s [ -d каталог ] база1 [ база2 ... ]\n",
                 progname);
 #if defined(WIN32) || defined(MSDOS)
         if (dir) {
             Fprintf(stderr,
-                   "\t(Unless you override it with -d, recover will look \n");
-            Fprintf(stderr, "\t in the %s directory on your system)\n", dir);
+                   "\t(Если не переопределить через -d, recover будет искать\n");
+            Fprintf(stderr, "\t в каталоге %s вашей системы)\n", dir);
         }
 #endif
         exit(EXIT_FAILURE);
@@ -116,7 +116,7 @@ main(int argc, char *argv[])
         }
         if (!*dir) {
             Fprintf(stderr,
-                    "%s: flag -d must be followed by a directory name.\n",
+                    "%s: после -d должно идти имя каталога.\n",
                     argv[0]);
             exit(EXIT_FAILURE);
         }
@@ -142,13 +142,13 @@ main(int argc, char *argv[])
     startdir = getcwd(0, 255);
 #endif
     if (dir && chdir((char *) dir) < 0) {
-        Fprintf(stderr, "%s: cannot chdir to %s.\n", argv[0], dir);
+        Fprintf(stderr, "%s: не удалось перейти в каталог %s.\n", argv[0], dir);
         exit(EXIT_FAILURE);
     }
 
     while (argc > argno) {
         if (restore_savefile(argv[argno]) == 0)
-            Fprintf(stderr, "recovered \"%s\" to %s\n", argv[argno],
+            Fprintf(stderr, "восстановлено \"%s\" в %s\n", argv[argno],
                     savename);
         argno++;
     }
@@ -229,28 +229,28 @@ restore_savefile(char *basename)
         if (errno == EACCES) {
             Fprintf(
                 stderr,
-                "\nThere are files from a game in progress under your name.");
-            Fprintf(stderr, "\nThe files are locked or inaccessible.");
-            Fprintf(stderr, "\nPerhaps the other game is still running?\n");
+                "\nПод вашим именем есть файлы незавершённой игры.");
+            Fprintf(stderr, "\nФайлы заблокированы или недоступны.");
+            Fprintf(stderr, "\nВозможно, другая игра всё ещё запущена?\n");
         } else
-            Fprintf(stderr, "\nTrouble accessing level 0 (errno = %d).\n",
+            Fprintf(stderr, "\nНе удаётся получить доступ к уровню 0 (errno = %d).\n",
                     errno);
 #endif
-        Fprintf(stderr, "Cannot open level 0 for %s.\n", basename);
+        Fprintf(stderr, "Не удалось открыть уровень 0 для %s.\n", basename);
         return -1;
     }
     if (read(gfd, (genericptr_t) &hpid, sizeof hpid) != sizeof hpid) {
         Fprintf(
             stderr, "%s\n%s%s%s\n",
-            "Checkpoint data incompletely written or subsequently clobbered;",
-            "recovery for \"", basename, "\" impossible.");
+            "Данные контрольной точки записаны не полностью или повреждены;",
+            "восстановление \"", basename, "\" невозможно.");
         Close(gfd);
         return -1;
     }
     if (read(gfd, (genericptr_t) &savelev, sizeof(savelev))
         != sizeof(savelev)) {
-        Fprintf(stderr, "Checkpointing was not in effect for %s -- recovery "
-                        "impossible.\n",
+        Fprintf(stderr, "Контрольные точки не действовали для %s — восстановление "
+                        "невозможно.\n",
                 basename);
         Close(gfd);
         return -1;
@@ -268,7 +268,7 @@ restore_savefile(char *basename)
         || (read(gfd, (genericptr_t) &pltmpsiz, sizeof pltmpsiz)
             != sizeof pltmpsiz) || (pltmpsiz > PL_NSIZ_PLUS)
         || (read(gfd, (genericptr_t) plbuf, pltmpsiz) != pltmpsiz)) {
-        Fprintf(stderr, "Error reading %s -- can't recover.\n", lock);
+        Fprintf(stderr, "Ошибка чтения %s — восстановление невозможно.\n", lock);
         Close(gfd);
         return -1;
     }
@@ -286,14 +286,14 @@ restore_savefile(char *basename)
      */
     sfd = create_savefile();
     if (sfd < 0) {
-        Fprintf(stderr, "Cannot create savefile %s.\n", savename);
+        Fprintf(stderr, "Не удалось создать файл сохранения %s.\n", savename);
         Close(gfd);
         return -1;
     }
 
     lfd = open_levelfile(savelev);
     if (lfd < 0) {
-        Fprintf(stderr, "Cannot open level of save for %s.\n", basename);
+        Fprintf(stderr, "Не удалось открыть уровень сохранения для %s.\n", basename);
         Close(gfd);
         Close(sfd);
         return -1;
@@ -301,24 +301,24 @@ restore_savefile(char *basename)
 
     if (write(sfd, (genericptr_t) &indicator, sizeof indicator)
         != sizeof indicator) {
-        Fprintf(stderr, "Error writing %s %s; recovery failed.\n",
-                savename, "indicator");
+        Fprintf(stderr, "Ошибка записи %s (%s); восстановление не удалось.\n",
+                savename, "индикатор");
         Close(gfd);
         Close(sfd);
         Close(lfd);
         return -1;
     }
     if (write(sfd, (genericptr_t) &cscsize, sizeof cscsize) != sizeof cscsize) {
-        Fprintf(stderr, "Error writing %s %s; recovery failed.\n",
-                savename, "cscsize");
+        Fprintf(stderr, "Ошибка записи %s (%s); восстановление не удалось.\n",
+                savename, "размер критических данных");
         Close(gfd);
         Close(sfd);
         Close(lfd);
         return -1;
     }
     if (write(sfd, (genericptr_t) &cscbuf, cscsize) != cscsize) {
-        Fprintf(stderr, "Error writing %s %s; recovery failed.\n",
-                savename, "critical bytes");
+        Fprintf(stderr, "Ошибка записи %s (%s); восстановление не удалось.\n",
+                savename, "критические байты");
         Close(gfd);
         Close(sfd);
         Close(lfd);
@@ -326,8 +326,8 @@ restore_savefile(char *basename)
     }
     if (write(sfd, (genericptr_t) &version_data, sizeof version_data)
         != sizeof version_data) {
-        Fprintf(stderr, "Error writing %s %s; recovery failed.\n",
-                savename, "version_data");
+        Fprintf(stderr, "Ошибка записи %s (%s); восстановление не удалось.\n",
+                savename, "данные версии");
         Close(gfd);
         Close(sfd);
         Close(lfd);
@@ -337,7 +337,7 @@ restore_savefile(char *basename)
     if (write(sfd, (genericptr_t) &pltmpsiz, sizeof pltmpsiz)
         != sizeof pltmpsiz) {
         Fprintf(stderr,
-                "Error writing %s; recovery failed (player name size).\n",
+                "Ошибка записи %s; восстановление не удалось (размер имени игрока).\n",
                 savename);
         Close(gfd);
         Close(sfd);
@@ -347,7 +347,7 @@ restore_savefile(char *basename)
 
     assert((size_t) pltmpsiz <= sizeof plbuf);
     if (write(sfd, (genericptr_t) plbuf, pltmpsiz) != pltmpsiz) {
-        Fprintf(stderr, "Error writing %s; recovery failed (player name).\n",
+        Fprintf(stderr, "Ошибка записи %s; восстановление не удалось (имя игрока).\n",
                 savename);
         Close(gfd);
         Close(sfd);
@@ -356,14 +356,14 @@ restore_savefile(char *basename)
     }
 
     if (!copy_bytes(lfd, sfd)) {
-        Fprintf(stderr, "file copy failed!\n");
+        Fprintf(stderr, "Не удалось скопировать файл!\n");
         exit(EXIT_FAILURE);
     }
     Close(lfd);
     (void) unlink(lock);
 
     if (!copy_bytes(gfd, sfd)) {
-        Fprintf(stderr, "file copy failed!\n");
+        Fprintf(stderr, "Не удалось скопировать файл!\n");
         exit(EXIT_FAILURE);
     }
     Close(gfd);
@@ -384,7 +384,7 @@ restore_savefile(char *basename)
                     res = -1;
                 } else {
                     if (!copy_bytes(lfd, sfd)) {
-                        Fprintf(stderr, "file copy failed!\n");
+                        Fprintf(stderr, "Не удалось скопировать файл!\n");
                         exit(EXIT_FAILURE);
                     }
                 }
@@ -410,7 +410,7 @@ restore_savefile(char *basename)
         out = open(iconfile, O_WRONLY | O_TRUNC | O_CREAT);
         if (in > -1 && out > -1) {
             if (!copy_bytes(in, out)) {
-                Fprintf(stderr, "file copy failed!\n");
+                Fprintf(stderr, "Не удалось скопировать файл!\n");
                 exit(EXIT_FAILURE);
             }
         }
