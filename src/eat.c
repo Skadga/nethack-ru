@@ -1203,7 +1203,7 @@ cpostfx(int pm)
                 livelog_printf(LL_CONDUCT,
                             "changed form for the first time by mimicking %s",
                                tempshape);
-            You_cant("не выдерживаете соблазна стать %s.", tempshape);
+            You("не выдерживаете соблазна стать %s.", tempshape);
             /* A pile of gold can't ride. */
             if (u.usteed)
                 dismount_steed(DISMOUNT_FELL);
@@ -3138,7 +3138,7 @@ use_tin_opener(struct obj *obj)
                               obj, doname, thesimpleoname, "это")) != 'y')
                 return ECMD_OK;
         }
-        if (!wield_tool(obj, "use"))
+        if (!wield_tool(obj))
             return ECMD_OK;
         res = ECMD_TIME;
     }

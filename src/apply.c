@@ -1827,7 +1827,7 @@ dorub(void)
         }
     }
     if (obj != uwep) {
-        if (wield_tool(obj, "rub")) {
+        if (wield_tool(obj)) {
             cmdq_add_ec(CQ_CANNED, dorub);
             cmdq_add_key(CQ_CANNED, obj->invlet);
             return ECMD_TIME;
@@ -2989,7 +2989,7 @@ use_whip(struct obj *obj)
     const char *msg_snap = "Щёлк!";
 
     if (obj != uwep) {
-        if (wield_tool(obj, "lash")) {
+        if (wield_tool(obj)) {
             cmdq_add_ec(CQ_CANNED, doapply);
             cmdq_add_key(CQ_CANNED, obj->invlet);
             return ECMD_TIME;
@@ -3465,7 +3465,7 @@ use_pole(struct obj *obj, boolean autohit)
         return ECMD_OK;
     }
     if (obj != uwep) {
-        if (wield_tool(obj, "swing")) {
+        if (wield_tool(obj)) {
             cmdq_add_ec(CQ_CANNED, doapply);
             cmdq_add_key(CQ_CANNED, obj->invlet);
             return ECMD_TIME;
@@ -3774,7 +3774,7 @@ use_grapple(struct obj *obj)
     }
     if (obj != uwep) {
         /* "cast": grappling hook evolved from slash'em's fishing pole */
-        if (wield_tool(obj, "cast")) {
+        if (wield_tool(obj)) {
             cmdq_add_ec(CQ_CANNED, doapply);
             cmdq_add_key(CQ_CANNED, obj->invlet);
             return ECMD_TIME;

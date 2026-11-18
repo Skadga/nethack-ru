@@ -1656,7 +1656,7 @@ dogaze(void)
     }
 
     if (Blind) {
-        You_cant("не видите, на что смотреть.");
+        You("не видите, на что смотреть.");
         return ECMD_OK;
     } else if (Hallucination) {
         You_cant("смотреть на что-либо, что видите.");

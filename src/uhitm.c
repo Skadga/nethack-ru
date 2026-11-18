@@ -1677,15 +1677,14 @@ hmon_hitmon_msg_silver(
             fmt = "Ваше серебряное кольцо обжигает %s!";
         else if (hmd->barehand_silver_rings == 2)
             fmt = "Ваши серебряные кольца обжигают %s!";
-        else if (hmd->silverobj && hmd->saved_oname[0]) {
+        else if (hmd->silverobj && hmd->saved_oname[0]
+                 && (strstri(hmd->saved_oname, "silver")
+                     || strstri(hmd->saved_oname, "серебрян"))) {
             /* guard constructed format string against '%' in
                saved_oname[] from xname(via cxname()) */
-            Snprintf(silverobjbuf, sizeof(silverobjbuf), "Ваше %s%s %s",
-                     (strstri(hmd->saved_oname, "silver")
-                      || strstri(hmd->saved_oname, "серебрян"))
-                         ? ""
-                         : "серебряное ",
-                     hmd->saved_oname, vtense(hmd->saved_oname, "обжигает"));
+            Snprintf(silverobjbuf, sizeof(silverobjbuf), "%s %s",
+                     upstart(strcpy(fleshbuf, hmd->saved_oname)),
+                     vtense(hmd->saved_oname, "обжигает"));
             (void) strNsubst(silverobjbuf, "%", "%%", 0);
             strncat(silverobjbuf, " %s!",
                     sizeof(silverobjbuf) - (strlen(silverobjbuf) + 1));

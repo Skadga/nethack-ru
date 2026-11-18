@@ -1179,11 +1179,11 @@ query_objlist(const char *qstr,        /* query string */
                 /* this isn't actually possible; fake item representing
                    hero is only included for look here (':'), not pickup,
                    and that's PICK_NONE so we can't get here from there */
-                You_cant("поднимитесь сами!");
+                You_cant("поднять себя!");
                 continue;
             }
             if (engulfer_minvent && curr->owornmask != 0L) {
-                You_cant("поднимите %s.", ysimple_name(curr));
+                You_cant("поднять это: оно надето на том, кто вас глотает.");
                 continue;
             }
             if (mi->count == -1L || mi->count > curr->quan)
@@ -1821,7 +1821,7 @@ pickup_object(
         return 0;
     } else if (obj->where == OBJ_MINVENT && obj->owornmask != 0L
                && engulfing_u(obj->ocarry)) {
-        You_cant("поднимите %s.", ysimple_name(obj));
+        You_cant("поднять это: оно надето на том, кто вас глотает.");
         return 0;
     } else if (obj->oartifact && !touch_artifact(obj, &gy.youmonst)) {
         return 0;

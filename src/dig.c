@@ -1094,7 +1094,7 @@ use_pick_axe(struct obj *obj)
 
     /* Check tool */
     if (obj != uwep) {
-        if (wield_tool(obj, "размахнуться")) {
+        if (wield_tool(obj)) {
             /* we're now wielding it. next turn, apply to dig. */
             cmdq_add_ec(CQ_CANNED, doapply);
             cmdq_add_key(CQ_CANNED, obj->invlet);

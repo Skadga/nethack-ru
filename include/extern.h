@@ -3780,7 +3780,7 @@ extern int dowield(void);
 extern int doswapweapon(void);
 extern int dowieldquiver(void);
 extern int doquiver_core(const char *) NONNULLARG1;
-extern boolean wield_tool(struct obj *, const char *) NONNULLARG1;
+extern boolean wield_tool(struct obj *) NONNULLARG1;
 extern int can_twoweapon(void);
 extern void drop_uswapwep(void);
 extern int dotwoweapon(void);

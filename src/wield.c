@@ -680,8 +680,7 @@ doquiver_core(const char *verb) /* "ready" or "fire" */
 
 /* used for #rub and for applying pick-axe, whip, grappling hook or polearm */
 boolean
-wield_tool(struct obj *obj,
-           const char *verb) /* "rub",&c */
+wield_tool(struct obj *obj)
 {
     const char *what;
     boolean more_than_1;
@@ -689,14 +688,12 @@ wield_tool(struct obj *obj,
     if (uwep && obj == uwep)
         return TRUE; /* nothing to do if already wielding it */
 
-    if (!verb)
-        verb = "владеть";
     what = xname(obj);
     more_than_1 = (obj->quan > 1L || strstri(what, "pair of ") != 0
                    || strstri(what, "s of ") != 0);
 
     if (obj->owornmask & (W_ARMOR | W_ACCESSORY)) {
-        You_cant("%s %s, нося %s.", verb, yname(obj),
+        You_cant("пользоваться этим, нося %s.",
                  more_than_1 ? "их" : "его");
         return FALSE;
     }
@@ -710,9 +707,8 @@ wield_tool(struct obj *obj,
             if (strstri(what, "pair of ") != 0)
                 more_than_1 = FALSE;
             pline(
-               "Поскольку ваше оружие приварено к %s%s, вы не можете %s %s %s.",
-                  hand_pos, hand, verb, more_than_1 ? "те" : "тот",
-                  xname(obj));
+               "Поскольку ваше оружие приварено к %s%s, вы не можете пользоваться %s.",
+                  hand_pos, hand, more_than_1 ? "ими" : "им");
         } else {
             You_cant("сделать это.");
         }
@@ -724,8 +720,8 @@ wield_tool(struct obj *obj,
     }
     /* check shield */
     if (uarms && bimanual(obj)) {
-        You("не можете %s двуручным %s, нося щит.", verb,
-            (obj->oclass == WEAPON_CLASS) ? "оружие" : "инструмент");
+        You("не можете пользоваться двуручным %s, нося щит.",
+            (obj->oclass == WEAPON_CLASS) ? "оружием" : "инструментом");
         return FALSE;
     }
 
