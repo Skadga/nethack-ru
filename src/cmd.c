@@ -4469,8 +4469,9 @@ there_cmd_menu_self(winid win, coordxy x, coordxy y, int *act UNUSED)
     }
     if (u.usteed) { /* another movement choice */
         Sprintf(buf, "Спешиться с %s",
-                x_monnam(u.usteed, ARTICLE_THE, (char *) 0,
-                         SUPPRESS_SADDLE, FALSE));
+                ru_noun_case(x_monnam(u.usteed, ARTICLE_THE,
+                                      (char *) 0, SUPPRESS_SADDLE,
+                                      FALSE), BP_GEN));
         mcmd_addmenu(win, MCMD_DISMOUNT, buf), ++K;
     }
 

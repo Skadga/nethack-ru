@@ -2227,8 +2227,11 @@ trapeffect_web(
                 You("запутываетесь в %sпаутине!", web);
             else if (u.usteed)
                 You("тянете %s в %sпаутину!",
-                    x_monnam(u.usteed, steed_article, "бедную",
-                             SUPPRESS_SADDLE, FALSE), web);
+                    ru_noun_case(x_monnam(u.usteed, steed_article,
+                                          "бедную",
+                                          SUPPRESS_SADDLE, FALSE),
+                                 BP_ACC),
+                    web);
             else
                 You("%s в %sпаутину!", u_locomotion("stumble"), web);
         }

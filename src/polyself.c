@@ -1416,7 +1416,8 @@ rehumanize(void)
     update_inventory();
     if (was_flying && !Flying && u.usteed)
         You("и %s м€гко возвращаетесь на %s.",
-            mon_nam(u.usteed), surface_case(u.ux, u.uy, BP_ACC));
+            ru_noun_case(mon_nam(u.usteed), BP_ACC),
+            surface_case(u.ux, u.uy, BP_ACC));
     retouch_equipment(2);
     if (!uarmg)
         selftouch(no_longer_petrify_resistant);

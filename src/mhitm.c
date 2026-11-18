@@ -856,9 +856,11 @@ gulpmm(
                   canspotmon(mdef) ? "его" : something);
             if (canspotmon(mdef)) {
                 pline("Оно превращается в %s.",
-                      x_monnam(mdef, ARTICLE_A, (char *) 0,
-                               (SUPPRESS_NAME | SUPPRESS_IT
-                                | SUPPRESS_INVISIBLE), FALSE));
+                      ru_noun_case(x_monnam(mdef, ARTICLE_A,
+                                            (char *) 0,
+                                            (SUPPRESS_NAME | SUPPRESS_IT
+                                             | SUPPRESS_INVISIBLE),
+                                            FALSE), BP_ACC));
             }
         }
         return M_ATTK_HIT; /* bypass mdamagem() */
