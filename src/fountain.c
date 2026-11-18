@@ -640,7 +640,8 @@ drinksink(void)
         }
         otmp->cursed = otmp->blessed = 0;
         pline("Какая-то %s жидкость течёт из крана.",
-              Blind ? "странная" : hcolor(OBJ_DESCR(objects[otmp->otyp])));
+              hcolor_case(Blind ? "странный" : OBJ_DESCR(objects[otmp->otyp]),
+                          RU_ADJ_NOM_F));
         if(!(Blind || Hallucination))
             observe_object(otmp);
         otmp->quan++;       /* Avoid panic upon useup() */

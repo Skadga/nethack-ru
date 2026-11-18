@@ -169,6 +169,18 @@ enum bp_case {
 #define BP_CASE_MASK 0x0f
 #define BP_PLURAL    0x10
 
+/* Russian adjective forms used by ru_color_adj()/hcolor_case().  Color
+   names are stored in nominative masculine singular; these select the
+   form needed by the surrounding phrase. */
+#define RU_ADJ_NOM_M  0 /* именительный, мужской род */
+#define RU_ADJ_NOM_N  1 /* именительный, средний род */
+#define RU_ADJ_NOM_F  2 /* именительный, женский род */
+#define RU_ADJ_NOM_PL 3 /* именительный, множественное число */
+#define RU_ADJ_GEN    4 /* родительный */
+#define RU_ADJ_INS    5 /* творительный */
+#define RU_ADJ_INS_F  6 /* творительный, женский род */
+#define RU_ADJ_PREP   7 /* предложный */
+
 /* Russian case forms for object names used by obj_case().
    obj_paradigms[] is keyed by otyp, arti_paradigms[] by an
    enum artifacts_nums value, since several artifacts share one otyp.

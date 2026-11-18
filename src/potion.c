@@ -1552,7 +1552,7 @@ H2Opotion_dip(
            the effect; now hero has to see the glow, and bknown
            is cleared instead of set if perception is distorted */
         if (useeit) {
-            glowcolor = hcolor(glowcolor);
+            glowcolor = hcolor_case(glowcolor, RU_ADJ_INS);
             if (altfmt)
                 pline("%s с ореолом %s.", objphrase, an(glowcolor));
             else
@@ -2577,7 +2577,8 @@ potion_dip(struct obj *obj, struct obj *potion)
             pline("Смесь пузырится%s.", Blind ? "" : ", Затем проясняется");
         } else if (!Blind) {
             pline("Смесь выглядит %s.",
-                      hcolor(OBJ_DESCR(objects[obj->otyp])));
+                      hcolor_case(OBJ_DESCR(objects[obj->otyp]),
+                                  RU_ADJ_INS_F));
         }
 
         /* this is required when 'obj' was split off from a bigger stack,
@@ -2593,10 +2594,14 @@ potion_dip(struct obj *obj, struct obj *potion)
 
     if (potion->otyp == POT_ACID && obj->otyp == CORPSE
         && obj->corpsenm == PM_LICHEN) {
-        pline("%s %s %s по краям.", The(cxname(obj)),
-              otense(obj, "скручивается"), Blind ? "сморщенный"
-                                   : potion->odiluted ? hcolor(NH_ORANGE)
-                                     : hcolor(NH_RED));
+        if (Blind)
+            pline("%s %s по краям.", The(cxname(obj)),
+                  otense(obj, "скручивается"));
+        else
+            pline("%s %s, по краям появляется %s цвет.", The(cxname(obj)),
+                  otense(obj, "скручивается"),
+                  hcolor_case(potion->odiluted ? NH_ORANGE : NH_RED,
+                              RU_ADJ_NOM_M));
         potion->in_use = FALSE; /* didn't go poof */
         if (potion->dknown)
             trycall(potion);
@@ -2732,7 +2737,9 @@ potion_dip(struct obj *obj, struct obj *potion)
         oldbuf[0] = '\0';
         if (potion->dknown) {
             old_dknown = TRUE;
-            Sprintf(oldbuf, "%s ", hcolor(OBJ_DESCR(objects[potion->otyp])));
+            Sprintf(oldbuf, "%s ",
+                    hcolor_case(OBJ_DESCR(objects[potion->otyp]),
+                                RU_ADJ_NOM_N));
         }
         /* with multiple merged potions, split off one and
            just clear it */
@@ -2758,12 +2765,19 @@ potion_dip(struct obj *obj, struct obj *potion)
                 Sprintf(newbuf, "прояснилось");
             else if (!Blind)
                 Sprintf(newbuf, "становится %s",
-                        hcolor(OBJ_DESCR(objects[mixture])));
-            if (*newbuf)
-                pline("%sЗелье%s %s.", oldbuf,
-                          more_than_one ? ", В которое вы окунули" : "",
-                          newbuf);
-            else
+                        hcolor_case(OBJ_DESCR(objects[mixture]),
+                                    RU_ADJ_INS));
+            if (*newbuf) {
+                char msgbuf[BUFSZ];
+
+                Sprintf(msgbuf, "%s%s %s.",
+                        *oldbuf ? upstart(oldbuf) : "",
+                        *oldbuf ? "зелье"
+                                : (more_than_one ? "Одно из зелий"
+                                                 : "Зелье"),
+                        newbuf);
+                pline("%s", msgbuf);
+            } else
                 pline("Что-то происходит.");
 
             if (old_dknown

@@ -2063,22 +2063,30 @@ roguename(void)
 }
 
 static NEARDATA const char *const hcolors[] = {
-    "ultraviolet", "infrared", "bluish-orange", "reddish-green", "dark white",
-    "light black", "sky blue-pink", "pinkish-cyan", "indigo-chartreuse",
-    "salty", "sweet", "sour", "bitter", "umami", /* basic tastes */
-    "striped", "spiral", "swirly", "plaid", "checkered", "argyle", "paisley",
-    "blotchy", "guernsey-spotted", "polka-dotted", "square", "round",
-    "triangular", "cabernet", "sangria", "fuchsia", "wisteria", "lemon-lime",
-    "strawberry-banana", "peppermint", "romantic", "incandescent",
-    "octarine", /* Discworld: the Colour of Magic */
-    "excitingly dull", "mauve", "electric",
-    "neon", "fluorescent", "phosphorescent", "translucent", "opaque",
-    "psychedelic", "iridescent", "rainbow-colored", "polychromatic",
-    "colorless", "colorless green",
-    "dancing", "singing", "loving", "loudy", "noisy", "clattery", "silent",
-    "apocyan", "infra-pink", "opalescent", "violant", "tuneless",
-    "viridian", "aureolin", "cinnabar", "purpurin", "gamboge", "madder",
-    "bistre", "ecru", "fulvous", "tekhelet", "selective yellow",
+    "ультрафиолетовый", "инфракрасный", "синевато-оранжевый",
+    "красновато-зелЄный", "тЄмно-белый",
+    "светло-чЄрный", "небесно-розовый", "розовато-бирюзовый",
+    "индигово-салатовый",
+    "солЄный", "сладкий", "кислый", "горький", "м€сной", /* basic tastes */
+    "полосатый", "спиральный", "закрученный", "клетчатый", "шахматный",
+    "ромбовидный", "узорчатый",
+    "п€тнистый", "крапчатый", "горошковый", "квадратный", "круглый",
+    "треугольный", "винный", "гранатовый", "фуксиевый", "глициниевый",
+    "лимонно-лаймовый",
+    "земл€нично-банановый", "м€тный", "романтичный", "раскалЄнный",
+    "октариновый", /* Discworld: the Colour of Magic */
+    "унылый", "розовато-лиловый", "электрический",
+    "неоновый", "флуоресцентный", "фосфоресцирующий", "полупрозрачный",
+    "непрозрачный",
+    "психоделический", "переливчатый", "радужный", "многоцветный",
+    "бесцветный", "бесцветно-зелЄный",
+    "танцующий", "поющий", "люб€щий", "громкий", "шумный", "грохочущий",
+    "безмолвный",
+    "апоксиановый", "инфрарозовый", "опалесцирующий", "виолантовый",
+    "немелодичный",
+    "виридиановый", "ауреолиновый", "киноварный", "пурпуриновый",
+    "гамбожевый", "мареновый",
+    "бистровый", "экрю", "рыжеватый", "тхелетовый", "избирательно-жЄлтый",
 };
 
 const char *
@@ -2089,6 +2097,77 @@ hcolor(const char *colorpref)
         : colorpref;
 }
 
+/* RU localization: color names are stored as nominative masculine
+   singular adjectives.  ru_color_adj() inflects the final component of
+   a compound ("светло-голубой" -> "светло-голубым") for the position
+   where the name is used; indeclinable names are returned unchanged. */
+const char *
+ru_color_adj(const char *base, int form)
+{
+    static char bufs[4][BUFSZ];
+    static int bufi = 0;
+    char *out;
+    const char *tail, *cp, *end;
+    size_t plen, slen, elen;
+    int soft;
+
+    if (!base || !*base)
+        return base ? base : "";
+    if (form == RU_ADJ_NOM_M)
+        return base;
+
+    /* inflect only the last word of a compound color name */
+    tail = base;
+    for (cp = base; *cp; ++cp)
+        if (*cp == '-' || *cp == ' ')
+            tail = cp + 1;
+
+    slen = strlen(tail);
+    if (slen < 3)
+        return base;
+    cp = tail + slen - 2;
+    if (!strcmp(cp, "ий")) {
+        soft = 1;
+    } else if (!strcmp(cp, "ый") || !strcmp(cp, "ой")) {
+        soft = 0;
+    } else {
+        return base; /* indeclinable, e.g. "экрю" */
+    }
+
+    switch (form) {
+    case RU_ADJ_NOM_N:  end = soft ? "ее" : "ое"; break;
+    case RU_ADJ_NOM_F:  end = soft ? "€€" : "а€"; break;
+    case RU_ADJ_NOM_PL: end = soft ? "ие" : "ые"; break;
+    case RU_ADJ_GEN:    end = soft ? "его" : "ого"; break;
+    case RU_ADJ_INS:    end = soft ? "им" : "ым"; break;
+    case RU_ADJ_INS_F:  end = soft ? "ей" : "ой"; break;
+    case RU_ADJ_PREP:   end = soft ? "ем" : "ом"; break;
+    default:            return base;
+    }
+
+    bufi = (bufi + 1) % SIZE(bufs);
+    out = bufs[bufi];
+    plen = (size_t) (tail - base);
+    if (plen > BUFSZ - 8)
+        plen = BUFSZ - 8;
+    slen -= 2; /* drop the ending */
+    elen = strlen(end);
+    if (plen + slen + elen >= BUFSZ)
+        slen = BUFSZ - plen - elen - 1;
+    memcpy(out, base, plen);
+    memcpy(out + plen, tail, slen);
+    Strcpy(out + plen + slen, end);
+    return out;
+}
+
+const char *
+hcolor_case(const char *colorpref, int form)
+{
+    const char *color = hcolor(colorpref);
+
+    return color ? ru_color_adj(color, form) : color;
+}
+
 /* return a random real color unless hallucinating */
 const char *
 rndcolor(void)
@@ -2096,7 +2175,7 @@ rndcolor(void)
     int k = rn2(CLR_MAX);
 
     return Hallucination ? hcolor((char *) 0)
-                         : (k == NO_COLOR) ? "colorless"
+                         : (k == NO_COLOR) ? "прозрачный"
                                            : c_obj_colors[k];
 }
 

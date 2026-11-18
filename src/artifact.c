@@ -1675,7 +1675,8 @@ artifact_hit(
 
                 if (is_art(otmp, ART_STORMBRINGER))
                     pline_The("%s клинок выт€гивает %s из %s!",
-                              hcolor(NH_BLACK), life, mon_nam(mdef));
+                              hcolor_case(NH_BLACK, RU_ADJ_NOM_M), life,
+                              mon_nam(mdef));
                 else
                     pline("%s выт€гивает %s из %s!",
                           The(otmpname), life, mon_nam(mdef));
@@ -1716,7 +1717,7 @@ artifact_hit(
 
                 if (is_art(otmp, ART_STORMBRINGER))
                     pline_The("%s клинок выт€гивает вашу %s!",
-                              hcolor(NH_BLACK), life);
+                              hcolor_case(NH_BLACK, RU_ADJ_NOM_M), life);
                 else
                     pline("%s выт€гивает вашу %s!", The(otmpname), life);
             }
@@ -2443,9 +2444,9 @@ const char *
 glow_color(int arti_indx)
 {
     int colornum = artilist[arti_indx].acolor;
-    const char *colorstr = clr2colorname(colornum);
 
-    return hcolor(colorstr);
+    return hcolor((colornum >= 0 && colornum < CLR_MAX)
+                      ? c_obj_colors[colornum] : (const char *) 0);
 }
 
 /* glow verb; [0] holds the value used when blind. Each row is
@@ -2501,7 +2502,7 @@ Sting_effects(
             if (!Blind)
                 pline("%s %s %s%c", bare_artifactname(uwep),
                       otense(uwep, glow_verb(orc_count, GLOW_FINITE)),
-                      glow_color(uwep->oartifact),
+                      ru_color_adj(glow_color(uwep->oartifact), RU_ADJ_INS),
                       (newstr > oldstr) ? '!' : '.');
             else if (oldstr == 0) /* дрожит */
                 pline("%s %s слегка.", bare_artifactname(uwep),

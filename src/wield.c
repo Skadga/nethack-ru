@@ -921,7 +921,8 @@ untwoweapon(void)
 int
 chwepon(struct obj *otmp, int amount)
 {
-    const char *color = hcolor((amount < 0) ? NH_BLACK : NH_BLUE);
+    const char *color = hcolor_case((amount < 0) ? NH_BLACK : NH_BLUE,
+                                    RU_ADJ_INS);
     const char *xtime, *wepname = "";
     boolean multiple;
     int otyp = STRANGE_OBJECT;
@@ -932,7 +933,8 @@ chwepon(struct obj *otmp, int amount)
         if (amount >= 0 && uwep && will_weld(uwep)) { /* cursed tin opener */
             if (!Blind) {
                 Sprintf(buf, "%s с %s аурой.",
-                        Yobjnam2(uwep, "светится"), an(hcolor(NH_AMBER)));
+                        Yobjnam2(uwep, "светится"),
+                        hcolor_case(NH_AMBER, RU_ADJ_INS_F));
                 uwep->bknown = !Hallucination; /* ok to bypass set_bknown() */
             } else {
                 /* cursed tin opener is wielded in right hand */

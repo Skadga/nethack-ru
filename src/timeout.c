@@ -312,7 +312,7 @@ choke_dialogue(void)
             const char *str = choke_texts[SIZE(choke_texts) - i];
 
             if (strchr(str, '%'))
-                urgent_pline(str, hcolor(NH_BLUE));
+                urgent_pline(str, hcolor_case(NH_BLUE, RU_ADJ_INS));
             else
                 urgent_pline("%s", str);
             stop_occupation();
@@ -390,11 +390,11 @@ levitation_dialogue(void)
 }
 
 static NEARDATA const char *const slime_texts[] = {
-    "Вы немного превращаетесь в %s.",   /* 5 */
+    "Вы становитесь %s.",   /* 5 */
     "Ваши конечности становятся студенистыми.",   /* 4 */
     "Ваша кожа начинает отслаиваться.", /* 3 */
-    "Вы превращаетесь в %s.",       /* 2 */
-    "Вы стали %s."             /* 1 */
+    "Вы уже почти %s.",       /* 2 */
+    "Вы теперь %s."             /* 1 */
 };
 
 staticfn void
@@ -424,10 +424,10 @@ slime_dialogue(void)
         if (strchr(buf, '%')) {
             if (i == 4L) {  /* "you are turning green" */
                 if (!Blind) /* [what if you're already green?] */
-                    urgent_pline(buf, hcolor(NH_GREEN));
+                    urgent_pline(buf, hcolor_case(NH_GREEN, RU_ADJ_INS));
             } else {
                 urgent_pline(buf, an(Hallucination ? rndmonnam(NULL)
-                                                   : "green slime"));
+                                                   : "зелёная слизь"));
             }
         } else {
             urgent_pline("%s", buf);
@@ -669,7 +669,9 @@ nh_timeout(void)
             u.uspellprot--;
             find_ac();
             if (!Blind)
-                Norep("%s дымка вокруг вас %s.", hcolor(NH_GOLDEN),
+                Norep("%s дымка вокруг вас %s.",
+                      upstart((char *) hcolor_case(NH_GOLDEN,
+                                                    RU_ADJ_NOM_F)),
                       u.uspellprot ? "становится менее плотной" : "рассеивается");
         }
     }

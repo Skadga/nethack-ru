@@ -1075,11 +1075,11 @@ use_mirror(struct obj *obj)
                 pline("Хм?  Это не похоже на вас!");
                 make_confused(HConfusion + d(3, 4), FALSE);
             } else if (Hallucination) {
-                You(look_str, hcolor((char *) 0));
+                You(look_str, hcolor_case((char *) 0, RU_ADJ_INS));
             } else if (Sick) {
-                You(look_str, "измождённо");
+                You(look_str, "измождённым");
             } else if (u.uhs >= WEAK) {
-                You(look_str, "истощённо");
+                You(look_str, "истощённым");
             } else if (Upolyd) {
                 You("выглядите как %s.", an(pmname(&mons[u.umonnum], Ugender)));
             } else {
@@ -2779,7 +2779,8 @@ use_stone(struct obj *tstone)
                 break;
             }
         }
-        streak_color = c_obj_colors[objects[obj->otyp].oc_color];
+        streak_color = ru_color_adj(c_obj_colors[objects[obj->otyp].oc_color],
+                                    RU_ADJ_NOM_PL);
         break; /* gem or ring */
 
     default:
@@ -2812,7 +2813,9 @@ use_stone(struct obj *tstone)
                scratch a stone.  They will leave streaks on
                non-touchstones and touchstones alike. */
             if (is_flimsy(obj))
-                streak_color = c_obj_colors[objects[obj->otyp].oc_color];
+                streak_color =
+                    ru_color_adj(c_obj_colors[objects[obj->otyp].oc_color],
+                                 RU_ADJ_NOM_PL);
             else
                 do_scratch = (tstone->otyp != TOUCHSTONE);
             break;
@@ -4338,7 +4341,8 @@ doapply(void)
             /* sometimes the blessing will be worn off */
             if (!rn2(49)) {
                 if (!Blind) {
-                    pline("%s светится %s.", Yname2(obj), hcolor("коричневым"));
+                    pline("%s светится %s.", Yname2(obj),
+                          hcolor_case("коричневый", RU_ADJ_INS));
                     set_bknown(obj, 1);
                 }
                 unbless(obj);
@@ -4511,7 +4515,8 @@ flip_through_book(struct obj *obj)
                      Hallucination ? "хихикающий"
                                    : "шуршащий");
         } else if (!Blind) {
-            You_see("страницы слабо светятся %s.", hcolor(NH_RED));
+            You_see("страницы слабо светятся %s.",
+                    hcolor_case(NH_RED, RU_ADJ_INS));
         } else {
             You_feel("страницы дрожат.");
         }

@@ -673,7 +673,7 @@ staticfn void
 p_glow2(struct obj *otmp, const char *color)
 {
     pline("%s%s%s на мгновение.", Yobjnam2(otmp, Blind ? "вибрирует" : "светится"),
-          Blind ? "" : " ", Blind ? "" : hcolor(color));
+          Blind ? "" : " ", Blind ? "" : hcolor_case(color, RU_ADJ_INS));
 }
 
 staticfn void
@@ -1182,8 +1182,8 @@ seffect_enchant_armor(struct obj **sobjp)
         pline("%s яростно %s%s%s некоторое время, затем %s.", Yname2(otmp),
               otense(otmp, Blind ? "вибрирует" : "светится"),
               (!Blind && !same_color) ? " " : "",
-              (Blind || same_color) ? "" : hcolor(scursed ? NH_BLACK
-                                                  : NH_SILVER),
+              (Blind || same_color)
+              ? "" : hcolor_case(scursed ? NH_BLACK : NH_SILVER, RU_ADJ_INS),
               otense(otmp, "испаряется"));
         remove_worn_item(otmp, FALSE);
         useup(otmp);
@@ -1256,7 +1256,8 @@ seffect_enchant_armor(struct obj **sobjp)
           otense(otmp, Blind ? "вибрирует" : "светится"),
           (!Blind && !same_color) ? " " : "",
           (Blind || same_color)
-          ? "" : hcolor(scursed ? NH_BLACK : NH_SILVER),
+          ? "" : hcolor_case(scursed ? NH_BLACK : NH_SILVER,
+                             RU_ADJ_INS),
           (s * s > 1) ? "некоторое время" : "мгновение");
     /* [this cost handling will need updating if shop pricing is
        ever changed to care about curse/bless status of armor] */
@@ -1414,7 +1415,7 @@ seffect_confuse_monster(struct obj **sobjp)
         if (!sblessed) {
             Your("%s начинают %s%s.", hands,
                  altfeedback ? "покалывать" : "светиться ",
-                 altfeedback ? "" : hcolor(NH_PURPLE));
+                 altfeedback ? "" : hcolor_case(NH_PURPLE, RU_ADJ_INS));
             make_confused(HConfusion + rnd(100), FALSE);
         } else {
             if (altfeedback)
@@ -1433,10 +1434,11 @@ seffect_confuse_monster(struct obj **sobjp)
             if (altfeedback)
                 Your("%s %s.", hands, u.umconf ? "покалывают ещё сильнее" : "покалывают");
             else if (!u.umconf)
-                Your("%s начинают светиться %s.", hands, hcolor(NH_RED));
+                Your("%s начинают светиться %s.", hands,
+                     hcolor_case(NH_RED, RU_ADJ_INS));
             else
-                pline_The("%s сияние ваших %s усиливается.", hcolor(NH_RED),
-                          hands_gen);
+                pline("Сияние ваших %s становится %s.", hands_gen,
+                      hcolor_case(NH_RED, RU_ADJ_INS));
             incr += rnd(2);
         } else {
             if (altfeedback)
@@ -1444,7 +1446,8 @@ seffect_confuse_monster(struct obj **sobjp)
                      u.umconf ? "сильно покалывают ещё сильнее" : "сильно покалывают");
             else
                 Your("%s светятся %s %s.", hands,
-                     u.umconf ? "ещё более ярким" : "ярким", hcolor(NH_RED));
+                     u.umconf ? "ещё более ярким" : "ярким",
+                     hcolor_case(NH_RED, RU_ADJ_INS));
             incr += rn1(8, 2);
         }
         /* after a while, repeated uses become less effective */
@@ -1591,7 +1594,7 @@ seffect_remove_curse(struct obj **sobjp)
                    doesn't show things glowing but saddle does */
                 if (!Blind) {
                     pline("%s светится %s.", Yname2(obj),
-                              hcolor("янтарным"));
+                              hcolor_case("янтарный", RU_ADJ_INS));
                     obj->bknown = Hallucination ? 0 : 1;
                 } else {
                     obj->bknown = 0; /* skip set_bknown() */

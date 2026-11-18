@@ -716,6 +716,8 @@ extern char *bogusmon(char *, char *) NONNULLARG1;
 extern char *rndmonnam(char *);
 extern const char *hcolor(const char *);
 extern const char *rndcolor(void);
+extern const char *hcolor_case(const char *, int);
+extern const char *ru_color_adj(const char *, int);
 extern const char *hliquid(const char *);
 extern const char *roguename(void);
 /*

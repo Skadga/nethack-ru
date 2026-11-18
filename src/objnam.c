@@ -1601,7 +1601,8 @@ doname_base(
                     /* we know bp[] ends with ')'; overwrite that */
                     ConcatF2(bp, 1, ", %s %s)",
                              glow_verb(gw.warn_obj_cnt, GLOW_ADJ),
-                             glow_color(obj->oartifact));
+                             ru_color_adj(glow_color(obj->oartifact),
+                                          RU_ADJ_INS));
                 else if (obj->lamplit && artifact_light(obj))
                     /* as above, overwrite known closing paren */
                     ConcatF1(bp, 1, ", %s горит)",

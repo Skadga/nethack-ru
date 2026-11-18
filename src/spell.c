@@ -1150,24 +1150,25 @@ cast_protection(void)
             const char *hgolden = hcolor(NH_GOLDEN), *atmosphere;
 
             if (u.uspellprot) {
-                pline("%s Дымка вокруг вас становится плотнее.", hgolden);
+                pline("Дымка вокруг вас становится плотнее и приобретает %s оттенок.",
+                      ru_color_adj(hgolden, RU_ADJ_NOM_M));
             } else {
                 struct permonst *pm = u.ustuck ? u.ustuck->data : 0;
 
                 rmtyp = levl[u.ux][u.uy].typ;
                 atmosphere = (pm && u.uswallow)
-                                ? ((pm == &mons[PM_FOG_CLOUD]) ? "туманом"
-                                   : is_whirly(pm) ? "водоворотом"
-                                     : enfolds(pm) ? "складками"
-                                       : is_animal(pm) ? "пастью"
-                                         : "слизью")
-                                : (u.uinwater ? hliquid("water")
-                                   : (rmtyp == CLOUD) ? "облаком"
-                                     : IS_TREE(rmtyp) ? "растительностью"
-                                       : IS_STWALL(rmtyp) ? "камнем"
-                                         : "воздухом");
-                pline("%s Вокруг вас начинает мерцать %s дымкой.",
-                          atmosphere, an(hgolden));
+                                ? ((pm == &mons[PM_FOG_CLOUD]) ? "тумане"
+                                   : is_whirly(pm) ? "водовороте"
+                                     : enfolds(pm) ? "складках"
+                                       : is_animal(pm) ? "пасти"
+                                         : "слизи")
+                                : (u.uinwater ? "воде"
+                                   : (rmtyp == CLOUD) ? "облаке"
+                                     : IS_TREE(rmtyp) ? "растительности"
+                                       : IS_STWALL(rmtyp) ? "камне"
+                                         : "воздухе");
+                pline("В %s вокруг вас начинает мерцать %s дымка.",
+                      atmosphere, ru_color_adj(hgolden, RU_ADJ_NOM_F));
             }
         }
         u.uspellprot += gain;

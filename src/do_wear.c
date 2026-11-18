@@ -478,7 +478,7 @@ Helmet_on(void)
                 pline("%s на мгновение.", Tobjnam(uarmh, "вибрирует"));
             else
                 pline("%s %s на мгновение.", Tobjnam(uarmh, "светится"),
-                      hcolor(NH_BLACK));
+                      hcolor_case(NH_BLACK, RU_ADJ_INS));
             curse(uarmh);
             /* curse() doesn't touch bknown so doesn't update persistent
                inventory; do so now [set_bknown() calls update_inventory()] */

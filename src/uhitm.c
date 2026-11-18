@@ -6344,12 +6344,14 @@ nohandglow(struct monst *mon)
         if (altfeedback)
             Your("%s перестают покалывать.", hands);
         else
-            Your("%s перестают светиться %s.", hands, hcolor(NH_RED));
+            Your("%s перестают светиться %s.", hands,
+                 hcolor_case(NH_RED, RU_ADJ_INS));
     } else {
         if (altfeedback)
             pline("Покалывание в вашей %s ослабевает.", hands_ins);
         else
-            Your("%s больше не светятся так ярко %s.", hands, hcolor(NH_RED));
+            Your("%s больше не светятся так ярко %s.", hands,
+                 hcolor_case(NH_RED, RU_ADJ_INS));
     }
     u.umconf--;
 }
