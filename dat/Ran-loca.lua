@@ -53,7 +53,7 @@ des.trap("teleport")
 des.trap("arrow")
 des.trap("arrow")
 -- Random monsters.
-des.monster({ id = "вампус", x=27, y=18, peaceful=0, asleep=1 })
+des.monster({ id = "вумпус", x=27, y=18, peaceful=0, asleep=1 })
 des.monster({ id = "Гигантская Летучая Мышь", peaceful=0 })
 des.monster({ id = "Гигантская Летучая Мышь", peaceful=0 })
 des.monster({ id = "Гигантская Летучая Мышь", peaceful=0 })

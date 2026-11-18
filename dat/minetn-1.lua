@@ -123,7 +123,7 @@ for i = 1, math.random(5,15) do
       des.monster({ id = "орк-капитан", coord = inside:rndcoord(1), peaceful=0 });
    else
       if percent(80) then
-         des.monster({ id = "урок-хай", coord = inside:rndcoord(1), peaceful=0 })
+         des.monster({ id = "урук-хай", coord = inside:rndcoord(1), peaceful=0 })
       else
          des.monster({ id = "орк ћордора", coord = inside:rndcoord(1), peaceful=0 })
       end
