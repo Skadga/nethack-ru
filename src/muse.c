@@ -832,7 +832,7 @@ use_defensive(struct monst *mtmp)
             if (vismon)
                 pline_mon(mtmp, "%s выглядит устойчивее.", Monnam(mtmp));
         } else {
-            impossible("No need for unicorn horn?");
+            impossible("Не нужен рог единорога?");
         }
         return 2;
     case MUSE_BUGLE:

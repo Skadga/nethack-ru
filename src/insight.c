@@ -1077,7 +1077,7 @@ status_enlightenment(int mode, int final)
         if (uball) {
             Sprintf(buf, "прикованы к %s", ansimpleoname(uball));
         } else {
-            impossible("Punished without uball?");
+            impossible("Ќаказаны без шара?");
             Strcpy(buf, "наказаны");
         }
         you_are(buf, "");

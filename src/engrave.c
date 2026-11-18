@@ -221,10 +221,10 @@ cant_reach_floor(coordxy x, coordxy y, boolean up,
 {
     pline("%s не может достать %s.",
           wand_engraving
-              ? "The wand does nothing more, and the tip of the wand"
-              : "You",
+              ? "Жезл больше ничего не делает, а кончик жезла"
+              : "Вы",
           up  ? ceiling(x, y)
-              : (check_pit && can_reach_floor(FALSE)) ? "bottom of the pit"
+              : (check_pit && can_reach_floor(FALSE)) ? "дна ямы"
                                                       : surface(x, y));
 }
 

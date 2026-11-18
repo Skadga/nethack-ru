@@ -641,7 +641,7 @@ shkinit(const struct shclass *shp, struct mkroom *sroom)
         if (wizard) {
             int j = sroom->doorct;
 
-            impossible("Where is shopdoor?");
+            impossible("Где дверь магазина?");
             pline("Комната в (%d,%d),(%d,%d).", sroom->lx,
                   sroom->ly, sroom->hx, sroom->hy);
             pline("doormax=%d doorct=%d fdoor=%d", gd.doorindex, sroom->doorct,

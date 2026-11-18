@@ -92,11 +92,11 @@ done2(void)
     boolean abandon_tutorial = FALSE;
 
     if (In_tutorial(&u.uz)
-        && y_n("Switch from the tutorial back to regular play?") == 'y')
+        && y_n("Вернуться из обучения к обычной игре?") == 'y')
         abandon_tutorial = TRUE;
 
     if (abandon_tutorial || !paranoid_query(
-            ParanoidQuit, "Really quit without saving?")) {
+            ParanoidQuit, "Действительно выйти без сохранения?")) {
 #ifndef NO_SIGNAL
         (void) signal(SIGINT, (SIG_RET_TYPE) done1);
 #endif
@@ -112,7 +112,7 @@ done2(void)
 
         if (abandon_tutorial)
             schedule_goto(&u.ucamefrom, UTOTYPE_ATSTAIRS,
-                          "Resuming regular play.", (char *) 0);
+                          "Продолжаем обычную игру.", (char *) 0);
         return ECMD_OK;
     }
 
@@ -122,12 +122,12 @@ done2(void)
 #ifdef VMS
         extern int debuggable; /* sys/vms/vmsmisc.c, vmsunix.c */
 
-        c = !debuggable ? 'n' : ynq("Enter debugger?");
+        c = !debuggable ? 'n' : ynq("Войти в отладчик?");
 #else
 #ifdef LATTICE
-        c = ynq("Create SnapShot?");
+        c = ynq("Создать снимок?");
 #else
-        c = ynq("Dump core?");
+        c = ynq("Сбросить дамп памяти?");
 #endif
 #endif
         if (c == 'y') {
@@ -520,7 +520,7 @@ dump_plines(void)
     char buf[BUFSZ], **strp;
 
     Strcpy(buf, " "); /* one space for indentation */
-    putstr(0, 0, "Latest messages:");
+    putstr(0, 0, "Последние сообщения:");
     for (i = 0, j = (int) gs.saved_pline_index; i < DUMPLOG_MSG_COUNT;
          ++i, j = (j + 1) % DUMPLOG_MSG_COUNT) {
         strp = &gs.saved_plines[j];
@@ -1528,10 +1528,10 @@ really_done(int how)
             const char *where = svd.dungeons[u.uz.dnum].dname;
 
             if (Is_astralevel(&u.uz))
-                where = "The Astral Plane";
+                where = "Астральной плоскости";
             Sprintf(pbuf, "Вы %s в %s", ends[how], where);
             if (!In_endgame(&u.uz) && !single_level_branch(&u.uz))
-                Sprintf(eos(pbuf), " on dungeon level %d",
+                Sprintf(eos(pbuf), " на уровне подземелья %d",
                         In_quest(&u.uz) ? dunlev(&u.uz) : depth(&u.uz));
         }
 
@@ -1647,7 +1647,7 @@ container_contents(
                     }
                     unsortloot(&sortedcobj);
                 } else if (cat) {
-                    Strcpy(&buf[2], "Schroedinger's cat!");
+                    Strcpy(&buf[2], "Кот Шрёдингера!");
                     putstr(tmpwin, 0, buf);
                 }
                 if (dumping)

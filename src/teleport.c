@@ -1241,7 +1241,7 @@ level_tele(void)
                            for something like this, but we don't want
                            fumbling or already full pack to interfere */
                         amu = addinv(amu);
-                        prinv("Endgame prerequisite:", amu, 0L);
+                        prinv("Условие финала:", amu, 0L);
                     }
                 }
                 force_dest = TRUE;

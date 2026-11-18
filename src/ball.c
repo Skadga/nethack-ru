@@ -121,7 +121,7 @@ staticfn void
 placebc_core(void)
 {
     if (!uchain || !uball) {
-        impossible("Where are your ball and chain?");
+        impossible("√де ваш шар и цепь?");
         return;
     }
 

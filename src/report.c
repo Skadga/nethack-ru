@@ -428,9 +428,9 @@ printf("ShellExecute returned: %p\n",rv);   // >32 is ok
 #  endif
 
             (void) execve(CRASHREPORT, (char * const *) xargv, environ);
-            Sprintf(err, "Can't start " CRASHREPORT ": %.*s",
+            Sprintf(err, "Не удаётся запустить " CRASHREPORT ": %.*s",
                     (int) (sizeof err
-                           - sizeof "Can't start " CRASHREPORT ": "),
+                           - sizeof "Не удаётся запустить " CRASHREPORT ": "),
                     strerror(errno));
             raw_print(err);
 #  ifdef CRASHREPORT_EXEC_NOSTDERR

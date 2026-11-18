@@ -588,7 +588,7 @@ selection_do_gradient(
 
     switch (gtyp) {
     default:
-        impossible("Unrecognized gradient type! Defaulting to radial...");
+        impossible("Неизвестный тип градиента! Используется радиальный...");
         FALLTHROUGH;
         /* FALLTHRU */
     case SEL_GRADIENT_RADIAL: {

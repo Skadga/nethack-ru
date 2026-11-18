@@ -396,7 +396,7 @@ learn(void)
             break;
 
     if (i == MAXSPELL) {
-        impossible("Too many spells memorized!");
+        impossible("Слишком много заученных заклинаний!");
     } else if (spellid(i) == booktype) {
         /* normal book can be read and re-read a total of 4 times */
         if (book->spestudied > MAX_SPELL_STUDY) {
@@ -2352,7 +2352,7 @@ initialspell(struct obj *obj)
             break;
 
     if (i == MAXSPELL) {
-        impossible("Too many spells memorized!");
+        impossible("Слишком много заученных заклинаний!");
     } else if (spellid(i) != NO_SPELL) {
         /* initial inventory shouldn't contain duplicate spellbooks */
         impossible("Spell %s already known.", OBJ_NAME(objects[otyp]));
@@ -2406,7 +2406,7 @@ force_learn_spell(short otyp)
         if (spellid(i) == NO_SPELL || spellid(i) == otyp)
             break;
     if (i == MAXSPELL) {
-        impossible("Too many spells memorized");
+        impossible("Слишком много заученных заклинаний");
         return '\0';
     }
     /* for a going-stale or forgotten spell the sp_id and sp_lev assignments

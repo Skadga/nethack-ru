@@ -237,7 +237,7 @@ remove_worn_item(
 
     if (obj->owornmask & W_ARMOR) {
         if (obj == uskin) {
-            impossible("Removing embedded scales?");
+            impossible("Удаление вросшей чешуи?");
             skinback(TRUE); /* uarm = uskin; uskin = 0; */
         }
         if (obj == uarm)
@@ -409,7 +409,7 @@ steal(struct monst *mtmp, char *objnambuf)
                 break;
         }
     if (!otmp) {
-        impossible("Steal fails!");
+        impossible("Кража не удалась!");
         return 0;
     }
     /* can't steal ring(s) while wearing gloves */

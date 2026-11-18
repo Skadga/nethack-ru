@@ -47,7 +47,7 @@ init_isaac64(unsigned long seed, int (*fn)(int))
     int rngindx = whichrng(fn);
 
     if (rngindx < 0)
-        panic("Bad rng function passed to init_isaac64().");
+        panic("Плохая функция ГСЧ передана в init_isaac64().");
 
     for (i = 0; i < sizeof seed; i++) {
         new_rng_state[i] = (unsigned char) (seed & 0xFF);

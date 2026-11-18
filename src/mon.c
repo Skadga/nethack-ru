@@ -2350,8 +2350,8 @@ mfndpos(
                  */
                 if ((ttmp = t_at(nx, ny)) != 0) {
                     if (ttmp->ttyp >= TRAPNUM || ttmp->ttyp == 0) {
-                        impossible("A monster looked at a very strange trap"
-                                   " of type %d.",
+                        impossible("ћонстр увидел очень странную ловушку"
+                                   " типа %d.",
                                    ttmp->ttyp);
                             continue;
                     }

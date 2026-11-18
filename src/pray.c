@@ -1357,7 +1357,7 @@ pleased(aligntyp g_align)
             give_spell();
             break;
         default:
-            impossible("Confused deity!");
+            impossible("Сбитое с толку божество!");
             break;
         }
 
@@ -2683,7 +2683,7 @@ halu_gname(aligntyp alignment)
         impossible("rn2 broken in halu_gname?!?");
     }
     if (!gnam) {
-        impossible("No random god name?");
+        impossible("Нет случайного имени бога?");
         gnam = "ваш Друг Компьютер"; /* Paranoia */
     }
     if (*gnam == '_')

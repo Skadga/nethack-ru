@@ -1053,7 +1053,7 @@ spec_applies(const struct artifact *weap, struct monst *mtmp)
         case AD_STON:
             return !(yours ? Stone_resistance : resists_ston(mtmp));
         default:
-            impossible("Weird weapon special attack.");
+            impossible("Странная особая атака оружия.");
         }
     }
     return 0;

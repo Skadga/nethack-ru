@@ -1667,7 +1667,7 @@ find_branch_room(coord *mp)
         croom = generate_stairs_find_room();
         assert(croom != NULL); /* Null iff nroom==0 which won't get here */
         if (!somexyspace(croom, mp))
-            impossible("Can't place branch!");
+            impossible("Не удаётся разместить ветвь!");
     }
     return croom;
 }

@@ -6446,7 +6446,7 @@ handler_menu_colors(void)
         if (*mcbuf == '\033')
             goto menucolors_done;
         if (*mcbuf
-            && test_regex_pattern(mcbuf, "MENUCOLORS regex")
+            && test_regex_pattern(mcbuf, "регул€рное выражение MENUCOLORS")
             && (mcclr = query_color((char *) 0, NO_COLOR)) != -1
                 && (mcattr = query_attr((char *) 0, ATR_NONE)) != -1
             && !add_menu_coloring_parsed(mcbuf, mcclr, mcattr)) {
@@ -6528,7 +6528,7 @@ handler_msgtype(void)
         if (*mtbuf == '\033')
             return TRUE;
         if (*mtbuf
-            && test_regex_pattern(mtbuf, "MSGTYPE regex")
+            && test_regex_pattern(mtbuf, "регул€рное выражение MSGTYPE")
             && (mttyp = query_msgtype()) != -1
             && !msgtype_add(mttyp, mtbuf)) {
             pline("ќшибка добавлени€ типа сообщени€.");
@@ -7742,7 +7742,7 @@ query_msgtype(void)
 staticfn boolean
 msgtype_add(int typ, char *pattern)
 {
-    static const char *const re_error = "MSGTYPE regex error";
+    static const char *const re_error = "ќшибка регул€рного выражени€ MSGTYPE";
     struct plinemsg_type *tmp = (struct plinemsg_type *) alloc(sizeof *tmp);
 
     tmp->msgtype = typ;
@@ -7882,7 +7882,7 @@ msgtype_parse_add(char *str)
 staticfn boolean
 test_regex_pattern(const char *str, const char *errmsg)
 {
-    static const char def_errmsg[] = "NHregex error";
+    static const char def_errmsg[] = "ќшибка NHregex";
     struct nhregex *match;
     char *re_error_desc, errbuf[BUFSZ];
     boolean retval;

@@ -277,7 +277,7 @@ expels(
 
             blast[0] = '\0';
             if (!attk) {
-                impossible("Swallower has no engulfing attack?");
+                impossible("У глотающего нет атаки поглощения?");
             } else {
                 if (is_whirly(mdat)) {
                     switch (attk->adtyp) {

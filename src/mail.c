@@ -274,8 +274,8 @@ md_stop(coord *stopp,  /* stopping position (we fill it in) */
 }
 
 /* Let the mail daemon have a larger vocabulary. */
-staticfn NEARDATA const char *mail_text[] = { "Gangway!", "Look out!",
-                                            "Pardon me!" };
+staticfn NEARDATA const char *mail_text[] = { "Дорогу!", "Берегись!",
+                                            "Простите!" };
 #define md_exclamations() (mail_text[rn2(3)])
 
 /*
@@ -471,7 +471,7 @@ ckmailstatus(void)
     }
     if (--mustgetmail <= 0) {
         static struct mail_info deliver = {
-            MSG_MAIL, "I have some mail for you", 0, 0
+            MSG_MAIL, "У меня для вас почта", 0, 0
         };
         newmail(&deliver);
         mustgetmail = -1;
@@ -570,7 +570,7 @@ ckmailstatus(void)
         if (nmstat.st_size) {
             static struct mail_info deliver = {
 #ifndef NO_MAILREADER
-                MSG_MAIL, "I have some mail for you",
+                MSG_MAIL, "У меня для вас почта",
 #else
                 /* suppress creation and delivery of scroll of mail */
                 MSG_OTHER, "У вас есть почта во внешнем мире",

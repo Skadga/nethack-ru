@@ -2240,7 +2240,7 @@ dopayobj(
 
     if (!obj->unpaid && !bp->useup
         && !(Has_contents(obj) && unpaid_cost(obj, COST_CONTENTS))) {
-        impossible("Paid object on bill??");
+        impossible("Оплаченный предмет в счёте??");
         return PAY_BUY;
     }
     if (itemize && insufficient_funds(shkp, obj, 0L)) {
@@ -3645,10 +3645,10 @@ splitbill(struct obj *obj, struct obj *otmp)
         return;
     }
     if (bp->bquan < otmp->quan) {
-        impossible("Negative quantity on bill??");
+        impossible("Отрицательное количество в счёте??");
     }
     if (bp->bquan == otmp->quan) {
-        impossible("Zero quantity on bill??");
+        impossible("Нулевое количество в счёте??");
     }
     bp->bquan -= otmp->quan;
 
@@ -4243,7 +4243,7 @@ doinvbill(
          bp < end_bp; bp++) {
         obj = bp_to_obj(bp);
         if (!obj) {
-            impossible("Bad shopkeeper administration.");
+            impossible("Плохое управление магазином.");
             goto quit;
         }
         if (bp->useup || bp->bquan > obj->quan) {

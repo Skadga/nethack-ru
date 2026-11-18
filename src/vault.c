@@ -308,7 +308,7 @@ find_guard_dest(struct monst *guard, coordxy *rx, coordxy *ry)
  incr_radius:
         ;
     }
-    impossible("Not a single corridor on this level?");
+    impossible("Ни одного коридора на этом уровне?");
     tele();
     return FALSE;
 }

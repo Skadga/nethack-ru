@@ -1963,7 +1963,7 @@ In_W_tower(coordxy x, coordxy y, d_level *lev)
     if (!On_W_tower_level(lev))
         return FALSE;
     if (!svd.dndest.nlx) {
-        impossible("No boundary for Wizard's Tower?");
+        impossible("Нет границы для Башни Волшебника?");
         return FALSE;
     }
     /*
@@ -2505,7 +2505,7 @@ recbranch_mapseen(d_level *source, d_level *dest)
 
     if ((mptr = find_mapseen(source)) != 0) {
         if (mptr->br && br != mptr->br)
-            impossible("Two branches on the same level?");
+            impossible("Две ветви на одном уровне?");
         mptr->br = br;
     } else {
         impossible("Can't note branch for unseen level (%d, %d)",

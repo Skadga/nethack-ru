@@ -2276,7 +2276,7 @@ use_tinning_kit(struct obj *obj)
         (void) hold_another_object(can, "Вы создали, но не можете поднять, %s.",
                                    doname(can), (const char *) 0);
     } else
-        impossible("Tinning failed.");
+        impossible("Консервирование не удалось.");
 }
 
 void

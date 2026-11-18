@@ -692,7 +692,7 @@ build_options(void)
     Sprintf(optbuf, "%sNetHack version %d.%d.%d%s\n",
             opt_indent, VERSION_MAJOR, VERSION_MINOR, PATCHLEVEL, STATUS_ARG);
     STOREOPTTEXT(optbuf);
-    Sprintf(optbuf, "Options compiled into this edition:");
+    Sprintf(optbuf, "Параметры, включённые в эту сборку:");
     STOREOPTTEXT(optbuf);
     optbuf[0] = '\0';
     length = COLNO + 1; /* force 1st item onto new line */

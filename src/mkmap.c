@@ -306,7 +306,7 @@ join_map(schar bg_typ, schar fg_typ)
         if (!somexy(croom, &sm) || !somexy(croom2, &em)) {
             /* ack! -- the level is going to be busted */
             /* arbitrarily pick centers of both rooms and hope for the best */
-            impossible("No start/end room loc in join_map.");
+            impossible("Ќет координат начальной/конечной комнаты в join_map.");
             sm.x = croom->lx + ((croom->hx - croom->lx) / 2);
             sm.y = croom->ly + ((croom->hy - croom->ly) / 2);
             em.x = croom2->lx + ((croom2->hx - croom2->lx) / 2);

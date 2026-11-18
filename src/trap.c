@@ -321,7 +321,7 @@ erode_obj(
         cost_type = COST_CRACK;
         break;
     default:
-        impossible("Invalid erosion type in erode_obj");
+        impossible("Неверный тип эрозии в erode_obj");
         return ER_NOTHING;
     }
     erosion = is_primary ? otmp->oeroded : otmp->oeroded2;
@@ -3068,8 +3068,8 @@ trapeffect_selector(
     case VIBRATING_SQUARE:
         return trapeffect_vibrating_square(mtmp, trap, trflags);
     default:
-        impossible("%s encountered a strange trap of type %d.",
-                   (mtmp == &gy.youmonst) ? "You" : "Some monster",
+        impossible("%s: странная ловушка типа %d.",
+                   (mtmp == &gy.youmonst) ? "Вы" : "Некий монстр",
                    trap->ttyp);
     }
     return Trap_Effect_Finished;

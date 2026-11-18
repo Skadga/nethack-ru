@@ -2983,7 +2983,7 @@ splev_initlev(lev_init *linit)
 {
     switch (linit->init_style) {
     default:
-        impossible("Unrecognized level init style.");
+        impossible("Неизвестный стиль инициализации уровня.");
         break;
     case LVLINIT_NONE:
         break;
@@ -4040,7 +4040,7 @@ lspo_room(lua_State *L)
     lcheck_param_table(L);
 
     if (gc.coder->n_subroom > MAX_NESTED_ROOMS) {
-        panic("Too deeply nested rooms?!");
+        panic("Слишком глубокая вложенность комнат?!");
     } else {
         static const char *const left_or_right[] = {
             "left", "half-left", "center", "half-right", "right",
@@ -5659,7 +5659,7 @@ lspo_region(lua_State *L)
     if (room_not_needed || svn.nroom >= MAXNROFROOMS) {
         region tmpregion;
         if (!room_not_needed)
-            impossible("Too many rooms on new level!");
+            impossible("Слишком много комнат на новом уровне!");
         tmpregion.rlit = rlit;
         tmpregion.x1 = dx1;
         tmpregion.y1 = dy1;
@@ -5761,7 +5761,7 @@ lspo_drawbridge(lua_State *L)
     if (db_open == -1)
         db_open = !rn2(2);
     if (!create_drawbridge(x, y, dir, db_open ? TRUE : FALSE))
-        impossible("Cannot create drawbridge.");
+        impossible("Не удаётся создать подъёмный мост.");
     SpLev_Map[x][y] = 1;
 
     return 0;

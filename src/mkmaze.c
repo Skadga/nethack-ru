@@ -1267,7 +1267,7 @@ walkfrom(coordxy x, coordxy y, schar typ)
             mz_move(x, y, dir);
             pos++;
             if (pos > CELLS)
-                panic("Overflow in walkfrom");
+                panic("Переполнение в walkfrom");
             mazex[pos] = (char) x;
             mazey[pos] = (char) y;
         }

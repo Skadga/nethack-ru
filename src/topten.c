@@ -1402,7 +1402,7 @@ get_rnd_toptenentry(void)
 
     rfile = fopen_datafile(RECORD, "r", SCOREPREFIX);
     if (!rfile) {
-        impossible("Cannot open record file!");
+        impossible("Не удаётся открыть файл рекордов!");
         return NULL;
     }
 

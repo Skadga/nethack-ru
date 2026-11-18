@@ -1519,7 +1519,7 @@ dospinweb(void)
                 if (u.ustuck->data->mattk[i].aatyp == AT_ENGL)
                     break;
             if (i == NATTK)
-                impossible("Swallower has no engulfing attack?");
+                impossible("У глотающего нет атаки поглощения?");
             else {
                 char sweep[30];
 

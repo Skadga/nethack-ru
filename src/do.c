@@ -53,7 +53,7 @@ boulder_hits_pool(
     boolean pushing)  /* for a boulder, whether or not it is being pushed */
 {
     if (!otmp || otmp->otyp != BOULDER) {
-        impossible("Not a boulder?");
+        impossible("Не валун?");
     } else if (is_pool_or_lava(rx, ry)) {
         boolean lava = is_lava(rx, ry), fills_up;
         const char *what = waterbody_acc(rx, ry);

@@ -32,7 +32,7 @@ init_rect(void)
         n_rects = (COLNO * ROWNO) / 30;
         rect = (NhRect *) alloc(sizeof(NhRect) * n_rects);
         if (!rect)
-            panic("Could not alloc rect");
+            panic("Не удалось выделить rect");
     }
 
     rect_cnt = 1;

@@ -641,7 +641,7 @@ choose_disco_sort(
         add_menu_str(tmpwin,
                     "      will matter for future use of total discoveries.");
     }
-    end_menu(tmpwin, "Ordering of discoveries");
+    end_menu(tmpwin, "Порядок открытий");
 
     n = select_menu(tmpwin, PICK_ONE, &selected);
     destroy_nhwindow(tmpwin);
@@ -804,7 +804,7 @@ dodiscovered(void) /* free after Robert Viduya */
             || (objects[uidx].oc_encountered && uidx != AMULET_OF_YENDOR)) {
             if (!dis++)
                 putstr(tmpwin, iflags.menu_headings.attr,
-                       "Unique items or Relics");
+                       "Уникальные предметы и реликвии");
             ++uniq_ct;
             disco_fmt_uniq(uidx, buf);
             putstr(tmpwin, 0, buf);
@@ -862,7 +862,7 @@ dodiscovered(void) /* free after Robert Viduya */
                classes, we normally don't need a header; but it we showed
                any unique items or any artifacts then we do need one */
             if ((uniq_ct || arti_ct) && alphabetized && !alphabyclass)
-                putstr(tmpwin, iflags.menu_headings.attr, "Discovered items");
+                putstr(tmpwin, iflags.menu_headings.attr, "Открытые предметы");
             disco_output_sorted(tmpwin, sorted_lines, sorted_ct, lootsort);
         }
         display_nhwindow(tmpwin, TRUE);

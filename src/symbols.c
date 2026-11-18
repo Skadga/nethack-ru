@@ -494,7 +494,7 @@ parse_sym_line(char *buf, int which_set)
 #endif
     }
     if (!symp && !is_glyph && !enhanced_unavailable) {
-        config_error_add("Unknown sym keyword");
+        config_error_add("Неизвестное ключевое слово sym");
         return 0;
     }
     if (symp) {

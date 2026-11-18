@@ -462,12 +462,12 @@ init_nhfile(NHFILE *nhfp)
 {
     if (nhfp->structlevel) {
         if (nhfp->fd != -1) {
-            impossible("Warning - Unclosed structlevel file being reinitialized");
+            impossible("Внимание: незакрытый structlevel-файл переинициализируется");
             (void) nhclose(nhfp->fd);
         }
     } else if (nhfp->fpdef) {
         if (nhfp->fpdef) {
-            impossible("Warning - Unclosed fieldlevel file being reinitialized");
+            impossible("Внимание: незакрытый fieldlevel-файл переинициализируется");
             (void) fclose(nhfp->fpdef);
         }
     }
@@ -2260,7 +2260,7 @@ lock_file(const char *filename, int whichprefix,
 
     gn.nesting++;
     if (gn.nesting > 1) {
-        impossible("TRIED TO NEST LOCKS");
+        impossible("ПОПЫТКА ВЛОЖЕННЫХ БЛОКИРОВОК");
         return TRUE;
     }
 
