@@ -1730,7 +1730,8 @@ sacrifice_your_race(
         return;
     } else if (altaralign != A_CHAOTIC && altaralign != A_NONE) {
         /* curse the lawful/neutral altar */
-        pline("Алтарь запятнан %s кровью.", gu.urace.adj);
+        pline("Алтарь запятнан кровью %s.",
+              ru_noun_case(gu.urace.noun, BP_GEN));
         levl[u.ux][u.uy].altarmask = AM_CHAOTIC;
         newsym(u.ux, u.uy); /* in case Invisible to self */
         angry_priest();

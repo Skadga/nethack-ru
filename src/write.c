@@ -105,7 +105,8 @@ dowrite(struct obj *pen)
                  : "свиток";
     if (Blind) {
         if (!paper->dknown) {
-            You("не знаете, пустой ли тот %s или нет.", typeword);
+            You("не знаете, есть ли текст на %s.",
+                ru_noun_case(typeword, BP_PREP));
             return ECMD_OK;
         } else if (paper->oclass == SPBOOK_CLASS) {
             /* can't write a magic book while blind */
@@ -116,14 +117,15 @@ dowrite(struct obj *pen)
     }
     observe_object(paper);
     if (paper->otyp != SCR_BLANK_PAPER && paper->otyp != SPE_BLANK_PAPER) {
-        pline("“от %s не пустой!", typeword);
+        pline("Ќа %s уже есть текст!", ru_noun_case(typeword, BP_PREP));
         exercise(A_WIS, FALSE);
         return ECMD_TIME;
     }
     makeknown(SCR_BLANK_PAPER);
 
     /* what to write */
-    Sprintf(qbuf, " акой тип %s вы хотите написать?", typeword);
+    Sprintf(qbuf, " акой тип %s вы хотите написать?",
+            ru_noun_case(typeword, BP_GEN));
     getlin(qbuf, namebuf);
     (void) mungspaces(namebuf); /* remove any excess whitespace */
     if (namebuf[0] == '\033' || !namebuf[0])

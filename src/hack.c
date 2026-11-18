@@ -3894,7 +3894,7 @@ pickup_checks(void)
         else if (lev->typ == STAIRS)
             pline("Лестница прочно закреплена.");
         else
-            There("здесь нечего подбирать.");
+            pline("Здесь нечего подбирать.");
         return 0;
     }
     traphere = t_at(u.ux, u.uy);

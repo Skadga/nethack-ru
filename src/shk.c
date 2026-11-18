@@ -2164,7 +2164,7 @@ pay_billed_items(
             } else { /* buy_container() failed... */
                 if (boxbag_result == 2)    /* ... but didn't explain why */
                     verbalize("Вам нужно убрать неоплаченные предметы из "
-                              " того %s и купить их отдельно.",
+                              "%s и купить их отдельно.",
                               ru_noun_case(simpleonames(otmp), BP_GEN));
                 buy = PAY_CANT;
             }

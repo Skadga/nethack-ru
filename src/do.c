@@ -2024,9 +2024,8 @@ temperature_change_msg(schar prev_temperature)
         if (svl.level.flags.temperature)
             hellish_smoke_mesg();
         else if (prev_temperature > 0)
-            pline("Жара %s прошла.",
-                      In_hell(&u.uz0)
-                      ? "И дым" : "");
+            pline(In_hell(&u.uz0) ? "Жара и дым прошли."
+                                  : "Жара прошла.");
         else if (prev_temperature < 0)
             You("выбрались из холода.");
     }

@@ -819,7 +819,7 @@ pickup(int what) /* should be a long */
         } else if (ct >= 2) {
             int via_menu = 0;
 
-            There("здесь %s предметов.", (ct <= 10) ? "несколько" : "много");
+            pline("Здесь %s предметов.", (ct <= 10) ? "несколько" : "много");
             if (!query_classes(oclasses, &selective, &all_of_a_type,
                                "поднять", *objchain_p,
                                (traverse_how & BY_NEXTHERE) ? TRUE : FALSE,

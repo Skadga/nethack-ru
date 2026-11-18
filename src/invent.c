@@ -4280,14 +4280,13 @@ look_here(
             pline1(fbuf);
         read_engr_at(u.ux, u.uy); /* Eric Backus */
         if (obj_cnt == 1 && otmp->quan == 1L)
-            There("здесь есть %s предмет.", picked_some ? "ещё один" : "один");
+            pline("Здесь %s предмет.",
+                  picked_some ? "ещё один" : "один");
+        else if (obj_cnt == 2)
+            pline("Здесь %sдва предмета.", picked_some ? "ещё " : "");
         else
-            There("здесь %s%s предметов.",
-                  (obj_cnt == 2) ? "два"
-                  : (obj_cnt < 5) ? "несколько"
-                    : (obj_cnt < 10) ? "несколько"
-                      : "много",
-                  picked_some ? " ещё" : "");
+            pline("Здесь %s%s предметов.", picked_some ? "ещё " : "",
+                  (obj_cnt < 10) ? "несколько" : "много");
         for (; otmp; otmp = otmp->nexthere)
             if (otmp->otyp == CORPSE && will_feel_cockatrice(otmp, FALSE)) {
                 pline("%s %s%s.",

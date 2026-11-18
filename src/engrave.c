@@ -1180,7 +1180,7 @@ doengrave(void)
             }
         } else if (de->oep
                    && Strlen(de->oep->engr_txt[actual_text]) >= BUFSZ - 1) {
-            There("здесь нет места, чтобы добавить что-то ещё.");
+            pline("Здесь нет места, чтобы добавить что-то ещё.");
             de->ret = ECMD_TIME;
             goto doengr_exit;
         }
@@ -1401,7 +1401,7 @@ engrave(void)
         }
         if (splitstack) {
             obj_extract_self(stylus);
-            stylus = hold_another_object(stylus, "Вы роняете один %s!",
+            stylus = hold_another_object(stylus, "Вы роняете %s!",
                                          doname(stylus), (char *) NULL);
             nhUse(stylus);
         } else if (dulled && stylus->known) {

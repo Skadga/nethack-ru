@@ -1216,9 +1216,10 @@ use_pick_axe2(struct obj *obj)
             if (trap && trap->ttyp == WEB) {
                 if (!trap->tseen) {
                     seetrap(trap);
-                    There("здесь паутина!");
+                    pline("Здесь паутина!");
                 }
-                pline("%s запуталось в паутине.", Yobjnam2(obj, "запуталось"));
+                pline("%s запутывается в паутине.",
+                      Yobjnam2(obj, "запутывается"));
                 /* you ought to be able to let go; tough luck */
                 /* (maybe `move_into_trap()' would be better) */
                 nomul(-d(2, 2));

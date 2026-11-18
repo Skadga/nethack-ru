@@ -441,13 +441,13 @@ newman(void)
                 : (gu.urace.individual.m)
                    ? gu.urace.individual.m
                    : gu.urace.noun;
-    polyman("¬ы чувствуете себ€ новым %s!", newform);
+    polyman("¬ы чувствуете себ€ в новом облике: %s!", newform);
 
     newgend = poly_gender();
     /* note: newman() bypasses achievements for new ranks attained and
        doesn't log "new <form>" when that isn't accompanied by level change */
     if (newlvl != oldlvl)
-        livelog_printf(LL_MINORAC, "стал %d уровнем опыта в новом облике %s",
+        livelog_printf(LL_MINORAC, "стал %d уровнем опыта в новом облике: %s",
                        newlvl, newform);
     else
         livelog_newform(TRUE, oldgend, newgend);
@@ -1397,14 +1397,14 @@ rehumanize(void)
 
     if (emits_light(gy.youmonst.data))
         del_light_source(LS_MONSTER, monst_to_any(&gy.youmonst));
-    polyman("¬ы возвращаетесь к %s форме!", gu.urace.adj);
+    polyman("¬ы возвращаетесь к своей прежней расе: %s!", gu.urace.noun);
 
     if (u.uhp < 1) {
         /* can only happen if some bit of code reduces u.uhp
            instead of u.mh while poly'd */
         Your("¬аша прежн€€ форма была недостаточно здорова, чтобы выжить.");
-        Sprintf(svk.killer.name, "возврат к нездоровой %s форме",
-                gu.urace.adj);
+        Sprintf(svk.killer.name, "возврата к прежней расе: %s",
+                gu.urace.noun);
         svk.killer.format = KILLED_BY;
         done(DIED);
     }

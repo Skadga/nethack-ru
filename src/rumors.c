@@ -704,7 +704,7 @@ doconsult(struct monst *oracl)
     umoney = money_cnt(gi.invent);
 
     if (!oracl) {
-        There("здесь некого спросить.");
+        pline("Здесь некого спросить.");
         return ECMD_OK;
     } else if (!oracl->mpeaceful) {
         pline("%s не расположен к консультациям.", Monnam(oracl));

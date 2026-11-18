@@ -3364,8 +3364,8 @@ monstone(struct monst *mdef)
     mondead(mdef);
     if (wasinside) {
         if (digests(mdef->data))
-            You("%s через отверстие в новом %s.",
-                u_locomotion("jump"), xname(otmp));
+            You("%s через отверстие в %s.", u_locomotion("jump"),
+                ru_noun_case(xname(otmp), BP_PREP));
     }
     return;
 }

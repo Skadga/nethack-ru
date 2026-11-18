@@ -419,8 +419,9 @@ dipfountain(struct obj *obj)
             obj->oerodeproof = FALSE;
             exercise(A_WIS, FALSE);
             livelog_printf(LL_ARTIFACT,
-                           "было отказано в %s!  %s сочла %s недостойным",
-                           artiname(ART_EXCALIBUR), lady, uhim());
+                           "было отказано в %s!  %s сочла %s недостойн%s",
+                           artiname(ART_EXCALIBUR), lady, uhim(),
+                           flags.female ? "ой" : "ым");
         } else {
             /* The lady of the lake acts! - Eric Backus */
             /* Be *REAL* nice */

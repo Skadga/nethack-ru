@@ -236,8 +236,7 @@ forcelock(void)
             /* for a +0 weapon, probability that it survives an unsuccessful
              * attempt to force the lock is (.992)^50 = .67
              */
-            pline("%s %s сломался!", (uwep->quan > 1L) ? "Один из ваших" : "Ваш",
-                  xname(uwep));
+            pline("Ломается %s!", xname(uwep));
             useup(uwep);
             You("отказываетесь от попытки взломать замок.");
             exercise(A_DEX, TRUE);

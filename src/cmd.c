@@ -923,7 +923,7 @@ domonability(void)
                magical breathing */
             (void) split_mon(&gy.youmonst, (struct monst *) 0);
         } else {
-            There("здесь нет фонтана.");
+            pline("Здесь нет фонтана.");
         }
     } else if (is_unicorn(uptr)) {
         use_unicorn_horn((struct obj **) 0);
