@@ -443,8 +443,8 @@ moverock_core(coordxy sx, coordxy sy)
             if (Sokoban && u.dx && u.dy) {
                 if (Blind)
                     feel_location(sx, sy);
-                pline("%s не покатится по диагонали по этому %s.",
-                      The(xname(otmp)), surface(sx, sy));
+                pline("%s не покатится по диагонали по %s.",
+                      The(xname(otmp)), surface_case(sx, sy, BP_DAT));
                 return cannot_push(otmp, sx, sy);
             }
 
@@ -1651,7 +1651,7 @@ trapmove(
                     culprit = "закопанному шару";
                 } else {
                     predicament = "застряли в";
-                    culprit = surface(u.ux, u.uy);
+                    culprit = surface_ru(u.ux, u.uy);
                 }
                 if (u.usteed) {
                     if (anchored)
@@ -3903,15 +3903,15 @@ pickup_checks(void)
         } else if (Blind) {
             You("не можете ничего здесь достать.");
         } else {
-            const char *surf = surface(u.ux, u.uy);
+            const char *surf = surface_case(u.ux, u.uy, BP_GEN);
 
             if (traphere) {
                 if (traphere->ttyp == HOLE)
-                    surf = "край ямы";
+                    surf = "края ямы";
                 else if (traphere->ttyp == TRAPDOOR)
-                    surf = "люк";
+                    surf = "люка";
             }
-            You("не можете достать %s.", surf);
+            You("не можете дотянуться до %s.", surf);
         }
         return 0;
     }

@@ -2304,7 +2304,7 @@ doloot_core(void)
             goto lootcont;
         if (u.dz < 0) {
             You("%s для ограбления на %s.", dont_find_anything,
-                ceiling(cc.x, cc.y));
+                ceiling_case(cc.x, cc.y, BP_PREP));
             return ECMD_TIME;
         }
         mtmp = m_at(cc.x, cc.y);
@@ -3658,7 +3658,8 @@ dotip(void)
             Sprintf(buf, " и немедленно %s прочь",
                     vtense(spillage, "сгорает"));
         pline("Некоторый %s %s на %s%s.", spillage,
-              vtense(spillage, "проливается"), surface(u.ux, u.uy), buf);
+              vtense(spillage, "проливается"),
+              surface_case(u.ux, u.uy, BP_ACC), buf);
         /* shop usage message comes after the spill message */
         if (cobj->otyp == CAN_OF_GREASE && cobj->spe > 0) {
             consume_obj_charge(cobj, TRUE);
@@ -3815,7 +3816,8 @@ tipcontainer(struct obj *box) /* or bag */
                     doaltarobj(otmp);
                 } else if (!terse) {
                     pline("%s %s на %s.", Doname2(otmp),
-                          otense(otmp, "бросить"), surface(ox, oy));
+                          otense(otmp, "бросает"),
+                          surface_case(ox, oy, BP_ACC));
                 } else {
                     pline("%s%c", doname(otmp), nobj ? ',' : '.');
                     iflags.last_msg = PLNMSG_OBJNAM_ONLY;

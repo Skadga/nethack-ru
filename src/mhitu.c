@@ -556,7 +556,7 @@ mattacku(struct monst *mtmp)
             coord cc; /* maybe we need a unexto() function? */
             struct obj *obj;
 
-            You("падаете с %s!", ceiling(u.ux, u.uy));
+            You("падаете с %s!", ceiling_case(u.ux, u.uy, BP_GEN));
             /* take monster off map now so that its location
                is eligible for placing hero; we assume that a
                removed monster remembers its old spot <mx,my> */

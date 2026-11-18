@@ -614,7 +614,7 @@ hitfloor(
         doaltarobj(obj);
     } else if (verbosely) {
         const char *verb = (obj->otyp == WAN_STRIKING) ? "ударяет" : "попадает";
-        const char *surf = surface(u.ux, u.uy);
+        const char *surf = surface_case(u.ux, u.uy, BP_ACC);
         struct trap *t = t_at(u.ux, u.uy);
 
         /* describe something that might keep the object where it is
@@ -1265,7 +1265,8 @@ toss_up(struct obj *obj, boolean hitsroof)
         action = "взлетает в"; /* into "the sky" or "the water above" */
     } else if (hitsroof) {
         if (breaktest(obj)) {
-            pline("%s ударяется о %s.", Doname2(obj), ceiling(u.ux, u.uy));
+            pline("%s ударяется о %s.", Doname2(obj),
+                  ceiling_case(u.ux, u.uy, BP_ACC));
             breakmsg(obj, !Blind);
             /* crackable armor will return True for breaktest() but will
                usually return False for breakobj() */
@@ -1276,12 +1277,13 @@ toss_up(struct obj *obj, boolean hitsroof)
             }
             return FALSE;
         }
-        action = "ударяется";
+        action = "ударяется в";
     } else {
-        action = "почти попадает";
+        action = "почти попадает в";
     }
     pline("%s %s %s, затем падает обратно на ваш %s.", Doname2(obj),
-          action, ceiling(u.ux, u.uy), body_part_case(HEAD, BP_ACC));
+          action, ceiling_case(u.ux, u.uy, BP_ACC),
+          body_part_case(HEAD, BP_ACC));
 
     /* object now hits you */
 
@@ -1581,8 +1583,9 @@ throwit(
                aklys must we wielded as primary to return when thrown */
             && iflags.returning_missile
             && !impaired) {
-            pline("%s %s и возвращается в вашу руку!", Tobjnam(obj, "попадает"),
-                  ceiling(u.ux, u.uy));
+            pline("%s %s в %s и возвращается в вашу руку!",
+                  Tobjnam(obj, "попадает"),
+                  ceiling_case(u.ux, u.uy, BP_ACC));
             obj = return_throw_to_inv(obj, wep_mask, twoweap, oldslot);
         } else if (u.dz < 0) {
             (void) toss_up(obj, rn2(5) && !Underwater);
@@ -2686,7 +2689,8 @@ throw_gold(struct obj *obj)
         if (u.dz < 0 && !Is_airlevel(&u.uz) && !Underwater
             && !Is_waterlevel(&u.uz)) {
             pline("Золото ударяется о %s, затем падает обратно на ваш %s.",
-                      ceiling(u.ux, u.uy), body_part_case(HEAD, BP_ACC));
+                      ceiling_case(u.ux, u.uy, BP_ACC),
+                      body_part_case(HEAD, BP_ACC));
             /* some self damage? */
             if (uarmh)
                 pline("К счастью, на вас надето %s!",
@@ -2724,7 +2728,8 @@ throw_gold(struct obj *obj)
     if (flooreffects(obj, gb.bhitpos.x, gb.bhitpos.y, "падает"))
         return ECMD_TIME;
     if (u.dz > 0)
-        pline("Золото ударяется о %s.", surface(gb.bhitpos.x, gb.bhitpos.y));
+        pline("Золото ударяется о %s.",
+              surface_case(gb.bhitpos.x, gb.bhitpos.y, BP_ACC));
     place_object(obj, gb.bhitpos.x, gb.bhitpos.y);
     if (*u.ushops)
         sellobj(obj, gb.bhitpos.x, gb.bhitpos.y);

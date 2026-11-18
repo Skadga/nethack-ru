@@ -943,7 +943,7 @@ use_defensive(struct monst *mtmp)
             if (vis) {
                 seetrap(t);
                 pline_mon(mtmp, "%s выкопал яму в %s.", Monnam(mtmp),
-                      surface(mtmp->mx, mtmp->my));
+                      surface_ru(mtmp->mx, mtmp->my));
             }
             fill_pit(mtmp->mx, mtmp->my);
             recalc_block_point(mtmp->mx, mtmp->my);
@@ -956,13 +956,13 @@ use_defensive(struct monst *mtmp)
         seetrap(t);
         if (vis) {
             pline_mon(mtmp, "%s проделал дыру в %s.", Monnam(mtmp),
-                  surface(mtmp->mx, mtmp->my));
+                  surface_ru(mtmp->mx, mtmp->my));
             pline_mon(mtmp, "%s %s вниз...", Monnam(mtmp),
                   is_flyer(mtmp->data) ? "ныряет" : "падает");
         } else if (!Deaf) {
             Soundeffect(se_crash_through_floor, 100);
             You_hear("%s проламывается сквозь %s.", something,
-                     surface(mtmp->mx, mtmp->my));
+                     surface_case(mtmp->mx, mtmp->my, BP_ACC));
         }
         fill_pit(mtmp->mx, mtmp->my);
         /* we made sure that there is a level for mtmp to go to */
@@ -2412,7 +2412,7 @@ use_misc(struct monst *mtmp)
                 if (vismon) {
                     pline_mon(mtmp, "%s поднимается вверх сквозь %s!",
                               Monnam(mtmp),
-                              ceiling(mtmp->mx, mtmp->my));
+                              ceiling_case(mtmp->mx, mtmp->my, BP_ACC));
                     trycall(otmp);
                 }
                 m_useup(mtmp, otmp);
@@ -2605,8 +2605,8 @@ use_misc(struct monst *mtmp)
                 place_object(obj, mtmp->mx, mtmp->my);
                 break;
             case 2: /* onto floor beneath you */
-                pline_mon(mtmp, "%s дёргает %s к %s!", Monnam(mtmp),
-                          the_weapon, surface(u.ux, u.uy));
+                pline_mon(mtmp, "%s дёргает %s на %s!", Monnam(mtmp),
+                          the_weapon, surface_case(u.ux, u.uy, BP_ACC));
                 dropy(obj);
                 break;
             case 3: /* into mon's inventory */

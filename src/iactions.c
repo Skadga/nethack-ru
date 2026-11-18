@@ -440,7 +440,7 @@ itemactions(struct obj *otmp)
                 (is_blade(otmp) || otmp->oclass == WAND_CLASS
                  || ((otmp->oclass == GEM_CLASS || otmp->oclass == RING_CLASS)
                      && objects[otmp->otyp].oc_tough)) ? "Гравировать" : "Написать",
-                surface(u.ux, u.uy),
+                surface_ru(u.ux, u.uy),
                 (otmp->quan > 1L) ? "одного из этих предметов" : "этого предмета");
         ia_addmenu(win, IA_ENGRAVE_OBJ, 'E', buf);
     }

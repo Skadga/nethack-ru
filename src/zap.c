@@ -3258,7 +3258,7 @@ zap_updown(struct obj *obj) /* wand or spell, nonnull */
     case WAN_PROBING:
         ptmp = 0;
         if (u.dz < 0) {
-            You("тянетесь зондом к %s.", ceiling(x, y));
+            You("тянетесь зондом к %s.", ceiling_case(x, y, BP_DAT));
         } else { /* down */
             const char *surf;
             schar ltyp, rememberedltyp = update_mapseen_for(x, y);
@@ -3274,7 +3274,7 @@ zap_updown(struct obj *obj) /* wand or spell, nonnull */
                 if (svl.lastseentyp[x][y] != rememberedltyp)
                     ptmp += 1;
             } else {
-                surf = the(surface(x, y));
+                surf = surface_case(x, y, BP_INS);
             }
             You("зондируете пространство под %s.", surf);
             ptmp += display_binventory(x, y, TRUE);
@@ -3332,7 +3332,7 @@ zap_updown(struct obj *obj) /* wand or spell, nonnull */
             int dmg;
             /* similar to zap_dig() */
             pline("Камень выпадает из %s и падает на вашу %s.",
-                  ceiling(x, y), body_part_case(HEAD, BP_ACC));
+                  ceiling_case(x, y, BP_GEN), body_part_case(HEAD, BP_ACC));
             dmg = rnd(hard_helmet(uarmh) ? 2 : 6);
             losehp(Maybe_Half_Phys(dmg), "падающей глыбы", KILLED_BY_AN);
             if ((otmp = mksobj_at(ROCK, x, y, FALSE, FALSE)) != 0) {

@@ -1242,7 +1242,7 @@ break_armor(void)
                 if (donning(otmp))
                     cancel_don();
                 Your("%s падает на %s!", helm_simple_name(otmp),
-                     surface(u.ux, u.uy));
+                     surface_case(u.ux, u.uy, BP_ACC));
                 (void) Helmet_off();
                 dropp(otmp);
             }
@@ -1268,7 +1268,7 @@ break_armor(void)
             if (donning(otmp))
                 cancel_don();
             Your("%s падает на %s!", helm_simple_name(otmp),
-                 surface(u.ux, u.uy));
+                 surface_case(u.ux, u.uy, BP_ACC));
             (void) Helmet_off();
             dropp(otmp);
         }
@@ -1411,7 +1411,7 @@ rehumanize(void)
     update_inventory();
     if (was_flying && !Flying && u.usteed)
         You("и %s м€гко возвращаетесь на %s.",
-            mon_nam(u.usteed), surface(u.ux, u.uy));
+            mon_nam(u.usteed), surface_case(u.ux, u.uy, BP_ACC));
     retouch_equipment(2);
     if (!uarmg)
         selftouch(no_longer_petrify_resistant);
@@ -1483,7 +1483,7 @@ doremove(void)
     if (!Punished) {
         if (u.utrap && u.utraptype == TT_BURIEDBALL) {
             pline("Ўар и цепь прочно закопаны в %s.",
-                      surface(u.ux, u.uy));
+                      surface_ru(u.ux, u.uy));
             return ECMD_OK;
         }
         You("не прикованы ни к чему!");

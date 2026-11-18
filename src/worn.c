@@ -1288,7 +1288,8 @@ mon_break_armor(struct monst *mon, boolean polyspot)
             && (handless_or_tiny || !is_flimsy(otmp))) {
             if (vis)
                 pline_mon(mon, "%s шлем падает на %s!",
-                          mhis_up(mon), surface(mon->mx, mon->my));
+                          mhis_up(mon),
+                          surface_case(mon->mx, mon->my, BP_ACC));
             else
                 You_hear("лязг.");
             m_lose_armor(mon, otmp, polyspot);

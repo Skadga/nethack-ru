@@ -4228,7 +4228,8 @@ look_here(
             else if (cant_reach)
                 You("ощупываете, что лежит под вами.");
             else
-                You("ощупываете %s.", surf);
+                You("ощупываете %s.",
+                    surface_case(u.ux, u.uy, BP_ACC));
 
             if (dfeature && !drift && !strcmp(dfeature, surf))
                 skip_dfeature = TRUE; /* terrain feature already identified */

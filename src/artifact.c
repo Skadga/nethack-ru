@@ -2600,7 +2600,7 @@ retouch_object(
                we provide one for other terrain */
             if (!IS_ALTAR(levl[u.ux][u.uy].typ))
                 pline("%s на %s.", Tobjnam(obj, "падает"),
-                      surface(u.ux, u.uy));
+                      surface_case(u.ux, u.uy, BP_ACC));
             dropx(obj);
         }
         *objp = obj = 0; /* no longer in inventory */

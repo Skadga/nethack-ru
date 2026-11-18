@@ -717,7 +717,7 @@ really_kick_object(coordxy x, coordxy y)
 
     if (slide && !Blind)
         pline("”х ты!  %s %s по %s.", Doname2(gk.kickedobj),
-              otense(gk.kickedobj, "скользит"), surface(x, y));
+              otense(gk.kickedobj, "скользит"), surface_case(x, y, BP_DAT));
 
 #if 0   /* now that 'costly' above includes no_charge items, this would
          * clear their no_charge state (while declining to add to bill)

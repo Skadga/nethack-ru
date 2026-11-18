@@ -223,9 +223,9 @@ cant_reach_floor(coordxy x, coordxy y, boolean up,
           wand_engraving
               ? "Жезл больше ничего не делает, а кончик жезла"
               : "Вы",
-          up  ? ceiling(x, y)
+          up  ? ceiling_case(x, y, BP_GEN)
               : (check_pit && can_reach_floor(FALSE)) ? "дна ямы"
-                                                      : surface(x, y));
+                                                      : surface_case(x, y, BP_GEN));
 }
 
 struct engr *
@@ -516,10 +516,10 @@ u_can_engrave(void)
         /* Note: for amorphous engulfers, writing attempt is allowed here
            but yields the 'jello' result in doengrave() */
     } else if (is_lava(u.ux, u.uy)) {
-        You_cant("писать на %s!", surface(u.ux, u.uy));
+        You_cant("писать на %s!", surface_ru(u.ux, u.uy));
         return FALSE;
     } else if (is_pool(u.ux, u.uy) || IS_FOUNTAIN(levtyp)) {
-        You_cant("писать на %s!", surface(u.ux, u.uy));
+        You_cant("писать на %s!", surface_ru(u.ux, u.uy));
         return FALSE;
     } else if (IS_AIR(levtyp)) {
         /* airlevel or inside bubble on waterlevel */
@@ -607,13 +607,13 @@ doengrave_sfx_item_WAN(struct _doengrave_ctx *de)
     case WAN_SLOW_MONSTER:
         if (!Blind) {
             Sprintf(de->post_engr_text, "Жучки на %s замедляются!",
-                    surface(u.ux, u.uy));
+                    surface_ru(u.ux, u.uy));
         }
         break;
     case WAN_SPEED_MONSTER:
         if (!Blind) {
             Sprintf(de->post_engr_text, "Жучки на %s ускоряются!",
-                    surface(u.ux, u.uy));
+                    surface_ru(u.ux, u.uy));
         }
         break;
     case WAN_POLYMORPH:
@@ -645,7 +645,7 @@ doengrave_sfx_item_WAN(struct _doengrave_ctx *de)
         if (!Blind) {
             Sprintf(de->post_engr_text,
                     "В %s полно пулевых отверстий!",
-                    surface(u.ux, u.uy));
+                    surface_ru(u.ux, u.uy));
         }
         break;
         /* can't tell sleep from death - Eric Backus */
@@ -653,7 +653,7 @@ doengrave_sfx_item_WAN(struct _doengrave_ctx *de)
     case WAN_DEATH:
         if (!Blind) {
             Sprintf(de->post_engr_text, "Жучки на %s замирают!",
-                    surface(u.ux, u.uy));
+                    surface_ru(u.ux, u.uy));
         }
         break;
     case WAN_COLD:
@@ -669,7 +669,7 @@ doengrave_sfx_item_WAN(struct _doengrave_ctx *de)
         if (de->oep && de->oep->engr_type != HEADSTONE) {
             if (!Blind)
                 pline("Надпись на %s исчезает!",
-                          surface(u.ux, u.uy));
+                          surface_ru(u.ux, u.uy));
             de->dengr = TRUE;
         }
         break;
@@ -677,7 +677,7 @@ doengrave_sfx_item_WAN(struct _doengrave_ctx *de)
         if (de->oep && de->oep->engr_type != HEADSTONE) {
             if (!Blind)
                 pline("Надпись на %s исчезает!",
-                          surface(u.ux, u.uy));
+                          surface_ru(u.ux, u.uy));
             de->teleengr = TRUE;
         }
         break;
@@ -825,7 +825,7 @@ doengrave_sfx_item(struct _doengrave_ctx *de)
                to DUST; feedback for that is only given for bladed weapons */
             if (welded(de->otmp))
                 pline("%s может лишь поцарапать %s.",
-                      Yname2(de->otmp), surface(u.ux, u.uy));
+                      Yname2(de->otmp), surface_case(u.ux, u.uy, BP_ACC));
             else if ((int) de->otmp->spe <= -3)
                 pline("%s слишком тупой для гравировки.", Yname2(de->otmp));
             else
@@ -1024,7 +1024,7 @@ doengrave(void)
             goto doengr_exit;
         } else {
             You("жестикулируете своей палочкой в сторону %s под вами.",
-                surface(u.ux, u.uy));
+                surface_case(u.ux, u.uy, BP_GEN));
             initial_msg_given = TRUE;
         }
     }
@@ -1037,7 +1037,7 @@ doengrave(void)
     if (IS_GRAVE(levl[u.ux][u.uy].typ)) {
         if (de->otmp == &hands_obj) { /* using only finger */
             You("лишь сделаете маленькое пятно на %s.",
-                surface(u.ux, u.uy));
+                surface_ru(u.ux, u.uy));
             goto doengr_exit;
         } else if (!levl[u.ux][u.uy].disturbed) {
             /* disturb the grave: summon a ghoul, same as sometimes
@@ -1169,7 +1169,7 @@ doengrave(void)
                     (de->oep->engr_type == BURN)
                         ? (de->frosted ? "впаяно в" : "выжжено в")
                         : "выгравировано в",
-                    surface(u.ux, u.uy));
+                    surface_ru(u.ux, u.uy));
                 de->ret = ECMD_TIME;
                 goto doengr_exit;
             } else if (de->type != de->oep->engr_type || c == 'n') {

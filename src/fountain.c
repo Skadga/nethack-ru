@@ -26,7 +26,7 @@ floating_above(const char *what)
         /* when stuck in floor (not possible at fountain or sink location,
            so must be attempting to move down), override the usual message */
         umsg = "застряли в %s.";
-        what = surface(u.ux, u.uy); /* probably redundant */
+        what = surface_ru(u.ux, u.uy); /* probably redundant */
     }
     You(umsg, what);
 }

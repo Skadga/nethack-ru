@@ -98,7 +98,8 @@ use_camera(struct obj *obj)
             mbodypart_case(u.ustuck, STOMACH, BP_ACC));
     } else if (u.dz) {
         You("фотографируете %s.",
-            (u.dz > 0) ? surface(u.ux, u.uy) : ceiling(u.ux, u.uy));
+            (u.dz > 0) ? surface_case(u.ux, u.uy, BP_ACC)
+                       : ceiling_case(u.ux, u.uy, BP_ACC));
     } else if (!u.dx && !u.dy) {
         /* TODO:  we ought to have a "selfie" joke here... */
         (void) zapyourself(obj, TRUE);
@@ -1100,7 +1101,8 @@ use_mirror(struct obj *obj)
     if (u.dz) {
         if (useeit)
             You("видите отражение %s.",
-                (u.dz > 0) ? surface(u.ux, u.uy) : ceiling(u.ux, u.uy));
+                (u.dz > 0) ? surface_case(u.ux, u.uy, BP_GEN)
+                           : ceiling_case(u.ux, u.uy, BP_GEN));
         return ECMD_TIME;
     }
     mtmp = bhit(u.dx, u.dy, COLNO, INVIS_BEAM,
@@ -3031,7 +3033,7 @@ use_whip(struct obj *obj)
         There("слишком сильное сопротивление, чтобы щёлкнуть хлыстом.");
 
     } else if (u.dz < 0) {
-        You("смахиваете жука с %s.", ceiling(u.ux, u.uy));
+        You("смахиваете жука с %s.", ceiling_case(u.ux, u.uy, BP_GEN));
 
     } else if (!u.dz && (IS_WATERWALL(levl[rx][ry].typ)
                          || levl[rx][ry].typ == LAVAWALL)) {
@@ -3070,7 +3072,8 @@ use_whip(struct obj *obj)
             }
             if (otmp && proficient) {
                 You("обматываете хлыст вокруг %s на %s.",
-                    an(singular(otmp, xname)), surface(u.ux, u.uy));
+                    an(singular(otmp, xname)),
+                    surface_case(u.ux, u.uy, BP_GEN), surface_ru(u.ux, u.uy));
                 if (rnl(6) || pickup_object(otmp, 1L, TRUE) < 1)
                     pline1(msg_slipsfree);
                 return ECMD_TIME;
@@ -3201,8 +3204,8 @@ use_whip(struct obj *obj)
                 switch (rn2(proficient + 1)) {
                 case 2:
                     /* to floor near you */
-                    You("вытаскиваете %s к %s!", yname(otmp),
-                        surface(u.ux, u.uy));
+                    You("вытаскиваете %s на %s!", yname(otmp),
+                        surface_case(u.ux, u.uy, BP_ACC));
                     place_object(otmp, u.ux, u.uy);
                     stackobj(otmp);
                     break;
@@ -3813,7 +3816,7 @@ use_grapple(struct obj *obj)
         any.a_int = 1; /* use index+1 (can't use 0) as identifier */
         start_menu(tmpwin, MENU_BEHAVE_STANDARD);
         any.a_int++;
-        Sprintf(buf, "предмет на %s", surface(cc.x, cc.y));
+        Sprintf(buf, "предмет на %s", surface_ru(cc.x, cc.y));
         add_menu(tmpwin, &nul_glyphinfo, &any, 0, 0, ATR_NONE,
                  clr, buf, MENU_ITEMFLAGS_NONE);
         any.a_int++;
@@ -3844,7 +3847,7 @@ use_grapple(struct obj *obj)
         break;
     case 1: /* Object */
         if ((otmp = svl.level.objects[cc.x][cc.y]) != 0) {
-            You("вытаскиваете объект с %s!", surface(cc.x, cc.y));
+            You("вытаскиваете объект с %s!", surface_case(cc.x, cc.y, BP_GEN));
             (void) pickup_object(otmp, 1L, FALSE);
             /* If pickup fails, leave it alone */
             newsym(cc.x, cc.y);
@@ -3880,9 +3883,9 @@ use_grapple(struct obj *obj)
     /*FALLTHRU*/
     case 3: /* Surface */
         if (IS_AIR(levl[cc.x][cc.y].typ) || is_pool(cc.x, cc.y))
-            pline("Крюк прорезает %s.", surface(cc.x, cc.y));
+            pline("Крюк прорезает %s.", surface_case(cc.x, cc.y, BP_ACC));
         else {
-            pline("Вас тянет рывком к %s!", surface(cc.x, cc.y));
+            pline("Вас рывком тащит на %s!", surface_case(cc.x, cc.y, BP_ACC));
             hurtle(sgn(cc.x - u.ux), sgn(cc.y - u.uy), 1, FALSE);
             spoteffects(TRUE);
         }

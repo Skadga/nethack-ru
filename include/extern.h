@@ -901,6 +901,8 @@ extern boolean has_ceiling(d_level *) NONNULLARG1;
 extern boolean avoid_ceiling(d_level *) NONNULLARG1;
 extern const char *surface(coordxy, coordxy);
 extern const char *surface_ru(coordxy, coordxy);
+extern const char *surface_case(coordxy, coordxy, int);
+extern const char *ceiling_case(coordxy, coordxy, int);
 extern const char *ceiling(coordxy, coordxy);
 extern boolean In_quest(d_level *) NONNULLARG1;
 extern boolean In_mines(d_level *) NONNULLARG1;

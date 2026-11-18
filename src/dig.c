@@ -1326,7 +1326,7 @@ use_pick_axe2(struct obj *obj)
                && (!trap || (trap->ttyp != LANDMINE
                              && trap->ttyp != BEAR_TRAP))) {
         pline("%s лишь царапает %s.", Yobjnam2(obj, (char *) 0),
-              surface(u.ux, u.uy));
+              surface_case(u.ux, u.uy, BP_ACC));
         u_wipe_engr(3);
     } else {
         if (svc.context.digging.pos.x != u.ux

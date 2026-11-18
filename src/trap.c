@@ -772,7 +772,7 @@ fall_through(
     }
     if (!td)
         Sprintf(msgbuf, "Отверстие в %s над вами закрывается.",
-                ceiling(u.ux, u.uy));
+                ceiling_case(u.ux, u.uy, BP_PREP));
 
     schedule_goto(&dtmp, !Flying ? UTOTYPE_FALLING : UTOTYPE_NONE, (char *) 0,
                   !td ? msgbuf : (char *) 0);
@@ -1413,7 +1413,7 @@ trapeffect_rocktrap(
     if (mtmp == &gy.youmonst) {
         if (trap->once && trap->tseen && !rn2(15)) {
             pline("В %s открывается люк, но ничего не выпадает!",
-                  the(ceiling(u.ux, u.uy)));
+                  the(ceiling_case(u.ux, u.uy, BP_PREP)));
             deltrap(trap);
             newsym(u.ux, u.uy);
         } else {
@@ -1425,7 +1425,7 @@ trapeffect_rocktrap(
             place_object(otmp, u.ux, u.uy);
 
             pline("В %s открывается люк, и %s падает на вашу %s!",
-                  the(ceiling(u.ux, u.uy)), an(xname(otmp)),
+                  the(ceiling_case(u.ux, u.uy, BP_PREP)), an(xname(otmp)),
                   body_part_case(HEAD, BP_ACC));
             if (uarmh) {
                 /* normally passes_rocks() would protect against a falling
@@ -1831,11 +1831,11 @@ trapeffect_fire_trap(
         if (in_sight)
             pline_mon(mtmp,
                  "%s вырывается из-%uпод %s у %s!", tower_of_flame,
-                  surface(mtmp->mx, mtmp->my), mon_nam(mtmp));
+                  surface_case(mtmp->mx, mtmp->my, BP_GEN), mon_nam(mtmp));
         else if (see_it) { /* evidently `mtmp' is invisible */
             set_msg_xy(mtmp->mx, mtmp->my);
             You_see("%s вырывается из %s!", tower_of_flame,
-                    surface(mtmp->mx, mtmp->my));
+                    surface_case(mtmp->mx, mtmp->my, BP_GEN));
         }
         if (resists_fire(mtmp)) {
             if (in_sight) {
@@ -4327,7 +4327,7 @@ dofiretrap(
 
     if ((box && !carried(box)) ? is_pool(box->ox, box->oy) : Underwater) {
         pline("Каскад парящих пузырей вырывается из %s!",
-              the(box ? xname(box) : surface(u.ux, u.uy)));
+              the(box ? xname(box) : surface_case(u.ux, u.uy, BP_GEN)));
         if (Fire_resistance)
             You("невредимы.");
         else
@@ -4335,7 +4335,7 @@ dofiretrap(
         return;
     }
     pline("%s %s из %s!", tower_of_flame, box ? "вспыхивает" : "вырывается",
-          the(box ? xname(box) : surface(u.ux, u.uy)));
+          the(box ? xname(box) : surface_case(u.ux, u.uy, BP_GEN)));
     if (Fire_resistance) {
         shieldeff(u.ux, u.uy);
         monstseesu(M_SEEN_FIRE);

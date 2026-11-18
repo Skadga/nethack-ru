@@ -564,7 +564,7 @@ dosit(void)
     } else if (lays_eggs(gy.youmonst.data)) {
         return lay_an_egg();
     } else {
-        pline("Вам весело сидеть на %s?", surface(u.ux, u.uy));
+        pline("Вам весело сидеть на %s?", surface_ru(u.ux, u.uy));
     }
     return ECMD_TIME;
 }

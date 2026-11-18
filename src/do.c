@@ -1193,14 +1193,14 @@ dodown(void)
                 ladder_down = (glyph_to_cmap(glyph_at_uxuy) == S_dnladder);
         }
         if (Is_airlevel(&u.uz))
-            You("плывёте в %s.", surface(u.ux, u.uy));
+            You("плывёте в %s.", surface_ru(u.ux, u.uy));
         else if (Is_waterlevel(&u.uz))
             You("плывёте в %s.",
                 is_pool(u.ux, u.uy) ? "воде" : "пузыре воздуха");
         else
             floating_above(stairs_down ? "лестнице"
                            : ladder_down ? "лестнице"
-                             : surface(u.ux, u.uy));
+                             : surface_ru(u.ux, u.uy));
         return ECMD_OK; /* didn't move */
     }
 
@@ -1209,7 +1209,7 @@ dodown(void)
         if (Flying) { /* lurker above */
             You("вылетаете из укрытия.");
         } else { /* piercer */
-            You("падаете на %s.", surface(u.ux, u.uy));
+            You("падаете на %s.", surface_case(u.ux, u.uy, BP_ACC));
             if (is_pool_or_lava(u.ux, u.uy)) {
                 pooleffects(FALSE);
             } else {

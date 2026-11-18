@@ -896,7 +896,7 @@ peffect_paralysis(struct obj *otmp)
         else
             Your("%s примёрзли к %s!",
                  body_part_case(FOOT, BP_NOM | BP_PLURAL),
-                 surface(u.ux, u.uy));
+                 surface_case(u.ux, u.uy, BP_DAT));
         nomul(-(rn1(10, 25 - 12 * bcsign(otmp))));
         gm.multi_reason = "заморожен зельем";
         gn.nomovemsg = You_can_move_again;
@@ -1108,7 +1108,8 @@ peffect_gain_level(struct obj *otmp)
                     return;
                 }
             }
-            You("поднимаетесь вверх, сквозь %s!", ceiling(u.ux, u.uy));
+            You("поднимаетесь вверх, сквозь %s!",
+                ceiling_case(u.ux, u.uy, BP_ACC));
             goto_level(&newlevel, FALSE, FALSE, FALSE);
         } else {
             You("испытываете тревожное чувство.");
@@ -1208,7 +1209,7 @@ peffect_levitation(struct obj *otmp)
 
             You("ударяетесь %s о %s.",
                 body_part_case(HEAD, BP_INS),
-                ceiling(u.ux, u.uy));
+                ceiling_case(u.ux, u.uy, BP_ACC));
             losehp(Maybe_Half_Phys(dmg), "удара головой о потолок",
                    KILLED_BY);
             gp.potion_nothing = 0; /* not nothing after all */

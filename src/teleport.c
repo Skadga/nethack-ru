@@ -1262,7 +1262,7 @@ level_tele(void)
             You("перестаёте существовать.");
             if (gi.invent)
                 Your("Ваши вещи с глухим стуком падают на %s.",
-                     surface(u.ux, u.uy));
+                     surface_case(u.ux, u.uy, BP_ACC));
             svk.killer.format = NO_KILLER_PREFIX;
             Strcpy(svk.killer.name, "покончил с собой");
             done(DIED);

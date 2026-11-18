@@ -1825,6 +1825,184 @@ surface_ru(coordxy x, coordxy y)
         return "земле";
 }
 
+/* Падежные формы названий поверхностей: индекс — BP_NOM..BP_PREP
+   (0 — им., 1 — род., 2 — дат., 3 — вин., 4 — тв., 5 — предл.). */
+enum surf_kind {
+    SK_MAW, SK_SHELL, SK_UNKNOWN, SK_AIRBUBBLE, SK_CLOUD, SK_AIR,
+    SK_BOTTOM, SK_WATER, SK_ICE, SK_LAVA, SK_BRIDGE, SK_ALTAR,
+    SK_GRAVE, SK_FOUNTAIN, SK_STAIRS, SK_WALL, SK_DOORWAY, SK_FLOOR,
+    SK_GROUND, SK_COUNT
+};
+
+static const char *const surf_cases[SK_COUNT][6] = {
+    /* пасть */
+    { "пасть", "пасти", "пасти", "пасть", "пастью", "пасти" },
+    /* оболочка */
+    { "оболочка", "оболочки", "оболочке", "оболочку", "оболочкой",
+      "оболочке" },
+    /* неведомое */
+    { "неведомое", "неведомого", "неведомому", "неведомое", "неведомым",
+      "неведомом" },
+    /* воздушный пузырь */
+    { "воздушный пузырь", "воздушного пузыря", "воздушному пузырю",
+      "воздушный пузырь", "воздушным пузырём", "воздушном пузыре" },
+    /* облако */
+    { "облако", "облака", "облаку", "облако", "облаком", "облаке" },
+    /* воздух */
+    { "воздух", "воздуха", "воздуху", "воздух", "воздухом", "воздухе" },
+    /* дно */
+    { "дно", "дна", "дну", "дно", "дном", "дне" },
+    /* вода */
+    { "вода", "воды", "воде", "воду", "водой", "воде" },
+    /* лёд */
+    { "лёд", "льда", "льду", "лёд", "льдом", "льду" },
+    /* лава */
+    { "лава", "лавы", "лаве", "лаву", "лавой", "лаве" },
+    /* мост */
+    { "мост", "моста", "мосту", "мост", "мостом", "мосту" },
+    /* алтарь */
+    { "алтарь", "алтаря", "алтарю", "алтарь", "алтарём", "алтаре" },
+    /* надгробие */
+    { "надгробие", "надгробия", "надгробию", "надгробие", "надгробием",
+      "надгробии" },
+    /* фонтан */
+    { "фонтан", "фонтана", "фонтану", "фонтан", "фонтаном", "фонтане" },
+    /* лестница */
+    { "лестница", "лестницы", "лестнице", "лестницу", "лестницей",
+      "лестнице" },
+    /* стена */
+    { "стена", "стены", "стене", "стену", "стеной", "стене" },
+    /* дверной проём */
+    { "дверной проём", "дверного проёма", "дверному проёму",
+      "дверной проём", "дверным проёмом", "дверном проёме" },
+    /* пол */
+    { "пол", "пола", "полу", "пол", "полом", "полу" },
+    /* земля */
+    { "земля", "земли", "земле", "землю", "землёй", "земле" },
+};
+
+static int
+surf_kind(coordxy x, coordxy y)
+{
+    struct rm *lev = &levl[x][y];
+    int levtyp = SURFACE_AT(x, y);
+
+    if (u_at(x, y) && u.uswallow && is_animal(u.ustuck->data))
+        return digests(u.ustuck->data) ? SK_MAW
+               : enfolds(u.ustuck->data) ? SK_SHELL : SK_UNKNOWN;
+    else if (IS_AIR(levtyp))
+        return Is_waterlevel(&u.uz) ? SK_AIRBUBBLE
+               : (levtyp == CLOUD) ? SK_CLOUD : SK_AIR;
+    else if (is_pool(x, y))
+        return (Underwater && !Is_waterlevel(&u.uz)) ? SK_BOTTOM : SK_WATER;
+    else if (is_ice(x, y))
+        return SK_ICE;
+    else if (is_lava(x, y))
+        return SK_LAVA;
+    else if (lev->typ == DRAWBRIDGE_DOWN)
+        return SK_BRIDGE;
+    else if (IS_ALTAR(levtyp))
+        return SK_ALTAR;
+    else if (IS_GRAVE(levtyp))
+        return SK_GRAVE;
+    else if (IS_FOUNTAIN(levtyp))
+        return SK_FOUNTAIN;
+    else if (On_stairs(x, y))
+        return SK_STAIRS;
+    else if (IS_WALL(levtyp) || levtyp == SDOOR)
+        return SK_WALL;
+    else if (IS_DOOR(levtyp))
+        return SK_DOORWAY;
+    else if (IS_ROOM(levtyp) && !Is_earthlevel(&u.uz))
+        return SK_FLOOR;
+    else
+        return SK_GROUND;
+}
+
+/* Название поверхности в заданном падеже (BP_NOM..BP_PREP). */
+const char *
+surface_case(coordxy x, coordxy y, int cse)
+{
+    if (cse < BP_NOM || cse > BP_PREP)
+        cse = BP_NOM;
+    return surf_cases[surf_kind(x, y)][cse];
+}
+
+/* Падежные формы названий того, что над головой. */
+enum ceil_kind {
+    CK_VAULT, CK_TEMPLE, CK_SHOP, CK_WATER, CK_SKY, CK_FLAME, CK_OPEN,
+    CK_WATERSURF, CK_PLAIN, CK_ROCK, CK_COUNT
+};
+
+static const char *const ceil_cases[CK_COUNT][6] = {
+    /* потолок сокровищницы */
+    { "потолок сокровищницы", "потолка сокровищницы",
+      "потолку сокровищницы", "потолок сокровищницы",
+      "потолком сокровищницы", "потолке сокровищницы" },
+    /* потолок храма */
+    { "потолок храма", "потолка храма", "потолку храма", "потолок храма",
+      "потолком храма", "потолке храма" },
+    /* потолок магазина */
+    { "потолок магазина", "потолка магазина", "потолку магазина",
+      "потолок магазина", "потолком магазина", "потолке магазина" },
+    /* вода над головой */
+    { "вода над головой", "воды над головой", "воде над головой",
+      "воду над головой", "водой над головой", "воде над головой" },
+    /* небо */
+    { "небо", "неба", "небу", "небо", "небом", "небе" },
+    /* пламя над головой */
+    { "пламя над головой", "пламени над головой", "пламени над головой",
+      "пламя над головой", "пламенем над головой", "пламени над головой" },
+    /* простор над головой */
+    { "простор над головой", "простора над головой", "простору над головой",
+      "простор над головой", "простором над головой", "просторе над головой" },
+    /* поверхность воды */
+    { "поверхность воды", "поверхности воды", "поверхности воды",
+      "поверхность воды", "поверхностью воды", "поверхности воды" },
+    /* потолок */
+    { "потолок", "потолка", "потолку", "потолок", "потолком", "потолке" },
+    /* каменный свод */
+    { "каменный свод", "каменного свода", "каменному своду",
+      "каменный свод", "каменным сводом", "каменном своде" },
+};
+
+static int
+ceil_kind(coordxy x, coordxy y)
+{
+    struct rm *lev = &levl[x][y];
+
+    if (*in_rooms(x, y, VAULT))
+        return CK_VAULT;
+    else if (*in_rooms(x, y, TEMPLE))
+        return CK_TEMPLE;
+    else if (*in_rooms(x, y, SHOPBASE))
+        return CK_SHOP;
+    else if (Is_waterlevel(&u.uz))
+        return CK_WATER;
+    else if (IS_AIR(lev->typ))
+        return CK_SKY;
+    else if (Is_firelevel(&u.uz))
+        return CK_FLAME;
+    else if (In_quest(&u.uz))
+        return CK_OPEN;
+    else if (Underwater)
+        return CK_WATERSURF;
+    else if ((IS_ROOM(lev->typ) && !Is_earthlevel(&u.uz))
+             || IS_WALL(lev->typ) || IS_DOOR(lev->typ) || lev->typ == SDOOR)
+        return CK_PLAIN;
+    else
+        return CK_ROCK;
+}
+
+/* Название того, что над головой, в заданном падеже. */
+const char *
+ceiling_case(coordxy x, coordxy y, int cse)
+{
+    if (cse < BP_NOM || cse > BP_PREP)
+        cse = BP_NOM;
+    return ceil_cases[ceil_kind(x, y)][cse];
+}
+
 /*
  * It is expected that the second argument of get_level is a depth value,
  * either supplied by the user (teleport control) or randomly generated.

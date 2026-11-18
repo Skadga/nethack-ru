@@ -1850,7 +1850,8 @@ rottenfood(struct obj *obj)
             what = "вы теряете контроль над", where = "собой";
         else
             what = "вы бьётесь о",
-            where = (u.usteed) ? "седло" : surface(u.ux, u.uy);
+            where = (u.usteed) ? "седло"
+                               : surface_case(u.ux, u.uy, BP_ACC);
         pline_The("мир вращается, и %s %s.", what, where);
         incr_itimeout(&HDeaf, duration);
         disp.botl = TRUE;
@@ -2921,7 +2922,7 @@ doeat(void)
             You("выплёвываете %s.", the(xname(otmp)));
         } else {
             You("выплёвываете %s на %s.", the(xname(otmp)),
-                surface(u.ux, u.uy));
+                surface_case(u.ux, u.uy, BP_ACC));
             if (carried(otmp)) {
                 /* no need to check for leash in use; it's not metallic */
                 if (otmp->owornmask)

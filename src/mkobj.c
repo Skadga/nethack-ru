@@ -2938,7 +2938,7 @@ hornoplenty(
                     doaltarobj(obj); /* does its own drop message */
                 else
                     pline("%s падает на %s.", Doname2(obj),
-                          surface(u.ux, u.uy));
+                          surface_case(u.ux, u.uy, BP_ACC));
                 dropy(obj);
             }
         }

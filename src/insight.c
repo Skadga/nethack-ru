@@ -244,7 +244,7 @@ trap_predicament(char *outbuf, int final, boolean wizxtra)
         Sprintf(outbuf, "тонете в %s", final ? "лаве" : hliquid("лаве"));
         break;
     case TT_INFLOOR:
-        Sprintf(outbuf, "застряли в %s", the(surface(u.ux, u.uy)));
+        Sprintf(outbuf, "застряли в %s", the(surface_ru(u.ux, u.uy)));
         break;
     default: /* TT_BEARTRAP, TT_PIT, or TT_WEB */
         Strcpy(outbuf, "в ловушке");
@@ -995,7 +995,7 @@ status_enlightenment(int mode, int final)
         Sprintf(buf, "идёте по %s",
                 is_pool(u.ux, u.uy) ? "воде"
                 : is_lava(u.ux, u.uy) ? "лаве"
-                  : surface(u.ux, u.uy)); /* catchall; shouldn't happen */
+                  : surface_case(u.ux, u.uy, BP_DAT)); /* catchall */
         you_are(buf, from_what(WWALKING));
     }
     if (Upolyd && (u.uundetected || U_AP_TYPE != M_AP_NOTHING))
@@ -2054,7 +2054,7 @@ youhiding(boolean via_enlghtmt, /* enlightenment line vs topl message */
                 Sprintf(bp, " под %s", ansimpleoname(o));
         } else if (is_clinger(gy.youmonst.data) || Flying) {
             /* Flying: 'lurker above' hides on ceiling but doesn't cling */
-            Sprintf(bp, " на %s", ceiling(u.ux, u.uy));
+            Sprintf(bp, " на %s", ceiling_case(u.ux, u.uy, BP_PREP));
         } else {
             /* on floor; is_hider() but otherwise not special: 'trapper' */
             if (u.utrap && u.utraptype == TT_PIT) {
@@ -2063,7 +2063,7 @@ youhiding(boolean via_enlghtmt, /* enlightenment line vs topl message */
                 Sprintf(bp, " в %s яме",
                         (t && t->ttyp == SPIKED_PIT) ? "шипастой " : "");
             } else
-                Sprintf(bp, " на %s", surface(u.ux, u.uy));
+                Sprintf(bp, " на %s", surface_ru(u.ux, u.uy));
         }
     } else {
         ; /* shouldn't happen; will result in generic "you are hiding" */

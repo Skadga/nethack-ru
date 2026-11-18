@@ -2123,7 +2123,7 @@ canwearobj(struct obj *otmp, long *mask, boolean noisy)
                 if (noisy)
                     Your("%s застряли в %s!",
                          body_part_case(FOOT, BP_NOM | BP_PLURAL),
-                         surface(u.ux, u.uy));
+                         surface_ru(u.ux, u.uy));
             } else { /*TT_BURIEDBALL*/
                 if (noisy)
                     Your("%s привязаны к закопанному шару!",
@@ -2757,7 +2757,7 @@ select_off(struct obj *otmp)
             return 0;
         } else if (u.utrap && u.utraptype == TT_INFLOOR) {
             You("застряли в %s и не можете вытащить вашу %s.",
-                surface(u.ux, u.uy),
+                surface_ru(u.ux, u.uy),
                 body_part_case(FOOT, BP_ACC | BP_PLURAL));
             return 0;
         }
@@ -3234,7 +3234,7 @@ disintegrate_arm(struct obj *atmp)
         urgent_pline("Ваш %s %s в пыль и %s на %s!",
                      /* suit might be "чешуя дракона" so vtense() is needed */
                      suit, vtense(suit, "превращается"), vtense(suit, "падает"),
-                     surface(u.ux, u.uy));
+                     surface_case(u.ux, u.uy, BP_ACC));
     } else if (!resistedc && !resistedsuit
              && (otmp = maybe_destroy_armor(uarmu, atmp, &resisted)) != 0) {
         urgent_pline("Ваш %s рассыпается на мелкие нити и разваливается!",
