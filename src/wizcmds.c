@@ -953,7 +953,7 @@ wiz_intrinsic(void)
 {
     if (wizard) {
         static const char wizintrinsic[] = "#wizintrinsic";
-        static const char fmt[] = "You are%s %s.";
+        static const char fmt[] = "Вы%s %s.";
         winid win;
         anything any;
         char buf[BUFSZ];
@@ -1041,19 +1041,19 @@ wiz_intrinsic(void)
                 break;
             case SLIMED:
                 Sprintf(buf, fmt,
-                        !Slimed ? "" : " still", "turning into slime");
+                        !Slimed ? "" : " всё ещё", "превращаетесь в слизь");
                 make_slimed(newtimeout, buf);
                 break;
             case STONED:
                 Sprintf(buf, fmt,
-                        !Stoned ? "" : " still", "turning into stone");
+                        !Stoned ? "" : " всё ещё", "превращаетесь в камень");
                 make_stoned(newtimeout, buf, KILLED_BY, wizintrinsic);
                 break;
             case STUNNED:
                 make_stunned(newtimeout, TRUE);
                 break;
             case VOMITING:
-                Sprintf(buf, fmt, !Vomiting ? "" : " still", "vomiting");
+                Sprintf(buf, fmt, !Vomiting ? "" : " всё ещё", "тошните");
                 make_vomiting(newtimeout, FALSE);
                 pline1(buf);
                 break;

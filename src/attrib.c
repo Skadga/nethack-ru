@@ -927,7 +927,7 @@ from_what(
      * Restrict the source of the attributes just to debug mode for now
      */
     if (wizard) {
-        static NEARDATA const char because_of[] = " because of %s";
+        static NEARDATA const char because_of[] = " (источник: %s)";
 
         if (propidx >= 0) {
             char *p;
@@ -963,11 +963,11 @@ from_what(
                 Strcpy(buf, " из-за вашей формы существа");
             else if (propidx == FAST && Very_fast)
                 Sprintf(buf, because_of,
-                        ((HFast & TIMEOUT) != 0L) ? "a potion or spell"
+                        ((HFast & TIMEOUT) != 0L) ? "зелье или заклинание"
                           : ((EFast & W_ARMF) != 0L && uarmf->dknown
                              && objects[uarmf->otyp].oc_name_known)
                               ? ysimple_name(uarmf) /* speed boots */
-                                : EFast ? "worn equipment"
+                                : EFast ? "надетое снаряжение"
                                   : something);
             else if (wizard
                      && (obj = what_gives(&u.uprops[propidx].extrinsic)) != 0)

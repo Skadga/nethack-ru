@@ -55,7 +55,7 @@ staticfn boolean get_valid_polearm_position(coordxy, coordxy);
 staticfn boolean find_poleable_mon(coord *);
 
 static const char
-    no_elbow_room[] = "don't have enough elbow-room to maneuver.";
+    no_elbow_room[] = "не хватает места, чтобы развернуться.";
 
 void
 do_blinding_ray(struct obj *obj)
@@ -3933,7 +3933,7 @@ staticfn int
 do_break_wand(struct obj *obj)
 {
 #define BY_OBJECT ((struct monst *) 0)
-    static const char nothing_else_happens[] = "But nothing else happens...";
+    static const char nothing_else_happens[] = "Но больше ничего не происходит...";
     int i;
     coordxy x, y;
     struct monst *mon;
