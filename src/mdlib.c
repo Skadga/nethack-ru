@@ -118,17 +118,17 @@ static struct win_information window_opts[] = {
          confusing to most users (and it will already be listed separately
          in the compiled options section so users aware of it can find it) */
 #ifdef MSDOS
-      "traditional text with optional 'tiles' graphics",
+      "традиционный текст с необязательной 'тайловой' графикой",
 #else
       /* assume that one or more of IBMgraphics, DECgraphics
          can be enabled; we can't tell from here whether that is accurate */
-      "traditional text with optional line-drawing",
+      "традиционный текст с необязательными линиями",
 #endif
       TRUE
     },
 #endif /*TTY_GRAPHICS */
 #ifdef CURSES_GRAPHICS
-    { "curses", "terminal-based graphics", TRUE },
+    { "curses", "графика в терминале", TRUE },
 #endif
 #ifdef X11_GRAPHICS
     { "X11", "X11", TRUE },
@@ -137,10 +137,10 @@ static struct win_information window_opts[] = {
     { "Qt", "Qt", TRUE },
 #endif
 #ifdef MSWIN_GRAPHICS /* win32 */
-    { "mswin", "Windows GUI", TRUE },
+    { "mswin", "графический интерфейс Windows", TRUE },
 #endif
 #ifdef SHIM_GRAPHICS
-    { "shim", "NetHack Library Windowing Shim", TRUE },
+    { "shim", "оконный слой библиотеки NetHack", TRUE },
 #endif
 
 #if 0  /* remainder have been retired */

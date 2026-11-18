@@ -38,17 +38,17 @@ const struct class_sym def_monsyms[MAXMCLASSES] = {
 
 const struct symdef def_warnsyms[WARNCOUNT] = {
     /* white warning  */
-    { '0', "unknown creature causing you worry",    CLR_WHITE },
+    { '0', "неизвестное существо, вызывающее беспокойство",    CLR_WHITE },
     /* pink warning   */
-    { '1', "unknown creature causing you concern",  CLR_RED },
+    { '1', "неизвестное существо, вызывающее озабоченность",  CLR_RED },
     /* red warning    */
-    { '2', "unknown creature causing you anxiety",  CLR_RED },
+    { '2', "неизвестное существо, вызывающее тревогу",  CLR_RED },
     /* ruby warning   */
-    { '3', "unknown creature causing you disquiet", CLR_RED },
+    { '3', "неизвестное существо, вызывающее смятение", CLR_RED },
     /* purple warning */
-    { '4', "unknown creature causing you alarm",    CLR_MAGENTA },
+    { '4', "неизвестное существо, вызывающее испуг",    CLR_MAGENTA },
     /* black warning  */
-    { '5', "unknown creature causing you dread",    CLR_BRIGHT_MAGENTA },
+    { '5', "неизвестное существо, вызывающее ужас",    CLR_BRIGHT_MAGENTA },
 };
 
 /*

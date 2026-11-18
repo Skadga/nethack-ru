@@ -2621,10 +2621,10 @@ optfn_number_pad(
     }
     if (req == get_val || req == get_cnf_val) {
         static const char *const numpadmodes[] = {
-            "0=off", "1=on", "2=on, MSDOS compatible",
-            "3=on, phone-style layout",
-            "4=on, phone layout, MSDOS compatible",
-            "-1=off, y & z swapped", /*[5]*/
+            "0=выкл", "1=вкл", "2=вкл, совместимо с MSDOS",
+            "3=вкл, раскладка телефона",
+            "4=вкл, раскладка телефона, совместимо с MSDOS",
+            "-1=выкл, y и z поменяны", /*[5]*/
         };
         int indx = gc.Cmd.num_pad
                        ? (gc.Cmd.phone_layout ? (gc.Cmd.pcHack_compat ? 4 : 3)
@@ -6246,7 +6246,7 @@ handler_whatis_coord(void)
                 ? MENU_ITEMFLAGS_SELECTED : MENU_ITEMFLAGS_NONE);
     any.a_char = GPCOORDS_SCREEN;
     add_menu(tmpwin, &nul_glyphinfo, &any, GPCOORDS_SCREEN,
-             0, ATR_NONE, clr, "screen [row,column]",
+             0, ATR_NONE, clr, "экран [строка,столбец]",
              (gpc == GPCOORDS_SCREEN)
                 ? MENU_ITEMFLAGS_SELECTED : MENU_ITEMFLAGS_NONE);
     any.a_char = GPCOORDS_NONE;
@@ -6255,7 +6255,7 @@ handler_whatis_coord(void)
              (gpc == GPCOORDS_NONE)
                 ? MENU_ITEMFLAGS_SELECTED : MENU_ITEMFLAGS_NONE);
     add_menu_str(tmpwin, "");
-    Sprintf(buf, "карта: верхний-левый: <%d,%d>, lower-right: <%d,%d>%s",
+    Sprintf(buf, "карта: верхний-левый: <%d,%d>, правый-нижний: <%d,%d>%s",
             1, 0, COLNO - 1, ROWNO - 1,
             flags.verbose ? "; столбец 0 не используется, вне левого края" : "");
     add_menu_str(tmpwin, buf);

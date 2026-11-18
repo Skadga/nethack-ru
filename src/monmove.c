@@ -1548,9 +1548,10 @@ postmov(
             if ((here->doormask & (D_LOCKED | D_CLOSED)) != 0
                 && amorphous(ptr)) {
                 if (flags.verbose && canseemon(mtmp))
-                    pline_mon(mtmp, "%s %s under the door.", YMonnam(mtmp),
+                    pline_mon(mtmp, "%s %s под дверью.", YMonnam(mtmp),
                               (ptr == &mons[PM_FOG_CLOUD]
-                               || ptr->mlet == S_LIGHT) ? "flows" : "oozes");
+                               || ptr->mlet == S_LIGHT) ? "просачивается"
+                                                       : "сочится");
             } else if ((here->doormask & D_LOCKED) != 0 && can_unlock) {
                 /* like the vampshift hack, there are sequencing
                    issues when the monster is moved to the door's spot

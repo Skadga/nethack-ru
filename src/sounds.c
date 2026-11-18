@@ -1842,7 +1842,7 @@ choose_soundlib(const char *s)
 
     if (!soundlib_choices[1].sndprocs) {
         config_error_add(
-                   "Soundlib type %s not recognized.  The only choice is: %s",
+                   "Тип звуковой библиотеки %s не распознан.  Единственный вариант: %s",
                    s, soundlib_choices[0].sndprocs->soundname);
     } else {
         char buf[BUFSZ];
@@ -1855,7 +1855,7 @@ choose_soundlib(const char *s)
                     soundlib_choices[i].sndprocs->soundname);
             first = FALSE;
         }
-        config_error_add("Soundlib type %s not recognized.  Choices are:  %s",
+        config_error_add("Тип звуковой библиотеки %s не распознан.  Варианты:  %s",
                          s, buf);
     }
     if (tmps)

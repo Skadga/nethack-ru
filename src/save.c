@@ -381,7 +381,7 @@ savestateinlock(void)
 
         Sfi_int(nhfp, &hpid, "gamestate-hackpid");
         if (svh.hackpid != hpid) {
-            Sprintf(whynot, "Level #0 pid (%d) doesn't match ours (%d)!",
+            Sprintf(whynot, "PID уровня #0 (%d) не совпадает с нашим (%d)!",
                     hpid, svh.hackpid);
             goto giveup;
         }

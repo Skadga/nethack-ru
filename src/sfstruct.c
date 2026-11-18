@@ -583,9 +583,9 @@ mread(int fd, genericptr_t buf, unsigned len)
             if (program_state.restoring) {
                 (void) nhclose(fd);
                 (void) delete_savefile();
-                error("Error restoring old game.");
+                error("Ошибка восстановления старой игры.");
             }
-            panic("Error reading level file.");
+            panic("Ошибка чтения файла уровня.");
 #else
             printf("Read %d instead of %u bytes.\n", (int) rlen, len);
 #endif

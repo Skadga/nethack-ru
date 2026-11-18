@@ -246,7 +246,7 @@ early_options(int *argc_p, char ***argv_p, char **hackdir_p)
                            (ArgValRequired | ArgNamOneLetter | ArgErrSilent),
                            "-directory", origarg, &argc, &argv);
                 if (!arg)
-                    error("Flag -d must be followed by a directory name.");
+                    error("После флага -d должно идти имя каталога.");
                 if (*arg != 'e') { /* avoid matching -decgraphics or -debug */
                     *hackdir_p = arg;
                     if (oldargc == argc)
