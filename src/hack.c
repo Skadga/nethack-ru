@@ -4293,7 +4293,7 @@ maybe_wail(void)
     } else {
         Soundeffect(se_wailing_of_the_banshee, 75);
         You_hear(u.uhp == 1 ? "завывания Банши..."
-                            : "вой КwnAnwn...");
+                            : "вой псов Аннуна...");
     }
 }
 

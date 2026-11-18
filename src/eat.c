@@ -3720,7 +3720,7 @@ floorfood(
             /* "There is <an object> here; <verb> it?" or
                "Здесь <N предметов>; <verb> одну?" */
             Sprintf(qbuf, "Здесь %s ", otense(otmp, "есть"));
-            Sprintf(qsfx, " здесь; %s %s?", verb, one ? "её" : "одну");
+            Sprintf(qsfx, "; %s %s?", verb, one ? "это" : "одну");
             (void) safe_qbuf(qbuf, qbuf, qsfx, otmp, doname, ansimpleoname,
                              one ? something : (const char *) "вещи");
             if ((c = yn_function(qbuf, ynqchars, 'n', TRUE)) == 'y')
