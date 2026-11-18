@@ -186,6 +186,12 @@
   слово)», what_is_a_location в дательном, списки /M и /T, «, скрыто
   %s», suptext1/2, docontact. Сборка 0 ошибок, 19 прежних warning'ов;
   Android синхронизирован.
+- Батч №25 (7bbd21a): xcalled — «под названием»; end.c — «по имени»;
+  topten — русская фраза смерти без английской сводки, «, while» →
+  «, %s», перевод сводок и локаций; stairs.c — «лестница вверх/вниз»,
+  «ответвление: …», «ветка: … (…)». Удалены мёртвые английские
+  strsubst в dungeon.c, role.c, mkobj.c, botl.c. Сборка 0 ошибок,
+  19 прежних warning'ов; Android синхронизирован.
 
 ## Что осталось
 
@@ -284,12 +290,12 @@
       hacklib. Отдельная задача.
     - Мёртвые LAT-шаблоны strsubst: батч №23 закрыл cmd.c:654,
       options.c:3125/3127, steal.c:309/312/313/317, timeout.c:146/212/228/
-      337/415, polyself.c:644, pager.c:2214-2218 (батч №23).
-      Осталось: botl.c:478, cmd.c:2609, dungeon.c:3788-3791,
-      files.c:1818/1825 (не текст), insight.c:1622 (wizard-only),
-      mkobj.c:1657/3439, o_init.c:680, objnam.c:3349/3354/4565/4569/4573
-      (wish-парсер), options.c:5985, role.c:1606, stairs.c:232,
-      topten.c:1050 (", while helpless"), trap.c:2775.
+      337/415, polyself.c:644, pager.c:2214-2218 (батч №23),
+      botl.c:478, dungeon.c:3788-3791, mkobj.c:1657/3439, o_init.c:680,
+      role.c:1606, stairs.c:232, topten.c:1050 (батч №25).
+      Осталось: cmd.c:2609, files.c:1818/1825 (не текст),
+      insight.c:1622 (wizard-only), objnam.c:3349/3354/4565/4569/4573
+      (wish-парсер), options.c:5985, trap.c:2775.
     - strsubst CYR (9 мест, работают): botl.c:465, do_wear.c:632,
       dungeon.c:2575, getpos.c:153, invent.c:5436/5438, muse.c:279,
       steed.c:867, zap.c:4578 — НЕ трогать.
