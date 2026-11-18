@@ -480,7 +480,7 @@ generic_lvl_desc(void)
     if (Is_astralevel(&u.uz))
         return "астральный план";
     else if (In_endgame(&u.uz))
-        return "plane";
+        return "план";
     else if (Is_sanctum(&u.uz))
         return "святилище";
     else if (In_sokoban(&u.uz))

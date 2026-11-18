@@ -271,7 +271,7 @@ choke(struct obj *food)
          * high score list & tombstone.  So plan accordingly.
          */
         if (food) {
-            You("давитесь своим %s.", foodword(food));
+            You("давитесь %s.", ru_noun_case(foodword(food), BP_INS));
             if (food->oclass == COIN_CLASS) {
                 Strcpy(svk.killer.name, "очень богатая трапеза");
             } else {
@@ -1823,8 +1823,7 @@ Hear_again(void)
 staticfn int
 rottenfood(struct obj *obj)
 {
-    pline("Фу!  %s %s!",
-          is_rottable(obj) ? "Гнилая" : "Ужасная", foodword(obj));
+    pline("Фу!  %s!", is_rottable(obj) ? "Гнильё!" : "Гадость!");
     if (!rn2(4)) {
         if (Hallucination)
             You_feel("довольно странно.");
@@ -2524,7 +2523,7 @@ staticfn const char *
 foodword(struct obj *otmp)
 {
     if (otmp->oclass == FOOD_CLASS)
-        return "food";
+        return "еда";
     if (otmp->oclass == GEM_CLASS && objects[otmp->otyp].oc_material == GLASS
         && otmp->dknown)
         makeknown(otmp->otyp);
@@ -2828,14 +2827,8 @@ doeat_nonfood(struct obj *otmp)
         } else
             You("не чувствуете действия яда.");
     } else if (!nodelicious) {
-        pline("%s%s изумительно!",
-              (obj_is_pname(otmp)
-               && otmp->oartifact < ART_ORB_OF_DETECTION)
-              ? ""
-              : "Эта ",
-              (otmp->oclass == COIN_CLASS)
-              ? foodword(otmp)
-              : singular(otmp, xname));
+        You("чувствуете изумительный вкус %s.",
+            ru_noun_case(singular(otmp, xname), BP_GEN));
     }
     eatspecial();
     return ECMD_TIME;

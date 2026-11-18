@@ -898,7 +898,7 @@ Armor_on(void)
     if (artifact_light(uarm) && !uarm->lamplit) {
         begin_burn(uarm, FALSE);
         if (!Blind)
-            pline("%s %s светом %s!",
+            pline("%s %s сиять %s!",
                   Yname2(uarm), otense(uarm, "начинает"),
                   arti_light_description(uarm));
     }

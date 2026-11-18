@@ -566,10 +566,10 @@ dxdy_to_dist_descr(coordxy dx, coordxy dy, boolean fulldir)
         Sprintf(buf, "%s", directionname(dst));
     } else {
         static const char *const dirnames[4][2] = {
-            { "n", "north" },
-            { "s", "south" },
-            { "w", "west" },
-            { "e", "east" } };
+            { "с", " к северу" },
+            { "ю", " к югу" },
+            { "з", " к западу" },
+            { "в", " к востоку" } };
         buf[0] = '\0';
         /* 9999: protect buf[] against overflow caused by invalid values */
         if (dy) {
