@@ -209,7 +209,7 @@ castmu(
         Soundeffect(se_air_crackles, 60);
         if (canseemon(mtmp) && !Deaf) {
             set_msg_xy(mtmp->mx, mtmp->my);
-            pline("Воздух трещит вокруг %s.", mon_nam(mtmp));
+            pline("Воздух трещит вокруг %s.", mon_gen(mtmp, BP_GEN));
         }
         return M_ATTK_MISS;
     }

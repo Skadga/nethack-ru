@@ -1958,7 +1958,8 @@ find_trap(struct trap *trap)
     }
 
     set_msg_xy(trap->tx, trap->ty);
-    You("находите %s.", an(trapname(trap->ttyp, FALSE)));
+    You("находите %s.", ru_noun_case(trapname(trap->ttyp, FALSE),
+                                      BP_ACC));
 
     if (cleared) {
         display_nhwindow(WIN_MAP, TRUE); /* wait */

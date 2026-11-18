@@ -126,7 +126,8 @@ self_lookat(char *outbuf)
                             eos(outbuf));
     if (Punished)
         Sprintf(eos(outbuf), ", прикован к %s",
-                uball ? ansimpleoname(uball) : "пустоте?");
+                uball ? ru_noun_case(ansimpleoname(uball), BP_DAT)
+                      : "пустоте?");
     if (u.utrap) /* bear trap, pit, web, in-floor, in-lava, tethered */
         Sprintf(eos(outbuf), ", %s", trap_predicament(trapbuf, 0, FALSE));
     return outbuf;

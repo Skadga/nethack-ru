@@ -3812,7 +3812,7 @@ zap_map(
                                     && Invocation_lev(&u.uz))
                                  : !rn2(4);
                 You("находите %s%c",
-                    use_the ? the(ttmpname) : an(ttmpname),
+                    ru_noun_case(ttmpname, BP_ACC),
                     use_the ? '!' : '.');
                 learn_it = !hallu;
             }

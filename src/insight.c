@@ -249,7 +249,8 @@ trap_predicament(char *outbuf, int final, boolean wizxtra)
     default: /* TT_BEARTRAP, TT_PIT, or TT_WEB */
         Strcpy(outbuf, "в ловушке");
         if ((t = t_at(u.ux, u.uy)) != 0) /* should never be null */
-            Sprintf(eos(outbuf), " в %s", trapname(t->ttyp, FALSE));
+            Sprintf(eos(outbuf), " в %s",
+                    ru_noun_case(trapname(t->ttyp, FALSE), BP_PREP));
         break;
     }
     if (wizxtra) { /* give extra information for wizard mode enlightenment */
@@ -1075,7 +1076,8 @@ status_enlightenment(int mode, int final)
     /* external troubles, more or less */
     if (Punished) {
         if (uball) {
-            Sprintf(buf, "прикованы к %s", ansimpleoname(uball));
+            Sprintf(buf, "прикованы к %s",
+                    ru_noun_case(ansimpleoname(uball), BP_DAT));
         } else {
             impossible("Наказаны без шара?");
             Strcpy(buf, "наказаны");
@@ -2046,7 +2048,8 @@ youhiding(boolean via_enlghtmt, /* enlightenment line vs topl message */
         bp = eos(buf); /* points past "hiding" */
         if (gy.youmonst.data->mlet == S_EEL) {
             if (is_pool(u.ux, u.uy))
-                Sprintf(bp, " в %s", waterbody_name(u.ux, u.uy));
+                Sprintf(bp, " в %s",
+                        ru_noun_case(waterbody_name(u.ux, u.uy), BP_PREP));
         } else if (hides_under(gy.youmonst.data)) {
             struct obj *o = svl.level.objects[u.ux][u.uy];
 

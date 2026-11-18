@@ -3455,7 +3455,8 @@ in_or_out_menu(
         add_menu(win, &nul_glyphinfo, &any, menuselector[any.a_int], 0,
                  ATR_NONE, clr, buf, MENU_ITEMFLAGS_NONE);
         any.a_int = 6; /* 's' */
-        Sprintf(buf, "спрятать один предмет в %s", thesimpleoname(obj));
+        Sprintf(buf, "спрятать один предмет в %s",
+                ru_noun_case(thesimpleoname(obj), BP_PREP));
         add_menu(win, &nul_glyphinfo, &any, menuselector[any.a_int], 0,
                  ATR_NONE, clr, buf, MENU_ITEMFLAGS_NONE);
     }

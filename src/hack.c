@@ -2500,7 +2500,7 @@ avoid_moving_on_trap(coordxy x, coordxy y, boolean msg)
         if (msg && flags.mention_walls) {
             set_msg_xy(x, y);
             You("останавливаетесь перед %s.",
-                an(trapname(trap->ttyp, FALSE)));
+                ru_noun_case(trapname(trap->ttyp, FALSE), BP_INS));
         }
         return TRUE;
     }

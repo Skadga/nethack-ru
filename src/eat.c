@@ -1213,8 +1213,8 @@ cpostfx(int pm)
                     Hallucination
                        ? "¬ы вдруг боитесь, что вас очист€т, и снова мимикрируете под %s!"
                        : "“еперь вы предпочитаете снова мимикрировать под %s.",
-                    an(Upolyd ? pmname(gy.youmonst.data, Ugender)
-                              : gu.urace.noun));
+                    ru_noun_case(Upolyd ? pmname(gy.youmonst.data, Ugender)
+                                        : gu.urace.noun, BP_ACC));
             ge.eatmbuf = dupstr(buf);
             gn.nomovemsg = ge.eatmbuf;
             ga.afternmv = eatmdone;

@@ -871,7 +871,7 @@ hurtle_step(genericptr_t arg, coordxy x, coordxy y)
             /* this is a bodily collision, so check for body armor */
             && !uarmu && !uarm && !uarmc) {
             Sprintf(svk.killer.name, "удар о %s",
-                    an(pmname(mon->data, NEUTRAL)));
+                    ru_noun_case(pmname(mon->data, NEUTRAL), BP_ACC));
             instapetrify(svk.killer.name);
         }
         if (touch_petrifies(gy.youmonst.data)
@@ -928,7 +928,8 @@ hurtle_step(genericptr_t arg, coordxy x, coordxy y)
             (void) drown();
             return FALSE;
         } else if (!Is_waterlevel(&u.uz) && !stopping_short) {
-            Norep("¬ы перемещаетесь через %s.", an(is_moat(x, y) ? "ров" : "лужа"));
+            Norep("¬ы перемещаетесь через %s.",
+                  is_moat(x, y) ? "ров" : "лужу");
         }
     } else if (is_lava(x, y) && !stopping_short) {
         Norep("¬ы перемещаетесь через лаву.");
@@ -961,7 +962,8 @@ hurtle_step(genericptr_t arg, coordxy x, coordxy y)
             return TRUE;
         } else {
             if (ttmp->tseen)
-                You("проходите пр€мо над %s.", an(trapname(ttmp->ttyp, FALSE)));
+                You("проходите пр€мо над %s.",
+                    ru_noun_case(trapname(ttmp->ttyp, FALSE), BP_INS));
         }
     }
     if (--*range < 0) /* make sure our range never goes negative */

@@ -4175,7 +4175,7 @@ float_down(
         if (!u.uswallow && u.ustuck) {
             if (sticks(gy.youmonst.data))
                 You("не можете удержать захват за %s.",
-                    mon_nam(u.ustuck));
+                    mon_gen(u.ustuck, BP_ACC));
             else
                 pline("Испугавшись, %s больше не может удерживать вас!",
                       mon_nam(u.ustuck));

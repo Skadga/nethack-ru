@@ -3184,7 +3184,7 @@ use_whip(struct obj *obj)
 
         if (otmp) {
             char onambuf[BUFSZ];
-            const char *mon_hand;
+            const char *mon_hand, *mon_hand_gen;
             boolean gotit = proficient && (!Fumbling || !rn2(10));
 
             Strcpy(onambuf, cxname(otmp));
@@ -3192,8 +3192,11 @@ use_whip(struct obj *obj)
                 mon_hand = mbodypart_case(mtmp, HAND, bimanual(otmp)
                                                            ? BP_DAT | BP_PLURAL
                                                            : BP_DAT);
+                mon_hand_gen = mbodypart_case(mtmp, HAND, bimanual(otmp)
+                                                           ? BP_GEN | BP_PLURAL
+                                                           : BP_GEN);
             } else
-                mon_hand = 0; /* lint suppression */
+                mon_hand = mon_hand_gen = 0; /* lint suppression */
 
             You("обматываете хлыст вокруг %s.",
                 ru_noun_case(yname(otmp), BP_GEN));
@@ -3267,8 +3270,9 @@ use_whip(struct obj *obj)
                     break;
                 default:
                     /* to floor beneath mon */
-                    You("вырываете %s из %s %s!", the(onambuf),
-                        mhis(mtmp), mon_hand);
+                    You("вырываете %s из %s %s!",
+                        ru_noun_case(onambuf, BP_ACC), mhis(mtmp),
+                        mon_hand_gen);
                     obj_no_longer_held(otmp);
                     place_object(otmp, mtmp->mx, mtmp->my);
                     stackobj(otmp);

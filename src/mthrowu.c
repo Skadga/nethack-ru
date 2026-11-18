@@ -405,7 +405,7 @@ ohitmon(
             if (resists_poison(mtmp)) {
                 if (vis)
                     pline_The("яд, похоже, не действует на %s.",
-                              mon_nam(mtmp));
+                              mon_gen(mtmp, BP_ACC));
             } else {
                 if (rn2(30)) {
                     damage += rnd(6);

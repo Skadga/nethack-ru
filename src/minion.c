@@ -371,7 +371,8 @@ bribe(struct monst *mtmp, const char *prompt)
     /*Michael Paddon -- fix for negative offer to monster*/
     /*JAR880815 - */
     if (offer < 0L) {
-        You("пытаетесь недодать сдачу %s, но спотыкаетесь.", mon_nam(mtmp));
+        You("пытаетесь недодать сдачу %s, но спотыкаетесь.",
+            mon_gen(mtmp, BP_DAT));
         return 0L;
     } else if (offer == 0L) {
         You("отказываетесь.");

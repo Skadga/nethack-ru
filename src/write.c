@@ -244,7 +244,8 @@ dowrite(struct obj *pen)
     /* KMH, conduct */
     if (!u.uconduct.literate++)
         livelog_printf(LL_CONDUCT,
-                       "стал грамотным, написав %s", an(typeword));
+                       "стал грамотным, написав %s",
+                       ru_noun_case(typeword, BP_ACC));
 
     new_obj = mksobj(i, FALSE, FALSE);
     new_obj->bknown = (paper->bknown && pen->bknown);

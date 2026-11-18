@@ -1593,7 +1593,7 @@ zap_dig(void)
                 if (On_stairs(u.ux, u.uy)) {
                     stairway *stway = stairway_at(u.ux, u.uy);
                     pline_The("луч отскакивает от %s и попадает в %s.",
-                              stway->isladder ? "лестницу" : "ступени",
+                              stway->isladder ? "лестницы" : "ступеней",
                               "потолок");
                 }
                 You("откалываете камень от потолка.");

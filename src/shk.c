@@ -2451,7 +2451,7 @@ reject_purchase(
         if (obj->where == OBJ_CONTAINED)
             Snprintf(which, sizeof which, "%s в %s",
                      (intact_quan > 1L) ? "те, что" : "тот, что",
-                     thesimpleoname(obj->ocontainer));
+                     ru_noun_case(thesimpleoname(obj->ocontainer), BP_PREP));
             Sprintf(which, "%s", (intact_quan > 1L) ? "эти" : "этот");
 
         SetVoice(shkp, 0, 80, 0);

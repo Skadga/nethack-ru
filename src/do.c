@@ -448,7 +448,8 @@ polymorph_sink(void)
     /* give message even if blind; we know we're not levitating,
        so can feel the outcome even if we can't directly see it */
     if (levl[u.ux][u.uy].typ != ROOM)
-        pline("Раковина превращается в %s!", an(defsyms[sym].explanation));
+        pline("Раковина превращается в %s!",
+              ru_noun_case(defsyms[sym].explanation, BP_ACC));
     else
         pline("Раковина исчезает.");
     newsym(u.ux, u.uy);
