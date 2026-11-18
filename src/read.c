@@ -1874,7 +1874,7 @@ seffect_fire(struct obj **sobjp)
         (void) learnscrolltyp(SCR_FIRE);
     if (confused) {
         if (Underwater) {
-            pline("Ќемного %s вокруг вас испар€етс€.", hliquid("water"));
+            pline("Ќемного %s вокруг вас испар€етс€.", hliquid("воды"));
         }
         else if (Fire_resistance) {
             shieldeff(u.ux, u.uy);
@@ -1894,7 +1894,7 @@ seffect_fire(struct obj **sobjp)
         return;
     }
     if (Underwater) {
-        pline("%s ¬округ вас €ростно испар€етс€!", hliquid("water"));
+        pline("%s вокруг вас €ростно испар€етс€!", hliquid("water"));
     } else {
         if (sblessed) {
             if (!already_known)

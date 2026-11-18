@@ -365,7 +365,7 @@ use_stethoscope(struct obj *obj)
             Soundeffect(se_crackling_of_hellfire, 35);
             You_hear("треск адского пламени.");
         } else {
-            pline("%s ¬ыгл€дит достаточно здоровым.", surface(u.ux, u.uy));
+            pline("%s выгл€дит достаточно здоровым.", surface(u.ux, u.uy));
         }
         return res;
     } else if (obj->cursed && !rn2(2)) {
@@ -2109,7 +2109,7 @@ jump(int magic) /* 0=Physical, otherwise skill level */
                 deltrap(t_at(u.ux, u.uy));
                 break;
             case TT_LAVA:
-                You("вытаскиваете себ€ над %s!", hliquid("lava"));
+                You("вытаскиваете себ€ над %s!", hliquid("лавой"));
                 cc.x = u.ux, cc.y = u.uy; /* take u_at() 'if' below */
                 break;
             case TT_BURIEDBALL:

@@ -2876,8 +2876,8 @@ observe_quantum_cat(struct obj *box, boolean makecat, boolean givemsg)
     } else {
         box->spe = 0; /* now an ordinary box (with a cat corpse inside) */
         if (givemsg)
-            pline("%s Внутри коробки мёртв!",
-                      Hallucination ? rndmonnam((char *) 0) : "Домашний кот");
+            pline(Hallucination ? "В коробке лежит что-то мёртвое!"
+                                : "В коробке лежит мёртвый кот!");
         if (deadcat) {
             /* set_corpsenm() will start the rot timer that was removed
                when makemon() created SchroedingersBox; start it from

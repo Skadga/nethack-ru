@@ -711,7 +711,7 @@ fall_through(
                 pline("Под вами зияющая дыра!");
         }
     } else
-        pline("%s Разрывается под вами!", surface(u.ux, u.uy));
+        pline("%s разрывается под вами!", surface(u.ux, u.uy));
 
     if (Sokoban && Can_fall_thru(&u.uz)) {
         ; /* KMH -- You can't escape the Sokoban level traps */
@@ -916,7 +916,7 @@ animate_statue(
                    : "статуя");
         pline("%s %s!", upstart(statuename), comes_to_life);
     } else if (Hallucination) { /* They don't know it's a statue */
-        pline("%s Вдруг оживает.", rndmonnam((char *) 0));
+        pline("%s вдруг оживает.", rndmonnam((char *) 0));
     } else if (cause == ANIMATE_SHATTER) {
         if (cansee(x, y))
             Sprintf(statuename, "%s%s", shk_your(tmpbuf, statue),
@@ -4835,14 +4835,14 @@ water_damage(
     } else if (Is_container(obj)
                && (!Waterproof_container(obj) || (obj->cursed && !rn2(3)))) {
         if (in_invent) {
-            pline("Немного %s попадает в ваш %s!", "воды", ostr);
+            pline("Немного воды попадает внутрь: %s намокает!", ostr);
             gm.mentioned_water = !Hallucination;
         }
         water_damage_chain(obj->cobj, FALSE);
         return ER_DAMAGED; /* contents were damaged */
     } else if (Waterproof_container(obj)) {
         if (in_invent && !Blind && !Underwater) {
-            pline("%s Не может попасть в ваш %s.", "Вода", ostr);
+            pline("Вода не может попасть внутрь: %s не промокает!", ostr);
             gm.mentioned_water = !Hallucination;
             makeknown(obj->otyp); /* if an oilskin sack, discover it; doesn't
                                    * matter for chest, large box, ice box */

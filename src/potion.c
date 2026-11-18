@@ -1641,7 +1641,7 @@ potionhit(struct monst *mon, struct obj *obj, int how)
     if (isyou) {
         tx = u.ux, ty = u.uy;
         distance = 0;
-        pline("%s Разбивается о вашей %s и рассыпается на осколки.", botlnam,
+        pline("%s разбивается о вашей %s и рассыпается на осколки.", botlnam,
                   body_part_case(HEAD, BP_PREP));
         losehp(Maybe_Half_Phys(rnd(2)),
                (how == POTHIT_OTHER_THROW) ? "брошенного зелья" /* scatter */
@@ -1674,7 +1674,7 @@ potionhit(struct monst *mon, struct obj *obj, int how)
                 Strcpy(buf, mnam);
             }
             Soundeffect(se_potion_crash_and_break, 60);
-            pline("%s Разбивается о %s и рассыпается на осколки.", botlnam,
+            pline("%s разбивается о %s и рассыпается на осколки.", botlnam,
                       buf);
         }
         if (rn2(5) && mon->mhp > 1 && !hit_saddle)

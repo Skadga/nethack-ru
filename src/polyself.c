@@ -984,7 +984,7 @@ polymon(int mntmp)
         reset_utrap(TRUE);
     } else if (likes_lava(gy.youmonst.data) && u.utrap
                && u.utraptype == TT_LAVA) {
-        pline("%s Теперь ощущается успокаивающе.", hliquid("lava"));
+        pline("%s теперь ощущается успокаивающе.", hliquid("lava"));
         reset_utrap(TRUE);
     }
     if (amorphous(gy.youmonst.data) || is_whirly(gy.youmonst.data)
@@ -1802,7 +1802,7 @@ dohide(void)
         if (IS_FOUNTAIN(levl[u.ux][u.uy].typ))
             pline("Фонтан недостаточно глубок, чтобы в нём спрятаться.");
         else
-            There("нет %s, в котором можно спрятаться.", hliquid("water"));
+            There("нет %s, в котором можно спрятаться.", hliquid("воды"));
         u.uundetected = 0;
         return ECMD_OK;
     }

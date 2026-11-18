@@ -241,7 +241,7 @@ trap_predicament(char *outbuf, int final, boolean wizxtra)
         Strcpy(outbuf, "привязаны к чему-то закопанному");
         break;
     case TT_LAVA:
-        Sprintf(outbuf, "тонете в %s", final ? "лаве" : hliquid("lava"));
+        Sprintf(outbuf, "тонете в %s", final ? "лаве" : hliquid("лаве"));
         break;
     case TT_INFLOOR:
         Sprintf(outbuf, "застряли в %s", the(surface(u.ux, u.uy)));

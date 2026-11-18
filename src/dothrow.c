@@ -1091,7 +1091,7 @@ hurtle(int dx, int dy, int range, boolean verbose)
         nomul(0);
         return;
     } else if (u.utrap) {
-        You("привязаны к %s.",
+        You("не можете сдвинуться: %s держит вас.",
             (u.utraptype == TT_WEB) ? "паутина"
             : (u.utraptype == TT_LAVA) ? hliquid("лава")
               : (u.utraptype == TT_INFLOOR) ? surface(u.ux, u.uy)

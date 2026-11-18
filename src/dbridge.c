@@ -770,10 +770,10 @@ do_entity(struct entity *etmp)
                 else
                     if (is_u(etmp))
                         pline("Вы падаете в %s.",
-                              lava ? hliquid("lava") : "ров");
+                              lava ? hliquid("лаву") : "ров");
                     else
                         pline("%s падает в %s.", Monnam(etmp->emon),
-                              lava ? hliquid("lava") : "ров");
+                              lava ? hliquid("лаву") : "ров");
             }
         svk.killer.format = NO_KILLER_PREFIX;
         Strcpy(svk.killer.name, "упал с разводного моста");
@@ -939,13 +939,13 @@ destroy_drawbridge(coordxy x, coordxy y)
         if (lev1->typ == DRAWBRIDGE_UP) {
             if (cansee(x2, y2) || u_at(x2, y2))
                 pline_The("решётка подъёмного моста падает в %s!",
-                          lava ? hliquid("lava") : "ров");
+                          lava ? hliquid("лаву") : "ров");
             else
                 You_hear("громкий *ВСПЛЕСК*!");  /* Deaf-aware */
         } else {
             if (cansee(x, y) || u_at(x, y))
                 pline_The("подъёмный мост обрушивается в %s!",
-                          lava ? hliquid("lava") : "ров");
+                          lava ? hliquid("лаву") : "ров");
             else
                 You_hear("громкий *ВСПЛЕСК*!");  /* Deaf-aware */
         }

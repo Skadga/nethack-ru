@@ -1012,7 +1012,7 @@ givit(int type, struct permonst *ptr)
     case FIRE_RES:
         debugpline0("Trying to give fire resistance");
         if (!(HFire_resistance & FROMOUTSIDE)) {
-            You(Hallucination ? "становится прохладно." : "чувствуете минутный озноб.");
+            You(Hallucination ? "чувствуете, что становится прохладно." : "чувствуете минутный озноб.");
             HFire_resistance |= FROMOUTSIDE;
         }
         break;

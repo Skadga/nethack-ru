@@ -1616,10 +1616,10 @@ trapmove(
                 u.utrap = 0;
                 if (u.usteed)
                     You("выводите %s на край %s.", steedname,
-                        hliquid("lava"));
+                        hliquid("лавы"));
                 else
                     You("подтягиваетесь к краю %s.",
-                        hliquid("lava"));
+                        hliquid("лавы"));
             }
         }
         u.umoved = TRUE;
@@ -2533,7 +2533,7 @@ avoid_moving_on_liquid(
         if (msg && flags.mention_walls) {
             set_msg_xy(x, y);
             You("останавливаетесь у края %s.",
-                hliquid(is_pool(x,y) ? "water" : "lava"));
+                hliquid(is_pool(x, y) ? "воды" : "лавы"));
         }
         return TRUE;
     }
@@ -3296,16 +3296,16 @@ pooleffects(
                 You("выскакиваете в воздушный пузырь.");
                 iflags.last_msg = PLNMSG_BACK_ON_GROUND;
             } else if (is_lava(u.ux, u.uy)) {
-                You("покидаете %s...", hliquid("water")); /* oops! */
+                You("покидаете %s...", hliquid("воду")); /* oops! */
             } else {
                 back_on_ground(FALSE);
             }
         } else if (Is_waterlevel(&u.uz)) {
             still_inwater = TRUE;
         } else if (Levitation) {
-            You("выскакиваете из %s, как пробка!", hliquid("water"));
+            You("выскакиваете из %s, как пробка!", hliquid("воды"));
         } else if (Flying) {
-            You("вылетаете из %s.", hliquid("water"));
+            You("вылетаете из %s.", hliquid("воды"));
         } else if (Wwalking) {
             You("медленно поднимаетесь над поверхностью.");
         } else {
@@ -3859,7 +3859,7 @@ pickup_checks(void)
         if (Wwalking || is_floater(gy.youmonst.data)
             || is_clinger(gy.youmonst.data) || (Flying && !Breathless)) {
             You("не можете нырнуть в %s, чтобы подобрать вещи.",
-                hliquid("water"));
+                hliquid("воду"));
             return 0;
         } else if (!Underwater) {
             You_cant("даже увидеть дно, не говоря уже о том, чтобы подобрать %s.", something);
@@ -3886,7 +3886,7 @@ pickup_checks(void)
         else if (IS_GRAVE(lev->typ))
             You("не нужен надгробный камень. Пока.");
         else if (IS_FOUNTAIN(lev->typ))
-            You("могли бы попить из %s...", hliquid("water"));
+            You("могли бы попить из %s...", hliquid("воды"));
         else if (IS_DOOR(lev->typ) && (lev->doormask & D_ISOPEN))
             pline("Она не снимается с петель.");
         else if (IS_ALTAR(lev->typ))

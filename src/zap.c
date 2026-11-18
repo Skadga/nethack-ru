@@ -2308,7 +2308,7 @@ bhito(struct obj *obj, struct obj *otmp)
                 if (break_statue(obj)) {
                     if (cansee(obj->ox, obj->oy)) {
                         if (Hallucination)
-                            pline("%s Разлетается вдребезги.", rndmonnam(NULL));
+                            pline("%s разлетается вдребезги.", rndmonnam(NULL));
                         else
                             pline("Статуя разлетается вдребезги.");
                     } else
@@ -4515,7 +4515,7 @@ zhitu(
                 (void) disintegrate_arm(uarmu);
         } else if (nonliving(gy.youmonst.data) || is_demon(gy.youmonst.data)) {
             shieldeff(sx, sy);
-            You("кажется, не затронуты.");
+            You("остаётесь не затронуты.");
             break;
         } else if (Antimagic) {
             shieldeff(sx, sy);
@@ -4550,11 +4550,11 @@ zhitu(
         break;
     case ZT_ACID:
         if (Acid_resistance) {
-            pline("%s Не причиняет вреда.", hliquid("acid"));
+            pline("%s не причиняет вреда.", hliquid("acid"));
             monstseesu(M_SEEN_ACID);
             dam = 0;
         } else {
-            pline("%s Обжигает!", hliquid("acid"));
+            pline("%s обжигает!", hliquid("acid"));
             dam = d(nd, 6);
             exercise(A_STR, FALSE);
             monstunseesu(M_SEEN_ACID);
@@ -5033,7 +5033,7 @@ dobuzz(
             if ((--range > 0 && isok(lsx, lsy) && cansee(lsx, lsy))
                 || fireball) {
                 if (Is_airlevel(&u.uz)) { /* nothing to bounce off of */
-                    pline("%s Исчезает в эфире!",
+                    pline("%s исчезает в эфире!",
                               flash_str(fltyp, FALSE));
                     if (fireball)
                         type = ZT_WAND(ZT_FIRE); /* skip pending fireball */
@@ -5043,7 +5043,7 @@ dobuzz(
                     sy = lsy;
                     break; /* fireballs explode before the obstacle */
                 } else
-                    pline("%s Отскакивает!", flash_str(fltyp, FALSE));
+                    pline("%s отскакивает!", flash_str(fltyp, FALSE));
             }
             bounce_dir(sx, sy, &dx, &dy, bchance);
             tmp_at(DISP_CHANGE, zapdir_to_glyph(dx, dy, hdmgtype));
@@ -5272,7 +5272,7 @@ zap_over_floor(
                 /* For now, don't let WATER freeze. */
                 Soundeffect(se_soft_crackling, 100);
                 if (see_it)
-                    pline("%s На миг замерзает.",
+                    pline("%s на миг замерзает.",
                               hliquid(lavawall ? "lava" : "water"));
                 else
                     You_hear("лёгкое потрескивание.");

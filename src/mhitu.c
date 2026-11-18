@@ -1064,15 +1064,24 @@ u_slip_free(
        protection might fail (33% chance) when the armor is cursed */
     if (obj && (obj->greased || obj->otyp == OILSKIN_CLOAK)
         && (!obj->cursed || rn2(3))) {
-        pline_mon(mtmp, "%s %s с ваших %s %s!", Monnam(mtmp),
-              (mattk->adtyp == AD_WRAP) ? "соскальзывает"
-                                        : "хватает вас, но не может удержать",
-              obj->greased ? "смазанных" : "скользких",
-              /* avoid "slippery slippery cloak"
-                 for undiscovered oilskin cloak */
-              (obj->greased || objects[obj->otyp].oc_name_known)
-                  ? xname(obj)
-                  : cloak_simple_name(obj));
+        {
+            char nbuf[BUFSZ];
+            const char *name
+                = (obj->greased || objects[obj->otyp].oc_name_known)
+                      ? xname(obj)
+                      : cloak_simple_name(obj);
+
+            /* "в смазке" avoids gender agreement; also avoids
+               "slippery slippery cloak" for undiscovered oilskin */
+            Snprintf(nbuf, sizeof nbuf, "%s%s", name,
+                     obj->greased ? " в смазке" : "");
+            pline_mon(mtmp, "%s %s, и %s соскальзывает с вас!",
+                      Monnam(mtmp),
+                      (mattk->adtyp == AD_WRAP)
+                          ? "хватает вас"
+                          : "хватает вас, но не может удержать",
+                      nbuf);
+        }
 
         if (obj->greased && !rn2(2)) {
             pline("Смазка стирается.");
@@ -1479,7 +1488,7 @@ gulpmu(struct monst *mtmp, struct attack *mattk)
             pline("Воздух вокруг вас потрескивает от электричества.");
             if (Shock_resistance) {
                 shieldeff(u.ux, u.uy);
-                You("кажется, невредимы.");
+                You("остаётесь невредимы.");
                 monstseesu(M_SEEN_ELEC);
                 ugolemeffects(AD_ELEC, tmp);
                 tmp = 0;
@@ -1620,7 +1629,7 @@ explmu(
                 if (!Blind)
                     Your1(vision_clears);
             } else if (flags.verbose)
-                You("складывается впечатление, что оно было не слишком ярким.");
+                pline("Складывается впечатление, что оно было не слишком ярким.");
         }
         break;
     case AD_HALU:
@@ -1636,7 +1645,7 @@ explmu(
             kill_agr = FALSE; /* already killed (maybe lifesaved) */
             chg =
                 make_hallucinated(HHallucination + (long) tmp, FALSE, 0L);
-            You("%s.", chg ? "вы перепуганы" : "кажется, не затронуты");
+            You("%s.", chg ? "перепуганы" : "остаётесь не затронуты");
         }
         break;
     default:
@@ -1644,7 +1653,7 @@ explmu(
         break;
     }
     if (not_affected) {
-        You("кажется, не затронуты этим.");
+        You("остаётесь не затронуты этим.");
         ugolemeffects((int) mattk->adtyp, tmp);
     }
     if (kill_agr && !DEADMONSTER(mtmp))
@@ -2106,9 +2115,9 @@ doseduce(struct monst *mon)
                  : naked ? "шепчет нежности вам на ухо"
                    : "шепчет вам на ухо",
                  naked ? "" : ", помогая вам раздеться");
-    mayberem(mon, Who, uarmc, cloak_simple_name(uarmc));
+    mayberem(mon, Who, uarmc, cloak_case(uarmc, BP_ACC));
     if (!uarmc)
-        mayberem(mon, Who, uarm, suit_simple_name(uarm));
+        mayberem(mon, Who, uarm, suit_case(uarm, BP_ACC));
     mayberem(mon, Who, uarmf, "ботинки");
     if (!tried_gloves)
         mayberem(mon, Who, uarmg, "перчатки");
@@ -2213,7 +2222,7 @@ doseduce(struct monst *mon)
         } /* switch */
     } else {
         mon->mspec_used = rnd(100); /* monster is worn out */
-        You("кажется, получили больше удовольствия, чем %s...", noit_mon_nam(mon));
+        You("получили, кажется, больше удовольствия, чем %s...", noit_mon_nam(mon));
         switch (rn2(5)) {
         case 0:
             You_feel("себя полностью реализованным.");
@@ -2322,7 +2331,7 @@ mayberem(struct monst *mon,
         char hairbuf[BUFSZ];
 
         Sprintf(hairbuf, "дать мне провести пальцами по вашим %s",
-                body_part_case(HAIR, BP_PREP));
+                body_part_case(HAIR, BP_DAT));
         SetVoice(mon, 0, 80, 0);
         verbalize("Снимите с себя %s; %s.", str,
                   (obj == uarm)
@@ -2457,7 +2466,7 @@ passiveum(
                   /* temporary? hack for sequencing issue:  "your acid"
                      looks strange coming immediately after player has
                      been told that hero has reverted to normal form */
-                  !Upolyd ? "" : "вашей ", hliquid("кислота"));
+                  !Upolyd ? "" : "вашей ", hliquid("кислотой"));
             if (resists_acid(mtmp)) {
                 pline_mon(mtmp, "%s не затронут.", Monnam(mtmp));
                 tmp = 0;

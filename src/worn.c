@@ -1316,13 +1316,12 @@ mon_break_armor(struct monst *mon, boolean polyspot)
             noride = TRUE;
     }
     if (noride || (mon == u.usteed && !can_ride(mon))) {
-        You("больше не может ездить на %s.", mon_nam(mon));
+        You("больше не можете ездить на %s.", mon_gen(mon, BP_PREP));
         if (touch_petrifies(u.usteed->data) && !Stone_resistance && rnl(3)) {
             char buf[BUFSZ];
 
-            You("касается %s.", mon_nam(u.usteed));
-            Sprintf(buf, "падает с %s",
-                    an(pmname(u.usteed->data, Mgender(u.usteed))));
+            You("касаетесь %s.", mon_gen(u.usteed, BP_GEN));
+            Sprintf(buf, "падает с %s", mon_gen(u.usteed, BP_GEN));
             instapetrify(buf);
         }
         dismount_steed(DISMOUNT_FELL);

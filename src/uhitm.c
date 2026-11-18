@@ -2775,7 +2775,7 @@ mhitm_ad_acid(
         if (!magr->mcan && !rn2(3))
             if (Acid_resistance) {
                 pline("Вы покрыты %s, но это кажется безвредным.",
-                      hliquid("acid"));
+                      hliquid("кислотой"));
                 monstseesu(M_SEEN_ACID);
                 mhm->damage = 0;
             } else {
@@ -2794,11 +2794,11 @@ mhitm_ad_acid(
         if (resists_acid(mdef) || defended(mdef, AD_ACID)) {
             if (gv.vis && canseemon(mdef))
                 pline("%s покрыт %s, но это кажется безвредным.",
-                      Monnam(mdef), hliquid("acid"));
+                      Monnam(mdef), hliquid("кислотой"));
             mhm->damage = 0;
         } else if (gv.vis && canseemon(mdef)) {
-            pline_mon(mdef, "%s покрыт %s!", Monnam(mdef), hliquid("acid"));
-            pline("Оно жжёт %s!", mon_nam(mdef));
+            pline_mon(mdef, "%s покрыт %s!", Monnam(mdef), hliquid("кислотой"));
+            pline("Она жжёт %s!", mon_gen(mdef, BP_ACC));
         }
         if (!rn2(30))
             erode_armor(mdef, ERODE_CORRODE);
@@ -5935,7 +5935,7 @@ passive(
                 You("обрызганы!");
             else
                 You("обрызганы %s %s!", mhis(mon),
-                    hliquid("acid"));
+                    hliquid("кислотой"));
 
             if (!Acid_resistance) {
                 mdamageu(mon, tmp);

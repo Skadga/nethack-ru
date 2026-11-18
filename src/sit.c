@@ -487,7 +487,7 @@ dosit(void)
                 u.utrap += rn1(10, 5);
             } else if (u.utraptype == TT_LAVA) {
                 /* Must have fire resistance or they'd be dead already */
-                You("садитесь в %s!", hliquid("lava"));
+                You("садитесь в %s!", hliquid("лаву"));
                 if (Slimed)
                     burn_away_slime();
                 u.utrap += rnd(4);
@@ -513,7 +513,7 @@ dosit(void)
             You("садитесь на илистое дно.");
     } else if (is_pool(u.ux, u.uy) && !eggs_in_water(gy.youmonst.data)) {
  in_water:
-        You("садитесь в %s.", hliquid("water"));
+        You("садитесь в %s.", hliquid("воду"));
         if (Upolyd && u.umonnum == PM_GREMLIN) {
             if (split_mon(&gy.youmonst, (struct monst *) 0)) {
                 if (levl[u.ux][u.uy].typ == FOUNTAIN)
@@ -543,13 +543,13 @@ dosit(void)
         You(sit_message, "лестницу");
     } else if (is_lava(u.ux, u.uy)) {
         /* must be WWalking */
-        You(sit_message, hliquid("лава"));
+        You(sit_message, hliquid("лаву"));
         burn_away_slime();
         if (likes_lava(gy.youmonst.data)) {
-            pline("%s Тёплая.", hliquid("lava"));
+            pline("%s тёплая.", hliquid("Лава"));
             return ECMD_TIME;
         }
-        pline("%s Обжигает вас!", hliquid("lava"));
+        pline("%s обжигает вас!", hliquid("Лава"));
         losehp(d((Fire_resistance ? 2 : 10), 10), /* lava damage */
                "сиденья на лаве", KILLED_BY);
     } else if (is_ice(u.ux, u.uy)) {

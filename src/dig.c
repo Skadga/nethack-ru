@@ -860,7 +860,7 @@ liquid_flow(
     unearth_objs(x, y);
 
     if (fillmsg)
-        pline(fillmsg, hliquid(typ == LAVAPOOL ? "lava" : "water"));
+        pline(fillmsg, hliquid(typ == LAVAPOOL ? "лавой" : "водой"));
     /* handle object damage before hero damage; affects potential bones */
     if ((objchain = svl.level.objects[x][y]) != 0) {
         if (typ == LAVAPOOL)

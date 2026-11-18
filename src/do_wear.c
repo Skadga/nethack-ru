@@ -1837,7 +1837,7 @@ dotakeoff(void)
     if (!Narmorpieces && !Naccessories) {
         /* assert( GRAY_DRAGON_SCALES > YELLOW_DRAGON_SCALE_MAIL ); */
         if (uskin)
-            pline("%s Срослись с вашей кожей!",
+            pline("%s Срослась с вашей кожей!",
                       uskin->otyp >= GRAY_DRAGON_SCALES
                           ? "Чешуя дракона"
                           : "Кольчуга из чешуи дракона");
@@ -1908,7 +1908,7 @@ cursed(struct obj *otmp)
             pline("Несмотря на ваши скользкие %s, вы не можете.",
                   fingers_or_gloves(TRUE, BP_NOM));
         else
-            You("не можете.  %s проклято.", use_plural ? "Они" : "Оно");
+            You("не можете.  %s.", use_plural ? "Они прокляты" : "Оно проклято");
         set_bknown(otmp, 1);
         return 1;
     }
@@ -2051,7 +2051,7 @@ canwearobj(struct obj *otmp, long *mask, boolean noisy)
                 : !WrappingAllowed(gy.youmonst.data)))
         && (racial_exception(&gy.youmonst, otmp) < 1)) {
         if (noisy)
-            pline("%s Не подойдёт вашему телу.", which);
+            pline("Это не подходит вашему телу.");
         return 0;
     } else if (otmp->owornmask & W_ARMOR) {
         if (noisy)

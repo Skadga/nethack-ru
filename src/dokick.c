@@ -1448,7 +1448,7 @@ dokick(void)
     if ((is_pool(x, y) || gm.maploc->typ == LAVAWALL) ^ !!u.uinwater) {
         /* objects normally can't be removed from water by kicking */
         You("разбрызгиваете %s вокруг.",
-            hliquid(is_pool(x, y) ? "water" : "lava"));
+            hliquid(is_pool(x, y) ? "воду" : "лаву"));
         /* pretend the kick is fast enough for lava not to burn */
         return ECMD_TIME;
     }

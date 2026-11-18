@@ -442,8 +442,8 @@ invault(void)
         }
         spotted = canspotmon(guard);
         if (spotted) {
-            pline("Внезапно входит один из %s Хранилища!",
-                  makeplural(pmname(guard->data, Mgender(guard))));
+            pline("Внезапно входит %s Хранилища!",
+                  pmname(guard->data, Mgender(guard)));
             newsym(guard->mx, guard->my);
         } else {
             pline("Кто-то ещё вошёл в Хранилище.");

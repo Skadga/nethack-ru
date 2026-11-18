@@ -935,8 +935,7 @@ use_defensive(struct monst *mtmp)
             if (t_at(mtmp->mx, mtmp->my)
                 || !(t = maketrap(mtmp->mx, mtmp->my, PIT))) {
                 if (vismon) {
-                    pline("%s Здесь слишком твёрдый, чтобы копать.",
-                              surface(mtmp->mx, mtmp->my));
+                    pline("Здесь слишком твёрдо, чтобы копать.");
                 }
                 return 2;
             }

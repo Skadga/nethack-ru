@@ -608,12 +608,12 @@ dosinkring(struct obj *obj)
             pline("–аковина на мгновение сливаетс€ с полом.");
             break;
         case RIN_FIRE_RESISTANCE:
-            pline("√ор€чий %s кран €рко вспыхивает на мгновение.",
-                      hliquid("water"));
+            pline(" ран с гор€чей %s €рко вспыхивает на мгновение.",
+                      hliquid("водой"));
             break;
         case RIN_COLD_RESISTANCE:
-            pline("’олодный %s кран €рко вспыхивает на мгновение.",
-                      hliquid("water"));
+            pline(" ран с холодной %s €рко вспыхивает на мгновение.",
+                      hliquid("водой"));
             break;
         case RIN_PROTECTION_FROM_SHAPE_CHAN:
             pline("–аковина совсем не похожа на фонтан.");
@@ -2156,7 +2156,7 @@ revive_corpse(struct obj *corpse)
         switch (where) {
         case OBJ_INVENT:
             if (is_uwep)
-                pline("%s ¬ырываетс€ из вашей хватки!", cname);
+                pline("%s вырываетс€ из вашей хватки!", cname);
             else
                 You_feel("что-то извиваетс€ в вашем рюкзаке!");
             break;

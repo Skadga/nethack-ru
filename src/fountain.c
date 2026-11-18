@@ -350,7 +350,7 @@ drinkfountain(void)
             break;
         case 26: /* See Monsters */
             if (monster_detect((struct obj *) 0, 0))
-                pline("%s На вкус ничего не имеет.", hliquid("Вода"));
+                pline("%s на вкус ничего не имеет.", hliquid("Вода"));
             exercise(A_WIS, TRUE);
             break;
         case 27: /* Find a gem in the sparkling waters. */
@@ -466,7 +466,7 @@ dipfountain(struct obj *obj)
     case 20: /* Uncurse the item */
         if (!is_hands && obj->cursed) {
             if (!Blind)
-                pline("%s Светится мгновение.", hliquid("Вода"));
+                pline("%s светится мгновение.", hliquid("Вода"));
             uncurse(obj);
         } else {
             pline("Чувство утраты охватывает вас.");
@@ -562,7 +562,7 @@ wash_hands(void)
     boolean was_glib = !!Glib;
 
     You("моете свои %s%s в %s.", hands,
-        uarmg ? " в перчатках" : "", hliquid("вода"));
+        uarmg ? " в перчатках" : "", hliquid("воде"));
     if (Glib) {
         make_glib(0);
         Your("%s больше не скользкие.", fingers_or_gloves(TRUE, BP_NOM));
@@ -603,13 +603,13 @@ drinksink(void)
     }
     switch (rn2(20)) {
     case 0:
-        You("делаете глоток очень холодной %s.", hliquid("вода"));
+        You("делаете глоток очень холодной %s.", hliquid("воды"));
         break;
     case 1:
-        You("делаете глоток очень тёплой %s.", hliquid("вода"));
+        You("делаете глоток очень тёплой %s.", hliquid("воды"));
         break;
     case 2:
-        You("делаете глоток обжигающе горячей %s.", hliquid("вода"));
+        You("делаете глоток обжигающе горячей %s.", hliquid("воды"));
         if (Fire_resistance) {
             pline("Кажется довольно вкусным.");
             monstseesu(M_SEEN_FIRE);
@@ -663,7 +663,7 @@ drinksink(void)
         breaksink(u.ux, u.uy);
         break;
     case 7:
-        pline("%s Движется так, будто по своей воле!", hliquid("Вода"));
+        pline("%s движется так, будто по своей воле!", hliquid("Вода"));
         if ((svm.mvitals[PM_WATER_ELEMENTAL].mvflags & G_GONE)
             || !makemon(&mons[PM_WATER_ELEMENTAL], u.ux, u.uy, MM_NOMSG))
             pline("Но она успокаивается.");
@@ -708,7 +708,7 @@ drinksink(void)
     default:
         You("делаете глоток %s %s.",
             rn2(3) ? (rn2(2) ? "холодной" : "тёплой") : "горячей",
-            hliquid("вода"));
+            hliquid("воды"));
     }
 }
 

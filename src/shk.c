@@ -6085,11 +6085,11 @@ globby_bill_fixup(struct obj *obj_absorber, struct obj *obj_absorbed)
                     Your("Ваш долг погашен.");
                 }
                 if (eshkp->credit == delta)
-                    pline("%s Устанавливает кредит в %ld %s.",
+                    pline("%s устанавливает кредит в %ld %s.",
                               obj_typename(obj_absorbed->otyp),
                               delta, currency(delta));
                 else
-                    pline("%s Добавил %ld %s %s %ld %s.",
+                    pline("%s добавил %ld %s %s %ld %s.",
                               obj_typename(obj_absorbed->otyp),
                               delta, currency(delta),
                               "К вашему кредиту; теперь итого ",
