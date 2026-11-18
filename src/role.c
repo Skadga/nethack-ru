@@ -1591,16 +1591,15 @@ build_plselection_prompt(
     if (buflen < QBUFSZ)
         return (char *) defprompt;
 
-    Strcpy(tmpbuf, "Подобрать ");
-    if (racenum != ROLE_NONE || validrole(rolenum))
-        Strcat(tmpbuf, "ваш ");
-    else
-        Strcat(tmpbuf, "некоего ");
-    /* <your> */
-
-    (void) root_plselection_prompt(eos(tmpbuf), buflen - Strlen(tmpbuf),
-                                   rolenum, racenum, gendnum, alignnum);
-    Strcpy(buf, tmpbuf); /* RU translation: no possessive */
+    /* RU: the description goes after a colon, without a possessive */
+    (void) root_plselection_prompt(buf, buflen, rolenum, racenum, gendnum,
+                                   alignnum);
+    Strcpy(tmpbuf, "Подобрать персонажа для вас");
+    if (buf[0]) {
+        Strcat(tmpbuf, ": ");
+        Strcat(tmpbuf, buf);
+    }
+    Strcpy(buf, tmpbuf);
     /* don't bother splitting caveman/cavewoman or priest/priestess
        in order to apply possessive suffix to both halves, but do
        change "priest/priestess'" to "priest/priestess's" */
@@ -1632,7 +1631,7 @@ build_plselection_prompt(
     if (num_post_attribs) {
         if (gr.role_pa[BP_RACE]) {
             (void) promptsep(eos(buf), num_post_attribs);
-            Strcat(buf, "расу");
+            Strcat(buf, "раса");
         }
         if (gr.role_pa[BP_ROLE]) {
             (void) promptsep(eos(buf), num_post_attribs);
@@ -1647,7 +1646,7 @@ build_plselection_prompt(
             Strcat(buf, "мировоззрение");
         }
     }
-    Strcat(buf, " для вас? [ynaq] ");
+    Strcat(buf, "? [ynaq] ");
     return buf;
 }
 
@@ -1828,7 +1827,7 @@ role_menu_extra(int which, winid where, boolean preselect)
     c = flags.initrace;
     switch (which) {
     case RS_NAME:
-        what = "name";
+        what = "имя";
         break;
     case RS_ROLE:
         what = "класс";
@@ -1837,7 +1836,7 @@ role_menu_extra(int which, winid where, boolean preselect)
             if (i != f && !gr.rfilter.roles[i])
                 break;
         if (i == SIZE(roles) - 1) {
-            constrainer = "filter";
+            constrainer = "настройки";
             forcedvalue = "класс";
         }
         break;
@@ -1856,8 +1855,8 @@ role_menu_extra(int which, winid where, boolean preselect)
                                   == races[f].selfmask)) {
                 /* if there is only one race choice available due to user
                    options disallowing others, race menu entry is disabled */
-                constrainer = "filter";
-                forcedvalue = "расу";
+                constrainer = "настройки";
+                forcedvalue = "раса";
             }
         }
         break;
@@ -1873,12 +1872,12 @@ role_menu_extra(int which, winid where, boolean preselect)
                 gend = 1; /* genders[female] */
             if (gend >= 0) {
                 constrainer = "класс";
-                forcedvalue = genders[gend].adj;
+                forcedvalue = (gend == 1) ? "женщина" : "мужчина";
             } else if (f >= 0 && ((allowmask & ~gr.rfilter.mask)
                                   == genders[f].allow)) {
                 /* if there is only one gender choice available due to user
                    options disallowing other, gender menu entry is disabled */
-                constrainer = "filter";
+                constrainer = "настройки";
                 forcedvalue = "пол";
             }
         }
@@ -1913,11 +1912,11 @@ role_menu_extra(int which, winid where, boolean preselect)
             && (ROLE_ALIGNMASK & ~gr.rfilter.mask) == aligns[f].allow) {
             /* if there is only one alignment choice available due to user
                options disallowing others, algn menu entry is disabled */
-            constrainer = "filter";
+            constrainer = "настройки";
             forcedvalue = "мировоззрение";
         }
         if (a >= 0)
-            forcedvalue = aligns[a].adj;
+            forcedvalue = aligns[a].noun;
         break;
     }
 
@@ -1925,7 +1924,7 @@ role_menu_extra(int which, winid where, boolean preselect)
     if (constrainer) {
         any.a_int = 0;
         /* use four spaces of padding to fake a grayed out menu choice */
-        Sprintf(buf, "%4s%s вынуждает %s", "", constrainer, forcedvalue);
+        Sprintf(buf, "%4sЗадано (%s): %s", "", constrainer, forcedvalue);
         add_menu_str(where, buf);
     } else if (what) {
         any.a_int = RS_menu_arg(which);
