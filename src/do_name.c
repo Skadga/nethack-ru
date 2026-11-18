@@ -2076,6 +2076,463 @@ ru_gen_fallback(const char *nom)
     return out;
 }
 
+/* RU localization: generic case inflection for object and item names
+   ("длинный меч" -> "длинного меча", "ваш мешок" -> "вашего мешка",
+   "пара сапог" -> "пары сапог").  Handles the singular and the common
+   plural; irregular nouns, feminine soft-sign nouns and indeclinables
+   are listed explicitly.  Words which cannot be inflected stay in the
+   nominative. */
+
+staticfn boolean
+ru_case_is_adj(const char *w)
+{
+    static const char *suf[] = { "ый", "ий", "ой", "ая", "яя",
+                                 "ое", "ее", "ые", "ие" };
+    size_t n = strlen(w), i;
+
+    for (i = 0; i < SIZE(suf); i++)
+        if (n > 2 && !strcmp(w + n - 2, suf[i]))
+            return TRUE;
+    return FALSE;
+}
+
+staticfn boolean
+ru_case_is_pron(const char *w)
+{
+    static const char *pron[] = { "ваш", "ваша", "ваше", "ваши",
+                                  "мой", "моя", "моё", "мои",
+                                  "этот", "эта", "это", "эти",
+                                  "тот", "та", "то", "те" };
+    size_t i;
+
+    for (i = 0; i < SIZE(pron); i++)
+        if (!strcmp(w, pron[i]))
+            return TRUE;
+    return FALSE;
+}
+
+staticfn boolean
+ru_case_is_ie_noun(const char *w)
+{
+    static const char *nouns[] = {
+        "надгробие", "здание", "сооружение", "изваяние", "покрытие",
+        "изделие", "умение", "знание", "строение", "творение"
+    };
+    size_t i;
+
+    for (i = 0; i < SIZE(nouns); i++)
+        if (!strcmp(w, nouns[i]))
+            return TRUE;
+    return FALSE;
+}
+
+staticfn boolean
+ru_case_is_invariant(const char *w)
+{
+    static const char *inv[] = {
+        "очень", "почти", "чуть", "едва", "слишком", "совсем",
+        "немного", "слегка", "полностью", "наполовину", "вновь",
+        "его", "её", "ее", "их",
+        "пальто", "какао", "метро", "кино", "радио", "пианино",
+        "драже", "желе", "меню", "шоссе", "ателье", "резюме",
+        "интервью", "алоэ", "табло", "депо", "эскимо", "киви",
+        "кофе", "такси", "жюри", "пони", "кенгуру", "шимпанзе",
+        "какаду", "эму", "салями", "спагетти"
+    };
+    size_t i;
+
+    for (i = 0; i < SIZE(inv); i++)
+        if (!strcmp(w, inv[i]))
+            return TRUE;
+    return FALSE;
+}
+
+staticfn boolean
+ru_case_is_fem_soft(const char *w)
+{
+    static const char *fem[] = {
+        "соль", "мышь", "дверь", "ночь", "часть", "смерть", "лошадь",
+        "кровать", "цепь", "сеть", "тень", "печь", "вещь", "помощь",
+        "кровь", "обувь", "морковь", "сталь", "медь", "пыль", "нить",
+        "ртуть", "плоть", "бровь", "ветвь", "пасть", "масть", "дробь",
+        "прорубь", "грязь", "гроздь", "кость", "кисть", "власть"
+    };
+    size_t n = strlen(w), i;
+
+    for (i = 0; i < SIZE(fem); i++)
+        if (!strcmp(w, fem[i]))
+            return TRUE;
+    if (n > 4 && (!strcmp(w + n - 4, "ость") || !strcmp(w + n - 4, "есть")
+                  || !strcmp(w + n - 4, "асть")))
+        return TRUE;
+    return FALSE;
+}
+
+staticfn void
+ru_case_pron(const char *w, int cs, char *out)
+{
+    static const char *const tbl[][6] = {
+        { "ваш", "вашего", "вашему", "ваш", "вашим", "вашем" },
+        { "ваша", "вашей", "вашей", "вашу", "вашей", "вашей" },
+        { "ваше", "вашего", "вашему", "ваше", "вашим", "вашем" },
+        { "ваши", "ваших", "вашим", "ваши", "вашими", "ваших" },
+        { "мой", "моего", "моему", "мой", "моим", "моём" },
+        { "моя", "моей", "моей", "мою", "моей", "моей" },
+        { "моё", "моего", "моему", "моё", "моим", "моём" },
+        { "мои", "моих", "моим", "мои", "моими", "моих" },
+        { "этот", "этого", "этому", "этот", "этим", "этом" },
+        { "эта", "этой", "этой", "эту", "этой", "этой" },
+        { "это", "этого", "этому", "это", "этим", "этом" },
+        { "эти", "этих", "этим", "эти", "этими", "этих" },
+        { "тот", "того", "тому", "тот", "тем", "том" },
+        { "та", "той", "той", "ту", "той", "той" },
+        { "то", "того", "тому", "то", "тем", "том" },
+        { "те", "тех", "тем", "те", "теми", "тех" },
+    };
+    size_t i;
+
+    for (i = 0; i < SIZE(tbl); i++)
+        if (!strcmp(tbl[i][0], w)) {
+            Strcpy(out, tbl[i][cs]);
+            return;
+        }
+    Strcpy(out, w);
+}
+
+staticfn void
+ru_case_adj(const char *w, int cs, char *out)
+{
+    static const char *const yj[6] = { "ый", "ого", "ому", "ый", "ым", "ом" };
+    static const char *const ijh[6] = { "ий", "ого", "ому", "ий", "им", "ом" };
+    static const char *const ijs[6] = { "ий", "его", "ему", "ий", "им", "ем" };
+    static const char *const oj[6] = { "ой", "ого", "ому", "ой", "ым", "ом" };
+    static const char *const aja[6] = { "ая", "ой", "ой", "ую", "ой", "ой" };
+    static const char *const ajas[6] = { "ая", "ей", "ей", "ую", "ей", "ей" };
+    static const char *const jaja[6] = { "яя", "ей", "ей", "юю", "ей", "ей" };
+    static const char *const oe[6] = { "ое", "ого", "ому", "ое", "ым", "ом" };
+    static const char *const ee[6] = { "ее", "его", "ему", "ее", "им", "ем" };
+    static const char *const ye[6] = { "ые", "ых", "ым", "ые", "ыми", "ых" };
+    static const char *const ie[6] = { "ие", "их", "им", "ие", "ими", "их" };
+    const char *end = 0;
+    size_t n = strlen(w), cut = n;
+    char p;
+
+    if (n > 2 && !strcmp(w + n - 2, "ый")) {
+        cut = n - 2, end = yj[cs];
+    } else if (n > 2 && !strcmp(w + n - 2, "ий")) {
+        cut = n - 2;
+        p = w[n - 3];
+        end = (p == 'к' || p == 'г' || p == 'х') ? ijh[cs] : ijs[cs];
+    } else if (n > 2 && !strcmp(w + n - 2, "ой")) {
+        cut = n - 2;
+        p = w[n - 3];
+        end = (cs == BP_INS
+               && (p == 'г' || p == 'к' || p == 'х' || p == 'ж'
+                   || p == 'ч' || p == 'ш' || p == 'щ'))
+              ? "им" : oj[cs];
+    } else if (n > 2 && !strcmp(w + n - 2, "ая")) {
+        cut = n - 2;
+        p = w[n - 3];
+        if (!strcmp(w, "большая"))
+            end = aja[cs];
+        else if (p == 'ж' || p == 'ч' || p == 'ш' || p == 'щ' || p == 'ц')
+            end = ajas[cs];
+        else
+            end = aja[cs];
+    } else if (n > 2 && !strcmp(w + n - 2, "яя")) {
+        cut = n - 2, end = jaja[cs];
+    } else if (n > 2 && !strcmp(w + n - 2, "ое")) {
+        cut = n - 2, end = oe[cs];
+    } else if (n > 2 && !strcmp(w + n - 2, "ее")) {
+        cut = n - 2, end = ee[cs];
+    } else if (n > 2 && !strcmp(w + n - 2, "ые")) {
+        cut = n - 2, end = ye[cs];
+    } else if (n > 2 && !strcmp(w + n - 2, "ие")) {
+        cut = n - 2, end = ie[cs];
+    }
+    if (!end) {
+        Strcpy(out, w);
+        return;
+    }
+    Sprintf(out, "%.*s%s", (int) cut, w, end);
+}
+
+staticfn void
+ru_case_noun(const char *w, int cs, char *out)
+{
+    static const char *const irr_nom[] = {
+        "время", "пламя", "знамя", "семя", "бремя", "племя", "темя",
+        "стремя", "вымя", "имя", "камень", "ремень", "кремень",
+        "стебель", "ноготь", "локоть", "коготь", "день", "огонь",
+        "угол", "уголь", "ветер", "сон", "человек", "ребёнок",
+        "пёс", "лев", "орёл", "посол", "ковёр", "лёд", "лён",
+        "пень", "путь", "мать", "дочь", "дитя",
+        "мешок", "замок", "горшок", "свиток", "свисток", "поводок",
+        "паёк", "прыжок", "трезубец", "рубец", "морковь"
+    };
+    static const char *const irr_form[][6] = {
+        { "время", "времени", "времени", "время", "временем", "времени" },
+        { "пламя", "пламени", "пламени", "пламя", "пламенем", "пламени" },
+        { "знамя", "знамени", "знамени", "знамя", "знаменем", "знамени" },
+        { "семя", "семени", "семени", "семя", "семенем", "семени" },
+        { "бремя", "бремени", "бремени", "бремя", "бременем", "бремени" },
+        { "племя", "племени", "племени", "племя", "племенем", "племени" },
+        { "темя", "темени", "темени", "темя", "теменем", "темени" },
+        { "стремя", "стремени", "стремени", "стремя", "стременем",
+          "стремени" },
+        { "вымя", "вымени", "вымени", "вымя", "выменем", "вымени" },
+        { "имя", "имени", "имени", "имя", "именем", "имени" },
+        { "камень", "камня", "камню", "камень", "камнем", "камне" },
+        { "ремень", "ремня", "ремню", "ремень", "ремнем", "ремне" },
+        { "кремень", "кремня", "кремню", "кремень", "кремнем", "кремне" },
+        { "стебель", "стебля", "стеблю", "стебель", "стеблем", "стебле" },
+        { "ноготь", "ногтя", "ногтю", "ноготь", "ногтем", "ногте" },
+        { "локоть", "локтя", "локтю", "локоть", "локтем", "локте" },
+        { "коготь", "когтя", "когтю", "коготь", "когтем", "когте" },
+        { "день", "дня", "дню", "день", "днём", "дне" },
+        { "огонь", "огня", "огню", "огонь", "огнём", "огне" },
+        { "угол", "угла", "углу", "угол", "углом", "угле" },
+        { "уголь", "угля", "углю", "уголь", "углём", "угле" },
+        { "ветер", "ветра", "ветру", "ветер", "ветром", "ветре" },
+        { "сон", "сна", "сну", "сон", "сном", "сне" },
+        { "человек", "человека", "человеку", "человека", "человеком",
+          "человеке" },
+        { "ребёнок", "ребёнка", "ребёнку", "ребёнка", "ребёнком",
+          "ребёнке" },
+        { "пёс", "пса", "псу", "пса", "псом", "псе" },
+        { "лев", "льва", "льву", "льва", "львом", "льве" },
+        { "орёл", "орла", "орлу", "орла", "орлом", "орле" },
+        { "посол", "посла", "послу", "посла", "послом", "после" },
+        { "ковёр", "ковра", "ковру", "ковёр", "ковром", "ковре" },
+        { "лёд", "льда", "льду", "лёд", "льдом", "льде" },
+        { "лён", "льна", "льну", "лён", "льном", "льне" },
+        { "пень", "пня", "пню", "пень", "пнем", "пне" },
+        { "путь", "пути", "пути", "путь", "путём", "пути" },
+        { "мать", "матери", "матери", "мать", "матерью", "матери" },
+        { "дочь", "дочери", "дочери", "дочь", "дочерью", "дочери" },
+        { "дитя", "дитяти", "дитяти", "дитя", "дитятей", "дитяти" },
+        { "мешок", "мешка", "мешку", "мешок", "мешком", "мешке" },
+        { "замок", "замка", "замку", "замок", "замком", "замке" },
+        { "горшок", "горшка", "горшку", "горшок", "горшком", "горшке" },
+        { "свиток", "свитка", "свитку", "свиток", "свитком", "свитке" },
+        { "свисток", "свистка", "свистку", "свисток", "свистком",
+          "свистке" },
+        { "поводок", "поводка", "поводку", "поводок", "поводком",
+          "поводке" },
+        { "паёк", "пайка", "пайку", "паёк", "пайком", "пайке" },
+        { "прыжок", "прыжка", "прыжку", "прыжок", "прыжком", "прыжке" },
+        { "трезубец", "трезубца", "трезубцу", "трезубец", "трезубцем",
+          "трезубце" },
+        { "рубец", "рубца", "рубцу", "рубец", "рубцом", "рубце" },
+        { "морковь", "моркови", "моркови", "морковь", "морковью",
+          "моркови" },
+    };
+    const char *end = 0;
+    size_t n, i, cut = 0;
+    char p;
+
+    for (i = 0; i < SIZE(irr_nom); i++)
+        if (!strcmp(w, irr_nom[i])) {
+            Strcpy(out, irr_form[i][cs]);
+            return;
+        }
+    if (ru_case_is_invariant(w)) {
+        Strcpy(out, w);
+        return;
+    }
+    n = strlen(w);
+    if (n < 2) {
+        Strcpy(out, w);
+        return;
+    }
+    p = w[n - 2];
+
+    if (n > 2 && !strcmp(w + n - 2, "ие")) {
+        cut = n - 2;
+        end = (cs == BP_GEN) ? "ия" : (cs == BP_DAT) ? "ию"
+              : (cs == BP_ACC) ? "ие" : (cs == BP_INS) ? "ием" : "ии";
+    } else if (w[n - 1] == 'а') {
+        cut = n - 1;
+        if (cs == BP_GEN)
+            end = (p == 'г' || p == 'к' || p == 'х' || p == 'ж' || p == 'ч'
+                   || p == 'ш' || p == 'щ') ? "и" : "ы";
+        else if (cs == BP_DAT)
+            end = "е";
+        else if (cs == BP_ACC)
+            end = "у";
+        else if (cs == BP_INS)
+            end = (p == 'ж' || p == 'ч' || p == 'ш' || p == 'щ'
+                   || p == 'ц') ? "ей" : "ой";
+        else
+            end = "е";
+    } else if (n > 2 && !strcmp(w + n - 2, "ия")) {
+        cut = n - 2;
+        end = (cs == BP_ACC) ? "ию" : (cs == BP_INS) ? "ией" : "ии";
+    } else if (w[n - 1] == 'я') {
+        cut = n - 1;
+        end = (cs == BP_GEN) ? "и" : (cs == BP_DAT) ? "е"
+              : (cs == BP_ACC) ? "ю" : (cs == BP_INS) ? "ей" : "е";
+    } else if (w[n - 1] == 'ь' && ru_case_is_fem_soft(w)) {
+        cut = n - 1;
+        end = (cs == BP_GEN || cs == BP_DAT || cs == BP_PREP) ? "и"
+              : (cs == BP_ACC) ? "ь" : "ью";
+    } else if (w[n - 1] == 'ь') {
+        cut = n - 1;
+        end = (cs == BP_GEN) ? "я" : (cs == BP_DAT) ? "ю"
+              : (cs == BP_ACC) ? "ь" : (cs == BP_INS) ? "ём" : "е";
+    } else if (w[n - 1] == 'й') {
+        cut = n - 1;
+        end = (cs == BP_GEN) ? "я" : (cs == BP_DAT) ? "ю"
+              : (cs == BP_ACC) ? "й" : (cs == BP_INS) ? "ем" : "е";
+    } else if (w[n - 1] == 'о') {
+        cut = n - 1;
+        end = (cs == BP_GEN) ? "а" : (cs == BP_DAT) ? "у"
+              : (cs == BP_ACC) ? "о" : (cs == BP_INS) ? "ом" : "е";
+    } else if (w[n - 1] == 'ё') {
+        cut = n - 1;
+        end = (cs == BP_GEN) ? "я" : (cs == BP_DAT) ? "ю"
+              : (cs == BP_ACC) ? "ё" : (cs == BP_INS) ? "ём" : "е";
+    } else if (w[n - 1] == 'е') {
+        cut = n - 1;
+        if (p == 'ж' || p == 'ч' || p == 'ш' || p == 'щ' || p == 'ц')
+            end = (cs == BP_GEN) ? "а" : (cs == BP_DAT) ? "у"
+                  : (cs == BP_ACC) ? "е" : (cs == BP_INS) ? "ем" : "е";
+        else
+            end = (cs == BP_GEN) ? "я" : (cs == BP_DAT) ? "ю"
+                  : (cs == BP_ACC) ? "е" : (cs == BP_INS) ? "ем" : "е";
+    } else if (w[n - 1] == 'ы' || w[n - 1] == 'и') {
+        cut = n - 1;
+        end = (cs == BP_GEN) ? "" : (cs == BP_DAT) ? "ам"
+              : (cs == BP_ACC) ? (w[n - 1] == 'ы' ? "ы" : "и")
+                : (cs == BP_INS) ? "ами" : "ах";
+    } else if (w[n - 1] == 'у' || w[n - 1] == 'ю' || w[n - 1] == 'э') {
+        Strcpy(out, w);
+        return;
+    } else {
+        cut = n;
+        end = (cs == BP_GEN) ? "а" : (cs == BP_DAT) ? "у"
+              : (cs == BP_ACC) ? "" : (cs == BP_INS) ? "ом" : "е";
+    }
+    Sprintf(out, "%.*s%s", (int) cut, w, end);
+}
+
+staticfn void
+ru_case_word(const char *w, int cs, char *out)
+{
+    if (ru_case_is_ie_noun(w))
+        ru_case_noun(w, cs, out);
+    else if (ru_case_is_adj(w))
+        ru_case_adj(w, cs, out);
+    else if (ru_case_is_pron(w))
+        ru_case_pron(w, cs, out);
+    else
+        ru_case_noun(w, cs, out);
+}
+
+/* Case-inflected form of an arbitrary object or item name; cse is an
+   enum bp_case value (the plural bit is ignored).  The first word
+   decides how the phrase is handled: an adjective or pronoun makes the
+   whole phrase agree, a leading noun is inflected alone so that an
+   already genitive tail ("статуя демона", "пара сапог") is preserved,
+   and a leading adverb is left untouched. */
+const char *
+ru_noun_case(const char *nom, int cse)
+{
+    static char bufs[6][BUFSZ];
+    static int bufi = 0;
+    char *out, word[BUFSZ], form[BUFSZ], next[BUFSZ];
+    const char *p, *rest;
+    size_t olen = 0, len, l2;
+    int cs = cse & BP_CASE_MASK;
+    boolean all = FALSE, skipfirst = FALSE;
+
+    if (!nom || !*nom)
+        return "";
+    if (cs <= BP_NOM || cs > BP_PREP)
+        return nom;
+    if (nom[0] >= '0' && nom[0] <= '9')
+        return nom;
+
+    bufi = (bufi + 1) % SIZE(bufs);
+    out = bufs[bufi];
+    out[0] = '\0';
+
+    p = strchr(nom, ' ');
+    if (!p) {
+        ru_case_word(nom, cs, out);
+        return out;
+    }
+    len = (size_t) (p - nom);
+    if (len >= BUFSZ)
+        len = BUFSZ - 1;
+    memcpy(word, nom, len);
+    word[len] = '\0';
+
+    if (ru_case_is_adj(word) || ru_case_is_pron(word)) {
+        all = TRUE;
+    } else if (!ru_case_is_invariant(word)
+               && (word[len - 1] == 'о' || word[len - 1] == 'е')) {
+        rest = p + 1;
+        l2 = strcspn(rest, " ");
+        if (l2 >= BUFSZ)
+            l2 = BUFSZ - 1;
+        memcpy(next, rest, l2);
+        next[l2] = '\0';
+        if (ru_case_is_adj(next) || ru_case_is_pron(next))
+            skipfirst = TRUE;
+    }
+
+    if (all) {
+        for (p = nom; *p; ) {
+            len = strcspn(p, " ");
+            if (len >= BUFSZ)
+                len = BUFSZ - 1;
+            memcpy(word, p, len);
+            word[len] = '\0';
+            ru_case_word(word, cs, form);
+            if (olen && olen < BUFSZ - 1)
+                out[olen++] = ' ';
+            if (olen + strlen(form) < BUFSZ) {
+                Strcpy(out + olen, form);
+                olen += strlen(form);
+            }
+            p += len;
+            while (*p == ' ')
+                ++p;
+        }
+        return out;
+    }
+
+    if (skipfirst) {
+        Strcpy(out, word);
+        olen = strlen(out);
+        for (p = nom + len; *p; ) {
+            while (*p == ' ')
+                ++p;
+            if (!*p)
+                break;
+            len = strcspn(p, " ");
+            if (len >= BUFSZ)
+                len = BUFSZ - 1;
+            memcpy(word, p, len);
+            word[len] = '\0';
+            ru_case_word(word, cs, form);
+            if (olen + 1 + strlen(form) < BUFSZ) {
+                out[olen++] = ' ';
+                Strcpy(out + olen, form);
+                olen += strlen(form);
+            }
+            p += len;
+        }
+        return out;
+    }
+
+    ru_case_word(word, cs, out);
+    if (strlen(out) + strlen(p) < BUFSZ)
+        Strcat(out, p);
+    return out;
+}
+
 /* Case-inflected monster name from a nominative string; cse is an
    enum bp_case value optionally OR'ed with BP_PLURAL. No article,
    no possessive. Unlisted names and missing forms fall back to

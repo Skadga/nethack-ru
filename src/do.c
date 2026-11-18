@@ -102,7 +102,7 @@ boulder_hits_pool(
                     Strcpy(whobuf, y_monnam(u.usteed));
                 pline("%s %s %s в %s.", upstart(whobuf),
                       u.usteed ? "толкает" : "толкаете",
-                      the(xname(otmp)), what);
+                      ru_noun_case(xname(otmp), BP_ACC), what);
                 if (flags.verbose && !Blind)
                     pline("Теперь вы можете пересечь её!");
                 /* no splashing in this case */
@@ -2205,14 +2205,15 @@ revive_corpse(struct obj *corpse)
             if (!container) {
                 impossible("reviving corpse from non-existent container");
             } else if (mcarry && canseemon(mcarry)) {
-                pline("%s вырывается из %s!", mnam, yname(container));
+                pline("%s вырывается из %s!", mnam,
+                      ru_noun_case(yname(container), BP_GEN));
             } else if (container_where == OBJ_INVENT) {
-                Strcpy(sackname, an(xname(container)));
+                Strcpy(sackname, ru_noun_case(xname(container), BP_GEN));
                 pline("%s %s из %s в вашем рюкзаке!", mnam,
                       locomotion(mtmp->data, "writhes"), sackname);
             } else if (container_where == OBJ_FLOOR
                        && cansee(corpsex, corpsey)) {
-                Strcpy(sackname, an(xname(container)));
+                Strcpy(sackname, ru_noun_case(xname(container), BP_GEN));
                 pline("%s выбирается из %s!", mnam, sackname);
             }
             break;

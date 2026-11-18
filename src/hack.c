@@ -464,7 +464,7 @@ moverock_core(coordxy sx, coordxy sy)
                     deliver_part1 = TRUE;
                 } else {
                     Soundeffect(se_monster_behind_boulder, 50);
-                    You_hear("монстр за %s.", the(xname(otmp)));
+                    You_hear("монстр за %s.", ru_noun_case(xname(otmp), BP_INS));
                     if (!Deaf)
                         deliver_part1 = TRUE;
                     map_invisible(rx, ry);

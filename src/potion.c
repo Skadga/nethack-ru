@@ -820,7 +820,8 @@ peffect_invisibility(struct obj *otmp)
 
     /* spell cannot penetrate mummy wrapping */
     if (is_spell && BInvis && uarmc->otyp == MUMMY_WRAPPING) {
-        You_feel("довольно сильный зуд под %s.", yname(uarmc));
+        You_feel("довольно сильный зуд под %s.",
+                 ru_noun_case(yname(uarmc), BP_INS));
         return;
     }
     if (Invis || Blind || BInvis) {
@@ -2638,7 +2639,8 @@ potion_dip(struct obj *obj, struct obj *potion)
                    && (potion->otyp == POT_HEALING
                        || potion->otyp == POT_EXTRA_HEALING
                        || potion->otyp == POT_FULL_HEALING)) {
-            pline("ѕокрытие исчезает с %s.", the(xname(obj)));
+            pline("ѕокрытие исчезает с %s.",
+                  ru_noun_case(xname(obj), BP_GEN));
             obj->opoisoned = 0;
             poof(potion);
             return ECMD_TIME;

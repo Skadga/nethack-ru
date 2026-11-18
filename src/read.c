@@ -431,12 +431,12 @@ doread(void)
             /* no need to vary this when blind; "on this ___" is important
                because it suggests that there might be something on others */
             You_cant("найти ничего для чтения на этом %s.",
-                     simpleonames(scroll));
+                     ru_noun_case(simpleonames(scroll), BP_PREP));
             return ECMD_OK;
         }
         pline("%s на %s.  Надпись:  %s.",
               !Blind ? "Здесь есть надпись" : "Вы нащупываете буквы",
-              simpleonames(scroll), cap_text);
+              ru_noun_case(simpleonames(scroll), BP_PREP), cap_text);
         if (!u.uconduct.literate++)
             livelog_printf(LL_CONDUCT, "стал грамотным, прочитав %s",
                            (otyp == DUNCE_CAP) ? "колпак дурака"

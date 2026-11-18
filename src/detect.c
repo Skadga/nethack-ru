@@ -1313,7 +1313,7 @@ use_crystal_ball(struct obj **optr)
      *  for help in using the crystal ball.
      */
 
-    You("вглядываетесь в %s...", the(xname(obj)));
+    You("вглядываетесь в %s...", ru_noun_case(xname(obj), BP_ACC));
     nomul(-rnd(charged ? 10 : 2));
     gm.multi_reason = "глядя в хрустальный шар";
     gn.nomovemsg = "";

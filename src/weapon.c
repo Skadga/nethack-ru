@@ -898,7 +898,7 @@ mon_wield_item(struct monst *mon)
                       exclaim ? '!' : '.');
             if ((arw = autoreturn_weapon(obj)) != 0 && arw->tethered != 0)
                 pline_mon(mon, "%s закрепляет поводок на %s.", Monnam(mon),
-                          the(xname(obj)));
+                          ru_noun_case(xname(obj), BP_PREP));
 
             /* 3.6.3: mwelded() predicate expects the object to have its
                W_WEP bit set in owormmask, but the pline here and for

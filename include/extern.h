@@ -738,6 +738,7 @@ extern const char *mon_pmname(struct monst *) NONNULLARG1;
 extern const char *obj_pmname(struct obj *) NONNULLARG1;
 extern const char *corpse_case(struct obj *, int) NONNULLARG1;
 extern const char *mon_gen_nom(const char *, int);
+extern const char *ru_noun_case(const char *, int);
 extern const char *mon_gen(struct monst *, int) NONNULLARG1;
 extern const char *shoptype_case(const char *, int);
 extern const char *shoptype_name(int);

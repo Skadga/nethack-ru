@@ -1247,7 +1247,7 @@ mon_break_armor(struct monst *mon, boolean polyspot)
                 else
                     pline_mon(mon, "%s уменьшается, выпадая из %s %s!",
                               Monnam(mon), ppronoun,
-                              cloak_simple_name(otmp));
+                              ru_noun_case(cloak_simple_name(otmp), BP_GEN));
             }
             m_lose_armor(mon, otmp, polyspot);
         }

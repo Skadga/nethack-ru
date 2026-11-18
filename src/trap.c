@@ -4327,7 +4327,8 @@ dofiretrap(
 
     if ((box && !carried(box)) ? is_pool(box->ox, box->oy) : Underwater) {
         pline("Каскад парящих пузырей вырывается из %s!",
-              the(box ? xname(box) : surface_case(u.ux, u.uy, BP_GEN)));
+              the(box ? ru_noun_case(xname(box), BP_GEN)
+                      : surface_case(u.ux, u.uy, BP_GEN)));
         if (Fire_resistance)
             You("невредимы.");
         else
@@ -4335,7 +4336,8 @@ dofiretrap(
         return;
     }
     pline("%s %s из %s!", tower_of_flame, box ? "вспыхивает" : "вырывается",
-          the(box ? xname(box) : surface_case(u.ux, u.uy, BP_GEN)));
+          the(box ? ru_noun_case(xname(box), BP_GEN)
+                  : surface_case(u.ux, u.uy, BP_GEN)));
     if (Fire_resistance) {
         shieldeff(u.ux, u.uy);
         monstseesu(M_SEEN_FIRE);
@@ -4601,7 +4603,8 @@ fire_damage(
             return FALSE;
         if (obj->otyp == SPE_BOOK_OF_THE_DEAD) {
             if (in_sight)
-                pline("Дым поднимается из %s.", the(xname(obj)));
+                pline("Дым поднимается из %s.",
+                      ru_noun_case(xname(obj), BP_GEN));
             return FALSE;
         }
         dindx = (obj->oclass == SCROLL_CLASS) ? 3 : 4;
@@ -4821,7 +4824,8 @@ water_damage(
         if (!rn2(2)) {
             obj->greased = 0;
             if (in_invent) {
-                pline("Жир на %s смывается.", yname(obj));
+                pline("Жир на %s смывается.",
+                       ru_noun_case(yname(obj), BP_PREP));
                 described = TRUE; /* used to modify potion feedback */
                 update_inventory();
             }
@@ -4884,7 +4888,8 @@ water_damage(
             if (get_obj_location(obj, &ox, &oy, CONTAINED_TOO | BURIED_TOO))
                 obj->ox = ox, obj->oy = oy;
             if (isok(ox, oy) && cansee(ox, oy))
-                pline("Пар поднимается из %s.", the(xname(obj)));
+                pline("Пар поднимается из %s.",
+                      ru_noun_case(xname(obj), BP_GEN));
             return 0;
         } else if (otyp == SPE_BLANK_PAPER) {
             return 0;
@@ -5903,9 +5908,11 @@ untrap_box(
         || box->tknown
         || (!force && confused && !rn2(3))) {
         if (!(box->tknown && box->dknown))
-            You("находите ловушку на %s!", the(xname(box)));
+            You("находите ловушку на %s!",
+                ru_noun_case(xname(box), BP_PREP));
         else
-            pline("На %s есть ловушка.", the(xname(box)));
+            pline("На %s есть ловушка.",
+                  ru_noun_case(xname(box), BP_PREP));
         box->tknown = 1;
         observe_object(box);
         if (!confused)
@@ -5914,7 +5921,8 @@ untrap_box(
         if (ynq("Обезвредить?") == 'y')
             disarm_box(box, force, confused);
     } else {
-        You("не находите ловушек на %s.", the(xname(box)));
+        You("не находите ловушек на %s.",
+                ru_noun_case(xname(box), BP_PREP));
     }
 }
 
@@ -6499,7 +6507,8 @@ chest_trap(
         case 19:
         case 18:
         case 17:
-            pline("Облако ядовитого газа валит из %s.", the(xname(obj)));
+            pline("Облако ядовитого газа валит из %s.",
+                  ru_noun_case(xname(obj), BP_GEN));
             if (rn2(3))
                 poisoned("облако ядовитого газа", A_STR, "облако ядовитого газа", 15,
                          FALSE);
@@ -6559,7 +6568,7 @@ chest_trap(
             pline("Облако %s газа валит из %s.",
                   Blind ? ROLL_FROM(blindgas)
                         : ru_color_adj(rndcolor(), RU_ADJ_GEN),
-                  the(xname(obj)));
+                  ru_noun_case(xname(obj), BP_GEN));
             if (!Stunned) {
                 if (Hallucination)
                     pline("Какое классное ощущение!");
@@ -6817,7 +6826,7 @@ thitm(
     if (!strike) {
         if (obj && cansee(mon->mx, mon->my))
             pline_mon(mon, "%s чуть не попадает под %s!",
-                      Monnam(mon), doname(obj));
+                      Monnam(mon), ru_noun_case(doname(obj), BP_ACC));
     } else {
         int dam = 1;
         boolean harmless = (obj && stone_missile(obj)

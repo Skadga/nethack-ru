@@ -458,7 +458,8 @@ pick_lock(
             if (Is_box(otmp)) {
                 ++count;
                 if (!can_reach_floor(TRUE)) {
-                    You_cant("дотянуться до %s отсюда.", the(xname(otmp)));
+                    You_cant("дотянуться до %s отсюда.",
+                             ru_noun_case(xname(otmp), BP_GEN));
                     return PICKLOCK_LEARNED_SOMETHING;
                 }
                 it = 0;

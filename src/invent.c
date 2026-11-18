@@ -1037,7 +1037,8 @@ addinv_core2(struct obj *obj)
         obj->otyp != SCR_BLANK_PAPER && !Blind &&
         !objects[obj->otyp].oc_name_known) {
         observe_object(obj);
-        pline("Вы расшифровываете надпись на %s.", yname(obj));
+        pline("Вы расшифровываете надпись на %s.",
+              ru_noun_case(yname(obj), BP_PREP));
         makeknown(obj->otyp);
 
         /* conduct: this is avoidable via not picking up / wishing for

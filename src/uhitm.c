@@ -5671,7 +5671,7 @@ hmonas(struct monst *mon)
                         || (mattk->aatyp == AT_CLAW && humanoid(mon->data)))
                         verb = "атакуете";
                     Your("%s %s безвредно сквозь %s.",
-                         verb, vtense(verb, ""), mon_nam(mon));
+                         verb, vtense(verb, ""), mon_gen(mon, BP_ACC));
                 } else {
                     /* either not a shade or no special silver/blessed damage,
                        other unsolid monsters are immune to AT_TUCH+AD_WRAP */
@@ -5753,7 +5753,7 @@ hmonas(struct monst *mon)
                     sum[i] = damageum(mon, mattk, specialdmg);
                 } else {
                     Your("%s проходит безвредно сквозь %s.",
-                         verb, mon_nam(mon));
+                         verb, mon_gen(mon, BP_ACC));
                 }
                 break;
             }

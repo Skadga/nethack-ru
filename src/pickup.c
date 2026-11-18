@@ -1662,7 +1662,7 @@ carry_count(struct obj *obj,            /* object to pick up... */
         /* some message will be given */
         Strcpy(obj_nambuf, doname(obj));
         if (container) {
-            Sprintf(where, "в %s", the(xname(container)));
+            Sprintf(where, "в %s", ru_noun_case(xname(container), BP_PREP));
             verb = "нести";
         } else {
             Strcpy(where, "лежащие здесь");
@@ -2461,7 +2461,8 @@ loot_mon(struct monst *mtmp, int *passed_info, boolean *prev_loot)
             extract_from_minvent(mtmp, otmp, TRUE, FALSE);
             if (flags.verbose)
                 You("снимаете %s с %s.",
-                    thesimpleoname(otmp), mon_nam(mtmp));
+                    ru_noun_case(thesimpleoname(otmp), BP_ACC),
+                    mon_gen(mtmp, BP_GEN));
             otmp = hold_another_object(otmp, "Вы бросаете %s!", doname(otmp),
                                        (const char *) 0);
             nhUse(otmp);
@@ -2618,8 +2619,9 @@ in_container(struct obj *obj)
     if (obj->otyp == ICE_BOX || Is_box(obj) || obj->otyp == BOULDER
         || (obj->otyp == STATUE && bigmonst(&mons[obj->corpsenm]))) {
         /* consumes multiple obufs but not enough to overwrite the result */
-        Strcpy(buf, the(xname(obj)));
-        You("не помещается %s в %s.", buf, the(xname(gc.current_container)));
+        Strcpy(buf, ru_noun_case(xname(obj), BP_ACC));
+        You("не помещается %s в %s.", buf,
+            ru_noun_case(xname(gc.current_container), BP_ACC));
         return 0;
     }
 
@@ -3751,7 +3753,7 @@ tipcontainer(struct obj *box) /* or bag */
         if (targetbox)
             pline("%s в %s.",
                   box->cobj->nobj ? "Предметы катятся" : "Предмет катится",
-                  the(xname(targetbox)));
+                  ru_noun_case(xname(targetbox), BP_ACC));
         else
             pline("%s наружу%c",
               box->cobj->nobj ? "Предметы проливаются" : "Предмет проливается",

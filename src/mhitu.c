@@ -647,7 +647,8 @@ mattacku(struct monst *mtmp)
                               m_monnam(mtmp),
                               pmname(gy.youmonst.data, Ugender),
                               svp.plname,
-                              doname(svl.level.objects[u.ux][u.uy]));
+                              ru_noun_case(doname(svl.level.objects[u.ux][u.uy]),
+                                           BP_INS));
                     if (obj)
                         obj->spe = save_spe;
                 } else
@@ -2067,7 +2068,7 @@ doseduce(struct monst *mon)
                     continue;
             } else {
                 pline("%s решает, что вы будете красивее в %s,",
-                      Who, yname(ring));
+                      Who, ru_noun_case(yname(ring), BP_PREP));
                 pline("и надевает его вам на палец.");
             }
             makeknown(RIN_ADORNMENT);
@@ -2085,7 +2086,8 @@ doseduce(struct monst *mon)
                    but trying to figure that out in advance in order to use
                    alternate wording is not worth the effort */
                 pline("%s заменяет %s на %s.",
-                      Who, yname(uright), yname(ring));
+                      Who, ru_noun_case(yname(uright), BP_ACC),
+                      ru_noun_case(yname(ring), BP_ACC));
                 Ring_gone(uright);
                 /* ring removal might cause loss of levitation which could
                    drop hero onto trap that transports hero somewhere else */
@@ -2095,7 +2097,8 @@ doseduce(struct monst *mon)
             } else if (uleft && uleft->otyp != RIN_ADORNMENT) {
                 /* see "replaces" note above */
                 pline("%s заменяет %s на %s.",
-                      Who, yname(uleft), yname(ring));
+                      Who, ru_noun_case(yname(uleft), BP_ACC),
+                      ru_noun_case(yname(ring), BP_ACC));
                 Ring_gone(uleft);
                 if (u.utotype || !m_next2u(mon))
                     return 1;

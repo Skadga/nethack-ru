@@ -691,7 +691,8 @@ itemactions(struct obj *otmp)
         ia_addmenu(win, IA_WHATIS_OBJ, '/', buf);
     }
 
-    Sprintf(buf, "Что сделать с %s?", the(cxname(otmp)));
+    Sprintf(buf, "Что сделать с %s?",
+            ru_noun_case(cxname(otmp), BP_INS));
     end_menu(win, buf);
 
     n = select_menu(win, PICK_ONE, &selected);

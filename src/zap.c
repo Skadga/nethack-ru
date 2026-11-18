@@ -2261,7 +2261,7 @@ bhito(struct obj *obj, struct obj *otmp)
                        determination for Schroedinger's Cat here,
                        so just make probing be inconclusive for it */
                     You("не уверены, есть ли внутри %s %s или его труп.",
-                        the(xname(obj)),
+                        ru_noun_case(xname(obj), BP_GEN),
                         /* unfortunately, we can't tell whether rndmonnam()
                            picks a form which can't leave a corpse */
                         an(Hallucination ? rndmonnam((char *) 0) : "кот"));
@@ -2679,7 +2679,7 @@ dozap(void)
             char buf[BUFSZ];
 
             Sprintf(buf, "выстрелив в себя из %s",
-                    mon_gen_nom(killer_xname(obj), BP_GEN));
+                    ru_noun_case(killer_xname(obj), BP_GEN));
             losehp(Maybe_Half_Phys(damage), buf, NO_KILLER_PREFIX);
         }
     } else {
@@ -2850,7 +2850,8 @@ zapyourself(struct obj *obj, boolean ordinary)
 
         if (BInvis && uarmc->otyp == MUMMY_WRAPPING) {
             /* A mummy wrapping absorbs it and protects you */
-            You_feel("довольно сильный зуд под %s.", yname(uarmc));
+            You_feel("довольно сильный зуд под %s.",
+                     ru_noun_case(yname(uarmc), BP_INS));
             break;
         }
         incr_itimeout(&HInvis, rn1(15, 31));
@@ -3986,8 +3987,8 @@ bhit(
                     skiprange(range, &skiprange_start, &skiprange_end);
             } else if (mtmp && M_IN_WATER(mtmp->data)) {
                 if (!Blind && canspotmon(mtmp))
-                    pline("%s %s над %s.", Yname2(obj), otense(obj, "проносится"),
-                          mon_nam(mtmp));
+                    pline("%s %s над %s.", Yname2(obj),
+                          otense(obj, "проносится"), mon_gen(mtmp, BP_INS));
                 mtmp = (struct monst *) 0;
             }
         }
@@ -4123,8 +4124,9 @@ bhit(
 
             if ((bobj = sobj_at(BOULDER, x, y)) != 0) {
                 if (cansee(x, y))
-                    pline("%s попадает в %s.", The(distant_name(obj, xname)),
-                          an(xname(bobj)));
+                    pline("%s попадает в %s.",
+                          The(distant_name(obj, xname)),
+                          ru_noun_case(xname(bobj), BP_ACC));
                 range = 0;
             } else if (obj == uball) {
                 if (!test_move(x - ddx, y - ddy, ddx, ddy, TEST_MOVE)) {
@@ -4832,7 +4834,7 @@ dobuzz(
             u.uswallow = 0;
         } else {
             pline("%s врезается в %s%s", The(flash_str(fltyp, FALSE)),
-                  mon_nam(u.ustuck), exclam(tmp));
+                  mon_gen(u.ustuck, BP_ACC), exclam(tmp));
             /* Using disintegration from the inside only makes a hole... */
             if (tmp == MAGIC_COOKIE)
                 u.ustuck->mhp = 0;

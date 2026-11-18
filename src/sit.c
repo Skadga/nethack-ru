@@ -451,9 +451,11 @@ dosit(void)
             pline("Вероятно, сейчас не лучшее время для пикника...");
         } else {
             if (slithy(gy.youmonst.data))
-                You("сворачиваетесь вокруг %s.", the(xname(obj)));
+                You("сворачиваетесь вокруг %s.",
+                    ru_noun_case(xname(obj), BP_GEN));
             else
-                You("садитесь на %s.", the(xname(obj)));
+                You("садитесь на %s.",
+                    ru_noun_case(xname(obj), BP_ACC));
             if (obj->otyp == CORPSE && amorphous(&mons[obj->corpsenm]))
                 pline("Это мягкое...");
             else if (obj->otyp == CREAM_PIE) {

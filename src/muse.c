@@ -839,7 +839,8 @@ use_defensive(struct monst *mtmp)
         if (!otmp)
             panic(MissingDefensiveItem, "bugle");
         if (vismon) {
-            pline_mon(mtmp, "%s играет на %s!", Monnam(mtmp), doname(otmp));
+            pline_mon(mtmp, "%s играет на %s!", Monnam(mtmp),
+                      ru_noun_case(doname(otmp), BP_PREP));
         } else if (!Deaf) {
             Soundeffect(se_bugle_playing_reveille, 100);
             You_hear("горн, играющий побудку!");
@@ -1046,7 +1047,7 @@ use_defensive(struct monst *mtmp)
         if (vis) {
             pline_mon(mtmp, "%s %s в %s!", Monnam(mtmp),
                   vtense(fakename[0], locomotion(mtmp->data, "прыгает")),
-                  trapname(t->ttyp, FALSE));
+                  ru_noun_case(trapname(t->ttyp, FALSE), BP_ACC));
         }
         /* if trap was in a concealed niche, it's no longer concealed */
         reveal_trap(t, vis);
@@ -1143,7 +1144,7 @@ use_defensive(struct monst *mtmp)
         if (vis) {
             pline_mon(mtmp, "%s %s на %s!", Monnam(mtmp),
                   vtense(fakename[0], locomotion(mtmp->data, "прыгает")),
-                  trapname(t->ttyp, FALSE));
+                  ru_noun_case(trapname(t->ttyp, FALSE), BP_ACC));
         }
         /* if trap was in a concealed niche, it's no longer concealed */
         reveal_trap(t, vis);
@@ -2524,7 +2525,8 @@ use_misc(struct monst *mtmp)
             pline_mon(mtmp, "%s намеренно %s на %s!",
                   Some_Monnam(mtmp),
                   vtense(fakename[0], locomotion(mtmp->data, "прыгает")),
-                  t->tseen ? trapname(t->ttyp, FALSE) : "скрытую ловушку");
+                  t->tseen ? ru_noun_case(trapname(t->ttyp, FALSE), BP_ACC)
+                           : "скрытую ловушку");
             /* note: if mtmp is unseen because it is invisible, its new
                shape will also be invisible and could produce "Its armor
                falls off" messages during the transformation; those make

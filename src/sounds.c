@@ -1512,7 +1512,8 @@ tiphat(void)
                 pline("%s машет.", Monnam(mtmp));
             } else if (otmp->cursed) {
                 pline("%s хватается за %s %s, но не может это снять.",
-                      Monnam(mtmp), mhis(mtmp), helm_simple_name(otmp));
+                      Monnam(mtmp), mhis(mtmp),
+                      ru_noun_case(helm_simple_name(otmp), BP_ACC));
                 otmp->bknown = 1;
             } else {
                 pline("%s приподнимает %s %s в ответ.",

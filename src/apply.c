@@ -1338,14 +1338,14 @@ use_candelabrum(struct obj *obj)
     if (obj->spe <= 0) {
         struct obj *otmp;
 
-        pline("В %s нет %s.", xname(obj), s);
+        pline("В %s нет %s.", ru_noun_case(xname(obj), BP_PREP), s);
         /* only output tip if candles are in inventory */
         for (otmp = gi.invent; otmp; otmp = otmp->nobj)
             if (Is_candle(otmp))
                 break;
         if (otmp)
             pline("Чтобы прикрепить свечи, применяйте их вместо %s.",
-                  xname(obj));
+                  ru_noun_case(xname(obj), BP_GEN));
         return;
     }
     if (Underwater) {
@@ -1362,7 +1362,8 @@ use_candelabrum(struct obj *obj)
         return;
     }
     if (obj->spe < 7) {
-        pline("В %s только %d %s.", the(xname(obj)), obj->spe, s);
+        pline("В %s только %d %s.", ru_noun_case(xname(obj), BP_PREP),
+              obj->spe, s);
         if (!Blind)
             pline("%s.  Свет тусклый.",
                   obj->spe == 1 ? "Он горит" : "Они горят");
@@ -1449,7 +1450,8 @@ use_candle(struct obj **optr)
             end_burn(obj, TRUE);
 
         You("прикрепляете %s%ld %s к %s.",
-            otmp->spe ? "ещё " : "", obj->quan, s, the(xname(otmp)));
+            otmp->spe ? "ещё " : "", obj->quan, s,
+            ru_noun_case(xname(otmp), BP_DAT));
         if (!otmp->spe || otmp->age > obj->age)
             otmp->age = obj->age;
         otmp->spe += (int) obj->quan;

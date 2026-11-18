@@ -551,7 +551,8 @@ do_improvisation(struct obj *instr)
        now use a different verb here */
     switch (mode) {
     case PLAY_NORMAL:
-        You("начинаете играть на %s.", yname(instr));
+        You("начинаете играть на %s.",
+            ru_noun_case(yname(instr), BP_PREP));
         break;
     case PLAY_STUNNED:
         if (!Deaf)
@@ -649,7 +650,8 @@ do_improvisation(struct obj *instr)
     case BUGLE: /* Awaken & attract soldiers */
         if (!Deaf)
             You("извлекаете громкий%s звук из %s.",
-                same_old_song ? ", знакомый" : "", yname(instr));
+                same_old_song ? ", знакомый" : "",
+                ru_noun_case(yname(instr), BP_GEN));
         else
             You("дуете в горн.");
         Hero_playnotes(obj_to_instr(&itmp), improvisation, 80);
@@ -803,8 +805,11 @@ do_play_instrument(struct obj *instr)
         }
     }
 
-    You(!Deaf ? "извлекаете странный звук из %s!"
-              : "чувствуете, как %s издаёт вибрации", the(xname(instr)));
+    if (!Deaf)
+        You("извлекаете странный звук из %s!",
+            ru_noun_case(xname(instr), BP_GEN));
+    else
+        You("чувствуете, как %s издаёт вибрации", the(xname(instr)));
     Hero_playnotes(obj_to_instr(instr), buf, 50);
 
 
