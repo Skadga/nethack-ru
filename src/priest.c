@@ -314,54 +314,46 @@ priestname(
     if (!mon->ispriest && !mon->isminion) /* should never happen...  */
         return strcpy(pname, what);       /* caller must be confused */
 
+    /* Russian has no articles; the article argument is ignored and the
+       adjectives below agree with the noun's gender instead. */
+    (void) article;
+
     /* for high priest(ess), "high" (or "grand" for poohbah) will be inserted
        [this was done near the end but we want 'what' to be updated sooner] */
     if (mon->ispriest || aligned_priest || high_priest)
-        what = do_hallu ? "poohbah" : mon->female ? "priestess" : "priest";
+        what = mon->female ? "жрица" : "жрец";
 
     *pname = '\0';
-    if (article != ARTICLE_NONE && (!do_hallu || !bogon_is_pname(whatcode))) {
-        if (article == ARTICLE_YOUR || (article == ARTICLE_A && high_priest))
-            article = ARTICLE_THE;
-        if (article == ARTICLE_THE) {
-            Strcpy(pname, "the ");
-        } else if (!strcmp(what, "Angel")) {
-            /* bypass just_an(); it would yield "" due to treating capital A
-               as indicating a personal name */
-            Strcpy(pname, "an ");
-        } else {
-            (void) just_an(pname, what);
-        }
-    }
-    /* pname[] contains "" or {"a ","an ","the "} */
-    if (mon->minvis) {
-        /* avoid "a invisible priest" */
-        if (!strcmp(pname, "a "))
-            Strcpy(pname, "an ");
-        Strcat(pname, "invisible ");
-    }
-    if (mon->isminion && EMIN(mon)->renegade) {
-        /* avoid "an renegade Angel" */
-        if (!strcmp(pname, "an ") && !mon->minvis)
-            Strcpy(pname, "a ");
-        Strcat(pname, "renegade ");
-    }
+    if (mon->minvis)
+        Strcat(pname, mon->female ? "невидимая " : "невидимый ");
 
     if (mon->ispriest || aligned_priest) {
         if (high_priest)
-            Strcat(pname, do_hallu ? "grand " : "high ");
+            Strcat(pname, mon->female
+                              ? (do_hallu ? "великая " : "верховная ")
+                              : (do_hallu ? "великий " : "верховный "));
     } else {
-        if (mon->mtame && !strcmpi(what, "Angel"))
-            Strcat(pname, "guardian ");
+        if (mon->mtame && !strcmpi(what, "ангел"))
+            Strcat(pname, "страж-");
     }
 
     Strcat(pname, what);
+    if (mon->isminion && EMIN(mon)->renegade)
+        Strcat(pname, mon->female ? "-отступница" : "-отступник");
     /* same as distant_monnam(), more or less... */
     if (do_hallu || !high_priest || reveal_high_priest
         || !Is_astralevel(&u.uz)
         || m_next2u(mon) || program_state.gameover) {
-        Strcat(pname, " of ");
-        Strcat(pname, halu_gname(mon_aligntyp(mon)));
+        const char *gn = halu_gname(mon_aligntyp(mon));
+        const char *gg = god_gen(gn);
+
+        if (gg == gn) { /* unknown (hallucinated) name: no genitive form */
+            Strcat(pname, " по имени ");
+            Strcat(pname, gn);
+        } else {
+            Strcat(pname, " ");
+            Strcat(pname, gg);
+        }
     }
     return pname;
 }

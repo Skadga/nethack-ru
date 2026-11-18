@@ -961,8 +961,9 @@ polymon(int mntmp)
         if (touch_petrifies(u.usteed->data) && !Stone_resistance && rnl(3)) {
             pline("%s касаетесь скакуна.",
                   no_longer_petrify_resistant);
-            Sprintf(buf, "riding %s",
-                    an(pmname(u.usteed->data, Mgender(u.usteed))));
+            Sprintf(buf, "езды на %s",
+                    ru_noun_case(pmname(u.usteed->data, Mgender(u.usteed)),
+                                 BP_PREP));
             instapetrify(buf);
         }
         if (!can_ride(u.usteed))
