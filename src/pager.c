@@ -1674,8 +1674,8 @@ add_quoted_engraving(
 {
     char temp_buf[BUFSZ];
     struct engr *ep = engr_at(x, y);
-    boolean floorengr = !strcmp(buf, " (engraving"),
-            headstone = !strcmp(buf, " (grave");
+    boolean floorengr = !strcmp(buf, " (надпись"),
+            headstone = !strcmp(buf, " (могила");
 
     /*
      * If there is no engraving here, there's nothing to do; just return.
@@ -1693,13 +1693,14 @@ add_quoted_engraving(
     if (!floorengr && !headstone && !force)
         return FALSE;
 
-    if (ep->eread)
-        Snprintf(temp_buf, sizeof temp_buf, " with %s: \"%s\"",
-                 headstone ? "headstone reading" : "remembered text",
+    if (ep->eread) {
+        Snprintf(temp_buf, sizeof temp_buf, " с %s: \"%s\"",
+                 headstone ? "надгробной надписью" : "текстом",
                  ep->engr_txt[remembered_text]);
-    else
-        Snprintf(temp_buf, sizeof temp_buf, " %s you haven't read",
-                 headstone ? "whose headstone" : "that");
+    } else {
+        Snprintf(temp_buf, sizeof temp_buf, ", %s вы не читали",
+                 headstone ? "надгробную надпись" : "текст");
+    }
 
     (void) strncat(buf, temp_buf, BUFSZ - strlen(buf) - 1);
     return TRUE;
@@ -2207,16 +2208,17 @@ look_engrs(boolean nearby)
             if (!e)
                 continue;
             is_headstone = IS_GRAVE(svl.lastseentyp[x][y]);
-            Sprintf(lookbuf, " (%s", is_headstone ? "grave" : "engraving");
+            Sprintf(lookbuf, " (%s", is_headstone ? "могила" : "надпись");
             (void) add_quoted_engraving(x, y, lookbuf, TRUE);
             /* the paren is used by farlook and add_quoted_engraving()
                expected to see it; we don't want it here */
             if (is_headstone) {
-                (void) strsubst(lookbuf, "(grave with ", "");
-                (void) strsubst(lookbuf, "(grave whose ", "");
+                (void) strsubst(lookbuf, "(могила с ", "");
+                (void) strsubst(lookbuf, "(могила, ", "");
             } else {
-                (void) strsubst(lookbuf, "(engraving with ", "");
-                (void) strsubst(lookbuf, "(engraving ", "engraving ");
+                (void) strsubst(lookbuf, "(надпись с ", "");
+                (void) strsubst(lookbuf, "(надпись, ", "");
+                (void) strsubst(lookbuf, "(надпись ", "надпись ");
             }
 
             glyph = glyph_at(x, y);
@@ -2238,9 +2240,9 @@ look_engrs(boolean nearby)
                 cmode = (iflags.getpos_coords != GPCOORDS_NONE)
                            ? iflags.getpos_coords : GPCOORDS_MAP;
                 if (count == 1) {
-                    Sprintf(outbuf, "%sseen or remembered engravings%s:",
-                            nearby ? "nearby " : "",
-                            nearby ? "" : " on this level");
+                    Strcpy(outbuf, nearby
+                             ? "близкие виденные или запомненные надписи:"
+                             : "виденные или запомненные надписи на этом уровне:");
                     putstr(win, 0, upstart(outbuf));
                     /* hack alert! Qt watches a text window for any line
                        with 4 consecutive spaces and renders the window

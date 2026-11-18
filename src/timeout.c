@@ -142,8 +142,12 @@ stoned_dialogue(void)
         char buf[BUFSZ];
 
         Strcpy(buf, stoned_texts[SIZE(stoned_texts) - i]);
-        if (nolimbs(gy.youmonst.data) && strstri(buf, "limbs"))
-            (void) strsubst(buf, "limbs", "extremities");
+        if (nolimbs(gy.youmonst.data)) {
+            (void) strsubst(buf, "Ваши конечности коченеют",
+                            "Ваше тело коченеет");
+            (void) strsubst(buf, "Ваши конечности превратились",
+                            "Ваше тело превратилось");
+        }
         urgent_pline("%s", buf);
     }
     switch ((int) i) {
@@ -208,8 +212,8 @@ vomiting_dialogue(void)
         break;
     case 11:
         txt = vomiting_texts[1];
-        if (strstri(txt, " confused") && Confusion)
-            txt = strsubst(strcpy(buf, txt), " confused", " more confused");
+        if (Confusion && strstri(txt, "сбиты"))
+            txt = strsubst(strcpy(buf, txt), "слегка сбиты", "сильно сбиты");
         break;
     case 6:
         make_stunned((HStun & TIMEOUT) + (long) d(2, 4), FALSE);
@@ -224,8 +228,8 @@ vomiting_dialogue(void)
         break;
     case 8:
         txt = vomiting_texts[2];
-        if (strstri(txt, " think") && Stunned)
-            txt = strsubst(strcpy(buf, txt), "can't seem to ", "can't ");
+        if (Stunned && strstri(txt, "думать прямо"))
+            txt = strsubst(strcpy(buf, txt), "думать прямо", "думать");
         break;
     case 5:
         txt = vomiting_texts[3];
@@ -333,9 +337,11 @@ sickness_dialogue(void)
 
         Strcpy(buf, sickness_texts[SIZE(sickness_texts) - i]);
         /* change the message slightly for food poisoning */
-        if ((u.usick_type & SICK_NONVOMITABLE) == 0)
-            (void) strsubst(buf, "illness", "sickness");
-        if (Hallucination && strstri(buf, "Death's door")) {
+        if ((u.usick_type & SICK_NONVOMITABLE) == 0) {
+            (void) strsubst(buf, "Ваша болезнь", "Ваше отравление");
+            (void) strsubst(buf, "серьёзна", "серьёзно");
+        }
+        if (Hallucination && strstri(buf, "порога Смерти")) {
             /* youmonst: for Hallucination, mhe()'s mon argument isn't used */
             Strcpy(pronounbuf, mhe(&gy.youmonst));
             Sprintf(eos(buf), "  %s приглашает вас внутрь.",
@@ -411,8 +417,9 @@ slime_dialogue(void)
         char buf[BUFSZ];
 
         Strcpy(buf, slime_texts[SIZE(slime_texts) - i - 1L]);
-        if (nolimbs(gy.youmonst.data) && strstri(buf, "limbs"))
-            (void) strsubst(buf, "limbs", "extremities");
+        if (nolimbs(gy.youmonst.data))
+            (void) strsubst(buf, "Ваши конечности становятся студенистыми",
+                            "Ваше тело становится студенистым");
 
         if (strchr(buf, '%')) {
             if (i == 4L) {  /* "you are turning green" */

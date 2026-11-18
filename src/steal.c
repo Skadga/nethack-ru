@@ -291,30 +291,17 @@ worn_item_removal(
     struct monst *mon,
     struct obj *obj)
 {
-    char objbuf[BUFSZ], article[20], *p;
+    char objbuf[BUFSZ];
     const char *verb;
-    int strip_art;
 
     Strcpy(objbuf, doname(obj));
-    /* massage the object description */
-    strip_art = !strncmp(objbuf, "the ", 4) ? 4
-                : !strncmp(objbuf, "an ", 3) ? 3
-                  : !strncmp(objbuf, "a ", 2) ? 2
-                    : 0;
-    if (strip_art) { /* convert "a/an/the <object>" to "your object" */
-        copynchars(article, objbuf, strip_art);
-        /* when removing attached iron ball, caller passes 'uchain';
-           when formatted, it will be "an iron chain (attached to you)";
-           change "an" to "the" rather than to "your" in that situation */
-        (void) strsubst(objbuf, article, (obj == uchain) ? "the " : "your ");
-    }
-    /* these ought to be guarded against matching user-supplied name */
-    (void) strsubst(objbuf, " (being worn)", "");
-    (void) strsubst(objbuf, " (alternate weapon; not wielded)", "");
-    /* convert "ring (on left hand)" to "ring (from left hand)" */
-    if ((p = strstri(objbuf, " (on "))
-        && (!strncmp(p + 5, "left ", 5) || !strncmp(p + 5, "right ", 6)))
-        (void) strsubst(p + 2, "on", "from");
+    /* massage the object description: drop status suffixes which don't
+       belong in a "monster takes it off" message */
+    (void) strsubst(objbuf, " (надето)", "");
+    (void) strsubst(objbuf, " (запасное оружие; не в руках)", "");
+    /* convert "ring (на левой руке)" to "ring (с левой руки)" */
+    (void) strsubst(objbuf, " (на левой руке)", " (с левой руки)");
+    (void) strsubst(objbuf, " (на правой руке)", " (с правой руки)");
 
     /* slightly iffy for alternate weapon that isn't actively dual-wielded,
        but it's better to alert the player to the change in equipment than

@@ -223,20 +223,20 @@ static NEARDATA const char *sortltype[] = {
 /* second column is an alias for the first; third is brief explanation;
    entries 5 and 6 are 1|4 and 2|4 (tty only) */
 static NEARDATA const char *perminv_modes[][3] = {
-  /*0*/ { "none",      "off",        "no permanent inventory window" },
-  /*1*/ { "all" ,      "on",         "all inventory except for gold" },
-  /*2*/ { "full",      "gold",       "full inventory including gold" },
+  /*0*/ { "none",      "off",        "без окна постоянного инвентаря" },
+  /*1*/ { "all" ,      "on",         "весь инвентарь, кроме золота" },
+  /*2*/ { "full",      "gold",       "весь инвентарь, включая золото" },
   /*3*/ { NULL,        NULL,         NULL },
   /*4*/ { NULL,        NULL,         NULL },
 #ifdef TTY_PERM_INVENT
-  /*5*/ { "on+grid",   "all+grid",   "all except gold, plus unused letters" },
-  /*6*/ { "gold+grid", "full+grid",  "full inventory, plus unused letters" },
+  /*5*/ { "on+grid",   "all+grid",   "весь, кроме золота, плюс пустые буквы" },
+  /*6*/ { "gold+grid", "full+grid",  "весь инвентарь, плюс пустые буквы" },
 #else
   /*5*/ { NULL,        NULL,         NULL },
   /*6*/ { NULL,        NULL,         NULL },
 #endif
   /*7*/ { NULL,        NULL,         NULL },
-  /*8*/ { "in-use",    "inuse-only", "subset: items currently in use" },
+  /*8*/ { "in-use",    "inuse-only", "только используемые предметы" },
 };
 
 struct objsymopt {
@@ -3122,11 +3122,13 @@ optfn_perminv_mode(
             /* perminv_mode is set but isn't useful because perm_invent is
                Off; say so after squeezing out enough for it to barely fit */
             if (iflags.perminv_mode == InvOptInUse)
-                (void) strsubst(opts, " currently", "");
+                (void) strsubst(opts, "только используемые предметы",
+                                "только используемые");
             else
-                (void) strsubst(opts, " inventory", " invent");
-            Strcat(opts, (((iflags.perminv_mode & InvSparse) != 0) ? " (Off)"
-                          : " ('perm_invent' is Off)"));
+                (void) strsubst(opts, " инвентарь", " инв.");
+            Strcat(opts, (((iflags.perminv_mode & InvSparse) != 0)
+                              ? " (выкл.)"
+                              : " ('perm_invent' выключен)"));
         }
     } else if (req == get_cnf_val) {
         Sprintf(opts, "%s", perminv_modes[iflags.perminv_mode][0]);

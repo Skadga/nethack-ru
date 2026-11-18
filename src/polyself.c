@@ -641,7 +641,7 @@ polyself(int psflags)
                     /* similar to noarmor(invent.c),
                        shorten to "<color> scale mail" */
                     Strcpy(buf, simpleonames(uarm));
-                    strsubst(buf, " dragon ", " ");
+                    strsubst(buf, " из чешуи дракона", "");
                     /* tricky phrasing; dragon scale mail is singular, dragon
                        scales are plural (note: we don't use "set of scales",
                        which usually overrides the distinction, here) */
