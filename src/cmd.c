@@ -1298,8 +1298,8 @@ lookaround_known_room(coordxy x, coordxy y)
             an(selection_size_description(sel, qbuf)),
             rmno >= 0 ? "комната" : "область");
     } else {
-        You("не можете предположить размер обла%ss.",
-            u_at(x, y) ? "это" : "то");
+        You("не можете предположить размер %s области.",
+            u_at(x, y) ? "этой" : "той");
     }
     selection_free(sel, TRUE);
 }
@@ -2604,8 +2604,8 @@ key2extcmddesc(uchar key)
         /* special case: for reqmenu prefix (normally 'm'), replace
            "prefix: request menu or modify command (#reqmenu)"
            with two-line "movement prefix:...\nnon-movement prefix:..." */
-        if (!strncmpi(key2cmdbuf, "prefix:", 7) && !strcmpi(txt, "reqmenu"))
-            (void) strsubst(key2cmdbuf, "prefix:",
+        if (!strncmpi(key2cmdbuf, "префикс:", 8) && !strcmpi(txt, "reqmenu"))
+            (void) strsubst(key2cmdbuf, "префикс:",
                      /* relies on implicit concatenation of literal strings */
                             "двигательный префикс:"
                             " движение без автоподбора и без атаки"
@@ -5597,12 +5597,12 @@ paranoid_ynq(
     if (be_paranoid) {
         char pbuf[BUFSZ], qbuf[QBUFSZ], ans[BUFSZ];
         const char *promptprefix = "", /* empty for first iteration */
-            *responsetype = ParanoidConfirm ? (accept_q ? "[yes|no|quit]"
-                                               : "[yes|no]")
+            *responsetype = ParanoidConfirm ? (accept_q ? "[да|нет|выход]"
+                                               : "[да|нет]")
                                             /* default of 'n' is shown for
                                              * the !ParanoidConfirm cases */
-                                            : (accept_q ? "[yes|n|q] (n)"
-                                               : "[yes|n] (n)");
+                                            : (accept_q ? "[да|н|в] (н)"
+                                               : "[да|н] (н)");
         int k, trylimit = 6; /* 1 normal, 5 more with "Yes or No:" prefix */
 
         copynchars(pbuf, prompt, BUFSZ - 1);
@@ -5624,18 +5624,21 @@ paranoid_ynq(
             *ans = '\0';
             getlin(qbuf, ans);
             (void) mungspaces(ans);
-            if (!strcmpi(ans, "yes")) {
+            (void) lcase(ans);
+            if (!strcmp(ans, "yes") || !strcmp(ans, "да")) {
                 c = 'y';
                 break;
             }
-            if (!strcmpi(ans, "quit") || *ans == '\033') {
+            if (!strcmp(ans, "quit") || !strcmp(ans, "выход")
+                || *ans == '\033') {
                 c = 'q';
                 break;
             }
             /* we don't bother adding "or \"Quit\"" for the accept_q case */
             promptprefix = "\"Да\" или \"Нет\": ";
             /* for empty input, return value c will already be 'n' */
-        } while (ParanoidConfirm && strcmpi(ans, "no") && --trylimit);
+        } while (ParanoidConfirm && strcmp(ans, "no")
+                 && strcmp(ans, "нет") && --trylimit);
     } else if (accept_q) {
         /* 'y', 'n', or 'q' */
         c = yn_function(prompt, ynqchars, 'n', FALSE);

@@ -4695,7 +4695,7 @@ doprring(void)
         (void) dispinv_with_action(lets, use_inuse_mode,
                                    /* note; alternate label will be ignored
                                       if 'use_inuse_mode' is False */
-                                   (ct == 1) ? "Ring" : "Кольца");
+                                   (ct == 1) ? "Кольцо" : "Кольца");
     }
     return ECMD_OK;
 }
@@ -5204,9 +5204,9 @@ doorganize_core(struct obj *obj)
 
     collect = (let == obj->invlet);
     /* change the inventory and print the resulting item */
-    adj_type = collect ? "Collecting:"
-               : !splitting ? "Moving:"
-                 : "Splitting:";
+    adj_type = collect ? "Собираем:"
+               : !splitting ? "Перемещаем:"
+                 : "Разделяем:";
 
     /*
      * don't use freeinv/addinv to avoid double-touching artifacts,
@@ -5239,7 +5239,7 @@ doorganize_core(struct obj *obj)
             /* Merging: when from and to are compatible */
             if ((!otmpname || (objname && !strcmp(objname, otmpname)))
                 && merged(&otmp, &obj)) {
-                adj_type = "Merging:";
+                adj_type = "Объединяем:";
                 obj = otmp;
                 otmp = otmp->nobj;
                 extract_nobj(obj, &gi.invent);
@@ -5249,7 +5249,7 @@ doorganize_core(struct obj *obj)
                Found 'otmp' in destination slot; merge if compatible,
                otherwise bump whatever is there to an open slot. */
             if (!splitting) {
-                adj_type = "Swapping:";
+                adj_type = "Меняем:";
                 otmp->invlet = obj->invlet;
             } else {
                 /* strip 'from' name if it has one */
@@ -5304,7 +5304,7 @@ doorganize_core(struct obj *obj)
     /* messages deferred until inventory has been fully reestablished */
     prinv(adj_type, obj, 0L);
     if (bumped)
-        prinv("Moving:", bumped, 0L);
+        prinv("Перемещаем:", bumped, 0L);
     if (splitting)
         clear_splitobjs(); /* reset splitobj context */
     update_inventory();
