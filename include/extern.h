@@ -2584,6 +2584,7 @@ extern const char *a_gname(void);
 extern const char *a_gname_at(coordxy x, coordxy y);
 extern const char *align_gname(aligntyp);
 extern const char *god_gen(const char *);
+extern const char *god_case(const char *, int);
 extern const char *halu_gname(aligntyp);
 extern const char *align_gtitle(aligntyp);
 extern void altar_wrath(coordxy, coordxy);

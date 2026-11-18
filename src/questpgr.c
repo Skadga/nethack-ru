@@ -433,6 +433,7 @@ staticfn void
 convert_line(char *in_line, char *out_line)
 {
     char *c, *cc;
+    const char *p;
 
     cc = out_line;
     for (c = in_line; *c; c++) {
@@ -448,6 +449,22 @@ convert_line(char *in_line, char *out_line)
                 convert_arg(*(++c));
                 if ((*c == 'H' || *c == 'i') && c[1] >= '1' && c[1] <= '6') {
                     Strcpy(gc.cvt_buf, place_case(*c, c[1] - '0'));
+                    ++c;
+                } else if ((*c == 'd' || *c == 'D') && c[1] >= '1'
+                           && c[1] <= '6') {
+                    p = god_case(gc.cvt_buf, c[1] - '0');
+                    if (p != gc.cvt_buf)
+                        Strcpy(gc.cvt_buf, p);
+                    ++c;
+                } else if (*c == 'l' && c[1] >= '1' && c[1] <= '6') {
+                    p = mon_gen_nom(ldrname(), (int) (c[1] - '1'));
+                    if (p != gc.cvt_buf)
+                        Strcpy(gc.cvt_buf, p);
+                    ++c;
+                } else if (*c == 'n' && c[1] >= '1' && c[1] <= '6') {
+                    p = mon_gen_nom(neminame(), (int) (c[1] - '1'));
+                    if (p != gc.cvt_buf)
+                        Strcpy(gc.cvt_buf, p);
                     ++c;
                 }
                 switch (*(++c)) {

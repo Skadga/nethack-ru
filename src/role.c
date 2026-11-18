@@ -368,7 +368,7 @@ const struct Role roles[NUM_ROLES+1] = {
         {"Aredhel",     "Arwen"},      /* noble elf, maiden (S.) */
         {"Ernil",       "Elentariel"}, /* prince (S.), elf-maiden (Q.) */
         {"Elentar",     "Elentari"},   /* Star-king, -queen (Q.) */
-        "Solonor Thelandira", "Aerdrie Faenya", "Lolth", /* Elven */
+        "Солонор Теландира", "_Аэрдри Фаэния", "_Лолт", /* Elven */
 #endif
         { "Новичок", 0 },
         { "Дозорный", 0 },
@@ -2078,7 +2078,7 @@ role_init(void)
         gu.urole.cgod = roles[flags.pantheon].cgod;
     }
     /* 0 or 1; no gods are neuter, nor is gender randomized */
-    svq.quest_status.godgend = !strcmpi(align_gtitle(alignmnt), "goddess");
+    svq.quest_status.godgend = !strcmp(align_gtitle(alignmnt), "богиня");
 
     if (Role_if(PM_CLERIC))
         objects[SPE_LIGHT].oc_skill = P_CLERIC_SPELL;
