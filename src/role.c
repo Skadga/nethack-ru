@@ -2821,7 +2821,7 @@ plsel_startmenu(int ttyrows, int aspect)
                 (ALGN < 0) ? "<alignment>" : aligns[ALGN].adj);
     } else {
         /* "<name> the <alignment> <gender> <race.adjective> <role>" */
-        Sprintf(qbuf, "%.20s the %.20s %.20s %.20s %.20s",
+        Sprintf(qbuf, "%.20s — %.20s %.20s %.20s %.20s",
                 svp.plname,
                 aligns[ALGN].adj,
                 genders[GEND].adj,

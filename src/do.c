@@ -2031,7 +2031,7 @@ void
 maybe_lvltport_feedback(void)
 {
     if (gd.dfr_post_msg
-        && !strncmpi(gd.dfr_post_msg, "You materialize", 15)) {
+        && !strncmp(gd.dfr_post_msg, "Вы материализуетесь", 19)) {
         /* "You materialize on a different level." */
         pline("%s", gd.dfr_post_msg);
         free((genericptr_t) gd.dfr_post_msg), gd.dfr_post_msg = 0;

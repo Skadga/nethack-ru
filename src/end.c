@@ -43,10 +43,10 @@ staticfn void bel_copy1(char **, char *);
  */
 static NEARDATA const char *deaths[] = {
     /* the array of death */
-    "died", "choked", "poisoned", "starvation", "drowning", "burning",
-    "dissolving under the heat and pressure", "crushed", "turned to stone",
-    "turned into slime", "genocided", "panic", "trickery", "quit",
-    "escaped", "ascended"
+    "неизвестной причины", "удушья", "ядом", "голода", "воде", "огне",
+    "кислоте", "грузом", "взгляда",
+    "кем-то", "геноцида", "впал в панику", "обман", "вышел из игры",
+    "сбежал", "вознёсся"
 };
 
 static NEARDATA const char *ends[] = {
@@ -200,8 +200,6 @@ done_in_by(struct monst *mtmp, int how)
        "killed by the high priest" alone isn't */
     if ((mptr->geno & G_UNIQ) != 0 && !(imitator && !mimicker)
         && !(mptr == &mons[PM_HIGH_CLERIC] && !mtmp->ispriest)) {
-        if (!type_is_pname(mptr))
-            Strcat(buf, "the ");
         svk.killer.format = KILLED_BY;
     }
     /* _the_ <invisible> <distorted> ghost of Dudley */
@@ -211,14 +209,13 @@ done_in_by(struct monst *mtmp, int how)
 #else
     if (mptr == &mons[PM_GHOST] && has_mgivenname(mtmp)) {
 #endif
-        Strcat(buf, "the ");
         svk.killer.format = KILLED_BY;
     }
     (void) monhealthdescr(mtmp, TRUE, eos(buf));
     if (mtmp->minvis)
-        Strcat(buf, "invisible ");
+        Strcat(buf, "невидимый ");
     if (distorted)
-        Strcat(buf, "hallucinogen-distorted ");
+        Strcat(buf, "искажённый галлюцинациями ");
 
     if (imitator) {
         char shape[BUFSZ];
@@ -231,26 +228,22 @@ done_in_by(struct monst *mtmp, int how)
                set up fake mptr for type_is_pname/the_unique_pm */
             mptr = &mons[mtmp->mappearance];
             fakenm = pmname(mptr, Mgender(mtmp));
-        } else if (alt && strstri(realnm, "vampire")
-                   && !strcmp(fakenm, "vampire bat")) {
+        } else if (alt && strstri(realnm, "вампир")
+                   && !strcmp(fakenm, "вампирская летучая мышь")) {
             /* special case: use "vampire in bat form" in preference
                to redundant looking "vampire in vampire bat form" */
-            fakenm = "bat";
+            fakenm = "летучая мышь";
         }
         /* for the alternate format, always suppress any article;
            pname and the_unique should also have s_suffix() applied,
            but vampires don't take on any shapes which warrant that */
-        if (alt || type_is_pname(mptr)) /* no article */
-            Strcpy(shape, fakenm);
-        else if (the_unique_pm(mptr)) /* "the"; don't use the() here */
-            Sprintf(shape, "the %s", fakenm);
-        else /* "a"/"an" */
-            Strcpy(shape, an(fakenm));
+        /* в русском языке артиклей нет */
+        Strcpy(shape, fakenm);
         /* omit "called" to avoid excessive verbosity */
         Sprintf(eos(buf),
-                alt ? "%s in %s form"
-                    : mimicker ? "%s disguised as %s"
-                               : "%s imitating %s",
+                alt ? "%s (облик: %s)"
+                    : mimicker ? "%s (выдаёт себя за: %s)"
+                               : "%s (подражает: %s)",
                 realnm, shape);
         mptr = mtmp->data; /* reset for mimicker case */
 #if 0  /* hardfought */
@@ -258,15 +251,15 @@ done_in_by(struct monst *mtmp, int how)
         Strcpy(buf, m_monnam(mtmp));
 #endif
     } else if (mptr == &mons[PM_GHOST]) {
-        Strcat(buf, "ghost");
+        Strcat(buf, "призрак");
         if (has_mgivenname(mtmp))
-            Sprintf(eos(buf), " of %s", MGIVENNAME(mtmp));
+            Sprintf(eos(buf), " по имени %s", MGIVENNAME(mtmp));
     } else if (mtmp->isshk) {
         const char *shknm = shkname(mtmp),
                    *honorific = shkname_is_pname(mtmp) ? ""
-                                   : mtmp->female ? "Ms. " : "Mr. ";
+                                   : mtmp->female ? "г-жа " : "г-н ";
 
-        Sprintf(eos(buf), "%s%s, the shopkeeper", honorific, shknm);
+        Sprintf(eos(buf), "%s%s, торговец", honorific, shknm);
         svk.killer.format = KILLED_BY;
     } else if (mtmp->ispriest || mtmp->isminion) {
         /* m_monnam() suppresses "the" prefix plus "invisible", and
@@ -559,11 +552,11 @@ dump_everything(
 
     /* game start and end date+time to disambiguate version date+time */
     Strcpy(datetimebuf, yyyymmddhhmmss(ubirthday));
-    Sprintf(pbuf, "Game began %4.4s-%2.2s-%2.2s %2.2s:%2.2s:%2.2s",
+    Sprintf(pbuf, "Игра началась %4.4s-%2.2s-%2.2s %2.2s:%2.2s:%2.2s",
             &datetimebuf[0], &datetimebuf[4], &datetimebuf[6],
             &datetimebuf[8], &datetimebuf[10], &datetimebuf[12]);
     Strcpy(datetimebuf, yyyymmddhhmmss(when));
-    Sprintf(eos(pbuf), ", ended %4.4s-%2.2s-%2.2s %2.2s:%2.2s:%2.2s.",
+    Sprintf(eos(pbuf), ", закончилась %4.4s-%2.2s-%2.2s %2.2s:%2.2s:%2.2s.",
             &datetimebuf[0], &datetimebuf[4], &datetimebuf[6],
             &datetimebuf[8], &datetimebuf[10], &datetimebuf[12]);
     putstr(0, 0, pbuf);
@@ -924,8 +917,7 @@ artifact_score(
                 /* not observe_object; dead characters don't observe */
                 otmp->known = otmp->dknown = otmp->bknown = otmp->rknown = 1;
                 /* assumes artifacts don't have quan > 1 */
-                Sprintf(pbuf, "%s%s (worth %ld %s and %ld points)",
-                        the_unique_obj(otmp) ? "The " : "",
+                Sprintf(pbuf, "%s (стоимость %ld %s и %ld очков)",
                         otmp->oartifact ? artiname(otmp->oartifact)
                                         : OBJ_NAME(objects[otmp->otyp]),
                         value, currency(value), points);

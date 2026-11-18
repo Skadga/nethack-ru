@@ -373,10 +373,9 @@ death_inflicted_by(
            can't cast spells */
         if (!type_is_pname(champtr) && !the_unique_pm(mptr))
             realnm = an(realnm);
-        Sprintf(eos(outbuf), " inflicted by %s%s",
-                the_unique_pm(mptr) ? "the " : "", realnm);
+        Sprintf(eos(outbuf), " (источник: %s)", realnm);
         if (champtr != mptr)
-            Sprintf(eos(outbuf), " imitating %s", an(fakenm));
+            Sprintf(eos(outbuf), " (облик: %s)", fakenm);
     }
     return outbuf;
 }
@@ -491,8 +490,8 @@ mcast_disappear(struct monst *mtmp)
 {
     if (!mtmp->minvis && !mtmp->invis_blkd) {
         if (canseemon(mtmp))
-            pline_mon(mtmp, "%s suddenly %s!", Monnam(mtmp),
-                      !See_invisible ? "disappears" : "becomes transparent");
+            pline_mon(mtmp, "%s внезапно %s!", Monnam(mtmp),
+                      !See_invisible ? "исчезает" : "становится прозрачным");
         mon_set_minvis(mtmp, FALSE);
         if (cansee(mtmp->mx, mtmp->my) && !canspotmon(mtmp))
             map_invisible(mtmp->mx, mtmp->my);

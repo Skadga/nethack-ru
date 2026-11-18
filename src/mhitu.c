@@ -1741,7 +1741,7 @@ gazemu(struct monst *mtmp, struct attack *mattk)
                 break;
             urgent_pline("Вы превращаетесь в камень...");
             svk.killer.format = KILLED_BY;
-            Strcpy(svk.killer.name, pmname(mtmp->data, Mgender(mtmp)));
+            Strcpy(svk.killer.name, mon_gen(mtmp, BP_GEN));
             done(STONING);
         }
         break;

@@ -6490,7 +6490,7 @@ handler_menu_colors(void)
                      ATR_NONE, clr, mcbuf, MENU_ITEMFLAGS_NONE);
             tmp = tmp->next;
         }
-        Sprintf(mcbuf, "%s menu colors",
+        Sprintf(mcbuf, "%s: цвета меню",
                 (opt_idx == 1) ? "Список" : "Какие убрать");
         end_menu(tmpwin, mcbuf);
         pick_cnt = select_menu(tmpwin,
@@ -6561,7 +6561,7 @@ handler_msgtype(void)
                      ATR_NONE, clr, mtbuf, MENU_ITEMFLAGS_NONE);
             tmp = tmp->next;
         }
-        Sprintf(mtbuf, "%s message types",
+        Sprintf(mtbuf, "%s: типы сообщений",
                 (opt_idx == 1) ? "Список" : "Какие убрать");
         end_menu(tmpwin, mtbuf);
         pick_cnt = select_menu(tmpwin,
@@ -6810,10 +6810,10 @@ complain_about_duplicate(int optidx)
 #else /* !MACOS9 */
     buf[0] = '\0';
     if (using_alias)
-        Sprintf(buf, " (via alias: %s)", allopt[optidx].alias);
+        Sprintf(buf, " (через псевдоним: %s)", allopt[optidx].alias);
     config_error_add("Параметр %s указан несколько раз: %s%s",
-                     (allopt[optidx].opttyp == CompOpt) ? "compound"
-                                                        : "boolean",
+                     (allopt[optidx].opttyp == CompOpt) ? "составной"
+                                                        : "логический",
                      allopt[optidx].name, buf);
 #endif /* ?MACOS9 */
     return;
@@ -9942,7 +9942,7 @@ all_options_strbuf(strbuf_t *sbuf)
     int i;
 
     strbuf_init(sbuf);
-    Sprintf(tmp, "# NetHack config, saved %s\n#\n",
+    Sprintf(tmp, "# Конфигурация NetHack, сохранена %s\n#\n",
             yyyymmddhhmmss((time_t) 0));
     strbuf_append(sbuf, tmp);
 

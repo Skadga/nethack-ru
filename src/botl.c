@@ -89,7 +89,7 @@ do_statusline1(void)
     if ((i - j) > 0)
         Sprintf(nb = eos(nb), "%*s", i - j, " "); /* pad with spaces */
 
-    Sprintf(nb = eos(nb), "St:%s Dx:%-1d Co:%-1d In:%-1d Wi:%-1d Ch:%-1d",
+    Sprintf(nb = eos(nb), "Сил:%s Лов:%-1d Тел:%-1d Инт:%-1d Муд:%-1d Хар:%-1d",
             get_strength_str(),
             ACURR(A_DEX), ACURR(A_CON), ACURR(A_INT), ACURR(A_WIS),
             ACURR(A_CHA));
@@ -147,23 +147,23 @@ do_statusline2(void)
     hpmax = Upolyd ? u.mhmax : u.uhpmax;
     if (hp < 0)
         hp = 0;
-    Sprintf(hlth, "HP:%d(%d) Pw:%d(%d) AC:%-2d",
+    Sprintf(hlth, "Жиз:%d(%d) Эн:%d(%d) КЗ:%-2d",
             min(hp, 9999), min(hpmax, 9999),
             min(u.uen, 9999), min(u.uenmax, 9999), u.uac);
     hln = strlen(hlth);
 
     /* experience */
     if (Upolyd)
-        Sprintf(expr, "HD:%d", mons[u.umonnum].mlevel);
+        Sprintf(expr, "Ур:%d", mons[u.umonnum].mlevel);
     else if (flags.showexp)
-        Sprintf(expr, "Xp:%d/%-1ld", u.ulevel, u.uexp);
+        Sprintf(expr, "Оп:%d/%-1ld", u.ulevel, u.uexp);
     else
-        Sprintf(expr, "Xp:%d", u.ulevel);
+        Sprintf(expr, "Оп:%d", u.ulevel);
     xln = strlen(expr);
 
     /* time/move counter */
     if (flags.time)
-        Sprintf(tmmv, "T:%ld", svm.moves);
+        Sprintf(tmmv, "Х:%ld", svm.moves);
     else
         tmmv[0] = '\0';
     tln = strlen(tmmv);
@@ -3861,7 +3861,7 @@ status_hilite_menu_choose_updownboth(
 
     if (ltok) {
         if (str)
-            Sprintf(buf, "%s than %s",
+            Sprintf(buf, "%s %s",
                     (fld == BL_AC) ? "ниже (AC)" : "ниже", str);
         else
             Sprintf(buf, "Строго меньше");
@@ -3900,7 +3900,7 @@ status_hilite_menu_choose_updownboth(
         }
 
         if (str)
-            Sprintf(buf, "%s than %s",
+            Sprintf(buf, "%s %s",
                     (fld == BL_AC) ? "выше (AC)" : "выше", str);
         else
             Sprintf(buf, "Строго выше");

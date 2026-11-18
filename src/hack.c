@@ -4490,7 +4490,7 @@ dump_weights(void)
             weightlist[cnt].unique = ((mons[i].geno & G_UNIQ) != 0);
             Snprintf(nmbuf, sizeof nmbuf, "%07u", weightlist[cnt].wt);
             cm = CapitalMon(mons[i].pmnames[NEUTRAL]);
-            Snprintf(&nmbuf[7], sizeof nmbuf - 7, "%s%s", "the body of ",
+            Snprintf(&nmbuf[7], sizeof nmbuf - 7, "%s%s", "тело ",
                      (cm)                     ? the(mons[i].pmnames[NEUTRAL])
                      : weightlist[cnt].unique ? mons[i].pmnames[NEUTRAL]
                                               : an(mons[i].pmnames[NEUTRAL]));

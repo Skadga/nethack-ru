@@ -3407,10 +3407,10 @@ mhitm_ad_wrap(
                                    && !Is_waterlevel(&u.uz);
 
                     urgent_pline("%s топит вас...", Monnam(magr));
-                    svk.killer.format = KILLED_BY_AN;
-                    Sprintf(svk.killer.name, "%s %s",
+                    svk.killer.format = NO_KILLER_PREFIX;
+                    Sprintf(svk.killer.name, "утонул %s из-за %s",
                             moat ? "во рву" : "в водоёме",
-                            an(pmname(magr->data, Mgender(magr))));
+                            mon_gen(magr, BP_GEN));
                     done(DROWNING);
                 } else if (mattk->aatyp == AT_HUGS) {
                     You("раздавливаетесь.");
