@@ -1620,7 +1620,7 @@ burn_object(anything *arg, long timeout)
                               many ? "свечей" : "свечи");
                         break;
                     case OBJ_FLOOR:
-                        You_see("Пламя %s подсвечника гаснет.",
+                        You_see("пламя %s подсвечника гаснет.",
                                 many ? "свечей" : "свечи");
                         break;
                     }

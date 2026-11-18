@@ -8092,7 +8092,7 @@ void
 add_menu_cmd_alias(char from_ch, char to_ch)
 {
     if (gn.n_menu_mapped >= MAX_MENU_MAPPED_CMDS) {
-        pline("не хватает места в карте меню.");
+        pline("Не хватает места в карте меню.");
     } else {
         gm.mapped_menu_cmds[gn.n_menu_mapped] = from_ch;
         gm.mapped_menu_op[gn.n_menu_mapped] = to_ch;

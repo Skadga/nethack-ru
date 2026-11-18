@@ -933,7 +933,7 @@ commit_bonesfile(d_level *lev)
     ret = rename(tempname, fq_bones);
 #endif
     if (wizard && ret != 0)
-        pline("не удалось переименовать %s в %s.", tempname, fq_bones);
+        pline("Не удалось переименовать %s в %s.", tempname, fq_bones);
 }
 
 NHFILE *

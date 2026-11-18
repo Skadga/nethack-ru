@@ -3306,7 +3306,7 @@ mhitm_ad_drin(
         }
         if ((mdef->misc_worn_check & W_ARMH) && rn2(8)) {
             if (gv.vis && canspotmon(magr) && canseemon(mdef)) {
-                pline("шлем %s блокирует атаку %s по %s голове.",
+                pline("Шлем %s блокирует атаку %s по %s голове.",
                       mon_gen(mdef, BP_GEN), mon_gen(magr, BP_GEN),
                       mhis(mdef));
             }

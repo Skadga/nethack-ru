@@ -1363,7 +1363,7 @@ use_crystal_ball(struct obj **optr)
 
         if (ret) {
             if (!rn2(100)) /* make them nervous */
-                You_see("Маг Йендора смотрит на вас.");
+                You_see("как Маг Йендора смотрит на вас.");
             else
                 pline("Видение неясно.");
         }

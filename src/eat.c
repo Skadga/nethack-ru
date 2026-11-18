@@ -779,7 +779,7 @@ maybe_cannibal(int pm, boolean allowmsg)
         if (allowmsg) {
             if (Upolyd && your_race(fptr))
                 You("глубоко внутри тебя возникает дурное чувство.");
-            You("Каннибал!  Пожалеешь об этом!");
+            You("каннибал! Пожалеете об этом!");
         }
         HAggravate_monster |= FROMOUTSIDE;
         change_luck(-rn1(4, 2)); /* -5..-2 */

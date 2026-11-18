@@ -647,7 +647,7 @@ shkinit(const struct shclass *shp, struct mkroom *sroom)
             pline("doormax=%d doorct=%d fdoor=%d", gd.doorindex, sroom->doorct,
                   sh);
             while (j--) {
-                pline("дверь [%d,%d]", svd.doors[sh].x,
+                pline("Дверь [%d,%d]", svd.doors[sh].x,
                       svd.doors[sh].y);
                 sh++;
             }

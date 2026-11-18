@@ -240,7 +240,7 @@ flooreffects(
         if (*verb) {
             if (Blind && u_at(x, y)) {
                 Soundeffect(se_crashing_boulder, 100);
-                You_hear("ГРОХОТ! под вами.");
+                You_hear("грохот под вами!");
             } else if (!Blind && cansee(x, y)) {
                 pline("Валун %s%s.",
                           (ttyp == TRAPDOOR && !tseen) ? "Срабатывает, и " : "",

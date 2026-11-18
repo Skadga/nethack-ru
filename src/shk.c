@@ -1932,7 +1932,7 @@ dopay(void)
             }
             pline("Ќо поскольку %s лавка недавно была ограблена,",
                   noit_mhis(shkp));
-            pline("вы %sкомпенсируете %s %s потери.",
+            pline("¬ы %sкомпенсируете %s %s потери.",
                   (umoney < ltmp) ? "частично " : "", shkname(shkp),
                   noit_mhis(shkp));
             pay(umoney < ltmp ? umoney : ltmp, shkp);
@@ -2090,7 +2090,7 @@ pay_billed_items(
                         we can deduce that it is ibill[0] */
                      || ibill[0].usedup == UndisclosedContainer);
     if ((umoney + eshkp->credit) < cheapest_item(ibillct, ibill)) {
-        You("” вас недостаточно золота, чтобы купить%s%s%s.",
+        You("не можете купить%s%s: золота не хватает.",
             more_than_one ? " хоть что-нибудь" : " это",
             (ebillct > 1) ? " из того, что вы выбрали" : " из того, что в счЄте");
         if (stashed_gold)
@@ -2490,10 +2490,10 @@ insufficient_funds(
     }
     if (cost && umoney + ecredit < cost) {
         stashed_gold = hidden_gold(TRUE);
-        You("” вас%s недостаточно золота%s, чтобы заплатить за %s.",
-            (stashed_gold > 0L) ? ", по-видимому," : "",
-            (ecredit > 0L) ? " или кредита" : "",
-            paydoname(item));
+        You("не можете заплатить за %s: %sзолота%s не хватает.",
+            paydoname(item),
+            (stashed_gold > 0L) ? "по-видимому, " : "",
+            (ecredit > 0L) ? " и кредита" : "");
         return TRUE;
     }
     return FALSE;
@@ -3923,7 +3923,7 @@ donate_gold(
             You("кредит в %ld %s установлен%s.",
                 !selling ? " заново" : "", delta, currency(delta));
         else
-            pline("к кредиту добавлено %ld %s%s; теперь итого %ld %s.",
+            pline("  кредиту добавлено %ld %s%s; теперь итого %ld %s.",
                   delta, currency(delta), !selling ? " обратно" : "",
                   eshkp->credit, currency(eshkp->credit));
     }

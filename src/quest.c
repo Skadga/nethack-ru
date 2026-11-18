@@ -162,8 +162,8 @@ is_pure(boolean talk)
         } else if (u.ualignbase[A_CURRENT] != original_alignment) {
             You("сменили веру.");
         } else if (u.ualign.record < MIN_QUEST_ALIGN) {
-            You("Ваш показатель сейчас %d, а требуется %d.", u.ualign.record,
-                MIN_QUEST_ALIGN);
+            Your("Ваш показатель сейчас %d, а требуется %d.", u.ualign.record,
+                 MIN_QUEST_ALIGN);
             if (yn_function("Подправить?", (char *) 0, 'y', TRUE) == 'y')
                 u.ualign.record = MIN_QUEST_ALIGN;
         }

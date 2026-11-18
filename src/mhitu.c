@@ -1850,7 +1850,7 @@ gazemu(struct monst *mtmp, struct attack *mattk)
                 already = (mtmp->mfrozen != 0); /* can't happen... */
             } else {
                 fall_asleep(-rnd(10), TRUE);
-                pline("взгляд %s навевает на вас сонливость...",
+                pline("Взгляд %s навевает на вас сонливость...",
                       mon_gen(mtmp, BP_GEN));
                 monstunseesu(M_SEEN_SLEEP);
             }
