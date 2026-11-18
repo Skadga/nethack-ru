@@ -298,7 +298,7 @@ do_pit(coordxy x, coordxy y, unsigned tu_pit)
                things this way, entering the new pit below
                will override current trap anyway, but too
                late to get Lev and Fly handling. */
-            Your("צוןü נג¸עסÿ!");
+            Your("ֲארא צוןü נג¸עסÿ!");
             reset_utrap(TRUE);
         }
         if (Levitation || Flying || is_clinger(gy.youmonst.data)) {

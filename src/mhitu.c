@@ -165,7 +165,7 @@ u_slow_down(void)
     if (!Fast)
         You("замедляетесь.");
     else /* speed boots */
-        Your("скорость кажется менее естественной.");
+        Your("Ваша скорость кажется менее естественной.");
     exercise(A_DEX, FALSE);
 }
 
@@ -597,7 +597,7 @@ mattacku(struct monst *mtmp)
 
             obj = which_armor(mtmp, WORN_HELMET);
             if (hard_helmet(obj)) {
-                Your("удар соскальзывает с %s %s.", helm_case(obj, BP_GEN),
+                Your("Ваш удар соскальзывает с %s %s.", helm_case(obj, BP_GEN),
                      mon_gen(mtmp, BP_GEN));
             } else {
                 if (3 + find_mac(mtmp) <= rnd(20)) {
@@ -2185,7 +2185,7 @@ doseduce(struct monst *mon)
             disp.botl = TRUE;
             break;
         case 2:
-            Your("чувства притуплены.");
+            Your("Ваши чувства притуплены.");
             (void) adjattrib(A_WIS, -1, TRUE);
             exercise(A_WIS, FALSE);
             disp.botl = TRUE;

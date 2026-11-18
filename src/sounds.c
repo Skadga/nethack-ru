@@ -1277,7 +1277,7 @@ dochat(void)
         return ECMD_OK;
     }
     if (Underwater) {
-        Your("речь под водой неразборчива.");
+        Your("Ваша речь под водой неразборчива.");
         return ECMD_OK;
     }
     if (!Deaf && !Blind && (otmp = shop_object(u.ux, u.uy)) != 0) {

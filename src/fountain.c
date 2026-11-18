@@ -124,7 +124,7 @@ dogushforth(int drinking)
     do_clear_area(u.ux, u.uy, 7, gush, (genericptr_t) &madepool);
     if (!madepool) {
         if (drinking)
-            Your("жажда утолена.");
+            Your("Ваша жажда утолена.");
         else
             pline("Вода обдаёт вас.");
     }

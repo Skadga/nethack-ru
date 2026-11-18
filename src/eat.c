@@ -625,7 +625,7 @@ eat_brains(
     } else if (magr == &gy.youmonst) {
         You("съедаете мозг %s!", mhis(mdef));
     } else if (mdef == &gy.youmonst) {
-        Your("мозг съеден!");
+        Your("Ваш мозг съеден!");
     } else { /* monster against monster */
         if (visflag && canspotmon(mdef))
             pline("Мозг %s съеден!", mhis(mdef));
@@ -710,7 +710,7 @@ eat_brains(
                 u.uprops[LIFESAVED].extrinsic =
                     u.uprops[LIFESAVED].intrinsic = 0L;
             } else {
-                Your("последняя мысль угасает.");
+                Your("Ваша последняя мысль угасает.");
             }
             Strcpy(svk.killer.name, brainlessness);
             svk.killer.format = KILLED_BY;
@@ -1043,7 +1043,7 @@ givit(int type, struct permonst *ptr)
             if (Hallucination)
                 You_feel("прочно стоишь на земле.");
             else
-                Your("здоровье сейчас ощущается усиленным!");
+                Your("Ваше здоровье сейчас ощущается усиленным!");
             HShock_resistance |= FROMOUTSIDE;
         }
         break;
@@ -1226,7 +1226,7 @@ cpostfx(int pm)
         }
         break;
     case PM_QUANTUM_MECHANIC:
-        Your("скорость внезапно кажется очень ненадёжной!");
+        Your("Ваша скорость внезапно кажется очень ненадёжной!");
         if (HFast & INTRINSIC) {
             HFast &= ~INTRINSIC;
             You("замедляешься.");
@@ -2323,7 +2323,7 @@ eataccessory(struct obj *otmp)
                 if (!oldprop && !EInvis && !BInvis && !See_invisible
                     && !Blind) {
                     newsym(u.ux, u.uy);
-                    Your("тело становится %s прозрачным...",
+                    Your("Ваше тело приобретает %s прозрачность...",
                          Hallucination ? "обычной" : "странной");
                     makeknown(typ);
                 }
@@ -3763,7 +3763,7 @@ vomit(void) /* A good idea from David Neves */
     if (cantvomit(gy.youmonst.data)) {
         /* doesn't cure food poisoning; message assumes that we aren't
            dealing with some esoteric body_part() */
-        Your("челюсть судорожно раскрывается.");
+        Your("Ваша челюсть судорожно раскрывается.");
     } else {
         if (Sick && (u.usick_type & SICK_VOMITABLE) != 0)
             make_sick(0L, (char *) 0, TRUE, SICK_VOMITABLE);

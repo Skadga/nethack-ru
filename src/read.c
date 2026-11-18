@@ -862,7 +862,7 @@ recharge(struct obj *obj, int curse_bless)
                 /* previously recharged */
                 obj->recharged = 1; /* override increment done above */
                 if (obj->spe < 3)
-                    Your("маркер, похоже, окончательно высох.");
+                    Your("Ваш маркер, похоже, окончательно высох.");
                 else
                     pline1(nothing_happens);
             } else if (is_blessed) {
@@ -1651,7 +1651,7 @@ seffect_enchant_weapon(struct obj **sobjp)
         uwep->oerodeproof = 0; /* for messages */
         if (Blind) {
             uwep->rknown = FALSE;
-            Your("оружие на мгновение теплеет.");
+            Your("Ваше оружие на мгновение теплеет.");
         } else {
             uwep->rknown = TRUE;
             pline("%s %s %s!", Yobjnam2(uwep, "покрывается"),
@@ -1841,7 +1841,7 @@ seffect_amnesia(struct obj **sobjp)
     gk.known = TRUE;
     forget((!sblessed ? ALL_SPELLS : 0));
     if (Hallucination) /* Ommmmmm! */
-        Your("разум освобождается от мирских забот.");
+        Your("Ваш разум освобождается от мирских забот.");
     else if (!strncmpi(svp.plname, "Maud", 4))
         pline("Когда ваш разум обращается внутрь себя,"
               " вы забываете обо всём.");
@@ -2116,7 +2116,7 @@ seffect_magic_mapping(struct obj **sobjp)
 
     if (is_scroll) {
         if (svl.level.flags.nommap) {
-            Your("разум заполнен безумными линиями!");
+            Your("Ваш разум заполнен безумными линиями!");
             if (Hallucination)
                 pline("Вау!  Современное искусство.");
             else
@@ -3036,7 +3036,7 @@ punish(struct obj *sobj)
     if (!reuse_ball)
         You("наказаны за проступок!");
     if (Punished) {
-        Your("железный шар тяжелеет.");
+        Your("Ваш железный шар тяжелеет.");
         uball->owt += WT_IRON_BALL_INCR * (1 + cursed_levy);
         return;
     }

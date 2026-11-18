@@ -355,7 +355,7 @@ dig(void)
             wake_nearby(FALSE);
             break;
         default:
-            Your("размах промахиваетс€.");
+            Your("¬аш размах промахиваетс€.");
             break;
         }
         return 0;

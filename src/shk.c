@@ -693,7 +693,7 @@ rob_shop(struct monst *shkp)
     rouse_shk(shkp, TRUE);
     total = (addupbill(shkp) + eshkp->debit);
     if (eshkp->credit >= total) {
-        Your("кредит в %ld %s использован для покрытия вашего счёта.",
+        Your("Ваш кредит в %ld %s использован для покрытия вашего счёта.",
              eshkp->credit, currency(eshkp->credit));
         total = 0L; /* credit gets cleared by setpaid() */
     } else {
@@ -1996,7 +1996,7 @@ dopay(void)
                 eshkp->credit -= dtmp;
                 eshkp->debit = 0L;
                 eshkp->loan = 0L;
-                Your("долг покрыт вашим кредитом.");
+                Your("Ваш долг покрыт вашим кредитом.");
             } else if (!eshkp->credit) {
                 money2mon(shkp, dtmp);
                 eshkp->debit = 0L;
@@ -3909,7 +3909,7 @@ donate_gold(
                 eshkp->loan = 0L;
         }
         eshkp->debit -= gltmp;
-        Your("долг %sпогашен.", eshkp->debit ? "частично " : "");
+        Your("Ваш долг %sпогашен.", eshkp->debit ? "частично " : "");
     } else {
         long delta = gltmp - eshkp->debit;
 
@@ -3917,7 +3917,7 @@ donate_gold(
         if (eshkp->debit) {
             eshkp->debit = 0L;
             eshkp->loan = 0L;
-            Your("долг погашен.");
+            Your("Ваш долг погашен.");
         }
         if (eshkp->credit == delta)
             pline("Кредит установлен в размере %ld %s%s.",
@@ -4916,7 +4916,7 @@ shk_move(struct monst *shkp)
                                           || (omx == u.ux || omy == u.uy))) {
         if (ANGRY(shkp) || (Conflict && !resist_conflict(shkp))) {
             if (Displaced)
-                Your("смещённый образ не обманет %s!", shkname(shkp));
+                Your("Ваш смещённый образ не обманет %s!", shkname(shkp));
             (void) mattacku(shkp);
             return 0;
         }
@@ -5320,7 +5320,7 @@ pay_for_damage(const char *dmgstr, boolean cant_mollify)
     }
 
     if (Invis)
-        Your("невидимость не обманет %s!", shkname(shkp));
+        Your("Ваша невидимость не обманет %s!", shkname(shkp));
     Sprintf(qbuf, "%sВы нанесли ущерб на %ld %s!%s  Платить?",
             !animal ? cad(TRUE) : "", cost_of_damage,
             currency(cost_of_damage), !animal ? "\"" : "");
@@ -5786,18 +5786,18 @@ costly_gold(
     if (eshkp->credit >= amount) {
         if (!silent) {
             if (eshkp->credit > amount)
-                Your("кредит уменьшен на %ld %s.", amount, currency(amount));
+                Your("Ваш кредит уменьшен на %ld %s.", amount, currency(amount));
             else
-                Your("кредит аннулирован.");
+                Your("Ваш кредит аннулирован.");
         }
         eshkp->credit -= amount;
     } else {
         delta = amount - eshkp->credit;
         if (!silent) {
             if (eshkp->credit)
-                Your("кредит аннулирован.");
+                Your("Ваш кредит аннулирован.");
             if (eshkp->debit)
-                Your("долг увеличился на %ld %s.", delta, currency(delta));
+                Your("Ваш долг увеличился на %ld %s.", delta, currency(delta));
             else
                 You("должны %s %ld %s.", shkname(shkp), delta, currency(delta));
         }
@@ -6082,7 +6082,7 @@ globby_bill_fixup(struct obj *obj_absorber, struct obj *obj_absorbed)
                 if (eshkp->debit) {
                     eshkp->debit = 0L;
                     eshkp->loan = 0L;
-                    Your("долг погашен.");
+                    Your("Ваш долг погашен.");
                 }
                 if (eshkp->credit == delta)
                     pline("%s Устанавливает кредит в %ld %s.",

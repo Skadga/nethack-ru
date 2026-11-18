@@ -130,7 +130,7 @@ adjattrib(
 
     if ((ndx == A_INT || ndx == A_WIS) && uarmh && uarmh->otyp == DUNCE_CAP) {
         if (msgflg == 0)
-            Your("шапка сжимается на мгновение, затем снова расслабляется.");
+            Your("Ваша шапка сжимается на мгновение, затем снова расслабляется.");
         return FALSE;
     }
 

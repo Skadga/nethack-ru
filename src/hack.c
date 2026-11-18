@@ -1160,7 +1160,7 @@ test_move(
             return FALSE;
         case 1:
             if (mode == DO_MOVE)
-                Your("тело слишком велико, чтобы пролезть.");
+                Your("Ваше тело слишком велико, чтобы пролезть.");
             return FALSE;
         default:
             break; /* can squeeze through */

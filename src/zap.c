@@ -3209,7 +3209,7 @@ cancel_monst(struct monst *mdef, struct obj *obj, boolean youattack,
                 u.mh = 0; /* fatal; death handled by rehumanize() */
             }
             if (Unchanging && u.mh > 0)
-                Your("амулет на миг раскаляется, затем остывает.");
+                Your("Ваш амулет на миг раскаляется, затем остывает.");
             else
                 rehumanize();
         }
@@ -3278,7 +3278,7 @@ zap_updown(struct obj *obj) /* wand or spell, nonnull */
             ptmp += display_binventory(x, y, TRUE);
         }
         if (!ptmp)
-            Your("зонд ничего не обнаруживает.");
+            Your("Ваш зонд ничего не обнаруживает.");
         return TRUE; /* we've done our own bhitpile */
     case WAN_OPENING:
     case SPE_KNOCK:

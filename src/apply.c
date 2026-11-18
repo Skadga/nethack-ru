@@ -741,7 +741,7 @@ m_unleash(struct monst *mtmp, boolean feedback)
             pline_mon(mtmp, "%s вырывается из %s поводка!",
                       Monnam(mtmp), mhis(mtmp));
         else
-            Your("поводок ослаб.");
+            Your("Ваш поводок ослаб.");
     }
     if ((otmp = get_mleash(mtmp)) != 0) {
         otmp->leashmon = 0;
@@ -964,7 +964,7 @@ check_leash(coordxy x, coordxy y)
                     || (mtmp->mhp -= rnd(2)) <= 0) {
                     long save_pacifism = u.uconduct.killer;
 
-                    Your("поводок душит %s насмерть!", mon_nam(mtmp));
+                    Your("Ваш поводок душит %s насмерть!", mon_nam(mtmp));
                     /* hero might not have intended to kill pet, but
                        that's the result of his actions; gain experience,
                        lose pacifism, take alignment and luck hit, make
@@ -1681,7 +1681,7 @@ use_lamp(struct obj *obj)
         || (obj->otyp == MAGIC_LAMP && obj->spe == 0)) {
         if (obj->otyp == BRASS_LANTERN) {
             if (!Blind)
-                Your("фонарь разряжен.");
+                Your("Ваш фонарь разряжен.");
             else
                 pline("%s", nothing_seems_to_happen);
         } else {
@@ -2970,7 +2970,7 @@ set_trap(void)
                    (unsigned) (gt.trapinfo.force_bungle ? FORCEBUNGLE : 0));
     } else {
         /* this shouldn't happen */
-        Your("попытка установки ловушки провалилась.");
+        Your("Ваша попытка установки ловушки провалилась.");
     }
     useup(otmp);
     reset_trapset();

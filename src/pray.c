@@ -387,7 +387,7 @@ fix_worst_trouble(int trouble)
         break;
     case TROUBLE_STRANGLED:
         if (uamul && uamul->otyp == AMULET_OF_STRANGULATION) {
-            Your("амулет исчезает!");
+            Your("Ваш амулет исчезает!");
             useup(uamul);
         }
         You("снова можете дышать.");
@@ -461,7 +461,7 @@ fix_worst_trouble(int trouble)
     case TROUBLE_STUCK_IN_WALL:
         /* no control, but works on no-teleport levels */
         if (safe_teleds(TELEDS_NO_FLAGS)) {
-            Your("окружение меняется.");
+            Your("Ваше окружение меняется.");
         } else {
             /* safe_teleds() couldn't find a safe place; perhaps the
                level is completely full.  As a last resort, confer
@@ -496,7 +496,7 @@ fix_worst_trouble(int trouble)
         }
         if (Upolyd && nohands(gy.youmonst.data)) {
             if (!Unchanging) {
-                Your("форма становится неясной.");
+                Your("Ваша форма становится неясной.");
                 rehumanize(); /* "You return to {normal} form." */
             } else if ((otmp = unchanger()) != 0 && otmp->cursed) {
                 /* otmp is an amulet of unchanging */
@@ -517,7 +517,7 @@ fix_worst_trouble(int trouble)
     /*
      */
     case TROUBLE_PUNISHED:
-        Your("цепь исчезает.");
+        Your("Ваша цепь исчезает.");
         if (u.utrap && u.utraptype == TT_BURIEDBALL)
             buried_ball_to_freedom();
         else
@@ -914,7 +914,7 @@ gcrownu(void)
 
             Strcpy(lbuf, simpleonames(obj)); /* before transformation */
             if (!Blind)
-                Your("меч ярко сверкает на мгновение.");
+                Your("Ваш меч ярко сверкает на мгновение.");
             obj = oname(obj, artiname(ART_EXCALIBUR),
                         ONAME_GIFT | ONAME_KNOW_ARTI);
             if (is_art(obj, ART_EXCALIBUR)) {
@@ -1056,7 +1056,7 @@ give_spell(void)
                 pline("Божественное знание %s заполняет ваш разум!  Заклинание '%c'.",
                       spe_name, spe_let);
             else
-                Your("знание заклинания '%c' - %s %s.",
+                Your("Ваше знание заклинания '%c' - %s %s.",
                      spe_let, spe_name,
                      (spe_knowledge == spe_Forgotten) ? "восстановлено"
                                                       : "обновлено");
@@ -1462,10 +1462,10 @@ consume_offering(struct obj *otmp)
     if (Hallucination)
         switch (rn2(3)) {
         case 0:
-            Your("жертва обзаводится крыльями и пропеллером и с рёвом улетает!");
+            Your("Ваша жертва обзаводится крыльями и пропеллером и с рёвом улетает!");
             break;
         case 1:
-            Your("жертва раздувается всё больше и больше и лопается!");
+            Your("Ваша жертва раздувается всё больше и больше и лопается!");
             break;
         case 2:
             Your(
@@ -1473,9 +1473,9 @@ consume_offering(struct obj *otmp)
             break;
         }
     else if (Blind && u.ualign.type == A_LAWFUL)
-        Your("жертва исчезает!");
+        Your("Ваша жертва исчезает!");
     else
-        Your("жертва поглощается %s!",
+        Your("Ваша жертва поглощается %s!",
              (u.ualign.type == A_LAWFUL)
                 ? "вспышкой света"
                 : (u.ualign.type == A_NEUTRAL)

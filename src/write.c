@@ -255,7 +255,7 @@ dowrite(struct obj *pen)
     /* see if there's enough ink */
     basecost = cost(new_obj);
     if (pen->spe < basecost / 2) {
-        Your("маркер слишком сухой, чтобы написать это!");
+        Your("¬аш маркер слишком сухой, чтобы написать это!");
         obfree(new_obj, (struct obj *) 0);
         return ECMD_TIME;
     }
@@ -268,7 +268,7 @@ dowrite(struct obj *pen)
     /* dry out marker */
     if (pen->spe < actualcost) {
         pen->spe = 0;
-        Your("маркер высыхает!");
+        Your("¬аш маркер высыхает!");
         /* scrolls disappear, spellbooks don't */
         if (paper->oclass == SPBOOK_CLASS) {
             pline("—борник заклинаний остаЄтс€ незавершЄнным, и ваша запись угасает.");

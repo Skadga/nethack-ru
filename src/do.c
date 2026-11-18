@@ -1172,7 +1172,7 @@ dodown(void)
             if (float_down(I_SPECIAL | TIMEOUT, W_ARTI)) {
                 return ECMD_TIME; /* came down, so moved */
             } else if (!HLevitation && !ELevitation) {
-                Your("скрыта€ левитаци€ прекращаетс€.");
+                Your("¬аша скрыта€ левитаци€ прекращаетс€.");
                 return ECMD_TIME; /* did something, effectively moved */
             }
         }
@@ -1326,7 +1326,7 @@ doup(void)
 
     if (near_capacity() > SLT_ENCUMBER) {
         /* No levitation check; inv_weight() already allows for it */
-        Your("груз слишком т€жЄл, чтобы подн€тьс€ по %s.",
+        Your("¬аш груз слишком т€жЄл, чтобы подн€тьс€ по %s.",
              levl[u.ux][u.uy].typ == STAIRS ? "лестнице" : "лестнице");
         return ECMD_TIME;
     }
@@ -2418,9 +2418,9 @@ legs_in_no_shape(const char *for_what, /* jumping, kicking, riding */
         const char *bp = body_part_case(LEG, wl == BOTH_SIDES
                                                   ? BP_NOM | BP_PLURAL
                                                   : BP_NOM);
-        Your("%s%s %s не в форме дл€ %s.",
+        Your("%s%s не в форме дл€ %s.",
              (wl == LEFT_SIDE) ? "лева€ " : (wl == RIGHT_SIDE) ? "права€ " : "",
-             bp, (wl == BOTH_SIDES) ? "are" : "", for_what);
+             bp, for_what);
     }
 }
 

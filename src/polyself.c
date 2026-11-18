@@ -177,7 +177,7 @@ check_strangling(boolean on)
             && can_be_strangled(&gy.youmonst)) {
             Strangled = 6L;
             disp.botl = TRUE;
-            Your("%s %s ваша %s!", simpleonames(uamul),
+            Your("%s %s вашу %s!", simpleonames(uamul),
                  was_strangled ? "всё ещё сжимает" : "начинает сжимать",
                  body_part_case(NECK, BP_ACC)); /* "throat" */
             makeknown(AMULET_OF_STRANGULATION);
@@ -452,7 +452,7 @@ newman(void)
         livelog_newform(TRUE, oldgend, newgend);
 
     if (Slimed) {
-        Your("тело трансформируется, но на вас всё ещё слизь.");
+        Your("Ваше тело трансформируется, но на вас всё ещё слизь.");
         make_slimed(10L, (const char *) 0);
     }
 
@@ -1192,14 +1192,14 @@ break_armor(void)
             }
         }
         if (uarmu) {
-            Your("рубашка разрывается в клочья!");
+            Your("Ваша рубашка разрывается в клочья!");
             useup(uarmu);
         }
     } else if (sliparm(uptr)) {
         if ((otmp = uarm) != 0 && racial_exception(&gy.youmonst, otmp) < 1) {
             if (donning(otmp))
                 cancel_don();
-            Your("броня спадает с вас!");
+            Your("Ваша броня спадает с вас!");
             /* [note: _gone() instead of _off() dates to when life-saving
                could force fire resisting armor back on if hero burned in
                hell (3.0, predating Gehennom); the armor isn't actually
@@ -1276,9 +1276,9 @@ break_armor(void)
             if (donning(otmp))
                 cancel_don();
             if (is_whirly(uptr))
-                Your("сапоги спадают!");
+                Your("Ваши сапоги спадают!");
             else
-                Your("сапоги %s с ваших ног!",
+                Your("Ваши сапоги %s с ваших ног!",
                      verysmall(uptr) ? "соскальзывают" : "слетают");
             (void) Boots_off();
             dropp(otmp);
@@ -1394,7 +1394,7 @@ rehumanize(void)
     if (u.uhp < 1) {
         /* can only happen if some bit of code reduces u.uhp
            instead of u.mh while poly'd */
-        Your("старая форма была недостаточно здорова, чтобы выжить.");
+        Your("Ваша прежняя форма была недостаточно здорова, чтобы выжить.");
         Sprintf(svk.killer.name, "возврат к нездоровой %s форме",
                 gu.urace.adj);
         svk.killer.format = KILLED_BY;
@@ -1565,7 +1565,7 @@ dospinweb(void)
         case LEVEL_TELEP:
         case MAGIC_PORTAL:
         case VIBRATING_SQUARE:
-            Your("паутина исчезает!");
+            Your("Ваша паутина исчезает!");
             return ECMD_OK;
         case WEB:
             You("делаете паутину толще.");
@@ -1602,7 +1602,7 @@ dospinweb(void)
         }
     } else if (On_stairs(x, y)) {
         /* cop out: don't let them hide the stairs */
-        Your("паутина не мешает доступу к %s.",
+        Your("Ваша паутина не мешает доступу к %s.",
              (levl[x][y].typ == STAIRS) ? "лестнице" : "стремянке");
         return ECMD_TIME;
     }
@@ -1703,7 +1703,7 @@ dogaze(void)
                  */
                 if (adtyp == AD_CONF) {
                     if (!mtmp->mconf)
-                        Your("взгляд сбивает с толку %s!", mon_nam(mtmp));
+                        Your("Ваш взгляд сбивает с толку %s!", mon_nam(mtmp));
                     else
                         pline("%s становится всё более и более сбитым с толку.",
                               Monnam(mtmp));
@@ -1952,7 +1952,7 @@ skinback(boolean silently)
         int old_light = arti_light_radius(uskin);
 
         if (!silently)
-            Your("кожа возвращается к своему первоначальному виду.");
+            Your("Ваша кожа возвращается к своему первоначальному виду.");
         uarm = uskin;
         uskin = (struct obj *) 0;
         /* undo save/restore hack */

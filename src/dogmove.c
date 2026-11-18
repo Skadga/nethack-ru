@@ -348,7 +348,7 @@ staticfn void
 dog_starve(struct monst *mtmp)
 {
     if (mtmp->mleashed && mtmp != u.usteed)
-        Your("ваш поводок провисает.");
+        Your("Ваш поводок провисает.");
     else if (cansee(mtmp->mx, mtmp->my))
         pline_mon(mtmp, "%s умирает от голода.", Monnam(mtmp));
     else
@@ -1525,7 +1525,7 @@ quickmimic(struct monst *mtmp)
         if (was_leashed
             && (M_AP_TYPE(mtmp) != M_AP_MONSTER
                 || !mnum_leashable(mtmp->mappearance))) {
-            Your("ваш поводок провисает.");
+            Your("Ваш поводок провисает.");
             m_unleash(mtmp, FALSE);
         }
         if (glyph_at(mtmp->mx, mtmp->my) != prev_glyph) {

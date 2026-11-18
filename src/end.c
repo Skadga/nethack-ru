@@ -1072,7 +1072,7 @@ done(int how)
         pline("Но подождите...");
         /* assumes that only one type of item confers LifeSaved property */
         makeknown(AMULET_OF_LIFE_SAVING);
-        Your("медальон %s!", !Blind ? "начинает светиться" : "кажется тёплым");
+        Your("Ваш медальон %s!", !Blind ? "начинает светиться" : "кажется тёплым");
         if (how == CHOKING)
             You("вырвало...");
         You_feel("намного лучше!");

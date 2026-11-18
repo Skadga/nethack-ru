@@ -377,11 +377,17 @@ void
 Your(const char *line, ...)
 {
     va_list the_args;
-    char *tmp;
+    char buf[BIGBUFSZ];
 
     va_start(the_args, line);
-    vpline(YouMessage(tmp, "", line), the_args);
+    (void) vsnprintf(buf, sizeof buf, line, the_args);
     va_end(the_args);
+    buf[sizeof buf - 1] = '\0';
+    /* no prefix is added, so make sure that the message starts with a
+       capital letter (CP1251-aware highc()) */
+    if (buf[0])
+        buf[0] = highc(buf[0]);
+    pline("%s", buf);
 }
 
 void

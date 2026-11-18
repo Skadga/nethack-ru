@@ -800,7 +800,7 @@ teleport_pet(struct monst *mtmp, boolean force_it)
             yelp(mtmp);
             return FALSE;
         } else {
-            Your("поводок ослабевает.");
+            Your("Ваш поводок ослабевает.");
  release_it:
             m_unleash(mtmp, FALSE);
             return TRUE;
@@ -1261,13 +1261,13 @@ level_tele(void)
             display_nhwindow(WIN_MESSAGE, FALSE);
             You("перестаёте существовать.");
             if (gi.invent)
-                Your("вещи с глухим стуком падают на %s.",
+                Your("Ваши вещи с глухим стуком падают на %s.",
                      surface(u.ux, u.uy));
             svk.killer.format = NO_KILLER_PREFIX;
             Strcpy(svk.killer.name, "покончил с собой");
             done(DIED);
             pline("Энергизированное облако пыли начинает сгущаться.");
-            Your("тело вновь материализуется%s.",
+            Your("Ваше тело вновь материализуется%s.",
                  gi.invent ? ", и вы собираете все свои вещи" : "");
             return;
         }

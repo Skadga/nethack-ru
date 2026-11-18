@@ -604,7 +604,7 @@ known_hitum(
         /* this may need to be generalized if weapons other than
            Stormbringer acquire similar anti-social behavior... */
         if (flags.verbose)
-            Your("кровожадный клинок атакует!");
+            Your("Ваш кровожадный клинок атакует!");
     }
 
     if (!*mhit) {
@@ -1317,10 +1317,10 @@ hmon_hitmon_misc_obj(
         break;
     case ACID_VENOM: /* thrown (or spit) */
         if (resists_acid(mon)) {
-            Your("яд безвредно поражает %s.", mon_nam(mon));
+            Your("кислота безвредно попадает в %s.", mon_nam(mon));
             hmd->dmg = 0;
         } else {
-            Your("яд обжигает %s!", mon_nam(mon));
+            Your("кислота обжигает %s!", mon_nam(mon));
             hmd->dmg = dmgval(obj, mon);
         }
         {
@@ -2826,7 +2826,7 @@ mhitm_ad_sgld(
             if (merge_choice(gi.invent, mongold)
                     || inv_cnt(FALSE) < invlet_basic) {
                 addinv(mongold);
-                Your("кошелёк становится тяжелее.");
+                Your("Ваш кошелёк становится тяжелее.");
             } else {
                 You("хватаете золото %s, но не находите места в рюкзаке.",
                     mon_nam(mdef));
@@ -2913,7 +2913,7 @@ mhitm_ad_tlpt(
             You("не затронуты.");
         } else {
             if (flags.verbose)
-                Your("ваше положение вдруг кажется %sнеопределённым!",
+                Your("Ваше положение вдруг кажется %sнеопределённым!",
                      (Teleport_control && !Stunned && !unconscious()) ? ""
                      : "очень ");
             tele();
@@ -3152,12 +3152,12 @@ mhitm_ad_drst(
     if (magr == &gy.youmonst) {
         /* uhitm */
         if (!negated && !rn2(8)) {
-            Your("%s был отравлен!", mpoisons_subj(magr, mattk));
+            Your("Ваш %s был отравлен!", mpoisons_subj(magr, mattk));
             if (resists_poison(mdef)) {
                 pline("Яд, кажется, не действует на %s.", mon_nam(mdef));
             } else {
                 if (!rn2(10)) {
-                    Your("яд оказался смертельным...");
+                    Your("Ваш яд оказался смертельным...");
                     mhm->damage = mdef->mhp;
                 } else
                     mhm->damage += rn1(10, 6);
@@ -3337,7 +3337,7 @@ mhitm_ad_stck(
         if (!negated && !sticks(pd) && m_next2u(mdef)) {
             set_ustuck(mdef); /* it's now stuck to you */
             if (barbs)
-                Your("шипы впиваются в %s!", y_monnam(mdef));
+                Your("Ваши шипы впиваются в %s!", y_monnam(mdef));
         }
     } else if (mdef == &gy.youmonst) {
         /* mhitu */
@@ -5228,7 +5228,7 @@ missum(
     boolean wouldhavehit)
 {
     if (wouldhavehit) /* monk is missing due to penalty for wearing suit */
-        Your("броня довольно громоздкая...");
+        Your("Ваша броня довольно громоздкая...");
 
     if (could_seduce(&gy.youmonst, mdef, mattk))
         You("притворяетесь дружелюбным с %s.", mon_nam(mdef));
@@ -5680,7 +5680,7 @@ hmonas(struct monst *mon)
                         break; /* miss; message already given */
 
                     if (mattk->aatyp == AT_TENT) {
-                        Your("щупальца высасывают %s.", mon_nam(mon));
+                        Your("Ваши щупальца высасывают %s.", mon_nam(mon));
                     } else {
                         if (mattk->aatyp == AT_CLAW)
                             verb = "бьёте"; /* not "claws" */
@@ -5802,7 +5802,7 @@ hmonas(struct monst *mon)
                 /* can't engulf unsolid creatures */
                 if (mon->data == &mons[PM_SHADE]) {
                     /* no specialdmg check needed */
-                    Your("попытка окружить %s безвредна.", mon_nam(mon));
+                    Your("Ваша попытка окружить %s безвредна.", mon_nam(mon));
                 } else if (failed_grab(&gy.youmonst, mon, mattk)) {
                     ; /* non-shade miss; message already given */
                 } else {

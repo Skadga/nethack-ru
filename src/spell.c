@@ -327,7 +327,7 @@ deadbook(struct obj *book2)
     } else {
         switch (rn2(3)) {
         case 0:
-            Your("предки недовольны вами!");
+            Your("Ваши предки недовольны вами!");
             break;
         case 1:
             pline("Надгробия на кладбище начинают двигаться!");
@@ -404,7 +404,7 @@ learn(void)
             /* reset spestudied as if polymorph had taken place */
             book->spestudied = rn2(book->spestudied);
         } else {
-            Your("ваши знания о заклинании %s %s.", splname,
+            Your("Ваши знания о заклинании %s %s.", splname,
                  spellknow(i) ? "углубились" : "восстановлены");
             incrnknow(i, 1);
             book->spestudied++;
@@ -704,7 +704,7 @@ rejectcasting(void)
          * But why isn't lack of free arms (for gesturing) an issue when
          * poly'd hero has no limbs?
          */
-        Your("руки не свободны для заклинания!");
+        Your("Ваши руки не свободны для заклинания!");
         return TRUE;
     }
     return FALSE;
@@ -1176,7 +1176,7 @@ cast_protection(void)
             u.usptime = u.uspmtime;
         find_ac();
     } else {
-        Your("кожа на мгновение становится тёплой.");
+        Your("Ваша кожа на мгновение становится тёплой.");
     }
 }
 
@@ -1253,7 +1253,7 @@ spelleffects_check(int spell, int *res, int *energy)
      * decrement of spell knowledge is done every turn.
      */
     if (spellknow(spell) <= 0) {
-        Your("знание этого заклинания искажено.");
+        Your("Ваше знание этого заклинания искажено.");
         pline("Оно вызывает кошмарные образы в вашем сознании...");
         spell_backfire(spell);
         u.uen -= rnd(*energy);
@@ -1267,9 +1267,9 @@ spelleffects_check(int spell, int *res, int *energy)
     } else if (spellknow(spell) <= KEEN / 40) { /* 500 turns left */
         You("с трудом вспоминаете заклинание.");
     } else if (spellknow(spell) <= KEEN / 20) { /* 1000 turns left */
-        Your("знание этого заклинания тускнеет.");
+        Your("Ваше знание этого заклинания тускнеет.");
     } else if (spellknow(spell) <= KEEN / 10) { /* 2000 turns left */
-        Your("память об этом заклинании постепенно угасает.");
+        Your("Ваша память об этом заклинании постепенно угасает.");
     }
 
     if (u.uhunger <= 10 && spellid(spell) != SPE_DETECT_FOOD) {
@@ -1691,7 +1691,7 @@ throwspell(void)
     } else if (((cc.x != u.ux || cc.y != u.uy) && !cansee(cc.x, cc.y)
                 && (!(mtmp = m_at(cc.x, cc.y)) || !canspotmon(mtmp)))
                || IS_STWALL(levl[cc.x][cc.y].typ)) {
-        Your("разум не может сосредоточиться на этом месте!");
+        Your("Ваш разум не может сосредоточиться на этом месте!");
         return 0;
     }
 

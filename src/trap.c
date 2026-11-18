@@ -2388,7 +2388,7 @@ trapeffect_magic_trap(
             newsym(u.ux, u.uy); /* update position */
             You("попадаете в магический взрыв!");
             losehp(rnd(10), "магического взрыва", KILLED_BY_AN);
-            Your("тело поглощает часть магической энергии!");
+            Your("Ваше тело поглощает часть магической энергии!");
             u.uen = (u.uenmax += 2);
             if (u.uenmax > u.uenpeak)
                 u.uenpeak = u.uenmax;
@@ -4029,7 +4029,7 @@ float_up(void)
             fill_pit(u.ux, u.uy);
         } else if (u.utraptype == TT_LAVA /* molten lava */
                    || u.utraptype == TT_INFLOOR) { /* solidified lava */
-            Your("тело тянет вверх, но ваши %s всё ещё застряли.",
+            Your("Ваше тело тянет вверх, но ваши %s всё ещё застряли.",
                  body_part_case(LEG, BP_NOM | BP_PLURAL));
         } else if (u.utraptype == TT_BURIEDBALL) { /* tethered */
             coord cc;
@@ -4490,7 +4490,7 @@ domagictrap(void)
                               : "вашей далекой родине");
             break;
         case 16:
-            Your("рюкзак сильно трясётся!");
+            Your("Ваш рюкзак сильно трясётся!");
             break;
         case 17:
             You(Hallucination ? "чувствуете запах гамбургеров." : "чувствуете запах обгоревшей плоти.");
@@ -5189,7 +5189,7 @@ drown(void)
                 pline("Но вы не тонете.");
             if (!Is_waterlevel(&u.uz)) {
                 if (Hallucination)
-                    Your("киль ударяется о дно.");
+                    Your("Ваш киль ударяется о дно.");
                 else
                     You("касаетесь дна.");
             }

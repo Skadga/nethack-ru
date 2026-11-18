@@ -155,7 +155,7 @@ throne_sit_effect(void)
             } else {
                 /* avoid "vision clears" if hero can't see */
                 if (!Blind) {
-                    Your("зрение проясняется.");
+                    Your("Ваше зрение проясняется.");
                 } else {
                     int num_of_eyes = eyecount(gy.youmonst.data);
                     const char *eye = body_part_case(EYE, BP_NOM);
@@ -202,7 +202,7 @@ throne_sit_effect(void)
             }
             break;
         case 13:
-            Your("разум скручивается в крендель!");
+            Your("Ваш разум скручивается в крендель!");
             make_confused((HConfusion & TIMEOUT) + (long) rn1(7, 16),
                           FALSE);
             break;
@@ -528,8 +528,10 @@ dosit(void)
         }
     } else if (IS_SINK(typ)) {
         You(sit_message, defsyms[S_sink].explanation);
-        Your("%s намокает.",
-             humanoid(gy.youmonst.data) ? "ягодицы" : "нижняя сторона");
+        if (humanoid(gy.youmonst.data))
+            Your("ягодицы намокают.");
+        else
+            Your("нижняя сторона намокает.");
     } else if (IS_ALTAR(typ)) {
         You(sit_message, defsyms[S_altar].explanation);
         altar_wrath(u.ux, u.uy);
@@ -681,7 +683,7 @@ attrcurse(void)
             HTelepat &= ~INTRINSIC;
             if (Blind && !Blind_telepat)
                 see_monsters(); /* Can't sense mons anymore! */
-            Your("чувства покидают вас!");
+            Your("Ваши чувства покидают вас!");
             ret = TELEPAT;
             break;
         }

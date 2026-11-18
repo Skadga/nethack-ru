@@ -5274,7 +5274,7 @@ doorganize_core(struct obj *obj)
                 } else if (inv_cnt(FALSE) >= invlet_basic) {
                     (void) merged(&splitting, &obj); /* undo split */
                     /* "knapsack cannot accommodate any more items" */
-                    Your("рюкзак слишком полон.");
+                    Your("Ваш рюкзак слишком полон.");
                     return ECMD_OK;
                 } else {
                     bumped = otmp;

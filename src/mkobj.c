@@ -3842,7 +3842,7 @@ pudding_merge_message(struct obj *otmp, struct obj *otmp2)
             if (onfloor) {
                 You_see("как части пола плавятся!");
             } else if (inpack) {
-                Your("рюкзак тянется и хватает что-то!");
+                Your("Ваш рюкзак тянется и хватает что-то!");
             }
             /* even though we can see where they should be,
              * they'll be out of our view (minvent or container)

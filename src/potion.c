@@ -254,7 +254,7 @@ make_vomiting(long xtime, boolean talk)
             You_feel("теперь не так тошно.");
 }
 
-static const char vismsg[] = "на миг словно %s, но сейчас оно %s.";
+static const char vismsg[] = "на миг кажетс€, что зрение %s, но оно вновь %s.";
 static const char eyemsg[] = "%s на миг %s.";
 
 void
@@ -290,9 +290,11 @@ make_blinded(long xtime, boolean talk)
                 eyes = body_part(EYE);
                 if (eyecount(gy.youmonst.data) != 1)
                     eyes = makeplural(eyes);
-                Your(eyemsg, eyes, vtense(eyes, "чешутс€"));
+                Your(eyemsg, eyes,
+                     (eyecount(gy.youmonst.data) == 1) ? "чешетс€" : "чешутс€");
             } else { /* Eyes of the Overworld */
-                Your(vismsg, "про€снитьс€", Hallucination ? "печальнее" : "нормальным");
+                Your(vismsg, "про€снитс€",
+                     Hallucination ? "печальное" : "нормальное");
             }
         }
     }
@@ -316,9 +318,12 @@ make_blinded(long xtime, boolean talk)
                 eyes = body_part(EYE);
                 if (eyecount(gy.youmonst.data) != 1)
                     eyes = makeplural(eyes);
-                Your(eyemsg, eyes, vtense(eyes, "дЄргаютс€"));
+                Your(eyemsg, eyes,
+                     (eyecount(gy.youmonst.data) == 1) ? "дЄргаетс€"
+                                                       : "дЄргаютс€");
             } else { /* Eyes of the Overworld */
-                Your(vismsg, "тускнеть", Hallucination ? "счастливее" : "нормальным");
+                Your(vismsg, "потускнеет",
+                     Hallucination ? "счастливое" : "нормальное");
             }
         }
     }
@@ -404,7 +409,8 @@ make_hallucinated(
 
                 if (eyecount(gy.youmonst.data) != 1)
                     eyes = makeplural(eyes);
-                Your(eyemsg, eyes, vtense(eyes, "чешутс€"));
+                Your(eyemsg, eyes,
+                     (eyecount(gy.youmonst.data) == 1) ? "чешетс€" : "чешутс€");
             } else { /* Grayswandir */
                 Your(vismsg, "расплющитьс€", "нормальным");
             }
@@ -708,7 +714,7 @@ peffect_hallucination(struct obj *otmp)
         You("воспринимаете себ€...");
         display_nhwindow(WIN_MESSAGE, FALSE);
         enlightenment(MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS);
-        Your("осознание возвращаетс€ в норму.");
+        Your("¬аше осознание возвращаетс€ в норму.");
         exercise(A_WIS, TRUE);
     }
 }
@@ -729,7 +735,7 @@ peffect_water(struct obj *otmp)
             pline("∆жЄтс€, как %s!", hliquid("acid"));
             exercise(A_CON, FALSE);
             if (ismnum(u.ulycn)) {
-                Your("родство с %s исчезает!",
+                Your("¬аше родство с %s исчезает!",
                      makeplural(mons[u.ulycn].pmnames[NEUTRAL]));
                 if (gy.youmonst.data == &mons[u.ulycn])
                     you_unwere(FALSE);
@@ -1065,7 +1071,7 @@ peffect_speed(struct obj *otmp)
 
     /* non-cursed potion grants intrinsic speed */
     if (is_speed && !otmp->cursed && !(HFast & INTRINSIC)) {
-        Your("проворность ощущаетс€ очень естественно.");
+        Your("¬аша проворность ощущаетс€ очень естественно.");
         HFast |= FROMOUTSIDE;
     }
 }
@@ -2061,7 +2067,7 @@ potionbreathe(struct obj *obj)
         break;
     case POT_SPEED:
         if (!Fast)
-            Your("колени кажутс€ более гибкими.");
+            Your("¬аши колени кажутс€ более гибкими.");
         incr_itimeout(&HFast, rnd(5));
         exercise(A_DEX, TRUE);
         break;

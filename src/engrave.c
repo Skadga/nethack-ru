@@ -843,7 +843,7 @@ doengrave_sfx_item(struct _doengrave_ctx *de)
         switch (de->otmp->otyp) {
         case MAGIC_MARKER:
             if (de->otmp->spe <= 0)
-                Your("маркер высох.");
+                Your("Ваш маркер высох.");
             else
                 de->type = MARK;
             break;
@@ -1015,7 +1015,7 @@ doengrave(void)
 
     if (de->jello) {
         You("щекочете %s своим %s.", mon_nam(u.ustuck), de->writer);
-        Your("послание растворяется...");
+        Your("Ваше послание растворяется...");
         goto doengr_exit;
     }
     if (!can_reach_floor(TRUE)) {
@@ -1421,7 +1421,7 @@ engrave(void)
         update_inventory();
         if (stylus->spe == 0) {
             /* can't engrave any further; truncate the string */
-            Your("маркер высыхает.");
+            Your("Ваш маркер высыхает.");
             truncate = TRUE;
         }
     }

@@ -453,7 +453,7 @@ mcast_destroy_armor(void)
         monstseesu(M_SEEN_MAGR);
         pline("Поле силы окружает вас!");
     } else if (!destroy_arm()) {
-        Your("ваша кожа чешется.");
+        Your("Ваша кожа чешется.");
     } else {
         /* monsters only realize you aren't magic-protected if armor is
            actually destroyed */
@@ -609,9 +609,9 @@ mcast_psi_bolt(int dmg)
         monstunseesu(M_SEEN_MAGR);
     }
     if (dmg <= 5)
-        Your("у вас слегка болит %s.", body_part_case(HEAD, BP_NOM));
+        Your("У вас слегка болит %s.", body_part_case(HEAD, BP_NOM));
     else if (dmg <= 10)
-        Your("ваш мозг горит!");
+        Your("Ваш мозг горит!");
     else if (dmg <= 20)
         Your("%s внезапно сильно болит!", body_part_case(HEAD, BP_NOM));
     else
@@ -630,13 +630,13 @@ mcast_open_wounds(int dmg)
         monstunseesu(M_SEEN_MAGR);
     }
     if (dmg <= 5)
-        Your("ваша кожа сильно чешется на мгновение.");
+        Your("Ваша кожа сильно чешется на мгновение.");
     else if (dmg <= 10)
         pline("На вашем теле появляются раны!");
     else if (dmg <= 20)
         pline("На вашем теле появляются тяжёлые раны!");
     else
-        Your("ваше тело покрыто болезненными ранами!");
+        Your("Ваше тело покрыто болезненными ранами!");
     return dmg;
 }
 

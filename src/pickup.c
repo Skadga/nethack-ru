@@ -1746,7 +1746,7 @@ lift_object(
            we aren't limited by the 52 item limit for it, but caller and
            "grandcaller" aren't prepared to skip stuff and then pickup
            just gold, so the best we can do here is vary the message */
-        Your("заплечный мешок не вмещает больше предметов%s.",
+        Your("Ваш заплечный мешок не вмещает больше предметов%s.",
              /* floor follows by nexthere, otherwise container so by nobj */
              nxtobj(obj, GOLD_PIECE, (boolean) (obj->where == OBJ_FLOOR))
                  ? " (кроме золота)" : "");
@@ -1983,7 +1983,7 @@ encumber_msg(void)
     if (go.oldcap < newcap) {
         switch (newcap) {
         case 1:
-            Your("движения слегка замедлены из-за ноши.");
+            Your("Ваши движения слегка замедлены из-за ноши.");
             break;
         case 2:
             You("перераспределяете ношу.  Движение затруднено.");
@@ -2001,10 +2001,10 @@ encumber_msg(void)
     } else if (go.oldcap > newcap) {
         switch (newcap) {
         case 0:
-            Your("движения теперь свободны.");
+            Your("Ваши движения теперь свободны.");
             break;
         case 1:
-            Your("движения лишь слегка замедлены ношей.");
+            Your("Ваши движения лишь слегка замедлены ношей.");
             break;
         case 2:
             You("перераспределяете ношу.  Движение всё ещё затруднено.");

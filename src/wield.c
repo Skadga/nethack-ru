@@ -1040,7 +1040,7 @@ chwepon(struct obj *otmp, int amount)
      * spe dependent.  Give an obscure clue here.
      */
     if (u_wield_art(ART_MAGICBANE) && uwep->spe >= 0) {
-        Your("правая %s дёргается!", body_part_case(HAND, BP_NOM));
+        Your("Ваша правая %s дёргается!", body_part_case(HAND, BP_NOM));
     }
 
     /* an elven magic clue, cookie@keebler */

@@ -1123,7 +1123,7 @@ furniture_detect(void)
     else if (!revealed)
         /* [what about clipped map with points of interest outside of the
             currently shown area?] */
-        Your("карта уже показывает все нужные места.");
+        Your("Ваша карта уже показывает все нужные места.");
 
     if (!revealed)
         display_nhwindow(WIN_MAP, TRUE);
@@ -1986,7 +1986,7 @@ mfind0(struct monst *mtmp, boolean via_warning)
                                   || mtmp->data->mlet == S_EEL)) {
             if (via_warning && found_something) {
                 set_msg_xy(x, y);
-                Your("чувство опасности заставляет вас сделать второй %s.",
+                Your("Ваше чувство опасности заставляет вас сделать второй %s.",
                      Blind ? "осмотр поблизости" : "осмотр рядом");
                 display_nhwindow(WIN_MESSAGE, FALSE); /* flush messages */
             }

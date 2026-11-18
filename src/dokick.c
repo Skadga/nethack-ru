@@ -236,7 +236,7 @@ kick_monster(struct monst *mon, coordxy x, coordxy y)
         if (!rn2((i < j / 10) ? 2 : (i < j / 5) ? 3 : 4)) {
             if (martial())
                 goto doit;
-            Your("неуклюжий пинок не причиняет урона.");
+            Your("Ваш неуклюжий пинок не причиняет урона.");
             (void) passive(mon, uarmf, FALSE, 1, AT_KICK, FALSE);
             return;
         }
@@ -539,7 +539,7 @@ really_kick_object(coordxy x, coordxy y)
     }
 
     if (Fumbling && !rn2(3)) {
-        Your("неуклюжий пинок промахнулся.");
+        Your("Ваш неуклюжий пинок промахнулся.");
         return 1;
     }
 
@@ -1091,7 +1091,7 @@ kick_nondoor(coordxy x, coordxy y, int avrg_attrib)
         if (uarmf && rn2(3))
             if (water_damage(uarmf, "металлические сапоги", TRUE)
                 == ER_NOTHING) {
-                Your("сапоги промокают.");
+                Your("Ваши сапоги промокают.");
                 /* could cause short-lived fumbling here */
             }
         exercise(A_DEX, TRUE);
@@ -1284,13 +1284,13 @@ dokick(void)
         legs_in_no_shape("пинка", FALSE);
         no_kick = TRUE;
     } else if (near_capacity() > SLT_ENCUMBER) {
-        Your("груз слишком тяжёл, чтобы удержать равновесие для пинка.");
+        Your("Ваш груз слишком тяжёл, чтобы удержать равновесие для пинка.");
         no_kick = TRUE;
     } else if (gy.youmonst.data->mlet == S_LIZARD) {
-        Your("ноги не могут пинать эффективно.");
+        Your("Ваши ноги не могут пинать эффективно.");
         no_kick = TRUE;
     } else if (u.uinwater && !rn2(2)) {
-        Your("медленный пинок не попадает ни во что.");
+        Your("Ваш медленный пинок не попадает ни во что.");
         no_kick = TRUE;
     } else if (u.utrap) {
         no_kick = TRUE;
@@ -1347,7 +1347,7 @@ dokick(void)
             FALLTHROUGH;
             /*FALLTHRU*/
         default:
-            Your("слабый пинок не даёт эффекта.");
+            Your("Ваш слабый пинок не даёт эффекта.");
             break;
         }
         return ECMD_TIME;

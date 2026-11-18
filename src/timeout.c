@@ -863,12 +863,12 @@ nh_timeout(void)
                    attempts fail to relocate hero; skip timeout message
                    if hero has acquired fire resistance in the meantime */
                 if (!Fire_resistance)
-                    Your("временная способность переживать горение закончилась.");
+                    Your("Ваша временная способность переживать горение закончилась.");
                 break;
             case WWALKING:
                 /* [see fire resistance] */
                 if (!Wwalking)
-                    Your("временная способность ходить по жидкости закончилась.");
+                    Your("Ваша временная способность ходить по жидкости закончилась.");
                 break;
             case DISPLACED:
                 if (!Displaced) /* give a message */
@@ -910,7 +910,7 @@ nh_timeout(void)
                 /* must be declining to die in explore|wizard mode;
                    treat like being cured of strangulation by prayer */
                 if (uamul && uamul->otyp == AMULET_OF_STRANGULATION) {
-                    Your("амулет исчезает!");
+                    Your("Ваш амулет исчезает!");
                     useup(uamul);
                 }
                 break;
@@ -1382,7 +1382,7 @@ lantern_message(struct obj *obj)
     /* from adventure */
     switch (obj->where) {
     case OBJ_INVENT:
-        Your("фонарь тускнеет.");
+        Your("Ваш фонарь тускнеет.");
         if (Hallucination)
             pline("Батарейки ещё не изобретены.");
         break;
@@ -1466,7 +1466,7 @@ burn_object(anything *arg, long timeout)
             switch (obj->where) {
             case OBJ_INVENT:
                 need_invupdate = TRUE;
-                Your("масляное зелье сгорело дотла.");
+                Your("Ваше масляное зелье сгорело дотла.");
                 break;
             case OBJ_MINVENT:
                 pline("Масляное зелье сгорело дотла.");
@@ -1531,7 +1531,7 @@ burn_object(anything *arg, long timeout)
                 case OBJ_INVENT:
                     need_invupdate = TRUE;
                     if (obj->otyp == BRASS_LANTERN)
-                        Your("фонарь исчерпал заряд.");
+                        Your("Ваш фонарь исчерпал заряд.");
                     else
                         pline("%s погас.", Yname2(obj));
                     break;

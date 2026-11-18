@@ -1398,7 +1398,7 @@ Ring_off_or_gone(struct obj *obj, boolean gone)
     case RIN_INVISIBILITY:
         if (!Invis && !BInvis && !Blind) {
             newsym(u.ux, u.uy);
-            Your("тело, кажется, проявляется%s.",
+            Your("Ваше тело, кажется, проявляется%s.",
                  See_invisible ? " полностью" : "..");
             learnring(obj, TRUE);
         }
@@ -2550,10 +2550,10 @@ glibr(void)
     if (!uarmg && (leftfall || rightfall) && !nolimbs(gy.youmonst.data)) {
         /* changed so cursed rings don't fall off, GAN 10/30/86 */
         if (leftfall && rightfall)
-            Your("кольца соскальзывают с ваших %s.",
+            Your("Ваши кольца соскальзывают с ваших %s.",
                  fingers_or_gloves(FALSE, BP_GEN));
         else
-            Your("кольцо соскальзывает с вашего %s.",
+            Your("Ваше кольцо соскальзывает с вашего %s.",
                  body_part_case(FINGER, BP_GEN));
         xfl++;
         if (leftfall) {
