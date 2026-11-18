@@ -118,7 +118,8 @@ inven_inuse(boolean quietly)
         otmp2 = otmp->nobj;
         if (otmp->in_use) {
             if (!quietly)
-                pline("Приканчиваете %s...", xname(otmp));
+                pline("Приканчиваете %s...",
+                      ru_noun_case(xname(otmp), BP_ACC));
             useup(otmp);
         }
     }

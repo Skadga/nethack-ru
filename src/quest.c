@@ -243,7 +243,8 @@ finish_quest(struct obj *obj) /* quest artifact or thrown unique item or faux
             verbalize(
       "Прискорбно признать, но это лишь подделка истинного Амулета Йендора.");
         } else {
-            verbalize("А, вижу, вы нашли %s.", the(xname(obj)));
+            verbalize("А, вижу, вы нашли %s.",
+                      ru_noun_case(xname(obj), BP_ACC));
         }
         return;
     }

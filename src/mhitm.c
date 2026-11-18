@@ -343,7 +343,7 @@ mattackm(
                     && mdef->m_id == gl.last_hider)
                     pline_mon(mdef, "%s выходит из укрытия.", Monnam(mdef));
                 else if (mdef->m_id == gl.last_hider)
-                    You("замечаете %s.", mon_nam(mdef));
+                    You("замечаете %s.", mon_gen(mdef, BP_ACC));
                 else
                     pline("Внезапно вы замечаете %s.", a_monnam(mdef));
             }

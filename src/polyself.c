@@ -1715,7 +1715,8 @@ dogaze(void)
                 } else if (adtyp == AD_FIRE) {
                     int dmg = d(2, 6), orig_dmg = dmg, lev = (int) u.ulevel;
 
-                    You("атакуете %s огненным взглядом!", mon_nam(mtmp));
+                    You("атакуете %s огненным взглядом!",
+                        mon_gen(mtmp, BP_ACC));
                     if (resists_fire(mtmp)) {
                         pline("Огонь не сжигает %s!", mon_nam(mtmp));
                         dmg = 0;

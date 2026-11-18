@@ -1667,7 +1667,7 @@ use_lamp(struct obj *obj)
         if (lamp) /* lamp or lantern */
             pline("%s%s теперь погашен.", Shk_Your(buf, obj), lamp);
         else
-            You("гасите %s.", yname(obj));
+            You("гасите %s.", ru_noun_case(yname(obj), BP_ACC));
         end_burn(obj, TRUE);
         return;
     }
@@ -1779,7 +1779,8 @@ light_cocktail(struct obj **optr)
     if (split1off) {
         obj_extract_self(obj); /* free from inv */
         obj->nomerge = 1;
-        obj = hold_another_object(obj, "Вы роняете %s!", doname(obj),
+        obj = hold_another_object(obj, "Вы роняете %s!",
+                                  ru_noun_case(doname(obj), BP_ACC),
                                   (const char *) 0);
         if (obj)
             obj->nomerge = 0;
@@ -2656,7 +2657,8 @@ use_grease(struct obj *obj)
 
         oldglib = (int) (Glib & TIMEOUT);
         if (otmp != &hands_obj) {
-            You("покрываете %s толстым слоем смазки.", yname(otmp));
+            You("покрываете %s толстым слоем смазки.",
+                ru_noun_case(yname(otmp), BP_ACC));
             otmp->greased = 1;
             if (obj->cursed && !nohands(gy.youmonst.data)) {
                 make_glib(oldglib + rn1(6, 10)); /* + 10..15 */
@@ -3050,7 +3052,7 @@ use_whip(struct obj *obj)
 
         /* Sometimes you hit your steed by mistake */
         if (u.usteed && !rn2(proficient + 2)) {
-            You("хлещете %s!", mon_nam(u.usteed));
+            You("хлещете %s!", mon_gen(u.usteed, BP_ACC));
             kick_steed();
             return ECMD_TIME;
         }
@@ -3874,7 +3876,7 @@ use_grapple(struct obj *obj)
             (void) attack_checks(mtmp, uwep);
             flags.confirm = save_confirm;
             check_caitiff(mtmp); /* despite fact there's no damage */
-            You("подтягиваете %s!", mon_nam(mtmp));
+            You("подтягиваете %s!", mon_gen(mtmp, BP_ACC));
             mtmp->mundetected = 0;
             rloc_to(mtmp, cc.x, cc.y);
             return ECMD_TIME;
@@ -4572,7 +4574,8 @@ flip_coin(struct obj *obj)
     struct obj *otmp = obj;
     boolean lose_coin = FALSE;
 
-    You("подбрасываете %s.", an(singular(obj, xname)));
+    You("подбрасываете %s.",
+        ru_noun_case(singular(obj, xname), BP_ACC));
     if (Underwater) {
         pline("Она укатывается прочь.");
         lose_coin = TRUE;

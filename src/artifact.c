@@ -1364,7 +1364,7 @@ Mb_hit(struct monst *magr, /* attacker */
                 gn.nomovemsg = "";
                 if (magr && magr == u.ustuck && sticks(gy.youmonst.data)) {
                     set_ustuck((struct monst *) 0);
-                    You("отпускаете %s!", mon_nam(magr));
+                    You("отпускаете %s!", mon_gen(magr, BP_ACC));
                 }
             }
         } else {
@@ -1563,7 +1563,7 @@ artifact_hit(
             wepdesc = "Острый как бритва клинок";
             /* not really beheading, but so close, why add another SPFX */
             if (youattack && engulfing_u(mdef)) {
-                You("вскрываете %s насквозь!", mon_nam(mdef));
+                You("вскрываете %s насквозь!", mon_gen(mdef, BP_ACC));
                 *dmgptr = 2 * mdef->mhp + FATAL_DAMAGE_MODIFIER;
                 return TRUE;
             }
@@ -1574,7 +1574,7 @@ artifact_hit(
 
                 if (bigmonst(mdef->data)) {
                     if (youattack)
-                        You("глубоко режете %s!", mon_nam(mdef));
+                        You("глубоко режете %s!", mon_gen(mdef, BP_ACC));
                     else if (vis)
                         pline("%s глубоко режет %s!", Monnam(magr),
                               hittee_acc);

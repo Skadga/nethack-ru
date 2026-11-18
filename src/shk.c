@@ -3576,7 +3576,8 @@ addtobill(
            add_one_tobill above */
 
         if (!ltmp) {
-            pline("%s не интересуется %s.", Shknam(shkp), the(xname(obj)));
+            pline("%s не интересуется %s.", Shknam(shkp),
+                  ru_noun_case(xname(obj), BP_INS));
             return;
         }
         if (!ininv) {

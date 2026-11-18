@@ -1613,7 +1613,8 @@ container_contents(
                    reports the box as containing "1 item" */
                 cat = SchroedingersBox(box);
 
-                Sprintf(buf, "Содержимое %s:", the(xname(box)));
+                Sprintf(buf, "Содержимое %s:",
+                        ru_noun_case(xname(box), BP_GEN));
                 putstr(tmpwin, 0, buf);
                 if (!dumping)
                     putstr(tmpwin, 0, "");

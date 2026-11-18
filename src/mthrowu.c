@@ -517,7 +517,7 @@ ucatchgem(
         const char *mon_s_name = mon_gen(mon, BP_GEN);
 
         if (gem->otyp >= FIRST_GLASS_GEM) {
-            You("ловите %s.", gem_xname);
+            You("ловите %s.", ru_noun_case(gem_xname, BP_ACC));
             You("не интересуетесь %s мусором.", mon_s_name);
             makeknown(gem->otyp);
             dropy(gem);
@@ -545,7 +545,8 @@ u_catch_thrown_obj(struct obj *otmp)
         && calc_capacity(otmp->owt) <= SLT_ENCUMBER && !rn2(catch_chance)) {
         char buf[BUFSZ];
 
-        Snprintf(buf, BUFSZ, "Вы ловите %s!", simpleonames(otmp));
+        Snprintf(buf, BUFSZ, "Вы ловите %s!",
+                 ru_noun_case(simpleonames(otmp), BP_ACC));
         (void) hold_another_object(otmp, "Вы ловите, но роняете %s.",
                                    simpleonames(otmp), buf);
         return TRUE;

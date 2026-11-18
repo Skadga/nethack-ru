@@ -337,12 +337,12 @@ dig(void)
         switch (rn2(3)) {
         case 0:
             if (!welded(uwep)) {
-                You("роняете %s.", yname(uwep));
+                You("роняете %s.", ru_noun_case(yname(uwep), BP_ACC));
                 dropx(uwep);
             } else {
                 if (u.usteed)
                     pline("%s отскакивает и бьёт %s!", The(xname(uwep)),
-                          mon_nam(u.usteed));
+                          mon_gen(u.usteed, BP_ACC));
                 else
                     pline("Ой!  %s отскакивает и бьёт вас!", The(xname(uwep)));
                 set_wounded_legs(RIGHT_SIDE, 5 + rnd(5));

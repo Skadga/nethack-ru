@@ -2779,7 +2779,8 @@ select_off(struct obj *otmp)
             why = uwep;
         }
         if (why) {
-            You("не можете %s, чтобы снять %s.", buf, the(xname(otmp)));
+            You("не можете %s, чтобы снять %s.", buf,
+                ru_noun_case(xname(otmp), BP_ACC));
             set_bknown(why, 1);
             return 0;
         }

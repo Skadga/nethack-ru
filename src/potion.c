@@ -2601,7 +2601,8 @@ potion_dip(struct obj *obj, struct obj *potion)
            been made in order to get the merge result for both cases;
            as a consequence, mixing while Fumbling drops the mixture */
         freeinv(obj);
-        hold_potion(obj, "Вы роняете %s!", doname(obj), (const char *) 0);
+        hold_potion(obj, "Вы роняете %s!",
+                    ru_noun_case(doname(obj), BP_ACC), (const char *) 0);
         return ECMD_TIME;
     }
 
@@ -2724,7 +2725,8 @@ potion_dip(struct obj *obj, struct obj *potion)
             pline("%s %s.", Yname2(obj), otense(obj, "полна"));
             potion->in_use = FALSE; /* didn't go poof */
         } else {
-            You("наполняете %s маслом.", yname(obj));
+            You("наполняете %s маслом.",
+                ru_noun_case(yname(obj), BP_ACC));
             check_unpaid(potion);        /* Yendorian Fuel Tax */
             /* burns more efficiently in a lamp than in a bottle;
                diluted potion provides less benefit but we don't attempt

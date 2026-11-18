@@ -1812,7 +1812,8 @@ throwit(
         obj_no_longer_held(obj);
         if (mon && mon->isshk && is_pick(obj)) {
             if (cansee(gb.bhitpos.x, gb.bhitpos.y))
-                pline("%s хватает %s.", Monnam(mon), the(xname(obj)));
+                pline("%s хватает %s.", Monnam(mon),
+                      ru_noun_case(xname(obj), BP_ACC));
             if (*u.ushops || obj->unpaid)
                 check_shop_obj(obj, gb.bhitpos.x, gb.bhitpos.y, FALSE);
             (void) mpickobj(mon, obj); /* may merge and free obj */
@@ -2094,10 +2095,12 @@ thitmonst(
             tmiss(obj, mon, FALSE);
             return 0;
         } else if (mon->mtame) {
-            pline("%s ловит и роняет %s.", Monnam(mon), the(xname(obj)));
+            pline("%s ловит и роняет %s.", Monnam(mon),
+                  ru_noun_case(xname(obj), BP_ACC));
             return 0;
         } else {
-            pline("%s ловит %s.", Monnam(mon), the(xname(obj)));
+            pline("%s ловит %s.", Monnam(mon),
+                  ru_noun_case(xname(obj), BP_ACC));
             return gem_accept(mon, obj);
         }
     }
@@ -2112,7 +2115,8 @@ thitmonst(
         mon->mstrategy &= ~STRAT_WAITMASK;
 
         if (mon->mcanmove) {
-            pline("%s ловит %s.", Some_Monnam(mon), the(xname(obj)));
+            pline("%s ловит %s.", Some_Monnam(mon),
+                  ru_noun_case(xname(obj), BP_ACC));
             /* leader will keep tossed invocation item after you've done the
                invocation and it's become unnecessary for completion.. */
             if ((u.uevent.invoked && objects[obj->otyp].oc_unique

@@ -1083,7 +1083,7 @@ minliquid_core(struct monst *mtmp)
                     pline_mon(mtmp, "%s тонет.", Monnam(mtmp));
                 else
                     /* hero used fire to melt ice that monster was on */
-                    You("топите %s.", mon_nam(mtmp));
+                    You("топите %s.", mon_gen(mtmp, BP_ACC));
             }
             if (engulfing_u(mtmp)) {
                 /* This can happen after a purple worm plucks you off a

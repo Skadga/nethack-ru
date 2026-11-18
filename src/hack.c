@@ -421,7 +421,8 @@ moverock_core(coordxy sx, coordxy sy)
                not levitating) */
             if (Blind)
                 feel_location(sx, sy);
-            You("не хватает рычагов, чтобы сдвинуть %s.", the(xname(otmp)));
+            You("не хватает рычагов, чтобы сдвинуть %s.",
+                ru_noun_case(xname(otmp), BP_ACC));
             /* Give them a chance to climb over it? */
             return -1;
         }

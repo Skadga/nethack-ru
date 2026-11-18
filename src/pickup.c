@@ -2151,7 +2151,8 @@ do_loot_cont(
     if (cobj->otyp == BAG_OF_TRICKS) {
         int tmp;
 
-        You("осторожно откройте %s...", the(xname(cobj)));
+        You("осторожно открываете %s...",
+            ru_noun_case(xname(cobj), BP_ACC));
         pline("ќно обзаводитс€ огромным набором зубов и кусает вас!");
         tmp = rnd(10);
         losehp(Maybe_Half_Phys(tmp), "плото€дного мешка", KILLED_BY_AN);
@@ -2420,7 +2421,8 @@ reverse_loot(void)
             if (!rn2(10))
                 levl[x][y].looted = T_LOOTED;
         } else {
-            You("бросаете %s.", doname(goldob));
+            You("бросаете %s.",
+                ru_noun_case(doname(goldob), BP_ACC));
             dropx(goldob);
         }
     }
@@ -2464,7 +2466,8 @@ loot_mon(struct monst *mtmp, int *passed_info, boolean *prev_loot)
                 You("снимаете %s с %s.",
                     ru_noun_case(thesimpleoname(otmp), BP_ACC),
                     mon_gen(mtmp, BP_GEN));
-            otmp = hold_another_object(otmp, "¬ы бросаете %s!", doname(otmp),
+            otmp = hold_another_object(otmp, "¬ы бросаете %s!",
+                                       ru_noun_case(doname(otmp), BP_ACC),
                                        (const char *) 0);
             nhUse(otmp);
             timepassed = rnd(3);
@@ -3006,7 +3009,8 @@ use_container(
         return ECMD_OK;
     } else if (obj->otrapped) {
         if (held)
-            You("открываете %s...", the(xname(obj)));
+            You("открываете %s...",
+                ru_noun_case(xname(obj), BP_ACC));
         (void) chest_trap(obj, HAND, FALSE);
         /* even if the trap fails, you've used up this turn */
         if (gm.multi >= 0) { /* in case we didn't become paralyzed */

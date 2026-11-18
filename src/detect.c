@@ -1214,7 +1214,8 @@ use_crystal_ball(struct obj **optr)
     boolean charged = (obj->spe > 0);
 
     if (Blind) {
-        pline("Жаль, вы не можете видеть %s.", the(xname(obj)));
+        pline("Жаль, вы не можете видеть %s.",
+              ru_noun_case(xname(obj), BP_ACC));
         return;
     }
     oops = is_quest_artifact(obj) ? 8 : obj->blessed ? 16 : 20;

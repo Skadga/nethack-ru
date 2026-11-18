@@ -183,7 +183,8 @@ breakchestlock(struct obj *box, boolean destroyit)
                 peaceful_shk = costly && (boolean) shkp->mpeaceful;
         long loss = 0L;
 
-        pline("По сути, вы полностью уничтожили %s.", the(xname(box)));
+        pline("По сути, вы полностью уничтожили %s.",
+              ru_noun_case(xname(box), BP_ACC));
         /* Put the contents on ground at the hero's feet. */
         while ((otmp = box->cobj) != 0) {
             obj_extract_self(otmp);

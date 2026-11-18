@@ -739,7 +739,8 @@ wield_tool(struct obj *obj)
             /* hope none of ready_weapon()'s early returns apply here... */
             (void) ready_weapon(obj);
         } else {
-            You("теперь владеете %s.", doname(obj));
+            You("теперь владеете %s.",
+                ru_noun_case(doname(obj), BP_INS));
             setuwep(obj);
         }
         if (flags.pushweapon && oldwep && uwep != oldwep)

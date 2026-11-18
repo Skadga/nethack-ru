@@ -224,7 +224,7 @@ bhitm(struct monst *mtmp, struct obj *otmp)
             check_gear_next_turn(mtmp); /* might want speed boots */
 
             if (engulfing_u(mtmp) && is_whirly(mtmp->data)) {
-                You("развеиваете %s!", mon_nam(mtmp));
+                You("развеиваете %s!", mon_gen(mtmp, BP_ACC));
                 pline("Открывается огромная дыра...");
                 expels(mtmp, mtmp->data, TRUE);
             }

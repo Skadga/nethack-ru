@@ -766,7 +766,7 @@ drop(struct obj *obj)
             if (levhack)
                 ELevitation = W_ART; /* other than W_ARTI */
             if (flags.verbose)
-                You("бросаете %s.", doname(obj));
+                You("бросаете %s.", ru_noun_case(doname(obj), BP_ACC));
             freeinv(obj);
             hitfloor(obj, TRUE);
             if (levhack)
@@ -774,7 +774,7 @@ drop(struct obj *obj)
             return ECMD_TIME;
         }
         if (!IS_ALTAR(levl[u.ux][u.uy].typ) && flags.verbose)
-            You("бросаете %s.", doname(obj));
+            You("бросаете %s.", ru_noun_case(doname(obj), BP_ACC));
     }
     obj->how_lost = LOST_DROPPED;
     dropx(obj);
@@ -1123,7 +1123,7 @@ u_stuck_cannot_go(const char *updn)
             struct monst *mtmp = u.ustuck;
 
             set_ustuck((struct monst *) 0);
-            You("отпускаете %s.", mon_nam(mtmp));
+            You("отпускаете %s.", mon_gen(mtmp, BP_ACC));
         }
     }
     return FALSE;

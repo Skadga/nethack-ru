@@ -3379,7 +3379,7 @@ mhitm_ad_wrap(
             } else if (u.ustuck == mdef && !tailmiss) {
                 /* Monsters don't wear amulets of magical breathing */
                 if (is_pool(u.ux, u.uy) && !cant_drown(pd)) {
-                    You("топите %s...", mon_nam(mdef));
+                    You("топите %s...", mon_gen(mdef, BP_ACC));
                     mhm->damage = mdef->mhp;
                 } else if (mattk->aatyp == AT_HUGS)
                     pline("%s раздавливается.", Monnam(mdef));
@@ -3387,7 +3387,7 @@ mhitm_ad_wrap(
                 mhm->damage = 0;
                 if (flags.verbose) {
                     if (coil && !tailmiss)
-                        You("задеваете %s.", mon_nam(mdef));
+                        You("задеваете %s.", mon_gen(mdef, BP_ACC));
                     else
                         You("задеваете %s %s.", mhis(mdef),
                             tailmiss ? "хвост"
@@ -5102,14 +5102,16 @@ gulpum(struct monst *mdef, struct attack *mattk)
                     } else {
                         tmp = 0;
                     }
-                    Sprintf(msgbuf, "Вы полностью перевариваете %s.", mon_nam(mdef));
+                    Sprintf(msgbuf,
+                            "Вы полностью перевариваете %s.",
+                            mon_gen(mdef, BP_ACC));
                     if (tmp != 0) {
                         /* setting afternmv = end_engulf is tempting,
                          * but will cause problems if the player is
                          * attacked (which uses his real location) or
                          * if his See_invisible wears off
                          */
-                        You("перевариваете %s.", mon_nam(mdef));
+                        You("перевариваете %s.", mon_gen(mdef, BP_ACC));
                         if (Slow_digestion)
                             tmp *= 2;
                         nomul(-tmp);
@@ -5778,7 +5780,7 @@ hmonas(struct monst *mon)
                    "<u.ustuck> is no longer in your clutches" */
                 if (u.ustuck && u.ustuck != mon)
                     uunstick();
-                You("хватаете %s!", mon_nam(mon));
+                You("хватаете %s!", mon_gen(mon, BP_ACC));
                 set_ustuck(mon);
                 if (silverhit && flags.verbose)
                     silver_sears(&gy.youmonst, mon, silverhit);
