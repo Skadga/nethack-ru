@@ -397,10 +397,17 @@ You_feel(const char *line, ...)
     char *tmp;
 
     va_start(the_args, line);
-    if (Unaware)
-        YouPrefix(tmp, "Вы во сне чувствуете ", line);
-    else
-        YouPrefix(tmp, "Вы чувствуете ", line);
+    if (!strncmp(line, "что ", 4) || !strncmp(line, "как ", 4)) {
+        if (Unaware)
+            YouPrefix(tmp, "Вы во сне чувствуете, ", line);
+        else
+            YouPrefix(tmp, "Вы чувствуете, ", line);
+    } else {
+        if (Unaware)
+            YouPrefix(tmp, "Вы во сне чувствуете ", line);
+        else
+            YouPrefix(tmp, "Вы чувствуете ", line);
+    }
     vpline(strcat(tmp, line), the_args);
     va_end(the_args);
 }

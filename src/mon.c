@@ -3667,7 +3667,7 @@ xkilled(
         change_luck(-1);
     if (is_unicorn(mdat) && sgn(u.ualign.type) == sgn(mdat->maligntyp)) {
         change_luck(-5);
-        You_feel("виноват...");
+        You_feel("себя виноватым...");
     }
 
     /* give experience points */
@@ -3887,7 +3887,7 @@ elemental_clog(struct monst *mon)
         m1 = m2 = m3 = m4 = m5 = zm = (struct monst *) 0;
         if (!msgmv || (svm.moves - msgmv) > 200L) {
             if (!msgmv || rn2(2))
-                You_feel("осаждённым.");
+                You_feel("себя осаждённым.");
             msgmv = svm.moves;
         }
         /*
@@ -4270,7 +4270,7 @@ setmangry(struct monst *mtmp, boolean via_attack)
         /* only hypocritical if monster is vulnerable to Elbereth (or
            peaceful--not vulnerable but attacking it is hypocritical) */
         && (onscary(u.ux, u.uy, mtmp) || mtmp->mpeaceful)) {
-        You_feel("как лицемер.");
+        You_feel("себя лицемером.");
         /* AIS: Yes, I know alignment penalties and bonuses aren't balanced
            at the moment. This is about correct relative to other "small"
            penalties; it should be fairly large, as attacking while standing
@@ -5424,7 +5424,7 @@ newcham(
                     /* Do this even if msg is FALSE */
                     You("%s%s!",
                         (amorphous(olddata) || is_whirly(olddata))
-                            ? "выбираешься наружу" : "вырываешься наружу",
+                            ? "выбираетесь наружу" : "вырываетесь наружу",
                         msgtrail);
                     msg = FALSE; /* message has been given */
                     mtmp->mhp = 1; /* almost dead */

@@ -958,7 +958,7 @@ do_symset(boolean rogueflag)
         }
         if (!setcount) {
             There(rogueflag
-                      ? "нет подходящих наборов символов для уровня rogue."
+                      ? "нет подходящих наборов символов для уровня Rogue."
                       : "нет подходящих основных наборов символов.");
             return TRUE;
         }

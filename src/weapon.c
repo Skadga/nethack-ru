@@ -1397,7 +1397,7 @@ enhance_weapon_skill(void)
             for (n = i = 0; i < P_NUM_SKILLS; i++) {
                 if (can_advance(i, speedy)) {
                     if (!speedy)
-                        You_feel("что могли бы быть более опасным!");
+                        You_feel("что могли бы быть более опасными!");
                     n++;
                     break;
                 }

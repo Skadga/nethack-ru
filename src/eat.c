@@ -271,7 +271,7 @@ choke(struct obj *food)
          * high score list & tombstone.  So plan accordingly.
          */
         if (food) {
-            You("давишься своим %s.", foodword(food));
+            You("давитесь своим %s.", foodword(food));
             if (food->oclass == COIN_CLASS) {
                 Strcpy(svk.killer.name, "очень богатая трапеза");
             } else {
@@ -280,7 +280,7 @@ choke(struct obj *food)
                        mon_gen_nom(killer_xname(food), BP_GEN));
             }
         } else {
-            You("давишься этим.");
+            You("давитесь этим.");
             Strcpy(svk.killer.name, "быстрый перекус");
         }
         You("умираете...");
@@ -803,7 +803,7 @@ cprefx(int pm)
             Sprintf(svk.killer.name, "пробуя мясо %s",
                     mons[pm].pmnames[NEUTRAL]);
             svk.killer.format = KILLED_BY;
-            You("превращаешься в камень.");
+            You("превращаетесь в камень.");
             done(STONING);
             if (svc.context.victual.piece)
                 svc.context.victual.eating = 0;
@@ -1019,14 +1019,14 @@ givit(int type, struct permonst *ptr)
     case SLEEP_RES:
         debugpline0("Trying to give sleep resistance");
         if (!(HSleep_resistance & FROMOUTSIDE)) {
-            You_feel("полностью бодрым.");
+            You_feel("себя полностью бодрым.");
             HSleep_resistance |= FROMOUTSIDE;
         }
         break;
     case COLD_RES:
         debugpline0("Trying to give cold resistance");
         if (!(HCold_resistance & FROMOUTSIDE)) {
-            You_feel("наполненный горячим воздухом.");
+            You_feel("себя наполненным горячим воздухом.");
             HCold_resistance |= FROMOUTSIDE;
         }
         break;
@@ -1041,7 +1041,7 @@ givit(int type, struct permonst *ptr)
         debugpline0("Trying to give shock resistance");
         if (!(HShock_resistance & FROMOUTSIDE)) {
             if (Hallucination)
-                You_feel("прочно стоишь на земле.");
+                You_feel("себя прочно стоящим на земле.");
             else
                 Your("Ваше здоровье сейчас ощущается усиленным!");
             HShock_resistance |= FROMOUTSIDE;
@@ -1083,15 +1083,17 @@ givit(int type, struct permonst *ptr)
     case ACID_RES:
         debugpline0("Giving timed acid resistance");
         if (!Acid_resistance)
-            You_feel("%s.", Hallucination ? "защищённым от вспышек памяти"
-                            : "менее опасённым кислотой");
+            You_feel("себя %s.",
+                     Hallucination ? "защищённым от вспышек памяти"
+                                   : "менее уязвимым для кислоты");
         incr_itimeout(&HAcid_resistance, d(3, 6));
         break;
     case STONE_RES:
         debugpline0("Giving timed stoning resistance");
         if (!Stone_resistance)
-            You_feel("%s.", Hallucination ? "необычно гибким"
-                            : "менее опасённым окаменением");
+            You_feel("себя %s.",
+                     Hallucination ? "необычно гибким"
+                                   : "менее уязвимым для окаменения");
         incr_itimeout(&HStone_resistance, d(3, 6));
         break;
     default:
@@ -1167,7 +1169,7 @@ cpostfx(int pm)
                 self_invis_message();
         } else {
             if (!(HInvis & INTRINSIC))
-                You_feel("невидимы!");
+                You_feel("себя невидимым!");
             HInvis |= FROMOUTSIDE;
             HSee_invisible |= FROMOUTSIDE;
         }
@@ -1229,10 +1231,10 @@ cpostfx(int pm)
         Your("Ваша скорость внезапно кажется очень ненадёжной!");
         if (HFast & INTRINSIC) {
             HFast &= ~INTRINSIC;
-            You("замедляешься.");
+            You("замедляетесь.");
         } else {
             HFast |= FROMOUTSIDE;
-            You("ускоряешься.");
+            You("ускоряетесь.");
         }
         break;
     case PM_LIZARD:
@@ -1378,7 +1380,7 @@ violated_vegetarian(void)
 {
     u.uconduct.unvegetarian++;
     if (Role_if(PM_MONK)) {
-        You_feel("виноватым.");
+        You_feel("себя виноватым.");
         adjalign(-1);
     }
     return;
@@ -1829,7 +1831,7 @@ rottenfood(struct obj *obj)
         else
             /* Russian needs an instrumental; body_part() yields the
                unmodified adjective, so the case can't come from there */
-            You_feel("довольно легкоголовым.");
+            You_feel("себя довольно легкоголовым.");
         make_confused(HConfusion + d(2, 4), FALSE);
     } else if (!rn2(4) && !Blind) {
         pline("Внезапно всё темнеет.");
@@ -1954,7 +1956,7 @@ eatcorpse(struct obj *otmp)
     /* now any corpse left too long will make you mildly ill */
     } else if ((rotted > 5L || (rotted > 3L && rn2(5))) && !Sick_resistance) {
         tp++;
-        You_feel("%sбольным.", (Sick) ? "очень " : "");
+        You_feel("себя %sбольным.", (Sick) ? "очень " : "");
         losehp(rnd(8), !glob ? "трупа" : "гнилой глобы", KILLED_BY_AN);
     }
 
@@ -2383,7 +2385,7 @@ eataccessory(struct obj *otmp)
             if (!(HSleep_resistance & FROMOUTSIDE))
                 accessory_has_effect(otmp);
             if (!Sleep_resistance)
-                You_feel("полностью бодрствуете.");
+                You_feel("себя полностью бодрым.");
             HSleep_resistance |= FROMOUTSIDE;
             break;
         case AMULET_OF_CHANGE:
@@ -2544,7 +2546,7 @@ fpostfx(struct obj *otmp)
         if (!Blind)
             if (!u.uconduct.literate++)
                 livelog_printf(LL_CONDUCT,
-                    "становишься грамотным, прочитав предсказание внутри печенья");
+                    "становитесь грамотным, прочитав предсказание внутри печенья");
         break;
     case LUMP_OF_ROYAL_JELLY:
         if (gy.youmonst.data == &mons[PM_KILLER_BEE] && !Unchanging
@@ -2967,7 +2969,7 @@ doeat(void)
            for resuming with one bite remaining instead of trying to
            determine whether or not "ты заканчиваешь" is going to be given */
         You("%s свою трапезу.",
-            !one_bite_left ? "продолжить" : "дожевать");
+            !one_bite_left ? "продолжаете" : "дожёвываете");
         if (otmp)
             start_eating(otmp, FALSE);
         return ECMD_TIME;
@@ -3495,8 +3497,8 @@ newuhs(boolean incr)
                     : "начинаете испытывать голод.");
             } else
                 You("%s.", !incr ? "теперь только голодны"
-                           : (u.uhunger < 145) ? "чувствуешь голод"
-                             : "начинаешь чувствовать голод");
+                           : (u.uhunger < 145) ? "чувствуете голод"
+                             : "начинаете чувствовать голод");
             if (incr && go.occupation
                 && (go.occupation != eatfood && go.occupation != opentin))
                 stop_occupation();
@@ -3512,10 +3514,12 @@ newuhs(boolean incr)
                       (Role_if(PM_WIZARD) || Role_if(PM_VALKYRIE))
                           ? gu.urole.name.m
                           : "Эльф");
+            else if (!incr)
+                You("всё ещё слабы.");
+            else if (u.uhunger < 45)
+                You("чувствуете слабость.");
             else
-                You("%s слаб.", !incr ? "всё ещё"
-                                : (u.uhunger < 45) ? "чувствуешь"
-                                  : "начинаешь чувствовать");
+                You("начинаете чувствовать слабость.");
             if (incr && go.occupation
                 && (go.occupation != eatfood && go.occupation != opentin))
                 stop_occupation();
@@ -3662,7 +3666,7 @@ floorfood(
             Strcpy(qbuf, "Здесь железные прутья");
             if (nodig || u.uhunger > 1500) {
                 pline("%s но вы %s их съесть.", qbuf,
-                      nodig ? "не можешь" : "слишком сыт, чтобы");
+                      nodig ? "не можете" : "слишком сыты, чтобы");
             } else {
                 Strcat(qbuf, (!svc.context.digging.chew
                               || !u_at(svc.context.digging.pos.x,

@@ -919,8 +919,7 @@ mleashed_next2u(struct monst *mtmp)
             mtmp->mleashed = 0;
             otmp->leashmon = 0;
             update_inventory();
-            You_feel("%sповодок ослаб.",
-                     (number_leashed() > 1) ? "" : "");
+            You("чувствуете, как поводок ослаб.");
         }
     }
     return FALSE;
@@ -1031,6 +1030,7 @@ staticfn int
 use_mirror(struct obj *obj)
 {
     const char *mirror, *uvisage;
+    char mbuf[BUFSZ];
     struct monst *mtmp;
     unsigned how_seen;
     char mlet;
@@ -1044,22 +1044,23 @@ use_mirror(struct obj *obj)
     mirror = simpleonames(obj); /* "mirror" or "looking glass" */
     if (obj->cursed && !rn2(2)) {
         if (!Blind)
-            pline("%s Запотевает и не отражает!", mirror);
+            pline("%s запотевает и не отражает!",
+                  upstart(strcpy(mbuf, mirror)));
         else
             pline("%s", nothing_seems_to_happen);
         return ECMD_TIME;
     }
     if (!u.dx && !u.dy && !u.dz) {
         if (!useeit) {
-            You_cant("видеть свою %s %s.", uvisage,
-                     body_part_case(FACE, BP_ACC));
+            You_cant("видеть своё %s.", body_part_case(FACE, BP_ACC));
         } else {
             if (u.umonnum == PM_FLOATING_EYE) {
                 if (Free_action) {
                     You("на миг застываете под своим взглядом.");
                 } else {
                     if (Hallucination)
-                        pline("Ого!  %s смотрит в ответ!", mirror);
+                        pline("Ого!  %s смотрит в ответ!",
+                              upstart(strcpy(mbuf, mirror)));
                     else
                         pline("Ой!  Вы заморозили себя!");
                     if (!Hallucination || !rn2(4)) {
@@ -1097,8 +1098,8 @@ use_mirror(struct obj *obj)
     if (Underwater) {
         if (useeit)
             You("%s.",
-                Hallucination ? "даёшь рыбе шанс поправить макияж"
-                              : "видишь отражение мутной воды");
+                Hallucination ? "даёте рыбе шанс поправить макияж"
+                              : "видите отражение мутной воды");
         return ECMD_TIME;
     }
     if (u.dz) {
@@ -1125,14 +1126,14 @@ use_mirror(struct obj *obj)
     mlet = mtmp->data->mlet;
     if (mtmp->msleeping) {
         if (vis)
-            pline("%s слишком устал, чтобы смотреть на вашу %s.", Monnam(mtmp),
-                  mirror);
+            pline("%s слишком устал, чтобы смотреть в ваше %s.",
+                  Monnam(mtmp), mirror);
     } else if (!mtmp->mcansee) {
         if (vis)
             pline("%s сейчас ничего не видит.", Monnam(mtmp));
     } else if (invis_mirror && !perceives(mtmp->data)) {
         if (vis)
-            pline("%s не замечает вашей %s.", Monnam(mtmp), mirror);
+            pline("%s не замечает ваше %s.", Monnam(mtmp), mirror);
         /* infravision doesn't produce an image in the mirror */
     } else if ((how_seen & SEENMON) == MONSEEN_INFRAVIS) {
         if (vis) /* (redundant) */
@@ -1167,11 +1168,11 @@ use_mirror(struct obj *obj)
         if (vis) {
             char buf[BUFSZ]; /* "She" or "He" */
 
-            pline("%s любуется собой в вашем %s.",
+            pline("%s любуется собой, глядя в ваше %s.",
                   Monnam(mtmp), mirror);
             pline("%s берёт его!", upstart(strcpy(buf, mhe(mtmp))));
         } else
-            pline("Оно крадёт вашу %s!", mirror);
+            pline("Оно крадёт ваше %s!", mirror);
         setnotworn(obj); /* in case mirror was wielded */
         freeinv(obj);
         (void) mpickobj(mtmp, obj);
@@ -2587,12 +2588,12 @@ use_figurine(struct obj **optr)
     if (!figurine_location_checks(obj, &cc, FALSE))
         return ECMD_TIME;
     You("%s, и она%s превращается.",
-        (u.dx || u.dy) ? "ставишь фигурку рядом с собой"
+        (u.dx || u.dy) ? "ставите фигурку рядом с собой"
                        : (Is_airlevel(&u.uz) || Is_waterlevel(&u.uz)
                           || is_pool(cc.x, cc.y))
-                             ? "отпускаешь фигурку"
-                             : (u.dz < 0 ? "подбрасываешь фигурку в воздух"
-                                         : "ставишь фигурку на землю"),
+                             ? "отпускаете фигурку"
+                             : (u.dz < 0 ? "подбрасываете фигурку в воздух"
+                                         : "ставите фигурку на землю"),
         Blind ? "предположительно " : "");
     (void) make_familiar(obj, cc.x, cc.y, FALSE);
     (void) stop_timer(FIG_TRANSFORM, obj_to_any(obj));
@@ -3007,7 +3008,7 @@ use_whip(struct obj *obj)
         rx = u.ux + u.dx;
         ry = u.uy + u.dy;
         if (!isok(rx, ry)) {
-            You("промахиваешься.");
+            You("промахиваетесь.");
             return res;
         }
         mtmp = m_at(rx, ry);
@@ -3299,8 +3300,8 @@ use_whip(struct obj *obj)
 static const char
     not_enough_room[] = "Здесь недостаточно места, чтобы использовать это.",
     where_to_hit[] = "Куда вы хотите ударить?",
-    cant_see_spot[] = "не попадёшь ни во что, если не видишь это место.",
-    cant_reach[] = "не можешь дотянуться до этого места отсюда.";
+    cant_see_spot[] = "не попадёте ни во что, если не видите это место.",
+    cant_reach[] = "не можете дотянуться до этого места отсюда.";
 
 #define glyph_is_poleable(G) \
     (glyph_is_monster(G) || glyph_is_invisible(G) || glyph_is_statue(G))
@@ -3581,7 +3582,7 @@ use_pole(struct obj *obj, boolean autohit)
                   ? the(defsyms[glyph_to_cmap(glyph)].explanation)
                   : (const char *) "неизвестное препятствие");
         } else {
-            You("промахиваешься; там некого бить.");
+            You("промахиваетесь; там некого бить.");
         }
     }
     u_wipe_engr(2); /* same as for melee or throwing */
@@ -3603,18 +3604,24 @@ use_cream_pie(struct obj *obj)
     }
     if (Hallucination)
         You("устраиваете себе кремовую маску.");
+    else if (several)
+        You("окунаете своё %s в один из них.", body_part_case(FACE, BP_ACC));
     else
-        You("окунаете своё %s в %s%s.", body_part_case(FACE, BP_ACC),
-              several ? "one of " : "",
-              several ? makeplural(the(xname(obj))) : the(xname(obj)));
+        You("окунаете своё %s в %s.", body_part_case(FACE, BP_ACC),
+              the(xname(obj)));
     if (can_blnd((struct monst *) 0, &gy.youmonst, AT_WEAP, obj)) {
         int blindinc = rnd(25);
 
         u.ucreamed += blindinc;
         make_blinded(BlindedTimeout + (long) blindinc, FALSE);
-        if (!Blind || (Blind && wasblind))
-            pline("По всему вашему %s %sлипкая дрянь.",
-                  wascreamed ? "ещё " : "", body_part_case(FACE, BP_DAT));
+        if (!Blind || (Blind && wasblind)) {
+            if (wascreamed)
+                pline("Теперь по всему вашему %s ещё больше липкой дряни.",
+                      body_part_case(FACE, BP_DAT));
+            else
+                pline("Теперь по всему вашему %s липкая дрянь.",
+                      body_part_case(FACE, BP_DAT));
+        }
         else /* Blind  && !wasblind */
             You_cant("видеть сквозь липкую дрянь на своём %s.",
                      body_part_case(FACE, BP_PREP));
@@ -4276,8 +4283,8 @@ doapply(void)
             Blindf_on(obj);
         } else {
             You("уже %s.",
-                (ublindf->otyp == TOWEL) ? "накрыт полотенцем"
-                : (ublindf->otyp == BLINDFOLD) ? "носишь повязку"
+                (ublindf->otyp == TOWEL) ? "накрыты полотенцем"
+                : (ublindf->otyp == BLINDFOLD) ? "носите повязку"
                   : "в очках");
         }
         break;
@@ -4530,7 +4537,7 @@ flip_through_book(struct obj *obj)
                             : "в ней ничего не написано");
         makeknown(obj->otyp);
     } else if (Hallucination) {
-        You("наслаждаешься ожившими инициалами.");
+        You("наслаждаетесь ожившими инициалами.");
     } else if (obj->otyp == SPE_NOVEL) {
         pline("Похоже, её может быть интересно почитать.");
     } else {

@@ -114,7 +114,7 @@ picklock(void)
                 You("обнаруживаете ловушку!");
             gx.xlock.box->tknown = 1;
         }
-        if (y_n("Хочешь попробовать обезвредить её?") == 'y') {
+        if (y_n("Попробовать обезвредить её?") == 'y') {
             const char *what;
             boolean alreadyunlocked;
 
@@ -589,9 +589,9 @@ pick_lock(
                 res = PICKLOCK_LEARNED_SOMETHING;
 
             if (is_drawbridge_wall(cc.x, cc.y) >= 0)
-                You("%s замка на подъёмном мосту.", Blind ? "не чувствуешь" : "не видишь");
+                You("%s замка на подъёмном мосту.", Blind ? "не чувствуете" : "не видите");
             else
-                You("%s двери.", Blind ? "не чувствуешь" : "не видишь");
+                You("%s двери.", Blind ? "не чувствуете" : "не видите");
             return res;
         }
         switch (door->doormask) {
@@ -847,7 +847,7 @@ doopen_indir(coordxy x, coordxy y)
         else if (container_at(cc.x, cc.y, TRUE))
             pline("Там что-то, что можно подобрать.");
         else
-            You("%s двери.", Blind ? "не чувствуешь" : "не видишь");
+            You("%s двери.", Blind ? "не чувствуете" : "не видите");
         return res;
     }
 
@@ -1011,7 +1011,7 @@ doclose(void)
             There("нет очевидного способа закрыть подъёмный мост.");
         else {
  nodoor:
-            You("%s двери.", Blind ? "не чувствуешь" : "не видишь");
+            You("%s двери.", Blind ? "не чувствуете" : "не видите");
         }
         return res;
     }
@@ -1279,7 +1279,8 @@ chest_shatter_msg(struct obj *otmp)
     long save_HBlinded, save_BBlinded;
 
     if (otmp->oclass == POTION_CLASS) {
-        You("%s, как %s разбивается.", Blind ? "слышишь" : "видишь", an(bottlename()));
+        You("%s, как %s разбивается.",
+            Blind ? "слышите" : "видите", an(bottlename()));
         if (!breathless(gy.youmonst.data) || haseyes(gy.youmonst.data))
             potionbreathe(otmp);
         return;

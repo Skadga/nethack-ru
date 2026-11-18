@@ -748,7 +748,7 @@ mattacku(struct monst *mtmp)
                 pline("%s начинает атаковать вас, но отступает.",
                       Monnam(mtmp));
             else
-                You_feel("рядом %s движется.", something);
+                You("чувствуете, как рядом что-то движется.");
         }
         return 0;
     }

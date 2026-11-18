@@ -1246,7 +1246,8 @@ unturn_you(void)
     (void) unturn_dead(&gy.youmonst); /* hit carried corpses and eggs */
 
     if (is_undead(gy.youmonst.data)) {
-        You_feel("èñïóãàíû è %sîøåëîìëåíû.", Stunned ? "åù¸ áîëüøå " : "");
+        You_feel("ñåáÿ èñïóãàííûì è %sîøåëîìë¸ííûì.",
+                 Stunned ? "åù¸ áîëüøå " : "");
         make_stunned((HStun & TIMEOUT) + (long) rnd(30), FALSE);
     } else {
         You("ñîäğîãàåòåñü îò óæàñà.");
@@ -2543,7 +2544,7 @@ zappable(struct obj *wand)
 void
 do_enlightenment_effect(void)
 {
-    You_feel("ïîçíàâøèì ñåáÿ...");
+    You("ïîçíà¸òå ñåáÿ...");
     display_nhwindow(WIN_MESSAGE, FALSE);
     enlightenment(MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS);
     pline("Îùóùåíèå óòèõàåò.");
@@ -3205,7 +3206,8 @@ cancel_monst(struct monst *mdef, struct obj *obj, boolean youattack,
                 if (!Blind)
                     pline(writing_vanishes, your);
                 else /* note: "dark" rather than "heavy" is intentional... */
-                    You_feel("%s ãîëîâîé.", Hallucination ? "òÿæ¸ëîé" : "ë¸ãêîé");
+                    You_feel("ñåáÿ ñ %s ãîëîâîé.",
+                             Hallucination ? "òÿæ¸ëîé" : "ë¸ãêîé");
                 u.mh = 0; /* fatal; death handled by rehumanize() */
             }
             if (Unchanging && u.mh > 0)
@@ -5623,7 +5625,7 @@ break_statue(struct obj *obj)
     }
     if (by_you && Role_if(PM_ARCHEOLOGIST)
         && (obj->spe & CORPSTAT_HISTORIC)) {
-        You_feel("âèíîâíûì â ïîâğåæäåíèè òàêîé èñòîğè÷åñêîé ñòàòóè.");
+        You_feel("ñåáÿ âèíîâíûì â ïîâğåæäåíèè òàêîé èñòîğè÷åñêîé ñòàòóè.");
         adjalign(-1);
     }
     obj->spe = 0;

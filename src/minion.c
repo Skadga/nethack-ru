@@ -243,7 +243,7 @@ summon_minion(aligntyp alignment, boolean talk)
             if (!Deaf)
                 pline("Голос %s гремит:", align_gname(alignment));
             else
-                You_feel("%s громовой голос:",
+                You_hear("громовой голос %s:",
                          god_gen(align_gname(alignment)));
             SetVoice(mon, 0, 80, 0);
             verbalize("Ты ответишь за свою дерзость!");
@@ -507,7 +507,7 @@ gain_guardian_angel(void)
        if (!Deaf)
             pline("Голос гремит:");
         else
-            You_feel("громовой голос:");
+            You_hear("громовой голос:");
         SetVoice((struct monst *) 0, 0, 80, voice_deity);
         verbalize("Твоё желание битвы будет исполнено!");
         /* send in some hostile angels instead */
@@ -516,7 +516,7 @@ gain_guardian_angel(void)
         if (!Deaf)
             pline("Голос шепчет:");
         else
-            You_feel("тихий голос:");
+            You_hear("тихий голос:");
         SetVoice((struct monst *) 0, 0, 80, voice_deity);
         verbalize("Ты оказался достоин меня!");
         mm.x = u.ux;

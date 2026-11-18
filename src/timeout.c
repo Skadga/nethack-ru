@@ -739,8 +739,7 @@ nh_timeout(void)
                 break;
             case FAST:
                 if (!Very_fast)
-                    You_feel("вы замедляетесь%s.",
-                             Fast ? " немного" : "");
+                    You("замедляетесь%s.", Fast ? " немного" : "");
                 break;
             case CONFUSION:
                 /* So make_confused works properly */

@@ -1116,10 +1116,10 @@ mon_poly(struct monst *magr, struct monst *mdef, int dmg)
                 You("подвергаетесь странной метаморфозе.");
                 polyself(POLY_NOFLAGS);
             } else if (u.umonnum != u.ulycn) {
-                You_feel("неестественное влечение нарастает.");
+                You("чувствуете, как нарастает неестественное влечение.");
                 you_were();
             } else {
-                You_feel("естественное влечение нарастает.");
+                You("чувствуете, как нарастает естественное влечение.");
                 you_unwere(FALSE);
             }
             dmg = 0;

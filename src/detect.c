@@ -462,7 +462,7 @@ gold_detect(struct obj *sobj)
         newsym(u.ux, u.uy);
         ter_typ |= TER_MON; /* so autodescribe will recognize hero */
     }
-    You_feel("очень жадным и ощущаете золото!");
+    You_feel("себя очень жадным и ощущаете золото!");
     exercise(A_WIS, TRUE);
 
     browse_map(ter_typ, "золото");
@@ -997,7 +997,7 @@ display_trap_map(int cursed_src)
         newsym(u.ux, u.uy);
         ter_typ |= TER_MON; /* for autodescribe at <u.ux,u.uy> */
     }
-    You_feel("%s.", cursed_src ? "очень жадным" : "пойманным");
+    You_feel("себя %s.", cursed_src ? "очень жадным" : "пойманным");
 
     browse_map(ter_typ, cursed_src ? "золото" : "интересующая ловушка");
 
@@ -1882,7 +1882,7 @@ findit(void)
     if (found.num_cleared_invis) {
         /* at least 1 "remembered, unseen monster" marker has been removed */
         if (!num)
-            You_feel("%s менее параноидальным.",
+            You_feel("себя %sменее параноидальным.",
                      found.num_kept_invis ? "чуть-чуть " : "");
         num += found.num_cleared_invis;
     }

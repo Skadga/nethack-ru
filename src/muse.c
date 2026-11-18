@@ -2641,7 +2641,7 @@ you_aggravate(struct monst *mtmp)
 #endif
     show_glyph(mtmp->mx, mtmp->my, mon_to_glyph(mtmp, rn2_on_display_rng));
     display_self();
-    You_feel("раздражены из-за %s.", noit_mon_nam(mtmp));
+    You_feel("себя раздражёнными из-за %s.", mon_gen(mtmp, BP_GEN));
     display_nhwindow(WIN_MAP, TRUE);
     docrt();
     if (unconscious()) {

@@ -151,7 +151,7 @@ make_sick(long xtime,
             return;
         if (!old) {
             /* newly sick */
-            You_feel("смертельно больны.");
+            You_feel("себя смертельно больным.");
         } else {
             /* already sick */
             if (talk)
@@ -169,7 +169,7 @@ make_sick(long xtime,
             set_itimeout(&Sick, Sick * 2); /* approximation */
         } else {
             if (talk)
-                You_feel("вылечены.  Какое облегчение!");
+                You_feel("себя вылеченным.  Какое облегчение!");
             Sick = 0L; /* set_itimeout(&Sick, 0L) */
         }
         disp.botl = TRUE;
@@ -744,7 +744,7 @@ peffect_water(struct obj *otmp)
             losehp(Maybe_Half_Phys(d(2, 6)), "зелья святой воды",
                    KILLED_BY_AN);
         } else if (otmp->cursed) {
-            You_feel("весьма гордитесь собой.");
+            You("весьма гордитесь собой.");
             healup(d(2, 6), 0, 0, 0);
             if (ismnum(u.ulycn) && !Upolyd)
                 you_were();
@@ -752,7 +752,7 @@ peffect_water(struct obj *otmp)
         }
     } else {
         if (otmp->blessed) {
-            You_feel("полны благоговения.");
+            You("полны благоговения.");
             make_sick(0L, (char *) 0, TRUE, SICK_ALL);
             exercise(A_WIS, TRUE);
             exercise(A_CON, TRUE);
@@ -765,7 +765,7 @@ peffect_water(struct obj *otmp)
                 losehp(Maybe_Half_Phys(d(2, 6)), "зелья нечестивой воды",
                        KILLED_BY_AN);
             } else
-                You_feel("полны ужаса.");
+                You("полны ужаса.");
             if (ismnum(u.ulycn) && !Upolyd)
                 you_were();
             exercise(A_CON, FALSE);
@@ -2055,7 +2055,7 @@ potionbreathe(struct obj *obj)
     case POT_SLEEPING:
         kn++;
         if (!Free_action && !Sleep_resistance) {
-            You_feel("довольно усталым.");
+            You_feel("себя довольно усталым.");
             nomul(-rnd(5));
             gm.multi_reason = "отсыпаясь после волшебного зелья";
             gn.nomovemsg = You_can_move_again;

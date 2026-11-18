@@ -104,7 +104,7 @@ throne_sit_effect(void)
             break;
         case 6:
             if (u.uluck + rn2(5) < 0) {
-                You_feel("ваша удача меняется.");
+                You("чувствуете, как ваша удача меняется.");
                 change_luck(1);
             } else
                 makewish();
@@ -293,7 +293,7 @@ special_throne_effect(int effect) {
         find_hell(&vs_level);
         vs_level.dlevel = svd.dungeons[vs_level.dnum].num_dunlevs - 1;
         if (u.uhave.amulet)
-            You_feel("крайне дезориентированы на мгновение.");
+            You_feel("себя крайне дезориентированным на мгновение.");
         else
             schedule_goto(
                 &vs_level, UTOTYPE_NONE, (char *) 0,
@@ -329,10 +329,10 @@ special_throne_effect(int effect) {
         /* polymorph effect (not blocked by magic resistance, but other things
            that protect from polymorphs work) */
         if (is_vampire(gy.youmonst.data)) {
-            You_feel("недостойным.");
+            You_feel("себя недостойным.");
         } else {
             pline("Этот трон не предназначен для таких, как вы!");
-            You_feel("перемены наступают в вас.");
+            You("чувствуете, как в вас происходят перемены.");
             polyself(POLY_NOFLAGS);
         }
         break;

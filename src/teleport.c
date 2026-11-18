@@ -863,7 +863,7 @@ scrolltele(struct obj *scroll)
         make_blinded(0L, FALSE);
 
     if ((u.uhave.amulet || On_W_tower_level(&u.uz)) && !rn2(3)) {
-        You_feel("на мгновение чувствуете дезориентацию.");
+        You("на мгновение чувствуете дезориентацию.");
         /* don't discover the scroll [at least not yet for wizard override];
            disorientation doesn't reveal that this is a teleport attempt */
         if (!wizard || y_n("Переопределить?") != 'y')
@@ -1184,7 +1184,7 @@ level_tele(void)
     }
     if ((u.uhave.amulet || In_endgame(&u.uz) || In_sokoban(&u.uz))
         && !wizard) {
-        You_feel("сильно сбились на миг.");
+        You("сильно сбиваетесь с пути на миг.");
         return;
     }
     if ((Teleport_control && !Stunned) || wizard) {
@@ -1467,7 +1467,7 @@ domagicportal(struct trap *ttmp)
      * next level, and thus losing the game
      */
     if (In_endgame(&u.uz) && !u.uhave.amulet) {
-        You_feel("голова кружится на миг, но ничего не происходит...");
+        You("чувствуете головокружение на миг, но ничего не происходит...");
         return;
     }
 

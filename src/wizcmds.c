@@ -1785,7 +1785,7 @@ wiz_display_macros(void)
 int
 wiz_show_nhuuid(void)
 {
-    pline("NHUUID фиая этой игры: { %s }.", svn.nhuuid);
+    pline("NHUUID для этой игры: { %s }.", svn.nhuuid);
     return ECMD_OK;
 }
 

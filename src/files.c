@@ -3499,7 +3499,7 @@ read_tribute(const char *tribsection, const char *tribtitle,
     if (!fp) {
         /* this is actually an error - cannot open tribute file! */
         if (!nowin_buf)
-            You_feel("слишком подавлены, чтобы продолжать!");
+            You_feel("себя слишком подавленными, чтобы продолжать!");
         return grasped;
     }
 

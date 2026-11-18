@@ -951,12 +951,12 @@ animate_statue(
                                 FALSE);
 
         if (historic) {
-            You_feel("чувствуете вину %s.", historic_statue_is_gone);
+            You("чувствуете вину %s.", historic_statue_is_gone);
             adjalign(-1);
         }
     } else {
         if (historic && cansee(x, y))
-            You_feel("сожалеете %s.", historic_statue_is_gone);
+            You("сожалеете %s.", historic_statue_is_gone);
         /* no alignment penalty */
     }
 
@@ -2571,7 +2571,7 @@ trapeffect_poly_trap(
                 prinv(NULL, uarmf, 0);
         } else if (Antimagic || Unchanging) {
             shieldeff(u.ux, u.uy);
-            You_feel("на мгновение иным.");
+            You_feel("себя на мгновение иным.");
             /* Trap did nothing; don't remove it --KAA */
         } else {
             (void) steedintrap(trap, (struct obj *) 0);
@@ -4198,7 +4198,7 @@ float_down(
         if (Is_airlevel(&u.uz)) {
             You("начинаете кувыркаться на месте.");
         } else if (Is_waterlevel(&u.uz) && !no_msg) {
-            You_feel("становитесь тяжелее.");
+            You("становитесь тяжелее.");
         /* u.uinwater msgs already in spoteffects()/drown() */
         } else if (!u.uinwater && !no_msg) {
             if (!(emask & W_SADDLE)) {

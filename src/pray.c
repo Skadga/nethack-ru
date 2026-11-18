@@ -996,7 +996,7 @@ gcrownu(void)
         unrestrict_weapon_skill(weapon_type(obj));
     } else if (class_gift == STRANGE_OBJECT) {
         /* opportunity knocked, but there was nobody home... */
-        You_feel("недостойны.");
+        You_feel("себя недостойным.");
     }
     update_inventory();
 
@@ -1947,9 +1947,10 @@ eval_offering(struct obj *otmp, aligntyp altaralign)
              * it's a very good action.
              */
             if (u.ualign.record < ALIGNLIM)
-                You_feel("должным образом %s.", align_str(u.ualign.type));
+                You_feel("себя должным образом %s.",
+                         align_str(u.ualign.type));
             else
-                You_feel("вы окончательно на верном пути.");
+                You("окончательно на верном пути.");
             adjalign(5);
             value += 3;
         } else if (unicalign == u.ualign.type) {
@@ -2075,7 +2076,7 @@ offer_corpse(struct obj *otmp, boolean highaltar, aligntyp altaralign)
         if (value > -u.ualign.record)
             value = -u.ualign.record;
         adjalign(value);
-        You_feel("частично оправданы.");
+        You_feel("себя частично оправданным.");
     } else if (u.ublesscnt > 0) {
         int saved_cnt = u.ublesscnt;
         u.ublesscnt -= ((value * (u.ualign.type == A_CHAOTIC ? 500 : 300))

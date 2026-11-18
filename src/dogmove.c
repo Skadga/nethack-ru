@@ -382,7 +382,7 @@ dog_hunger(struct monst *mtmp, struct edog *edog)
             else if (couldsee(mtmp->mx, mtmp->my))
                 beg(mtmp);
             else
-                You_feel("обеспокоены из-за %s.", y_monnam(mtmp));
+                You("беспокоитесь о %s.", mon_gen(mtmp, BP_GEN));
             stop_occupation();
         } else if (svm.moves > edog->hungrytime + DOG_STARVE
                    || DEADMONSTER(mtmp)) {

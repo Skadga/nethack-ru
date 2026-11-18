@@ -8582,7 +8582,7 @@ doset_simple_menu(void)
            and show that, or whether #reqmenu and #options are both still
            bound to keys and show those, but if meta keys are involved
            the player might not know how to type them; keep this simple */
-        Strcpy(buf, "Используй команду '#optionsfull',"
+        Strcpy(buf, "Используйте команду '#optionsfull',"
                     " чтобы получить полный список опций.");
         add_menu_str(tmpwin, buf);
     }

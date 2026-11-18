@@ -328,7 +328,7 @@ touch_of_death(struct monst *mtmp)
 
     /* if we get here, we know that hero isn't magic resistant and isn't
        poly'd into an undead or demon */
-    You_feel("истощённым...");
+    You_feel("себя истощённым...");
     (void) death_inflicted_by(kbuf, "прикосновение смерти", mtmp);
 
     if (Upolyd) {
@@ -467,7 +467,7 @@ mcast_weaken_you(struct monst *mtmp, int dmg)
     if (Antimagic) {
         shieldeff(u.ux, u.uy);
         monstseesu(M_SEEN_MAGR);
-        You_feel("ненадолго ослабленным.");
+        You_feel("себя ненадолго ослабленным.");
     } else {
         char kbuf[BUFSZ];
 
@@ -506,7 +506,7 @@ mcast_stun_you(int dmg)
         shieldeff(u.ux, u.uy);
         monstseesu(M_SEEN_MAGR);
         if (!Stunned)
-            You_feel("ненадолго дезориентированным.");
+            You_feel("себя ненадолго дезориентированным.");
         make_stunned(1L, FALSE);
     } else {
         You(Stunned ? "пытаетесь удержать равновесие." : "пошатываетесь...");
@@ -781,7 +781,7 @@ mcast_confuse_you(struct monst *mtmp)
     if (Antimagic) {
         shieldeff(u.ux, u.uy);
         monstseesu(M_SEEN_MAGR);
-        You_feel("ненадолго в замешательстве.");
+        You_feel("себя ненадолго в замешательстве.");
     } else {
         boolean oldprop = !!Confusion;
         int dmg = (int) mtmp->m_lev;
@@ -790,9 +790,10 @@ mcast_confuse_you(struct monst *mtmp)
             dmg = (dmg + 1) / 2;
         make_confused(HConfusion + dmg, TRUE);
         if (Hallucination)
-            You_feel("%s!", oldprop ? "ещё более одурманенным" : "одурманенным");
+            You_feel("себя %s!", oldprop ? "ещё более одурманенным"
+                                          : "одурманенным");
         else
-            You_feel("%sв замешательстве!", oldprop ? "более " : "");
+            You_feel("себя %sв замешательстве!", oldprop ? "более " : "");
         monstunseesu(M_SEEN_MAGR);
     }
 }
