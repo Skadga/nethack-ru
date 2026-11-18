@@ -1161,9 +1161,11 @@ kick_nondoor(coordxy x, coordxy y, int avrg_attrib)
                  * may not refer to the correct object */
                 treefruit = mksobj(frtype, TRUE, FALSE);
                 treefruit->quan = nfruit - nfall;
-                pline("%ld %s застряли на ветках.",
+                pline("%ld %s %s на ветках.",
                       nfruit - nfall,
-                      ru_quan_name(xname(treefruit), nfruit - nfall));
+                      ru_quan_name(xname(treefruit), nfruit - nfall),
+                      (nfruit - nfall == 1) ? "застряло"
+                                            : "застряли");
                 dealloc_obj(treefruit);
             }
             exercise(A_DEX, TRUE);

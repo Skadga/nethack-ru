@@ -2729,7 +2729,10 @@ do_class_genocide(void)
                     mongone(mtmp);
                     gonecnt++;
                 }
-                pline("”ничтожено %d монстров.", gonecnt);
+                pline("”ничтожено %d %s.", gonecnt,
+                      (gonecnt == 1) ? "монстр"
+                        : (ru_num_form(gonecnt) == 1) ? "монстра"
+                          : "монстров");
                 return;
             } else
                 pline("Ётот %s не обозначает никакого монстра.",

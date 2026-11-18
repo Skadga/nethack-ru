@@ -1385,7 +1385,10 @@ enhance_weapon_skill(void)
         Strcpy(buf, (to_advance > 0) ? "Выберите навык для улучшения:"
                                      : "Текущие навыки:");
         if (wizard && !speedy)
-            Sprintf(eos(buf), "  (%d слотов доступно)", u.weapon_slots);
+            Sprintf(eos(buf), "  (%d %s доступно)", u.weapon_slots,
+                    (u.weapon_slots == 1) ? "слот"
+                      : (ru_num_form(u.weapon_slots) == 1) ? "слота"
+                        : "слотов");
         end_menu(win, buf);
         n = select_menu(win, to_advance ? PICK_ONE : PICK_NONE, &selected);
         destroy_nhwindow(win);

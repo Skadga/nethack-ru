@@ -875,14 +875,37 @@ do_play_instrument(struct obj *instr)
                     if (gears) {
                         Soundeffect(se_tumbler_click, 50);
                         Soundeffect(se_gear_turn, 50);
-                        You_hear("щёлкают %d защёлки, вращаются %d шестерни.",
-                                 tumblers, gears);
+                        You_hear("%s %d %s, %s %d %s.",
+                                 (tumblers == 1) ? "щёлкает"
+                                                  : "щёлкают",
+                                 tumblers,
+                                 (tumblers == 1) ? "защёлка"
+                                   : (ru_num_form(tumblers) == 1)
+                                     ? "защёлки" : "защёлок",
+                                 (gears == 1) ? "вращается"
+                                              : "вращаются",
+                                 gears,
+                                 (gears == 1) ? "шестерня"
+                                   : (ru_num_form(gears) == 1)
+                                     ? "шестерни" : "шестерён");
                     } else {
                         Soundeffect(se_tumbler_click, 50);
-                        You_hear("щёлкают %d защёлки.", tumblers);
+                        You_hear("%s %d %s.",
+                                 (tumblers == 1) ? "щёлкает"
+                                                  : "щёлкают",
+                                 tumblers,
+                                 (tumblers == 1) ? "защёлка"
+                                   : (ru_num_form(tumblers) == 1)
+                                     ? "защёлки" : "защёлок");
                     }
                 } else if (gears) {
-                    You_hear("вращаются %d шестерни.", gears);
+                    You_hear("%s %d %s.",
+                             (gears == 1) ? "вращается"
+                                          : "вращаются",
+                             gears,
+                             (gears == 1) ? "шестерня"
+                               : (ru_num_form(gears) == 1)
+                                 ? "шестерни" : "шестерён");
                     /* could only get `gears == 5' by playing five
                        correct notes followed by excess; otherwise,
                        tune would have matched above */

@@ -3795,12 +3795,18 @@ dounpaid(
                        : "на полу или под ним";
 
         if (!count) {
-            You("не несёте неоплаченных предметов, но %s %s %d.",
-                where, floorverb, xtracount);
+            You("не несёте неоплаченных предметов, но %s %s %d %s.",
+                where, floorverb, xtracount,
+                (xtracount == 1) ? "предмет"
+                  : (ru_num_form(xtracount) == 1) ? "предмета"
+                    : "предметов");
         } else {
             putstr(win, 0, "");
-            Sprintf(buf, "(Ещё %d неоплаченных предметов %s.)",
-                    xtracount, where);
+            Sprintf(buf, "(Ещё %d %s %s.)", xtracount,
+                    (xtracount == 1) ? "предмет"
+                      : (ru_num_form(xtracount) == 1) ? "предмета"
+                        : "предметов",
+                    where);
             putstr(win, 0, buf);
         }
     }

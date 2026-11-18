@@ -1219,8 +1219,9 @@ paygd(boolean silently)
 
     if (u.uinvault) {
         if (!silently)
-            Your("%ld %s уходят в Волшебное хранилище памяти.",
-                 umoney, currency(umoney));
+            Your("%ld %s %s в Волшебное хранилище памяти.",
+                 umoney, currency(umoney),
+                 (umoney == 1L) ? "уходит" : "уходят");
         gdx = u.ux;
         gdy = u.uy;
     } else {

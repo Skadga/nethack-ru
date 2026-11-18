@@ -1826,7 +1826,9 @@ findit(void)
     buf[0] = '\0';
     if (found.num_sdoors) {
         if (found.num_sdoors > 1)
-            Sprintf(eos(buf), "%d потайных дверей", found.num_sdoors);
+            Sprintf(eos(buf), "%d %s", found.num_sdoors,
+                    (ru_num_form(found.num_sdoors) == 1)
+                        ? "потайные двери" : "потайных дверей");
         else
             Strcat(buf, "потайная дверь");
         num += found.num_sdoors;
@@ -1836,7 +1838,10 @@ findit(void)
         if (*buf) /* "doors and corrs" or "doors, corrs ..." */
             Strcat(buf, (k == 2) ? " и " : ", ");
         if (found.num_scorrs > 1)
-            Sprintf(eos(buf), "%d потайных коридоров", found.num_scorrs);
+            Sprintf(eos(buf), "%d %s", found.num_scorrs,
+                    (ru_num_form(found.num_scorrs) == 1)
+                        ? "потайных коридора"
+                        : "потайных коридоров");
         else
             Strcat(buf, "потайной коридор");
         num += found.num_scorrs;
@@ -1847,7 +1852,9 @@ findit(void)
             Strcat(buf, (k == 3 && !found.num_mons) ? ", и "
                         : (k == 2) ? " и " : ", ");
         if (found.num_traps > 1)
-            Sprintf(eos(buf), "%d ловушек", found.num_traps);
+            Sprintf(eos(buf), "%d %s", found.num_traps,
+                    (ru_num_form(found.num_traps) == 1)
+                        ? "ловушки" : "ловушек");
         else
             Strcat(buf, "ловушка");
         num += found.num_traps;
@@ -1862,7 +1869,10 @@ findit(void)
         if (*buf)
             Strcat(buf, (k > 2) ? ", и " : " и ");
         if (found.num_mons > 1)
-            Sprintf(eos(buf), "%d скрытых монстров", found.num_mons);
+            Sprintf(eos(buf), "%d %s", found.num_mons,
+                    (ru_num_form(found.num_mons) == 1)
+                        ? "скрытых монстра"
+                        : "скрытых монстров");
         else
             Strcat(buf, "скрытый монстр");
         num += found.num_mons;
@@ -1872,8 +1882,11 @@ findit(void)
 
     if (found.num_invis) {
         if (found.num_invis > 1)
-            Sprintf(buf, "%d%s невидимых монстров", found.num_invis,
-                    found.num_kept_invis ? " других" : "");
+            Sprintf(buf, "%d%s %s", found.num_invis,
+                    found.num_kept_invis ? " других" : "",
+                    (ru_num_form(found.num_invis) == 1)
+                        ? "невидимых монстра"
+                        : "невидимых монстров");
         else
             Sprintf(buf, "%sневидимый монстр",
                     found.num_kept_invis ? "ещё один " : "");

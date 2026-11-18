@@ -833,7 +833,7 @@ topten(int how, time_t when)
                     char pbuf[BUFSZ];
 
                     Sprintf(pbuf,
-                            "Вы заняли %d место в списке %d лучших.",
+                            "Вы заняли %d-е место в списке %d лучших.",
                             rank0, sysopt.entrymax);
                     topten_print(pbuf);
                 }

@@ -591,9 +591,9 @@ endmultishot(boolean verbose)
 {
     if (gm.m_shot.i < gm.m_shot.n) {
         if (verbose && !svc.context.mon_moving) {
-            You("прекращаете %s после %d%s %s.",
+            You("прекращаете %s после %d-го %s.",
                 gm.m_shot.s ? "стрельбу" : "метание",
-                gm.m_shot.i, ordin(gm.m_shot.i),
+                gm.m_shot.i,
                 gm.m_shot.s ? "выстрела" : "броска");
         }
         gm.m_shot.n = gm.m_shot.i; /* make current shot be the last */

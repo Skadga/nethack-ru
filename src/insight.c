@@ -442,10 +442,14 @@ enlightenment(
             you_have_X(buf);
         } else if (!u.uroleplay.numbones) {
             enl_msg(You_, "не встречали", "не встречали",
-                    " ни одного уровня-костей", "");
+                    " ни одного уровня с костями", "");
         } else {
-            Sprintf(buf, "встречали %ld уровней-костей",
-                    u.uroleplay.numbones);
+            Sprintf(buf, "встречали %ld %s", u.uroleplay.numbones,
+                    (u.uroleplay.numbones == 1)
+                        ? "уровень с костями"
+                        : (ru_num_form(u.uroleplay.numbones) == 1)
+                          ? "уровня с костями"
+                          : "уровней с костями");
             you_have_X(buf);
         }
     }

@@ -1626,7 +1626,10 @@ doname_base(
            everything out if no merges occur */
         long itemcount = count_contents(obj, FALSE, FALSE, TRUE, FALSE);
 
-        ConcatF1(bp, 0, " (содержит %ld предметов)", itemcount);
+        ConcatF2(bp, 0, " (содержит %ld %s)", itemcount,
+                 (itemcount == 1) ? "предмет"
+                   : (ru_num_form(itemcount) == 1) ? "предмета"
+                     : "предметов");
     }
 
     switch (is_weptool(obj) ? WEAPON_CLASS : obj->oclass) {
