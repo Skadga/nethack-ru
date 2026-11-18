@@ -1228,7 +1228,7 @@ paygd(boolean silently)
             pline("%s возвращает ваше золото в хранилище.", Monnam(grd));
         gdx = svr.rooms[EGD(grd)->vroom].lx + rn2(2);
         gdy = svr.rooms[EGD(grd)->vroom].ly + rn2(2);
-        Sprintf(buf, "Крезу: вот золото, изъятое у %s-%s.",
+        Sprintf(buf, "Крезу: вот золото, изъятое у вора по имени %s (%s).",
                 svp.plname,
                 pmname(&mons[u.umonster], flags.female ? FEMALE : MALE));
         make_grave(gdx, gdy, buf);

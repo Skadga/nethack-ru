@@ -743,14 +743,14 @@ bill_dummy_object(struct obj *otmp)
 /* alteration types; must match COST_xxx macros in hack.h */
 static const char *const alteration_verbs[] = {
     "отменяете", "истощаете",
-    "разряжаете", "снимаете благословение с",
-    "снимаете проклятие с",
+    "разряжаете", "оскверняете",
+    "расколдовываете",
     "лишаете магии", "портите",
-    "разбавляете", "стираете надпись на",
+    "разбавляете", "затираете",
     "сжигаете", "нейтрализуете",
     "уничтожаете", "разбрызгиваете",
     "кусаете", "открываете",
-    "взламываете замок на",
+    "взламываете",
     "покрываете ржавчиной",
     "покрываете гнилью",
     "окисляете", "раскалываете",
@@ -812,8 +812,11 @@ costly_alteration(struct obj *obj, int alter_type)
         if (shkp) {
             SetVoice(shkp, 0, 80, 0);
         }
-        verbalize("Вы %s %s %s, вы платите за %s!",
-                  alteration_verbs[alter_type], those, simpleonames(obj),
+        verbalize("Вы %s %s, вы платите за %s!",
+                  alteration_verbs[alter_type],
+                  (obj->quan == 1L)
+                      ? ru_noun_case(simpleonames(obj), BP_ACC)
+                      : simpleonames(obj),
                   them);
         bill_dummy_object(obj);
         break;
